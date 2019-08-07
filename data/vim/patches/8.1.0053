@@ -1,0 +1,609 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0053
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0053
+Problem:    The first argument given to 'completefunc' can be Number or
+            String, depending on the value.
+Solution:   Avoid guessing the type of an argument, use typval_T in the
+            callers of call_vim_function(). (Ozaki Kiichi, closes #2993)
+Files:	    src/edit.c, src/eval.c, src/ex_getln.c, src/mbyte.c, src/normal.c,
+            src/proto/eval.pro, src/testdir/test_ins_complete.vim
+
+
+*** ../vim-8.1.0052/src/edit.c	2018-06-10 13:12:52.176496009 +0200
+--- src/edit.c	2018-06-12 21:49:32.781522896 +0200
+***************
+*** 4201,4207 ****
+  {
+      list_T      *matchlist = NULL;
+      dict_T	*matchdict = NULL;
+!     char_u	*args[2];
+      char_u	*funcname;
+      pos_T	pos;
+      win_T	*curwin_save;
+--- 4201,4207 ----
+  {
+      list_T      *matchlist = NULL;
+      dict_T	*matchdict = NULL;
+!     typval_T	args[3];
+      char_u	*funcname;
+      pos_T	pos;
+      win_T	*curwin_save;
+***************
+*** 4213,4227 ****
+  	return;
+  
+      /* Call 'completefunc' to obtain the list of matches. */
+!     args[0] = (char_u *)"0";
+!     args[1] = base;
+  
+      pos = curwin->w_cursor;
+      curwin_save = curwin;
+      curbuf_save = curbuf;
+  
+      /* Call a function, which returns a list or dict. */
+!     if (call_vim_function(funcname, 2, args, FALSE, FALSE, &rettv) == OK)
+      {
+  	switch (rettv.v_type)
+  	{
+--- 4213,4230 ----
+  	return;
+  
+      /* Call 'completefunc' to obtain the list of matches. */
+!     args[0].v_type = VAR_NUMBER;
+!     args[0].vval.v_number = 0;
+!     args[1].v_type = VAR_STRING;
+!     args[1].vval.v_string = base != NULL ? base : (char_u *)"";
+!     args[2].v_type = VAR_UNKNOWN;
+  
+      pos = curwin->w_cursor;
+      curwin_save = curwin;
+      curbuf_save = curbuf;
+  
+      /* Call a function, which returns a list or dict. */
+!     if (call_vim_function(funcname, 2, args, &rettv, FALSE) == OK)
+      {
+  	switch (rettv.v_type)
+  	{
+***************
+*** 5528,5534 ****
+  	     * Call user defined function 'completefunc' with "a:findstart"
+  	     * set to 1 to obtain the length of text to use for completion.
+  	     */
+! 	    char_u	*args[2];
+  	    int		col;
+  	    char_u	*funcname;
+  	    pos_T	pos;
+--- 5531,5537 ----
+  	     * Call user defined function 'completefunc' with "a:findstart"
+  	     * set to 1 to obtain the length of text to use for completion.
+  	     */
+! 	    typval_T	args[3];
+  	    int		col;
+  	    char_u	*funcname;
+  	    pos_T	pos;
+***************
+*** 5548,5555 ****
+  		return FAIL;
+  	    }
+  
+! 	    args[0] = (char_u *)"1";
+! 	    args[1] = NULL;
+  	    pos = curwin->w_cursor;
+  	    curwin_save = curwin;
+  	    curbuf_save = curbuf;
+--- 5551,5561 ----
+  		return FAIL;
+  	    }
+  
+! 	    args[0].v_type = VAR_NUMBER;
+! 	    args[0].vval.v_number = 1;
+! 	    args[1].v_type = VAR_STRING;
+! 	    args[1].vval.v_string = (char_u *)"";
+! 	    args[2].v_type = VAR_UNKNOWN;
+  	    pos = curwin->w_cursor;
+  	    curwin_save = curwin;
+  	    curbuf_save = curbuf;
+*** ../vim-8.1.0052/src/eval.c	2018-05-13 15:42:40.000000000 +0200
+--- src/eval.c	2018-06-12 21:53:10.468274335 +0200
+***************
+*** 1011,1073 ****
+  
+  /*
+   * Call some Vim script function and return the result in "*rettv".
+!  * Uses argv[argc] for the function arguments.  Only Number and String
+!  * arguments are currently supported.
+   * Returns OK or FAIL.
+   */
+      int
+  call_vim_function(
+      char_u      *func,
+      int		argc,
+!     char_u      **argv,
+!     int		safe,		/* use the sandbox */
+!     int		str_arg_only,	/* all arguments are strings */
+!     typval_T	*rettv)
+  {
+-     typval_T	*argvars;
+-     varnumber_T	n;
+-     int		len;
+-     int		i;
+      int		doesrange;
+      void	*save_funccalp = NULL;
+      int		ret;
+  
+-     argvars = (typval_T *)alloc((unsigned)((argc + 1) * sizeof(typval_T)));
+-     if (argvars == NULL)
+- 	return FAIL;
+- 
+-     for (i = 0; i < argc; i++)
+-     {
+- 	/* Pass a NULL or empty argument as an empty string */
+- 	if (argv[i] == NULL || *argv[i] == NUL)
+- 	{
+- 	    argvars[i].v_type = VAR_STRING;
+- 	    argvars[i].vval.v_string = (char_u *)"";
+- 	    continue;
+- 	}
+- 
+- 	if (str_arg_only)
+- 	    len = 0;
+- 	else
+- 	{
+- 	    /* Recognize a number argument, the others must be strings. A dash
+- 	     * is a string too. */
+- 	    vim_str2nr(argv[i], NULL, &len, STR2NR_ALL, &n, NULL, 0);
+- 	    if (len == 1 && *argv[i] == '-')
+- 		len = 0;
+- 	}
+- 	if (len != 0 && len == (int)STRLEN(argv[i]))
+- 	{
+- 	    argvars[i].v_type = VAR_NUMBER;
+- 	    argvars[i].vval.v_number = n;
+- 	}
+- 	else
+- 	{
+- 	    argvars[i].v_type = VAR_STRING;
+- 	    argvars[i].vval.v_string = argv[i];
+- 	}
+-     }
+- 
+      if (safe)
+      {
+  	save_funccalp = save_funccal();
+--- 1011,1032 ----
+  
+  /*
+   * Call some Vim script function and return the result in "*rettv".
+!  * Uses argv[0] to argv[argc - 1] for the function arguments.  argv[argc]
+!  * should have type VAR_UNKNOWN.
+   * Returns OK or FAIL.
+   */
+      int
+  call_vim_function(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv,
+!     typval_T	*rettv,
+!     int		safe)		/* use the sandbox */
+  {
+      int		doesrange;
+      void	*save_funccalp = NULL;
+      int		ret;
+  
+      if (safe)
+      {
+  	save_funccalp = save_funccal();
+***************
+*** 1075,1081 ****
+      }
+  
+      rettv->v_type = VAR_UNKNOWN;		/* clear_tv() uses this */
+!     ret = call_func(func, (int)STRLEN(func), rettv, argc, argvars, NULL,
+  		    curwin->w_cursor.lnum, curwin->w_cursor.lnum,
+  		    &doesrange, TRUE, NULL, NULL);
+      if (safe)
+--- 1034,1040 ----
+      }
+  
+      rettv->v_type = VAR_UNKNOWN;		/* clear_tv() uses this */
+!     ret = call_func(func, (int)STRLEN(func), rettv, argc, argv, NULL,
+  		    curwin->w_cursor.lnum, curwin->w_cursor.lnum,
+  		    &doesrange, TRUE, NULL, NULL);
+      if (safe)
+***************
+*** 1083,1089 ****
+  	--sandbox;
+  	restore_funccal(save_funccalp);
+      }
+-     vim_free(argvars);
+  
+      if (ret == FAIL)
+  	clear_tv(rettv);
+--- 1042,1047 ----
+***************
+*** 1094,1113 ****
+  /*
+   * Call Vim script function "func" and return the result as a number.
+   * Returns -1 when calling the function fails.
+!  * Uses argv[argc] for the function arguments.
+   */
+      varnumber_T
+  call_func_retnr(
+      char_u      *func,
+      int		argc,
+!     char_u      **argv,
+      int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+      varnumber_T	retval;
+  
+!     /* All arguments are passed as strings, no conversion to number. */
+!     if (call_vim_function(func, argc, argv, safe, TRUE, &rettv) == FAIL)
+  	return -1;
+  
+      retval = get_tv_number_chk(&rettv, NULL);
+--- 1052,1071 ----
+  /*
+   * Call Vim script function "func" and return the result as a number.
+   * Returns -1 when calling the function fails.
+!  * Uses argv[0] to argv[argc - 1] for the function arguments. argv[argc] should
+!  * have type VAR_UNKNOWN.
+   */
+      varnumber_T
+  call_func_retnr(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv,
+      int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+      varnumber_T	retval;
+  
+!     if (call_vim_function(func, argc, argv, &rettv, safe) == FAIL)
+  	return -1;
+  
+      retval = get_tv_number_chk(&rettv, NULL);
+***************
+*** 1122,1141 ****
+  /*
+   * Call Vim script function "func" and return the result as a string.
+   * Returns NULL when calling the function fails.
+!  * Uses argv[argc] for the function arguments.
+   */
+      void *
+  call_func_retstr(
+      char_u      *func,
+      int		argc,
+!     char_u      **argv,
+      int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+      char_u	*retval;
+  
+!     /* All arguments are passed as strings, no conversion to number. */
+!     if (call_vim_function(func, argc, argv, safe, TRUE, &rettv) == FAIL)
+  	return NULL;
+  
+      retval = vim_strsave(get_tv_string(&rettv));
+--- 1080,1099 ----
+  /*
+   * Call Vim script function "func" and return the result as a string.
+   * Returns NULL when calling the function fails.
+!  * Uses argv[0] to argv[argc - 1] for the function arguments. argv[argc] should
+!  * have type VAR_UNKNOWN.
+   */
+      void *
+  call_func_retstr(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv,
+      int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+      char_u	*retval;
+  
+!     if (call_vim_function(func, argc, argv, &rettv, safe) == FAIL)
+  	return NULL;
+  
+      retval = vim_strsave(get_tv_string(&rettv));
+***************
+*** 1146,1165 ****
+  
+  /*
+   * Call Vim script function "func" and return the result as a List.
+!  * Uses argv[argc] for the function arguments.
+   * Returns NULL when there is something wrong.
+   */
+      void *
+  call_func_retlist(
+      char_u      *func,
+      int		argc,
+!     char_u      **argv,
+      int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+  
+!     /* All arguments are passed as strings, no conversion to number. */
+!     if (call_vim_function(func, argc, argv, safe, TRUE, &rettv) == FAIL)
+  	return NULL;
+  
+      if (rettv.v_type != VAR_LIST)
+--- 1104,1123 ----
+  
+  /*
+   * Call Vim script function "func" and return the result as a List.
+!  * Uses argv[0] to argv[argc - 1] for the function arguments. argv[argc] should
+!  * have type VAR_UNKNOWN.
+   * Returns NULL when there is something wrong.
+   */
+      void *
+  call_func_retlist(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv,
+      int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+  
+!     if (call_vim_function(func, argc, argv, &rettv, safe) == FAIL)
+  	return NULL;
+  
+      if (rettv.v_type != VAR_LIST)
+*** ../vim-8.1.0052/src/ex_getln.c	2018-05-22 16:58:43.979903077 +0200
+--- src/ex_getln.c	2018-06-12 21:56:34.139120017 +0200
+***************
+*** 5266,5272 ****
+  
+  
+  # if defined(FEAT_USR_CMDS) && defined(FEAT_EVAL)
+! static void * call_user_expand_func(void *(*user_expand_func)(char_u *, int, char_u **, int), expand_T	*xp, int *num_file, char_u ***file);
+  
+  /*
+   * Call "user_expand_func()" to invoke a user defined Vim script function and
+--- 5266,5272 ----
+  
+  
+  # if defined(FEAT_USR_CMDS) && defined(FEAT_EVAL)
+! static void * call_user_expand_func(void *(*user_expand_func)(char_u *, int, typval_T *, int), expand_T	*xp, int *num_file, char_u ***file);
+  
+  /*
+   * Call "user_expand_func()" to invoke a user defined Vim script function and
+***************
+*** 5274,5288 ****
+   */
+      static void *
+  call_user_expand_func(
+!     void	*(*user_expand_func)(char_u *, int, char_u **, int),
+      expand_T	*xp,
+      int		*num_file,
+      char_u	***file)
+  {
+      int		keep = 0;
+!     char_u	num[50];
+!     char_u	*args[3];
+      int		save_current_SID = current_SID;
+      void	*ret;
+      struct cmdline_info	    save_ccline;
+  
+--- 5274,5288 ----
+   */
+      static void *
+  call_user_expand_func(
+!     void	*(*user_expand_func)(char_u *, int, typval_T *, int),
+      expand_T	*xp,
+      int		*num_file,
+      char_u	***file)
+  {
+      int		keep = 0;
+!     typval_T	args[4];
+      int		save_current_SID = current_SID;
++     char_u	*pat = NULL;
+      void	*ret;
+      struct cmdline_info	    save_ccline;
+  
+***************
+*** 5297,5306 ****
+  	ccline.cmdbuff[ccline.cmdlen] = 0;
+      }
+  
+!     args[0] = vim_strnsave(xp->xp_pattern, xp->xp_pattern_len);
+!     args[1] = xp->xp_line;
+!     sprintf((char *)num, "%d", xp->xp_col);
+!     args[2] = num;
+  
+      /* Save the cmdline, we don't know what the function may do. */
+      save_ccline = ccline;
+--- 5297,5311 ----
+  	ccline.cmdbuff[ccline.cmdlen] = 0;
+      }
+  
+!     pat = vim_strnsave(xp->xp_pattern, xp->xp_pattern_len);
+! 
+!     args[0].v_type = VAR_STRING;
+!     args[0].vval.v_string = pat;
+!     args[1].v_type = VAR_STRING;
+!     args[1].vval.v_string = xp->xp_line;
+!     args[2].v_type = VAR_NUMBER;
+!     args[2].vval.v_number = xp->xp_col;
+!     args[3].v_type = VAR_UNKNOWN;
+  
+      /* Save the cmdline, we don't know what the function may do. */
+      save_ccline = ccline;
+***************
+*** 5315,5321 ****
+      if (ccline.cmdbuff != NULL)
+  	ccline.cmdbuff[ccline.cmdlen] = keep;
+  
+!     vim_free(args[0]);
+      return ret;
+  }
+  
+--- 5320,5326 ----
+      if (ccline.cmdbuff != NULL)
+  	ccline.cmdbuff[ccline.cmdlen] = keep;
+  
+!     vim_free(pat);
+      return ret;
+  }
+  
+*** ../vim-8.1.0052/src/mbyte.c	2018-05-17 13:06:28.000000000 +0200
+--- src/mbyte.c	2018-06-12 21:57:43.682728083 +0200
+***************
+*** 4795,4806 ****
+      static void
+  call_imactivatefunc(int active)
+  {
+!     char_u *argv[1];
+  
+!     if (active)
+! 	argv[0] = (char_u *)"1";
+!     else
+! 	argv[0] = (char_u *)"0";
+      (void)call_func_retnr(p_imaf, 1, argv, FALSE);
+  }
+  
+--- 4795,4805 ----
+      static void
+  call_imactivatefunc(int active)
+  {
+!     typval_T argv[2];
+  
+!     argv[0].v_type = VAR_NUMBER;
+!     argv[0].vval.v_number = active ? 1 : 0;
+!     argv[1].v_type = VAR_NUMBER;
+      (void)call_func_retnr(p_imaf, 1, argv, FALSE);
+  }
+  
+*** ../vim-8.1.0052/src/normal.c	2018-06-03 14:42:17.844505109 +0200
+--- src/normal.c	2018-06-12 21:57:56.386656587 +0200
+***************
+*** 2219,2225 ****
+  op_function(oparg_T *oap UNUSED)
+  {
+  #ifdef FEAT_EVAL
+!     char_u	*(argv[1]);
+  # ifdef FEAT_VIRTUALEDIT
+      int		save_virtual_op = virtual_op;
+  # endif
+--- 2219,2225 ----
+  op_function(oparg_T *oap UNUSED)
+  {
+  #ifdef FEAT_EVAL
+!     typval_T	argv[2];
+  # ifdef FEAT_VIRTUALEDIT
+      int		save_virtual_op = virtual_op;
+  # endif
+***************
+*** 2235,2246 ****
+  	    /* Exclude the end position. */
+  	    decl(&curbuf->b_op_end);
+  
+  	if (oap->block_mode)
+! 	    argv[0] = (char_u *)"block";
+  	else if (oap->motion_type == MLINE)
+! 	    argv[0] = (char_u *)"line";
+  	else
+! 	    argv[0] = (char_u *)"char";
+  
+  # ifdef FEAT_VIRTUALEDIT
+  	/* Reset virtual_op so that 'virtualedit' can be changed in the
+--- 2235,2248 ----
+  	    /* Exclude the end position. */
+  	    decl(&curbuf->b_op_end);
+  
++ 	argv[0].v_type = VAR_STRING;
+  	if (oap->block_mode)
+! 	    argv[0].vval.v_string = (char_u *)"block";
+  	else if (oap->motion_type == MLINE)
+! 	    argv[0].vval.v_string = (char_u *)"line";
+  	else
+! 	    argv[0].vval.v_string = (char_u *)"char";
+! 	argv[1].v_type = VAR_UNKNOWN;
+  
+  # ifdef FEAT_VIRTUALEDIT
+  	/* Reset virtual_op so that 'virtualedit' can be changed in the
+*** ../vim-8.1.0052/src/proto/eval.pro	2018-05-17 13:52:32.000000000 +0200
+--- src/proto/eval.pro	2018-06-12 21:45:51.398816540 +0200
+***************
+*** 19,28 ****
+  list_T *eval_spell_expr(char_u *badword, char_u *expr);
+  int get_spellword(list_T *list, char_u **pp);
+  typval_T *eval_expr(char_u *arg, char_u **nextcmd);
+! int call_vim_function(char_u *func, int argc, char_u **argv, int safe, int str_arg_only, typval_T *rettv);
+! varnumber_T call_func_retnr(char_u *func, int argc, char_u **argv, int safe);
+! void *call_func_retstr(char_u *func, int argc, char_u **argv, int safe);
+! void *call_func_retlist(char_u *func, int argc, char_u **argv, int safe);
+  int eval_foldexpr(char_u *arg, int *cp);
+  void ex_let(exarg_T *eap);
+  void list_hashtable_vars(hashtab_T *ht, char_u *prefix, int empty, int *first);
+--- 19,28 ----
+  list_T *eval_spell_expr(char_u *badword, char_u *expr);
+  int get_spellword(list_T *list, char_u **pp);
+  typval_T *eval_expr(char_u *arg, char_u **nextcmd);
+! int call_vim_function(char_u *func, int argc, typval_T *argv, typval_T *rettv, int safe);
+! varnumber_T call_func_retnr(char_u *func, int argc, typval_T *argv, int safe);
+! void *call_func_retstr(char_u *func, int argc, typval_T *argv, int safe);
+! void *call_func_retlist(char_u *func, int argc, typval_T *argv, int safe);
+  int eval_foldexpr(char_u *arg, int *cp);
+  void ex_let(exarg_T *eap);
+  void list_hashtable_vars(hashtab_T *ht, char_u *prefix, int empty, int *first);
+*** ../vim-8.1.0052/src/testdir/test_ins_complete.vim	2018-02-10 16:12:08.000000000 +0100
+--- src/testdir/test_ins_complete.vim	2018-06-12 21:45:51.398816540 +0200
+***************
+*** 117,122 ****
+--- 117,147 ----
+    set omnifunc=
+  endfunc
+  
++ func Test_completefunc_args()
++   let s:args = []
++   func! CompleteFunc(findstart, base)
++     let s:args += [[a:findstart, empty(a:base)]]
++   endfunc
++   new
++ 
++   set completefunc=CompleteFunc
++   call feedkeys("i\<C-X>\<C-U>\<Esc>", 'x')
++   call assert_equal(s:args[0], [1, 1])
++   call assert_equal(s:args[1][0], 0)
++   set completefunc=
++ 
++   let s:args = []
++   set omnifunc=CompleteFunc
++   call feedkeys("i\<C-X>\<C-O>\<Esc>", 'x')
++   call assert_equal(s:args[0], [1, 1])
++   call assert_equal(s:args[1][0], 0)
++   set omnifunc=
++ 
++   bwipe!
++   unlet s:args
++   delfunc CompleteFunc
++ endfunc
++ 
+  function! s:CompleteDone_CompleteFuncDict( findstart, base )
+    if a:findstart
+      return 0
+*** ../vim-8.1.0052/src/version.c	2018-06-12 21:35:37.518665900 +0200
+--- src/version.c	2018-06-12 21:46:24.302622304 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     53,
+  /**/
+
+-- 
+Bumper sticker: Honk if you love peace and quiet.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

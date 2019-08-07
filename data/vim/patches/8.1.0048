@@ -1,0 +1,111 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0048
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0048
+Problem:    vim_str2nr() does not handle numbers close to the maximum.
+Solution:   Check for overflow more precisely. (Ken Takata, closes #2746)
+Files:	    src/charset.c
+
+
+*** ../vim-8.1.0047/src/charset.c	2018-04-25 21:59:10.000000000 +0200
+--- src/charset.c	2018-06-12 17:20:17.692062915 +0200
+***************
+*** 1928,1935 ****
+  	while ('0' <= *ptr && *ptr <= '1')
+  	{
+  	    /* avoid ubsan error for overflow */
+! 	    if (un < UVARNUM_MAX / 2)
+! 		un = 2 * un + (unsigned long)(*ptr - '0');
+  	    else
+  		un = UVARNUM_MAX;
+  	    ++ptr;
+--- 1928,1935 ----
+  	while ('0' <= *ptr && *ptr <= '1')
+  	{
+  	    /* avoid ubsan error for overflow */
+! 	    if (un <= UVARNUM_MAX / 2)
+! 		un = 2 * un + (uvarnumber_T)(*ptr - '0');
+  	    else
+  		un = UVARNUM_MAX;
+  	    ++ptr;
+***************
+*** 1943,1949 ****
+  	while ('0' <= *ptr && *ptr <= '7')
+  	{
+  	    /* avoid ubsan error for overflow */
+! 	    if (un < UVARNUM_MAX / 8)
+  		un = 8 * un + (uvarnumber_T)(*ptr - '0');
+  	    else
+  		un = UVARNUM_MAX;
+--- 1943,1949 ----
+  	while ('0' <= *ptr && *ptr <= '7')
+  	{
+  	    /* avoid ubsan error for overflow */
+! 	    if (un <= UVARNUM_MAX / 8)
+  		un = 8 * un + (uvarnumber_T)(*ptr - '0');
+  	    else
+  		un = UVARNUM_MAX;
+***************
+*** 1960,1966 ****
+  	while (vim_isxdigit(*ptr))
+  	{
+  	    /* avoid ubsan error for overflow */
+! 	    if (un < UVARNUM_MAX / 16)
+  		un = 16 * un + (uvarnumber_T)hex2nr(*ptr);
+  	    else
+  		un = UVARNUM_MAX;
+--- 1960,1966 ----
+  	while (vim_isxdigit(*ptr))
+  	{
+  	    /* avoid ubsan error for overflow */
+! 	    if (un <= UVARNUM_MAX / 16)
+  		un = 16 * un + (uvarnumber_T)hex2nr(*ptr);
+  	    else
+  		un = UVARNUM_MAX;
+***************
+*** 1974,1982 ****
+  	/* decimal */
+  	while (VIM_ISDIGIT(*ptr))
+  	{
+  	    /* avoid ubsan error for overflow */
+! 	    if (un < UVARNUM_MAX / 10)
+! 		un = 10 * un + (uvarnumber_T)(*ptr - '0');
+  	    else
+  		un = UVARNUM_MAX;
+  	    ++ptr;
+--- 1974,1985 ----
+  	/* decimal */
+  	while (VIM_ISDIGIT(*ptr))
+  	{
++ 	    uvarnumber_T    digit = (uvarnumber_T)(*ptr - '0');
++ 
+  	    /* avoid ubsan error for overflow */
+! 	    if (un < UVARNUM_MAX / 10
+! 		    || (un == UVARNUM_MAX / 10 && digit <= UVARNUM_MAX % 10))
+! 		un = 10 * un + digit;
+  	    else
+  		un = UVARNUM_MAX;
+  	    ++ptr;
+*** ../vim-8.1.0047/src/version.c	2018-06-12 17:03:35.949611796 +0200
+--- src/version.c	2018-06-12 17:24:32.210718899 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     48,
+  /**/
+
+-- 
+Everyone has a photographic memory. Some don't have film.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

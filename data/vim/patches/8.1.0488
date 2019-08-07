@@ -1,0 +1,662 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0488
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0488
+Problem:    Using freed memory in quickfix code. (Dominique Pelle)
+Solution:   Add the quickfix_busy() flag to postpone deleting quickfix lists
+            until it is safe. (Yegappan Lakshmanan, closes #3538)
+Files:	    src/quickfix.c, src/proto/quickfix.pro, src/misc2.c,
+            src/testdir/test_quickfix.vim
+
+
+*** ../vim-8.1.0487/src/quickfix.c	2018-10-11 17:39:09.169107531 +0200
+--- src/quickfix.c	2018-10-20 20:53:18.999667086 +0200
+***************
+*** 130,135 ****
+--- 130,148 ----
+      int		    conthere;	// %> used
+  };
+  
++ // List of location lists to be deleted.
++ // Used to delay the deletion of locations lists by autocmds.
++ typedef struct qf_delq_S
++ {
++     struct qf_delq_S	*next;
++     qf_info_T		*qi;
++ } qf_delq_T;
++ static qf_delq_T *qf_delq_head = NULL;
++ 
++ // Counter to prevent autocmds from freeing up location lists when they are
++ // still being used.
++ static int	quickfix_busy = 0;
++ 
+  static efm_T	*fmt_start = NULL; // cached across qf_parse_line() calls
+  
+  static void	qf_new_list(qf_info_T *qi, char_u *qf_title);
+***************
+*** 1838,1843 ****
+--- 1851,1873 ----
+  }
+  
+  /*
++  * Queue location list stack delete request.
++  */
++     static void
++ locstack_queue_delreq(qf_info_T *qi)
++ {
++     qf_delq_T	*q;
++ 
++     q = (qf_delq_T *)alloc((unsigned)sizeof(qf_delq_T));
++     if (q != NULL)
++     {
++ 	q->qi = qi;
++ 	q->next = qf_delq_head;
++ 	qf_delq_head = q;
++     }
++ }
++ 
++ /*
+   * Free a location list stack
+   */
+      static void
+***************
+*** 1854,1863 ****
+      qi->qf_refcount--;
+      if (qi->qf_refcount < 1)
+      {
+! 	// No references to this location list
+! 	for (i = 0; i < qi->qf_listcount; ++i)
+! 	    qf_free(&qi->qf_lists[i]);
+! 	vim_free(qi);
+      }
+  }
+  
+--- 1884,1900 ----
+      qi->qf_refcount--;
+      if (qi->qf_refcount < 1)
+      {
+! 	// No references to this location list.
+! 	// If the location list is still in use, then queue the delete request
+! 	// to be processed later.
+! 	if (quickfix_busy > 0)
+! 	    locstack_queue_delreq(qi);
+! 	else
+! 	{
+! 	    for (i = 0; i < qi->qf_listcount; ++i)
+! 		qf_free(&qi->qf_lists[i]);
+! 	    vim_free(qi);
+! 	}
+      }
+  }
+  
+***************
+*** 1883,1888 ****
+--- 1920,1979 ----
+  }
+  
+  /*
++  * Delay freeing of location list stacks when the quickfix code is running.
++  * Used to avoid problems with autocmds freeing location list stacks when the
++  * quickfix code is still referencing the stack.
++  * Must always call decr_quickfix_busy() exactly once after this.
++  */
++     static void
++ incr_quickfix_busy(void)
++ {
++     quickfix_busy++;
++ }
++ 
++ /*
++  * Safe to free location list stacks. Process any delayed delete requests.
++  */
++     static void
++ decr_quickfix_busy(void)
++ {
++     if (--quickfix_busy == 0)
++     {
++ 	// No longer referencing the location lists. Process all the pending
++ 	// delete requests.
++ 	while (qf_delq_head != NULL)
++ 	{
++ 	    qf_delq_T	*q = qf_delq_head;
++ 
++ 	    qf_delq_head = q->next;
++ 	    ll_free_all(&q->qi);
++ 	    vim_free(q);
++ 	}
++     }
++ #ifdef ABORT_ON_INTERNAL_ERROR
++     if (quickfix_busy < 0)
++     {
++ 	EMSG("quickfix_busy has become negative");
++ 	abort();
++     }
++ #endif
++ }
++ 
++ #if defined(EXITFREE) || defined(PROTO)
++     void
++ check_quickfix_busy(void)
++ {
++     if (quickfix_busy != 0)
++     {
++ 	EMSGN("quickfix_busy not zero on exit: %ld", (long)quickfix_busy);
++ # ifdef ABORT_ON_INTERNAL_ERROR
++ 	abort();
++ # endif
++     }
++ }
++ #endif
++ 
++ /*
+   * Add an entry to the end of the list of errors.
+   * Returns OK or FAIL.
+   */
+***************
+*** 2387,2393 ****
+   * Returns TRUE if a quickfix/location list with the given identifier exists.
+   */
+      static int
+! qflist_valid (win_T *wp, int_u qf_id)
+  {
+      qf_info_T	*qi = &ql_info;
+      int		i;
+--- 2478,2484 ----
+   * Returns TRUE if a quickfix/location list with the given identifier exists.
+   */
+      static int
+! qflist_valid(win_T *wp, int_u qf_id)
+  {
+      qf_info_T	*qi = &ql_info;
+      int		i;
+***************
+*** 3939,3944 ****
+--- 4030,4036 ----
+      qf_list_T	*qfl;
+      int		height;
+      int		status = FAIL;
++     int		lnum;
+  
+      if (is_loclist_cmd(eap->cmdidx))
+      {
+***************
+*** 3950,3955 ****
+--- 4042,4049 ----
+  	}
+      }
+  
++     incr_quickfix_busy();
++ 
+      if (eap->addr_count != 0)
+  	height = eap->line2;
+      else
+***************
+*** 3966,3980 ****
+  						cmdmod.split & WSP_VERT);
+      if (status == FAIL)
+  	if (qf_open_new_cwindow(qi, height) == FAIL)
+  	    return;
+  
+      qfl = &qi->qf_lists[qi->qf_curlist];
+      qf_set_title_var(qfl);
+  
+      // Fill the buffer with the quickfix list.
+      qf_fill_buffer(qi, curbuf, NULL);
+  
+!     curwin->w_cursor.lnum = qfl->qf_index;
+      curwin->w_cursor.col = 0;
+      check_cursor();
+      update_topline();		// scroll to show the line
+--- 4060,4082 ----
+  						cmdmod.split & WSP_VERT);
+      if (status == FAIL)
+  	if (qf_open_new_cwindow(qi, height) == FAIL)
++ 	{
++ 	    decr_quickfix_busy();
+  	    return;
++ 	}
+  
+      qfl = &qi->qf_lists[qi->qf_curlist];
+      qf_set_title_var(qfl);
++     // Save the current index here, as updating the quickfix buffer may free
++     // the quickfix list
++     lnum = qfl->qf_index;
+  
+      // Fill the buffer with the quickfix list.
+      qf_fill_buffer(qi, curbuf, NULL);
+  
+!     decr_quickfix_busy();
+! 
+!     curwin->w_cursor.lnum = lnum;
+      curwin->w_cursor.col = 0;
+      check_cursor();
+      update_topline();		// scroll to show the line
+***************
+*** 4592,4597 ****
+--- 4694,4701 ----
+      (void)char_avail();
+  #endif
+  
++     incr_quickfix_busy();
++ 
+      res = qf_init(wp, fname, (eap->cmdidx != CMD_make
+  			    && eap->cmdidx != CMD_lmake) ? p_gefm : p_efm,
+  					   (eap->cmdidx != CMD_grepadd
+***************
+*** 4617,4622 ****
+--- 4721,4727 ----
+  	qf_jump_first(qi, save_qfid, FALSE);
+  
+  cleanup:
++     decr_quickfix_busy();
+      mch_remove(fname);
+      vim_free(fname);
+      vim_free(cmd);
+***************
+*** 4927,4932 ****
+--- 5032,5039 ----
+      if (is_loclist_cmd(eap->cmdidx))
+  	wp = curwin;
+  
++     incr_quickfix_busy();
++ 
+      // This function is used by the :cfile, :cgetfile and :caddfile
+      // commands.
+      // :cfile always creates a new quickfix list and jumps to the
+***************
+*** 4942,4948 ****
+--- 5049,5058 ----
+      {
+  	qi = GET_LOC_LIST(wp);
+  	if (qi == NULL)
++ 	{
++ 	    decr_quickfix_busy();
+  	    return;
++ 	}
+      }
+      if (res >= 0)
+  	qf_list_changed(&qi->qf_lists[qi->qf_curlist]);
+***************
+*** 4956,4961 ****
+--- 5066,5073 ----
+  	    && qflist_valid(wp, save_qfid))
+  	// display the first error
+  	qf_jump_first(qi, save_qfid, eap->forceit);
++ 
++     decr_quickfix_busy();
+  }
+  
+  /*
+***************
+*** 5304,5309 ****
+--- 5416,5423 ----
+      // ":lcd %:p:h" changes the meaning of short path names.
+      mch_dirname(dirname_start, MAXPATHL);
+  
++     incr_quickfix_busy();
++ 
+      // Remember the current quickfix list identifier, so that we can check for
+      // autocommands changing the current quickfix list.
+      save_qfid = qi->qf_lists[qi->qf_curlist].qf_id;
+***************
+*** 5339,5344 ****
+--- 5453,5459 ----
+  	if (!vgr_qflist_valid(wp, qi, save_qfid, qf_cmdtitle(*eap->cmdlinep)))
+  	{
+  	    FreeWild(fcount, fnames);
++ 	    decr_quickfix_busy();
+  	    goto theend;
+  	}
+  	save_qfid = qi->qf_lists[qi->qf_curlist].qf_id;
+***************
+*** 5434,5444 ****
+  					       curbuf->b_fname, TRUE, curbuf);
+      // The QuickFixCmdPost autocmd may free the quickfix list. Check the list
+      // is still valid.
+!     if (!qflist_valid(wp, save_qfid))
+! 	goto theend;
+! 
+!     if (qf_restore_list(qi, save_qfid) == FAIL)
+  	goto theend;
+  
+      // Jump to first match.
+      if (!qf_list_empty(qi, qi->qf_curlist))
+--- 5549,5560 ----
+  					       curbuf->b_fname, TRUE, curbuf);
+      // The QuickFixCmdPost autocmd may free the quickfix list. Check the list
+      // is still valid.
+!     if (!qflist_valid(wp, save_qfid)
+! 	    || qf_restore_list(qi, save_qfid) == FAIL)
+!     {
+! 	decr_quickfix_busy();
+  	goto theend;
++     }
+  
+      // Jump to first match.
+      if (!qf_list_empty(qi, qi->qf_curlist))
+***************
+*** 5450,5455 ****
+--- 5566,5573 ----
+      else
+  	EMSG2(_(e_nomatch2), s);
+  
++     decr_quickfix_busy();
++ 
+      // If we loaded a dummy buffer into the current window, the autocommands
+      // may have messed up things, need to redraw and recompute folds.
+      if (redraw_for_dummy)
+***************
+*** 6516,6523 ****
+      {
+  	// Free the entire quickfix or location list stack
+  	qf_free_stack(wp, qi);
+      }
+!     else if (what != NULL)
+  	retval = qf_set_properties(qi, what, action, title);
+      else
+      {
+--- 6634,6645 ----
+      {
+  	// Free the entire quickfix or location list stack
+  	qf_free_stack(wp, qi);
++ 	return OK;
+      }
+! 
+!     incr_quickfix_busy();
+! 
+!     if (what != NULL)
+  	retval = qf_set_properties(qi, what, action, title);
+      else
+      {
+***************
+*** 6526,6531 ****
+--- 6648,6655 ----
+  	    qf_list_changed(&qi->qf_lists[qi->qf_curlist]);
+      }
+  
++     decr_quickfix_busy();
++ 
+      return retval;
+  }
+  
+***************
+*** 6663,6673 ****
+--- 6787,6804 ----
+  		qf_title = IObuff;
+  	    }
+  
++ 	    incr_quickfix_busy();
++ 
+  	    res = qf_init_ext(qi, qi->qf_curlist, NULL, buf, NULL, p_efm,
+  			    (eap->cmdidx != CMD_caddbuffer
+  			     && eap->cmdidx != CMD_laddbuffer),
+  						   eap->line1, eap->line2,
+  						   qf_title, NULL);
++ 	    if (qf_stack_empty(qi))
++ 	    {
++ 		decr_quickfix_busy();
++ 		return;
++ 	    }
+  	    if (res >= 0)
+  		qf_list_changed(&qi->qf_lists[qi->qf_curlist]);
+  
+***************
+*** 6692,6697 ****
+--- 6823,6830 ----
+  		    && qflist_valid(wp, save_qfid))
+  		// display the first error
+  		qf_jump_first(qi, save_qfid, eap->forceit);
++ 
++ 	    decr_quickfix_busy();
+  	}
+      }
+  }
+***************
+*** 6746,6756 ****
+--- 6879,6895 ----
+  	if ((tv->v_type == VAR_STRING && tv->vval.v_string != NULL)
+  		|| (tv->v_type == VAR_LIST && tv->vval.v_list != NULL))
+  	{
++ 	    incr_quickfix_busy();
+  	    res = qf_init_ext(qi, qi->qf_curlist, NULL, NULL, tv, p_efm,
+  			    (eap->cmdidx != CMD_caddexpr
+  			     && eap->cmdidx != CMD_laddexpr),
+  				 (linenr_T)0, (linenr_T)0,
+  				 qf_cmdtitle(*eap->cmdlinep), NULL);
++ 	    if (qf_stack_empty(qi))
++ 	    {
++ 		decr_quickfix_busy();
++ 		goto cleanup;
++ 	    }
+  	    if (res >= 0)
+  		qf_list_changed(&qi->qf_lists[qi->qf_curlist]);
+  
+***************
+*** 6768,6776 ****
+--- 6907,6917 ----
+  		    && qflist_valid(wp, save_qfid))
+  		// display the first error
+  		qf_jump_first(qi, save_qfid, eap->forceit);
++ 	    decr_quickfix_busy();
+  	}
+  	else
+  	    EMSG(_("E777: String or List expected"));
++ cleanup:
+  	free_tv(tv);
+      }
+  }
+***************
+*** 6958,6964 ****
+  	convert_setup(&vc, (char_u *)"utf-8", p_enc);
+  #endif
+  
+- 
+      // Go through all the directories in 'runtimepath'
+      p = p_rtp;
+      while (*p != NUL && !got_int)
+--- 7099,7104 ----
+***************
+*** 7020,7025 ****
+--- 7160,7167 ----
+  	    return;
+      }
+  
++     incr_quickfix_busy();
++ 
+  #ifdef FEAT_MULTI_LANG
+      // Check for a specified language
+      lang = check_help_lang(eap->arg);
+***************
+*** 7056,7063 ****
+--- 7198,7208 ----
+  	apply_autocmds(EVENT_QUICKFIXCMDPOST, au_name,
+  					       curbuf->b_fname, TRUE, curbuf);
+  	if (!new_qi && IS_LL_STACK(qi) && qf_find_buf(qi) == NULL)
++ 	{
+  	    // autocommands made "qi" invalid
++ 	    decr_quickfix_busy();
+  	    return;
++ 	}
+      }
+  
+      // Jump to first match.
+***************
+*** 7066,7071 ****
+--- 7211,7218 ----
+      else
+  	EMSG2(_(e_nomatch2), eap->arg);
+  
++     decr_quickfix_busy();
++ 
+      if (eap->cmdidx == CMD_lhelpgrep)
+      {
+  	// If the help window is not opened or if it already points to the
+*** ../vim-8.1.0487/src/proto/quickfix.pro	2018-09-25 22:08:10.933806882 +0200
+--- src/proto/quickfix.pro	2018-10-20 20:36:34.383299437 +0200
+***************
+*** 1,6 ****
+--- 1,7 ----
+  /* quickfix.c */
+  int qf_init(win_T *wp, char_u *efile, char_u *errorformat, int newlist, char_u *qf_title, char_u *enc);
+  void qf_free_all(win_T *wp);
++ void check_quickfix_busy(void);
+  void copy_loclist_stack(win_T *from, win_T *to);
+  void qf_jump(qf_info_T *qi, int dir, int errornr, int forceit);
+  void qf_list(exarg_T *eap);
+*** ../vim-8.1.0487/src/misc2.c	2018-10-07 21:36:07.389878130 +0200
+--- src/misc2.c	2018-10-20 20:41:53.263021777 +0200
+***************
+*** 1231,1248 ****
+  	    buf = firstbuf;
+      }
+  
+! #ifdef FEAT_ARABIC
+      free_cmdline_buf();
+! #endif
+  
+      /* Clear registers. */
+      clear_registers();
+      ResetRedobuff();
+      ResetRedobuff();
+  
+! #if defined(FEAT_CLIENTSERVER) && defined(FEAT_X11)
+      vim_free(serverDelayedStartName);
+! #endif
+  
+      /* highlight info */
+      free_highlight();
+--- 1231,1248 ----
+  	    buf = firstbuf;
+      }
+  
+! # ifdef FEAT_ARABIC
+      free_cmdline_buf();
+! # endif
+  
+      /* Clear registers. */
+      clear_registers();
+      ResetRedobuff();
+      ResetRedobuff();
+  
+! # if defined(FEAT_CLIENTSERVER) && defined(FEAT_X11)
+      vim_free(serverDelayedStartName);
+! # endif
+  
+      /* highlight info */
+      free_highlight();
+***************
+*** 1265,1273 ****
+  # ifdef FEAT_JOB_CHANNEL
+      channel_free_all();
+  # endif
+! #ifdef FEAT_TIMERS
+      timer_free_all();
+! #endif
+  # ifdef FEAT_EVAL
+      /* must be after channel_free_all() with unrefs partials */
+      eval_clear();
+--- 1265,1273 ----
+  # ifdef FEAT_JOB_CHANNEL
+      channel_free_all();
+  # endif
+! # ifdef FEAT_TIMERS
+      timer_free_all();
+! # endif
+  # ifdef FEAT_EVAL
+      /* must be after channel_free_all() with unrefs partials */
+      eval_clear();
+***************
+*** 1282,1297 ****
+      /* screenlines (can't display anything now!) */
+      free_screenlines();
+  
+! #if defined(USE_XSMP)
+      xsmp_close();
+! #endif
+! #ifdef FEAT_GUI_GTK
+      gui_mch_free_all();
+! #endif
+      clear_hl_tables();
+  
+      vim_free(IObuff);
+      vim_free(NameBuff);
+  }
+  #endif
+  
+--- 1282,1300 ----
+      /* screenlines (can't display anything now!) */
+      free_screenlines();
+  
+! # if defined(USE_XSMP)
+      xsmp_close();
+! # endif
+! # ifdef FEAT_GUI_GTK
+      gui_mch_free_all();
+! # endif
+      clear_hl_tables();
+  
+      vim_free(IObuff);
+      vim_free(NameBuff);
++ # ifdef FEAT_QUICKFIX
++     check_quickfix_busy();
++ # endif
+  }
+  #endif
+  
+*** ../vim-8.1.0487/src/testdir/test_quickfix.vim	2018-10-11 17:39:09.173107491 +0200
+--- src/testdir/test_quickfix.vim	2018-10-20 20:25:50.775968747 +0200
+***************
+*** 3220,3226 ****
+--- 3220,3247 ----
+    augroup QF_Test
+      au!
+    augroup END
++ 
+    enew | only
++   augroup QF_Test
++     au!
++     au BufNew * call setloclist(0, [], 'f')
++   augroup END
++   lexpr 'x:1:x'
++   augroup QF_Test
++     au!
++   augroup END
++ 
++   enew | only
++   lexpr ''
++   lopen
++   augroup QF_Test
++     au!
++     au FileType * call setloclist(0, [], 'f')
++   augroup END
++   lexpr ''
++   augroup QF_Test
++     au!
++   augroup END
+  endfunc
+  
+  " The following test used to crash Vim
+*** ../vim-8.1.0487/src/version.c	2018-10-19 22:35:04.889189955 +0200
+--- src/version.c	2018-10-20 20:27:51.427127219 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     488,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+243. You unsuccessfully try to download a pizza from www.dominos.com.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

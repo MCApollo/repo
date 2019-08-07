@@ -1,0 +1,22 @@
+diff -ur git-2.18.0/run-command.c git-2.18.0+iPhone/run-command.c
+--- git-2.18.0/run-command.c	2018-06-21 07:00:06.000000000 -1000
++++ git-2.18.0+iPhone/run-command.c	2018-09-14 15:34:44.000000000 -1000
+@@ -814,9 +814,16 @@
+ 		 */
+ 		execve(argv.argv[1], (char *const *) argv.argv + 1,
+ 		       (char *const *) childenv);
+-		if (errno == ENOEXEC)
+-			execve(argv.argv[0], (char *const *) argv.argv,
++		if (errno == ENOEXEC || errno == EPERM) {
++			struct argv_array out = ARGV_ARRAY_INIT;
++			argv_array_push(&out, SHELL_PATH);
++			argv_array_push(&out, "-c");
++			argv_array_push(&out, "\"$@\"");
++			argv_array_push(&out, SHELL_PATH); // unused $0
++			argv_array_pushv(&out, cmd->argv);
++			execve(SHELL_PATH, (char *const *) out.argv,
+ 			       (char *const *) childenv);
++		}
+ 
+ 		if (errno == ENOENT) {
+ 			if (cmd->silent_exec_failure)

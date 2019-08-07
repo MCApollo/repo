@@ -1,0 +1,153 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0322
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0322
+Problem:    Test_copy_winopt() does not restore 'hidden'.
+Solution:   Restore the option, fix indent. (Ozaki Kiichi, closes #3367)
+Files:	    src/testdir/test_options.vim
+
+
+*** ../vim-8.1.0321/src/testdir/test_options.vim	2018-08-21 18:50:11.153501902 +0200
+--- src/testdir/test_options.vim	2018-08-23 22:17:40.635048688 +0200
+***************
+*** 350,404 ****
+  endfunc
+  
+  func Test_copy_winopt()
+!     set hidden
+  
+!     " Test copy option from current buffer in window
+!     split
+!     enew
+!     setlocal numberwidth=5
+!     wincmd w
+!     call assert_equal(4,&numberwidth)
+!     bnext
+!     call assert_equal(5,&numberwidth)
+!     bw!
+!     call assert_equal(4,&numberwidth)
+! 
+!     " Test copy value from window that used to be display the buffer
+!     split
+!     enew
+!     setlocal numberwidth=6
+!     bnext
+!     wincmd w
+!     call assert_equal(4,&numberwidth)
+!     bnext
+!     call assert_equal(6,&numberwidth)
+!     bw!
+! 
+!     " Test that if buffer is current, don't use the stale cached value
+!     " from the last time the buffer was displayed.
+!     split
+!     enew
+!     setlocal numberwidth=7
+!     bnext
+!     bnext
+!     setlocal numberwidth=8
+!     wincmd w
+!     call assert_equal(4,&numberwidth)
+!     bnext
+!     call assert_equal(8,&numberwidth)
+!     bw!
+! 
+!     " Test value is not copied if window already has seen the buffer
+!     enew
+!     split
+!     setlocal numberwidth=9
+!     bnext
+!     setlocal numberwidth=10
+!     wincmd w
+!     call assert_equal(4,&numberwidth)
+!     bnext
+!     call assert_equal(4,&numberwidth)
+!     bw!
+  endfunc
+  
+  func Test_shortmess_F()
+--- 350,406 ----
+  endfunc
+  
+  func Test_copy_winopt()
+!   set hidden
+  
+!   " Test copy option from current buffer in window
+!   split
+!   enew
+!   setlocal numberwidth=5
+!   wincmd w
+!   call assert_equal(4,&numberwidth)
+!   bnext
+!   call assert_equal(5,&numberwidth)
+!   bw!
+!   call assert_equal(4,&numberwidth)
+! 
+!   " Test copy value from window that used to be display the buffer
+!   split
+!   enew
+!   setlocal numberwidth=6
+!   bnext
+!   wincmd w
+!   call assert_equal(4,&numberwidth)
+!   bnext
+!   call assert_equal(6,&numberwidth)
+!   bw!
+! 
+!   " Test that if buffer is current, don't use the stale cached value
+!   " from the last time the buffer was displayed.
+!   split
+!   enew
+!   setlocal numberwidth=7
+!   bnext
+!   bnext
+!   setlocal numberwidth=8
+!   wincmd w
+!   call assert_equal(4,&numberwidth)
+!   bnext
+!   call assert_equal(8,&numberwidth)
+!   bw!
+! 
+!   " Test value is not copied if window already has seen the buffer
+!   enew
+!   split
+!   setlocal numberwidth=9
+!   bnext
+!   setlocal numberwidth=10
+!   wincmd w
+!   call assert_equal(4,&numberwidth)
+!   bnext
+!   call assert_equal(4,&numberwidth)
+!   bw!
+! 
+!   set hidden&
+  endfunc
+  
+  func Test_shortmess_F()
+*** ../vim-8.1.0321/src/version.c	2018-08-23 20:55:23.328137497 +0200
+--- src/version.c	2018-08-23 22:19:27.038296744 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     322,
+  /**/
+
+-- 
+BEDEVERE:        Why do you think she is a witch?
+SECOND VILLAGER: She turned me into a newt.
+BEDEVERE:        A newt?
+SECOND VILLAGER: (After looking at himself for some time) I got better.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

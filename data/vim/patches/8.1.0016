@@ -1,0 +1,61 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0016
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0016
+Problem:    Possible crash in term_wait(). (Dominique Pelle)
+Solution:   Check for a valid buffer after ui_delay(). (closes #2944)
+Files:	    src/terminal.c
+
+
+*** ../vim-8.1.0015/src/terminal.c	2018-05-21 18:47:47.496590765 +0200
+--- src/terminal.c	2018-05-21 22:47:11.788087575 +0200
+***************
+*** 5264,5274 ****
+  	{
+  	    mch_check_messages();
+  	    parse_queued_messages();
+  	    if (!buf_valid(buf))
+  		/* If the terminal is closed when the channel is closed the
+  		 * buffer disappears. */
+  		break;
+- 	    ui_delay(10L, FALSE);
+  	}
+  	mch_check_messages();
+  	parse_queued_messages();
+--- 5264,5274 ----
+  	{
+  	    mch_check_messages();
+  	    parse_queued_messages();
++ 	    ui_delay(10L, FALSE);
+  	    if (!buf_valid(buf))
+  		/* If the terminal is closed when the channel is closed the
+  		 * buffer disappears. */
+  		break;
+  	}
+  	mch_check_messages();
+  	parse_queued_messages();
+*** ../vim-8.1.0015/src/version.c	2018-05-21 18:47:47.500590743 +0200
+--- src/version.c	2018-05-21 22:49:40.782890938 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     16,
+  /**/
+
+-- 
+DENNIS: You can't expect to wield supreme executive power just 'cause some
+        watery tart threw a sword at you!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,89 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0231
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0231
+Problem:    :help -? goes to help for -+.
+Solution:   Add -? to list of special cases. (Hirohito Higashi)
+Files:	    src/ex_cmds.c, src/testdir/test_help_tagjump.vim
+
+
+*** ../vim-8.1.0230/src/ex_cmds.c	2018-06-28 22:22:56.225315645 +0200
+--- src/ex_cmds.c	2018-08-01 17:59:36.447037278 +0200
+***************
+*** 6583,6589 ****
+      static char *(mtable[]) = {"*", "g*", "[*", "]*", ":*",
+  			       "/*", "/\\*", "\"*", "**",
+  			       "cpo-*", "/\\(\\)", "/\\%(\\)",
+! 			       "?", ":?", "?<CR>", "g?", "g?g?", "g??",
+  			       "/\\?", "/\\z(\\)", "\\=", ":s\\=",
+  			       "[count]", "[quotex]",
+  			       "[range]", ":[range]",
+--- 6583,6589 ----
+      static char *(mtable[]) = {"*", "g*", "[*", "]*", ":*",
+  			       "/*", "/\\*", "\"*", "**",
+  			       "cpo-*", "/\\(\\)", "/\\%(\\)",
+! 			       "?", ":?", "-?", "?<CR>", "g?", "g?g?", "g??",
+  			       "/\\?", "/\\z(\\)", "\\=", ":s\\=",
+  			       "[count]", "[quotex]",
+  			       "[range]", ":[range]",
+***************
+*** 6593,6599 ****
+      static char *(rtable[]) = {"star", "gstar", "[star", "]star", ":star",
+  			       "/star", "/\\\\star", "quotestar", "starstar",
+  			       "cpo-star", "/\\\\(\\\\)", "/\\\\%(\\\\)",
+! 			       "?", ":?", "?<CR>", "g?", "g?g?", "g??",
+  			       "/\\\\?", "/\\\\z(\\\\)", "\\\\=", ":s\\\\=",
+  			       "\\[count]", "\\[quotex]",
+  			       "\\[range]", ":\\[range]",
+--- 6593,6599 ----
+      static char *(rtable[]) = {"star", "gstar", "[star", "]star", ":star",
+  			       "/star", "/\\\\star", "quotestar", "starstar",
+  			       "cpo-star", "/\\\\(\\\\)", "/\\\\%(\\\\)",
+! 			       "?", ":?", "-?", "?<CR>", "g?", "g?g?", "g??",
+  			       "/\\\\?", "/\\\\z(\\\\)", "\\\\=", ":s\\\\=",
+  			       "\\[count]", "\\[quotex]",
+  			       "\\[range]", ":\\[range]",
+*** ../vim-8.1.0230/src/testdir/test_help_tagjump.vim	2017-03-16 22:15:33.000000000 +0100
+--- src/testdir/test_help_tagjump.vim	2018-08-01 17:59:36.447037278 +0200
+***************
+*** 26,31 ****
+--- 26,36 ----
+    call assert_true(getline('.') =~ '\*:?\*')
+    helpclose
+  
++   help -?
++   call assert_equal("help", &filetype)
++   call assert_true(getline('.') =~ '\*-?\*')
++   helpclose
++ 
+    help FileW*Post
+    call assert_equal("help", &filetype)
+    call assert_true(getline('.') =~ '\*FileWritePost\*')
+*** ../vim-8.1.0230/src/version.c	2018-08-01 17:53:04.693381270 +0200
+--- src/version.c	2018-08-01 18:01:08.102499244 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     231,
+  /**/
+
+-- 
+ARTHUR:  Then who is your lord?
+WOMAN:   We don't have a lord.
+ARTHUR:  What?
+DENNIS:  I told you.  We're an anarcho-syndicalist commune.  We take it in
+         turns to act as a sort of executive officer for the week.
+                                  The Quest for the Holy Grail (Monty Python)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

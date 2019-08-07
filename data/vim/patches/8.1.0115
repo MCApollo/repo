@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0115
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0115
+Problem:    The matchparen plugin may throw an error.
+Solution:   Change the skip argument from zero to "0".
+Files:	    runtime/plugin/matchparen.vim
+
+
+*** ../vim-8.1.0114/runtime/plugin/matchparen.vim	2017-09-30 14:51:57.000000000 +0200
+--- runtime/plugin/matchparen.vim	2018-06-25 00:01:59.103022741 +0200
+***************
+*** 114,120 ****
+    " within those syntax types (i.e., not skip).  Otherwise, the cursor is
+    " outside of the syntax types and s_skip should keep its value so we skip any
+    " matching pair inside the syntax types.
+!   execute 'if' s_skip '| let s_skip = 0 | endif'
+  
+    " Limit the search to lines visible in the window.
+    let stoplinebottom = line('w$')
+--- 114,120 ----
+    " within those syntax types (i.e., not skip).  Otherwise, the cursor is
+    " outside of the syntax types and s_skip should keep its value so we skip any
+    " matching pair inside the syntax types.
+!   execute 'if' s_skip '| let s_skip = "0" | endif'
+  
+    " Limit the search to lines visible in the window.
+    let stoplinebottom = line('w$')
+*** ../vim-8.1.0114/src/version.c	2018-06-24 23:53:25.153526495 +0200
+--- src/version.c	2018-06-25 00:03:27.870567571 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     115,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+110. You actually volunteer to become your employer's webmaster.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

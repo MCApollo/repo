@@ -1,0 +1,80 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0206
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0206 (after 8.1.0205)
+Problem:    Duplicate test function name.
+Solution:   Rename both functions.
+Files:      src/testdir/test_modeline.vim, src/testdir/test_glob2regpat.vim
+
+
+*** ../vim-8.1.0205/src/testdir/test_modeline.vim	2018-07-23 04:11:37.648969780 +0200
+--- src/testdir/test_modeline.vim	2018-07-23 04:27:46.940228868 +0200
+***************
+*** 1,6 ****
+  " Tests for parsing the modeline.
+  
+! func Test_invalid()
+    " This was reading before allocated memory.
+    call writefile(['vi:0', 'nothing'], 'Xmodeline')
+    call assert_fails('split Xmodeline', 'E518:')
+--- 1,6 ----
+  " Tests for parsing the modeline.
+  
+! func Test_modeline_invalid()
+    " This was reading before allocated memory.
+    call writefile(['vi:0', 'nothing'], 'Xmodeline')
+    call assert_fails('split Xmodeline', 'E518:')
+*** ../vim-8.1.0205/src/testdir/test_glob2regpat.vim	2016-08-10 23:02:33.000000000 +0200
+--- src/testdir/test_glob2regpat.vim	2018-07-23 04:29:20.587735994 +0200
+***************
+*** 1,12 ****
+  " Test glob2regpat()
+  
+! func Test_invalid()
+    call assert_fails('call glob2regpat(1.33)', 'E806:')
+    call assert_fails('call glob2regpat("}")', 'E219:')
+    call assert_fails('call glob2regpat("{")', 'E220:')
+  endfunc
+  
+! func Test_valid()
+    call assert_equal('^foo\.', glob2regpat('foo.*'))
+    call assert_equal('^foo.$', glob2regpat('foo?'))
+    call assert_equal('\.vim$', glob2regpat('*.vim'))
+--- 1,12 ----
+  " Test glob2regpat()
+  
+! func Test_glob2regpat_invalid()
+    call assert_fails('call glob2regpat(1.33)', 'E806:')
+    call assert_fails('call glob2regpat("}")', 'E219:')
+    call assert_fails('call glob2regpat("{")', 'E220:')
+  endfunc
+  
+! func Test_glob2regpat_valid()
+    call assert_equal('^foo\.', glob2regpat('foo.*'))
+    call assert_equal('^foo.$', glob2regpat('foo?'))
+    call assert_equal('\.vim$', glob2regpat('*.vim'))
+*** ../vim-8.1.0205/src/version.c	2018-07-23 04:11:37.652969757 +0200
+--- src/version.c	2018-07-23 04:49:06.929104402 +0200
+***************
+*** 795,796 ****
+--- 795,798 ----
+  {   /* Add new patch number below this line */
++ /**/
++     206,
+  /**/
+
+-- 
+GALAHAD: No. Look, I can tackle this lot single-handed!
+GIRLS:   Yes, yes, let him Tackle us single-handed!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,79 @@
+diff -ur dpkg-1.18.10/dselect/method.cc dpkg-1.18.10+iPhone/dselect/method.cc
+--- dpkg-1.18.10/dselect/method.cc	2016-07-04 16:00:41.000000000 -1000
++++ dpkg-1.18.10+iPhone/dselect/method.cc	2018-07-25 16:26:13.000000000 -1000
+@@ -50,10 +50,10 @@
+ static const char *const methoddirectories[]= {
+   LIBDIR "/" METHODSDIR,
+   LOCALLIBDIR "/" METHODSDIR,
+-  nullptr
++  NULL
+ };
+ 
+-static char *methodlockfile = nullptr;
++static char *methodlockfile = NULL;
+ static int methlockfd= -1;
+ 
+ static void
+@@ -84,7 +84,7 @@
+   int nread;
+ 
+   if (!options) {
+-    newoptions = nullptr;
++    newoptions = NULL;
+     nread= 0;
+     for (ccpp= methoddirectories; *ccpp; ccpp++)
+       readmethods(*ccpp, &newoptions, &nread);
+@@ -101,7 +101,7 @@
+ static enum urqresult lockmethod(void) {
+   struct flock fl;
+ 
+-  if (methodlockfile == nullptr)
++  if (methodlockfile == NULL)
+     methodlockfile = dpkg_db_get_path(METHLOCKFILE);
+ 
+   if (methlockfd == -1) {
+@@ -124,7 +124,7 @@
+     sthfailed(_("cannot lock access method area"));
+     return urqr_fail;
+   }
+-  push_cleanup(cu_unlockmethod, ~0, nullptr, 0, 0);
++  push_cleanup(cu_unlockmethod, ~0, NULL, 0, 0);
+   return urqr_normal;
+ }
+ 
+@@ -140,7 +140,7 @@
+ 
+   pid = subproc_fork();
+   if (pid == 0) {
+-    subproc_signals_cleanup(0, nullptr);
++    subproc_signals_cleanup(0, NULL);
+     command_exec(cmd);
+   }
+ 
+@@ -178,7 +178,7 @@
+ 
+     command_init(&cmd, coption->meth->path, name);
+     command_add_args(&cmd, exepath, dpkg_db_get_dir(),
+-                     coption->meth->name, coption->name, nullptr);
++                     coption->meth->name, coption->name, NULL);
+     ur = falliblesubprocess(&cmd);
+     command_destroy(&cmd);
+   } else {
+@@ -204,7 +204,7 @@
+ 
+   command_init(&cmd, DPKG, name);
+   command_add_args(&cmd, DPKG, "--admindir", dpkg_db_get_dir(), "--pending",
+-                   dpkgmode, nullptr);
++                   dpkgmode, NULL);
+ 
+   cursesoff();
+   printf("running dpkg --pending %s ...\n",dpkgmode);
+@@ -243,7 +243,7 @@
+ 
+     command_init(&cmd, coption->meth->path, _("query/setup script"));
+     command_add_args(&cmd, METHODSETUPSCRIPT, dpkg_db_get_dir(),
+-                     coption->meth->name, coption->name, nullptr);
++                     coption->meth->name, coption->name, NULL);
+     ur = falliblesubprocess(&cmd);
+     command_destroy(&cmd);
+     if (ur == urqr_normal) writecurrentopt();

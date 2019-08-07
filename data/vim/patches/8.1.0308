@@ -1,0 +1,62 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0308
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0308
+Problem:    A quick undo shows "1 seconds ago". (Tony Mechelynck)
+Solution:   Add singular/plural message.
+Files:	    src/undo.c
+
+
+*** ../vim-8.1.0307/src/undo.c	2018-07-13 16:31:11.952226727 +0200
+--- src/undo.c	2018-08-21 17:05:23.300046260 +0200
+***************
+*** 3124,3131 ****
+      }
+      else
+  #endif
+! 	vim_snprintf((char *)buf, buflen, _("%ld seconds ago"),
+! 						      (long)(vim_time() - tt));
+  }
+  
+  /*
+--- 3124,3136 ----
+      }
+      else
+  #endif
+!     {
+! 	long seconds = (long)(vim_time() - tt);
+! 
+! 	vim_snprintf((char *)buf, buflen,
+! 		NGETTEXT("%ld second ago", "%ld seconds ago", seconds),
+! 		seconds);
+!     }
+  }
+  
+  /*
+*** ../vim-8.1.0307/src/version.c	2018-08-21 16:56:28.371325254 +0200
+--- src/version.c	2018-08-21 17:06:12.627737719 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     308,
+  /**/
+
+-- 
+ARTHUR: I've said I'm sorry about the old woman, but from the behind you
+        looked ...
+DENNIS: What I object to is that you automatically treat me like an inferior...
+ARTHUR: Well ... I AM king.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

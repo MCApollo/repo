@@ -1,0 +1,78 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0435
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0435
+Problem:    Cursorline highlight not removed in some situation. (Vitaly
+            Yashin)
+Solution:   Reset last_cursorline when resetting 'cursorline'. (Christian
+            Brabandt, closes #3481)
+Files:	    src/move.c, src/proto/move.pro, src/option.c
+
+
+*** ../vim-8.1.0434/src/move.c	2018-09-12 23:15:45.257659803 +0200
+--- src/move.c	2018-09-25 22:17:39.176082368 +0200
+***************
+*** 125,130 ****
+--- 125,136 ----
+  
+  #ifdef FEAT_SYN_HL
+  static linenr_T	last_cursorline = 0;
++ 
++     void
++ reset_cursorline(void)
++ {
++     last_cursorline = 0;
++ }
+  #endif
+  
+  /*
+*** ../vim-8.1.0434/src/proto/move.pro	2018-05-17 13:52:46.000000000 +0200
+--- src/proto/move.pro	2018-09-25 22:13:06.338829816 +0200
+***************
+*** 1,4 ****
+--- 1,5 ----
+  /* move.c */
++ void reset_cursorline(void);
+  void update_topline_redraw(void);
+  void update_topline(void);
+  void update_curswant(void);
+*** ../vim-8.1.0434/src/option.c	2018-09-21 12:24:08.618955563 +0200
+--- src/option.c	2018-09-25 22:14:29.057996665 +0200
+***************
+*** 8306,8311 ****
+--- 8306,8316 ----
+  	p_lrm = !p_lnr;
+  #endif
+  
++ #ifdef FEAT_SYN_HL
++     else if ((int *)varp == &curwin->w_p_cul && !value && old_value)
++ 	reset_cursorline();
++ #endif
++ 
+  #ifdef FEAT_PERSISTENT_UNDO
+      /* 'undofile' */
+      else if ((int *)varp == &curbuf->b_p_udf || (int *)varp == &p_udf)
+*** ../vim-8.1.0434/src/version.c	2018-09-25 22:08:10.933806882 +0200
+--- src/version.c	2018-09-25 22:16:09.888981316 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     435,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+101. U can read htis w/o ny porblm and cant figur eout Y its evn listd.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

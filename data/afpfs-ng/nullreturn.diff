@@ -1,0 +1,24 @@
+diff -ur afpfs-ng-0.8.1/include/afp.h afpfs-ng-0.8.1+iPhone/include/afp.h
+--- afpfs-ng-0.8.1/include/afp.h	2008-03-08 06:08:18.000000000 -1000
++++ afpfs-ng-0.8.1+iPhone/include/afp.h	2018-08-01 15:45:07.000000000 -1000
+@@ -308,7 +308,7 @@
+ 
+ struct afp_server * afp_server_full_connect(void * priv, struct afp_connection_request * req);
+ 
+-void * just_end_it_now(void *other);
++void just_end_it_now(void *other);
+ void add_fd_and_signal(int fd);
+ void loop_disconnect(struct afp_server *s);
+ void afp_wait_for_started_loop(void);
+diff -ur afpfs-ng-0.8.1/lib/loop.c afpfs-ng-0.8.1+iPhone/lib/loop.c
+--- afpfs-ng-0.8.1/lib/loop.c	2008-02-17 17:40:11.000000000 -1000
++++ afpfs-ng-0.8.1+iPhone/lib/loop.c	2018-08-01 15:44:28.000000000 -1000
+@@ -85,7 +85,7 @@
+ }
+ 
+ static int ending=0;
+-void * just_end_it_now(void * ignore)
++void just_end_it_now(void * ignore)
+ {
+ 	if (ending) return;
+ 	ending=1;

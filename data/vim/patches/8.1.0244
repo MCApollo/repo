@@ -1,0 +1,245 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0244
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0244
+Problem:    No redraw when using a STOP signal on Vim and then a CONT signal.
+Solution:   Catch the CONT signal and force a redraw. (closes #3285)
+Files:	    src/os_unix.c, src/term.c, src/proto/term.pro
+
+
+*** ../vim-8.1.0243/src/os_unix.c	2018-06-19 19:59:15.244704285 +0200
+--- src/os_unix.c	2018-08-07 17:38:27.387722889 +0200
+***************
+*** 1227,1233 ****
+      SIGRETURN;
+  }
+  
+! #if defined(_REENTRANT) && defined(SIGCONT)
+  /*
+   * On Solaris with multi-threading, suspending might not work immediately.
+   * Catch the SIGCONT signal, which will be used as an indication whether the
+--- 1227,1249 ----
+      SIGRETURN;
+  }
+  
+!     static void
+! after_sigcont(void)
+! {
+! # ifdef FEAT_TITLE
+!     // Set oldtitle to NULL, so the current title is obtained again.
+!     VIM_CLEAR(oldtitle);
+! # endif
+!     settmode(TMODE_RAW);
+!     need_check_timestamps = TRUE;
+!     did_check_timestamps = FALSE;
+! }
+! 
+! #if defined(SIGCONT)
+! static RETSIGTYPE sigcont_handler SIGPROTOARG;
+! static int in_mch_suspend = FALSE;
+! 
+! # if defined(_REENTRANT) && defined(SIGCONT)
+  /*
+   * On Solaris with multi-threading, suspending might not work immediately.
+   * Catch the SIGCONT signal, which will be used as an indication whether the
+***************
+*** 1239,1245 ****
+   * volatile because it is used in signal handler sigcont_handler().
+   */
+  static volatile int sigcont_received;
+! static RETSIGTYPE sigcont_handler SIGPROTOARG;
+  
+  /*
+   * signal handler for SIGCONT
+--- 1255,1261 ----
+   * volatile because it is used in signal handler sigcont_handler().
+   */
+  static volatile int sigcont_received;
+! # endif
+  
+  /*
+   * signal handler for SIGCONT
+***************
+*** 1247,1253 ****
+      static RETSIGTYPE
+  sigcont_handler SIGDEFARG(sigarg)
+  {
+!     sigcont_received = TRUE;
+      SIGRETURN;
+  }
+  #endif
+--- 1263,1300 ----
+      static RETSIGTYPE
+  sigcont_handler SIGDEFARG(sigarg)
+  {
+!     if (in_mch_suspend)
+!     {
+! # if defined(_REENTRANT) && defined(SIGCONT)
+! 	sigcont_received = TRUE;
+! # endif
+!     }
+!     else
+!     {
+! 	// We didn't suspend ourselves, assume we were stopped by a SIGSTOP
+! 	// signal (which can't be intercepted) and get a SIGCONT.  Need to get
+! 	// back to a sane mode and redraw.
+! 	after_sigcont();
+! 
+! 	update_screen(CLEAR);
+! 	if (State & CMDLINE)
+! 	    redrawcmdline();
+! 	else if (State == HITRETURN || State == SETWSIZE || State == ASKMORE
+! 		|| State == EXTERNCMD || State == CONFIRM || exmode_active)
+! 	    repeat_message();
+! 	else if (redrawing())
+! 	    setcursor();
+! #if defined(FEAT_INS_EXPAND)
+! 	if (pum_visible())
+! 	{
+! 	    redraw_later(NOT_VALID);
+! 	    ins_compl_show_pum();
+! 	}
+! #endif
+! 	cursor_on_force();
+! 	out_flush();
+!     }
+! 
+      SIGRETURN;
+  }
+  #endif
+***************
+*** 1330,1335 ****
+--- 1377,1384 ----
+  {
+      /* BeOS does have SIGTSTP, but it doesn't work. */
+  #if defined(SIGTSTP) && !defined(__BEOS__)
++     in_mch_suspend = TRUE;
++ 
+      out_flush();	    /* needed to make cursor visible on some systems */
+      settmode(TMODE_COOK);
+      out_flush();	    /* needed to disable mouse on some systems */
+***************
+*** 1361,1376 ****
+  	    mch_delay(wait_time, FALSE);
+      }
+  # endif
+  
+! # ifdef FEAT_TITLE
+!     /*
+!      * Set oldtitle to NULL, so the current title is obtained again.
+!      */
+!     VIM_CLEAR(oldtitle);
+! # endif
+!     settmode(TMODE_RAW);
+!     need_check_timestamps = TRUE;
+!     did_check_timestamps = FALSE;
+  #else
+      suspend_shell();
+  #endif
+--- 1410,1418 ----
+  	    mch_delay(wait_time, FALSE);
+      }
+  # endif
++     in_mch_suspend = FALSE;
+  
+!     after_sigcont();
+  #else
+      suspend_shell();
+  #endif
+***************
+*** 1410,1416 ****
+  #ifdef SIGTSTP
+      signal(SIGTSTP, restricted ? SIG_IGN : SIG_DFL);
+  #endif
+! #if defined(_REENTRANT) && defined(SIGCONT)
+      signal(SIGCONT, sigcont_handler);
+  #endif
+  
+--- 1452,1458 ----
+  #ifdef SIGTSTP
+      signal(SIGTSTP, restricted ? SIG_IGN : SIG_DFL);
+  #endif
+! #if defined(SIGCONT)
+      signal(SIGCONT, sigcont_handler);
+  #endif
+  
+*** ../vim-8.1.0243/src/term.c	2018-07-10 17:33:41.825155261 +0200
+--- src/term.c	2018-08-07 17:22:23.328496700 +0200
+***************
+*** 3789,3804 ****
+  static int cursor_is_off = FALSE;
+  
+  /*
+   * Enable the cursor.
+   */
+      void
+  cursor_on(void)
+  {
+      if (cursor_is_off)
+!     {
+! 	out_str(T_VE);
+! 	cursor_is_off = FALSE;
+!     }
+  }
+  
+  /*
+--- 3789,3811 ----
+  static int cursor_is_off = FALSE;
+  
+  /*
++  * Enable the cursor without checking if it's already enabled.
++  */
++     void
++ cursor_on_force(void)
++ {
++     out_str(T_VE);
++     cursor_is_off = FALSE;
++ }
++ 
++ /*
+   * Enable the cursor.
+   */
+      void
+  cursor_on(void)
+  {
+      if (cursor_is_off)
+! 	cursor_on_force();
+  }
+  
+  /*
+*** ../vim-8.1.0243/src/proto/term.pro	2018-05-17 13:52:53.000000000 +0200
+--- src/proto/term.pro	2018-08-07 17:28:27.358277122 +0200
+***************
+*** 50,55 ****
+--- 50,56 ----
+  int mouse_has(int c);
+  int mouse_model_popup(void);
+  void scroll_start(void);
++ void cursor_on_force(void);
+  void cursor_on(void);
+  void cursor_off(void);
+  void term_cursor_mode(int forced);
+*** ../vim-8.1.0243/src/version.c	2018-08-07 16:33:15.255728441 +0200
+--- src/version.c	2018-08-07 17:35:43.784518901 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     244,
+  /**/
+
+-- 
+When I look deep into your eyes, I see JPEG artifacts.
+I can tell by the pixels that we're wrong for each other.  (xkcd)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

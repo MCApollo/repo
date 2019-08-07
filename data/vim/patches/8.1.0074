@@ -1,0 +1,54 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0074
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0074 (after 8.1.0073)
+Problem:    Crash when running quickfix tests.
+Solution:   Do not alloc a new location list when checking for the reference
+            to be still valid.
+Files:	    src/quickfix.c
+
+
+*** ../vim-8.1.0073/src/quickfix.c	2018-06-18 20:52:09.553050181 +0200
+--- src/quickfix.c	2018-06-18 21:48:30.652450833 +0200
+***************
+*** 6350,6356 ****
+  						curbuf->b_fname, TRUE, curbuf);
+  	    if (res > 0 && (eap->cmdidx == CMD_cexpr
+  						   || eap->cmdidx == CMD_lexpr)
+! 		    && qi == ll_get_or_alloc_list(curwin))
+  		// Jump to the first error if autocmds didn't free the list.
+  		qf_jump(qi, 0, 0, eap->forceit);
+  	}
+--- 6350,6356 ----
+  						curbuf->b_fname, TRUE, curbuf);
+  	    if (res > 0 && (eap->cmdidx == CMD_cexpr
+  						   || eap->cmdidx == CMD_lexpr)
+! 		    && qi == GET_LOC_LIST(curwin))
+  		// Jump to the first error if autocmds didn't free the list.
+  		qf_jump(qi, 0, 0, eap->forceit);
+  	}
+*** ../vim-8.1.0073/src/version.c	2018-06-18 20:52:09.553050181 +0200
+--- src/version.c	2018-06-18 21:53:12.362887962 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     74,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+75. You start wondering whether you could actually upgrade your brain
+    with a Pentium Pro microprocessor 80.  The upgrade works just fine.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

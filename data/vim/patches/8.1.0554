@@ -1,0 +1,127 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0554
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0554
+Problem:    Popup menu overlaps with preview window.
+Solution:   Adjust the height computation. (Hirohito Higashi, closes #3414)
+Files:	    src/popupmnu.c, src/testdir/test_popup.vim,
+            src/testdir/dumps/Test_popup_and_previewwindow_01.dump
+
+
+*** ../vim-8.1.0553/src/popupmnu.c	2018-10-19 22:35:04.889189955 +0200
+--- src/popupmnu.c	2018-12-01 11:58:36.983112412 +0100
+***************
+*** 196,215 ****
+  	    return;
+  
+  #if defined(FEAT_QUICKFIX)
+! 	// If there is a preview window at the above avoid drawing over it.
+! 	// Do keep at least 10 entries.
+! 	if (pvwin != NULL && pum_row < above_row && pum_height > 10)
+  	{
+! 	    if (pum_win_row - above_row < 10)
+! 	    {
+! 		pum_row = pum_win_row - 10;
+! 		pum_height = 10;
+! 	    }
+! 	    else
+! 	    {
+! 		pum_row = above_row;
+! 		pum_height = pum_win_row - above_row;
+! 	    }
+  	}
+  #endif
+  
+--- 196,206 ----
+  	    return;
+  
+  #if defined(FEAT_QUICKFIX)
+! 	// If there is a preview window above avoid drawing over it.
+! 	if (pvwin != NULL && pum_row < above_row && pum_height > above_row)
+  	{
+! 	    pum_row = above_row;
+! 	    pum_height = pum_win_row - above_row;
+  	}
+  #endif
+  
+*** ../vim-8.1.0553/src/testdir/test_popup.vim	2018-06-12 15:22:39.640579965 +0200
+--- src/testdir/test_popup.vim	2018-12-01 11:43:49.168791298 +0100
+***************
+*** 701,706 ****
+--- 701,728 ----
+    bw!
+  endfunc
+  
++ func Test_popup_and_previewwindow_dump()
++   if !CanRunVimInTerminal()
++     return
++   endif
++   call writefile([
++     \ 'set previewheight=9',
++     \ 'silent! pedit',
++     \ 'call setline(1, map(repeat(["ab"], 10), "v:val. v:key"))',
++     \ 'exec "norm! G\<C-E>\<C-E>"',
++ 	\ ], 'Xscript')
++   let buf = RunVimInTerminal('-S Xscript', {})
++ 
++   " Test that popup and previewwindow do not overlap.
++   call term_sendkeys(buf, "o\<C-X>\<C-N>")
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_popup_and_previewwindow_01', {})
++ 
++   call term_sendkeys(buf, "\<Esc>u")
++   call StopVimInTerminal(buf)
++   call delete('Xscript')
++ endfunc
++ 
+  func Test_balloon_split()
+    if !exists('*balloon_split')
+      return
+*** ../vim-8.1.0553/src/testdir/dumps/Test_popup_and_previewwindow_01.dump	2018-12-01 11:57:54.775382023 +0100
+--- src/testdir/dumps/Test_popup_and_previewwindow_01.dump	2018-12-01 11:47:11.227496667 +0100
+***************
+*** 0 ****
+--- 1,20 ----
++ |a+0&#ffffff0|b|0| @71
++ |a|b|1| @71
++ |a|b|2| @71
++ |a|b|3| @71
++ |a|b|4| @71
++ |a|b|5| @71
++ |a|b|6| @71
++ |a|b|7| @71
++ |a|b|8| @71
++ |a+0#0000001#e0e0e08|b|0| @11| +0#0000000#0000001|e+1&#ffffff0|w|]|[|+|]| @34|1|,|1| @11|T|o|p
++ |a+0#0000001#ffd7ff255|b|1| @11| +0#0000000#0000001| +0&#ffffff0@58
++ |a+0#0000001#ffd7ff255|b|2| @11| +0#0000000#0000001| +0&#ffffff0@58
++ |a+0#0000001#ffd7ff255|b|3| @11| +0#0000000#0000001| +0&#ffffff0@58
++ |a+0#0000001#ffd7ff255|b|4| @11| +0#0000000#a8a8a8255| +0&#ffffff0@58
++ |a+0#0000001#ffd7ff255|b|5| @11| +0#0000000#a8a8a8255| +0&#ffffff0@58
++ |a+0#0000001#ffd7ff255|b|6| @11| +0#0000000#a8a8a8255| +0&#ffffff0@58
++ |a|b|0> @71
++ |~+0#4040ff13&| @73
++ |[+3#0000000&|N|o| |N|a|m|e|]| |[|+|]| @43|1|0|,|1| @10|B|o|t
++ |-+2&&@1| |K|e|y|w|o|r|d| |L|o|c|a|l| |c|o|m|p|l|e|t|i|o|n| |(|^|N|^|P|)| |m+0#00e0003&|a|t|c|h| |1| |o|f| |1|0| +0#0000000&@26
+*** ../vim-8.1.0553/src/version.c	2018-11-30 22:40:09.098211991 +0100
+--- src/version.c	2018-12-01 11:50:07.094371234 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     554,
+  /**/
+
+-- 
+Why is "abbreviation" such a long word?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

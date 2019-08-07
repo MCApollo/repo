@@ -1,0 +1,53 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0113
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0113
+Problem:    Compiler warning for unused variable. (Yegappan Lakshmanan)
+Solution:   Add UNUSED. (Christian Brabandt)
+Files:	    src/screen.c
+
+
+*** ../vim-8.1.0112/src/screen.c	2018-06-23 19:22:45.614486258 +0200
+--- src/screen.c	2018-06-24 19:20:57.281940880 +0200
+***************
+*** 6874,6880 ****
+   * displayed.
+   */
+      static void
+! win_redr_status(win_T *wp, int ignore_pum)
+  {
+      int		row;
+      char_u	*p;
+--- 6879,6885 ----
+   * displayed.
+   */
+      static void
+! win_redr_status(win_T *wp, int ignore_pum UNUSED)
+  {
+      int		row;
+      char_u	*p;
+*** ../vim-8.1.0112/src/version.c	2018-06-24 19:01:55.411752372 +0200
+--- src/version.c	2018-06-24 19:22:02.657626019 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     113,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+108. While reading a magazine, you look for the Zoom icon for a better
+     look at a photograph.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

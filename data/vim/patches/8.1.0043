@@ -1,0 +1,109 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0043
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0043
+Problem:    ++bad argument of :edit does not work properly.
+Solution:   Return FAIL from get_bad_opt() only when there is no valid
+            argument. (Dominique Pelle, Christian Brabandt, closes #2966,
+            closes #2947)
+Files:	    src/ex_docmd.c, src/testdir/test_plus_arg_edit.vim
+
+
+*** ../vim-8.1.0042/src/ex_docmd.c	2018-06-06 09:11:07.257357317 +0200
+--- src/ex_docmd.c	2018-06-12 12:34:07.224425589 +0200
+***************
+*** 5318,5324 ****
+  	eap->bad_char = BAD_DROP;
+      else if (MB_BYTE2LEN(*p) == 1 && p[1] == NUL)
+  	eap->bad_char = *p;
+!     return FAIL;
+  }
+  #endif
+  
+--- 5318,5326 ----
+  	eap->bad_char = BAD_DROP;
+      else if (MB_BYTE2LEN(*p) == 1 && p[1] == NUL)
+  	eap->bad_char = *p;
+!     else
+! 	return FAIL;
+!     return OK;
+  }
+  #endif
+  
+*** ../vim-8.1.0042/src/testdir/test_plus_arg_edit.vim	2017-11-21 11:34:15.000000000 +0100
+--- src/testdir/test_plus_arg_edit.vim	2018-06-12 12:34:07.228425586 +0200
+***************
+*** 1,10 ****
+  " Tests for complicated + argument to :edit command
+  function Test_edit()
+!   call writefile(["foo|bar"], "Xfile1") 
+!   call writefile(["foo/bar"], "Xfile2") 
+    edit +1|s/|/PIPE/|w Xfile1| e Xfile2|1 | s/\//SLASH/|w
+    call assert_equal(["fooPIPEbar"], readfile("Xfile1"))
+    call assert_equal(["fooSLASHbar"], readfile("Xfile2"))
+    call delete('Xfile1')
+    call delete('Xfile2')
+  endfunction
+--- 1,38 ----
+  " Tests for complicated + argument to :edit command
+  function Test_edit()
+!   call writefile(["foo|bar"], "Xfile1")
+!   call writefile(["foo/bar"], "Xfile2")
+    edit +1|s/|/PIPE/|w Xfile1| e Xfile2|1 | s/\//SLASH/|w
+    call assert_equal(["fooPIPEbar"], readfile("Xfile1"))
+    call assert_equal(["fooSLASHbar"], readfile("Xfile2"))
+    call delete('Xfile1')
+    call delete('Xfile2')
+  endfunction
++ 
++ func Test_edit_bad()
++   if !has('multi_byte')
++     finish
++   endif
++ 
++   " Test loading a utf8 file with bad utf8 sequences.
++   call writefile(["[\xff][\xc0][\xe2\x89\xf0][\xc2\xc2]"], "Xfile")
++   new
++ 
++   " Without ++bad=..., the default behavior is like ++bad=?
++   e! ++enc=utf8 Xfile
++   call assert_equal('[?][?][???][??]', getline(1))
++ 
++   e! ++enc=utf8 ++bad=_ Xfile
++   call assert_equal('[_][_][___][__]', getline(1))
++ 
++   e! ++enc=utf8 ++bad=drop Xfile
++   call assert_equal('[][][][]', getline(1))
++ 
++   e! ++enc=utf8 ++bad=keep Xfile
++   call assert_equal("[\xff][\xc0][\xe2\x89\xf0][\xc2\xc2]", getline(1))
++ 
++   call assert_fails('e! ++enc=utf8 ++bad=foo Xfile', 'E474:')
++ 
++   bw!
++   call delete('Xfile')
++ endfunc
+*** ../vim-8.1.0042/src/version.c	2018-06-10 14:39:47.022412206 +0200
+--- src/version.c	2018-06-12 12:37:19.442760084 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     43,
+  /**/
+
+-- 
+Have you heard about the new Beowulf cluster? It's so fast, it executes
+an infinite loop in 6 seconds.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

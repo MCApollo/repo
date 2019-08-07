@@ -1,0 +1,109 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0458
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0458
+Problem:    Ml_get error and crash when using "do".
+Solution:   Adjust cursor position also when diffupdate is not needed.
+            (Hirohito Higashi)
+Files:	    src/diff.c, src/testdir/test_diffmode.vim
+
+
+*** ../vim-8.1.0457/src/diff.c	2018-09-18 21:20:22.507148523 +0200
+--- src/diff.c	2018-10-07 17:18:59.663334194 +0200
+***************
+*** 2848,2865 ****
+  theend:
+      diff_busy = FALSE;
+      if (diff_need_update)
+-     {
+- 	diff_need_update = FALSE;
+  	ex_diffupdate(NULL);
+!     }
+      else
+      {
+- 	// Check that the cursor is on a valid character and update it's
+- 	// position.  When there were filler lines the topline has become
+- 	// invalid.
+- 	check_cursor();
+- 	changed_line_abv_curs();
+- 
+  	// Also need to redraw the other buffers.
+  	diff_redraw(FALSE);
+  	apply_autocmds(EVENT_DIFFUPDATED, NULL, NULL, FALSE, curbuf);
+--- 2848,2866 ----
+  theend:
+      diff_busy = FALSE;
+      if (diff_need_update)
+  	ex_diffupdate(NULL);
+! 
+!     // Check that the cursor is on a valid character and update it's
+!     // position.  When there were filler lines the topline has become
+!     // invalid.
+!     check_cursor();
+!     changed_line_abv_curs();
+! 
+!     if (diff_need_update)
+! 	// redraw already done by ex_diffupdate()
+! 	diff_need_update = FALSE;
+      else
+      {
+  	// Also need to redraw the other buffers.
+  	diff_redraw(FALSE);
+  	apply_autocmds(EVENT_DIFFUPDATED, NULL, NULL, FALSE, curbuf);
+*** ../vim-8.1.0457/src/testdir/test_diffmode.vim	2018-10-02 18:25:41.420867587 +0200
+--- src/testdir/test_diffmode.vim	2018-10-07 17:14:16.980965139 +0200
+***************
+*** 277,282 ****
+--- 277,304 ----
+    %bwipe!
+  endfunc
+  
++ func Test_do_lastline()
++   e! one
++   call setline(1, ['1','2','3','4','5','6'])
++   diffthis
++ 
++   new two
++   call setline(1, ['2','4','5'])
++   diffthis
++ 
++   1
++   norm dp]c
++   norm dp]c
++   wincmd w
++   call assert_equal(4, line('$'))
++   norm G
++   norm do
++   call assert_equal(3, line('$'))
++ 
++   windo diffoff
++   %bwipe!
++ endfunc
++ 
+  func Test_diffoff()
+    enew!
+    call setline(1, ['Two', 'Three'])
+*** ../vim-8.1.0457/src/version.c	2018-10-07 15:49:50.819989002 +0200
+--- src/version.c	2018-10-07 17:46:14.728013142 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     458,
+  /**/
+
+-- 
+"The question of whether computers can think is just like the question
+of whether submarines can swim."      -- Edsger W. Dijkstra
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

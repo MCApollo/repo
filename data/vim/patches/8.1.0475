@@ -1,0 +1,544 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0475
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0475
+Problem:    Memory not freed on exit when quit in autocmd.
+Solution:   Remember funccal stack when executing autocmd.
+Files:	    src/structs.h, src/userfunc.c, src/proto/userfunc.pro,
+            src/fileio.c, src/eval.c, src/ex_cmds2.c, src/main.c
+
+
+*** ../vim-8.1.0474/src/structs.h	2018-10-11 19:27:43.916066156 +0200
+--- src/structs.h	2018-10-14 21:24:09.968948702 +0200
+***************
+*** 1354,1360 ****
+      int		uf_cleared;	/* func_clear() was already called */
+      garray_T	uf_args;	/* arguments */
+      garray_T	uf_lines;	/* function lines */
+! #ifdef FEAT_PROFILE
+      int		uf_profiling;	/* TRUE when func is being profiled */
+      int		uf_prof_initialized;
+      /* profiling the function as a whole */
+--- 1354,1360 ----
+      int		uf_cleared;	/* func_clear() was already called */
+      garray_T	uf_args;	/* arguments */
+      garray_T	uf_lines;	/* function lines */
+! # ifdef FEAT_PROFILE
+      int		uf_profiling;	/* TRUE when func is being profiled */
+      int		uf_prof_initialized;
+      /* profiling the function as a whole */
+***************
+*** 1371,1377 ****
+      proftime_T	uf_tml_wait;	/* start wait time for current line */
+      int		uf_tml_idx;	/* index of line being timed; -1 if none */
+      int		uf_tml_execed;	/* line being timed was executed */
+! #endif
+      sctx_T	uf_script_ctx;	/* SCTX where function was defined,
+  				   used for s: variables */
+      int		uf_refcount;	/* reference count, see func_name_refcount() */
+--- 1371,1377 ----
+      proftime_T	uf_tml_wait;	/* start wait time for current line */
+      int		uf_tml_idx;	/* index of line being timed; -1 if none */
+      int		uf_tml_execed;	/* line being timed was executed */
+! # endif
+      sctx_T	uf_script_ctx;	/* SCTX where function was defined,
+  				   used for s: variables */
+      int		uf_refcount;	/* reference count, see func_name_refcount() */
+***************
+*** 1429,1434 ****
+--- 1429,1440 ----
+      dictitem_T	*fd_di;		/* Dictionary item used */
+  } funcdict_T;
+  
++ typedef struct funccal_entry funccal_entry_T;
++ struct funccal_entry {
++     void	    *top_funccal;
++     funccal_entry_T *next;
++ };
++ 
+  #else
+  /* dummy typedefs for function prototypes */
+  typedef struct
+*** ../vim-8.1.0474/src/userfunc.c	2018-09-10 22:03:36.486401101 +0200
+--- src/userfunc.c	2018-10-14 21:29:00.174642990 +0200
+***************
+*** 1175,1180 ****
+--- 1175,1207 ----
+      return isdigit(*name) || *name == '<';
+  }
+  
++ static funccal_entry_T *funccal_stack = NULL;
++ 
++ /*
++  * Save the current function call pointer, and set it to NULL.
++  * Used when executing autocommands and for ":source".
++  */
++     void
++ save_funccal(funccal_entry_T *entry)
++ {
++     entry->top_funccal = current_funccal;
++     entry->next = funccal_stack;
++     funccal_stack = entry;
++     current_funccal = NULL;
++ }
++ 
++     void
++ restore_funccal(void)
++ {
++     if (funccal_stack == NULL)
++ 	IEMSG("INTERNAL: restore_funccal()");
++     else
++     {
++ 	current_funccal = funccal_stack->top_funccal;
++ 	funccal_stack = funccal_stack->next;
++     }
++ }
++ 
+  #if defined(EXITFREE) || defined(PROTO)
+      void
+  free_all_functions(void)
+***************
+*** 1185,1195 ****
+      long_u	todo = 1;
+      long_u	used;
+  
+!     /* Clean up the call stack. */
+      while (current_funccal != NULL)
+      {
+  	clear_tv(current_funccal->rettv);
+  	cleanup_function_call(current_funccal);
+      }
+  
+      /* First clear what the functions contain.  Since this may lower the
+--- 1212,1224 ----
+      long_u	todo = 1;
+      long_u	used;
+  
+!     /* Clean up the current_funccal chain and the funccal stack. */
+      while (current_funccal != NULL)
+      {
+  	clear_tv(current_funccal->rettv);
+  	cleanup_function_call(current_funccal);
++ 	if (current_funccal == NULL && funccal_stack != NULL)
++ 	    restore_funccal();
+      }
+  
+      /* First clear what the functions contain.  Since this may lower the
+***************
+*** 3578,3604 ****
+      return current_funccal->returned;
+  }
+  
+- /*
+-  * Save the current function call pointer, and set it to NULL.
+-  * Used when executing autocommands and for ":source".
+-  */
+-     void *
+- save_funccal(void)
+- {
+-     funccall_T *fc = current_funccal;
+- 
+-     current_funccal = NULL;
+-     return (void *)fc;
+- }
+- 
+-     void
+- restore_funccal(void *vfc)
+- {
+-     funccall_T *fc = (funccall_T *)vfc;
+- 
+-     current_funccal = fc;
+- }
+- 
+      int
+  free_unref_funccal(int copyID, int testing)
+  {
+--- 3607,3612 ----
+***************
+*** 3702,3726 ****
+  }
+  
+  /*
+-  * Clear the current_funccal and return the old value.
+-  * Caller is expected to invoke restore_current_funccal().
+-  */
+-     void *
+- clear_current_funccal()
+- {
+-     funccall_T *f = current_funccal;
+- 
+-     current_funccal = NULL;
+-     return f;
+- }
+- 
+-     void
+- restore_current_funccal(void *f)
+- {
+-     current_funccal = f;
+- }
+- 
+- /*
+   * List function variables, if there is a function.
+   */
+      void
+--- 3710,3715 ----
+*** ../vim-8.1.0474/src/proto/userfunc.pro	2018-05-17 13:52:55.000000000 +0200
+--- src/proto/userfunc.pro	2018-10-14 21:23:16.693367431 +0200
+***************
+*** 39,53 ****
+  int *func_dbg_tick(void *cookie);
+  int func_level(void *cookie);
+  int current_func_returned(void);
+! void *save_funccal(void);
+! void restore_funccal(void *vfc);
+  int free_unref_funccal(int copyID, int testing);
+  hashtab_T *get_funccal_local_ht(void);
+  dictitem_T *get_funccal_local_var(void);
+  hashtab_T *get_funccal_args_ht(void);
+  dictitem_T *get_funccal_args_var(void);
+- void *clear_current_funccal(void);
+- void restore_current_funccal(void *f);
+  void list_func_vars(int *first);
+  dict_T *get_current_funccal_dict(hashtab_T *ht);
+  hashitem_T *find_hi_in_scoped_ht(char_u *name, hashtab_T **pht);
+--- 39,51 ----
+  int *func_dbg_tick(void *cookie);
+  int func_level(void *cookie);
+  int current_func_returned(void);
+! void save_funccal(funccal_entry_T *entry);
+! void restore_funccal(void);
+  int free_unref_funccal(int copyID, int testing);
+  hashtab_T *get_funccal_local_ht(void);
+  dictitem_T *get_funccal_local_var(void);
+  hashtab_T *get_funccal_args_ht(void);
+  dictitem_T *get_funccal_args_var(void);
+  void list_func_vars(int *first);
+  dict_T *get_current_funccal_dict(hashtab_T *ht);
+  hashitem_T *find_hi_in_scoped_ht(char_u *name, hashtab_T **pht);
+*** ../vim-8.1.0474/src/fileio.c	2018-10-11 19:27:43.916066156 +0200
+--- src/fileio.c	2018-10-14 21:23:46.449133772 +0200
+***************
+*** 9400,9406 ****
+      AutoPat	*ap;
+  #ifdef FEAT_EVAL
+      sctx_T	save_current_sctx;
+!     void	*save_funccalp;
+      char_u	*save_cmdarg;
+      long	save_cmdbang;
+  #endif
+--- 9400,9406 ----
+      AutoPat	*ap;
+  #ifdef FEAT_EVAL
+      sctx_T	save_current_sctx;
+!     funccal_entry_T funccal_entry;
+      char_u	*save_cmdarg;
+      long	save_cmdbang;
+  #endif
+***************
+*** 9615,9622 ****
+  	prof_child_enter(&wait_time); /* doesn't count for the caller itself */
+  # endif
+  
+!     /* Don't use local function variables, if called from a function */
+!     save_funccalp = save_funccal();
+  #endif
+  
+      /*
+--- 9615,9622 ----
+  	prof_child_enter(&wait_time); /* doesn't count for the caller itself */
+  # endif
+  
+!     // Don't use local function variables, if called from a function.
+!     save_funccal(&funccal_entry);
+  #endif
+  
+      /*
+***************
+*** 9713,9719 ****
+      autocmd_match = save_autocmd_match;
+  #ifdef FEAT_EVAL
+      current_sctx = save_current_sctx;
+!     restore_funccal(save_funccalp);
+  # ifdef FEAT_PROFILE
+      if (do_profiling == PROF_YES)
+  	prof_child_exit(&wait_time);
+--- 9713,9719 ----
+      autocmd_match = save_autocmd_match;
+  #ifdef FEAT_EVAL
+      current_sctx = save_current_sctx;
+!     restore_funccal();
+  # ifdef FEAT_PROFILE
+      if (do_profiling == PROF_YES)
+  	prof_child_exit(&wait_time);
+*** ../vim-8.1.0474/src/eval.c	2018-10-07 20:14:53.091279680 +0200
+--- src/eval.c	2018-10-14 21:24:20.000869665 +0200
+***************
+*** 859,867 ****
+      int		use_sandbox)
+  {
+      char_u	*retval;
+!     void	*save_funccalp;
+  
+!     save_funccalp = save_funccal();
+      if (use_sandbox)
+  	++sandbox;
+      ++textlock;
+--- 859,867 ----
+      int		use_sandbox)
+  {
+      char_u	*retval;
+!     funccal_entry_T funccal_entry;
+  
+!     save_funccal(&funccal_entry);
+      if (use_sandbox)
+  	++sandbox;
+      ++textlock;
+***************
+*** 869,875 ****
+      if (use_sandbox)
+  	--sandbox;
+      --textlock;
+!     restore_funccal(save_funccalp);
+      return retval;
+  }
+  
+--- 869,875 ----
+      if (use_sandbox)
+  	--sandbox;
+      --textlock;
+!     restore_funccal();
+      return retval;
+  }
+  
+***************
+*** 8532,8538 ****
+      char_u	*tab;
+      int		type = VAR_NUMBER;
+      typval_T	tv;
+!     void	*save_funccal;
+  
+      if (!writing && (find_viminfo_parameter('!') != NULL))
+      {
+--- 8532,8538 ----
+      char_u	*tab;
+      int		type = VAR_NUMBER;
+      typval_T	tv;
+!     funccal_entry_T funccal_entry;
+  
+      if (!writing && (find_viminfo_parameter('!') != NULL))
+      {
+***************
+*** 8581,8589 ****
+  		}
+  
+  		/* when in a function use global variables */
+! 		save_funccal = clear_current_funccal();
+  		set_var(virp->vir_line + 1, &tv, FALSE);
+! 		restore_current_funccal(save_funccal);
+  
+  		if (tv.v_type == VAR_STRING)
+  		    vim_free(tv.vval.v_string);
+--- 8581,8589 ----
+  		}
+  
+  		/* when in a function use global variables */
+! 		save_funccal(&funccal_entry);
+  		set_var(virp->vir_line + 1, &tv, FALSE);
+! 		restore_funccal();
+  
+  		if (tv.v_type == VAR_STRING)
+  		    vim_free(tv.vval.v_string);
+*** ../vim-8.1.0474/src/ex_cmds2.c	2018-09-30 21:43:17.183693376 +0200
+--- src/ex_cmds2.c	2018-10-14 21:25:18.216409935 +0200
+***************
+*** 4344,4350 ****
+  #ifdef FEAT_EVAL
+      sctx_T		    save_current_sctx;
+      static scid_T	    last_current_SID = 0;
+!     void		    *save_funccalp;
+      int			    save_debug_break_level = debug_break_level;
+      scriptitem_T	    *si = NULL;
+  # ifdef UNIX
+--- 4344,4350 ----
+  #ifdef FEAT_EVAL
+      sctx_T		    save_current_sctx;
+      static scid_T	    last_current_SID = 0;
+!     funccal_entry_T	    funccalp_entry;
+      int			    save_debug_break_level = debug_break_level;
+      scriptitem_T	    *si = NULL;
+  # ifdef UNIX
+***************
+*** 4506,4512 ****
+  
+      /* Don't use local function variables, if called from a function.
+       * Also starts profiling timer for nested script. */
+!     save_funccalp = save_funccal();
+  
+      /*
+       * Check if this script was sourced before to finds its SID.
+--- 4506,4512 ----
+  
+      /* Don't use local function variables, if called from a function.
+       * Also starts profiling timer for nested script. */
+!     save_funccal(&funccalp_entry);
+  
+      /*
+       * Check if this script was sourced before to finds its SID.
+***************
+*** 4665,4671 ****
+  #ifdef FEAT_EVAL
+  almosttheend:
+      current_sctx = save_current_sctx;
+!     restore_funccal(save_funccalp);
+  # ifdef FEAT_PROFILE
+      if (do_profiling == PROF_YES)
+  	prof_child_exit(&wait_start);		/* leaving a child now */
+--- 4665,4671 ----
+  #ifdef FEAT_EVAL
+  almosttheend:
+      current_sctx = save_current_sctx;
+!     restore_funccal();
+  # ifdef FEAT_PROFILE
+      if (do_profiling == PROF_YES)
+  	prof_child_exit(&wait_start);		/* leaving a child now */
+*** ../vim-8.1.0474/src/main.c	2018-09-30 21:43:17.195693290 +0200
+--- src/main.c	2018-10-14 21:26:18.723930303 +0200
+***************
+*** 1717,1723 ****
+  }
+  
+  /*
+!  * Check for: [r][e][g][vi|vim|view][diff][ex[im]]
+   * If the executable name starts with "r" we disable shell commands.
+   * If the next character is "e" we run in Easy mode.
+   * If the next character is "g" we run the GUI version.
+--- 1717,1723 ----
+  }
+  
+  /*
+!  * Check for: [r][e][g][vi|vim|view][diff][ex[im]]  (sort of)
+   * If the executable name starts with "r" we disable shell commands.
+   * If the next character is "e" we run in Easy mode.
+   * If the next character is "g" we run the GUI version.
+***************
+*** 1788,1794 ****
+      else if (STRNICMP(initstr, "vim", 3) == 0)
+  	initstr += 3;
+  
+!     /* Catch "[r][g]vimdiff" and "[r][g]viewdiff". */
+      if (STRICMP(initstr, "diff") == 0)
+      {
+  #ifdef FEAT_DIFF
+--- 1788,1794 ----
+      else if (STRNICMP(initstr, "vim", 3) == 0)
+  	initstr += 3;
+  
+!     // Catch "[r][g]vimdiff" and "[r][g]viewdiff".
+      if (STRICMP(initstr, "diff") == 0)
+      {
+  #ifdef FEAT_DIFF
+***************
+*** 1800,1812 ****
+  #endif
+      }
+  
+      if (STRNICMP(initstr, "ex", 2) == 0)
+      {
+  	if (STRNICMP(initstr + 2, "im", 2) == 0)
+  	    exmode_active = EXMODE_VIM;
+  	else
+  	    exmode_active = EXMODE_NORMAL;
+! 	change_compatible(TRUE);	/* set 'compatible' */
+      }
+  }
+  
+--- 1800,1814 ----
+  #endif
+      }
+  
++     // Checking for "ex" here may catch some weir names, such as "vimex" or
++     // "viewex", we assume the user knows that.
+      if (STRNICMP(initstr, "ex", 2) == 0)
+      {
+  	if (STRNICMP(initstr + 2, "im", 2) == 0)
+  	    exmode_active = EXMODE_VIM;
+  	else
+  	    exmode_active = EXMODE_NORMAL;
+! 	change_compatible(TRUE);	// set 'compatible'
+      }
+  }
+  
+***************
+*** 4188,4199 ****
+      char_u	*res;
+      int		save_dbl = debug_break_level;
+      int		save_ro = redir_off;
+!     void	*fc = NULL;
+  
+      /* Evaluate the expression at the toplevel, don't use variables local to
+       * the calling function. Except when in debug mode. */
+      if (!debug_mode)
+! 	fc = clear_current_funccal();
+  
+       /* Disable debugging, otherwise Vim hangs, waiting for "cont" to be
+        * typed. */
+--- 4190,4205 ----
+      char_u	*res;
+      int		save_dbl = debug_break_level;
+      int		save_ro = redir_off;
+!     funccal_entry_T funccal_entry;
+!     int		did_save_funccal = FALSE;
+  
+      /* Evaluate the expression at the toplevel, don't use variables local to
+       * the calling function. Except when in debug mode. */
+      if (!debug_mode)
+!     {
+! 	save_funccal(&funccal_entry);
+! 	did_save_funccal = TRUE;
+!     }
+  
+       /* Disable debugging, otherwise Vim hangs, waiting for "cont" to be
+        * typed. */
+***************
+*** 4210,4217 ****
+      --emsg_silent;
+      if (emsg_silent < 0)
+  	emsg_silent = 0;
+!     if (fc != NULL)
+! 	restore_current_funccal(fc);
+  
+      /* A client can tell us to redraw, but not to display the cursor, so do
+       * that here. */
+--- 4216,4223 ----
+      --emsg_silent;
+      if (emsg_silent < 0)
+  	emsg_silent = 0;
+!     if (did_save_funccal)
+! 	restore_funccal();
+  
+      /* A client can tell us to redraw, but not to display the cursor, so do
+       * that here. */
+*** ../vim-8.1.0474/src/version.c	2018-10-14 16:25:04.904583951 +0200
+--- src/version.c	2018-10-14 21:37:36.574478570 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     475,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+201. When somebody asks you where you are, you tell them in which chat room.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

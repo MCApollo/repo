@@ -1,0 +1,68 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0375
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0375
+Problem:    Cannot use diff mode with Cygwin diff.exe. (Igor Forca)
+Solution:   Skip over unrecognized lines in the diff output.
+Files:	    src/diff.c, src/testdir/test_diffmode.vim
+
+
+*** ../vim-8.1.0374/src/diff.c	2018-09-12 18:00:08.937570191 +0200
+--- src/diff.c	2018-09-13 13:02:16.005128090 +0200
+***************
+*** 1600,1605 ****
+--- 1600,1609 ----
+  		    && (tag_fgets(linebuf, LBUFLEN, fd) == 0)
+  		    && (STRNCMP(line, "@@ ", 3) == 0))
+  		diffstyle = DIFF_UNIFIED;
++ 	    else
++ 		// Format not recognized yet, skip over this line.  Cygwin diff
++ 		// may put a warning at the start of the file.
++ 		continue;
+  	}
+  
+  	if (diffstyle == DIFF_ED)
+*** ../vim-8.1.0374/src/testdir/test_diffmode.vim	2018-09-10 17:50:32.713306941 +0200
+--- src/testdir/test_diffmode.vim	2018-09-13 13:01:54.181296798 +0200
+***************
+*** 519,525 ****
+    endif
+  
+    func DiffExpr()
+!     silent exe '!diff ' . v:fname_in . ' ' . v:fname_new . '>' . v:fname_out
+    endfunc
+    set diffexpr=DiffExpr()
+    set diffopt=foldcolumn:0
+--- 519,527 ----
+    endif
+  
+    func DiffExpr()
+!     " Prepent some text to check diff type detection
+!     call writefile(['warning', '  message'], v:fname_out)
+!     silent exe '!diff ' . v:fname_in . ' ' . v:fname_new . '>>' . v:fname_out
+    endfunc
+    set diffexpr=DiffExpr()
+    set diffopt=foldcolumn:0
+*** ../vim-8.1.0374/src/version.c	2018-09-12 23:15:45.257659803 +0200
+--- src/version.c	2018-09-13 12:27:07.877584085 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     375,
+  /**/
+
+-- 
+A fine is a tax for doing wrong.  A tax is a fine for doing well.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

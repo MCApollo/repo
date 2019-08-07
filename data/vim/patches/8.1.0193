@@ -1,0 +1,57 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0193
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0193
+Problem:    Terminal debugger buttons don't always work. (Dominique Pelle)
+Solution:   Set 'cpo' to its default value.
+Files:      runtime/pack/dist/opt/termdebug/plugin/termdebug.vim
+
+
+*** ../vim-8.1.0192/runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-23 14:36:13.778666585 +0200
+--- runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-07-17 05:50:55.632645723 +0200
+***************
+*** 56,61 ****
+--- 56,64 ----
+    finish
+  endif
+  
++ let s:keepcpo = &cpo
++ set cpo&vim
++ 
+  " The command that starts debugging, e.g. ":Termdebug vim".
+  " To end type "quit" in the gdb window.
+  command -nargs=* -complete=file -bang Termdebug call s:StartDebug(<bang>0, <f-args>)
+***************
+*** 943,945 ****
+--- 946,951 ----
+      endif
+    endfor
+  endfunc
++ 
++ let &cpo = s:keepcpo
++ unlet s:keepcpo
+*** ../vim-8.1.0192/src/version.c	2018-07-17 05:43:50.487214724 +0200
+--- src/version.c	2018-07-17 05:53:02.215885517 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     193,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+264. You turn to the teletext page "surfing report" and are surprised that it
+     is about sizes of waves and a weather forecast for seaside resorts.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

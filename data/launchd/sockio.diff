@@ -1,0 +1,14 @@
+diff -ur launchd-842.92.1/support/launchctl.c launchd-842.92.1+iPhone/support/launchctl.c
+--- launchd-842.92.1/support/launchctl.c	2013-04-01 10:49:56.000000000 -1000
++++ launchd-842.92.1+iPhone/support/launchctl.c	2018-09-03 22:33:20.000000000 -1000
+@@ -39,9 +39,9 @@
+ #include <sys/types.h>
+ #include <sys/sysctl.h>
+ #include <sys/time.h>
+-#include <sys/sysctl.h>
+ #include <sys/stat.h>
+ #include <sys/socket.h>
++#include <sys/sockio.h>
+ #include <sys/un.h>
+ #include <sys/fcntl.h>
+ #include <sys/event.h>

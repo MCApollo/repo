@@ -1,0 +1,87 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0290
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0290
+Problem:    "cit" on an empty HTML tag changes the whole tag.
+Solution:   Only adjust the area in Visual mode. (Andy Massimino,
+            closes #3332)
+Files:	    src/search.c, src/testdir/test_textobjects.vim
+
+
+*** ../vim-8.1.0289/src/search.c	2018-06-19 18:27:38.271694008 +0200
+--- src/search.c	2018-08-16 21:29:39.554118770 +0200
+***************
+*** 4106,4114 ****
+  	    }
+  	curwin->w_cursor = end_pos;
+  
+! 	/* If we now have the same text as before reset "do_include" and try
+! 	 * again. */
+! 	if (EQUAL_POS(start_pos, old_start) && EQUAL_POS(end_pos, old_end))
+  	{
+  	    do_include = TRUE;
+  	    curwin->w_cursor = old_start;
+--- 4106,4115 ----
+  	    }
+  	curwin->w_cursor = end_pos;
+  
+! 	// If we are in Visual mode and now have the same text as before set
+! 	// "do_include" and try again.
+! 	if (VIsual_active && EQUAL_POS(start_pos, old_start)
+! 						&& EQUAL_POS(end_pos, old_end))
+  	{
+  	    do_include = TRUE;
+  	    curwin->w_cursor = old_start;
+*** ../vim-8.1.0289/src/testdir/test_textobjects.vim	2018-06-19 18:27:38.271694008 +0200
+--- src/testdir/test_textobjects.vim	2018-08-16 21:33:07.376701569 +0200
+***************
+*** 121,126 ****
+--- 121,143 ----
+    enew!
+  endfunc
+  
++ func Test_empty_html_tag()
++   new
++   call setline(1, '<div></div>')
++   normal 0citxxx
++   call assert_equal('<div>xxx</div>', getline(1))
++ 
++   call setline(1, '<div></div>')
++   normal 0f<cityyy
++   call assert_equal('<div>yyy</div>', getline(1))
++ 
++   call setline(1, '<div></div>')
++   normal 0f<vitsaaa
++   call assert_equal('aaa', getline(1))
++ 
++   bwipe!
++ endfunc
++ 
+  " Tests for match() and matchstr()
+  func Test_match()
+    call assert_equal("b", matchstr("abcd", ".", 0, 2))
+*** ../vim-8.1.0289/src/version.c	2018-08-15 22:29:46.977604162 +0200
+--- src/version.c	2018-08-16 21:34:22.102172128 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     290,
+  /**/
+
+-- 
+NEIL INNES PLAYED: THE FIRST SELF-DESTRUCTIVE MONK, ROBIN'S LEAST FAVORITE
+                   MINSTREL, THE PAGE CRUSHED BY A RABBIT, THE OWNER OF A DUCK
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

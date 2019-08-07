@@ -1,0 +1,220 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0058
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0058
+Problem:    Display problem with margins and scrolling.
+Solution:   Place the cursor in the right column. (Kouichi Iwamoto,
+            closes #3016)
+Files:	    src/screen.c
+
+
+*** ../vim-8.1.0057/src/screen.c	2018-06-16 15:32:34.460024472 +0200
+--- src/screen.c	2018-06-16 16:14:27.022630636 +0200
+***************
+*** 9797,9802 ****
+--- 9797,9803 ----
+      int		j;
+      unsigned	temp;
+      int		cursor_row;
++     int		cursor_col = 0;
+      int		type;
+      int		result_empty;
+      int		can_ce = can_clear(T_CE);
+***************
+*** 9893,9898 ****
+--- 9894,9902 ----
+      gui_dont_update_cursor(row + off <= gui.cursor_row);
+  #endif
+  
++     if (wp != NULL && wp->w_wincol != 0 && *T_CSV != NUL && *T_CCS == NUL)
++ 	cursor_col = wp->w_wincol;
++ 
+      if (*T_CCS != NUL)	   /* cursor relative to region */
+  	cursor_row = row;
+      else
+***************
+*** 9939,9945 ****
+      }
+  
+      screen_stop_highlight();
+!     windgoto(cursor_row, 0);
+      if (clear_attr != 0)
+  	screen_start_highlight(clear_attr);
+  
+--- 9943,9949 ----
+      }
+  
+      screen_stop_highlight();
+!     windgoto(cursor_row, cursor_col);
+      if (clear_attr != 0)
+  	screen_start_highlight(clear_attr);
+  
+***************
+*** 9958,9964 ****
+  	    if (type == USE_T_AL)
+  	    {
+  		if (i && cursor_row != 0)
+! 		    windgoto(cursor_row, 0);
+  		out_str(T_AL);
+  	    }
+  	    else  /* type == USE_T_SR */
+--- 9962,9968 ----
+  	    if (type == USE_T_AL)
+  	    {
+  		if (i && cursor_row != 0)
+! 		    windgoto(cursor_row, cursor_col);
+  		out_str(T_AL);
+  	    }
+  	    else  /* type == USE_T_SR */
+***************
+*** 9975,9981 ****
+      {
+  	for (i = 0; i < line_count; ++i)
+  	{
+! 	    windgoto(off + i, 0);
+  	    out_str(T_CE);
+  	    screen_start();	    /* don't know where cursor is now */
+  	}
+--- 9979,9985 ----
+      {
+  	for (i = 0; i < line_count; ++i)
+  	{
+! 	    windgoto(off + i, cursor_col);
+  	    out_str(T_CE);
+  	    screen_start();	    /* don't know where cursor is now */
+  	}
+***************
+*** 10011,10016 ****
+--- 10015,10021 ----
+      int		i;
+      unsigned	temp;
+      int		cursor_row;
++     int		cursor_col = 0;
+      int		cursor_end;
+      int		result_empty;	/* result is empty until end of region */
+      int		can_delete;	/* deleting line codes can be used */
+***************
+*** 10110,10115 ****
+--- 10115,10123 ----
+  						&& gui.cursor_row < end + off);
+  #endif
+  
++     if (wp != NULL && wp->w_wincol != 0 && *T_CSV != NUL && *T_CCS == NUL)
++ 	cursor_col = wp->w_wincol;
++ 
+      if (*T_CCS != NUL)	    /* cursor relative to region */
+      {
+  	cursor_row = row;
+***************
+*** 10172,10184 ****
+  	redraw_block(row, end, wp);
+      else if (type == USE_T_CD)	/* delete the lines */
+      {
+! 	windgoto(cursor_row, 0);
+  	out_str(T_CD);
+  	screen_start();			/* don't know where cursor is now */
+      }
+      else if (type == USE_T_CDL)
+      {
+! 	windgoto(cursor_row, 0);
+  	term_delete_lines(line_count);
+  	screen_start();			/* don't know where cursor is now */
+      }
+--- 10180,10192 ----
+  	redraw_block(row, end, wp);
+      else if (type == USE_T_CD)	/* delete the lines */
+      {
+! 	windgoto(cursor_row, cursor_col);
+  	out_str(T_CD);
+  	screen_start();			/* don't know where cursor is now */
+      }
+      else if (type == USE_T_CDL)
+      {
+! 	windgoto(cursor_row, cursor_col);
+  	term_delete_lines(line_count);
+  	screen_start();			/* don't know where cursor is now */
+      }
+***************
+*** 10189,10195 ****
+       */
+      else if (type == USE_NL)
+      {
+! 	windgoto(cursor_end - 1, 0);
+  	for (i = line_count; --i >= 0; )
+  	    out_char('\n');		/* cursor will remain on same line */
+      }
+--- 10197,10203 ----
+       */
+      else if (type == USE_NL)
+      {
+! 	windgoto(cursor_end - 1, cursor_col);
+  	for (i = line_count; --i >= 0; )
+  	    out_char('\n');		/* cursor will remain on same line */
+      }
+***************
+*** 10199,10210 ****
+  	{
+  	    if (type == USE_T_DL)
+  	    {
+! 		windgoto(cursor_row, 0);
+  		out_str(T_DL);		/* delete a line */
+  	    }
+  	    else /* type == USE_T_CE */
+  	    {
+! 		windgoto(cursor_row + i, 0);
+  		out_str(T_CE);		/* erase a line */
+  	    }
+  	    screen_start();		/* don't know where cursor is now */
+--- 10207,10218 ----
+  	{
+  	    if (type == USE_T_DL)
+  	    {
+! 		windgoto(cursor_row, cursor_col);
+  		out_str(T_DL);		/* delete a line */
+  	    }
+  	    else /* type == USE_T_CE */
+  	    {
+! 		windgoto(cursor_row + i, cursor_col);
+  		out_str(T_CE);		/* erase a line */
+  	    }
+  	    screen_start();		/* don't know where cursor is now */
+***************
+*** 10219,10225 ****
+      {
+  	for (i = line_count; i > 0; --i)
+  	{
+! 	    windgoto(cursor_end - i, 0);
+  	    out_str(T_CE);		/* erase a line */
+  	    screen_start();		/* don't know where cursor is now */
+  	}
+--- 10227,10233 ----
+      {
+  	for (i = line_count; i > 0; --i)
+  	{
+! 	    windgoto(cursor_end - i, cursor_col);
+  	    out_str(T_CE);		/* erase a line */
+  	    screen_start();		/* don't know where cursor is now */
+  	}
+*** ../vim-8.1.0057/src/version.c	2018-06-16 15:32:34.460024472 +0200
+--- src/version.c	2018-06-16 16:13:43.890855764 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     58,
+  /**/
+
+-- 
+Never go to the toilet in a paperless office.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

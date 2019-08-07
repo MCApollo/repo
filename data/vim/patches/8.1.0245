@@ -1,0 +1,114 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0245
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0245
+Problem:    Calling setline() in TextChangedI autocmd breaks undo. (Jason
+            Felice)
+Solution:   Don't save lines for undo when already saved. (closes #3291)
+Files:	    src/edit.c, src/testdir/test_autocmd.vim
+
+
+*** ../vim-8.1.0244/src/edit.c	2018-08-07 14:55:04.905259782 +0200
+--- src/edit.c	2018-08-07 18:26:35.026760346 +0200
+***************
+*** 1722,1732 ****
+--- 1722,1740 ----
+      {
+  	aco_save_T	aco;
+  
++ 	// Sync undo when the autocommand calls setline() or append(), so that
++ 	// it can be undone separately.
++ 	u_sync_once = 2;
++ 
+  	// save and restore curwin and curbuf, in case the autocmd changes them
+  	aucmd_prepbuf(&aco, curbuf);
+  	apply_autocmds(EVENT_TEXTCHANGEDI, NULL, NULL, FALSE, curbuf);
+  	aucmd_restbuf(&aco);
+  	curbuf->b_last_changedtick = CHANGEDTICK(curbuf);
++ 
++ 	if (u_sync_once == 1)
++ 	    ins_need_undo = TRUE;
++ 	u_sync_once = 0;
+      }
+  
+  #ifdef FEAT_INS_EXPAND
+*** ../vim-8.1.0244/src/testdir/test_autocmd.vim	2018-04-28 20:01:18.000000000 +0200
+--- src/testdir/test_autocmd.vim	2018-08-07 18:58:19.655939116 +0200
+***************
+*** 587,593 ****
+    " Cleanup
+    au! OptionSet
+    for opt in ['nu', 'ai', 'acd', 'ar', 'bs', 'backup', 'cul', 'cp']
+!     exe printf(":set %s&vi", opt)
+    endfor
+    call test_override('starting', 0)
+    delfunc! AutoCommandOptionSet
+--- 587,593 ----
+    " Cleanup
+    au! OptionSet
+    for opt in ['nu', 'ai', 'acd', 'ar', 'bs', 'backup', 'cul', 'cp']
+!     exe printf(":set %s&vim", opt)
+    endfor
+    call test_override('starting', 0)
+    delfunc! AutoCommandOptionSet
+***************
+*** 1313,1318 ****
+--- 1313,1343 ----
+    bw!
+  endfunc
+  
++ let g:setline_handled = v:false
++ func! SetLineOne()
++   if !g:setline_handled
++     call setline(1, "(x)")
++     let g:setline_handled = v:true
++   endif
++ endfunc
++ 
++ func Test_TextChangedI_with_setline()
++   new
++   call test_override('char_avail', 1)
++   autocmd TextChangedI <buffer> call SetLineOne()
++   call feedkeys("i(\<CR>\<Esc>", 'tx')
++   call assert_equal('(', getline(1))
++   call assert_equal('x)', getline(2))
++   undo
++   call assert_equal('(', getline(1))
++   call assert_equal('', getline(2))
++   undo
++   call assert_equal('', getline(1))
++ 
++   call test_override('starting', 0)
++   bwipe!
++ endfunc
++ 
+  func Test_Changed_FirstTime()
+    if !has('terminal') || has('gui_running')
+      return
+*** ../vim-8.1.0244/src/version.c	2018-08-07 17:38:36.995674625 +0200
+--- src/version.c	2018-08-07 19:04:25.389813721 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     245,
+  /**/
+
+-- 
+ARTHUR:   Ni!
+BEDEVERE: Nu!
+ARTHUR:   No.  Ni!  More like this. "Ni"!
+BEDEVERE: Ni, ni, ni!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

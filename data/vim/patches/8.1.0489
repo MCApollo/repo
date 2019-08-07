@@ -1,0 +1,198 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0489
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0489
+Problem:    Crash when autocmd clears vimpgrep location list.
+Solution:   Return from qf_jump_edit_buffer() early. (Yegappan Lakshmanan)
+Files:	    src/quickfix.c, src/testdir/test_quickfix.vim
+
+
+*** ../vim-8.1.0488/src/quickfix.c	2018-10-20 20:53:58.143284832 +0200
+--- src/quickfix.c	2018-10-21 18:43:52.324236213 +0200
+***************
+*** 2985,2990 ****
+--- 2985,2992 ----
+  {
+      qf_list_T	*qfl = &qi->qf_lists[qi->qf_curlist];
+      int		retval = OK;
++     int		old_qf_curlist = qi->qf_curlist;
++     int		save_qfid = qfl->qf_id;
+  
+      if (qf_ptr->qf_type == 1)
+      {
+***************
+*** 2993,3038 ****
+  	if (!can_abandon(curbuf, forceit))
+  	{
+  	    no_write_message();
+! 	    retval = FAIL;
+  	}
+! 	else
+! 	    retval = do_ecmd(qf_ptr->qf_fnum, NULL, NULL, NULL, (linenr_T)1,
+! 		    ECMD_HIDE + ECMD_SET_HELP,
+! 		    oldwin == curwin ? curwin : NULL);
+      }
+      else
+-     {
+- 	int old_qf_curlist = qi->qf_curlist;
+- 	int save_qfid = qfl->qf_id;
+- 
+  	retval = buflist_getfile(qf_ptr->qf_fnum,
+  		(linenr_T)1, GETF_SETMARK | GETF_SWITCH, forceit);
+  
+! 	if (IS_LL_STACK(qi))
+! 	{
+! 	    // Location list. Check whether the associated window is still
+! 	    // present and the list is still valid.
+! 	    if (!win_valid_any_tab(oldwin))
+! 	    {
+! 		EMSG(_("E924: Current window was closed"));
+! 		*opened_window = FALSE;
+! 		return NOTDONE;
+! 	    }
+! 	    else if (!qflist_valid(oldwin, save_qfid))
+! 	    {
+! 		EMSG(_(e_loc_list_changed));
+! 		return NOTDONE;
+! 	    }
+! 	}
+! 	else if (old_qf_curlist != qi->qf_curlist
+! 		|| !is_qf_entry_present(qfl, qf_ptr))
+! 	{
+! 	    if (IS_QF_STACK(qi))
+! 		EMSG(_("E925: Current quickfix was changed"));
+! 	    else
+! 		EMSG(_(e_loc_list_changed));
+! 	    return NOTDONE;
+! 	}
+      }
+  
+      return retval;
+--- 2995,3034 ----
+  	if (!can_abandon(curbuf, forceit))
+  	{
+  	    no_write_message();
+! 	    return FAIL;
+  	}
+! 
+! 	retval = do_ecmd(qf_ptr->qf_fnum, NULL, NULL, NULL, (linenr_T)1,
+! 		ECMD_HIDE + ECMD_SET_HELP,
+! 		oldwin == curwin ? curwin : NULL);
+      }
+      else
+  	retval = buflist_getfile(qf_ptr->qf_fnum,
+  		(linenr_T)1, GETF_SETMARK | GETF_SWITCH, forceit);
+  
+!     // If a location list, check whether the associated window is still
+!     // present.
+!     if (IS_LL_STACK(qi) && !win_valid_any_tab(oldwin))
+!     {
+! 	EMSG(_("E924: Current window was closed"));
+! 	*opened_window = FALSE;
+! 	return NOTDONE;
+!     }
+! 
+!     if (IS_QF_STACK(qi) && !qflist_valid(NULL, save_qfid))
+!     {
+! 	EMSG(_("E925: Current quickfix was changed"));
+! 	return NOTDONE;
+!     }
+! 
+!     if (old_qf_curlist != qi->qf_curlist
+! 	    || !is_qf_entry_present(qfl, qf_ptr))
+!     {
+! 	if (IS_QF_STACK(qi))
+! 	    EMSG(_("E925: Current quickfix was changed"));
+! 	else
+! 	    EMSG(_(e_loc_list_changed));
+! 	return NOTDONE;
+      }
+  
+      return retval;
+*** ../vim-8.1.0488/src/testdir/test_quickfix.vim	2018-10-20 20:53:58.147284793 +0200
+--- src/testdir/test_quickfix.vim	2018-10-21 18:32:08.845255919 +0200
+***************
+*** 3255,3260 ****
+--- 3255,3271 ----
+    augroup QF_Test
+      au!
+    augroup END
++ 
++   new | only
++   augroup QF_Test
++     au!
++     au BufEnter * call setloclist(0, [], 'r')
++   augroup END
++   call assert_fails('lvimgrep Test_lvimgrep_crash *', 'E926:')
++   augroup QF_Test
++     au!
++   augroup END
++ 
+    enew | only
+  endfunc
+  
+***************
+*** 3337,3342 ****
+--- 3348,3384 ----
+    call assert_equal('help', &filetype)
+    call assert_equal(1, getloclist(0, {'nr' : '$'}).nr)
+    au! QuickFixCmdPost
++ 
++   new | only
++   augroup QF_Test
++     au!
++     au BufEnter * call setqflist([], 'f')
++   augroup END
++   call assert_fails('helpgrep quickfix', 'E925:')
++   augroup QF_Test
++     au! BufEnter
++   augroup END
++ 
++   new | only
++   augroup QF_Test
++     au!
++     au BufEnter * call setqflist([], 'r')
++   augroup END
++   call assert_fails('helpgrep quickfix', 'E925:')
++   augroup QF_Test
++     au! BufEnter
++   augroup END
++ 
++   new | only
++   augroup QF_Test
++     au!
++     au BufEnter * call setloclist(0, [], 'r')
++   augroup END
++   call assert_fails('lhelpgrep quickfix', 'E926:')
++   augroup QF_Test
++     au! BufEnter
++   augroup END
++ 
+    new | only
+  endfunc
+  
+*** ../vim-8.1.0488/src/version.c	2018-10-20 20:53:58.147284793 +0200
+--- src/version.c	2018-10-21 18:39:57.093915160 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     489,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+247. You use www.switchboard.com instead of dialing 411 and 555-12-12
+     for directory assistance.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

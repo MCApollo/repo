@@ -1,0 +1,318 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0247
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0247
+Problem:    Python: error message for failing import is incorrect.
+Solution:   Adjust how modules are loaded. (Ozaki Kiichi, closes #3162)
+Files:	    src/if_py_both.h, src/testdir/test86.ok, src/testdir/test87.ok
+
+
+*** ../vim-8.1.0246/src/if_py_both.h	2018-07-25 22:02:32.231966301 +0200
+--- src/if_py_both.h	2018-08-07 19:38:33.041613725 +0200
+***************
+*** 544,570 ****
+  }
+  
+  #if PY_VERSION_HEX < 0x030700f0
+  typedef struct
+  {
+      PyObject_HEAD
+!     PyObject	*module;
+  } LoaderObject;
+  static PyTypeObject LoaderType;
+  
+      static void
+  LoaderDestructor(LoaderObject *self)
+  {
+!     Py_DECREF(self->module);
+      DESTRUCTOR_FINISH(self);
+  }
+  
+      static PyObject *
+  LoaderLoadModule(LoaderObject *self, PyObject *args UNUSED)
+  {
+!     PyObject	*ret = self->module;
+  
+!     Py_INCREF(ret);
+!     return ret;
+  }
+  
+  static struct PyMethodDef LoaderMethods[] = {
+--- 544,600 ----
+  }
+  
+  #if PY_VERSION_HEX < 0x030700f0
++ static PyObject *call_load_module(char *name, int len, PyObject *find_module_result);
++ 
+  typedef struct
+  {
+      PyObject_HEAD
+!     char	*fullname;
+!     PyObject	*result;
+  } LoaderObject;
+  static PyTypeObject LoaderType;
+  
+      static void
+  LoaderDestructor(LoaderObject *self)
+  {
+!     vim_free(self->fullname);
+!     Py_XDECREF(self->result);
+      DESTRUCTOR_FINISH(self);
+  }
+  
+      static PyObject *
+  LoaderLoadModule(LoaderObject *self, PyObject *args UNUSED)
+  {
+!     char	*fullname = self->fullname;
+!     PyObject	*result = self->result;
+!     PyObject	*module;
+  
+!     if (!fullname)
+!     {
+! 	module = result ? result : Py_None;
+! 	Py_INCREF(module);
+! 	return module;
+!     }
+! 
+!     module = call_load_module(fullname, (int)STRLEN(fullname), result);
+! 
+!     self->fullname = NULL;
+!     self->result = module;
+! 
+!     vim_free(fullname);
+!     Py_DECREF(result);
+! 
+!     if (!module)
+!     {
+! 	if (PyErr_Occurred())
+! 	    return NULL;
+! 
+! 	Py_INCREF(Py_None);
+! 	return Py_None;
+!     }
+! 
+!     Py_INCREF(module);
+!     return module;
+  }
+  
+  static struct PyMethodDef LoaderMethods[] = {
+***************
+*** 1252,1258 ****
+--- 1282,1292 ----
+  
+  	if (!(find_module_result = PyObject_CallFunction(py_find_module,
+  			"s#O", tail, partlen, new_path)))
++ 	{
++ 	    if (PyErr_Occurred() && PyErr_ExceptionMatches(PyExc_ImportError))
++ 		PyErr_Clear();
+  	    return NULL;
++ 	}
+  
+  	if (!(module = call_load_module(
+  			fullname,
+***************
+*** 1273,1302 ****
+  
+  	Py_DECREF(module);
+  
+! 	module = find_module(fullname, dot + 1, newest_path);
+  
+  	Py_DECREF(newest_path);
+  
+! 	return module;
+      }
+      else
+      {
+  	if (!(find_module_result = PyObject_CallFunction(py_find_module,
+  			"sO", tail, new_path)))
+- 	    return NULL;
+- 
+- 	if (!(module = call_load_module(
+- 			fullname,
+- 			(int)STRLEN(fullname),
+- 			find_module_result)))
+  	{
+! 	    Py_DECREF(find_module_result);
+  	    return NULL;
+  	}
+  
+! 	Py_DECREF(find_module_result);
+! 
+! 	return module;
+      }
+  }
+  
+--- 1307,1329 ----
+  
+  	Py_DECREF(module);
+  
+! 	find_module_result = find_module(fullname, dot + 1, newest_path);
+  
+  	Py_DECREF(newest_path);
+  
+! 	return find_module_result;
+      }
+      else
+      {
+  	if (!(find_module_result = PyObject_CallFunction(py_find_module,
+  			"sO", tail, new_path)))
+  	{
+! 	    if (PyErr_Occurred() && PyErr_ExceptionMatches(PyExc_ImportError))
+! 		PyErr_Clear();
+  	    return NULL;
+  	}
+  
+! 	return find_module_result;
+      }
+  }
+  
+***************
+*** 1304,1310 ****
+  FinderFindModule(PyObject *self, PyObject *args)
+  {
+      char	*fullname;
+!     PyObject	*module;
+      PyObject	*new_path;
+      LoaderObject	*loader;
+  
+--- 1331,1337 ----
+  FinderFindModule(PyObject *self, PyObject *args)
+  {
+      char	*fullname;
+!     PyObject	*result;
+      PyObject	*new_path;
+      LoaderObject	*loader;
+  
+***************
+*** 1314,1344 ****
+      if (!(new_path = Vim_GetPaths(self)))
+  	return NULL;
+  
+!     module = find_module(fullname, fullname, new_path);
+  
+      Py_DECREF(new_path);
+  
+!     if (!module)
+      {
+  	if (PyErr_Occurred())
+! 	{
+! 	    if (PyErr_ExceptionMatches(PyExc_ImportError))
+! 		PyErr_Clear();
+! 	    else
+! 		return NULL;
+! 	}
+  
+  	Py_INCREF(Py_None);
+  	return Py_None;
+      }
+  
+      if (!(loader = PyObject_NEW(LoaderObject, &LoaderType)))
+      {
+! 	Py_DECREF(module);
+  	return NULL;
+      }
+  
+!     loader->module = module;
+  
+      return (PyObject *) loader;
+  }
+--- 1341,1375 ----
+      if (!(new_path = Vim_GetPaths(self)))
+  	return NULL;
+  
+!     result = find_module(fullname, fullname, new_path);
+  
+      Py_DECREF(new_path);
+  
+!     if (!result)
+      {
+  	if (PyErr_Occurred())
+! 	    return NULL;
+  
+  	Py_INCREF(Py_None);
+  	return Py_None;
+      }
+  
++     if (!(fullname = (char *)vim_strsave((char_u *)fullname)))
++     {
++ 	Py_DECREF(result);
++ 	PyErr_NoMemory();
++ 	return NULL;
++     }
++ 
+      if (!(loader = PyObject_NEW(LoaderObject, &LoaderType)))
+      {
+! 	vim_free(fullname);
+! 	Py_DECREF(result);
+  	return NULL;
+      }
+  
+!     loader->fullname = fullname;
+!     loader->result = result;
+  
+      return (PyObject *) loader;
+  }
+*** ../vim-8.1.0246/src/testdir/test86.ok	2018-06-10 13:55:48.527949068 +0200
+--- src/testdir/test86.ok	2018-08-07 19:38:33.041613725 +0200
+***************
+*** 701,707 ****
+  vim.foreach_rtp(int, 2):TypeError:('foreach_rtp() takes exactly one argument (2 given)',)
+  > import
+  import xxx_no_such_module_xxx:ImportError:('No module named xxx_no_such_module_xxx',)
+! import failing_import:ImportError:('No module named failing_import',)
+  import failing:NotImplementedError:()
+  > Options
+  >> OptionsItem
+--- 701,707 ----
+  vim.foreach_rtp(int, 2):TypeError:('foreach_rtp() takes exactly one argument (2 given)',)
+  > import
+  import xxx_no_such_module_xxx:ImportError:('No module named xxx_no_such_module_xxx',)
+! import failing_import:ImportError:()
+  import failing:NotImplementedError:()
+  > Options
+  >> OptionsItem
+*** ../vim-8.1.0246/src/testdir/test87.ok	2018-06-10 13:55:48.527949068 +0200
+--- src/testdir/test87.ok	2018-08-07 19:38:33.045613701 +0200
+***************
+*** 701,707 ****
+  vim.foreach_rtp(int, 2):(<class 'TypeError'>, TypeError('foreach_rtp() takes exactly one argument (2 given)',))
+  > import
+  import xxx_no_such_module_xxx:(<class 'ImportError'>, ImportError('No module named xxx_no_such_module_xxx',))
+! import failing_import:(<class 'ImportError'>, ImportError('No module named failing_import',))
+  import failing:(<class 'NotImplementedError'>, NotImplementedError())
+  > Options
+  >> OptionsItem
+--- 701,707 ----
+  vim.foreach_rtp(int, 2):(<class 'TypeError'>, TypeError('foreach_rtp() takes exactly one argument (2 given)',))
+  > import
+  import xxx_no_such_module_xxx:(<class 'ImportError'>, ImportError('No module named xxx_no_such_module_xxx',))
+! import failing_import:(<class 'ImportError'>, ImportError())
+  import failing:(<class 'NotImplementedError'>, NotImplementedError())
+  > Options
+  >> OptionsItem
+*** ../vim-8.1.0246/src/version.c	2018-08-07 19:32:48.371651690 +0200
+--- src/version.c	2018-08-07 19:41:29.784569837 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     247,
+  /**/
+
+-- 
+ARTHUR: Did you say shrubberies?
+ROGER:  Yes.  Shrubberies are my trade.  I am a shrubber.  My name is Roger
+        the Shrubber.  I arrange, design, and sell shrubberies.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

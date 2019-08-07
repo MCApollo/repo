@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0117
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0117
+Problem:    URL in install program still points to SourceForge.
+Solution:   Change it to www.vim.org. (closes #3100)
+Files:	    src/dosinst.c
+
+
+*** ../vim-8.1.0116/src/dosinst.c	2018-05-11 19:52:42.000000000 +0200
+--- src/dosinst.c	2018-06-26 23:09:12.956537417 +0200
+***************
+*** 1878,1884 ****
+  	add_pathsep(shell_folder_path);
+  	strcat(shell_folder_path, "Vim Online.url");
+  	if (!WritePrivateProfileString("InternetShortcut", "URL",
+! 				     "http://vim.sf.net/", shell_folder_path))
+  	{
+  	    printf("Creating the Vim online URL failed\n");
+  	    return;
+--- 1878,1884 ----
+  	add_pathsep(shell_folder_path);
+  	strcat(shell_folder_path, "Vim Online.url");
+  	if (!WritePrivateProfileString("InternetShortcut", "URL",
+! 				    "https://www.vim.org/", shell_folder_path))
+  	{
+  	    printf("Creating the Vim online URL failed\n");
+  	    return;
+*** ../vim-8.1.0116/src/version.c	2018-06-25 21:24:47.288934354 +0200
+--- src/version.c	2018-06-26 23:09:53.416289165 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     117,
+  /**/
+
+-- 
+An actual excerpt from a classified section of a city newspaper:
+"Illiterate?  Write today for free help!"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

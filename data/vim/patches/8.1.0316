@@ -1,0 +1,61 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0316
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0316
+Problem:    swapinfo() test fails on Travis.
+Solution:   Handle a long host name. (Ozaki Kiichi, closes #3361)
+            Also make the version check flexible. (James McCoy)
+Files:	    src/testdir/test_swap.vim
+
+
+*** ../vim-8.1.0315/src/testdir/test_swap.vim	2018-08-21 21:09:02.598739663 +0200
+--- src/testdir/test_swap.vim	2018-08-22 11:25:49.275645594 +0200
+***************
+*** 105,113 ****
+    let fname = trim(execute('swapname'))
+    call assert_match('Xswapinfo', fname)
+    let info = swapinfo(fname)
+!   call assert_match('8\.', info.version)
+    call assert_match('\w', info.user)
+!   call assert_equal(hostname(), info.host)
+    call assert_match('Xswapinfo', info.fname)
+    call assert_match(0, info.dirty)
+    call assert_equal(getpid(), info.pid)
+--- 105,117 ----
+    let fname = trim(execute('swapname'))
+    call assert_match('Xswapinfo', fname)
+    let info = swapinfo(fname)
+! 
+!   let ver = printf('VIM %d.%d', v:version / 100, v:version % 100)
+!   call assert_equal(ver, info.version)
+! 
+    call assert_match('\w', info.user)
+!   " host name is truncated to 39 bytes in the swap file
+!   call assert_equal(hostname()[:38], info.host)
+    call assert_match('Xswapinfo', info.fname)
+    call assert_match(0, info.dirty)
+    call assert_equal(getpid(), info.pid)
+*** ../vim-8.1.0315/src/version.c	2018-08-21 21:58:09.528674683 +0200
+--- src/version.c	2018-08-22 11:23:44.476323657 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     316,
+  /**/
+
+-- 
+ARTHUR: What are you going to do. bleed on me?
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

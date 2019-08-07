@@ -1,0 +1,423 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0542
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0542
+Problem:    shiftwidth() does not take 'vartabstop' into account.
+Solution:   Use the cursor position or a position explicitly passed.
+            Also make >> and << work better with 'vartabstop'. (Christian
+            Brabandt)
+Files:	    runtime/doc/change.txt, runtime/doc/eval.txt, src/edit.c,
+            src/evalfunc.c, src/normal.c, src/ops.c, src/option.c,
+            src/proto/edit.pro, src/proto/option.pro,
+            src/testdir/test_vartabs.vim
+
+*** ../vim-8.1.0541/runtime/doc/change.txt	2018-07-29 16:09:14.628945654 +0200
+--- runtime/doc/change.txt	2018-11-22 02:13:49.924044656 +0100
+***************
+*** 476,481 ****
+--- 476,485 ----
+  							*<*
+  <{motion}		Shift {motion} lines one 'shiftwidth' leftwards.
+  
++ 			If the 'vartabstop' feature is enabled, and the
++ 			'shiftwidth' option is set to zero, the amount of
++ 			indent is calculated at the first non-blank character
++ 			in the line.
+  							*<<*
+  <<			Shift [count] lines one 'shiftwidth' leftwards.
+  
+***************
+*** 487,492 ****
+--- 491,500 ----
+  							*>*
+   >{motion}		Shift {motion} lines one 'shiftwidth' rightwards.
+  
++ 			If the 'vartabstop' feature is enabled, and the
++ 			'shiftwidth' option is set to zero, the amount of
++ 			indent is calculated at the first non-blank character
++ 			in the line.
+  							*>>*
+   >>			Shift [count] lines one 'shiftwidth' rightwards.
+  
+***************
+*** 708,713 ****
+--- 716,722 ----
+  	search pattern.
+  	{not in Vi: highlighting of the match, other responses than 'y' or 'n'}
+  
++ 							*:s_e*
+  [e]     When the search pattern fails, do not issue an error message and, in
+  	particular, continue in maps as if no error occurred.  This is most
+  	useful to prevent the "No match" error from breaking a mapping.  Vim
+***************
+*** 719,724 ****
+--- 728,734 ----
+  		Interrupted
+  	{not in Vi}
+  
++ 							*:s_g*
+  [g]	Replace all occurrences in the line.  Without this argument,
+  	replacement occurs only for the first occurrence in each line.  If
+  	the 'edcompatible' option is on, Vim remembers this flag and toggles
+*** ../vim-8.1.0541/runtime/doc/eval.txt	2018-11-11 15:20:32.432704446 +0100
+--- runtime/doc/eval.txt	2018-11-22 02:20:01.809633383 +0100
+***************
+*** 2379,2385 ****
+  shellescape({string} [, {special}])
+  				String	escape {string} for use as shell
+  					command argument
+! shiftwidth()			Number	effective value of 'shiftwidth'
+  simplify({filename})		String	simplify filename as much as possible
+  sin({expr})			Float	sine of {expr}
+  sinh({expr})			Float	hyperbolic sine of {expr}
+--- 2385,2391 ----
+  shellescape({string} [, {special}])
+  				String	escape {string} for use as shell
+  					command argument
+! shiftwidth([{col}])		Number	effective value of 'shiftwidth'
+  simplify({filename})		String	simplify filename as much as possible
+  sin({expr})			Float	sine of {expr}
+  sinh({expr})			Float	hyperbolic sine of {expr}
+***************
+*** 7629,7639 ****
+  <		See also |::S|.
+  
+  
+! shiftwidth()						*shiftwidth()*
+  		Returns the effective value of 'shiftwidth'. This is the
+  		'shiftwidth' value unless it is zero, in which case it is the
+  		'tabstop' value.  This function was introduced with patch
+! 		7.3.694 in 2012, everybody should have it by now.
+  
+  
+  simplify({filename})					*simplify()*
+--- 7638,7654 ----
+  <		See also |::S|.
+  
+  
+! shiftwidth([{col}])						*shiftwidth()*
+  		Returns the effective value of 'shiftwidth'. This is the
+  		'shiftwidth' value unless it is zero, in which case it is the
+  		'tabstop' value.  This function was introduced with patch
+! 		7.3.694 in 2012, everybody should have it by now (however it
+! 		did not allow for the optional {col} argument until 8.1.542).
+! 
+! 		When there is one argument {col} this is used as column number
+! 		for which to return the 'shiftwidth' value. This matters for the
+! 		'vartabstop' feature. If the 'vartabstop' setting is enabled and
+! 		no {col} argument is given, column 1 will be assumed.
+  
+  
+  simplify({filename})					*simplify()*
+*** ../vim-8.1.0541/src/edit.c	2018-11-02 11:59:11.555438565 +0100
+--- src/edit.c	2018-11-22 02:21:29.857045389 +0100
+***************
+*** 262,268 ****
+  #ifdef FEAT_SMARTINDENT
+  static void ins_try_si(int c);
+  #endif
+- static colnr_T get_nolist_virtcol(void);
+  #if defined(FEAT_EVAL)
+  static char_u *do_insert_char_pre(int c);
+  #endif
+--- 262,267 ----
+***************
+*** 10681,10689 ****
+   * Get the value that w_virtcol would have when 'list' is off.
+   * Unless 'cpo' contains the 'L' flag.
+   */
+!     static colnr_T
+  get_nolist_virtcol(void)
+  {
+      if (curwin->w_p_list && vim_strchr(p_cpo, CPO_LISTWM) == NULL)
+  	return getvcol_nolist(&curwin->w_cursor);
+      validate_virtcol();
+--- 10680,10693 ----
+   * Get the value that w_virtcol would have when 'list' is off.
+   * Unless 'cpo' contains the 'L' flag.
+   */
+!     colnr_T
+  get_nolist_virtcol(void)
+  {
++     // check validity of cursor in current buffer
++     if (curwin->w_buffer == NULL
++ 	|| curwin->w_buffer->b_ml.ml_mfp == NULL
++ 	|| curwin->w_cursor.lnum > curwin->w_buffer->b_ml.ml_line_count)
++ 	return 0;
+      if (curwin->w_p_list && vim_strchr(p_cpo, CPO_LISTWM) == NULL)
+  	return getvcol_nolist(&curwin->w_cursor);
+      validate_virtcol();
+*** ../vim-8.1.0541/src/evalfunc.c	2018-11-11 21:22:53.649977524 +0100
+--- src/evalfunc.c	2018-11-22 02:23:21.876290935 +0100
+***************
+*** 835,841 ****
+      {"sha256",		1, 1, f_sha256},
+  #endif
+      {"shellescape",	1, 2, f_shellescape},
+!     {"shiftwidth",	0, 0, f_shiftwidth},
+      {"simplify",	1, 1, f_simplify},
+  #ifdef FEAT_FLOAT
+      {"sin",		1, 1, f_sin},
+--- 835,841 ----
+      {"sha256",		1, 1, f_sha256},
+  #endif
+      {"shellescape",	1, 2, f_shellescape},
+!     {"shiftwidth",	0, 1, f_shiftwidth},
+      {"simplify",	1, 1, f_simplify},
+  #ifdef FEAT_FLOAT
+      {"sin",		1, 1, f_sin},
+***************
+*** 11241,11246 ****
+--- 11241,11261 ----
+      static void
+  f_shiftwidth(typval_T *argvars UNUSED, typval_T *rettv)
+  {
++     rettv->vval.v_number = 0;
++ 
++     if (argvars[0].v_type != VAR_UNKNOWN)
++     {
++ 	long	col;
++ 
++ 	col = (long)get_tv_number_chk(argvars, NULL);
++ 	if (col < 0)
++ 	    return;	// type error; errmsg already given
++ #ifdef FEAT_VARTABS
++ 	rettv->vval.v_number = get_sw_value_col(curbuf, col);
++ 	return;
++ #endif
++     }
++ 
+      rettv->vval.v_number = get_sw_value(curbuf);
+  }
+  
+*** ../vim-8.1.0541/src/normal.c	2018-11-10 16:01:23.331381891 +0100
+--- src/normal.c	2018-11-22 02:24:26.215854890 +0100
+***************
+*** 8143,8148 ****
+--- 8143,8149 ----
+  	    do
+  		i = gchar_cursor();
+  	    while (VIM_ISWHITE(i) && oneright() == OK);
++ 	    curwin->w_valid &= ~VALID_WCOL;
+  	}
+  	curwin->w_set_curswant = TRUE;
+  	break;
+*** ../vim-8.1.0541/src/ops.c	2018-11-16 20:54:27.053554626 +0100
+--- src/ops.c	2018-11-22 02:51:34.899814809 +0100
+***************
+*** 334,340 ****
+  {
+      int		count;
+      int		i, j;
+!     int		p_sw = (int)get_sw_value(curbuf);
+  
+      count = get_indent();	/* get current indent */
+  
+--- 334,340 ----
+  {
+      int		count;
+      int		i, j;
+!     int		p_sw = (int)get_sw_value_indent(curbuf);
+  
+      count = get_indent();	/* get current indent */
+  
+***************
+*** 386,392 ****
+      int			total;
+      char_u		*newp, *oldp;
+      int			oldcol = curwin->w_cursor.col;
+!     int			p_sw = (int)get_sw_value(curbuf);
+  #ifdef FEAT_VARTABS
+      int			*p_vts = curbuf->b_p_vts_array;
+  #endif
+--- 386,392 ----
+      int			total;
+      char_u		*newp, *oldp;
+      int			oldcol = curwin->w_cursor.col;
+!     int			p_sw = (int)get_sw_value_indent(curbuf);
+  #ifdef FEAT_VARTABS
+      int			*p_vts = curbuf->b_p_vts_array;
+  #endif
+*** ../vim-8.1.0541/src/option.c	2018-11-20 14:25:43.480880171 +0100
+--- src/option.c	2018-11-22 02:52:47.875239563 +0100
+***************
+*** 13113,13119 ****
+      long
+  get_sw_value(buf_T *buf)
+  {
+!     return buf->b_p_sw ? buf->b_p_sw : buf->b_p_ts;
+  }
+  
+  /*
+--- 13113,13160 ----
+      long
+  get_sw_value(buf_T *buf)
+  {
+!     return get_sw_value_col(buf, 0);
+! }
+! 
+! /*
+!  * Idem, using the first non-black in the current line.
+!  */
+!     long
+! get_sw_value_indent(buf_T *buf)
+! {
+!     pos_T pos = curwin->w_cursor;
+! 
+!     pos.col = getwhitecols_curline();
+!     return get_sw_value_pos(buf, &pos);
+! }
+! 
+! /*
+!  * Idem, using "pos".
+!  */
+!     long
+! get_sw_value_pos(buf_T *buf, pos_T *pos)
+! {
+!     pos_T save_cursor = curwin->w_cursor;
+!     long sw_value;
+! 
+!     curwin->w_cursor = *pos;
+!     sw_value = get_sw_value_col(buf, get_nolist_virtcol());
+!     curwin->w_cursor = save_cursor;
+!     return sw_value;
+! }
+! 
+! /*
+!  * Idem, using virtual column "col".
+!  */
+!     long
+! get_sw_value_col(buf_T *buf, colnr_T col UNUSED)
+! {
+!     return buf->b_p_sw ? buf->b_p_sw :
+!  #ifdef FEAT_VARTABS
+! 	tabstop_at(col, buf->b_p_ts, buf->b_p_vts_array);
+!  #else
+! 	buf->b_p_ts;
+!  #endif
+  }
+  
+  /*
+*** ../vim-8.1.0541/src/proto/edit.pro	2018-06-03 14:42:17.848505102 +0200
+--- src/proto/edit.pro	2018-11-22 02:27:22.574651476 +0100
+***************
+*** 46,49 ****
+--- 46,50 ----
+  void ins_scroll(void);
+  void ins_horscroll(void);
+  int ins_copychar(linenr_T lnum);
++ colnr_T get_nolist_virtcol(void);
+  /* vim: set ft=c : */
+*** ../vim-8.1.0541/src/proto/option.pro	2018-10-02 14:45:07.023652468 +0200
+--- src/proto/option.pro	2018-11-22 02:51:41.159765202 +0100
+***************
+*** 72,77 ****
+--- 72,80 ----
+  int tabstop_count(int *ts);
+  int tabstop_first(int *ts);
+  long get_sw_value(buf_T *buf);
++ long get_sw_value_indent(buf_T *buf);
++ long get_sw_value_pos(buf_T *buf, pos_T *pos);
++ long get_sw_value_col(buf_T *buf, colnr_T col);
+  long get_sts_value(void);
+  void find_mps_values(int *initc, int *findc, int *backwards, int switchit);
+  unsigned int get_bkc_value(buf_T *buf);
+*** ../vim-8.1.0541/src/testdir/test_vartabs.vim	2018-10-15 22:51:46.744578471 +0200
+--- src/testdir/test_vartabs.vim	2018-11-22 02:54:38.198381540 +0100
+***************
+*** 297,302 ****
+--- 297,367 ----
+    set nolist listchars&vim
+  endfunc
+  
++ func Test_vartabs_shiftwidth()
++   "return
++   if winwidth(0) < 40
++     return
++   endif
++   new
++   40vnew
++   %d
++ "  setl varsofttabstop=10,20,30,40
++   setl shiftwidth=0 vartabstop=10,20,30,40
++   call setline(1, "x")
++ 
++   " Check without any change.
++   let expect = ['x                                       ']
++   let lines = ScreenLines(1, winwidth(0))
++   call s:compare_lines(expect, lines)
++   " Test 1:
++   " shiftwidth depends on the indent, first check with cursor at the end of the
++   " line (which is the same as the start of the line, since there is only one
++   " character).
++   norm! $>>
++   let expect1 = ['          x                             ']
++   let lines = ScreenLines(1, winwidth(0))
++   call s:compare_lines(expect1, lines)
++   call assert_equal(10, shiftwidth())
++   call assert_equal(10, shiftwidth(1))
++   call assert_equal(20, shiftwidth(virtcol('.')))
++   norm! $>>
++   let expect2 = ['                              x         ', '~                                       ']
++   let lines = ScreenLines([1, 2], winwidth(0))
++   call s:compare_lines(expect2, lines)
++   call assert_equal(20, shiftwidth(virtcol('.')-2))
++   call assert_equal(30, shiftwidth(virtcol('.')))
++   norm! $>>
++   let expect3 = ['                                        ', '                    x                   ', '~                                       ']
++   let lines = ScreenLines([1, 3], winwidth(0))
++   call s:compare_lines(expect3, lines)
++   call assert_equal(30, shiftwidth(virtcol('.')-2))
++   call assert_equal(40, shiftwidth(virtcol('.')))
++   norm! $>>
++   let expect4 = ['                                        ', '                                        ', '                    x                   ']
++   let lines = ScreenLines([1, 3], winwidth(0))
++   call assert_equal(40, shiftwidth(virtcol('.')))
++   call s:compare_lines(expect4, lines)
++ 
++   " Test 2: Put the cursor at the first column, result should be the same
++   call setline(1, "x")
++   norm! 0>>
++   let lines = ScreenLines(1, winwidth(0))
++   call s:compare_lines(expect1, lines)
++   norm! 0>>
++   let lines = ScreenLines([1, 2], winwidth(0))
++   call s:compare_lines(expect2, lines)
++   norm! 0>>
++   let lines = ScreenLines([1, 3], winwidth(0))
++   call s:compare_lines(expect3, lines)
++   norm! 0>>
++   let lines = ScreenLines([1, 3], winwidth(0))
++   call s:compare_lines(expect4, lines)
++ 
++   " cleanup
++   bw!
++   bw!
++ endfunc
++ 
+  func Test_vartabs_failures()
+    call assert_fails('set vts=8,')
+    call assert_fails('set vsts=8,')
+*** ../vim-8.1.0541/src/version.c	2018-11-21 13:58:27.092110956 +0100
+--- src/version.c	2018-11-22 02:19:24.593880355 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     542,
+  /**/
+
+-- 
+I wonder, do vegetarians eat fruit bats?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,83 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0209
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0209
+Problem:    Stderr output from Ruby messes up display.
+Solution:   Turn the stderr output into a Vim message. (Masataka Pocke
+            Kuwabara, closes #3238)
+Files:      src/if_ruby.c
+
+
+*** ../vim-8.1.0208/src/if_ruby.c	2018-05-17 13:07:54.000000000 +0200
+--- src/if_ruby.c	2018-07-24 05:32:31.520411688 +0200
+***************
+*** 232,237 ****
+--- 232,238 ----
+  # define rb_define_singleton_method	dll_rb_define_singleton_method
+  # define rb_define_virtual_variable	dll_rb_define_virtual_variable
+  # define rb_stdout			(*dll_rb_stdout)
++ # define rb_stderr			(*dll_rb_stderr)
+  # define rb_eArgError			(*dll_rb_eArgError)
+  # define rb_eIndexError			(*dll_rb_eIndexError)
+  # define rb_eRuntimeError		(*dll_rb_eRuntimeError)
+***************
+*** 360,365 ****
+--- 361,367 ----
+  static void (*dll_rb_define_singleton_method) (VALUE,const char*,VALUE(*)(),int);
+  static void (*dll_rb_define_virtual_variable) (const char*,VALUE(*)(),void(*)());
+  static VALUE *dll_rb_stdout;
++ static VALUE *dll_rb_stderr;
+  static VALUE *dll_rb_eArgError;
+  static VALUE *dll_rb_eIndexError;
+  static VALUE *dll_rb_eRuntimeError;
+***************
+*** 553,558 ****
+--- 555,561 ----
+      {"rb_define_singleton_method", (RUBY_PROC*)&dll_rb_define_singleton_method},
+      {"rb_define_virtual_variable", (RUBY_PROC*)&dll_rb_define_virtual_variable},
+      {"rb_stdout", (RUBY_PROC*)&dll_rb_stdout},
++     {"rb_stderr", (RUBY_PROC*)&dll_rb_stderr},
+      {"rb_eArgError", (RUBY_PROC*)&dll_rb_eArgError},
+      {"rb_eIndexError", (RUBY_PROC*)&dll_rb_eIndexError},
+      {"rb_eRuntimeError", (RUBY_PROC*)&dll_rb_eRuntimeError},
+***************
+*** 1542,1552 ****
+--- 1545,1559 ----
+  {
+  #ifndef DYNAMIC_RUBY
+      RUBYEXTERN VALUE rb_stdout;
++     RUBYEXTERN VALUE rb_stderr;
+  #endif
+  
+      rb_stdout = rb_obj_alloc(rb_cObject);
++     rb_stderr = rb_obj_alloc(rb_cObject);
+      rb_define_singleton_method(rb_stdout, "write", vim_message, 1);
+      rb_define_singleton_method(rb_stdout, "flush", f_nop, 0);
++     rb_define_singleton_method(rb_stderr, "write", vim_message, 1);
++     rb_define_singleton_method(rb_stderr, "flush", f_nop, 0);
+      rb_define_global_function("p", f_p, -1);
+  }
+  
+*** ../vim-8.1.0208/src/version.c	2018-07-24 04:51:15.698271642 +0200
+--- src/version.c	2018-07-24 05:33:59.439933605 +0200
+***************
+*** 795,796 ****
+--- 795,798 ----
+  {   /* Add new patch number below this line */
++ /**/
++     209,
+  /**/
+
+-- 
+Back up my hard drive?  I can't find the reverse switch!
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

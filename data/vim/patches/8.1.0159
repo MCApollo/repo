@@ -1,0 +1,77 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0159
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0159
+Problem:    Completion for user names does not work if a prefix is also a full
+            matching name. (Nazri Ramliy)
+Solution:   Accept both full and partial matches. (Dominique Pelle)
+Files:	    src/misc1.c, src/ex_docmd.c
+
+
+*** ../vim-8.1.0158/src/misc1.c	2018-06-23 19:22:45.610486284 +0200
+--- src/misc1.c	2018-07-07 16:35:08.759245918 +0200
+***************
+*** 4827,4833 ****
+   * 1 if name partially matches the beginning of a user name.
+   * 2 is name fully matches a user name.
+   */
+! int match_user(char_u* name)
+  {
+      int i;
+      int n = (int)STRLEN(name);
+--- 4827,4834 ----
+   * 1 if name partially matches the beginning of a user name.
+   * 2 is name fully matches a user name.
+   */
+!     int
+! match_user(char_u *name)
+  {
+      int i;
+      int n = (int)STRLEN(name);
+*** ../vim-8.1.0158/src/ex_docmd.c	2018-07-07 16:18:09.345159549 +0200
+--- src/ex_docmd.c	2018-07-07 16:36:53.494751472 +0200
+***************
+*** 3764,3770 ****
+  	     * A full match ~user<Tab> will be replaced by user's home
+  	     * directory i.e. something like ~user<Tab> -> /home/user/ */
+  	    if (*p == NUL && p > xp->xp_pattern + 1
+! 				       && match_user(xp->xp_pattern + 1) == 1)
+  	    {
+  		xp->xp_context = EXPAND_USER;
+  		++xp->xp_pattern;
+--- 3764,3770 ----
+  	     * A full match ~user<Tab> will be replaced by user's home
+  	     * directory i.e. something like ~user<Tab> -> /home/user/ */
+  	    if (*p == NUL && p > xp->xp_pattern + 1
+! 				       && match_user(xp->xp_pattern + 1) >= 1)
+  	    {
+  		xp->xp_context = EXPAND_USER;
+  		++xp->xp_pattern;
+*** ../vim-8.1.0158/src/version.c	2018-07-07 16:18:09.349159526 +0200
+--- src/version.c	2018-07-07 16:40:39.866042630 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     159,
+  /**/
+
+-- 
+Some of the well known MS-Windows errors:
+	ETIME		Wrong time, wait a little while
+	ECRASH		Try again...
+	EDETECT		Unable to detect errors
+	EOVER		You lost!  Play another game?
+	ENOCLUE		Eh, what did you want?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,13 @@
+--- p7zip_16.02/makefile.macosx_gcc_64bits	2015-01-11 06:34:26.000000000 -1000
++++ p7zip_16.02+iPhone/makefile.macosx_gcc_64bits	2018-08-03 21:29:16.000000000 -1000
+@@ -9,8 +9,8 @@
+ 	-D_REENTRANT -DENV_UNIX \
+ 	$(LOCAL_FLAGS)
+ 
+-CXX=c++
+-CC=cc
++CXX=$${PKG_TARG}-g++
++CC=$${PKG_TARG}-gcc
+ LINK_SHARED=-bundle
+ 
+ LOCAL_LIBS=-framework CoreFoundation

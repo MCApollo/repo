@@ -1,0 +1,84 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0002
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0002
+Problem:    :stopinsert changes the message position.
+Solution:   Save and restore msg_col and msg_row in clearmode(). (Jason
+            Franklin)
+Files:	    src/screen.c, src/testdir/test_messages.vim
+
+
+*** ../vim-8.1.0001/src/screen.c	2018-05-11 21:59:36.000000000 +0200
+--- src/screen.c	2018-05-19 14:33:04.359236642 +0200
+***************
+*** 10485,10494 ****
+--- 10485,10500 ----
+      void
+  clearmode(void)
+  {
++     int save_msg_row = msg_row;
++     int save_msg_col = msg_col;
++ 
+      msg_pos_mode();
+      if (Recording)
+  	recording_mode(HL_ATTR(HLF_CM));
+      msg_clr_eos();
++ 
++     msg_col = save_msg_col;
++     msg_row = save_msg_row;
+  }
+  
+      static void
+*** ../vim-8.1.0001/src/testdir/test_messages.vim	2017-03-16 18:28:30.000000000 +0100
+--- src/testdir/test_messages.vim	2018-05-19 14:23:02.298669402 +0200
+***************
+*** 38,40 ****
+--- 38,61 ----
+      let &more = oldmore
+    endtry
+  endfunction
++ 
++ " Patch 7.4.1696 defined the "clearmode()" command for clearing the mode
++ " indicator (e.g., "-- INSERT --") when ":stopinsert" is invoked.  Message
++ " output could then be disturbed when 'cmdheight' was greater than one.
++ " This test ensures that the bugfix for this issue remains in place.
++ function! Test_stopinsert_does_not_break_message_output()
++   set cmdheight=2
++   redraw!
++ 
++   stopinsert | echo 'test echo'
++   call assert_equal(116, screenchar(&lines - 1, 1))
++   call assert_equal(32, screenchar(&lines, 1))
++   redraw!
++ 
++   stopinsert | echomsg 'test echomsg'
++   call assert_equal(116, screenchar(&lines - 1, 1))
++   call assert_equal(32, screenchar(&lines, 1))
++   redraw!
++ 
++   set cmdheight&
++ endfunction
+*** ../vim-8.1.0001/src/version.c	2018-05-17 23:34:37.427631392 +0200
+--- src/version.c	2018-05-19 14:24:40.646043654 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     2,
+  /**/
+
+-- 
+Wi n0t trei a h0liday in Sweden thi yer?
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

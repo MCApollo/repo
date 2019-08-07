@@ -1,0 +1,121 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0468
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0468
+Problem:    MS-Windows: Filter command with pipe character fails. (Johannes
+            Riecken)
+Solution:   Find the pipe character outside of quotes. (Yasuhiro Matsumoto,
+            closes #1743, closes #3523)
+Files:	    src/ex_cmds.c, src/testdir/test_filter_cmd.vim
+
+
+*** ../vim-8.1.0467/src/ex_cmds.c	2018-09-30 21:43:17.183693376 +0200
+--- src/ex_cmds.c	2018-10-09 21:46:24.968689863 +0200
+***************
+*** 1676,1681 ****
+--- 1676,1701 ----
+      apply_autocmds(EVENT_SHELLCMDPOST, NULL, NULL, FALSE, curbuf);
+  }
+  
++ #if !defined(UNIX)
++     static char_u *
++ find_pipe(char_u *cmd)
++ {
++     char_u  *p;
++     int	    inquote = FALSE;
++ 
++     for (p = cmd; *p != NUL; ++p)
++     {
++ 	if (!inquote && *p == '|')
++ 	    return p;
++ 	if (*p == '"')
++ 	    inquote = !inquote;
++ 	else if (rem_backslash(p))
++ 	    ++p;
++     }
++     return NULL;
++ }
++ #endif
++ 
+  /*
+   * Create a shell command from a command string, input redirection file and
+   * output redirection file.
+***************
+*** 1746,1752 ****
+  	 */
+  	if (*p_shq == NUL)
+  	{
+! 	    p = vim_strchr(buf, '|');
+  	    if (p != NULL)
+  		*p = NUL;
+  	}
+--- 1766,1772 ----
+  	 */
+  	if (*p_shq == NUL)
+  	{
+! 	    p = find_pipe(buf);
+  	    if (p != NULL)
+  		*p = NUL;
+  	}
+***************
+*** 1754,1760 ****
+  	STRCAT(buf, itmp);
+  	if (*p_shq == NUL)
+  	{
+! 	    p = vim_strchr(cmd, '|');
+  	    if (p != NULL)
+  	    {
+  		STRCAT(buf, " ");   /* insert a space before the '|' for DOS */
+--- 1774,1780 ----
+  	STRCAT(buf, itmp);
+  	if (*p_shq == NUL)
+  	{
+! 	    p = find_pipe(cmd);
+  	    if (p != NULL)
+  	    {
+  		STRCAT(buf, " ");   /* insert a space before the '|' for DOS */
+*** ../vim-8.1.0467/src/testdir/test_filter_cmd.vim	2017-01-07 20:31:37.000000000 +0100
+--- src/testdir/test_filter_cmd.vim	2018-10-09 21:39:56.774210323 +0200
+***************
+*** 74,76 ****
+--- 74,89 ----
+    call assert_equal('filter /pat/ print', s:complete_filter_cmd('filter /pat/ pri'))
+    call assert_equal('filter #pat# print', s:complete_filter_cmd('filter #pat# pri'))
+  endfunc
++ 
++ func Test_filter_cmd_with_filter()
++   new
++   set shelltemp
++   %!echo "a|b"
++   let out = getline(1)
++   bw!
++   if has('win32')
++     let out = trim(out, '" ')
++   endif
++   call assert_equal('a|b', out)
++   set shelltemp&
++ endfunction
+*** ../vim-8.1.0467/src/version.c	2018-10-08 20:07:35.601823010 +0200
+--- src/version.c	2018-10-09 21:42:46.361698405 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     468,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+176. You lie, even to user-friends, about how long you were online yesterday.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,153 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0138
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0138
+Problem:    Negative value of 'softtabstop' not used correctly.
+Solution:   Use get_sts_value(). (Tom Ryder)
+Files:	    src/edit.c, src/option.c, src/Makefile, src/testdir/test_tab.vim
+
+
+*** ../vim-8.1.0137/src/edit.c	2018-06-23 19:22:45.602486336 +0200
+--- src/edit.c	2018-07-02 20:48:14.924888068 +0200
+***************
+*** 9373,9379 ****
+  	    if (p_sta && in_indent)
+  		want_vcol = (want_vcol / curbuf->b_p_sw) * curbuf->b_p_sw;
+  	    else
+! 		want_vcol = tabstop_start(want_vcol, curbuf->b_p_sts,
+  						     curbuf->b_p_vsts_array);
+  #else
+  	    want_vcol = (want_vcol / ts) * ts;
+--- 9373,9379 ----
+  	    if (p_sta && in_indent)
+  		want_vcol = (want_vcol / curbuf->b_p_sw) * curbuf->b_p_sw;
+  	    else
+! 		want_vcol = tabstop_start(want_vcol, get_sts_value(),
+  						     curbuf->b_p_vsts_array);
+  #else
+  	    want_vcol = (want_vcol / ts) * ts;
+***************
+*** 10203,10211 ****
+  	temp = (int)curbuf->b_p_sw;
+  	temp -= get_nolist_virtcol() % temp;
+      }
+!     else if (tabstop_count(curbuf->b_p_vsts_array) > 0 || curbuf->b_p_sts > 0)
+  	                        /* use 'softtabstop' when set */
+! 	temp = tabstop_padding(get_nolist_virtcol(), curbuf->b_p_sts,
+  						     curbuf->b_p_vsts_array);
+      else			/* otherwise use 'tabstop' */
+  	temp = tabstop_padding(get_nolist_virtcol(), curbuf->b_p_ts,
+--- 10203,10211 ----
+  	temp = (int)curbuf->b_p_sw;
+  	temp -= get_nolist_virtcol() % temp;
+      }
+!     else if (tabstop_count(curbuf->b_p_vsts_array) > 0 || curbuf->b_p_sts != 0)
+  	                        /* use 'softtabstop' when set */
+! 	temp = tabstop_padding(get_nolist_virtcol(), get_sts_value(),
+  						     curbuf->b_p_vsts_array);
+      else			/* otherwise use 'tabstop' */
+  	temp = tabstop_padding(get_nolist_virtcol(), curbuf->b_p_ts,
+*** ../vim-8.1.0137/src/option.c	2018-06-28 22:22:56.229315623 +0200
+--- src/option.c	2018-07-02 20:21:42.957136087 +0200
+***************
+*** 13016,13022 ****
+  
+  /*
+   * Return the effective softtabstop value for the current buffer, using the
+!  * 'tabstop' value when 'softtabstop' is negative.
+   */
+      long
+  get_sts_value(void)
+--- 13016,13022 ----
+  
+  /*
+   * Return the effective softtabstop value for the current buffer, using the
+!  * 'shiftwidth' value when 'softtabstop' is negative.
+   */
+      long
+  get_sts_value(void)
+*** ../vim-8.1.0137/src/Makefile	2018-06-30 21:50:16.852674935 +0200
+--- src/Makefile	2018-07-02 20:29:59.606438353 +0200
+***************
+*** 2288,2293 ****
+--- 2288,2294 ----
+  	test_syn_attr \
+  	test_syntax \
+  	test_system \
++ 	test_tab \
+  	test_tabline \
+  	test_tabpage \
+  	test_tagcase \
+*** ../vim-8.1.0137/src/testdir/test_tab.vim	2017-10-26 19:57:28.000000000 +0200
+--- src/testdir/test_tab.vim	2018-07-02 20:47:37.277090611 +0200
+***************
+*** 1,3 ****
+--- 1,4 ----
++ " Various tests for inserting a Tab.
+  
+  " Tests for "r<Tab>" with 'smarttab' and 'expandtab' set/not set.
+  " Also test that dv_ works correctly
+***************
+*** 43,45 ****
+--- 44,81 ----
+    enew!
+    set expandtab& smartindent& copyindent& ts& sw& sts&
+  endfunc
++ 
++ func Test_softtabstop()
++   new
++   set sts=0 sw=0
++   exe "normal ix\<Tab>x\<Esc>"
++   call assert_equal("x\tx", getline(1))
++ 
++   call setline(1, '')
++   set sts=4
++   exe "normal ix\<Tab>x\<Esc>"
++   call assert_equal("x   x", getline(1))
++ 
++   call setline(1, '')
++   set sts=-1 sw=4
++   exe "normal ix\<Tab>x\<Esc>"
++   call assert_equal("x   x", getline(1))
++ 
++   call setline(1, 'x       ')
++   set sts=0 sw=0 backspace=start
++   exe "normal A\<BS>x\<Esc>"
++   call assert_equal("x      x", getline(1))
++ 
++   call setline(1, 'x       ')
++   set sts=4
++   exe "normal A\<BS>x\<Esc>"
++   call assert_equal("x   x", getline(1))
++ 
++   call setline(1, 'x       ')
++   set sts=-1 sw=4
++   exe "normal A\<BS>x\<Esc>"
++   call assert_equal("x   x", getline(1))
++ 
++   set sts=0 sw=0 backspace&
++   bwipe!
++ endfunc
+*** ../vim-8.1.0137/src/version.c	2018-07-01 21:12:49.765572778 +0200
+--- src/version.c	2018-07-02 20:19:59.125722660 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     138,
+  /**/
+
+-- 
+"Hit any key to continue" is very confusing when you have two keyboards.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

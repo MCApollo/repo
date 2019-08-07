@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0388
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0388
+Problem:    Coverity complains about possible NULL pointer use.
+Solution:   Use get_tv_string() instead of get_tv_string_chk().
+Files:	    src/evalfunc.c
+
+
+*** ../vim-8.1.0387/src/evalfunc.c	2018-09-13 20:31:47.103018229 +0200
+--- src/evalfunc.c	2018-09-13 21:27:59.619230226 +0200
+***************
+*** 13075,13081 ****
+  	EMSG(_(e_invarg));
+      else
+      {
+! 	name = get_tv_string_chk(&argvars[0]);
+  	if (reset_option_was_set(name) == FAIL)
+  	    EMSG2(_(e_invarg2), name);
+      }
+--- 13075,13081 ----
+  	EMSG(_(e_invarg));
+      else
+      {
+! 	name = get_tv_string(&argvars[0]);
+  	if (reset_option_was_set(name) == FAIL)
+  	    EMSG2(_(e_invarg2), name);
+      }
+*** ../vim-8.1.0387/src/version.c	2018-09-13 20:46:48.994641008 +0200
+--- src/version.c	2018-09-13 21:28:53.350713378 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     388,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+46. Your wife makes a new rule: "The computer cannot come to bed."
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

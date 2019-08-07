@@ -1,0 +1,344 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0438
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0438
+Problem:    The ex_make() function is too long.
+Solution:   Split it into several functions. (Yegappan Lakshmanan)
+Files:	    src/quickfix.c
+
+
+*** ../vim-8.1.0437/src/quickfix.c	2018-09-25 22:08:10.933806882 +0200
+--- src/quickfix.c	2018-09-28 23:07:22.967590997 +0200
+***************
+*** 148,154 ****
+  static buf_T	*qf_find_buf(qf_info_T *qi);
+  static void	qf_update_buffer(qf_info_T *qi, qfline_T *old_last);
+  static void	qf_fill_buffer(qf_info_T *qi, buf_T *buf, qfline_T *old_last);
+- static char_u	*get_mef_name(void);
+  static buf_T	*load_dummy_buffer(char_u *fname, char_u *dirname_start, char_u *resulting_dir);
+  static void	wipe_dummy_buffer(buf_T *buf, char_u *dirname_start);
+  static void	unload_dummy_buffer(buf_T *buf, char_u *dirname_start);
+--- 148,153 ----
+***************
+*** 4480,4485 ****
+--- 4479,4594 ----
+  }
+  
+  /*
++  * Return the make/grep autocmd name.
++  */
++     static char_u *
++ make_get_auname(cmdidx_T cmdidx)
++ {
++     switch (cmdidx)
++     {
++ 	case CMD_make:	    return (char_u *)"make";
++ 	case CMD_lmake:	    return (char_u *)"lmake";
++ 	case CMD_grep:	    return (char_u *)"grep";
++ 	case CMD_lgrep:	    return (char_u *)"lgrep";
++ 	case CMD_grepadd:   return (char_u *)"grepadd";
++ 	case CMD_lgrepadd:  return (char_u *)"lgrepadd";
++ 	default: return NULL;
++     }
++ }
++ 
++ /*
++  * Return the name for the errorfile, in allocated memory.
++  * Find a new unique name when 'makeef' contains "##".
++  * Returns NULL for error.
++  */
++     static char_u *
++ get_mef_name(void)
++ {
++     char_u	*p;
++     char_u	*name;
++     static int	start = -1;
++     static int	off = 0;
++ #ifdef HAVE_LSTAT
++     stat_T	sb;
++ #endif
++ 
++     if (*p_mef == NUL)
++     {
++ 	name = vim_tempname('e', FALSE);
++ 	if (name == NULL)
++ 	    EMSG(_(e_notmp));
++ 	return name;
++     }
++ 
++     for (p = p_mef; *p; ++p)
++ 	if (p[0] == '#' && p[1] == '#')
++ 	    break;
++ 
++     if (*p == NUL)
++ 	return vim_strsave(p_mef);
++ 
++     // Keep trying until the name doesn't exist yet.
++     for (;;)
++     {
++ 	if (start == -1)
++ 	    start = mch_get_pid();
++ 	else
++ 	    off += 19;
++ 
++ 	name = alloc((unsigned)STRLEN(p_mef) + 30);
++ 	if (name == NULL)
++ 	    break;
++ 	STRCPY(name, p_mef);
++ 	sprintf((char *)name + (p - p_mef), "%d%d", start, off);
++ 	STRCAT(name, p + 2);
++ 	if (mch_getperm(name) < 0
++ #ifdef HAVE_LSTAT
++ 		    // Don't accept a symbolic link, it's a security risk.
++ 		    && mch_lstat((char *)name, &sb) < 0
++ #endif
++ 		)
++ 	    break;
++ 	vim_free(name);
++     }
++     return name;
++ }
++ 
++ /*
++  * Form the complete command line to invoke 'make'/'grep'. Quote the command
++  * using 'shellquote' and append 'shellpipe'. Echo the fully formed command.
++  */
++     static char_u *
++ make_get_fullcmd(char_u *makecmd, char_u *fname)
++ {
++     char_u	*cmd;
++     unsigned	len;
++ 
++     len = (unsigned)STRLEN(p_shq) * 2 + (unsigned)STRLEN(makecmd) + 1;
++     if (*p_sp != NUL)
++ 	len += (unsigned)STRLEN(p_sp) + (unsigned)STRLEN(fname) + 3;
++     cmd = alloc(len);
++     if (cmd == NULL)
++ 	return NULL;
++     sprintf((char *)cmd, "%s%s%s", (char *)p_shq, (char *)makecmd,
++ 							       (char *)p_shq);
++ 
++     // If 'shellpipe' empty: don't redirect to 'errorfile'.
++     if (*p_sp != NUL)
++ 	append_redir(cmd, len, p_sp, fname);
++ 
++     // Display the fully formed command.  Output a newline if there's something
++     // else than the :make command that was typed (in which case the cursor is
++     // in column 0).
++     if (msg_col == 0)
++ 	msg_didout = FALSE;
++     msg_start();
++     MSG_PUTS(":!");
++     msg_outtrans(cmd);		// show what we are doing
++ 
++     return cmd;
++ }
++ 
++ /*
+   * Used for ":make", ":lmake", ":grep", ":lgrep", ":grepadd", and ":lgrepadd"
+   */
+      void
+***************
+*** 4488,4517 ****
+      char_u	*fname;
+      char_u	*cmd;
+      char_u	*enc = NULL;
+-     unsigned	len;
+      win_T	*wp = NULL;
+      qf_info_T	*qi = &ql_info;
+      int		res;
+      char_u	*au_name = NULL;
+      int_u	save_qfid;
+  
+!     /* Redirect ":grep" to ":vimgrep" if 'grepprg' is "internal". */
+      if (grep_internal(eap->cmdidx))
+      {
+  	ex_vimgrep(eap);
+  	return;
+      }
+  
+!     switch (eap->cmdidx)
+!     {
+! 	case CMD_make:	    au_name = (char_u *)"make"; break;
+! 	case CMD_lmake:	    au_name = (char_u *)"lmake"; break;
+! 	case CMD_grep:	    au_name = (char_u *)"grep"; break;
+! 	case CMD_lgrep:	    au_name = (char_u *)"lgrep"; break;
+! 	case CMD_grepadd:   au_name = (char_u *)"grepadd"; break;
+! 	case CMD_lgrepadd:  au_name = (char_u *)"lgrepadd"; break;
+! 	default: break;
+!     }
+      if (au_name != NULL && apply_autocmds(EVENT_QUICKFIXCMDPRE, au_name,
+  					       curbuf->b_fname, TRUE, curbuf))
+      {
+--- 4597,4616 ----
+      char_u	*fname;
+      char_u	*cmd;
+      char_u	*enc = NULL;
+      win_T	*wp = NULL;
+      qf_info_T	*qi = &ql_info;
+      int		res;
+      char_u	*au_name = NULL;
+      int_u	save_qfid;
+  
+!     // Redirect ":grep" to ":vimgrep" if 'grepprg' is "internal".
+      if (grep_internal(eap->cmdidx))
+      {
+  	ex_vimgrep(eap);
+  	return;
+      }
+  
+!     au_name = make_get_auname(eap->cmdidx);
+      if (au_name != NULL && apply_autocmds(EVENT_QUICKFIXCMDPRE, au_name,
+  					       curbuf->b_fname, TRUE, curbuf))
+      {
+***************
+*** 4531,4567 ****
+      fname = get_mef_name();
+      if (fname == NULL)
+  	return;
+!     mch_remove(fname);	    /* in case it's not unique */
+  
+!     /*
+!      * If 'shellpipe' empty: don't redirect to 'errorfile'.
+!      */
+!     len = (unsigned)STRLEN(p_shq) * 2 + (unsigned)STRLEN(eap->arg) + 1;
+!     if (*p_sp != NUL)
+! 	len += (unsigned)STRLEN(p_sp) + (unsigned)STRLEN(fname) + 3;
+!     cmd = alloc(len);
+      if (cmd == NULL)
+  	return;
+-     sprintf((char *)cmd, "%s%s%s", (char *)p_shq, (char *)eap->arg,
+- 							       (char *)p_shq);
+-     if (*p_sp != NUL)
+- 	append_redir(cmd, len, p_sp, fname);
+-     /*
+-      * Output a newline if there's something else than the :make command that
+-      * was typed (in which case the cursor is in column 0).
+-      */
+-     if (msg_col == 0)
+- 	msg_didout = FALSE;
+-     msg_start();
+-     MSG_PUTS(":!");
+-     msg_outtrans(cmd);		/* show what we are doing */
+  
+!     /* let the shell know if we are redirecting output or not */
+      do_shell(cmd, *p_sp != NUL ? SHELL_DOOUT : 0);
+  
+  #ifdef AMIGA
+      out_flush();
+! 		/* read window status report and redraw before message */
+      (void)char_avail();
+  #endif
+  
+--- 4630,4647 ----
+      fname = get_mef_name();
+      if (fname == NULL)
+  	return;
+!     mch_remove(fname);	    // in case it's not unique
+  
+!     cmd = make_get_fullcmd(eap->arg, fname);
+      if (cmd == NULL)
+  	return;
+  
+!     // let the shell know if we are redirecting output or not
+      do_shell(cmd, *p_sp != NUL ? SHELL_DOOUT : 0);
+  
+  #ifdef AMIGA
+      out_flush();
+! 		// read window status report and redraw before message
+      (void)char_avail();
+  #endif
+  
+***************
+*** 4596,4658 ****
+  }
+  
+  /*
+-  * Return the name for the errorfile, in allocated memory.
+-  * Find a new unique name when 'makeef' contains "##".
+-  * Returns NULL for error.
+-  */
+-     static char_u *
+- get_mef_name(void)
+- {
+-     char_u	*p;
+-     char_u	*name;
+-     static int	start = -1;
+-     static int	off = 0;
+- #ifdef HAVE_LSTAT
+-     stat_T	sb;
+- #endif
+- 
+-     if (*p_mef == NUL)
+-     {
+- 	name = vim_tempname('e', FALSE);
+- 	if (name == NULL)
+- 	    EMSG(_(e_notmp));
+- 	return name;
+-     }
+- 
+-     for (p = p_mef; *p; ++p)
+- 	if (p[0] == '#' && p[1] == '#')
+- 	    break;
+- 
+-     if (*p == NUL)
+- 	return vim_strsave(p_mef);
+- 
+-     /* Keep trying until the name doesn't exist yet. */
+-     for (;;)
+-     {
+- 	if (start == -1)
+- 	    start = mch_get_pid();
+- 	else
+- 	    off += 19;
+- 
+- 	name = alloc((unsigned)STRLEN(p_mef) + 30);
+- 	if (name == NULL)
+- 	    break;
+- 	STRCPY(name, p_mef);
+- 	sprintf((char *)name + (p - p_mef), "%d%d", start, off);
+- 	STRCAT(name, p + 2);
+- 	if (mch_getperm(name) < 0
+- #ifdef HAVE_LSTAT
+- 		    /* Don't accept a symbolic link, it's a security risk. */
+- 		    && mch_lstat((char *)name, &sb) < 0
+- #endif
+- 		)
+- 	    break;
+- 	vim_free(name);
+-     }
+-     return name;
+- }
+- 
+- /*
+   * Returns the number of valid entries in the current quickfix/location list.
+   */
+      int
+--- 4676,4681 ----
+*** ../vim-8.1.0437/src/version.c	2018-09-28 22:26:47.790139298 +0200
+--- src/version.c	2018-09-28 23:08:51.738912574 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     438,
+  /**/
+
+-- 
+Nobody will ever need more than 640 kB RAM.
+		-- Bill Gates, 1983
+Windows 98 requires 16 MB RAM.
+		-- Bill Gates, 1999
+Logical conclusion: Nobody will ever need Windows 98.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

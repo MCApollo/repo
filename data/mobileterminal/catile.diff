@@ -1,0 +1,238 @@
+diff -ru mobileterminal-364/Sources/UI/PTYTextView.h mobileterminal-364+iPhone/Sources/UI/PTYTextView.h
+--- mobileterminal-364/Sources/UI/PTYTextView.h	2009-02-10 13:39:52.000000000 +0000
++++ mobileterminal-364+iPhone/Sources/UI/PTYTextView.h	2010-08-09 20:16:53.000000000 +0000
+@@ -9,19 +9,12 @@
+ #import <UIKit/UITile.h>
+ #import <UIKit/UITiledView.h>
+ 
+-
+ @class VT100Screen;
+ 
+-@interface PTYTile : UITile
+-
+-- (void)drawRect:(CGRect)rect;
+-
+-@end
+-
+ //_______________________________________________________________________________
+ //_______________________________________________________________________________
+ 
+-@interface PTYTiledView : UITiledView
++@interface PTYTiledView : UIView
+ {
+     // geometry
+     float lineHeight;
+@@ -42,8 +35,6 @@
+     float fontSize;
+ }
+ 
+-+ (Class)tileClass;
+-
+ - (id)initWithFrame:(CGRect)frame source:(VT100Screen *)screen
+     scroller:(UIScroller *)scroller identifier:(int)identifier;
+ - (void)dealloc;
+@@ -51,7 +42,6 @@
+ - (void)setSource:(VT100Screen *)screen;
+ - (void)updateAll;
+ 
+-- (void)drawTileFrame:(CGRect)frame tileRect:(CGRect)rect;
+ - (void)drawRow:(unsigned int)row tileRect:(CGRect)rect;
+ - (void)refresh;
+ - (void)refreshCursorRow;
+diff -ru mobileterminal-364/Sources/UI/PTYTextView.m mobileterminal-364+iPhone/Sources/UI/PTYTextView.m
+--- mobileterminal-364/Sources/UI/PTYTextView.m	2009-04-03 14:15:24.000000000 +0000
++++ mobileterminal-364+iPhone/Sources/UI/PTYTextView.m	2010-08-09 21:15:31.000000000 +0000
+@@ -17,18 +17,52 @@
+ 
+ #define MAX_GLYPHS 256
+ 
++#define SaurikIsSad 1
++
+ //FIXME: put these in a standard header somewhere
+ extern CGFontRef CGContextGetFont(CGContextRef);
+ bool CGFontGetGlyphsForUnichars(CGFontRef, unichar[], CGGlyph[], size_t);
+ 
++@interface CATiledLayer : CALayer {
++}
++@property(assign) CGSize tileSize;
++@property(assign) unsigned levelsOfDetailBias;
++@property(assign) unsigned levelsOfDetail;
+++ (double)fadeDuration;
+++ (id)defaultValueForKey:(id)key;
+++ (BOOL)CA_automaticallyNotifiesObservers:(Class)observers;
++- (void)didChangeValueForKey:(id)key;
++- (BOOL)shouldArchiveValueForKey:(id)key;
++- (void)setNeedsDisplayInRect:(CGRect)rect;
++- (void)setContents:(id)contents;
++- (void)invalidateContents;
++- (void)_dealloc;
++- (void)dealloc;
++- (void)_display;
++- (BOOL)_canDisplayConcurrently;
++@end
+ 
+-@implementation PTYTile
++@interface CATiledLayer (CATiledLayerPrivate)
++@property(assign, getter=isDrawingEnabled) BOOL drawingEnabled;
++@property(assign) float maximumTileScale;
++@property(assign) CGColorRef fillColor;
+++ (BOOL)shouldDrawOnMainThread;
+++ (unsigned)prefetchedTiles;
++- (void)setNeedsDisplayInRect:(CGRect)rect levelOfDetail:(int)detail options:(id)options;
++- (void)setNeedsDisplayInRect:(CGRect)rect levelOfDetail:(int)detail;
++- (BOOL)canDrawRect:(CGRect)rect levelOfDetail:(int)detail;
++- (void)displayInRect:(CGRect)rect levelOfDetail:(int)detail options:(id)options;
++- (BOOL)queueIsEmpty;
++@end
+ 
+-- (void)drawRect:(CGRect)rect
+-{
+-    [[self superview] drawTileFrame:[self frame] tileRect:rect];
++@interface PTYTiledLayer : CATiledLayer {
+ }
++@end
+ 
++@implementation PTYTiledLayer
+++ (CFTimeInterval) fadeDuration {
++    return 0;
++}
+ @end
+ 
+ //_______________________________________________________________________________
+@@ -36,9 +70,9 @@
+ 
+ @implementation PTYTiledView
+ 
+-+ (Class)tileClass
+++ (Class)layerClass
+ {
+-    return [PTYTile class];
++    return [PTYTiledLayer class];
+ }
+ 
+ - (id)initWithFrame:(CGRect)frame
+@@ -48,9 +82,6 @@
+ {
+     self = [super initWithFrame:frame];
+     if (self) {
+-        [self setPositionsTilesFromOrigin:YES];
+-        [self setTileOrigin:CGPointMake(0,0)];
+-
+         termid = identifier;
+         dataSource = screen;
+         textScroller = scroller;
+@@ -59,12 +90,18 @@
+ 
+         // Create one tile per row
+         CGSize size = CGSizeMake(480, lineHeight);
+-        [self setTileSize:size];
+-        [self setFirstTileSize:size];
++        [[self layer] setTileSize:size];
++
++        [[self layer] setLevelsOfDetail:1];
++
++        UIScreen *screen = [UIScreen mainScreen];
++        if ([screen respondsToSelector:@selector(scale)] && [screen scale] != 1)
++            // XXX: should be algorithmic
++            [[self layer] setLevelsOfDetailBias:-1];
++        else
++            [[self layer] setLevelsOfDetailBias:0];
+ 
+         [self setOpaque:YES];
+-        [self setTilingEnabled:YES];
+-        [self setTileDrawingEnabled:YES];
+     }
+     return self;
+ }
+@@ -115,11 +152,15 @@
+     if (lines > height)
+         startIndex = lines - height;
+ 
+-    // Check for dirty on-screen rows; scroll back is not updated
+-    for (int row = 0; row < height; row++) {
+-        CGRect rect = CGRectMake(0, (startIndex + row) * lineHeight,
+-                [self frame].size.width, lineHeight);
+-        [self setNeedsDisplayInRect:rect];
++    if (SaurikIsSad)
++        [self setNeedsDisplay];
++    else {
++        // Check for dirty on-screen rows; scroll back is not updated
++        for (int row = 0; row < height; row++) {
++            CGRect rect = CGRectMake(0, (startIndex + row) * lineHeight,
++                    [self frame].size.width, lineHeight);
++            [self setNeedsDisplayInRect:rect];
++        }
+     }
+ 
+     [dataSource resetDirty];
+@@ -143,11 +184,9 @@
+         [self setFrame:frame];
+         [textScroller setContentSize:frame.size];
+ 
+-        [self removeAllTiles];
+         [self setNeedsDisplay];
+     } else if (lines >= 1000) {
+         // scrollback buffer full -> refresh
+-        [self removeAllTiles];
+         [self setNeedsDisplay];
+     } else {
+         // redraw dirty lines
+@@ -158,13 +197,19 @@
+             for (column = 0; column < width; column++) {
+                 if (dirty[column]) {
+                     CGRect rect = CGRectMake(0, (startIndex + row) * lineHeight, [self frame].size.width, lineHeight);
+-                    [self setNeedsDisplayInRect:rect];
+-                    break;
++                    if (SaurikIsSad) {
++                        [self setNeedsDisplay];
++                        goto done;
++                    } else {
++                        [self setNeedsDisplayInRect:rect];
++                        break;
++                    }
+                 }
+             }
+         }
+     }
+ 
++  done:
+     [dataSource resetDirty];
+     [dataSource releaseLock];
+ }
+@@ -187,15 +232,17 @@
+     lineHeight = [config fontSize] + TERMINAL_LINE_SPACING;
+     charWidth = [config fontSize] * [config fontWidth];
+ 
+-    [self setFirstTileSize:CGSizeMake(frame.size.width, lineHeight)];
+-    [self setTileSize:CGSizeMake(frame.size.width, lineHeight)];
++    [[self layer] setTileSize:CGSizeMake(frame.size.width, lineHeight)];
+     [self setNeedsLayout];
+ }
+ 
+ - (void)refreshCursorRow
+ {
+     int row = [dataSource numberOfLines] - [dataSource height] + [dataSource cursorY];
+-    [self setNeedsDisplayInRect:CGRectMake(0, row *lineHeight, self.frame.size.width, lineHeight)];
++    if (SaurikIsSad)
++        [self setNeedsDisplay];
++    else
++        [self setNeedsDisplayInRect:CGRectMake(0, row *lineHeight, self.frame.size.width, lineHeight)];
+ }
+ 
+ #pragma mark Keyboard delegate methods
+@@ -271,11 +318,13 @@
+     CGContextShowGlyphsWithAdvances(context, glyphs, advances, count);
+ }
+ 
+-- (void)drawTileFrame:(CGRect)frame tileRect:(CGRect)rect
++- (void)drawRect:(CGRect)rect
+ {
++    
+     // Each Tile is responsible for one row so determine the row that this
+     // tile is responsible for based on its bounding rectangle.
+-    int row = (int)((frame.origin.y - [self frame].origin.y) / lineHeight);
++    int row = (int)((rect.origin.y - [self frame].origin.y) / lineHeight);
++    //NSLog(@"drawRect: (row=%u : lineHeight=%f) %f,%f + %f,%f", row, lineHeight, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+     if (row >= 0 && rect.size.height == lineHeight)
+         [self drawRow:row tileRect:(CGRect)rect];
+ }

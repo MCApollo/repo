@@ -1,0 +1,68 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0543
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0543
+Problem:    Coverity warns for leaking memory and using wrong struct.
+Solution:   Free pointer when allocation fails. Change "boff" to "loff".
+            (closes #3634)
+Files:	    src/ex_getln.c, src/move.c
+
+
+*** ../vim-8.1.0542/src/ex_getln.c	2018-10-28 14:36:04.218247711 +0100
+--- src/ex_getln.c	2018-11-24 14:10:40.600261324 +0100
+***************
+*** 1378,1383 ****
+--- 1378,1384 ----
+  			    redrawcmd();
+  			    goto cmdline_changed;
+  			}
++ 			vim_free(p);
+  		    }
+  		}
+  		beep_flush();
+*** ../vim-8.1.0542/src/move.c	2018-10-02 18:25:41.424867560 +0200
+--- src/move.c	2018-11-24 14:21:29.499284569 +0100
+***************
+*** 1961,1967 ****
+  	    scrolled += loff.height;
+  	    if (loff.lnum == curwin->w_botline
+  #ifdef FEAT_DIFF
+! 			    && boff.fill == 0
+  #endif
+  		    )
+  		scrolled -= curwin->w_empty_rows;
+--- 1961,1967 ----
+  	    scrolled += loff.height;
+  	    if (loff.lnum == curwin->w_botline
+  #ifdef FEAT_DIFF
+! 			    && loff.fill == 0
+  #endif
+  		    )
+  		scrolled -= curwin->w_empty_rows;
+*** ../vim-8.1.0542/src/version.c	2018-11-22 03:07:30.948596188 +0100
+--- src/version.c	2018-11-24 14:10:50.996181285 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     543,
+  /**/
+
+-- 
+   [Another hideous roar.]
+BEDEVERE: That's it!
+ARTHUR:   What?
+BEDEVERE: It's The Legendary Black Beast of Aaaaarrrrrrggghhh!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

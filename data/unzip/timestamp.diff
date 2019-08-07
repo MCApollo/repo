@@ -1,0 +1,246 @@
+diff -ur unzip60/consts.h unzip60+iPhone/consts.h
+--- unzip60/consts.h	2002-03-23 05:52:48.000000000 -1000
++++ unzip60+iPhone/consts.h	2018-08-06 11:35:37.000000000 -1000
+@@ -50,5 +50,5 @@
+ 
+ #ifndef SFX
+   ZCONST char Far Zipnfo[] = "zipinfo";
+-  ZCONST char Far CompiledWith[] = "Compiled with %s%s for %s%s%s%s.\n\n";
++  ZCONST char Far CompiledWith[] = "Compiled with %s%s for %s%s.\n\n";
+ #endif
+diff -ur unzip60/unix/unix.c unzip60+iPhone/unix/unix.c
+--- unzip60/unix/unix.c	2009-01-23 13:31:26.000000000 -1000
++++ unzip60+iPhone/unix/unix.c	2018-08-06 11:43:37.000000000 -1000
+@@ -1517,162 +1517,170 @@
+       IZ_OS_NAME,
+ 
+ #if defined(sgi) || defined(__sgi)
+-      " (Silicon Graphics IRIX)",
++      " (Silicon Graphics IRIX)"
+ #else
+ #ifdef sun
+ #  ifdef sparc
+ #    ifdef __SVR4
+-      " (Sun SPARC/Solaris)",
++      " (Sun SPARC/Solaris)"
+ #    else /* may or may not be SunOS */
+-      " (Sun SPARC)",
++      " (Sun SPARC)"
+ #    endif
+ #  else
+ #  if defined(sun386) || defined(i386)
+-      " (Sun 386i)",
++      " (Sun 386i)"
+ #  else
+ #  if defined(mc68020) || defined(__mc68020__)
+-      " (Sun 3)",
++      " (Sun 3)"
+ #  else /* mc68010 or mc68000:  Sun 2 or earlier */
+-      " (Sun 2)",
++      " (Sun 2)"
+ #  endif
+ #  endif
+ #  endif
+ #else
+ #ifdef __hpux
+-      " (HP-UX)",
++      " (HP-UX)"
+ #else
+ #ifdef __osf__
+-      " (DEC OSF/1)",
++      " (DEC OSF/1)"
+ #else
+ #ifdef _AIX
+-      " (IBM AIX)",
++      " (IBM AIX)"
+ #else
+ #ifdef aiws
+-      " (IBM RT/AIX)",
++      " (IBM RT/AIX)"
+ #else
+ #if defined(CRAY) || defined(cray)
+ #  ifdef _UNICOS
+-      (sprintf(os_namebuf, " (Cray UNICOS release %d)", _UNICOS), os_namebuf),
++      (sprintf(os_namebuf, " (Cray UNICOS release %d)", _UNICOS), os_namebuf)
+ #  else
+-      " (Cray UNICOS)",
++      " (Cray UNICOS)"
+ #  endif
+ #else
+ #if defined(uts) || defined(UTS)
+-      " (Amdahl UTS)",
++      " (Amdahl UTS)"
+ #else
+ #ifdef NeXT
+ #  ifdef mc68000
+-      " (NeXTStep/black)",
++      " (NeXTStep/black)"
+ #  else
+-      " (NeXTStep for Intel)",
++      " (NeXTStep for Intel)"
+ #  endif
+ #else              /* the next dozen or so are somewhat order-dependent */
+ #ifdef LINUX
+ #  ifdef __ELF__
+-      " (Linux ELF)",
++      " (Linux ELF)"
+ #  else
+-      " (Linux a.out)",
++      " (Linux a.out)"
+ #  endif
+ #else
+ #ifdef MINIX
+-      " (Minix)",
++      " (Minix)"
+ #else
+ #ifdef M_UNIX
+-      " (SCO Unix)",
++      " (SCO Unix)"
+ #else
+ #ifdef M_XENIX
+-      " (SCO Xenix)",
++      " (SCO Xenix)"
+ #else
+ #ifdef __NetBSD__
+ #  ifdef NetBSD0_8
+       (sprintf(os_namebuf, " (NetBSD 0.8%c)", (char)(NetBSD0_8 - 1 + 'A')),
+-       os_namebuf),
++       os_namebuf)
+ #  else
+ #  ifdef NetBSD0_9
+       (sprintf(os_namebuf, " (NetBSD 0.9%c)", (char)(NetBSD0_9 - 1 + 'A')),
+-       os_namebuf),
++       os_namebuf)
+ #  else
+ #  ifdef NetBSD1_0
+       (sprintf(os_namebuf, " (NetBSD 1.0%c)", (char)(NetBSD1_0 - 1 + 'A')),
+-       os_namebuf),
++       os_namebuf)
+ #  else
+-      (BSD4_4 == 0.5)? " (NetBSD before 0.9)" : " (NetBSD 1.1 or later)",
++      (BSD4_4 == 0.5)? " (NetBSD before 0.9)" : " (NetBSD 1.1 or later)"
+ #  endif
+ #  endif
+ #  endif
+ #else
+ #ifdef __FreeBSD__
+-      (BSD4_4 == 0.5)? " (FreeBSD 1.x)" : " (FreeBSD 2.0 or later)",
++      (BSD4_4 == 0.5)? " (FreeBSD 1.x)" : " (FreeBSD 2.0 or later)"
+ #else
+ #ifdef __bsdi__
+-      (BSD4_4 == 0.5)? " (BSD/386 1.0)" : " (BSD/386 1.1 or later)",
++      (BSD4_4 == 0.5)? " (BSD/386 1.0)" : " (BSD/386 1.1 or later)"
+ #else
+ #ifdef __386BSD__
+-      (BSD4_4 == 1)? " (386BSD, post-4.4 release)" : " (386BSD)",
++      (BSD4_4 == 1)? " (386BSD, post-4.4 release)" : " (386BSD)"
+ #else
+ #ifdef __CYGWIN__
+-      " (Cygwin)",
++      " (Cygwin)"
+ #else
+ #if defined(i686) || defined(__i686) || defined(__i686__)
+-      " (Intel 686)",
++      " (Intel 686)"
+ #else
+ #if defined(i586) || defined(__i586) || defined(__i586__)
+-      " (Intel 586)",
++      " (Intel 586)"
+ #else
+ #if defined(i486) || defined(__i486) || defined(__i486__)
+-      " (Intel 486)",
++      " (Intel 486)"
+ #else
+ #if defined(i386) || defined(__i386) || defined(__i386__)
+-      " (Intel 386)",
++      " (Intel 386)"
+ #else
+ #ifdef pyr
+-      " (Pyramid)",
++      " (Pyramid)"
+ #else
+ #ifdef ultrix
+ #  ifdef mips
+-      " (DEC/MIPS)",
++      " (DEC/MIPS)"
+ #  else
+ #  ifdef vax
+-      " (DEC/VAX)",
++      " (DEC/VAX)"
+ #  else /* __alpha? */
+-      " (DEC/Alpha)",
++      " (DEC/Alpha)"
+ #  endif
+ #  endif
+ #else
+ #ifdef gould
+-      " (Gould)",
++      " (Gould)"
+ #else
+ #ifdef MTS
+-      " (MTS)",
++      " (MTS)"
+ #else
+ #ifdef __convexc__
+-      " (Convex)",
++      " (Convex)"
+ #else
+ #ifdef __QNX__
+-      " (QNX 4)",
++      " (QNX 4)"
+ #else
+ #ifdef __QNXNTO__
+-      " (QNX Neutrino)",
++      " (QNX Neutrino)"
+ #else
+ #ifdef Lynx
+-      " (LynxOS)",
++      " (LynxOS)"
+ #else
+ #ifdef __APPLE__
+ #  ifdef __i386__
+-      " Mac OS X Intel i32",
++      " Mac OS X Intel i32"
+ #  else
+ #  ifdef __ppc__
+-      " Mac OS X PowerPC",
++      " Mac OS X PowerPC"
+ #  else
+ #  ifdef __ppc64__
+-      " Mac OS X PowerPC64",
++      " Mac OS X PowerPC64"
+ #  else
+-      " Mac OS X",
++#  ifdef __arm__
++      " iPhoneOS ARM"
++#  else
++#  ifdef __arm64__
++      " iPhoneOS ARM64"
++#  else
++      " Mac OS X"
++#  endif /* __arm64__ */
++#  endif /* __arm__ */
+ #  endif /* __ppc64__ */
+ #  endif /* __ppc__ */
+ #  endif /* __i386__ */
+ #else
+-      "",
++      ""
+ #endif /* Apple */
+ #endif /* Lynx */
+ #endif /* QNX Neutrino */
+@@ -1704,12 +1712,6 @@
+ #endif /* HP-UX */
+ #endif /* Sun */
+ #endif /* SGI */
+-
+-#ifdef __DATE__
+-      " on ", __DATE__
+-#else
+-      "", ""
+-#endif
+     );
+ 
+     (*G.message)((zvoid *)&G, slide, (ulg)strlen((char *)slide), 0);
+Only in unzip60+iPhone/unix: unix.c.orig
+Only in unzip60+iPhone/unix: unix.c.rej

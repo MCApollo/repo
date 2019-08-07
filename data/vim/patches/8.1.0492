@@ -1,0 +1,113 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0492
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0492
+Problem:    "Edit with existing Vim" list can get long.
+Solution:   Move the list to a submenu. (Ken Takata, closes #3561)
+Files:      src/GvimExt/gvimext.cpp 
+
+
+*** ../vim-8.1.0491/src/GvimExt/gvimext.cpp	2017-10-14 17:17:35.000000000 +0200
+--- src/GvimExt/gvimext.cpp	2018-10-25 11:21:12.394638116 +0200
+***************
+*** 708,718 ****
+--- 708,733 ----
+  	m_edit_existing_off = 1;
+      }
+  
++     HMENU hSubMenu = NULL;
++     if (m_cntOfHWnd > 1)
++     {
++ 	hSubMenu = CreatePopupMenu();
++ 	mii.fMask |= MIIM_SUBMENU;
++ 	mii.wID = idCmd;
++ 	mii.dwTypeData = _("Edit with existing Vim");
++ 	mii.cch = lstrlen(mii.dwTypeData);
++ 	mii.hSubMenu = hSubMenu;
++ 	InsertMenuItem(hMenu, indexMenu++, TRUE, &mii);
++ 	mii.fMask = mii.fMask & ~MIIM_SUBMENU;
++ 	mii.hSubMenu = NULL;
++     }
+      // Now display all the vim instances
+      for (int i = 0; i < m_cntOfHWnd; i++)
+      {
+  	char title[BUFSIZE];
+  	char temp[BUFSIZE];
++ 	int index;
++ 	HMENU hmenu;
+  
+  	// Obtain window title, continue if can not
+  	if (GetWindowText(m_hWnd[i], title, BUFSIZE - 1) == 0)
+***************
+*** 726,740 ****
+  	    *pos = 0;
+  	}
+  	// Now concatenate
+! 	strncpy(temp, _("Edit with existing Vim - "), BUFSIZE - 1);
+! 	temp[BUFSIZE - 1] = '\0';
+  	strncat(temp, title, BUFSIZE - 1 - strlen(temp));
+  	temp[BUFSIZE - 1] = '\0';
+  
+  	mii.wID = idCmd++;
+  	mii.dwTypeData = temp;
+  	mii.cch = lstrlen(mii.dwTypeData);
+! 	InsertMenuItem(hMenu, indexMenu++, TRUE, &mii);
+      }
+      // InsertMenu(hMenu, indexMenu++, MF_SEPARATOR|MF_BYPOSITION, 0, NULL);
+  
+--- 741,770 ----
+  	    *pos = 0;
+  	}
+  	// Now concatenate
+! 	if (m_cntOfHWnd > 1)
+! 	    temp[0] = '\0';
+! 	else
+! 	{
+! 	    strncpy(temp, _("Edit with existing Vim - "), BUFSIZE - 1);
+! 	    temp[BUFSIZE - 1] = '\0';
+! 	}
+  	strncat(temp, title, BUFSIZE - 1 - strlen(temp));
+  	temp[BUFSIZE - 1] = '\0';
+  
+  	mii.wID = idCmd++;
+  	mii.dwTypeData = temp;
+  	mii.cch = lstrlen(mii.dwTypeData);
+! 	if (m_cntOfHWnd > 1)
+! 	{
+! 	    hmenu = hSubMenu;
+! 	    index = i;
+! 	}
+! 	else
+! 	{
+! 	    hmenu = hMenu;
+! 	    index = indexMenu++;
+! 	}
+! 	InsertMenuItem(hmenu, index, TRUE, &mii);
+      }
+      // InsertMenu(hMenu, indexMenu++, MF_SEPARATOR|MF_BYPOSITION, 0, NULL);
+  
+*** ../vim-8.1.0491/src/version.c	2018-10-23 21:42:55.449760330 +0200
+--- src/version.c	2018-10-25 11:22:20.317530744 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     492,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+270. You are subscribed to a mailing list for every piece of software
+     you use.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

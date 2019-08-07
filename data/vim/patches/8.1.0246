@@ -1,0 +1,63 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0246
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0246 (after 8.1.0245)
+Problem:    Build failure without the +eval feature.
+Solution:   Add #ifdef
+Files:	    src/edit.c
+
+
+*** ../vim-8.1.0245/src/edit.c	2018-08-07 19:04:57.409627129 +0200
+--- src/edit.c	2018-08-07 19:31:01.308285633 +0200
+***************
+*** 1722,1730 ****
+--- 1722,1732 ----
+      {
+  	aco_save_T	aco;
+  
++ #ifdef FEAT_EVAL
+  	// Sync undo when the autocommand calls setline() or append(), so that
+  	// it can be undone separately.
+  	u_sync_once = 2;
++ #endif
+  
+  	// save and restore curwin and curbuf, in case the autocmd changes them
+  	aucmd_prepbuf(&aco, curbuf);
+***************
+*** 1732,1740 ****
+--- 1734,1744 ----
+  	aucmd_restbuf(&aco);
+  	curbuf->b_last_changedtick = CHANGEDTICK(curbuf);
+  
++ #ifdef FEAT_EVAL
+  	if (u_sync_once == 1)
+  	    ins_need_undo = TRUE;
+  	u_sync_once = 0;
++ #endif
+      }
+  
+  #ifdef FEAT_INS_EXPAND
+*** ../vim-8.1.0245/src/version.c	2018-08-07 19:04:57.409627129 +0200
+--- src/version.c	2018-08-07 19:31:44.160031830 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     246,
+  /**/
+
+-- 
+Michael: There is no such thing as a dump question.
+Bernard: Sure there is.  For example "what is a core dump?"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

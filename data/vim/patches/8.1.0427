@@ -1,0 +1,86 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0427
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0427
+Problem:    MS-Windows GUI: using invalid encoded file name.
+Solution:   Drop the file name and return NULL. (Ken Takata, closes #3467)
+Files:	    src/gui_w32.c
+
+
+*** ../vim-8.1.0426/src/gui_w32.c	2018-07-20 05:03:10.561146715 +0200
+--- src/gui_w32.c	2018-09-22 14:32:47.488261584 +0200
+***************
+*** 3627,3633 ****
+      WCHAR		*extp = NULL;
+      WCHAR		*initdirp = NULL;
+      WCHAR		*filterp;
+!     char_u		*p;
+  
+      if (dflt == NULL)
+  	fileBuf[0] = NUL;
+--- 3627,3633 ----
+      WCHAR		*extp = NULL;
+      WCHAR		*initdirp = NULL;
+      WCHAR		*filterp;
+!     char_u		*p, *q;
+  
+      if (dflt == NULL)
+  	fileBuf[0] = NUL;
+***************
+*** 3713,3728 ****
+  
+      /* Convert from UCS2 to 'encoding'. */
+      p = utf16_to_enc(fileBuf, NULL);
+!     if (p != NULL)
+! 	/* when out of memory we get garbage for non-ASCII chars */
+! 	STRCPY(fileBuf, p);
+!     vim_free(p);
+  
+      /* Give focus back to main window (when using MDI). */
+      SetFocus(s_hwnd);
+  
+      /* Shorten the file name if possible */
+!     return vim_strsave(shorten_fname1((char_u *)fileBuf));
+  }
+  # endif /* FEAT_MBYTE */
+  
+--- 3713,3728 ----
+  
+      /* Convert from UCS2 to 'encoding'. */
+      p = utf16_to_enc(fileBuf, NULL);
+!     if (p == NULL)
+! 	return NULL;
+  
+      /* Give focus back to main window (when using MDI). */
+      SetFocus(s_hwnd);
+  
+      /* Shorten the file name if possible */
+!     q = vim_strsave(shorten_fname1(p));
+!     vim_free(p);
+!     return q;
+  }
+  # endif /* FEAT_MBYTE */
+  
+*** ../vim-8.1.0426/src/version.c	2018-09-22 14:08:41.926157823 +0200
+--- src/version.c	2018-09-22 14:38:22.921907692 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     427,
+  /**/
+
+-- 
+A fool learns from his mistakes, a wise man from someone else's.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

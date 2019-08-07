@@ -1,0 +1,74 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0433
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0433
+Problem:    Mapping can obtain text from inputsecret(). (Tommy Allen)
+Solution:   Disallow CTRL-R = and CTRL-\ e when using inputsecret().
+Files:	    src/ex_getln.c
+
+
+*** ../vim-8.1.0432/src/ex_getln.c	2018-09-16 17:07:40.125853848 +0200
+--- src/ex_getln.c	2018-09-25 20:44:56.972610421 +0200
+***************
+*** 1308,1314 ****
+  	    /* CTRL-\ e doesn't work when obtaining an expression, unless it
+  	     * is in a mapping. */
+  	    if (c != Ctrl_N && c != Ctrl_G && (c != 'e'
+! 				    || (ccline.cmdfirstc == '=' && KeyTyped)))
+  	    {
+  		vungetc(c);
+  		c = Ctrl_BSL;
+--- 1308,1318 ----
+  	    /* CTRL-\ e doesn't work when obtaining an expression, unless it
+  	     * is in a mapping. */
+  	    if (c != Ctrl_N && c != Ctrl_G && (c != 'e'
+! 				    || (ccline.cmdfirstc == '=' && KeyTyped)
+! #ifdef FEAT_EVAL
+! 				    || cmdline_star
+! #endif
+! 				    ))
+  	    {
+  		vungetc(c);
+  		c = Ctrl_BSL;
+***************
+*** 1801,1807 ****
+  		new_cmdpos = -1;
+  		if (c == '=')
+  		{
+! 		    if (ccline.cmdfirstc == '=')/* can't do this recursively */
+  		    {
+  			beep_flush();
+  			c = ESC;
+--- 1805,1812 ----
+  		new_cmdpos = -1;
+  		if (c == '=')
+  		{
+! 		    if (ccline.cmdfirstc == '=' // can't do this recursively
+! 			    || cmdline_star)	// or when typing a password
+  		    {
+  			beep_flush();
+  			c = ESC;
+*** ../vim-8.1.0432/src/version.c	2018-09-25 18:59:16.903072148 +0200
+--- src/version.c	2018-09-25 20:46:03.368127754 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     433,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+99. The hum of a cooling fan and the click of keys is comforting to you.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,4 @@
+#!/bin/bash
+# XXX: Java is symlink'd to here so the home button works
+cd "$(dirname "$0")"
+exec "$(dirname "$0")"/Java -Xmx8M -Xss256K -cp /usr/share/java/jocstrap.jar:/usr/share/java/js.jar:/usr/share/java/sqlite.jar:/usr/share/java/uicaboodle.jar com.saurik.uicaboodle.Main com.saurik.uicaboodle.ScriptApplication "$@" -- HelloScript.js

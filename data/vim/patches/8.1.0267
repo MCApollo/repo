@@ -1,0 +1,140 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0267
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0267
+Problem:    No good check if restoring quickfix list worked.
+Solution:   Let qf_restore_list() return OK/FAIL. (Yegappan Lakshmanan)
+Files:	    src/quickfix.c
+
+
+*** ../vim-8.1.0266/src/quickfix.c	2018-08-09 21:52:20.716362389 +0200
+--- src/quickfix.c	2018-08-11 13:35:15.874757811 +0200
+***************
+*** 4338,4345 ****
+   * If the current list is not "save_qfid" and we can find the list with that ID
+   * then make it the current list.
+   * This is used when autocommands may have changed the current list.
+   */
+!     static void
+  qf_restore_list(qf_info_T *qi, int_u save_qfid)
+  {
+      int curlist;
+--- 4338,4347 ----
+   * If the current list is not "save_qfid" and we can find the list with that ID
+   * then make it the current list.
+   * This is used when autocommands may have changed the current list.
++  * Returns OK if successfully restored the list. Returns FAIL if the list with
++  * the specified identifier (save_qfid) is not found in the stack.
+   */
+!     static int
+  qf_restore_list(qf_info_T *qi, int_u save_qfid)
+  {
+      int curlist;
+***************
+*** 4347,4356 ****
+      if (qi->qf_lists[qi->qf_curlist].qf_id != save_qfid)
+      {
+  	curlist = qf_id2nr(qi, save_qfid);
+! 	if (curlist >= 0)
+! 	    qi->qf_curlist = curlist;
+! 	// else: what if the list can't be found?
+      }
+  }
+  
+  /*
+--- 4349,4360 ----
+      if (qi->qf_lists[qi->qf_curlist].qf_id != save_qfid)
+      {
+  	curlist = qf_id2nr(qi, save_qfid);
+! 	if (curlist < 0)
+! 	    // list is not present
+! 	    return FAIL;
+! 	qi->qf_curlist = curlist;
+      }
++     return OK;
+  }
+  
+  /*
+***************
+*** 4359,4367 ****
+      static void
+  qf_jump_first(qf_info_T *qi, int_u save_qfid, int forceit)
+  {
+!     qf_restore_list(qi, save_qfid);
+  
+!     // Autocommands might have cleared the list, check for it
+      if (!qf_list_empty(qi, qi->qf_curlist))
+  	qf_jump(qi, 0, 0, forceit);
+  }
+--- 4363,4372 ----
+      static void
+  qf_jump_first(qf_info_T *qi, int_u save_qfid, int forceit)
+  {
+!     if (qf_restore_list(qi, save_qfid) == FAIL)
+! 	return;
+  
+!     // Autocommands might have cleared the list, check for that.
+      if (!qf_list_empty(qi, qi->qf_curlist))
+  	qf_jump(qi, 0, 0, forceit);
+  }
+***************
+*** 5025,5031 ****
+  	}
+      }
+  
+!     qf_restore_list(qi, qfid);
+  
+      return TRUE;
+  }
+--- 5030,5037 ----
+  	}
+      }
+  
+!     if (qf_restore_list(qi, qfid) == FAIL)
+! 	return FALSE;
+  
+      return TRUE;
+  }
+***************
+*** 5371,5377 ****
+      if (!qflist_valid(wp, save_qfid))
+  	goto theend;
+  
+!     qf_restore_list(qi, save_qfid);
+  
+      /* Jump to first match. */
+      if (!qf_list_empty(qi, qi->qf_curlist))
+--- 5377,5384 ----
+      if (!qflist_valid(wp, save_qfid))
+  	goto theend;
+  
+!     if (qf_restore_list(qi, save_qfid) == FAIL)
+! 	goto theend;
+  
+      /* Jump to first match. */
+      if (!qf_list_empty(qi, qi->qf_curlist))
+*** ../vim-8.1.0266/src/version.c	2018-08-10 23:13:07.934024645 +0200
+--- src/version.c	2018-08-11 13:32:28.919832152 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     267,
+  /**/
+
+-- 
+BRIDGEKEEPER: What is your favorite editor?
+GAWAIN:       Emacs ...  No, Viiiiiiiiiiimmmmmmm!
+           "Monty Python and the Holy editor wars" PYTHON (MONTY) SOFTWARE LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

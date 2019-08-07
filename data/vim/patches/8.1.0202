@@ -1,0 +1,72 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0202
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0202
+Problem:    :version always shows +packages. (Takuya Fujiwara)
+Solution:   Add #ifdef (closes #3198) Also for has().
+Files:      src/version.c, src/evalfunc.c
+
+
+*** ../vim-8.1.0201/src/version.c	2018-07-22 04:30:16.372005905 +0200
+--- src/version.c	2018-07-22 05:03:36.372998336 +0200
+***************
+*** 493,499 ****
+--- 493,503 ----
+  	"-ole",
+  # endif
+  #endif
++ #ifdef FEAT_EVAL
+  	"+packages",
++ #else
++ 	"-packages",
++ #endif
+  #ifdef FEAT_PATH_EXTRA
+  	"+path_extra",
+  #else
+*** ../vim-8.1.0201/src/evalfunc.c	2018-07-20 20:28:44.851379341 +0200
+--- src/evalfunc.c	2018-07-22 05:04:06.032807050 +0200
+***************
+*** 6302,6308 ****
+--- 6302,6310 ----
+  #ifdef FEAT_OLE
+  	"ole",
+  #endif
++ #ifdef FEAT_EVAL
+  	"packages",
++ #endif
+  #ifdef FEAT_PATH_EXTRA
+  	"path_extra",
+  #endif
+*** ../vim-8.1.0201/src/version.c	2018-07-22 04:30:16.372005905 +0200
+--- src/version.c	2018-07-22 05:03:36.372998336 +0200
+***************
+*** 791,792 ****
+--- 795,798 ----
+  {   /* Add new patch number below this line */
++ /**/
++     202,
+  /**/
+
+-- 
+       When danger reared its ugly head,
+       He bravely turned his tail and fled
+       Yes, Brave Sir Robin turned about
+       And gallantly he chickened out
+       Bravely taking to his feet
+       He beat a very brave retreat
+       Bravest of the brave Sir Robin
+       Petrified of being dead
+       Soiled his pants then brave Sir Robin
+       Turned away and fled.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0156
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0156
+Problem:    MS-Windows compiler warning.
+Solution:   Add a type cast. (Mike Williams)
+Files:	    src/version.c
+
+
+*** ../vim-8.1.0155/src/version.c	2018-07-05 22:58:12.658446246 +0200
+--- src/version.c	2018-07-06 22:50:55.951147490 +0200
+***************
+*** 61,67 ****
+  		+ strlen(VIM_VERSION_DATE_ONLY)
+  		+ strlen(date_time);
+  
+!     longVersion = (char *)alloc(len);
+      if (longVersion == NULL)
+  	longVersion = VIM_VERSION_LONG;
+      else
+--- 61,67 ----
+  		+ strlen(VIM_VERSION_DATE_ONLY)
+  		+ strlen(date_time);
+  
+!     longVersion = (char *)alloc((unsigned)len);
+      if (longVersion == NULL)
+  	longVersion = VIM_VERSION_LONG;
+      else
+*** ../vim-8.1.0155/src/version.c	2018-07-05 22:58:12.658446246 +0200
+--- src/version.c	2018-07-06 22:50:55.951147490 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     156,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+192. Your boss asks you to "go fer" coffee and you come up with 235 FTP sites.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

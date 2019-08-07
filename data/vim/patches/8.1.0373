@@ -1,0 +1,63 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0373
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0373 (after 8.1.0372)
+Problem:    Screen updating still slow when 'cursorline' is set.
+Solution:   Fix setting last_cursorline.
+Files:	    src/move.c
+
+
+*** ../vim-8.1.0372/src/move.c	2018-09-12 21:52:14.323799725 +0200
+--- src/move.c	2018-09-12 22:21:50.011113301 +0200
+***************
+*** 153,164 ****
+  	    // in the same window.
+  	    redrawWinline(wp, last_cursorline, FALSE);
+  	    redrawWinline(wp, wp->w_cursor.lnum, FALSE);
+- 	    last_cursorline = wp->w_cursor.lnum;
+  	    redraw_win_later(wp, VALID);
+  	}
+  	else
+  #endif
+  	    redraw_win_later(wp, SOME_VALID);
+      }
+  }
+  
+--- 153,166 ----
+  	    // in the same window.
+  	    redrawWinline(wp, last_cursorline, FALSE);
+  	    redrawWinline(wp, wp->w_cursor.lnum, FALSE);
+  	    redraw_win_later(wp, VALID);
+  	}
+  	else
+  #endif
+  	    redraw_win_later(wp, SOME_VALID);
++ #ifdef FEAT_SYN_HL
++ 	last_cursorline = wp->w_cursor.lnum;
++ #endif
+      }
+  }
+  
+*** ../vim-8.1.0372/src/version.c	2018-09-12 21:52:14.323799725 +0200
+--- src/version.c	2018-09-12 22:27:02.348036616 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     373,
+  /**/
+
+-- 
+Just remember...if the world didn't suck, we'd all fall off.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

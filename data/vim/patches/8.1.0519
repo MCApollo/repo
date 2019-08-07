@@ -1,0 +1,768 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0519
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0519
+Problem:    Cannot save and restore the tag stack.
+Solution:   Add gettagstack() and settagstack(). (Yegappan Lakshmanan,
+            closes #3604)
+Files:	    runtime/doc/eval.txt, runtime/doc/tagsrch.txt,
+            runtime/doc/usr_41.txt, src/alloc.h, src/dict.c, src/evalfunc.c,
+            src/list.c, src/misc2.c, src/proto/dict.pro, src/proto/list.pro,
+            src/proto/misc2.pro, src/proto/tag.pro, src/tag.c,
+            src/testdir/test_tagjump.vim
+
+
+*** ../vim-8.1.0518/runtime/doc/eval.txt	2018-11-10 17:33:23.091518784 +0100
+--- runtime/doc/eval.txt	2018-11-11 15:16:01.878631709 +0100
+***************
+*** 2198,2203 ****
+--- 2206,2212 ----
+  				any	variable {varname} in tab {nr} or {def}
+  gettabwinvar({tabnr}, {winnr}, {name} [, {def}])
+  				any	{name} in {winnr} in tab page {tabnr}
++ gettagstack([{nr}])		Dict	get the tag stack of window {nr}
+  getwininfo([{winid}])		List	list of info about each window
+  getwinpos([{timeout}])		List	X and Y coord in pixels of the Vim window
+  getwinposx()			Number	X coord in pixels of the Vim window
+***************
+*** 2371,2376 ****
+--- 2379,2386 ----
+  settabwinvar({tabnr}, {winnr}, {varname}, {val})
+  				none	set {varname} in window {winnr} in tab
+  					page {tabnr} to {val}
++ settagstack({nr}, {dict} [, {action}])
++ 				Number	modify tag stack using {dict}
+  setwinvar({nr}, {varname}, {val}) none	set {varname} in window {nr} to {val}
+  sha256({string})		String	SHA256 checksum of {string}
+  shellescape({string} [, {special}])
+***************
+*** 4959,4964 ****
+--- 4971,5007 ----
+  			:let list_is_on = gettabwinvar(1, 2, '&list')
+  			:echo "myvar = " . gettabwinvar(3, 1, 'myvar')
+  <
++ 		To obtain all window-local variables use: >
++ 			gettabwinvar({tabnr}, {winnr}, '&')
++ 
++ gettagstack([{nr}])					*gettagstack()*
++ 		The result is a Dict, which is the tag stack of window {nr}.
++ 		{nr} can be the window number or the |window-ID|.
++ 		When {nr} is not specified, the current window is used.
++ 		When window {nr} doesn't exist, an empty Dict is returned.
++ 
++ 		The returned dictionary contains the following entries:
++ 			curidx		Current index in the stack. When at
++ 					top of the stack, set to (length + 1).
++ 					Index of bottom of the stack is 1.
++ 			items		List of items in the stack. Each item
++ 					is a dictionary containing the
++ 					entries described below.
++ 			length		Number of entries in the stack.
++ 
++ 		Each item in the stack is a dictionary with the following
++ 		entries:
++ 			bufnr		buffer number of the current jump
++ 			from		cursor position before the tag jump.
++ 					See |getpos()| for the format of the
++ 					returned list.
++ 			matchnr		current matching tag number. Used when
++ 					multiple matching tags are found for a
++ 					name.
++ 			tagname		name of the tag
++ 
++ 		See |tagstack| for more information about the tag stack.
++ 
+  getwininfo([{winid}])					*getwininfo()*
+  		Returns information about windows as a List with Dictionaries.
+  
+***************
+*** 7522,7527 ****
+--- 7566,7602 ----
+  			:call settabwinvar(3, 2, "myvar", "foobar")
+  <		This function is not available in the |sandbox|.
+  
++ settagstack({nr}, {dict} [, {action}])			*settagstack()*
++ 		Modify the tag stack of the window {nr} using {dict}.
++ 		{nr} can be the window number or the |window-ID|.
++ 
++ 		For a list of supported items in {dict}, refer to
++ 		|gettagstack()|
++ 							*E962*
++ 		If {action} is not present or is set to 'r', then the tag
++ 		stack is replaced. If {action} is set to 'a', then new entries
++ 		from {dict} are pushed onto the tag stack.
++ 
++ 		Returns zero for success, -1 for failure.
++ 
++ 		Examples:
++ 		    Set current index of the tag stack to 4: >
++ 			call settagstack(1005, {'curidx' : 4})
++ 
++ <		    Empty the tag stack of window 3: >
++ 			call settagstack(3, {'items' : []})
++ 
++ <		    Push a new item onto the tag stack: >
++ 			let pos = [bufnr('myfile.txt'), 10, 1, 0]
++ 			let newtag = [{'tagname' : 'mytag', 'from' : pos}]
++ 			call settagstack(2, {'items' : newtag}, 'a')
++ 
++ <		    Save and restore the tag stack: >
++ 			let stack = gettagstack(1003)
++ 			" do something else
++ 			call settagstack(1003, stack)
++ 			unlet stack
++ <
+  setwinvar({nr}, {varname}, {val})			*setwinvar()*
+  		Like |settabwinvar()| for the current tab page.
+  		Examples: >
+*** ../vim-8.1.0518/runtime/doc/tagsrch.txt	2018-05-17 13:42:03.000000000 +0200
+--- runtime/doc/tagsrch.txt	2018-11-10 19:23:26.025972138 +0100
+***************
+*** 179,184 ****
+--- 179,187 ----
+     1  1 main		1  harddisk2:text/vim/test
+     2  1 FuncB	       59  harddisk2:text/vim/src/main.c
+  
++ The gettagstack() function returns the tag stack of a specified window. The
++ settagstack() function modifies the tag stack of a window.
++ 
+  							*E73*
+  When you try to use the tag stack while it doesn't contain anything you will
+  get an error message.
+*** ../vim-8.1.0518/runtime/doc/usr_41.txt	2018-05-22 20:35:13.550009275 +0200
+--- runtime/doc/usr_41.txt	2018-11-10 19:23:26.025972138 +0100
+***************
+*** 809,814 ****
+--- 809,815 ----
+  	getwininfo()		get a list with window information
+  	getchangelist()		get a list of change list entries
+  	getjumplist()		get a list of jump list entries
++ 	swapinfo()		information about a swap file
+  
+  Command line:					*command-line-functions*
+  	getcmdline()		get the current command line
+***************
+*** 1027,1032 ****
+--- 1028,1035 ----
+  
+  	taglist()		get list of matching tags
+  	tagfiles()		get a list of tags files
++ 	gettagstack()		get the tag stack
++ 	settagstack()		modify the tag stack
+  
+  	luaeval()		evaluate Lua expression
+  	mzeval()		evaluate |MzScheme| expression
+*** ../vim-8.1.0518/src/alloc.h	2018-05-01 14:44:41.000000000 +0200
+--- src/alloc.h	2018-11-10 19:23:26.025972138 +0100
+***************
+*** 18,22 ****
+--- 18,25 ----
+  	aid_qf_module,
+  	aid_qf_errmsg,
+  	aid_qf_pattern,
++ 	aid_tagstack_items,
++ 	aid_tagstack_from,
++ 	aid_tagstack_details,
+  	aid_last
+  } alloc_id_T;
+*** ../vim-8.1.0518/src/dict.c	2018-07-08 17:18:58.416462371 +0200
+--- src/dict.c	2018-11-10 19:23:26.025972138 +0100
+***************
+*** 47,52 ****
+--- 47,65 ----
+      return d;
+  }
+  
++ /*
++  * dict_alloc() with an ID for alloc_fail().
++  */
++     dict_T *
++ dict_alloc_id(alloc_id_T id UNUSED)
++ {
++ #ifdef FEAT_EVAL
++     if (alloc_fail_id == id && alloc_does_fail((long_u)sizeof(list_T)))
++ 	return NULL;
++ #endif
++     return (dict_alloc());
++ }
++ 
+      dict_T *
+  dict_alloc_lock(int lock)
+  {
+*** ../vim-8.1.0518/src/evalfunc.c	2018-10-25 13:11:13.111143297 +0200
+--- src/evalfunc.c	2018-11-10 19:23:26.029972104 +0100
+***************
+*** 201,206 ****
+--- 201,207 ----
+  static void f_gettabinfo(typval_T *argvars, typval_T *rettv);
+  static void f_gettabvar(typval_T *argvars, typval_T *rettv);
+  static void f_gettabwinvar(typval_T *argvars, typval_T *rettv);
++ static void f_gettagstack(typval_T *argvars, typval_T *rettv);
+  static void f_getwininfo(typval_T *argvars, typval_T *rettv);
+  static void f_getwinpos(typval_T *argvars, typval_T *rettv);
+  static void f_getwinposx(typval_T *argvars, typval_T *rettv);
+***************
+*** 361,366 ****
+--- 362,368 ----
+  static void f_setreg(typval_T *argvars, typval_T *rettv);
+  static void f_settabvar(typval_T *argvars, typval_T *rettv);
+  static void f_settabwinvar(typval_T *argvars, typval_T *rettv);
++ static void f_settagstack(typval_T *argvars, typval_T *rettv);
+  static void f_setwinvar(typval_T *argvars, typval_T *rettv);
+  #ifdef FEAT_CRYPT
+  static void f_sha256(typval_T *argvars, typval_T *rettv);
+***************
+*** 666,671 ****
+--- 668,674 ----
+      {"gettabinfo",	0, 1, f_gettabinfo},
+      {"gettabvar",	2, 3, f_gettabvar},
+      {"gettabwinvar",	3, 4, f_gettabwinvar},
++     {"gettagstack",	0, 1, f_gettagstack},
+      {"getwininfo",	0, 1, f_getwininfo},
+      {"getwinpos",	0, 1, f_getwinpos},
+      {"getwinposx",	0, 0, f_getwinposx},
+***************
+*** 828,833 ****
+--- 831,837 ----
+      {"setreg",		2, 3, f_setreg},
+      {"settabvar",	3, 3, f_settabvar},
+      {"settabwinvar",	4, 4, f_settabwinvar},
++     {"settagstack",	2, 3, f_settagstack},
+      {"setwinvar",	3, 3, f_setwinvar},
+  #ifdef FEAT_CRYPT
+      {"sha256",		1, 1, f_sha256},
+***************
+*** 5657,5662 ****
+--- 5661,5687 ----
+  }
+  
+  /*
++  * "gettagstack()" function
++  */
++     static void
++ f_gettagstack(typval_T *argvars, typval_T *rettv)
++ {
++     win_T	*wp = curwin;			// default is current window
++ 
++     if (rettv_dict_alloc(rettv) != OK)
++ 	return;
++ 
++     if (argvars[0].v_type != VAR_UNKNOWN)
++     {
++ 	wp = find_win_by_nr_or_id(&argvars[0]);
++ 	if (wp == NULL)
++ 	    return;
++     }
++ 
++     get_tagstack(wp, rettv->vval.v_dict);
++ }
++ 
++ /*
+   * Returns information about a window as a dictionary.
+   */
+      static dict_T *
+***************
+*** 11119,11124 ****
+--- 11144,11205 ----
+  }
+  
+  /*
++  * "settagstack()" function
++  */
++     static void
++ f_settagstack(typval_T *argvars, typval_T *rettv)
++ {
++     static char *e_invact2 = N_("E962: Invalid action: '%s'");
++     win_T	*wp;
++     dict_T	*d;
++     int		action = 'r';
++ 
++     rettv->vval.v_number = -1;
++ 
++     // first argument: window number or id
++     wp = find_win_by_nr_or_id(&argvars[0]);
++     if (wp == NULL)
++ 	return;
++ 
++     // second argument: dict with items to set in the tag stack
++     if (argvars[1].v_type != VAR_DICT)
++     {
++ 	EMSG(_(e_dictreq));
++ 	return;
++     }
++     d = argvars[1].vval.v_dict;
++     if (d == NULL)
++ 	return;
++ 
++     // third argument: action - 'a' for append and 'r' for replace.
++     // default is to replace the stack.
++     if (argvars[2].v_type == VAR_UNKNOWN)
++ 	action = 'r';
++     else if (argvars[2].v_type == VAR_STRING)
++     {
++ 	char_u	*actstr;
++ 	actstr = get_tv_string_chk(&argvars[2]);
++ 	if (actstr == NULL)
++ 	    return;
++ 	if ((*actstr == 'r' || *actstr == 'a') && actstr[1] == NUL)
++ 	    action = *actstr;
++ 	else
++ 	{
++ 	    EMSG2(_(e_invact2), actstr);
++ 	    return;
++ 	}
++     }
++     else
++     {
++ 	EMSG(_(e_stringreq));
++ 	return;
++     }
++ 
++     if (set_tagstack(wp, d, action) == OK)
++ 	rettv->vval.v_number = 0;
++ }
++ 
++ /*
+   * "setwinvar()" function
+   */
+      static void
+*** ../vim-8.1.0518/src/list.c	2018-07-25 19:49:41.895812670 +0200
+--- src/list.c	2018-11-10 19:23:26.029972104 +0100
+***************
+*** 86,91 ****
+--- 86,104 ----
+  }
+  
+  /*
++  * list_alloc() with an ID for alloc_fail().
++  */
++     list_T *
++ list_alloc_id(alloc_id_T id UNUSED)
++ {
++ #ifdef FEAT_EVAL
++     if (alloc_fail_id == id && alloc_does_fail((long_u)sizeof(list_T)))
++ 	return NULL;
++ #endif
++     return (list_alloc());
++ }
++ 
++ /*
+   * Allocate an empty list for a return value, with reference count set.
+   * Returns OK or FAIL.
+   */
+*** ../vim-8.1.0518/src/misc2.c	2018-10-20 20:53:58.147284793 +0200
+--- src/misc2.c	2018-11-10 19:23:26.029972104 +0100
+***************
+*** 835,841 ****
+  #endif /* MEM_PROFILE */
+  
+  #ifdef FEAT_EVAL
+!     static int
+  alloc_does_fail(long_u size)
+  {
+      if (alloc_fail_countdown == 0)
+--- 835,841 ----
+  #endif /* MEM_PROFILE */
+  
+  #ifdef FEAT_EVAL
+!     int
+  alloc_does_fail(long_u size)
+  {
+      if (alloc_fail_countdown == 0)
+*** ../vim-8.1.0518/src/proto/dict.pro	2018-07-08 16:50:33.107216836 +0200
+--- src/proto/dict.pro	2018-11-10 19:23:26.029972104 +0100
+***************
+*** 1,5 ****
+--- 1,6 ----
+  /* dict.c */
+  dict_T *dict_alloc(void);
++ dict_T *dict_alloc_id(alloc_id_T id);
+  dict_T *dict_alloc_lock(int lock);
+  int rettv_dict_alloc(typval_T *rettv);
+  void rettv_dict_set(typval_T *rettv, dict_T *d);
+*** ../vim-8.1.0518/src/proto/list.pro	2018-05-17 13:52:42.000000000 +0200
+--- src/proto/list.pro	2018-11-10 19:23:26.029972104 +0100
+***************
+*** 3,8 ****
+--- 3,9 ----
+  void list_rem_watch(list_T *l, listwatch_T *lwrem);
+  void list_fix_watch(list_T *l, listitem_T *item);
+  list_T *list_alloc(void);
++ list_T *list_alloc_id(alloc_id_T id);
+  int rettv_list_alloc(typval_T *rettv);
+  void rettv_list_set(typval_T *rettv, list_T *l);
+  void list_unref(list_T *l);
+*** ../vim-8.1.0518/src/proto/misc2.pro	2018-05-17 13:52:46.000000000 +0200
+--- src/proto/misc2.pro	2018-11-10 19:23:26.029972104 +0100
+***************
+*** 21,26 ****
+--- 21,27 ----
+  int leftcol_changed(void);
+  void vim_mem_profile_dump(void);
+  char_u *alloc(unsigned size);
++ int alloc_does_fail(long_u size);
+  char_u *alloc_id(unsigned size, alloc_id_T id);
+  char_u *alloc_clear(unsigned size);
+  char_u *alloc_check(unsigned size);
+*** ../vim-8.1.0518/src/proto/tag.pro	2018-05-17 13:52:52.000000000 +0200
+--- src/proto/tag.pro	2018-11-10 19:23:26.029972104 +0100
+***************
+*** 9,12 ****
+--- 9,14 ----
+  void simplify_filename(char_u *filename);
+  int expand_tags(int tagnames, char_u *pat, int *num_file, char_u ***file);
+  int get_tags(list_T *list, char_u *pat, char_u *buf_fname);
++ void get_tagstack(win_T *wp, dict_T *retdict);
++ int set_tagstack(win_T *wp, dict_T *d, int action);
+  /* vim: set ft=c : */
+*** ../vim-8.1.0518/src/tag.c	2018-09-30 21:43:17.207693209 +0200
+--- src/tag.c	2018-11-11 15:03:52.375828252 +0100
+***************
+*** 4016,4019 ****
+--- 4016,4219 ----
+      }
+      return ret;
+  }
++ 
++ /*
++  * Return information about 'tag' in dict 'retdict'.
++  */
++     static void
++ get_tag_details(taggy_T *tag, dict_T *retdict)
++ {
++     list_T	*pos;
++     fmark_T	*fmark;
++ 
++     dict_add_string(retdict, "tagname", tag->tagname);
++     dict_add_number(retdict, "matchnr", tag->cur_match + 1);
++     dict_add_number(retdict, "bufnr", tag->cur_fnum);
++ 
++     if ((pos = list_alloc_id(aid_tagstack_from)) == NULL)
++ 	return;
++     dict_add_list(retdict, "from", pos);
++ 
++     fmark = &tag->fmark;
++     list_append_number(pos,
++ 			(varnumber_T)(fmark->fnum != -1 ? fmark->fnum : 0));
++     list_append_number(pos, (varnumber_T)fmark->mark.lnum);
++     list_append_number(pos, (varnumber_T)(fmark->mark.col == MAXCOL ?
++ 					MAXCOL : fmark->mark.col + 1));
++     list_append_number(pos, (varnumber_T)fmark->mark.coladd);
++ }
++ 
++ /*
++  * Return the tag stack entries of the specified window 'wp' in dictionary
++  * 'retdict'.
++  */
++     void
++ get_tagstack(win_T *wp, dict_T *retdict)
++ {
++     list_T	*l;
++     int		i;
++     dict_T	*d;
++ 
++     dict_add_number(retdict, "length", wp->w_tagstacklen);
++     dict_add_number(retdict, "curidx", wp->w_tagstackidx + 1);
++     l = list_alloc_id(aid_tagstack_items);
++     if (l == NULL)
++ 	return;
++     dict_add_list(retdict, "items", l);
++ 
++     for (i = 0; i < wp->w_tagstacklen; i++)
++     {
++ 	if ((d = dict_alloc_id(aid_tagstack_details)) == NULL)
++ 	    return;
++ 	list_append_dict(l, d);
++ 
++ 	get_tag_details(&wp->w_tagstack[i], d);
++     }
++ }
++ 
++ /*
++  * Free all the entries in the tag stack of the specified window
++  */
++     static void
++ tagstack_clear(win_T *wp)
++ {
++     int i;
++ 
++     // Free the current tag stack
++     for (i = 0; i < wp->w_tagstacklen; ++i)
++ 	vim_free(wp->w_tagstack[i].tagname);
++     wp->w_tagstacklen = 0;
++     wp->w_tagstackidx = 0;
++ }
++ 
++ /*
++  * Remove the oldest entry from the tag stack and shift the rest of
++  * the entires to free up the top of the stack.
++  */
++     static void
++ tagstack_shift(win_T *wp)
++ {
++     taggy_T	*tagstack = wp->w_tagstack;
++     int		i;
++ 
++     vim_free(tagstack[0].tagname);
++     for (i = 1; i < wp->w_tagstacklen; ++i)
++ 	tagstack[i - 1] = tagstack[i];
++     wp->w_tagstacklen--;
++ }
++ 
++ /*
++  * Push a new item to the tag stack
++  */
++     static void
++ tagstack_push_item(
++ 	win_T	*wp,
++ 	char_u	*tagname,
++ 	int	cur_fnum,
++ 	int	cur_match,
++ 	pos_T	mark,
++ 	int	fnum)
++ {
++     taggy_T	*tagstack = wp->w_tagstack;
++     int		idx = wp->w_tagstacklen;	// top of the stack
++ 
++     // if the tagstack is full: remove the oldest entry
++     if (idx >= TAGSTACKSIZE)
++     {
++ 	tagstack_shift(wp);
++ 	idx = TAGSTACKSIZE - 1;
++     }
++ 
++     wp->w_tagstacklen++;
++     tagstack[idx].tagname = tagname;
++     tagstack[idx].cur_fnum = cur_fnum;
++     tagstack[idx].cur_match = cur_match;
++     if (tagstack[idx].cur_match < 0)
++ 	tagstack[idx].cur_match = 0;
++     tagstack[idx].fmark.mark = mark;
++     tagstack[idx].fmark.fnum = fnum;
++ }
++ 
++ /*
++  * Add a list of items to the tag stack in the specified window
++  */
++     static void
++ tagstack_push_items(win_T *wp, list_T *l)
++ {
++     listitem_T	*li;
++     dictitem_T	*di;
++     dict_T	*itemdict;
++     char_u	*tagname;
++     pos_T	mark;
++     int		fnum;
++ 
++     // Add one entry at a time to the tag stack
++     for (li = l->lv_first; li != NULL; li = li->li_next)
++     {
++ 	if (li->li_tv.v_type != VAR_DICT || li->li_tv.vval.v_dict == NULL)
++ 	    continue;				// Skip non-dict items
++ 	itemdict = li->li_tv.vval.v_dict;
++ 
++ 	// parse 'from' for the cursor position before the tag jump
++ 	if ((di = dict_find(itemdict, (char_u *)"from", -1)) == NULL)
++ 	    continue;
++ 	if (list2fpos(&di->di_tv, &mark, &fnum, NULL) != OK)
++ 	    continue;
++ 	if ((tagname =
++ 		get_dict_string(itemdict, (char_u *)"tagname", TRUE)) == NULL)
++ 	    continue;
++ 
++ 	if (mark.col > 0)
++ 	    mark.col--;
++ 	tagstack_push_item(wp, tagname,
++ 		(int)get_dict_number(itemdict, (char_u *)"bufnr"),
++ 		(int)get_dict_number(itemdict, (char_u *)"matchnr") - 1,
++ 		mark, fnum);
++     }
++ }
++ 
++ /*
++  * Set the current index in the tag stack. Valid values are between 0
++  * and the stack length (inclusive).
++  */
++     static void
++ tagstack_set_curidx(win_T *wp, int curidx)
++ {
++     wp->w_tagstackidx = curidx;
++     if (wp->w_tagstackidx < 0)			// sanity check
++ 	wp->w_tagstackidx = 0;
++     if (wp->w_tagstackidx > wp->w_tagstacklen)
++ 	wp->w_tagstackidx = wp->w_tagstacklen;
++ }
++ 
++ /*
++  * Set the tag stack entries of the specified window.
++  * 'action' is set to either 'a' for append or 'r' for replace.
++  */
++     int
++ set_tagstack(win_T *wp, dict_T *d, int action)
++ {
++     dictitem_T	*di;
++     list_T	*l;
++ 
++     if ((di = dict_find(d, (char_u *)"items", -1)) != NULL)
++     {
++ 	if (di->di_tv.v_type != VAR_LIST)
++ 	{
++ 	    EMSG(_(e_listreq));
++ 	    return FAIL;
++ 	}
++ 	l = di->di_tv.vval.v_list;
++ 
++ 	if (action == 'r')
++ 	    tagstack_clear(wp);
++ 
++ 	tagstack_push_items(wp, l);
++     }
++ 
++     if ((di = dict_find(d, (char_u *)"curidx", -1)) != NULL)
++ 	tagstack_set_curidx(wp, (int)get_tv_number(&di->di_tv) - 1);
++ 
++     return OK;
++ }
+  #endif
+*** ../vim-8.1.0518/src/testdir/test_tagjump.vim	2018-02-09 18:30:21.000000000 +0100
+--- src/testdir/test_tagjump.vim	2018-11-11 15:09:11.153557467 +0100
+***************
+*** 257,260 ****
+--- 257,369 ----
+    bwipe!
+  endfunc
+  
++ " Test for getting and modifying the tag stack
++ func Test_getsettagstack()
++   call writefile(['line1', 'line2', 'line3'], 'Xfile1')
++   call writefile(['line1', 'line2', 'line3'], 'Xfile2')
++   call writefile(['line1', 'line2', 'line3'], 'Xfile3')
++ 
++   enew | only
++   call settagstack(1, {'items' : []})
++   call assert_equal(0, gettagstack(1).length)
++   call assert_equal([], gettagstack(1).items)
++   " Error cases
++   call assert_equal({}, gettagstack(100))
++   call assert_equal(-1, settagstack(100, {'items' : []}))
++   call assert_fails('call settagstack(1, [1, 10])', 'E715')
++   call assert_fails("call settagstack(1, {'items' : 10})", 'E714')
++   call assert_fails("call settagstack(1, {'items' : []}, 10)", 'E928')
++   call assert_fails("call settagstack(1, {'items' : []}, 'b')", 'E962')
++ 
++   set tags=Xtags
++   call writefile(["!_TAG_FILE_ENCODING\tutf-8\t//",
++         \ "one\tXfile1\t1",
++         \ "three\tXfile3\t3",
++         \ "two\tXfile2\t2"],
++         \ 'Xtags')
++ 
++   let stk = []
++   call add(stk, {'bufnr' : bufnr('%'), 'tagname' : 'one',
++ 	\ 'from' : [bufnr('%'), line('.'), col('.'), 0], 'matchnr' : 1})
++   tag one
++   call add(stk, {'bufnr' : bufnr('%'), 'tagname' : 'two',
++ 	\ 'from' : [bufnr('%'), line('.'), col('.'), 0], 'matchnr' : 1})
++   tag two
++   call add(stk, {'bufnr' : bufnr('%'), 'tagname' : 'three',
++ 	\ 'from' : [bufnr('%'), line('.'), col('.'), 0], 'matchnr' : 1})
++   tag three
++   call assert_equal(3, gettagstack(1).length)
++   call assert_equal(stk, gettagstack(1).items)
++   " Check for default - current window
++   call assert_equal(3, gettagstack().length)
++   call assert_equal(stk, gettagstack().items)
++ 
++   " Try to set current index to invalid values
++   call settagstack(1, {'curidx' : -1})
++   call assert_equal(1, gettagstack().curidx)
++   call settagstack(1, {'curidx' : 50})
++   call assert_equal(4, gettagstack().curidx)
++ 
++   " Try pushing invalid items onto the stack
++   call settagstack(1, {'items' : []})
++   call settagstack(1, {'items' : ["plate"]}, 'a')
++   call assert_equal(0, gettagstack().length)
++   call assert_equal([], gettagstack().items)
++   call settagstack(1, {'items' : [{"tagname" : "abc"}]}, 'a')
++   call assert_equal(0, gettagstack().length)
++   call assert_equal([], gettagstack().items)
++   call settagstack(1, {'items' : [{"from" : 100}]}, 'a')
++   call assert_equal(0, gettagstack().length)
++   call assert_equal([], gettagstack().items)
++   call settagstack(1, {'items' : [{"from" : [2, 1, 0, 0]}]}, 'a')
++   call assert_equal(0, gettagstack().length)
++   call assert_equal([], gettagstack().items)
++ 
++   " Push one item at a time to the stack
++   call settagstack(1, {'items' : []})
++   call settagstack(1, {'items' : [stk[0]]}, 'a')
++   call settagstack(1, {'items' : [stk[1]]}, 'a')
++   call settagstack(1, {'items' : [stk[2]]}, 'a')
++   call settagstack(1, {'curidx' : 4})
++   call assert_equal({'length' : 3, 'curidx' : 4, 'items' : stk},
++         \ gettagstack(1))
++ 
++   " Try pushing items onto a full stack
++   for i in range(7)
++     call settagstack(1, {'items' : stk}, 'a')
++   endfor
++   call assert_equal(20, gettagstack().length)
++   call settagstack(1,
++         \ {'items' : [{'tagname' : 'abc', 'from' : [1, 10, 1, 0]}]}, 'a')
++   call assert_equal('abc', gettagstack().items[19].tagname)
++ 
++   " Tag with multiple matches
++   call writefile(["!_TAG_FILE_ENCODING\tutf-8\t//",
++         \ "two\tXfile1\t1",
++         \ "two\tXfile2\t3",
++         \ "two\tXfile3\t2"],
++         \ 'Xtags')
++   call settagstack(1, {'items' : []})
++   tag two
++   tnext
++   tnext
++   call assert_equal(1, gettagstack().length)
++   call assert_equal(3, gettagstack().items[0].matchnr)
++ 
++   " Memory allocation failures
++   call test_alloc_fail(GetAllocId('tagstack_items'), 0, 0)
++   call assert_fails('call gettagstack()', 'E342:')
++   call test_alloc_fail(GetAllocId('tagstack_from'), 0, 0)
++   call assert_fails('call gettagstack()', 'E342:')
++   call test_alloc_fail(GetAllocId('tagstack_details'), 0, 0)
++   call assert_fails('call gettagstack()', 'E342:')
++ 
++   call settagstack(1, {'items' : []})
++   call delete('Xfile1')
++   call delete('Xfile2')
++   call delete('Xfile3')
++   call delete('Xtags')
++   set tags&
++ endfunc
++ 
+  " vim: shiftwidth=2 sts=2 expandtab
+*** ../vim-8.1.0518/src/version.c	2018-11-10 20:47:43.394262832 +0100
+--- src/version.c	2018-11-11 15:18:47.861449349 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     519,
+  /**/
+
+-- 
+Q: How does a UNIX Guru pick up a girl?
+A: look; grep; which; eval; nice; uname; talk; date;
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

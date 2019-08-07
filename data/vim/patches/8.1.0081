@@ -1,0 +1,83 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0081
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0081
+Problem:    The terminal debugger doesn't adjust to changed 'background'.
+Solution:   Add an OptionSet autocommand. (Christian Brabandt)
+Files:	    runtime/pack/dist/opt/termdebug/plugin/termdebug.vim
+
+
+*** ../vim-8.1.0080/runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-19 16:59:31.333713053 +0200
+--- runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-19 17:24:00.106825205 +0200
+***************
+*** 70,80 ****
+  let s:break_id = 13  " breakpoint number is added to this
+  let s:stopped = 1
+  
+! if &background == 'light'
+!   hi default debugPC term=reverse ctermbg=lightblue guibg=lightblue
+! else
+!   hi default debugPC term=reverse ctermbg=darkblue guibg=darkblue
+! endif
+  hi default debugBreakpoint term=reverse ctermbg=red guibg=red
+  
+  func s:StartDebug(bang, ...)
+--- 70,85 ----
+  let s:break_id = 13  " breakpoint number is added to this
+  let s:stopped = 1
+  
+! func s:Highlight(init, old, new)
+!   let default = a:init ? 'default ' : ''
+!   if a:new ==# 'light' && a:old !=# 'light'
+!     exe "hi " . default . "debugPC term=reverse ctermbg=lightblue guibg=lightblue"
+!   elseif a:new ==# 'dark' && a:old !=# 'dark'
+!     exe "hi " . default . "debugPC term=reverse ctermbg=darkblue guibg=darkblue"
+!   endif
+! endfunc
+! 
+! call s:Highlight(1, '', &background)
+  hi default debugBreakpoint term=reverse ctermbg=red guibg=red
+  
+  func s:StartDebug(bang, ...)
+***************
+*** 347,352 ****
+--- 352,358 ----
+    augroup TermDebug
+      au BufRead * call s:BufRead()
+      au BufUnload * call s:BufUnloaded()
++     au OptionSet background call s:Highlight(0, v:option_old, v:option_new)
+    augroup END
+  
+    " Run the command if the bang attribute was given and got to the debug
+***************
+*** 887,890 ****
+      endif
+    endfor
+  endfunc
+- 
+--- 893,895 ----
+*** ../vim-8.1.0080/src/version.c	2018-06-19 16:59:31.333713053 +0200
+--- src/version.c	2018-06-19 17:27:18.613687664 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     81,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+91. It's Saturday afternoon in the middle of May and you
+    are on computer.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

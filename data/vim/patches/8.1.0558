@@ -1,0 +1,161 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0558
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0558
+Problem:    Some MS-Windows instructions are outdated.
+Solution:   Update the uninstall instructions and the NSIS README. (Ken
+            Takata, closes #3614)  Also update remark about diff.exe.
+Files:	    nsis/README.txt, uninstal.txt
+
+
+*** ../vim-8.1.0557/nsis/README.txt	2017-10-14 18:47:04.000000000 +0200
+--- nsis/README.txt	2018-12-02 13:55:06.381485588 +0100
+***************
+*** 15,20 ****
+--- 15,21 ----
+  	vimrun.exe,
+  	install.exe,
+  	uninstal.exe,
++ 	tee/tee.exe,
+  	xxd/xxd.exe,
+  
+      Then execute tools/rename.bat to rename the executables. (mv command is
+***************
+*** 29,42 ****
+  4.  Go to the VisVim directory and build VisVim.dll (or get it from a binary
+      archive).
+  
+! 5.  Go to the OleVim directory and build OpenWithVim.exe and SendToVim.exe (or
+!     get them from a binary archive).
+! 
+! 6.  Get a "diff.exe" program and put it in the "../.." directory (above the
+!     "vim80" directory, it's the same for all Vim versions).
+      You can find one in previous Vim versions or in this archive:
+  		http://www.mossbayeng.com/~ron/vim/diffutils.tar.gz
+!     Also put winpty32.dll and winpty-agent.exe there.
+  
+  7.  Do "make uganda.nsis.txt" in runtime/doc.  This requires sed, you may have
+      to do this on Unix.  Make sure the file is in DOS file format!
+--- 30,44 ----
+  4.  Go to the VisVim directory and build VisVim.dll (or get it from a binary
+      archive).
+  
+! 5.  Get a "diff.exe" program.  If you skip this the built-in diff will always
+!     be used (which is fine for most users).  If you do have your own
+!     "diff.exe" put it in the "../.." directory (above the "vim81" directory,
+!     it's the same for all Vim versions).
+      You can find one in previous Vim versions or in this archive:
+  		http://www.mossbayeng.com/~ron/vim/diffutils.tar.gz
+! 
+! 6   Also put winpty32.dll and winpty-agent.exe in "../.." (above the "vim81"
+!     directory).  This is required for the terminal window.
+  
+  7.  Do "make uganda.nsis.txt" in runtime/doc.  This requires sed, you may have
+      to do this on Unix.  Make sure the file is in DOS file format!
+*** ../vim-8.1.0557/uninstal.txt	2017-07-19 11:09:11.000000000 +0200
+--- uninstal.txt	2018-12-02 13:50:16.799174823 +0100
+***************
+*** 1,4 ****
+! Uninstalling Vim on Dos and MS-Windows.
+  
+  There are three ways to remove Vim:
+  
+--- 1,4 ----
+! Uninstalling Vim on MS-Windows.
+  
+  There are three ways to remove Vim:
+  
+***************
+*** 27,38 ****
+  
+  Here are guidelines for removing Vim by hand:
+  
+! 1. Remove the "Edit with Vim" popup menu entry, if it exists.  This will only
+!    be on MS-Windows 95/98/NT.  This is done by running the uninstal.exe
+!    program.  It removes the registry entries for the "Edit with Vim" popup
+!    menu entry.  You only need to run uninstal.exe when you have installed the
+!    menu entry.  You can also run uninstal.exe from the Control panel with the
+!    Add/Remove programs application.
+     Note that uninstal.exe offers you the option to uninstal other items.  You
+     can skip this.
+  
+--- 27,37 ----
+  
+  Here are guidelines for removing Vim by hand:
+  
+! 1. Remove the "Edit with Vim" popup menu entry, if it exists.  This is done by
+!    running the uninstal.exe program.  It removes the registry entries for the
+!    "Edit with Vim" popup menu entry.  You only need to run uninstal.exe when
+!    you have installed the menu entry.  You can also run uninstal.exe from the
+!    Control panel with the Add/Remove programs application.
+     Note that uninstal.exe offers you the option to uninstal other items.  You
+     can skip this.
+  
+***************
+*** 55,62 ****
+     skip the next step.
+  
+  5. Delete the distributed files.  If you followed the directions, these will
+!    be located in a directory like "C:\vim\vim80".  If the $VIM environment
+!    variable is set, the directory will be $VIM\vim80.  Delete the "vim80"
+     directory and all that is in it.  Warning: If you changed any of the
+     distributed files, or added some of your own files, you might want to save
+     these first.  But normally you would not have changed or added files here.
+--- 54,61 ----
+     skip the next step.
+  
+  5. Delete the distributed files.  If you followed the directions, these will
+!    be located in a directory like "C:\vim\vim81".  If the $VIM environment
+!    variable is set, the directory will be $VIM\vim81.  Delete the "vim81"
+     directory and all that is in it.  Warning: If you changed any of the
+     distributed files, or added some of your own files, you might want to save
+     these first.  But normally you would not have changed or added files here.
+***************
+*** 66,75 ****
+     another version of Vim.  $VIMRUNTIME is mostly not set.  Check if $PATH
+     contains the path of the vim directory.  Note that $PATH may be set in
+     several places, you will have to find the right one, and only delete the
+!    Vim path from it.  You can most likely find the lines that set $PATH, $VIM
+!    and/or $VIMRUNTIME in C:\autoexec.bat.  Under Windows NT you might need to
+!    use the "System Properties" editor to change the environment variables, if
+!    they are not in the C:\autoexec.bat file.  You can start it by selecting
+     Start/Settings/Control Panel and then "System".
+  
+  7. If you added a Vim entry in the start menu, delete it.
+--- 65,72 ----
+     another version of Vim.  $VIMRUNTIME is mostly not set.  Check if $PATH
+     contains the path of the vim directory.  Note that $PATH may be set in
+     several places, you will have to find the right one, and only delete the
+!    Vim path from it.  You might need to use the "System Properties" editor to
+!    change the environment variables.  You can start it by selecting
+     Start/Settings/Control Panel and then "System".
+  
+  7. If you added a Vim entry in the start menu, delete it.
+*** ../vim-8.1.0557/src/version.c	2018-12-02 13:45:47.088708659 +0100
+--- src/version.c	2018-12-02 13:56:41.548924260 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     558,
+  /**/
+
+-- 
+(letter from Mark to Mike, about the film's probable certificate)
+      I would like to get back to the Censor and agree to lose the shits, take
+      the odd Jesus Christ out and lose Oh fuck off, but to retain 'fart in
+      your general direction', 'castanets of your testicles' and 'oral sex'
+      and ask him for an 'A' rating on that basis.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,24 @@
+diff -ur aptitude-0.8.10/Makefile.am aptitude-0.8.10+iPhone/Makefile.am
+--- aptitude-0.8.10/Makefile.am	2017-11-14 11:48:21.000000000 -1000
++++ aptitude-0.8.10+iPhone/Makefile.am	2018-08-30 15:25:48.000000000 -1000
+@@ -7,7 +7,7 @@
+ DOCDIRS=@DOCDIRS@
+ TESTDIRS=@TESTDIRS@
+ 
+-SUBDIRS=buildlib $(SRCDIRS) $(DOCDIRS) po $(TESTDIRS)
++SUBDIRS=buildlib $(SRCDIRS)
+ 
+ dist_bin_SCRIPTS = aptitude-create-state-bundle aptitude-run-state-bundle
+ 
+diff -ur aptitude-0.8.10/Makefile.in aptitude-0.8.10+iPhone/Makefile.in
+--- aptitude-0.8.10/Makefile.in	2017-11-14 14:18:48.000000000 -1000
++++ aptitude-0.8.10+iPhone/Makefile.in	2018-08-30 15:25:38.000000000 -1000
+@@ -576,7 +576,7 @@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.h.in compile test-driver
+-SUBDIRS = buildlib $(SRCDIRS) $(DOCDIRS) po $(TESTDIRS)
++SUBDIRS = buildlib $(SRCDIRS)
+ dist_bin_SCRIPTS = aptitude-create-state-bundle aptitude-run-state-bundle
+ MANPAGE_LOCALES = gl
+ TLMANPAGES = $(wildcard $(srcdir)/aptitude.??.8)

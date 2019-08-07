@@ -1,0 +1,67 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0564
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0564
+Problem:    Setting v:errors to wrong type still possible.
+Solution:   Return after giving an error message. (Christian Brabandt)
+Files:	    src/eval.c, src/testdir/test_eval_stuff.vim
+
+
+*** ../vim-8.1.0563/src/eval.c	2018-12-04 22:37:46.122286870 +0100
+--- src/eval.c	2018-12-05 18:40:45.742666402 +0100
+***************
+*** 7568,7574 ****
+--- 7568,7577 ----
+  		return;
+  	    }
+  	    else if (v->di_tv.v_type != tv->v_type)
++ 	    {
+  		EMSG2(_("E963: setting %s to value with wrong type"), name);
++ 		return;
++ 	    }
+  	}
+  
+  	clear_tv(&v->di_tv);
+*** ../vim-8.1.0563/src/testdir/test_eval_stuff.vim	2018-09-11 22:36:48.125548396 +0200
+--- src/testdir/test_eval_stuff.vim	2018-12-05 18:40:25.150818783 +0100
+***************
+*** 53,55 ****
+--- 53,65 ----
+  	"\ and some more
+    call assert_equal([5, 6], array)
+  endfunc
++ 
++ func Test_E963()
++   " These commands used to cause an internal error prior to vim 8.1.0563
++   let v_e = v:errors
++   let v_o = v:oldfiles
++   call assert_fails("let v:errors=''", 'E963:')
++   call assert_equal(v_e, v:errors)
++   call assert_fails("let v:oldfiles=''", 'E963:')
++   call assert_equal(v_o, v:oldfiles)
++ endfunc
+*** ../vim-8.1.0563/src/version.c	2018-12-04 22:37:46.122286870 +0100
+--- src/version.c	2018-12-05 18:42:00.882110756 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     564,
+  /**/
+
+
+-- 
+Clothes make the man.  Naked people have little or no influence on society.
+                               -- Mark Twain (Samuel Clemens) (1835-1910)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

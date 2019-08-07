@@ -1,0 +1,102 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0339
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0339
+Problem:    Wrong highlight when 'incsearch' set and cancelling :s.
+Solution:   Reset search line range. (Hirohito Higashi, Masamichi Abe)
+Files:	    src/ex_getln.c, src/testdir/test_search.vim,
+            src/testdir/dumps/Test_incsearch_substitute_10.dump
+
+
+*** ../vim-8.1.0338/src/ex_getln.c	2018-08-23 20:55:23.328137497 +0200
+--- src/ex_getln.c	2018-08-31 22:01:54.482219518 +0200
+***************
+*** 436,447 ****
+  	}
+  	restore_viewstate(&is_state->old_viewstate);
+  	highlight_match = FALSE;
+  	validate_cursor();	/* needed for TAB */
+  	if (call_update_screen)
+  	    update_screen(SOME_VALID);
+  	else
+  	    redraw_all_later(SOME_VALID);
+- 	p_magic = is_state->magic_save;
+      }
+  }
+  
+--- 436,453 ----
+  	}
+  	restore_viewstate(&is_state->old_viewstate);
+  	highlight_match = FALSE;
++ 
++ 	// by default search all lines
++ 	search_first_line = 0;
++ 	search_last_line = MAXLNUM;
++ 
++ 	p_magic = is_state->magic_save;
++ 
+  	validate_cursor();	/* needed for TAB */
+  	if (call_update_screen)
+  	    update_screen(SOME_VALID);
+  	else
+  	    redraw_all_later(SOME_VALID);
+      }
+  }
+  
+*** ../vim-8.1.0338/src/testdir/test_search.vim	2018-08-23 20:55:23.328137497 +0200
+--- src/testdir/test_search.vim	2018-08-31 22:06:07.867638671 +0200
+***************
+*** 956,961 ****
+--- 956,970 ----
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_09', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
++   call term_sendkeys(buf, ":set nocursorline\<CR>")
++ 
++   " All matches are highlighted for 'hlsearch' after the incsearch canceled
++   call term_sendkeys(buf, "1G*")
++   call term_sendkeys(buf, ":2,5s/foo")
++   sleep 100m
++   call term_sendkeys(buf, "\<Esc>")
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_10', {})
++ 
+    call StopVimInTerminal(buf)
+    call delete('Xis_subst_script')
+  endfunc
+*** ../vim-8.1.0338/src/testdir/dumps/Test_incsearch_substitute_10.dump	2018-08-31 22:08:36.694113050 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_10.dump	2018-08-31 22:01:54.482219518 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+0&#ffff4012|o@1| +0&#ffffff0|1| @64
++ >f+0&#ffff4012|o@1| +0&#ffffff0|2| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|3| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|4| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|5| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|6| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|7| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|8| @64
++ @52|2|,|1| @10|T|o|p| 
+*** ../vim-8.1.0338/src/version.c	2018-08-30 17:47:01.949560920 +0200
+--- src/version.c	2018-08-31 22:08:45.178025914 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     339,
+  /**/
+
+-- 
+A)bort, R)etry, D)o it right this time
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

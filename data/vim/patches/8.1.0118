@@ -1,0 +1,136 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0118
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0118
+Problem:    Duplicate error message for put command.
+Solution:   Check return value of u_save(). (Jason Franklin)
+Files:	    src/ops.c, src/testdir/test_messages.vim src/testdir/test_put.vim
+
+
+*** ../vim-8.1.0117/src/ops.c	2018-06-23 19:22:45.610486284 +0200
+--- src/ops.c	2018-06-27 20:35:21.160021864 +0200
+***************
+*** 3551,3559 ****
+  	    return;
+      }
+  
+!     /* Autocommands may be executed when saving lines for undo, which may make
+!      * y_array invalid.  Start undo now to avoid that. */
+!     u_save(curwin->w_cursor.lnum, curwin->w_cursor.lnum + 1);
+  
+      if (insert_string != NULL)
+      {
+--- 3551,3560 ----
+  	    return;
+      }
+  
+!     /* Autocommands may be executed when saving lines for undo.  This might
+!      * make "y_array" invalid, so we start undo now to avoid that. */
+!     if (u_save(curwin->w_cursor.lnum, curwin->w_cursor.lnum + 1) == FAIL)
+! 	goto end;
+  
+      if (insert_string != NULL)
+      {
+*** ../vim-8.1.0117/src/testdir/test_messages.vim	2018-05-19 14:43:26.779509715 +0200
+--- src/testdir/test_messages.vim	2018-06-27 20:35:21.160021864 +0200
+***************
+*** 39,45 ****
+    endtry
+  endfunction
+  
+! " Patch 7.4.1696 defined the "clearmode()" command for clearing the mode
+  " indicator (e.g., "-- INSERT --") when ":stopinsert" is invoked.  Message
+  " output could then be disturbed when 'cmdheight' was greater than one.
+  " This test ensures that the bugfix for this issue remains in place.
+--- 39,45 ----
+    endtry
+  endfunction
+  
+! " Patch 7.4.1696 defined the "clearmode()" function for clearing the mode
+  " indicator (e.g., "-- INSERT --") when ":stopinsert" is invoked.  Message
+  " output could then be disturbed when 'cmdheight' was greater than one.
+  " This test ensures that the bugfix for this issue remains in place.
+*** ../vim-8.1.0117/src/testdir/test_put.vim	2018-05-23 21:53:48.352478970 +0200
+--- src/testdir/test_put.vim	2018-06-27 20:48:28.788199160 +0200
+***************
+*** 1,3 ****
+--- 1,4 ----
++ " Tests for put commands, e.g. ":put", "p", "gp", "P", "gP", etc.
+  
+  func Test_put_block()
+    if !has('multi_byte')
+***************
+*** 58,60 ****
+--- 59,106 ----
+    call assert_equal(['A1','A2','A3','4A','5A','6A'], getline(1,'$'))
+    bw!
+  endfunc
++ 
++ func Test_put_fails_when_nomodifiable()
++   new
++   set nomodifiable
++ 
++   normal! yy
++   call assert_fails(':put', 'E21')
++   call assert_fails(':put!', 'E21')
++   call assert_fails(':normal! p', 'E21')
++   call assert_fails(':normal! gp', 'E21')
++   call assert_fails(':normal! P', 'E21')
++   call assert_fails(':normal! gP', 'E21')
++ 
++   if has('mouse')
++     set mouse=n
++     call assert_fails('execute "normal! \<MiddleMouse>"', 'E21')
++     set mouse&
++   endif
++ 
++   bwipeout!
++ endfunc
++ 
++ " A bug was discovered where the Normal mode put commands (e.g., "p") would
++ " output duplicate error messages when invoked in a non-modifiable buffer.
++ func Test_put_p_errmsg_nodup()
++   new
++   set nomodifiable
++ 
++   normal! yy
++ 
++   func Capture_p_error()
++     redir => s:p_err
++     normal! p
++     redir END
++   endfunc
++ 
++   silent! call Capture_p_error()
++ 
++   " Error message output within a function should be three lines (the function
++   " name, the line number, and the error message).
++   call assert_equal(3, count(s:p_err, "\n"))
++ 
++   delfunction Capture_p_error
++   bwipeout!
++ endfunc
+*** ../vim-8.1.0117/src/version.c	2018-06-26 23:18:40.593167147 +0200
+--- src/version.c	2018-06-27 20:36:32.259661095 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     118,
+  /**/
+
+-- 
+Would you care for a drink?   I mean, if it were, like,
+disabled and you had to look after it?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,44 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0051
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0051 (after 8.1.0050)
+Problem:    MS-Windows: missing #endif.
+Solution:   Add the #endif.
+Files:	    src/os_win32.c
+
+
+*** ../vim-8.1.0050/src/os_win32.c	2018-06-12 20:25:47.891923371 +0200
+--- src/os_win32.c	2018-06-12 21:10:04.466837989 +0200
+***************
+*** 5322,5327 ****
+--- 5322,5328 ----
+  #  endif
+  	}
+      }
++ # endif
+  }
+  
+      void
+*** ../vim-8.1.0050/src/version.c	2018-06-12 20:25:47.891923371 +0200
+--- src/version.c	2018-06-12 21:10:42.242668187 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     51,
+  /**/
+
+-- 
+Those who live by the sword get shot by those who don't.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

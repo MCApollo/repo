@@ -1,0 +1,44 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0430
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0430
+Problem:    Xargadd file left behind after running test.
+Solution:   Delete the file. (Dominique Pelle)
+Files:	    src/testdir/test_arglist.vim
+
+
+*** ../vim-8.1.0429/src/testdir/test_arglist.vim	2018-09-18 21:51:42.419876829 +0200
+--- src/testdir/test_arglist.vim	2018-09-23 23:15:06.204835313 +0200
+***************
+*** 94,99 ****
+--- 94,100 ----
+    call assert_equal('Xargadd', bufname('%'))
+    call assert_equal(2, line('$'))
+  
++   call delete('Xargadd')
+    %argd
+    bwipe!
+  endfunc
+*** ../vim-8.1.0429/src/version.c	2018-09-23 19:36:10.215763496 +0200
+--- src/version.c	2018-09-24 21:20:21.845295031 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     430,
+  /**/
+
+-- 
+Common sense is what tells you that the world is flat.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

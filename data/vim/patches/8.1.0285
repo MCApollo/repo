@@ -1,0 +1,51 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0285
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0285
+Problem:    Compiler warning for conversion.
+Solution:   Add a type cast. (Mike Williams)
+Files:	    src/ex_getln.c
+
+
+*** ../vim-8.1.0284/src/ex_getln.c	2018-08-14 18:16:30.683488007 +0200
+--- src/ex_getln.c	2018-08-14 20:12:43.682942699 +0200
+***************
+*** 580,586 ****
+      {
+  	pat = last_search_pattern();
+  	skiplen = 0;
+! 	patlen = STRLEN(pat);
+      }
+      else
+  	pat = ccline.cmdbuff + skiplen;
+--- 580,586 ----
+      {
+  	pat = last_search_pattern();
+  	skiplen = 0;
+! 	patlen = (int)STRLEN(pat);
+      }
+      else
+  	pat = ccline.cmdbuff + skiplen;
+*** ../vim-8.1.0284/src/version.c	2018-08-14 18:16:30.683488007 +0200
+--- src/version.c	2018-08-14 20:13:26.694695333 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     285,
+  /**/
+
+-- 
+Living on Earth includes an annual free trip around the Sun.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

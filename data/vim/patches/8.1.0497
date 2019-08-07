@@ -1,0 +1,104 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0497
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0497
+Problem:    :%diffput changes order of lines. (Markus Braun)
+Solution:   Do adjust marks when using internal diff.
+Files:	    src/diff.c, src/testdir/test_diffmode.vim
+
+
+*** ../vim-8.1.0496/src/diff.c	2018-10-07 17:46:37.699826982 +0200
+--- src/diff.c	2018-10-25 17:47:12.981125946 +0200
+***************
+*** 298,306 ****
+  	// Will update diffs before redrawing.  Set _invalid to update the
+  	// diffs themselves, set _update to also update folds properly just
+  	// before redrawing.
+  	tp->tp_diff_invalid = TRUE;
+  	tp->tp_diff_update = TRUE;
+- 	return;
+      }
+  
+      if (line2 == MAXLNUM)
+--- 298,306 ----
+  	// Will update diffs before redrawing.  Set _invalid to update the
+  	// diffs themselves, set _update to also update folds properly just
+  	// before redrawing.
++ 	// Do update marks here, it is needed for :%diffput.
+  	tp->tp_diff_invalid = TRUE;
+  	tp->tp_diff_update = TRUE;
+      }
+  
+      if (line2 == MAXLNUM)
+***************
+*** 2850,2856 ****
+      if (diff_need_update)
+  	ex_diffupdate(NULL);
+  
+!     // Check that the cursor is on a valid character and update it's
+      // position.  When there were filler lines the topline has become
+      // invalid.
+      check_cursor();
+--- 2850,2856 ----
+      if (diff_need_update)
+  	ex_diffupdate(NULL);
+  
+!     // Check that the cursor is on a valid character and update its
+      // position.  When there were filler lines the topline has become
+      // invalid.
+      check_cursor();
+*** ../vim-8.1.0496/src/testdir/test_diffmode.vim	2018-10-07 17:46:37.699826982 +0200
+--- src/testdir/test_diffmode.vim	2018-10-25 17:46:52.781302610 +0200
+***************
+*** 221,226 ****
+--- 221,246 ----
+    %bwipe!
+  endfunc
+  
++ " Test putting two changes from one buffer to another
++ func Test_diffput_two()
++   new a
++   let win_a = win_getid()
++   call setline(1, range(1, 10))
++   diffthis
++   new b
++   let win_b = win_getid()
++   call setline(1, range(1, 10))
++   8del
++   5del
++   diffthis
++   call win_gotoid(win_a)
++   %diffput
++   call win_gotoid(win_b)
++   call assert_equal(map(range(1, 10), 'string(v:val)'), getline(1, '$'))
++   bwipe! a
++   bwipe! b
++ endfunc
++ 
+  func Test_dp_do_buffer()
+    e! one
+    let bn1=bufnr('%')
+*** ../vim-8.1.0496/src/version.c	2018-10-25 16:52:46.839887739 +0200
+--- src/version.c	2018-10-25 17:44:41.714462680 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     497,
+  /**/
+
+-- 
+This sentence is not sure that it exists, but if it does, it will
+certainly consider the possibility that other sentences exist.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

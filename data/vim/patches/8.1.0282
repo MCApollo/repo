@@ -1,0 +1,507 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0282
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0282
+Problem:    'incsearch' does not work with command modifiers.
+Solution:   Skip command modifiers.
+Files:	    src/ex_docmd.c, src/proto/ex_docmd.pro, src/ex_getln.c,
+            src/testdir/test_search.vim
+
+
+*** ../vim-8.1.0281/src/ex_docmd.c	2018-08-14 13:38:12.744559267 +0200
+--- src/ex_docmd.c	2018-08-14 16:00:53.341893598 +0200
+***************
+*** 68,73 ****
+--- 68,74 ----
+  static char_u	*do_one_cmd(char_u **, int, char_u *(*fgetline)(int, void *, int), void *cookie);
+  static int	if_level = 0;		/* depth in :if */
+  #endif
++ static void	free_cmdmod(void);
+  static void	append_command(char_u *cmd);
+  static char_u	*find_command(exarg_T *eap, int *full);
+  
+***************
+*** 1741,1750 ****
+      if ((*cmdlinep)[0] == '#' && (*cmdlinep)[1] == '!')
+  	goto doend;
+  
+!     /*
+!      * Repeat until no more command modifiers are found.
+!      * The "ea" structure holds the arguments that can be used.
+!      */
+      ea.cmd = *cmdlinep;
+      ea.cmdlinep = cmdlinep;
+      ea.getline = fgetline;
+--- 1742,1752 ----
+      if ((*cmdlinep)[0] == '#' && (*cmdlinep)[1] == '!')
+  	goto doend;
+  
+! /*
+!  * 1. Skip comment lines and leading white space and colons.
+!  * 2. Handle command modifiers.
+!  */
+!     // The "ea" structure holds the arguments that can be used.
+      ea.cmd = *cmdlinep;
+      ea.cmdlinep = cmdlinep;
+      ea.getline = fgetline;
+***************
+*** 1752,1758 ****
+  #ifdef FEAT_EVAL
+      ea.cstack = cstack;
+  #endif
+!     if (parse_command_modifiers(&ea, &errormsg) == FAIL)
+  	goto doend;
+  
+      after_modifier = ea.cmd;
+--- 1754,1760 ----
+  #ifdef FEAT_EVAL
+      ea.cstack = cstack;
+  #endif
+!     if (parse_command_modifiers(&ea, &errormsg, FALSE) == FAIL)
+  	goto doend;
+  
+      after_modifier = ea.cmd;
+***************
+*** 2553,2569 ****
+      if (ea.verbose_save >= 0)
+  	p_verbose = ea.verbose_save;
+  
+!     if (cmdmod.save_ei != NULL)
+!     {
+! 	/* Restore 'eventignore' to the value before ":noautocmd". */
+! 	set_string_option_direct((char_u *)"ei", -1, cmdmod.save_ei,
+! 							  OPT_FREE, SID_NONE);
+! 	free_string_option(cmdmod.save_ei);
+!     }
+! 
+!     if (cmdmod.filter_regmatch.regprog != NULL)
+! 	vim_regfree(cmdmod.filter_regmatch.regprog);
+! 
+      cmdmod = save_cmdmod;
+  
+      if (ea.save_msg_silent != -1)
+--- 2555,2561 ----
+      if (ea.verbose_save >= 0)
+  	p_verbose = ea.verbose_save;
+  
+!     free_cmdmod();
+      cmdmod = save_cmdmod;
+  
+      if (ea.save_msg_silent != -1)
+***************
+*** 2609,2621 ****
+   * - store flags in "cmdmod".
+   * - Set ex_pressedreturn for an empty command line.
+   * - set msg_silent for ":silent"
+   * - set p_verbose for ":verbose"
+   * - Increment "sandbox" for ":sandbox"
+   * Return FAIL when the command is not to be executed.
+   * May set "errormsg" to an error message.
+   */
+      int
+! parse_command_modifiers(exarg_T *eap, char_u **errormsg)
+  {
+      char_u *p;
+  
+--- 2601,2616 ----
+   * - store flags in "cmdmod".
+   * - Set ex_pressedreturn for an empty command line.
+   * - set msg_silent for ":silent"
++  * - set 'eventignore' to "all" for ":noautocmd"
+   * - set p_verbose for ":verbose"
+   * - Increment "sandbox" for ":sandbox"
++  * When "skip_only" is TRUE the global variables are not changed, except for
++  * "cmdmod".
+   * Return FAIL when the command is not to be executed.
+   * May set "errormsg" to an error message.
+   */
+      int
+! parse_command_modifiers(exarg_T *eap, char_u **errormsg, int skip_only)
+  {
+      char_u *p;
+  
+***************
+*** 2623,2633 ****
+      eap->verbose_save = -1;
+      eap->save_msg_silent = -1;
+  
+      for (;;)
+      {
+- /*
+-  * 1. Skip comment lines and leading white space and colons.
+-  */
+  	while (*eap->cmd == ' ' || *eap->cmd == '\t' || *eap->cmd == ':')
+  	    ++eap->cmd;
+  
+--- 2618,2626 ----
+      eap->verbose_save = -1;
+      eap->save_msg_silent = -1;
+  
++     // Repeat until no more command modifiers are found.
+      for (;;)
+      {
+  	while (*eap->cmd == ' ' || *eap->cmd == '\t' || *eap->cmd == ':')
+  	    ++eap->cmd;
+  
+***************
+*** 2638,2644 ****
+  			&& curwin->w_cursor.lnum < curbuf->b_ml.ml_line_count)
+  	{
+  	    eap->cmd = (char_u *)"+";
+! 	    ex_pressedreturn = TRUE;
+  	}
+  
+  	/* ignore comment and empty lines */
+--- 2631,2638 ----
+  			&& curwin->w_cursor.lnum < curbuf->b_ml.ml_line_count)
+  	{
+  	    eap->cmd = (char_u *)"+";
+! 	    if (!skip_only)
+! 		ex_pressedreturn = TRUE;
+  	}
+  
+  	/* ignore comment and empty lines */
+***************
+*** 2646,2658 ****
+  	    return FAIL;
+  	if (*eap->cmd == NUL)
+  	{
+! 	    ex_pressedreturn = TRUE;
+  	    return FAIL;
+  	}
+  
+- /*
+-  * 2. Handle command modifiers.
+-  */
+  	p = skip_range(eap->cmd, NULL);
+  	switch (*p)
+  	{
+--- 2640,2650 ----
+  	    return FAIL;
+  	if (*eap->cmd == NUL)
+  	{
+! 	    if (!skip_only)
+! 		ex_pressedreturn = TRUE;
+  	    return FAIL;
+  	}
+  
+  	p = skip_range(eap->cmd, NULL);
+  	switch (*p)
+  	{
+***************
+*** 2720,2732 ****
+  				if (*p == NUL || ends_excmd(*p))
+  				    break;
+  			    }
+! 			    p = skip_vimgrep_pat(p, &reg_pat, NULL);
+  			    if (p == NULL || *p == NUL)
+  				break;
+! 			    cmdmod.filter_regmatch.regprog =
+  						vim_regcomp(reg_pat, RE_MAGIC);
+! 			    if (cmdmod.filter_regmatch.regprog == NULL)
+! 				break;
+  			    eap->cmd = p;
+  			    continue;
+  			}
+--- 2712,2731 ----
+  				if (*p == NUL || ends_excmd(*p))
+  				    break;
+  			    }
+! 			    if (skip_only)
+! 				p = skip_vimgrep_pat(p, NULL, NULL);
+! 			    else
+! 				// NOTE: This puts a NUL after the pattern.
+! 				p = skip_vimgrep_pat(p, &reg_pat, NULL);
+  			    if (p == NULL || *p == NUL)
+  				break;
+! 			    if (!skip_only)
+! 			    {
+! 				cmdmod.filter_regmatch.regprog =
+  						vim_regcomp(reg_pat, RE_MAGIC);
+! 				if (cmdmod.filter_regmatch.regprog == NULL)
+! 				    break;
+! 			    }
+  			    eap->cmd = p;
+  			    continue;
+  			}
+***************
+*** 2752,2758 ****
+  
+  	    case 'n':	if (checkforcmd(&eap->cmd, "noautocmd", 3))
+  			{
+! 			    if (cmdmod.save_ei == NULL)
+  			    {
+  				/* Set 'eventignore' to "all". Restore the
+  				 * existing option value later. */
+--- 2751,2757 ----
+  
+  	    case 'n':	if (checkforcmd(&eap->cmd, "noautocmd", 3))
+  			{
+! 			    if (cmdmod.save_ei == NULL && !skip_only)
+  			    {
+  				/* Set 'eventignore' to "all". Restore the
+  				 * existing option value later. */
+***************
+*** 2775,2797 ****
+  	    case 's':	if (checkforcmd(&eap->cmd, "sandbox", 3))
+  			{
+  #ifdef HAVE_SANDBOX
+! 			    if (!eap->did_sandbox)
+! 				++sandbox;
+! 			    eap->did_sandbox = TRUE;
+  #endif
+  			    continue;
+  			}
+  			if (!checkforcmd(&eap->cmd, "silent", 3))
+  			    break;
+! 			if (eap->save_msg_silent == -1)
+! 			    eap->save_msg_silent = msg_silent;
+! 			++msg_silent;
+  			if (*eap->cmd == '!' && !VIM_ISWHITE(eap->cmd[-1]))
+  			{
+  			    /* ":silent!", but not "silent !cmd" */
+  			    eap->cmd = skipwhite(eap->cmd + 1);
+! 			    ++emsg_silent;
+! 			    ++eap->did_esilent;
+  			}
+  			continue;
+  
+--- 2774,2805 ----
+  	    case 's':	if (checkforcmd(&eap->cmd, "sandbox", 3))
+  			{
+  #ifdef HAVE_SANDBOX
+! 			    if (!skip_only)
+! 			    {
+! 				if (!eap->did_sandbox)
+! 				    ++sandbox;
+! 				eap->did_sandbox = TRUE;
+! 			    }
+  #endif
+  			    continue;
+  			}
+  			if (!checkforcmd(&eap->cmd, "silent", 3))
+  			    break;
+! 			if (!skip_only)
+! 			{
+! 			    if (eap->save_msg_silent == -1)
+! 				eap->save_msg_silent = msg_silent;
+! 			    ++msg_silent;
+! 			}
+  			if (*eap->cmd == '!' && !VIM_ISWHITE(eap->cmd[-1]))
+  			{
+  			    /* ":silent!", but not "silent !cmd" */
+  			    eap->cmd = skipwhite(eap->cmd + 1);
+! 			    if (!skip_only)
+! 			    {
+! 				++emsg_silent;
+! 				++eap->did_esilent;
+! 			    }
+  			}
+  			continue;
+  
+***************
+*** 2820,2828 ****
+  
+  	    case 'u':	if (!checkforcmd(&eap->cmd, "unsilent", 3))
+  			    break;
+! 			if (eap->save_msg_silent == -1)
+! 			    eap->save_msg_silent = msg_silent;
+! 			msg_silent = 0;
+  			continue;
+  
+  	    case 'v':	if (checkforcmd(&eap->cmd, "vertical", 4))
+--- 2828,2839 ----
+  
+  	    case 'u':	if (!checkforcmd(&eap->cmd, "unsilent", 3))
+  			    break;
+! 			if (!skip_only)
+! 			{
+! 			    if (eap->save_msg_silent == -1)
+! 				eap->save_msg_silent = msg_silent;
+! 			    msg_silent = 0;
+! 			}
+  			continue;
+  
+  	    case 'v':	if (checkforcmd(&eap->cmd, "vertical", 4))
+***************
+*** 2832,2843 ****
+  			}
+  			if (!checkforcmd(&p, "verbose", 4))
+  			    break;
+! 			if (eap->verbose_save < 0)
+! 			    eap->verbose_save = p_verbose;
+! 			if (vim_isdigit(*eap->cmd))
+! 			    p_verbose = atoi((char *)eap->cmd);
+! 			else
+! 			    p_verbose = 1;
+  			eap->cmd = p;
+  			continue;
+  	}
+--- 2843,2857 ----
+  			}
+  			if (!checkforcmd(&p, "verbose", 4))
+  			    break;
+! 			if (!skip_only)
+! 			{
+! 			    if (eap->verbose_save < 0)
+! 				eap->verbose_save = p_verbose;
+! 			    if (vim_isdigit(*eap->cmd))
+! 				p_verbose = atoi((char *)eap->cmd);
+! 			    else
+! 				p_verbose = 1;
+! 			}
+  			eap->cmd = p;
+  			continue;
+  	}
+***************
+*** 2848,2853 ****
+--- 2862,2885 ----
+  }
+  
+  /*
++  * Free contents of "cmdmod".
++  */
++     static void
++ free_cmdmod(void)
++ {
++     if (cmdmod.save_ei != NULL)
++     {
++ 	/* Restore 'eventignore' to the value before ":noautocmd". */
++ 	set_string_option_direct((char_u *)"ei", -1, cmdmod.save_ei,
++ 							  OPT_FREE, SID_NONE);
++ 	free_string_option(cmdmod.save_ei);
++     }
++ 
++     if (cmdmod.filter_regmatch.regprog != NULL)
++ 	vim_regfree(cmdmod.filter_regmatch.regprog);
++ }
++ 
++ /*
+   * Parse the address range, if any, in "eap".
+   * Return FAIL and set "errormsg" or return OK.
+   */
+*** ../vim-8.1.0281/src/proto/ex_docmd.pro	2018-08-14 13:38:12.744559267 +0200
+--- src/proto/ex_docmd.pro	2018-08-14 15:27:07.371906192 +0200
+***************
+*** 4,10 ****
+  int do_cmdline(char_u *cmdline, char_u *(*fgetline)(int, void *, int), void *cookie, int flags);
+  int getline_equal(char_u *(*fgetline)(int, void *, int), void *cookie, char_u *(*func)(int, void *, int));
+  void *getline_cookie(char_u *(*fgetline)(int, void *, int), void *cookie);
+! int parse_command_modifiers(exarg_T *eap, char_u **errormsg);
+  int parse_cmd_address(exarg_T *eap, char_u **errormsg);
+  int checkforcmd(char_u **pp, char *cmd, int len);
+  int modifier_len(char_u *cmd);
+--- 4,10 ----
+  int do_cmdline(char_u *cmdline, char_u *(*fgetline)(int, void *, int), void *cookie, int flags);
+  int getline_equal(char_u *(*fgetline)(int, void *, int), void *cookie, char_u *(*func)(int, void *, int));
+  void *getline_cookie(char_u *(*fgetline)(int, void *, int), void *cookie);
+! int parse_command_modifiers(exarg_T *eap, char_u **errormsg, int skip_only);
+  int parse_cmd_address(exarg_T *eap, char_u **errormsg);
+  int checkforcmd(char_u **pp, char *cmd, int len);
+  int modifier_len(char_u *cmd);
+*** ../vim-8.1.0281/src/ex_getln.c	2018-08-13 22:54:31.456665135 +0200
+--- src/ex_getln.c	2018-08-14 15:27:03.303934870 +0200
+***************
+*** 283,293 ****
+  	    return TRUE;
+  	if (firstc == ':')
+  	{
+! 	    char_u *cmd = skip_range(ccline.cmdbuff, NULL);
+! 	    char_u *p;
+! 	    int	    delim;
+! 	    char_u *end;
+  
+  	    if (*cmd == 's' || *cmd == 'g' || *cmd == 'v')
+  	    {
+  		// Skip over "substitute" to find the pattern separator.
+--- 283,306 ----
+  	    return TRUE;
+  	if (firstc == ':')
+  	{
+! 	    char_u	*cmd;
+! 	    cmdmod_T	save_cmdmod = cmdmod;
+! 	    char_u	*p;
+! 	    int		delim;
+! 	    char_u	*end;
+! 	    char_u	*dummy;
+! 	    exarg_T	ea;
+  
++ 	    vim_memset(&ea, 0, sizeof(ea));
++ 	    ea.line1 = 1;
++ 	    ea.line2 = 1;
++ 	    ea.cmd = ccline.cmdbuff;
++ 	    ea.addr_type = ADDR_LINES;
++ 
++ 	    parse_command_modifiers(&ea, &dummy, TRUE);
++ 	    cmdmod = save_cmdmod;
++ 
++ 	    cmd = skip_range(ea.cmd, NULL);
+  	    if (*cmd == 's' || *cmd == 'g' || *cmd == 'v')
+  	    {
+  		// Skip over "substitute" to find the pattern separator.
+***************
+*** 310,317 ****
+  		    end = skip_regexp(p, delim, p_magic, NULL);
+  		    if (end > p || *end == delim)
+  		    {
+- 			char_u  *dummy;
+- 			exarg_T ea;
+  			pos_T	save_cursor = curwin->w_cursor;
+  
+  			// found a non-empty pattern
+--- 323,328 ----
+***************
+*** 319,329 ****
+  			*patlen = (int)(end - p);
+  
+  			// parse the address range
+- 			vim_memset(&ea, 0, sizeof(ea));
+- 			ea.line1 = 1;
+- 			ea.line2 = 1;
+- 			ea.cmd = ccline.cmdbuff;
+- 			ea.addr_type = ADDR_LINES;
+  			curwin->w_cursor = is_state->search_start;
+  			parse_cmd_address(&ea, &dummy);
+  			if (ea.addr_count > 0)
+--- 330,335 ----
+*** ../vim-8.1.0281/src/testdir/test_search.vim	2018-08-13 22:54:31.456665135 +0200
+--- src/testdir/test_search.vim	2018-08-14 16:01:44.561537663 +0200
+***************
+*** 884,889 ****
+--- 884,895 ----
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_05', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
++   " Command modifiers are skipped
++   call term_sendkeys(buf, ':above below browse botr confirm keepmar keepalt keeppat keepjum filter xxx hide lockm leftabove noau noswap rightbel sandbox silent silent! $tab top unsil vert verbose 4,5s/fo.')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_06', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
+    call StopVimInTerminal(buf)
+    call delete('Xis_subst_script')
+  endfunc
+*** ../vim-8.1.0281/src/version.c	2018-08-14 13:38:12.748559237 +0200
+--- src/version.c	2018-08-14 16:02:48.537093003 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     282,
+  /**/
+
+-- 
+It is illegal to take more than three sips of beer at a time while standing.
+		[real standing law in Texas, United States of America]
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

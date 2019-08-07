@@ -1,0 +1,116 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0003
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0003
+Problem:    The :compiler command is not tested.
+Solution:   Add a test. (Dominique Pelle, closes #2930)
+Files:	    src/Makefile, src/testdir/test_alot.vim,
+            src/testdir/test_compiler.vim
+
+
+*** ../vim-8.1.0002/src/Makefile	2018-05-17 15:34:28.000000000 +0200
+--- src/Makefile	2018-05-19 14:57:04.670463659 +0200
+***************
+*** 2150,2155 ****
+--- 2150,2156 ----
+  	test_cmdline \
+  	test_command_count \
+  	test_comparators \
++ 	test_compiler \
+  	test_crypt \
+  	test_cscope \
+  	test_cursor_func \
+*** ../vim-8.1.0002/src/testdir/test_alot.vim	2017-10-29 15:08:48.000000000 +0100
+--- src/testdir/test_alot.vim	2018-05-19 14:57:04.670463659 +0200
+***************
+*** 5,10 ****
+--- 5,11 ----
+  source test_bufline.vim
+  source test_cd.vim
+  source test_changedtick.vim
++ source test_compiler.vim
+  source test_cursor_func.vim
+  source test_delete.vim
+  source test_ex_undo.vim
+*** ../vim-8.1.0002/src/testdir/test_compiler.vim	2018-05-19 15:00:23.281190298 +0200
+--- src/testdir/test_compiler.vim	2018-05-19 14:57:04.670463659 +0200
+***************
+*** 0 ****
+--- 1,50 ----
++ " Test the :compiler command
++ 
++ func Test_compiler()
++   if !executable('perl')
++     return
++   endif
++ 
++   e Xfoo.pl
++   compiler perl
++   call assert_equal('perl', b:current_compiler)
++   call assert_fails('let g:current_compiler', 'E121:')
++ 
++   call setline(1, ['#!/usr/bin/perl -w', 'use strict;', 'my $foo=1'])
++   w!
++   call feedkeys(":make\<CR>\<CR>", 'tx')
++   call assert_fails('clist', 'E42:')
++ 
++   call setline(1, ['#!/usr/bin/perl -w', 'use strict;', '$foo=1'])
++   w!
++   call feedkeys(":make\<CR>\<CR>", 'tx')
++   let a=execute('clist')
++   call assert_equal("\n 1 Xfoo.pl:3: Global symbol \"\$foo\" "
++   \ .               "requires explicit package name "
++   \ .               "(did you forget to declare \"my $foo\"?)", a)
++ 
++   call delete('Xfoo.pl')
++   bw!
++ endfunc
++ 
++ func Test_compiler_without_arg()
++   let a=split(execute('compiler'))
++   call assert_equal($VIMRUNTIME . '/compiler/ant.vim',   a[0])
++   call assert_equal($VIMRUNTIME . '/compiler/bcc.vim',   a[1])
++   call assert_equal($VIMRUNTIME . '/compiler/xmlwf.vim', a[-1])
++ endfunc
++ 
++ func Test_compiler_completion()
++   call feedkeys(":compiler \<C-A>\<C-B>\"\<CR>", 'tx')
++   call assert_match('^"compiler ant bcc .* xmlwf$', @:)
++ 
++   call feedkeys(":compiler p\<C-A>\<C-B>\"\<CR>", 'tx')
++   call assert_equal('"compiler pbx perl php pylint pyunit', @:)
++ 
++   call feedkeys(":compiler! p\<C-A>\<C-B>\"\<CR>", 'tx')
++   call assert_equal('"compiler! pbx perl php pylint pyunit', @:)
++ endfunc
++ 
++ func Test_compiler_error()
++   call assert_fails('compiler doesnotexist', 'E666:')
++ endfunc
+*** ../vim-8.1.0002/src/version.c	2018-05-19 14:43:26.779509715 +0200
+--- src/version.c	2018-05-19 14:58:56.017772272 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     3,
+  /**/
+
+-- 
+The Characters and incidents portrayed and the names used are fictitious and
+any similarity to the names, characters, or history of any person is entirely
+accidental and unintentional.
+                                  Signed RICHARD M. NIXON
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

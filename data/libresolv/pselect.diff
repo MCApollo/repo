@@ -1,0 +1,22 @@
+diff -ru libresolv-19/res_send.c libresolv-19+iPhone/res_send.c
+--- libresolv-19/res_send.c	2007-10-05 00:02:17.000000000 +0000
++++ libresolv-19+iPhone/res_send.c	2008-04-04 20:18:45.000000000 +0000
+@@ -141,7 +141,8 @@
+ static void		Perror(const res_state, FILE *, const char *, int);
+ static int		sock_eq(struct sockaddr *, struct sockaddr *);
+ #ifdef NEED_PSELECT
+-static int		pselect(int, void *, void *, void *, struct timespec *, const sigset_t *);
++static int		pselect_(int, void *, void *, void *, struct timespec *, const sigset_t *);
++#define pselect pselect_
+ #endif
+ 
+ static const int niflags = NI_NUMERICHOST | NI_NUMERICSERV;
+@@ -1414,7 +1415,7 @@
+ #ifdef NEED_PSELECT
+ /* XXX needs to move to the porting library. */
+ static int
+-pselect(int nfds, void *rfds, void *wfds, void *efds, struct timespec *tsp, const sigset_t *sigmask)
++pselect_(int nfds, void *rfds, void *wfds, void *efds, struct timespec *tsp, const sigset_t *sigmask)
+ {
+ 	struct timeval tv, *tvp = NULL;
+ 	sigset_t sigs;

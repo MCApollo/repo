@@ -1,0 +1,82 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0587
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0587
+Problem:    GvimExt: realloc() failing is not handled properly.
+Solution:   Check for NULL return. (Jan-Jaap Korpershoek, closes #3689)
+Files:	    src/GvimExt/gvimext.cpp
+
+
+*** ../vim-8.1.0586/src/GvimExt/gvimext.cpp	2018-10-25 11:25:50.166512213 +0200
+--- src/GvimExt/gvimext.cpp	2018-12-14 19:15:54.292680774 +0100
+***************
+*** 1024,1029 ****
+--- 1024,1031 ----
+  
+      cmdlen = BUFSIZE;
+      cmdStrW  = (wchar_t *) malloc(cmdlen * sizeof(wchar_t));
++     if (cmdStrW == NULL)
++ 	return;
+      getGvimInvocationW(cmdStrW);
+  
+      if (useDiff)
+***************
+*** 1039,1045 ****
+  	if (len > cmdlen)
+  	{
+  	    cmdlen = len + BUFSIZE;
+! 	    cmdStrW = (wchar_t *)realloc(cmdStrW, cmdlen * sizeof(wchar_t));
+  	}
+  	wcscat(cmdStrW, L" \"");
+  	wcscat(cmdStrW, m_szFileUserClickedOn);
+--- 1041,1050 ----
+  	if (len > cmdlen)
+  	{
+  	    cmdlen = len + BUFSIZE;
+! 	    wchar_t *cmdStrW_new = (wchar_t *)realloc(cmdStrW, cmdlen * sizeof(wchar_t));
+! 	    if (cmdStrW_new == NULL)
+! 		goto theend;
+! 	    cmdStrW = cmdStrW_new;
+  	}
+  	wcscat(cmdStrW, L" \"");
+  	wcscat(cmdStrW, m_szFileUserClickedOn);
+***************
+*** 1076,1082 ****
+  	CloseHandle(pi.hProcess);
+  	CloseHandle(pi.hThread);
+      }
+! 
+      free(cmdStrW);
+  
+      return NOERROR;
+--- 1081,1087 ----
+  	CloseHandle(pi.hProcess);
+  	CloseHandle(pi.hThread);
+      }
+! theend:
+      free(cmdStrW);
+  
+      return NOERROR;
+*** ../vim-8.1.0586/src/version.c	2018-12-14 18:52:57.169528762 +0100
+--- src/version.c	2018-12-14 19:17:18.488135136 +0100
+***************
+*** 801,802 ****
+--- 801,804 ----
+  {   /* Add new patch number below this line */
++ /**/
++     587,
+  /**/
+
+-- 
+A)bort, R)etry, B)ang it with a large hammer
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,63 @@
+diff -ru screen-4.0.3/os.h screen-4.0.3+iPhone/os.h
+--- screen-4.0.3/os.h	2002-01-08 15:42:33.000000000 +0000
++++ screen-4.0.3+iPhone/os.h	2009-04-08 11:46:30.000000000 +0000
+@@ -260,7 +260,8 @@
+ #endif
+ 
+ #if defined(UTMPOK) || defined(BUGGYGETLOGIN)
+-# if defined(SVR4) && !defined(DGUX) && !defined(__hpux) && !defined(linux)
++# if defined(SVR4) && !defined(DGUX) && !defined(__hpux) && !defined(linux) || defined(__APPLE__)
++#  define _UTMPX_COMPAT
+ #  include <utmpx.h>
+ #  define UTMPFILE	UTMPX_FILE
+ #  define utmp		utmpx
+diff -ru screen-4.0.3/configure.in screen-4.0.3+iPhone/configure.in
+--- screen-4.0.3/configure.in	2003-06-03 11:58:24.000000000 +0000
++++ screen-4.0.3+iPhone/configure.in	2009-04-08 11:55:22.000000000 +0000
+@@ -815,9 +815,11 @@
+ AC_TRY_LINK([
+ #include <time.h> /* to get time_t on SCO */
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if defined(SVR4) && !defined(DGUX) || defined(__APPLE__)
+ #include <utmpx.h>
+ #define utmp utmpx
++#define pututline pututxline
++#define getutent getutxent
+ #else
+ #include <utmp.h>
+ #endif
+@@ -832,9 +834,11 @@
+ AC_TRY_LINK([
+ #include <time.h>
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if defined(SVR4) && !defined(DGUX) || defined(__APPLE__)
+ #include <utmpx.h>
+ #define utmp utmpx
++#define pututline pututxline
++#define getutent getutxent
+ #else
+ #include <utmp.h>
+ #endif
+@@ -848,7 +852,7 @@
+ AC_TRY_COMPILE([
+ #include <time.h>
+ #include <sys/types.h>
+-#if defined(SVR4) && !defined(DGUX)
++#if defined(SVR4) && !defined(DGUX) || defined(__APPLE__)
+ #include <utmpx.h>
+ #define utmp utmpx
+ #else
+diff -ru screen-4.0.3/utmp.c screen-4.0.3+iPhone/utmp.c
+--- screen-4.0.3/utmp.c	2003-09-08 14:27:17.000000000 +0000
++++ screen-4.0.3+iPhone/utmp.c	2009-04-08 12:01:35.000000000 +0000
+@@ -589,7 +589,7 @@
+ struct utmp *u;
+ {
+   u->ut_type = DEAD_PROCESS;
+-#if !defined(linux) || defined(EMPTY)
++#if (!defined(linux) || defined(EMPTY)) && !defined(__APPLE__)
+   u->ut_exit.e_termination = 0;
+   u->ut_exit.e_exit = 0;
+ #endif

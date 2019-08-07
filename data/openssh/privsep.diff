@@ -1,0 +1,224 @@
+diff -ur openssh-7.9p1/contrib/cygwin/ssh-host-config openssh-7.9p1+iPhone/contrib/cygwin/ssh-host-config
+--- openssh-7.9p1/contrib/cygwin/ssh-host-config	2018-10-16 14:01:20.000000000 -1000
++++ openssh-7.9p1+iPhone/contrib/cygwin/ssh-host-config	2018-12-10 10:14:07.000000000 -1000
+@@ -63,6 +63,7 @@
+ port_number=22
+ service_name=sshd
+ strictmodes=yes
++privsep_used=yes
+ cygwin_value=""
+ user_account=
+ password_value=
+@@ -139,21 +140,33 @@
+ 
+ # ======================================================================
+ # Routine: sshd_privsep
+-# Try to create ssshd user account
++#  MODIFIES: privsep_used
+ # ======================================================================
+ sshd_privsep() {
+   local ret=0
+ 
+   if [ "${sshd_config_configured}" != "yes" ]
+   then
+-    if ! csih_create_unprivileged_user sshd
+-    then
+-      csih_error_recoverable "Could not create user 'sshd'!"
+-      csih_error_recoverable "You will not be able to run an sshd service"
+-      csih_error_recoverable "under a privileged account successfully."
+-      csih_error_recoverable "Make sure to create a non-privileged user 'sshd'"
+-      csih_error_recoverable "manually before trying to run the service!"
+-      let ++ret
++    echo
++    csih_inform "Privilege separation is set to 'sandbox' by default since"
++    csih_inform "OpenSSH 6.1.  This is unsupported by Cygwin and has to be set"
++    csih_inform "to 'yes' or 'no'."
++    csih_inform "However, using privilege separation requires a non-privileged account"
++    csih_inform "called 'sshd'."
++    csih_inform "For more info on privilege separation read /usr/share/doc/openssh/README.privsep."
++    if csih_request "Should privilege separation be used?"
++    then
++      privsep_used=yes
++      if ! csih_create_unprivileged_user sshd
++      then
++	csih_error_recoverable "Couldn't create user 'sshd'!"
++	csih_error_recoverable "Privilege separation set to 'no' again!"
++	csih_error_recoverable "Check your ${SYSCONFDIR}/sshd_config file!"
++	let ++ret
++	privsep_used=no
++      fi
++    else
++      privsep_used=no
+     fi
+   fi
+   return $ret
+@@ -189,6 +202,18 @@
+       let ++ret
+     fi
+   fi
++  if [ "${sshd_config_configured}" != "yes" ]
++  then
++    /usr/bin/sed -i -e "
++      s/^#\?UsePrivilegeSeparation .*/UsePrivilegeSeparation ${privsep_used}/" \
++      ${SYSCONFDIR}/sshd_config
++    if [ $? -ne 0 ]
++    then
++      csih_warning "Setting privilege separation failed!"
++      csih_warning "Check your ${SYSCONFDIR}/sshd_config file!"
++      let ++ret
++    fi
++  fi
+   return $ret
+ } # --- End of sshd_config_tweak --- #
+ 
+@@ -668,7 +693,7 @@
+   fi
+ fi
+ 
+-# handle sshd_config
++# handle sshd_config (and privsep)
+ csih_install_config "${SYSCONFDIR}/sshd_config" "${SYSCONFDIR}/defaults" || let ++warning_cnt
+ if ! /usr/bin/cmp "${SYSCONFDIR}/sshd_config" "${SYSCONFDIR}/defaults/${SYSCONFDIR}/sshd_config" >/dev/null 2>&1
+ then
+diff -ur openssh-7.9p1/servconf.c openssh-7.9p1+iPhone/servconf.c
+--- openssh-7.9p1/servconf.c	2018-10-16 14:01:20.000000000 -1000
++++ openssh-7.9p1+iPhone/servconf.c	2018-12-10 10:14:07.000000000 -1000
+@@ -614,7 +614,7 @@
+ 	{ "clientalivecountmax", sClientAliveCountMax, SSHCFG_ALL },
+ 	{ "authorizedkeysfile", sAuthorizedKeysFile, SSHCFG_ALL },
+ 	{ "authorizedkeysfile2", sDeprecated, SSHCFG_ALL },
+-	{ "useprivilegeseparation", sDeprecated, SSHCFG_GLOBAL},
++	{ "useprivilegeseparation", sUsePrivilegeSeparation, SSHCFG_GLOBAL},
+ 	{ "acceptenv", sAcceptEnv, SSHCFG_ALL },
+ 	{ "setenv", sSetEnv, SSHCFG_ALL },
+ 	{ "permittunnel", sPermitTunnel, SSHCFG_ALL },
+@@ -1187,6 +1187,13 @@
+ 	{ "no",				0 },
+ 	{ NULL, -1 }
+ };
++static const struct multistate multistate_privsep[] = {
++	{ "yes",			PRIVSEP_NOSANDBOX },
++	{ "sandbox",			PRIVSEP_ON },
++	{ "nosandbox",			PRIVSEP_NOSANDBOX },
++	{ "no",				PRIVSEP_OFF },
++	{ NULL, -1 }
++};
+ static const struct multistate multistate_tcpfwd[] = {
+ 	{ "yes",			FORWARD_ALLOW },
+ 	{ "all",			FORWARD_ALLOW },
+@@ -1646,6 +1653,11 @@
+ 		intptr = &options->disable_forwarding;
+ 		goto parse_flag;
+ 
++	case sUsePrivilegeSeparation:
++		intptr = &use_privsep;
++		multistate_ptr = multistate_privsep;
++		goto parse_multistate;
++
+ 	case sAllowUsers:
+ 		while ((arg = strdelim(&cp)) && *arg != '\0') {
+ 			if (match_user(NULL, NULL, NULL, arg) == -1)
+@@ -2407,6 +2419,8 @@
+ 		return fmt_multistate_int(val, multistate_gatewayports);
+ 	case sCompression:
+ 		return fmt_multistate_int(val, multistate_compression);
++	case sUsePrivilegeSeparation:
++		return fmt_multistate_int(val, multistate_privsep);
+ 	case sAllowTcpForwarding:
+ 		return fmt_multistate_int(val, multistate_tcpfwd);
+ 	case sAllowStreamLocalForwarding:
+@@ -2586,6 +2600,7 @@
+ 	dump_cfg_fmtint(sDisableForwarding, o->disable_forwarding);
+ 	dump_cfg_fmtint(sAllowStreamLocalForwarding, o->allow_streamlocal_forwarding);
+ 	dump_cfg_fmtint(sStreamLocalBindUnlink, o->fwd_opts.streamlocal_bind_unlink);
++	dump_cfg_fmtint(sUsePrivilegeSeparation, use_privsep);
+ 	dump_cfg_fmtint(sFingerprintHash, o->fingerprint_hash);
+ 	dump_cfg_fmtint(sExposeAuthInfo, o->expose_userauth_info);
+ 
+Only in openssh-7.9p1+iPhone: servconf.c.orig
+diff -ur openssh-7.9p1/sshd.c openssh-7.9p1+iPhone/sshd.c
+--- openssh-7.9p1/sshd.c	2018-10-16 14:01:20.000000000 -1000
++++ openssh-7.9p1+iPhone/sshd.c	2018-12-10 10:14:07.000000000 -1000
+@@ -228,7 +228,6 @@
+ int use_privsep = -1;
+ struct monitor *pmonitor = NULL;
+ int privsep_is_preauth = 1;
+-static int privsep_chroot = 1;
+ 
+ /* global authentication context */
+ Authctxt *the_authctxt = NULL;
+@@ -545,7 +544,7 @@
+ 	demote_sensitive_data();
+ 
+ 	/* Demote the child */
+-	if (privsep_chroot) {
++	if (getuid() == 0 || geteuid() == 0) {
+ 		/* Change our root directory */
+ 		if (chroot(_PATH_PRIVSEP_CHROOT_DIR) == -1)
+ 			fatal("chroot(\"%s\"): %s", _PATH_PRIVSEP_CHROOT_DIR,
+@@ -1730,9 +1729,8 @@
+ 	);
+ 
+ 	/* Store privilege separation user for later use if required. */
+-	privsep_chroot = use_privsep && (getuid() == 0 || geteuid() == 0);
+ 	if ((privsep_pw = getpwnam(SSH_PRIVSEP_USER)) == NULL) {
+-		if (privsep_chroot || options.kerberos_authentication)
++		if (use_privsep || options.kerberos_authentication)
+ 			fatal("Privilege separation user %s does not exist",
+ 			    SSH_PRIVSEP_USER);
+ 	} else {
+@@ -1858,7 +1856,7 @@
+ 		    sshkey_type(key));
+ 	}
+ 
+-	if (privsep_chroot) {
++	if (use_privsep) {
+ 		struct stat st;
+ 
+ 		if ((stat(_PATH_PRIVSEP_CHROOT_DIR, &st) == -1) ||
+Only in openssh-7.9p1+iPhone: sshd.c.orig
+diff -ur openssh-7.9p1/sshd_config openssh-7.9p1+iPhone/sshd_config
+--- openssh-7.9p1/sshd_config	2018-10-16 14:01:20.000000000 -1000
++++ openssh-7.9p1+iPhone/sshd_config	2018-12-10 10:14:59.000000000 -1000
+@@ -90,6 +90,7 @@
+ #PermitTTY yes
+ #PrintMotd yes
+ #PrintLastLog yes
++#UsePrivilegeSeparation sandbox
+ #TCPKeepAlive yes
+ #PermitUserEnvironment no
+ #Compression delayed
+diff -ur openssh-7.9p1/sshd_config.5 openssh-7.9p1+iPhone/sshd_config.5
+--- openssh-7.9p1/sshd_config.5	2018-10-16 14:01:20.000000000 -1000
++++ openssh-7.9p1+iPhone/sshd_config.5	2018-12-10 10:14:07.000000000 -1000
+@@ -1624,6 +1624,28 @@
+ as a non-root user.
+ The default is
+ .Cm no .
++.It Cm UsePrivilegeSeparation
++Specifies whether
++.Xr sshd 8
++separates privileges by creating an unprivileged child process
++to deal with incoming network traffic.
++After successful authentication, another process will be created that has
++the privilege of the authenticated user.
++The goal of privilege separation is to prevent privilege
++escalation by containing any corruption within the unprivileged processes.
++The argument must be
++.Cm yes ,
++.Cm no ,
++or
++.Cm sandbox .
++If
++.Cm UsePrivilegeSeparation
++is set to
++.Cm sandbox
++then the pre-authentication unprivileged process is subject to additional
++restrictions.
++The default is
++.Cm sandbox .
+ .It Cm VersionAddendum
+ Optionally specifies additional text to append to the SSH protocol banner
+ sent by the server upon connection.
+Only in openssh-7.9p1+iPhone: sshd_config.5.orig
+Only in openssh-7.9p1+iPhone: sshd_config.orig

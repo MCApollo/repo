@@ -1,0 +1,3397 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0105
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0105
+Problem:    All tab stops are the same.
+Solution:   Add the variable tabstop feature. (Christian Brabandt,
+            closes #2711)
+Files:	    runtime/doc/change.txt, runtime/doc/options.txt,
+            runtime/doc/various.txt, runtime/optwin.vim, src/beval.c,
+            src/beval.h, src/buffer.c, src/charset.c, src/edit.c,
+            src/evalfunc.c, src/ex_cmds.c, src/feature.h, src/gui_beval.c,
+            src/gui_w32.c, src/hardcopy.c, src/message.c, src/misc1.c,
+            src/ops.c, src/option.c, src/option.h, src/proto/misc1.pro,
+            src/proto/option.pro, src/screen.c, src/structs.h,
+            src/testdir/Make_all.mak, src/testdir/gen_opt_test.vim,
+            src/testdir/test_breakindent.vim, src/testdir/test_vartabs.vim,
+            src/version.c, src/workshop.c, src/Makefile
+
+
+*** ../vim-8.1.0104/runtime/doc/change.txt	2018-05-17 13:40:51.000000000 +0200
+--- runtime/doc/change.txt	2018-06-23 17:41:10.096366118 +0200
+***************
+*** 987,992 ****
+--- 987,997 ----
+  			this (that's a good habit anyway).
+  			`:retab!` may also change a sequence of spaces by
+  			<Tab> characters, which can mess up a printf().
++ 			If the |+vartabs| feature is enabled then a list of
++ 			tab widths separated by commas may be used in place of
++ 			a single tabstop.  Each value in the list represents
++ 			the width of one tabstop, except the final value which
++ 			applies to all following tabstops.
+  			{not in Vi}
+  
+  							*retab-example*
+*** ../vim-8.1.0104/runtime/doc/options.txt	2018-06-03 14:42:17.832505129 +0200
+--- runtime/doc/options.txt	2018-06-23 17:41:10.100366093 +0200
+***************
+*** 7172,7177 ****
+--- 7172,7181 ----
+  	set.
+  	NOTE: This option is set to 0 when 'compatible' is set.
+  
++ 	If Vim is compiled with the |+vartabs| feature then the value of
++ 	'softtabstop' will be ignored if |'varsofttabstop'| is set to
++ 	anything other than an empty string.
++ 
+  						*'spell'* *'nospell'*
+  'spell'			boolean	(default off)
+  			local to window
+***************
+*** 7723,7728 ****
+--- 7727,7736 ----
+  	   though.  Otherwise aligned comments will be wrong when 'tabstop' is
+  	   changed.
+  
++ 	If Vim is compiled with the |+vartabs| feature then the value of
++ 	'tabstop' will be ignored if |'vartabstop'| is set to anything other
++ 	than an empty string.
++ 
+  			*'tagbsearch'* *'tbs'* *'notagbsearch'* *'notbs'*
+  'tagbsearch' 'tbs'	boolean	(default on)
+  			global
+***************
+*** 8468,8473 ****
+--- 8476,8519 ----
+  	written to disk (see |crash-recovery|).  Also used for the
+  	|CursorHold| autocommand event.
+  
++ 					*'varsofttabstop'* *'vsts'*
++ 'varsofttabstop' 'vsts'	string	(default "")
++ 			local to buffer
++ 			{only available when compiled with the |+vartabs|
++ 			feature}
++ 			{not in Vi}
++ 	A list of the number of spaces that a <Tab> counts for while editing,
++ 	such as inserting a <Tab> or using <BS>.  It "feels" like variable-
++ 	width <Tab>s are being inserted, while in fact a mixture of spaces
++ 	and <Tab>s is used.  Tab widths are separated with commas, with the
++ 	final value applying to all subsequent tabs.
++ 
++ 	For example, when editing assembly language files where statements
++ 	start in the 8th column and comments in the 40th, it may be useful
++ 	to use the following: >
++ 		:set varsofttabstop=8,32,8
++ <	This will set soft tabstops at the 8th and 40th columns, and at every
++ 	8th column thereafter.
++ 
++ 	Note that the value of |'softtabstop'| will be ignored while
++ 	'varsofttabstop' is set.
++ 
++ 						*'vartabstop'* *'vts'*
++ 'vartabstop' 'vts'	string	(default "")
++ 			local to buffer
++ 			{only available when compiled with the |+vartabs|
++ 			feature}
++ 			{not in Vi}
++ 	A list of the number of spaces that a <Tab> in the file counts for,
++ 	separated by commas.  Each value corresponds to one tab, with the
++ 	final value applying to all subsequent tabs. For example: >
++ 		:set vartabstop=4,20,10,8
++ <	This will make the first tab 4 spaces wide, the second 20 spaces,
++ 	the third 10 spaces, and all following tabs 8 spaces.
++ 
++ 	Note that the value of |'tabstop'| will be ignored while 'vartabstop'
++ 	is set.
++ 
+  						*'verbose'* *'vbs'*
+  'verbose' 'vbs'		number	(default 0)
+  			global
+*** ../vim-8.1.0104/runtime/doc/various.txt	2018-05-17 13:42:04.000000000 +0200
+--- runtime/doc/various.txt	2018-06-23 17:41:10.100366093 +0200
+***************
+*** 453,458 ****
+--- 453,459 ----
+  N  *+title*		Setting the window 'title' and 'icon'
+  N  *+toolbar*		|gui-toolbar|
+  N  *+user_commands*	User-defined commands. |user-commands|
++ B  *+vartabs*		Variable-width tabstops. |'vartabstop'|
+  N  *+viminfo*		|'viminfo'|
+     *+vertsplit*		Vertically split windows |:vsplit|; Always enabled
+  			since 8.0.1118.
+*** ../vim-8.1.0104/runtime/optwin.vim	2018-05-15 21:39:18.000000000 +0200
+--- runtime/optwin.vim	2018-06-23 17:41:10.100366093 +0200
+***************
+*** 856,861 ****
+--- 856,869 ----
+  call append("$", "shiftwidth\tnumber of spaces used for each step of (auto)indent")
+  call append("$", "\t(local to buffer)")
+  call <SID>OptionL("sw")
++ if has("vartabs")
++   call append("$", "vartabstop\tlist of number of spaces a tab counts for")
++   call append("$", "\t(local to buffer)")
++   call <SID>OptionL("vts")
++   call append("$", "varsofttabstop\tlist of number of spaces a soft tabsstop counts for")
++   call append("$", "\t(local to buffer)")
++   call <SID>OptionL("vsts")
++ endif
+  call append("$", "smarttab\ta <Tab> in an indent inserts 'shiftwidth' spaces")
+  call <SID>BinOptionG("sta", &sta)
+  call append("$", "softtabstop\tif non-zero, number of spaces to insert for a <Tab>")
+*** ../vim-8.1.0104/src/beval.c	2018-02-06 22:46:29.000000000 +0100
+--- src/beval.c	2018-06-23 18:34:30.918950814 +0200
+***************
+*** 124,129 ****
+--- 124,134 ----
+  		*lnump = lnum;
+  		*textp = lbuf;
+  		*colp = col;
++ #ifdef FEAT_VARTABS
++ 		if (beval->vts)
++ 		    vim_free(beval->vts);
++ 		beval->vts = tabstop_copy(wp->w_buffer->b_p_vts_array);
++ #endif
+  		beval->ts = wp->w_buffer->b_p_ts;
+  		return OK;
+  	    }
+*** ../vim-8.1.0104/src/beval.h	2017-11-19 20:22:17.000000000 +0100
+--- src/beval.h	2018-06-23 18:42:21.444354814 +0200
+***************
+*** 71,77 ****
+      void		*clientData;	/* For callback */
+  #endif
+  
+!     int			ts;		/* tabstop setting for this buffer */
+      char_u		*msg;
+  } BalloonEval;
+  
+--- 71,80 ----
+      void		*clientData;	/* For callback */
+  #endif
+  
+!     int			ts;		// tabstop setting for this buffer
+! #ifdef FEAT_VARTABS
+!     int			*vts;		// vartabstop setting for this buffer
+! #endif
+      char_u		*msg;
+  } BalloonEval;
+  
+*** ../vim-8.1.0104/src/buffer.c	2018-06-16 22:58:11.791025515 +0200
+--- src/buffer.c	2018-06-23 18:34:40.502898381 +0200
+***************
+*** 271,277 ****
+      /*
+       * Set/reset the Changed flag first, autocmds may change the buffer.
+       * Apply the automatic commands, before processing the modelines.
+!      * So the modelines have priority over auto commands.
+       */
+      /* When reading stdin, the buffer contents always needs writing, so set
+       * the changed flag.  Unless in readonly mode: "ls | gview -".
+--- 271,277 ----
+      /*
+       * Set/reset the Changed flag first, autocmds may change the buffer.
+       * Apply the automatic commands, before processing the modelines.
+!      * So the modelines have priority over autocommands.
+       */
+      /* When reading stdin, the buffer contents always needs writing, so set
+       * the changed flag.  Unless in readonly mode: "ls | gview -".
+***************
+*** 2159,2164 ****
+--- 2159,2177 ----
+      clear_string_option(&buf->b_p_fo);
+      clear_string_option(&buf->b_p_flp);
+      clear_string_option(&buf->b_p_isk);
++ #ifdef FEAT_VARTABS
++     clear_string_option(&buf->b_p_vsts);
++     if (buf->b_p_vsts_nopaste)
++ 	vim_free(buf->b_p_vsts_nopaste);
++     buf->b_p_vsts_nopaste = NULL;
++     if (buf->b_p_vsts_array)
++ 	vim_free(buf->b_p_vsts_array);
++     buf->b_p_vsts_array = NULL;
++     clear_string_option(&buf->b_p_vts);
++     if (buf->b_p_vts_array)
++ 	vim_free(buf->b_p_vts_array);
++     buf->b_p_vts_array = NULL;
++ #endif
+  #ifdef FEAT_KEYMAP
+      clear_string_option(&buf->b_p_keymap);
+      keymap_clear(&buf->b_kmap_ga);
+***************
+*** 5190,5196 ****
+  		win_close(wp, FALSE);
+  		wpnext = firstwin;	/* just in case an autocommand does
+  					   something strange with windows */
+! 		tpnext = first_tabpage;	/* start all over...*/
+  		open_wins = 0;
+  	    }
+  	    else
+--- 5203,5209 ----
+  		win_close(wp, FALSE);
+  		wpnext = firstwin;	/* just in case an autocommand does
+  					   something strange with windows */
+! 		tpnext = first_tabpage;	/* start all over... */
+  		open_wins = 0;
+  	    }
+  	    else
+***************
+*** 5650,5657 ****
+  }
+  
+  /*
+!  * Return TRUE if "buf" is a "nofile", "acwrite" or "terminal" buffer.
+!  * This means the buffer name is not a file name.
+   */
+      int
+  bt_nofile(buf_T *buf)
+--- 5663,5670 ----
+  }
+  
+  /*
+!  * Return TRUE if "buf" is a "nofile", "acwrite", "terminal" or "prompt"
+!  * buffer.  This means the buffer name is not a file name.
+   */
+      int
+  bt_nofile(buf_T *buf)
+***************
+*** 5663,5669 ****
+  }
+  
+  /*
+!  * Return TRUE if "buf" is a "nowrite", "nofile" or "terminal" buffer.
+   */
+      int
+  bt_dontwrite(buf_T *buf)
+--- 5676,5683 ----
+  }
+  
+  /*
+!  * Return TRUE if "buf" is a "nowrite", "nofile", "terminal" or "prompt"
+!  * buffer.
+   */
+      int
+  bt_dontwrite(buf_T *buf)
+*** ../vim-8.1.0104/src/charset.c	2018-06-12 17:25:32.054404315 +0200
+--- src/charset.c	2018-06-23 18:42:59.804141756 +0200
+***************
+*** 812,818 ****
+   * Also see getvcol() below.
+   */
+  
+! #define RET_WIN_BUF_CHARTABSIZE(wp, buf, p, col) \
+      if (*(p) == TAB && (!(wp)->w_p_list || lcs_tab1)) \
+      { \
+  	int ts; \
+--- 812,827 ----
+   * Also see getvcol() below.
+   */
+  
+! #ifdef FEAT_VARTABS
+! # define RET_WIN_BUF_CHARTABSIZE(wp, buf, p, col) \
+!     if (*(p) == TAB && (!(wp)->w_p_list || lcs_tab1)) \
+!     { \
+! 	return tabstop_padding(col, (buf)->b_p_ts, (buf)->b_p_vts_array); \
+!     } \
+!     else \
+! 	return ptr2cells(p);
+! #else
+! # define RET_WIN_BUF_CHARTABSIZE(wp, buf, p, col) \
+      if (*(p) == TAB && (!(wp)->w_p_list || lcs_tab1)) \
+      { \
+  	int ts; \
+***************
+*** 821,826 ****
+--- 830,836 ----
+      } \
+      else \
+  	return ptr2cells(p);
++ #endif
+  
+      int
+  chartabsize(char_u *p, colnr_T col)
+***************
+*** 1221,1228 ****
+--- 1231,1243 ----
+  
+      if (*s == TAB && (!wp->w_p_list || lcs_tab1))
+      {
++ # ifdef FEAT_VARTABS
++ 	return tabstop_padding(col, wp->w_buffer->b_p_ts,
++ 				    wp->w_buffer->b_p_vts_array);
++ # else
+  	n = wp->w_buffer->b_p_ts;
+  	return (int)(n - (col % n));
++ # endif
+      }
+      n = ptr2cells(s);
+      /* Add one cell for a double-width character in the last column of the
+***************
+*** 1282,1287 ****
+--- 1297,1305 ----
+      char_u	*line;		/* start of the line */
+      int		incr;
+      int		head;
++ #ifdef FEAT_VARTABS
++     int		*vts = wp->w_buffer->b_p_vts_array;
++ #endif
+      int		ts = wp->w_buffer->b_p_ts;
+      int		c;
+  
+***************
+*** 1332,1338 ****
+--- 1350,1360 ----
+  	    }
+  	    /* A tab gets expanded, depending on the current column */
+  	    if (c == TAB)
++ #ifdef FEAT_VARTABS
++ 		incr = tabstop_padding(vcol, ts, vts);
++ #else
+  		incr = ts - (vcol % ts);
++ #endif
+  	    else
+  	    {
+  #ifdef FEAT_MBYTE
+*** ../vim-8.1.0104/src/edit.c	2018-06-17 19:36:30.215317108 +0200
+--- src/edit.c	2018-06-23 18:56:42.835538285 +0200
+***************
+*** 742,748 ****
+  	    mincol = curwin->w_wcol;
+  	    validate_cursor_col();
+  
+! 	    if ((int)curwin->w_wcol < mincol - curbuf->b_p_ts
+  		    && curwin->w_wrow == W_WINROW(curwin)
+  						 + curwin->w_height - 1 - p_so
+  		    && (curwin->w_cursor.lnum != curwin->w_topline
+--- 742,755 ----
+  	    mincol = curwin->w_wcol;
+  	    validate_cursor_col();
+  
+! 	    if (
+! #ifdef FEAT_VARTABS
+! 		(int)curwin->w_wcol < mincol - tabstop_at(
+! 					  get_nolist_virtcol(), curbuf->b_p_ts,
+! 							 curbuf->b_p_vts_array)
+! #else
+! 		(int)curwin->w_wcol < mincol - curbuf->b_p_ts
+! #endif
+  		    && curwin->w_wrow == W_WINROW(curwin)
+  						 + curwin->w_height - 1 - p_so
+  		    && (curwin->w_cursor.lnum != curwin->w_topline
+***************
+*** 9329,9351 ****
+  	 */
+  	if (	   mode == BACKSPACE_CHAR
+  		&& ((p_sta && in_indent)
+! 		    || (get_sts_value() != 0
+  			&& curwin->w_cursor.col > 0
+  			&& (*(ml_get_cursor() - 1) == TAB
+  			    || (*(ml_get_cursor() - 1) == ' '
+  				&& (!*inserted_space_p
+  				    || arrow_used))))))
+  	{
+  	    int		ts;
+  	    colnr_T	vcol;
+  	    colnr_T	want_vcol;
+  	    colnr_T	start_vcol;
+  
+  	    *inserted_space_p = FALSE;
+  	    if (p_sta && in_indent)
+  		ts = (int)get_sw_value(curbuf);
+  	    else
+  		ts = (int)get_sts_value();
+  	    /* Compute the virtual column where we want to be.  Since
+  	     * 'showbreak' may get in the way, need to get the last column of
+  	     * the previous character. */
+--- 9336,9366 ----
+  	 */
+  	if (	   mode == BACKSPACE_CHAR
+  		&& ((p_sta && in_indent)
+! 		    || ((get_sts_value() != 0
+! #ifdef FEAT_VARTABS
+! 			|| tabstop_count(curbuf->b_p_vsts_array)
+! #endif
+! 			)
+  			&& curwin->w_cursor.col > 0
+  			&& (*(ml_get_cursor() - 1) == TAB
+  			    || (*(ml_get_cursor() - 1) == ' '
+  				&& (!*inserted_space_p
+  				    || arrow_used))))))
+  	{
++ #ifndef FEAT_VARTABS
+  	    int		ts;
++ #endif
+  	    colnr_T	vcol;
+  	    colnr_T	want_vcol;
+  	    colnr_T	start_vcol;
+  
+  	    *inserted_space_p = FALSE;
++ #ifndef FEAT_VARTABS
+  	    if (p_sta && in_indent)
+  		ts = (int)get_sw_value(curbuf);
+  	    else
+  		ts = (int)get_sts_value();
++ #endif
+  	    /* Compute the virtual column where we want to be.  Since
+  	     * 'showbreak' may get in the way, need to get the last column of
+  	     * the previous character. */
+***************
+*** 9354,9360 ****
+--- 9369,9383 ----
+  	    dec_cursor();
+  	    getvcol(curwin, &curwin->w_cursor, NULL, NULL, &want_vcol);
+  	    inc_cursor();
++ #ifdef FEAT_VARTABS
++ 	    if (p_sta && in_indent)
++ 		want_vcol = (want_vcol / curbuf->b_p_sw) * curbuf->b_p_sw;
++ 	    else
++ 		want_vcol = tabstop_start(want_vcol, curbuf->b_p_sts,
++ 						     curbuf->b_p_vsts_array);
++ #else
+  	    want_vcol = (want_vcol / ts) * ts;
++ #endif
+  
+  	    /* delete characters until we are at or before want_vcol */
+  	    while (vcol > want_vcol
+***************
+*** 10144,10153 ****
+  #endif
+  
+      /*
+!      * When nothing special, insert TAB like a normal character
+       */
+      if (!curbuf->b_p_et
+  	    && !(p_sta && ind && curbuf->b_p_ts != get_sw_value(curbuf))
+  	    && get_sts_value() == 0)
+  	return TRUE;
+  
+--- 10167,10188 ----
+  #endif
+  
+      /*
+!      * When nothing special, insert TAB like a normal character.
+       */
+      if (!curbuf->b_p_et
++ #ifdef FEAT_VARTABS
++ 	    && !(p_sta && ind
++ 		/* These five lines mean 'tabstop' != 'shiftwidth' */
++ 		&& ((tabstop_count(curbuf->b_p_vts_array) > 1)
++ 		    || (tabstop_count(curbuf->b_p_vts_array) == 1
++ 		        && tabstop_first(curbuf->b_p_vts_array)
++ 						       != get_sw_value(curbuf))
++ 	            || (tabstop_count(curbuf->b_p_vts_array) == 0
++ 		        && curbuf->b_p_ts != get_sw_value(curbuf))))
++ 	    && tabstop_count(curbuf->b_p_vsts_array) == 0
++ #else
+  	    && !(p_sta && ind && curbuf->b_p_ts != get_sw_value(curbuf))
++ #endif
+  	    && get_sts_value() == 0)
+  	return TRUE;
+  
+***************
+*** 10162,10167 ****
+--- 10197,10216 ----
+  #endif
+      AppendToRedobuff((char_u *)"\t");
+  
++ #ifdef FEAT_VARTABS
++     if (p_sta && ind)		/* insert tab in indent, use 'shiftwidth' */
++     {
++ 	temp = (int)curbuf->b_p_sw;
++ 	temp -= get_nolist_virtcol() % temp;
++     }
++     else if (tabstop_count(curbuf->b_p_vsts_array) > 0 || curbuf->b_p_sts > 0)
++ 	                        /* use 'softtabstop' when set */
++ 	temp = tabstop_padding(get_nolist_virtcol(), curbuf->b_p_sts,
++ 						     curbuf->b_p_vsts_array);
++     else			/* otherwise use 'tabstop' */
++ 	temp = tabstop_padding(get_nolist_virtcol(), curbuf->b_p_ts,
++ 						     curbuf->b_p_vts_array);
++ #else
+      if (p_sta && ind)		/* insert tab in indent, use 'shiftwidth' */
+  	temp = (int)get_sw_value(curbuf);
+      else if (curbuf->b_p_sts != 0) /* use 'softtabstop' when set */
+***************
+*** 10169,10174 ****
+--- 10218,10224 ----
+      else			/* otherwise use 'tabstop' */
+  	temp = (int)curbuf->b_p_ts;
+      temp -= get_nolist_virtcol() % temp;
++ #endif
+  
+      /*
+       * Insert the first space with ins_char().	It will delete one char in
+***************
+*** 10193,10199 ****
+--- 10243,10255 ----
+      /*
+       * When 'expandtab' not set: Replace spaces by TABs where possible.
+       */
++ #ifdef FEAT_VARTABS
++     if (!curbuf->b_p_et && (tabstop_count(curbuf->b_p_vsts_array) > 0
++                             || get_sts_value() > 0
++ 			    || (p_sta && ind)))
++ #else
+      if (!curbuf->b_p_et && (get_sts_value() || (p_sta && ind)))
++ #endif
+      {
+  	char_u		*ptr;
+  #ifdef FEAT_VREPLACE
+*** ../vim-8.1.0104/src/evalfunc.c	2018-06-23 14:21:38.467484932 +0200
+--- src/evalfunc.c	2018-06-23 17:41:10.108366044 +0200
+***************
+*** 6436,6441 ****
+--- 6436,6444 ----
+  	"user-commands",    /* was accidentally included in 5.4 */
+  	"user_commands",
+  #endif
++ #ifdef FEAT_VARTABS
++ 	"vartabs",
++ #endif
+  #ifdef FEAT_VIMINFO
+  	"viminfo",
+  #endif
+*** ../vim-8.1.0104/src/ex_cmds.c	2018-06-04 20:34:07.607373577 +0200
+--- src/ex_cmds.c	2018-06-23 18:49:09.570076283 +0200
+***************
+*** 673,684 ****
+      long	vcol;
+      long	start_col = 0;		/* For start of white-space string */
+      long	start_vcol = 0;		/* For start of white-space string */
+-     int		temp;
+      long	old_len;
+      char_u	*ptr;
+      char_u	*new_line = (char_u *)1;    /* init to non-NULL */
+      int		did_undo;		/* called u_save for current line */
+      int		new_ts;
+      int		save_list;
+      linenr_T	first_line = 0;		/* first changed line */
+      linenr_T	last_line = 0;		/* last changed line */
+--- 673,689 ----
+      long	vcol;
+      long	start_col = 0;		/* For start of white-space string */
+      long	start_vcol = 0;		/* For start of white-space string */
+      long	old_len;
+      char_u	*ptr;
+      char_u	*new_line = (char_u *)1;    /* init to non-NULL */
+      int		did_undo;		/* called u_save for current line */
++ #ifdef FEAT_VARTABS
++     int		*new_ts = 0;
++     char_u	*new_ts_str;		/* string value of tab argument */
++ #else
++     int		temp;
+      int		new_ts;
++ #endif
+      int		save_list;
+      linenr_T	first_line = 0;		/* first changed line */
+      linenr_T	last_line = 0;		/* last changed line */
+***************
+*** 686,691 ****
+--- 691,713 ----
+      save_list = curwin->w_p_list;
+      curwin->w_p_list = 0;	    /* don't want list mode here */
+  
++ #ifdef FEAT_VARTABS
++     new_ts_str = eap->arg;
++     if (!tabstop_set(eap->arg, &new_ts))
++ 	return;
++     while (vim_isdigit(*(eap->arg)) || *(eap->arg) == ',')
++ 	++(eap->arg);
++ 
++     // This ensures that either new_ts and new_ts_str are freshly allocated,
++     // or new_ts points to an existing array and new_ts_str is null.
++     if (new_ts == 0)
++     {
++ 	new_ts = curbuf->b_p_vts_array;
++ 	new_ts_str = NULL;
++     }
++     else
++ 	new_ts_str = vim_strnsave(new_ts_str, eap->arg - new_ts_str);
++ #else
+      new_ts = getdigits(&(eap->arg));
+      if (new_ts < 0)
+      {
+***************
+*** 694,699 ****
+--- 716,722 ----
+      }
+      if (new_ts == 0)
+  	new_ts = curbuf->b_p_ts;
++ #endif
+      for (lnum = eap->line1; !got_int && lnum <= eap->line2; ++lnum)
+      {
+  	ptr = ml_get(lnum);
+***************
+*** 726,731 ****
+--- 749,764 ----
+  		    num_tabs = 0;
+  		    if (!curbuf->b_p_et)
+  		    {
++ #ifdef FEAT_VARTABS
++ 			int t, s;
++ 
++ 			tabstop_fromto(start_vcol, vcol,
++ 				       tabstop_count(new_ts)? 0: curbuf->b_p_ts,
++ 				       new_ts,
++ 				       &t, &s);
++ 			num_tabs = t;
++ 			num_spaces = s;
++ #else
+  			temp = new_ts - (start_vcol % new_ts);
+  			if (num_spaces >= temp)
+  			{
+***************
+*** 734,739 ****
+--- 767,773 ----
+  			}
+  			num_tabs += num_spaces / new_ts;
+  			num_spaces -= (num_spaces / new_ts) * new_ts;
++ #endif
+  		    }
+  		    if (curbuf->b_p_et || got_tab ||
+  					(num_spaces + num_tabs < len))
+***************
+*** 791,804 ****
+--- 825,877 ----
+      if (got_int)
+  	EMSG(_(e_interr));
+  
++ #ifdef FEAT_VARTABS
++     // If a single value was given then it can be considered equal to
++     // either the value of 'tabstop' or the value of 'vartabstop'.
++     if (tabstop_count(curbuf->b_p_vts_array) == 0
++ 	&& tabstop_count(new_ts) == 1
++ 	&& curbuf->b_p_ts == tabstop_first(new_ts))
++ 	; /* not changed */
++     else if (tabstop_count(curbuf->b_p_vts_array) > 0
++         && tabstop_eq(curbuf->b_p_vts_array, new_ts))
++ 	; /* not changed */
++     else
++ 	redraw_curbuf_later(NOT_VALID);
++ #else
+      if (curbuf->b_p_ts != new_ts)
+  	redraw_curbuf_later(NOT_VALID);
++ #endif
+      if (first_line != 0)
+  	changed_lines(first_line, 0, last_line + 1, 0L);
+  
+      curwin->w_p_list = save_list;	/* restore 'list' */
+  
++ #ifdef FEAT_VARTABS
++     if (new_ts_str != NULL)		/* set the new tabstop */
++     {
++ 	// If 'vartabstop' is in use or if the value given to retab has more
++ 	// than one tabstop then update 'vartabstop'.
++ 	int *old_vts_ary = curbuf->b_p_vts_array;
++ 
++ 	if (tabstop_count(old_vts_ary) > 0 || tabstop_count(new_ts) > 1)
++ 	{
++ 	    set_string_option_direct((char_u *)"vts", -1, new_ts_str,
++ 							OPT_FREE|OPT_LOCAL, 0);
++ 	    vim_free(new_ts_str);
++ 	    curbuf->b_p_vts_array = new_ts;
++ 	    vim_free(old_vts_ary);
++ 	}
++ 	else
++ 	{
++ 	    // 'vartabstop' wasn't in use and a single value was given to
++ 	    // retab then update 'tabstop'.
++ 	    curbuf->b_p_ts = tabstop_first(new_ts);
++ 	    vim_free(new_ts);
++ 	}
++     }
++ #else
+      curbuf->b_p_ts = new_ts;
++ #endif
+      coladvance(curwin->w_curswant);
+  
+      u_clearline();
+*** ../vim-8.1.0104/src/feature.h	2018-03-29 15:32:30.000000000 +0200
+--- src/feature.h	2018-06-23 17:41:10.108366044 +0200
+***************
+*** 806,811 ****
+--- 806,818 ----
+  #endif
+  
+  /*
++  * +vartabs		'vartabstop' and 'varsofttabstop' options.
++  */
++ #ifdef FEAT_BIG
++ # define FEAT_VARTABS
++ #endif
++ 
++ /*
+   * Preferences:
+   * ============
+   */
+*** ../vim-8.1.0104/src/gui_beval.c	2017-11-18 21:20:07.000000000 +0100
+--- src/gui_beval.c	2018-06-23 18:50:11.437730010 +0200
+***************
+*** 130,135 ****
+--- 130,138 ----
+  	beval->msg = mesg;
+  	beval->msgCB = mesgCB;
+  	beval->clientData = clientData;
++ #ifdef FEAT_VARTABS
++ 	beval->vts = NULL;
++ #endif
+  
+  	/*
+  	 * Set up event handler which will keep its eyes on the pointer,
+***************
+*** 172,177 ****
+--- 175,184 ----
+  # else
+      XtDestroyWidget(beval->balloonShell);
+  # endif
++ # ifdef FEAT_VARTABS
++     if (beval->vts)
++ 	vim_free(beval->vts);
++ # endif
+      vim_free(beval);
+  }
+  #endif
+*** ../vim-8.1.0104/src/gui_w32.c	2018-06-19 14:45:33.583620880 +0200
+--- src/gui_w32.c	2018-06-23 18:50:14.853710890 +0200
+***************
+*** 8934,8939 ****
+--- 8934,8942 ----
+  	beval->msg = mesg;
+  	beval->msgCB = mesgCB;
+  	beval->clientData = clientData;
++ #ifdef FEAT_VARTABS
++ 	beval->vts = NULL;
++ #endif
+  
+  	InitCommonControls();
+  	cur_beval = beval;
+***************
+*** 8990,8995 ****
+--- 8993,9002 ----
+      void
+  gui_mch_destroy_beval_area(BalloonEval *beval)
+  {
++ #ifdef FEAT_VARTABS
++     if (beval->vts)
++ 	vim_free(beval->vts);
++ #endif
+      vim_free(beval);
+  }
+  #endif /* FEAT_BEVAL_GUI */
+*** ../vim-8.1.0104/src/hardcopy.c	2018-06-16 14:44:05.750081612 +0200
+--- src/hardcopy.c	2018-06-23 18:35:24.530657199 +0200
+***************
+*** 915,921 ****
+--- 915,926 ----
+  	if (line[col] == TAB || tab_spaces != 0)
+  	{
+  	    if (tab_spaces == 0)
++ #ifdef FEAT_VARTABS
++ 		tab_spaces = tabstop_padding(print_pos, curbuf->b_p_ts,
++ 							curbuf->b_p_vts_array);
++ #else
+  		tab_spaces = (int)(curbuf->b_p_ts - (print_pos % curbuf->b_p_ts));
++ #endif
+  
+  	    while (tab_spaces > 0)
+  	    {
+*** ../vim-8.1.0104/src/message.c	2018-06-19 17:49:20.300015350 +0200
+--- src/message.c	2018-06-23 18:35:29.794628331 +0200
+***************
+*** 1831,1837 ****
+--- 1831,1842 ----
+  	    if (c == TAB && (!list || lcs_tab1))
+  	    {
+  		/* tab amount depends on current column */
++ #ifdef FEAT_VARTABS
++ 		n_extra = tabstop_padding(col, curbuf->b_p_ts,
++ 						    curbuf->b_p_vts_array) - 1;
++ #else
+  		n_extra = curbuf->b_p_ts - col % curbuf->b_p_ts - 1;
++ #endif
+  		if (!list)
+  		{
+  		    c = ' ';
+*** ../vim-8.1.0104/src/misc1.c	2018-06-19 18:58:04.010489820 +0200
+--- src/misc1.c	2018-06-23 18:50:28.649633665 +0200
+***************
+*** 36,42 ****
+--- 36,47 ----
+      int
+  get_indent(void)
+  {
++ #ifdef FEAT_VARTABS
++     return get_indent_str_vtab(ml_get_curline(), (int)curbuf->b_p_ts,
++ 						 curbuf->b_p_vts_array, FALSE);
++ #else
+      return get_indent_str(ml_get_curline(), (int)curbuf->b_p_ts, FALSE);
++ #endif
+  }
+  
+  /*
+***************
+*** 45,51 ****
+--- 50,61 ----
+      int
+  get_indent_lnum(linenr_T lnum)
+  {
++ #ifdef FEAT_VARTABS
++     return get_indent_str_vtab(ml_get(lnum), (int)curbuf->b_p_ts,
++ 						 curbuf->b_p_vts_array, FALSE);
++ #else
+      return get_indent_str(ml_get(lnum), (int)curbuf->b_p_ts, FALSE);
++ #endif
+  }
+  
+  #if defined(FEAT_FOLDING) || defined(PROTO)
+***************
+*** 56,62 ****
+--- 66,77 ----
+      int
+  get_indent_buf(buf_T *buf, linenr_T lnum)
+  {
++ #ifdef FEAT_VARTABS
++     return get_indent_str_vtab(ml_get_buf(buf, lnum, FALSE),
++ 			       (int)curbuf->b_p_ts, buf->b_p_vts_array, FALSE);
++ #else
+      return get_indent_str(ml_get_buf(buf, lnum, FALSE), (int)buf->b_p_ts, FALSE);
++ #endif
+  }
+  #endif
+  
+***************
+*** 91,96 ****
+--- 106,142 ----
+      return count;
+  }
+  
++ #ifdef FEAT_VARTABS
++ /*
++  * Count the size (in window cells) of the indent in line "ptr", using
++  * variable tabstops.
++  * if "list" is TRUE, count only screen size for tabs.
++  */
++     int
++ get_indent_str_vtab(char_u *ptr, int ts, int *vts, int list)
++ {
++     int		count = 0;
++ 
++     for ( ; *ptr; ++ptr)
++     {
++ 	if (*ptr == TAB)    /* count a tab for what it is worth */
++ 	{
++ 	    if (!list || lcs_tab1)
++ 		count += tabstop_padding(count, ts, vts);
++ 	    else
++ 		/* In list mode, when tab is not set, count screen char width
++ 		 * for Tab, displays: ^I */
++ 		count += ptr2cells(ptr);
++ 	}
++ 	else if (*ptr == ' ')
++ 	    ++count;		/* count a space for one */
++ 	else
++ 	    break;
++     }
++     return count;
++ }
++ #endif
++ 
+  /*
+   * Set the indent of the current line.
+   * Leaves the cursor on the first non-blank in the line.
+***************
+*** 115,120 ****
+--- 161,169 ----
+      int		line_len;
+      int		doit = FALSE;
+      int		ind_done = 0;	    /* measured in spaces */
++ #ifdef FEAT_VARTABS
++     int		ind_col = 0;
++ #endif
+      int		tab_pad;
+      int		retval = FALSE;
+      int		orig_char_len = -1; /* number of initial whitespace chars when
+***************
+*** 147,154 ****
+--- 196,208 ----
+  	    {
+  		if (*p == TAB)
+  		{
++ #ifdef FEAT_VARTABS
++ 		    tab_pad = tabstop_padding(ind_done, curbuf->b_p_ts,
++ 							curbuf->b_p_vts_array);
++ #else
+  		    tab_pad = (int)curbuf->b_p_ts
+  					   - (ind_done % (int)curbuf->b_p_ts);
++ #endif
+  		    /* stop if this tab will overshoot the target */
+  		    if (todo < tab_pad)
+  			break;
+***************
+*** 165,187 ****
+--- 219,269 ----
+  		++p;
+  	    }
+  
++ #ifdef FEAT_VARTABS
++ 	    /* These diverge from this point. */
++ 	    ind_col = ind_done;
++ #endif
+  	    /* Set initial number of whitespace chars to copy if we are
+  	     * preserving indent but expandtab is set */
+  	    if (curbuf->b_p_et)
+  		orig_char_len = ind_len;
+  
+  	    /* Fill to next tabstop with a tab, if possible */
++ #ifdef FEAT_VARTABS
++ 	    tab_pad = tabstop_padding(ind_done, curbuf->b_p_ts,
++ 						curbuf->b_p_vts_array);
++ #else
+  	    tab_pad = (int)curbuf->b_p_ts - (ind_done % (int)curbuf->b_p_ts);
++ #endif
+  	    if (todo >= tab_pad && orig_char_len == -1)
+  	    {
+  		doit = TRUE;
+  		todo -= tab_pad;
+  		++ind_len;
+  		/* ind_done += tab_pad; */
++ #ifdef FEAT_VARTABS
++ 		ind_col += tab_pad;
++ #endif
+  	    }
+  	}
+  
+  	/* count tabs required for indent */
++ #ifdef FEAT_VARTABS
++ 	for (;;)
++ 	{
++ 	    tab_pad = tabstop_padding(ind_col, curbuf->b_p_ts,
++ 							curbuf->b_p_vts_array);
++ 	    if (todo < tab_pad)
++ 		break;
++ 	    if (*p != TAB)
++ 		doit = TRUE;
++ 	    else
++ 		++p;
++ 	    todo -= tab_pad;
++ 	    ++ind_len;
++ 	    ind_col += tab_pad;
++ 	}
++ #else
+  	while (todo >= (int)curbuf->b_p_ts)
+  	{
+  	    if (*p != TAB)
+***************
+*** 192,197 ****
+--- 274,280 ----
+  	    ++ind_len;
+  	    /* ind_done += (int)curbuf->b_p_ts; */
+  	}
++ #endif
+      }
+      /* count spaces required for indent */
+      while (todo > 0)
+***************
+*** 266,273 ****
+--- 349,361 ----
+  	    {
+  		if (*p == TAB)
+  		{
++ #ifdef FEAT_VARTABS
++ 		    tab_pad = tabstop_padding(ind_done, curbuf->b_p_ts,
++ 							curbuf->b_p_vts_array);
++ #else
+  		    tab_pad = (int)curbuf->b_p_ts
+  					   - (ind_done % (int)curbuf->b_p_ts);
++ #endif
+  		    /* stop if this tab will overshoot the target */
+  		    if (todo < tab_pad)
+  			break;
+***************
+*** 283,303 ****
+--- 371,412 ----
+  	    }
+  
+  	    /* Fill to next tabstop with a tab, if possible */
++ #ifdef FEAT_VARTABS
++ 	    tab_pad = tabstop_padding(ind_done, curbuf->b_p_ts,
++ 						curbuf->b_p_vts_array);
++ #else
+  	    tab_pad = (int)curbuf->b_p_ts - (ind_done % (int)curbuf->b_p_ts);
++ #endif
+  	    if (todo >= tab_pad)
+  	    {
+  		*s++ = TAB;
+  		todo -= tab_pad;
++ #ifdef FEAT_VARTABS
++ 		ind_done += tab_pad;
++ #endif
+  	    }
+  
+  	    p = skipwhite(p);
+  	}
+  
++ #ifdef FEAT_VARTABS
++ 	for (;;)
++ 	{
++ 	    tab_pad = tabstop_padding(ind_done, curbuf->b_p_ts,
++ 							curbuf->b_p_vts_array);
++ 	    if (todo < tab_pad)
++ 		break;
++ 	    *s++ = TAB;
++ 	    todo -= tab_pad;
++ 	    ind_done += tab_pad;
++ 	}
++ #else
+  	while (todo >= (int)curbuf->b_p_ts)
+  	{
+  	    *s++ = TAB;
+  	    todo -= (int)curbuf->b_p_ts;
+  	}
++ #endif
+      }
+      while (todo > 0)
+      {
+***************
+*** 350,355 ****
+--- 459,467 ----
+      int		tab_pad;
+      int		ind_done;
+      int		round;
++ #ifdef FEAT_VARTABS
++     int		ind_col;
++ #endif
+  
+      /* Round 1: compute the number of characters needed for the indent
+       * Round 2: copy the characters. */
+***************
+*** 358,363 ****
+--- 470,478 ----
+  	todo = size;
+  	ind_len = 0;
+  	ind_done = 0;
++ #ifdef FEAT_VARTABS
++ 	ind_col = 0;
++ #endif
+  	s = src;
+  
+  	/* Count/copy the usable portion of the source line */
+***************
+*** 365,382 ****
+--- 480,508 ----
+  	{
+  	    if (*s == TAB)
+  	    {
++ #ifdef FEAT_VARTABS
++ 		tab_pad = tabstop_padding(ind_done, curbuf->b_p_ts,
++ 							curbuf->b_p_vts_array);
++ #else
+  		tab_pad = (int)curbuf->b_p_ts
+  					   - (ind_done % (int)curbuf->b_p_ts);
++ #endif
+  		/* Stop if this tab will overshoot the target */
+  		if (todo < tab_pad)
+  		    break;
+  		todo -= tab_pad;
+  		ind_done += tab_pad;
++ #ifdef FEAT_VARTABS
++ 		ind_col += tab_pad;
++ #endif
+  	    }
+  	    else
+  	    {
+  		--todo;
+  		++ind_done;
++ #ifdef FEAT_VARTABS
++ 		++ind_col;
++ #endif
+  	    }
+  	    ++ind_len;
+  	    if (p != NULL)
+***************
+*** 385,406 ****
+  	}
+  
+  	/* Fill to next tabstop with a tab, if possible */
+  	tab_pad = (int)curbuf->b_p_ts - (ind_done % (int)curbuf->b_p_ts);
+  	if (todo >= tab_pad && !curbuf->b_p_et)
+  	{
+  	    todo -= tab_pad;
+  	    ++ind_len;
+  	    if (p != NULL)
+  		*p++ = TAB;
+  	}
+  
+  	/* Add tabs required for indent */
+! 	while (todo >= (int)curbuf->b_p_ts && !curbuf->b_p_et)
+  	{
+! 	    todo -= (int)curbuf->b_p_ts;
+! 	    ++ind_len;
+! 	    if (p != NULL)
+! 		*p++ = TAB;
+  	}
+  
+  	/* Count/add spaces required for indent */
+--- 511,558 ----
+  	}
+  
+  	/* Fill to next tabstop with a tab, if possible */
++ #ifdef FEAT_VARTABS
++ 	tab_pad = tabstop_padding(ind_done, curbuf->b_p_ts,
++ 							curbuf->b_p_vts_array);
++ #else
+  	tab_pad = (int)curbuf->b_p_ts - (ind_done % (int)curbuf->b_p_ts);
++ #endif
+  	if (todo >= tab_pad && !curbuf->b_p_et)
+  	{
+  	    todo -= tab_pad;
+  	    ++ind_len;
++ #ifdef FEAT_VARTABS
++ 	    ind_col += tab_pad;
++ #endif
+  	    if (p != NULL)
+  		*p++ = TAB;
+  	}
+  
+  	/* Add tabs required for indent */
+! 	if (!curbuf->b_p_et)
+  	{
+! #ifdef FEAT_VARTABS
+! 	    for (;;)
+! 	    {
+! 		tab_pad = tabstop_padding(ind_col, curbuf->b_p_ts,
+! 							curbuf->b_p_vts_array);
+! 		if (todo < tab_pad)
+! 		    break;
+! 		todo -= tab_pad;
+! 		++ind_len;
+! 		ind_col += tab_pad;
+! 		if (p != NULL)
+! 		    *p++ = TAB;
+! 	    }
+! #else
+! 	    while (todo >= (int)curbuf->b_p_ts)
+! 	    {
+! 		todo -= (int)curbuf->b_p_ts;
+! 		++ind_len;
+! 		if (p != NULL)
+! 		    *p++ = TAB;
+! 	    }
+! #endif
+  	}
+  
+  	/* Count/add spaces required for indent */
+***************
+*** 497,502 ****
+--- 649,657 ----
+      static long	    prev_ts     = 0L; /* cached tabstop value */
+      static char_u   *prev_line = NULL; /* cached pointer to line */
+      static varnumber_T prev_tick = 0;   /* changedtick of cached value */
++ #ifdef FEAT_VARTABS
++     static int      *prev_vts = NULL;    /* cached vartabs values */
++ #endif
+      int		    bri = 0;
+      /* window width minus window margin space, i.e. what rests for text */
+      const int	    eff_wwidth = wp->w_width
+***************
+*** 506,518 ****
+  
+      /* used cached indent, unless pointer or 'tabstop' changed */
+      if (prev_line != line || prev_ts != wp->w_buffer->b_p_ts
+! 				  || prev_tick != CHANGEDTICK(wp->w_buffer))
+      {
+  	prev_line = line;
+  	prev_ts = wp->w_buffer->b_p_ts;
+  	prev_tick = CHANGEDTICK(wp->w_buffer);
+  	prev_indent = get_indent_str(line,
+  				     (int)wp->w_buffer->b_p_ts, wp->w_p_list);
+      }
+      bri = prev_indent + wp->w_p_brishift;
+  
+--- 661,684 ----
+  
+      /* used cached indent, unless pointer or 'tabstop' changed */
+      if (prev_line != line || prev_ts != wp->w_buffer->b_p_ts
+! 	    || prev_tick != CHANGEDTICK(wp->w_buffer)
+! #ifdef FEAT_VARTABS
+! 	    || prev_vts != wp->w_buffer->b_p_vts_array
+! #endif
+! 	)
+      {
+  	prev_line = line;
+  	prev_ts = wp->w_buffer->b_p_ts;
+  	prev_tick = CHANGEDTICK(wp->w_buffer);
++ #ifdef FEAT_VARTABS
++ 	prev_vts = wp->w_buffer->b_p_vts_array;
++ 	prev_indent = get_indent_str_vtab(line,
++ 				     (int)wp->w_buffer->b_p_ts,
++ 				    wp->w_buffer->b_p_vts_array, wp->w_p_list);
++ #else
+  	prev_indent = get_indent_str(line,
+  				     (int)wp->w_buffer->b_p_ts, wp->w_p_list);
++ #endif
+      }
+      bri = prev_indent + wp->w_p_brishift;
+  
+***************
+*** 741,747 ****
+--- 907,918 ----
+  	/*
+  	 * count white space on current line
+  	 */
++ #ifdef FEAT_VARTABS
++ 	newindent = get_indent_str_vtab(saved_line, curbuf->b_p_ts,
++ 						 curbuf->b_p_vts_array, FALSE);
++ #else
+  	newindent = get_indent_str(saved_line, (int)curbuf->b_p_ts, FALSE);
++ #endif
+  	if (newindent == 0 && !(flags & OPENLINE_COM_LIST))
+  	    newindent = second_line_indent; /* for ^^D command in insert mode */
+  
+***************
+*** 1264,1270 ****
+  					|| do_si
+  #endif
+  							   )
+! 			newindent = get_indent_str(leader, (int)curbuf->b_p_ts, FALSE);
+  
+  		    /* Add the indent offset */
+  		    if (newindent + off < 0)
+--- 1435,1447 ----
+  					|| do_si
+  #endif
+  							   )
+! #ifdef FEAT_VARTABS
+! 			newindent = get_indent_str_vtab(leader, curbuf->b_p_ts,
+! 						 curbuf->b_p_vts_array, FALSE);
+! #else
+! 			newindent = get_indent_str(leader,
+! 						   (int)curbuf->b_p_ts, FALSE);
+! #endif
+  
+  		    /* Add the indent offset */
+  		    if (newindent + off < 0)
+*** ../vim-8.1.0104/src/ops.c	2018-06-03 14:42:17.844505109 +0200
+--- src/ops.c	2018-06-23 18:36:27.566311089 +0200
+***************
+*** 398,403 ****
+--- 398,406 ----
+      char_u		*newp, *oldp;
+      int			oldcol = curwin->w_cursor.col;
+      int			p_sw = (int)get_sw_value(curbuf);
++ #ifdef FEAT_VARTABS
++     int			*p_vts = curbuf->b_p_vts_array;
++ #endif
+      int			p_ts = (int)curbuf->b_p_ts;
+      struct block_def	bd;
+      int			incr;
+***************
+*** 459,470 ****
+--- 462,480 ----
+  	}
+  	/* OK, now total=all the VWS reqd, and textstart points at the 1st
+  	 * non-ws char in the block. */
++ #ifdef FEAT_VARTABS
++ 	if (!curbuf->b_p_et)
++ 	    tabstop_fromto(ws_vcol, ws_vcol + total, p_ts, p_vts, &i, &j);
++ 	else
++ 	    j = total;
++ #else
+  	if (!curbuf->b_p_et)
+  	    i = ((ws_vcol % p_ts) + total) / p_ts; /* number of tabs */
+  	if (i)
+  	    j = ((ws_vcol % p_ts) + total) % p_ts; /* number of spp */
+  	else
+  	    j = total;
++ #endif
+  	/* if we're splitting a TAB, allow for it */
+  	bd.textcol -= bd.pre_whitesp_c - (bd.startspaces != 0);
+  	len = (int)STRLEN(bd.textstart) + 1;
+***************
+*** 3697,3706 ****
+--- 3707,3725 ----
+  	{
+  	    /* Don't need to insert spaces when "p" on the last position of a
+  	     * tab or "P" on the first position. */
++ #ifdef FEAT_VARTABS
++ 	    int viscol = getviscol();
++ 	    if (dir == FORWARD
++ 		    ? tabstop_padding(viscol, curbuf->b_p_ts,
++ 						    curbuf->b_p_vts_array) != 1
++ 		    : curwin->w_cursor.coladd > 0)
++ 		coladvance_force(viscol);
++ #else
+  	    if (dir == FORWARD
+  		    ? (int)curwin->w_cursor.coladd < curbuf->b_p_ts - 1
+  						: curwin->w_cursor.coladd > 0)
+  		coladvance_force(getviscol());
++ #endif
+  	    else
+  		curwin->w_cursor.coladd = 0;
+  	}
+*** ../vim-8.1.0104/src/option.c	2018-06-17 19:08:26.472323943 +0200
+--- src/option.c	2018-06-23 18:53:46.500525908 +0200
+***************
+*** 182,187 ****
+--- 182,191 ----
+  # define PV_UDF		OPT_BUF(BV_UDF)
+  #endif
+  #define PV_WM		OPT_BUF(BV_WM)
++ #ifdef FEAT_VARTABS
++ # define PV_VSTS		OPT_BUF(BV_VSTS)
++ # define PV_VTS		OPT_BUF(BV_VTS)
++ #endif
+  
+  /*
+   * Definition of the PV_ values for window-local options.
+***************
+*** 371,376 ****
+--- 375,384 ----
+  static int	p_udf;
+  #endif
+  static long	p_wm;
++ #ifdef FEAT_VARTABS
++ static char_u	*p_vsts;
++ static char_u	*p_vts;
++ #endif
+  #ifdef FEAT_KEYMAP
+  static char_u	*p_keymap;
+  #endif
+***************
+*** 390,395 ****
+--- 398,406 ----
+  static long	p_sts_nopaste;
+  static long	p_tw_nopaste;
+  static long	p_wm_nopaste;
++ #ifdef FEAT_VARTABS
++ static char_u	*p_vsts_nopaste;
++ #endif
+  
+  struct vimoption
+  {
+***************
+*** 2925,2930 ****
+--- 2936,2959 ----
+      {"updatetime",  "ut",   P_NUM|P_VI_DEF,
+  			    (char_u *)&p_ut, PV_NONE,
+  			    {(char_u *)4000L, (char_u *)0L} SCRIPTID_INIT},
++     {"varsofttabstop", "vsts",  P_STRING|P_VI_DEF|P_VIM|P_COMMA,
++ #ifdef FEAT_VARTABS
++ 			    (char_u *)&p_vsts, PV_VSTS,
++ 			    {(char_u *)"", (char_u *)0L}
++ #else
++ 			    (char_u *)NULL, PV_NONE,
++ 			    {(char_u *)"", (char_u *)NULL}
++ #endif
++ 			    SCRIPTID_INIT},
++     {"vartabstop",  "vts",  P_STRING|P_VI_DEF|P_VIM|P_RBUF|P_COMMA,
++ #ifdef FEAT_VARTABS
++ 			    (char_u *)&p_vts, PV_VTS,
++ 			    {(char_u *)"", (char_u *)0L}
++ #else
++ 			    (char_u *)NULL, PV_NONE,
++ 			    {(char_u *)"", (char_u *)NULL}
++ #endif
++ 			    SCRIPTID_INIT},
+      {"verbose",	    "vbs",  P_NUM|P_VI_DEF,
+  			    (char_u *)&p_verbose, PV_NONE,
+  			    {(char_u *)0L, (char_u *)0L} SCRIPTID_INIT},
+***************
+*** 5608,5613 ****
+--- 5637,5646 ----
+      /* Parse default for 'clipboard' */
+      (void)check_clipboard_option();
+  #endif
++ #ifdef FEAT_VARTABS
++     tabstop_set(curbuf->b_p_vsts, &curbuf->b_p_vsts_array);
++     tabstop_set(curbuf->b_p_vts,  &curbuf->b_p_vts_array);
++ #endif
+  }
+  
+  /*
+***************
+*** 5725,5730 ****
+--- 5758,5767 ----
+  #ifdef FEAT_MBYTE
+      check_string_option(&buf->b_p_menc);
+  #endif
++ #ifdef FEAT_VARTABS
++     check_string_option(&buf->b_p_vsts);
++     check_string_option(&buf->b_p_vts);
++ #endif
+  }
+  
+  /*
+***************
+*** 7472,7477 ****
+--- 7509,7596 ----
+      }
+  #endif
+  
++ #ifdef FEAT_VARTABS
++     /* 'varsofttabstop' */
++     else if (varp == &(curbuf->b_p_vsts))
++     {
++ 	char_u *cp;
++ 
++ 	if (!(*varp)[0] || ((*varp)[0] == '0' && !(*varp)[1]))
++ 	{
++ 	    if (curbuf->b_p_vsts_array)
++ 	    {
++ 		vim_free(curbuf->b_p_vsts_array);
++ 		curbuf->b_p_vsts_array = 0;
++ 	    }
++ 	}
++ 	else
++ 	{
++ 	    for (cp = *varp; *cp; ++cp)
++ 	    {
++ 		if (vim_isdigit(*cp))
++ 		    continue;
++ 		if (*cp == ',' && cp > *varp && *(cp-1) != ',')
++ 		    continue;
++ 		errmsg = e_invarg;
++ 		break;
++ 	    }
++ 	    if (errmsg == NULL)
++ 	    {
++ 		int *oldarray = curbuf->b_p_vsts_array;
++ 		if (tabstop_set(*varp, &(curbuf->b_p_vsts_array)))
++ 		{
++ 		    if (oldarray)
++ 			vim_free(oldarray);
++ 		}
++ 		else
++ 		    errmsg = e_invarg;
++ 	    }
++ 	}
++     }
++ 
++     /* 'vartabstop' */
++     else if (varp == &(curbuf->b_p_vts))
++     {
++ 	char_u *cp;
++ 
++ 	if (!(*varp)[0] || ((*varp)[0] == '0' && !(*varp)[1]))
++ 	{
++ 	    if (curbuf->b_p_vts_array)
++ 	    {
++ 		vim_free(curbuf->b_p_vts_array);
++ 		curbuf->b_p_vts_array = NULL;
++ 	    }
++ 	}
++ 	else
++ 	{
++ 	    for (cp = *varp; *cp; ++cp)
++ 	    {
++ 		if (vim_isdigit(*cp))
++ 		    continue;
++ 		if (*cp == ',' && cp > *varp && *(cp-1) != ',')
++ 		    continue;
++ 		errmsg = e_invarg;
++ 		break;
++ 	    }
++ 	    if (errmsg == NULL)
++ 	    {
++ 		int *oldarray = curbuf->b_p_vts_array;
++ 		if (tabstop_set(*varp, &(curbuf->b_p_vts_array)))
++ 		{
++ 		    if (oldarray)
++ 			vim_free(oldarray);
++ #ifdef FEAT_FOLDING
++ 		    if (foldmethodIsIndent(curwin))
++ 			foldUpdateAll(curwin);
++ #endif /* FEAT_FOLDING */
++ 		}
++ 		else
++ 		    errmsg = e_invarg;
++ 	    }
++ 	}
++     }
++ #endif
++ 
+      /* Options that are a list of flags. */
+      else
+      {
+***************
+*** 8780,8786 ****
+--- 8899,8912 ----
+      if (curbuf->b_p_sw < 0)
+      {
+  	errmsg = e_positive;
++ #ifdef FEAT_VARTABS
++ 	// Use the first 'vartabstop' value, or 'tabstop' if vts isn't in use.
++ 	curbuf->b_p_sw = tabstop_count(curbuf->b_p_vts_array) > 0
++ 	               ? tabstop_first(curbuf->b_p_vts_array)
++ 		       : curbuf->b_p_ts;
++ #else
+  	curbuf->b_p_sw = curbuf->b_p_ts;
++ #endif
+      }
+  
+      /*
+***************
+*** 10814,10819 ****
+--- 10940,10949 ----
+  #ifdef FEAT_SIGNS
+  	case PV_SCL:	return (char_u *)&(curwin->w_p_scl);
+  #endif
++ #ifdef FEAT_VARTABS
++ 	case PV_VSTS:	return (char_u *)&(curbuf->b_p_vsts);
++ 	case PV_VTS:	return (char_u *)&(curbuf->b_p_vts);
++ #endif
+  	default:	IEMSG(_("E356: get_varp ERROR"));
+      }
+      /* always return a valid pointer to avoid a crash! */
+***************
+*** 11138,11143 ****
+--- 11268,11282 ----
+  #endif
+  	    buf->b_p_sts = p_sts;
+  	    buf->b_p_sts_nopaste = p_sts_nopaste;
++ #ifdef FEAT_VARTABS
++ 	    buf->b_p_vsts = vim_strsave(p_vsts);
++ 	    if (p_vsts && p_vsts != empty_option)
++ 		tabstop_set(p_vsts, &buf->b_p_vsts_array);
++ 	    else
++ 		buf->b_p_vsts_array = 0;
++ 	    buf->b_p_vsts_nopaste = p_vsts_nopaste
++ 				 ? vim_strsave(p_vsts_nopaste) : NULL;
++ #endif
+  	    buf->b_p_sn = p_sn;
+  #ifdef FEAT_COMMENTS
+  	    buf->b_p_com = vim_strsave(p_com);
+***************
+*** 11259,11270 ****
+--- 11398,11424 ----
+  	     * or to a help buffer.
+  	     */
+  	    if (dont_do_help)
++ 	    {
+  		buf->b_p_isk = save_p_isk;
++ #ifdef FEAT_VARTABS
++ 		if (p_vts && p_vts != empty_option && !buf->b_p_vts_array)
++ 		    tabstop_set(p_vts, &buf->b_p_vts_array);
++ 		else
++ 		    buf->b_p_vts_array = NULL;
++ #endif
++ 	    }
+  	    else
+  	    {
+  		buf->b_p_isk = vim_strsave(p_isk);
+  		did_isk = TRUE;
+  		buf->b_p_ts = p_ts;
++ #ifdef FEAT_VARTABS
++ 		buf->b_p_vts = vim_strsave(p_vts);
++ 		if (p_vts && p_vts != empty_option && !buf->b_p_vts_array)
++ 		    tabstop_set(p_vts, &buf->b_p_vts_array);
++ 		else
++ 		    buf->b_p_vts_array = NULL;
++ #endif
+  		buf->b_help = FALSE;
+  		if (buf->b_p_bt[0] == 'h')
+  		    clear_string_option(&buf->b_p_bt);
+***************
+*** 12084,12089 ****
+--- 12238,12249 ----
+  		buf->b_p_sts_nopaste = buf->b_p_sts;
+  		buf->b_p_ai_nopaste = buf->b_p_ai;
+  		buf->b_p_et_nopaste = buf->b_p_et;
++ #ifdef FEAT_VARTABS
++ 		if (buf->b_p_vsts_nopaste)
++ 		    vim_free(buf->b_p_vsts_nopaste);
++ 		buf->b_p_vsts_nopaste = buf->b_p_vsts && buf->b_p_vsts != empty_option
++ 				     ? vim_strsave(buf->b_p_vsts) : NULL;
++ #endif
+  	    }
+  
+  	    /* save global options */
+***************
+*** 12102,12107 ****
+--- 12262,12272 ----
+  	    p_sts_nopaste = p_sts;
+  	    p_tw_nopaste = p_tw;
+  	    p_wm_nopaste = p_wm;
++ #ifdef FEAT_VARTABS
++ 	    if (p_vsts_nopaste)
++ 		vim_free(p_vsts_nopaste);
++ 	    p_vsts_nopaste = p_vsts && p_vsts != empty_option ? vim_strsave(p_vsts) : NULL;
++ #endif
+  	}
+  
+  	/*
+***************
+*** 12116,12121 ****
+--- 12281,12294 ----
+  	    buf->b_p_sts = 0;	    /* softtabstop is 0 */
+  	    buf->b_p_ai = 0;	    /* no auto-indent */
+  	    buf->b_p_et = 0;	    /* no expandtab */
++ #ifdef FEAT_VARTABS
++ 	    if (buf->b_p_vsts)
++ 		free_string_option(buf->b_p_vsts);
++ 	    buf->b_p_vsts = empty_option;
++ 	    if (buf->b_p_vsts_array)
++ 		vim_free(buf->b_p_vsts_array);
++ 	    buf->b_p_vsts_array = 0;
++ #endif
+  	}
+  
+  	/* set global options */
+***************
+*** 12135,12140 ****
+--- 12308,12318 ----
+  	p_wm = 0;
+  	p_sts = 0;
+  	p_ai = 0;
++ #ifdef FEAT_VARTABS
++ 	if (p_vsts)
++ 	    free_string_option(p_vsts);
++ 	p_vsts = empty_option;
++ #endif
+      }
+  
+      /*
+***************
+*** 12150,12155 ****
+--- 12328,12345 ----
+  	    buf->b_p_sts = buf->b_p_sts_nopaste;
+  	    buf->b_p_ai = buf->b_p_ai_nopaste;
+  	    buf->b_p_et = buf->b_p_et_nopaste;
++ #ifdef FEAT_VARTABS
++ 	    if (buf->b_p_vsts)
++ 		free_string_option(buf->b_p_vsts);
++ 	    buf->b_p_vsts = buf->b_p_vsts_nopaste
++ 			 ? vim_strsave(buf->b_p_vsts_nopaste) : empty_option;
++ 	    if (buf->b_p_vsts_array)
++ 		vim_free(buf->b_p_vsts_array);
++ 	    if (buf->b_p_vsts && buf->b_p_vsts != empty_option)
++ 		tabstop_set(buf->b_p_vsts, &buf->b_p_vsts_array);
++ 	    else
++ 		buf->b_p_vsts_array = 0;
++ #endif
+  	}
+  
+  	/* restore global options */
+***************
+*** 12170,12175 ****
+--- 12360,12370 ----
+  	p_sts = p_sts_nopaste;
+  	p_tw = p_tw_nopaste;
+  	p_wm = p_wm_nopaste;
++ #ifdef FEAT_VARTABS
++ 	if (p_vsts)
++ 	    free_string_option(p_vsts);
++ 	p_vsts = p_vsts_nopaste ? vim_strsave(p_vsts_nopaste) : empty_option;
++ #endif
+      }
+  
+      old_p_paste = p_paste;
+***************
+*** 12510,12515 ****
+--- 12705,12999 ----
+      return check_opt_strings(p, p_ff_values, FALSE);
+  }
+  
++ #ifdef FEAT_VARTABS
++ 
++ /*
++  * Set the integer values corresponding to the string setting of 'vartabstop'.
++  */
++     int
++ tabstop_set(char_u *var, int **array)
++ {
++     int valcount = 1;
++     int t;
++     char_u *cp;
++ 
++     if ((!var[0] || (var[0] == '0' && !var[1])))
++     {
++ 	*array = NULL;
++ 	return TRUE;
++     }
++ 
++     for (cp = var; *cp; ++cp)
++     {
++ 	if (cp == var || *(cp - 1) == ',')
++ 	{
++ 	    char_u *end;
++ 	    if (strtol((char *)cp, (char **)&end, 10) <= 0)
++ 	    {
++ 		if (cp != end)
++ 		    EMSG(_(e_positive));
++ 		else
++ 		    EMSG(_(e_invarg));
++ 		return FALSE;
++ 	    }
++ 	}
++ 
++ 	if (VIM_ISDIGIT(*cp))
++ 	    continue;
++ 	if (*cp == ',' && cp > var && *(cp - 1) != ',')
++ 	{
++ 	    ++valcount;
++ 	    continue;
++ 	}
++ 	EMSG(_(e_invarg));
++ 	return FALSE;
++     }
++ 
++     *array = (int *) alloc((unsigned) ((valcount + 1) * sizeof(int)));
++     (*array)[0] = valcount;
++ 
++     t = 1;
++     for (cp = var; *cp;)
++     {
++ 	(*array)[t++] = atoi((char *)cp);
++ 	while (*cp && *cp != ',')
++ 	    ++cp;
++ 	if (*cp)
++ 	    ++cp;
++     }
++ 
++     return TRUE;
++ }
++ 
++ /*
++  * Calculate the number of screen spaces a tab will occupy.
++  * If "vts" is set then the tab widths are taken from that array,
++  * otherwise the value of ts is used.
++  */
++     int
++ tabstop_padding(colnr_T col, int ts_arg, int *vts)
++ {
++     int		ts = ts_arg == 0 ? 8 : ts_arg;
++     int		tabcount;
++     colnr_T	tabcol = 0;
++     int		t;
++     int		padding = 0;
++ 
++     if (vts == NULL || vts[0] == 0)
++ 	return ts - (col % ts);
++ 
++     tabcount = vts[0];
++ 
++     for (t = 1; t <= tabcount; ++t)
++     {
++ 	tabcol += vts[t];
++ 	if (tabcol > col)
++ 	{
++ 	    padding = (int)(tabcol - col);
++ 	    break;
++ 	}
++     }
++     if (t > tabcount)
++ 	padding = vts[tabcount] - (int)((col - tabcol) % vts[tabcount]);
++ 
++     return padding;
++ }
++ 
++ /*
++  * Find the size of the tab that covers a particular column.
++  */
++     int
++ tabstop_at(colnr_T col, int ts, int *vts)
++ {
++     int		tabcount;
++     colnr_T	tabcol = 0;
++     int		t;
++     int		tab_size = 0;
++ 
++     if (vts == 0 || vts[0] == 0)
++ 	return ts;
++ 
++     tabcount = vts[0];
++     for (t = 1; t <= tabcount; ++t)
++     {
++ 	tabcol += vts[t];
++ 	if (tabcol > col)
++ 	{
++ 	    tab_size = vts[t];
++ 	    break;
++ 	}
++     }
++     if (t > tabcount)
++ 	tab_size = vts[tabcount];
++ 
++     return tab_size;
++ }
++ 
++ /*
++  * Find the column on which a tab starts.
++  */
++     colnr_T
++ tabstop_start(colnr_T col, int ts, int *vts)
++ {
++     int		tabcount;
++     colnr_T	tabcol = 0;
++     int		t;
++     int         excess;
++ 
++     if (vts == 0 || vts[0] == 0)
++ 	return (col / ts) * ts;
++ 
++     tabcount = vts[0];
++     for (t = 1; t <= tabcount; ++t)
++     {
++ 	tabcol += vts[t];
++ 	if (tabcol > col)
++ 	    return tabcol - vts[t];
++     }
++ 
++     excess = tabcol % vts[tabcount];
++     return excess + ((col - excess) / vts[tabcount]) * vts[tabcount];
++ }
++ 
++ /*
++  * Find the number of tabs and spaces necessary to get from one column
++  * to another.
++  */
++     void
++ tabstop_fromto(
++ 	colnr_T start_col,
++ 	colnr_T end_col,
++ 	int	ts,
++ 	int	*vts,
++ 	int	*ntabs,
++ 	int	*nspcs)
++ {
++     int		spaces = end_col - start_col;
++     colnr_T	tabcol = 0;
++     int		padding = 0;
++     int		tabcount;
++     int		t;
++ 
++     if (vts == 0 || vts[0] == 0)
++     {
++ 	int tabs = 0;
++ 	int initspc = ts - (start_col % ts);
++ 	if (spaces >= initspc)
++ 	{
++ 	    spaces -= initspc;
++ 	    tabs++;
++ 	}
++ 	tabs += spaces / ts;
++ 	spaces -= (spaces / ts) * ts;
++ 
++ 	*ntabs = tabs;
++ 	*nspcs = spaces;
++ 	return;
++     }
++ 
++     /* Find the padding needed to reach the next tabstop. */
++     tabcount = vts[0];
++     for (t = 1; t <= tabcount; ++t)
++     {
++ 	tabcol += vts[t];
++ 	if (tabcol > start_col)
++ 	{
++ 	    padding = (int)(tabcol - start_col);
++ 	    break;
++ 	}
++     }
++     if (t > tabcount)
++ 	padding = vts[tabcount] - (int)((start_col - tabcol) % vts[tabcount]);
++ 
++     /* If the space needed is less than the padding no tabs can be used. */
++     if (spaces < padding)
++     {
++ 	*ntabs = 0;
++ 	*nspcs = spaces;
++ 	return;
++     }
++ 
++     *ntabs = 1;
++     spaces -= padding;
++ 
++     /* At least one tab has been used. See if any more will fit. */
++     while (spaces != 0 && ++t <= tabcount)
++     {
++ 	padding = vts[t];
++ 	if (spaces < padding)
++ 	{
++ 	    *nspcs = spaces;
++ 	    return;
++ 	}
++ 	++*ntabs;
++ 	spaces -= padding;
++     }
++ 
++     *ntabs += spaces / vts[tabcount];
++     *nspcs =  spaces % vts[tabcount];
++ }
++ 
++ /*
++  * See if two tabstop arrays contain the same values.
++  */
++     int
++ tabstop_eq(int *ts1, int *ts2)
++ {
++     int		t;
++ 
++     if ((ts1 == 0 && ts2) || (ts1 && ts2 == 0))
++ 	return FALSE;
++     if (ts1 == ts2)
++ 	return TRUE;
++     if (ts1[0] != ts2[0])
++ 	return FALSE;
++ 
++     for (t = 1; t <= ts1[0]; ++t)
++ 	if (ts1[t] != ts2[t])
++ 	    return FALSE;
++ 
++     return TRUE;
++ }
++ 
++ /*
++  * Copy a tabstop array, allocating space for the new array.
++  */
++     int *
++ tabstop_copy(int *oldts)
++ {
++     int		*newts;
++     int		t;
++ 
++     if (oldts == 0)
++ 	return 0;
++ 
++     newts = (int *) alloc((unsigned) ((oldts[0] + 1) * sizeof(int)));
++     for (t = 0; t <= oldts[0]; ++t)
++ 	newts[t] = oldts[t];
++ 
++     return newts;
++ }
++ 
++ /*
++  * Return a count of the number of tabstops.
++  */
++     int
++ tabstop_count(int *ts)
++ {
++     return ts != NULL ? ts[0] : 0;
++ }
++ 
++ /*
++  * Return the first tabstop, or 8 if there are no tabstops defined.
++  */
++     int
++ tabstop_first(int *ts)
++ {
++     return ts != NULL ? ts[1] : 8;
++ }
++ 
++ #endif
++ 
+  /*
+   * Return the effective shiftwidth value for current buffer, using the
+   * 'tabstop' value when 'shiftwidth' is zero.
+*** ../vim-8.1.0104/src/option.h	2018-05-05 16:28:11.000000000 +0200
+--- src/option.h	2018-06-23 17:41:10.116365995 +0200
+***************
+*** 1114,1119 ****
+--- 1114,1123 ----
+  #ifdef FEAT_TERMINAL
+      , BV_TWSL
+  #endif
++ #ifdef FEAT_VARTABS
++     , BV_VSTS
++     , BV_VTS
++ #endif
+      , BV_COUNT	    /* must be the last one */
+  };
+  
+*** ../vim-8.1.0104/src/proto/misc1.pro	2018-05-17 13:52:45.000000000 +0200
+--- src/proto/misc1.pro	2018-06-23 18:20:45.471296904 +0200
+***************
+*** 3,8 ****
+--- 3,9 ----
+  int get_indent_lnum(linenr_T lnum);
+  int get_indent_buf(buf_T *buf, linenr_T lnum);
+  int get_indent_str(char_u *ptr, int ts, int list);
++ int get_indent_str_vtab(char_u *ptr, int ts, int *vts, int list);
+  int set_indent(int size, int flags);
+  int get_number_indent(linenr_T lnum);
+  int get_breakindent_win(win_T *wp, char_u *line);
+*** ../vim-8.1.0104/src/proto/option.pro	2018-05-17 13:52:47.000000000 +0200
+--- src/proto/option.pro	2018-06-23 18:38:40.189580238 +0200
+***************
+*** 60,65 ****
+--- 60,74 ----
+  void save_file_ff(buf_T *buf);
+  int file_ff_differs(buf_T *buf, int ignore_empty);
+  int check_ff_value(char_u *p);
++ int tabstop_set(char_u *var, int **array);
++ int tabstop_padding(colnr_T col, int ts_arg, int *vts);
++ int tabstop_at(colnr_T col, int ts, int *vts);
++ colnr_T tabstop_start(colnr_T col, int ts, int *vts);
++ void tabstop_fromto(colnr_T start_col, colnr_T end_col, int ts, int *vts, int *ntabs, int *nspcs);
++ int tabstop_eq(int *ts1, int *ts2);
++ int *tabstop_copy(int *oldts);
++ int tabstop_count(int *ts);
++ int tabstop_first(int *ts);
+  long get_sw_value(buf_T *buf);
+  long get_sts_value(void);
+  void find_mps_values(int *initc, int *findc, int *backwards, int switchit);
+*** ../vim-8.1.0104/src/screen.c	2018-06-23 14:21:38.467484932 +0200
+--- src/screen.c	2018-06-23 18:36:56.702150819 +0200
+***************
+*** 4848,4855 ****
+  			vcol_adjusted = vcol - MB_CHARLEN(p_sbr);
+  #endif
+  		    /* tab amount depends on current column */
+  		    tab_len = (int)wp->w_buffer->b_p_ts
+! 					- vcol_adjusted % (int)wp->w_buffer->b_p_ts - 1;
+  
+  #ifdef FEAT_LINEBREAK
+  		    if (!wp->w_p_lbr || !wp->w_p_list)
+--- 4848,4861 ----
+  			vcol_adjusted = vcol - MB_CHARLEN(p_sbr);
+  #endif
+  		    /* tab amount depends on current column */
++ #ifdef FEAT_VARTABS
++ 		    tab_len = tabstop_padding(vcol_adjusted,
++ 					      wp->w_buffer->b_p_ts,
++ 					      wp->w_buffer->b_p_vts_array) - 1;
++ #else
+  		    tab_len = (int)wp->w_buffer->b_p_ts
+! 			       - vcol_adjusted % (int)wp->w_buffer->b_p_ts - 1;
+! #endif
+  
+  #ifdef FEAT_LINEBREAK
+  		    if (!wp->w_p_lbr || !wp->w_p_list)
+*** ../vim-8.1.0104/src/structs.h	2018-06-17 20:10:36.208066158 +0200
+--- src/structs.h	2018-06-23 18:39:12.357402504 +0200
+***************
+*** 2236,2241 ****
+--- 2236,2248 ----
+      long	b_p_wm;		/* 'wrapmargin' */
+      long	b_p_wm_nobin;	/* b_p_wm saved for binary mode */
+      long	b_p_wm_nopaste;	/* b_p_wm saved for paste mode */
++ #ifdef FEAT_VARTABS
++     char_u	*b_p_vsts;	/* 'varsofttabstop' */
++     int		*b_p_vsts_array;   /* 'varsofttabstop' in internal format */
++     char_u	*b_p_vsts_nopaste; /* b_p_vsts saved for paste mode */
++     char_u	*b_p_vts;	/* 'vartabstop' */
++     int		*b_p_vts_array;	/* 'vartabstop' in internal format */
++ #endif
+  #ifdef FEAT_KEYMAP
+      char_u	*b_p_keymap;	/* 'keymap' */
+  #endif
+*** ../vim-8.1.0104/src/testdir/Make_all.mak	2018-06-03 14:42:17.848505102 +0200
+--- src/testdir/Make_all.mak	2018-06-23 17:41:10.116365995 +0200
+***************
+*** 147,154 ****
+  	    test_perl.res \
+  	    test_plus_arg_edit.res \
+  	    test_preview.res \
+- 	    test_prompt_buffer.res \
+  	    test_profile.res \
+  	    test_python2.res \
+  	    test_python3.res \
+  	    test_pyx2.res \
+--- 147,154 ----
+  	    test_perl.res \
+  	    test_plus_arg_edit.res \
+  	    test_preview.res \
+  	    test_profile.res \
++ 	    test_prompt_buffer.res \
+  	    test_python2.res \
+  	    test_python3.res \
+  	    test_pyx2.res \
+***************
+*** 180,185 ****
+--- 180,186 ----
+  	    test_undo.res \
+  	    test_user_func.res \
+  	    test_usercommands.res \
++ 	    test_vartabs.res \
+  	    test_viminfo.res \
+  	    test_vimscript.res \
+  	    test_visual.res \
+*** ../vim-8.1.0104/src/testdir/gen_opt_test.vim	2018-05-05 16:32:49.000000000 +0200
+--- src/testdir/gen_opt_test.vim	2018-06-23 17:41:10.116365995 +0200
+***************
+*** 136,141 ****
+--- 136,143 ----
+        \ 'toolbariconsize': [['', 'tiny', 'huge'], ['xxx']],
+        \ 'ttymouse': [['', 'xterm'], ['xxx']],
+        \ 'ttytype': [[], []],
++       \ 'varsofttabstop': [['8', '4,8,16,32'], ['xxx', '-1', '4,-1,20']],
++       \ 'vartabstop': [['8', '4,8,16,32'], ['xxx', '-1', '4,-1,20']],
+        \ 'viewoptions': [['', 'cursor', 'unix,slash'], ['xxx']],
+        \ 'viminfo': [['', '''50', '"30'], ['xxx']],
+        \ 'virtualedit': [['', 'all', 'all,block'], ['xxx']],
+*** ../vim-8.1.0104/src/testdir/test_breakindent.vim	2017-03-01 17:42:25.000000000 +0100
+--- src/testdir/test_breakindent.vim	2018-06-23 19:21:36.118945791 +0200
+***************
+*** 12,146 ****
+  
+  let s:input ="\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP"
+  
+! function s:screen_lines(lnum, width) abort
+    return ScreenLines([a:lnum, a:lnum + 2], a:width)
+! endfunction
+  
+! function! s:compare_lines(expect, actual)
+    call assert_equal(join(a:expect, "\n"), join(a:actual, "\n"))
+! endfunction
+  
+! function s:test_windows(...)
+    call NewWindow(10, 20)
+    setl ts=4 sw=4 sts=4 breakindent
+    put =s:input
+    exe get(a:000, 0, '')
+! endfunction
+  
+! function s:close_windows(...)
+    call CloseWindow()
+    exe get(a:000, 0, '')
+! endfunction
+  
+! function Test_breakindent01()
+    " simple breakindent test
+    call s:test_windows('setl briopt=min:0')
+!   let lines=s:screen_lines(line('.'),8)
+!   let expect=[
+! \ "    abcd",
+! \ "    qrst",
+! \ "    GHIJ",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunction
+  
+! function Test_breakindent02()
+    " simple breakindent test with showbreak set
+    call s:test_windows('setl briopt=min:0 sbr=>>')
+!   let lines=s:screen_lines(line('.'),8)
+!   let expect=[
+! \ "    abcd",
+! \ "    >>qr",
+! \ "    >>EF",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr=')
+! endfunction
+  
+! function Test_breakindent03()
+    " simple breakindent test with showbreak set and briopt including sbr
+    call s:test_windows('setl briopt=sbr,min:0 sbr=++')
+!   let lines=s:screen_lines(line('.'),8)
+!   let expect=[
+! \ "    abcd",
+! \ "++  qrst",
+! \ "++  GHIJ",
+! \ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr=')
+! endfunction
+  
+! function Test_breakindent04()
+    " breakindent set with min width 18
+    call s:test_windows('setl sbr= briopt=min:18')
+!   let lines=s:screen_lines(line('.'),8)
+!   let expect=[
+! \ "    abcd",
+! \ "  qrstuv",
+! \ "  IJKLMN",
+! \ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr=')
+! endfunction
+  
+! function Test_breakindent05()
+    " breakindent set and shift by 2
+    call s:test_windows('setl briopt=shift:2,min:0')
+!   let lines=s:screen_lines(line('.'),8)
+!   let expect=[
+! \ "    abcd",
+! \ "      qr",
+! \ "      EF",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunction
+  
+! function Test_breakindent06()
+    " breakindent set and shift by -1
+    call s:test_windows('setl briopt=shift:-1,min:0')
+!   let lines=s:screen_lines(line('.'),8)
+!   let expect=[
+! \ "    abcd",
+! \ "   qrstu",
+! \ "   HIJKL",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunction
+  
+! function Test_breakindent07()
+    " breakindent set and shift by 1, Number  set sbr=? and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu sbr=? nuw=4 cpo+=n')
+!   let lines=s:screen_lines(line('.'),10)
+!   let expect=[
+! \ "  2     ab",
+! \ "?        m",
+! \ "?        x",
+! \ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr= cpo-=n')
+! endfunction
+  
+! function Test_breakindent07a()
+    " breakindent set and shift by 1, Number  set sbr=? and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu sbr=? nuw=4')
+!   let lines=s:screen_lines(line('.'),10)
+!   let expect=[
+! \ "  2     ab",
+! \ "    ?    m",
+! \ "    ?    x",
+! \ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr=')
+! endfunction
+  
+! function Test_breakindent08()
+    " breakindent set and shift by 1, Number and list set sbr=# and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu nuw=4 sbr=# list cpo+=n ts=4')
+    " make sure, cache is invalidated!
+--- 12,278 ----
+  
+  let s:input ="\tabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOP"
+  
+! func s:screen_lines(lnum, width) abort
+    return ScreenLines([a:lnum, a:lnum + 2], a:width)
+! endfunc
+  
+! func s:compare_lines(expect, actual)
+    call assert_equal(join(a:expect, "\n"), join(a:actual, "\n"))
+! endfunc
+  
+! func s:test_windows(...)
+    call NewWindow(10, 20)
+    setl ts=4 sw=4 sts=4 breakindent
+    put =s:input
+    exe get(a:000, 0, '')
+! endfunc
+  
+! func s:close_windows(...)
+    call CloseWindow()
+    exe get(a:000, 0, '')
+! endfunc
+  
+! func Test_breakindent01()
+    " simple breakindent test
+    call s:test_windows('setl briopt=min:0')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "    qrst",
+! 	\ "    GHIJ",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunc
+  
+! func Test_breakindent01_vartabs()
+!   " like 01 but with vartabs feature
+!   if !has("vartabs")
+!     return
+!   endif
+!   call s:test_windows('setl briopt=min:0 vts=4')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "    qrst",
+! 	\ "    GHIJ",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set vts&')
+! endfunc
+! 
+! func Test_breakindent02()
+    " simple breakindent test with showbreak set
+    call s:test_windows('setl briopt=min:0 sbr=>>')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "    >>qr",
+! 	\ "    >>EF",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr=')
+! endfunc
+! 
+! func Test_breakindent02_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " simple breakindent test with showbreak set
+!   call s:test_windows('setl briopt=min:0 sbr=>> vts=4')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "    >>qr",
+! 	\ "    >>EF",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set sbr= vts&')
+! endfunc
+  
+! func Test_breakindent03()
+    " simple breakindent test with showbreak set and briopt including sbr
+    call s:test_windows('setl briopt=sbr,min:0 sbr=++')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "++  qrst",
+! 	\ "++  GHIJ",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr=')
+! endfunc
+  
+! func Test_breakindent03_vartabs()
+!   " simple breakindent test with showbreak set and briopt including sbr
+!   if !has("vartabs")
+!     return
+!   endif
+!   call s:test_windows('setl briopt=sbr,min:0 sbr=++ vts=4')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "++  qrst",
+! 	\ "++  GHIJ",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   " clean up
+!   call s:close_windows('set sbr= vts&')
+! endfunc
+! 
+! func Test_breakindent04()
+    " breakindent set with min width 18
+    call s:test_windows('setl sbr= briopt=min:18')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "  qrstuv",
+! 	\ "  IJKLMN",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr=')
+! endfunc
+  
+! func Test_breakindent04_vartabs()
+!   " breakindent set with min width 18
+!   if !has("vartabs")
+!     return
+!   endif
+!   call s:test_windows('setl sbr= briopt=min:18 vts=4')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "  qrstuv",
+! 	\ "  IJKLMN",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   " clean up
+!   call s:close_windows('set sbr= vts&')
+! endfunc
+! 
+! func Test_breakindent05()
+    " breakindent set and shift by 2
+    call s:test_windows('setl briopt=shift:2,min:0')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "      qr",
+! 	\ "      EF",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunc
+! 
+! func Test_breakindent05_vartabs()
+!   " breakindent set and shift by 2
+!   if !has("vartabs")
+!     return
+!   endif
+!   call s:test_windows('setl briopt=shift:2,min:0 vts=4')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "      qr",
+! 	\ "      EF",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set vts&')
+! endfunc
+  
+! func Test_breakindent06()
+    " breakindent set and shift by -1
+    call s:test_windows('setl briopt=shift:-1,min:0')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "   qrstu",
+! 	\ "   HIJKL",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunc
+  
+! func Test_breakindent06_vartabs()
+!   " breakindent set and shift by -1
+!   if !has("vartabs")
+!     return
+!   endif
+!   call s:test_windows('setl briopt=shift:-1,min:0 vts=4')
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "    abcd",
+! 	\ "   qrstu",
+! 	\ "   HIJKL",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set vts&')
+! endfunc
+! 
+! func Test_breakindent07()
+    " breakindent set and shift by 1, Number  set sbr=? and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu sbr=? nuw=4 cpo+=n')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2     ab",
+! 	\ "?        m",
+! 	\ "?        x",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr= cpo-=n')
+! endfunc
+! 
+! func Test_breakindent07_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " breakindent set and shift by 1, Number  set sbr=? and briopt:sbr
+!   call s:test_windows('setl briopt=shift:1,sbr,min:0 nu sbr=? nuw=4 cpo+=n vts=4')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2     ab",
+! 	\ "?        m",
+! 	\ "?        x",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   " clean up
+!   call s:close_windows('set sbr= cpo-=n vts&')
+! endfunc
+  
+! func Test_breakindent07a()
+    " breakindent set and shift by 1, Number  set sbr=? and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu sbr=? nuw=4')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2     ab",
+! 	\ "    ?    m",
+! 	\ "    ?    x",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    " clean up
+    call s:close_windows('set sbr=')
+! endfunc
+! 
+! func Test_breakindent07a_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " breakindent set and shift by 1, Number  set sbr=? and briopt:sbr
+!   call s:test_windows('setl briopt=shift:1,sbr,min:0 nu sbr=? nuw=4 vts=4')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2     ab",
+! 	\ "    ?    m",
+! 	\ "    ?    x",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   " clean up
+!   call s:close_windows('set sbr= vts&')
+! endfunc
+  
+! func Test_breakindent08()
+    " breakindent set and shift by 1, Number and list set sbr=# and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu nuw=4 sbr=# list cpo+=n ts=4')
+    " make sure, cache is invalidated!
+***************
+*** 148,190 ****
+    redraw!
+    set ts=4
+    redraw!
+!   let lines=s:screen_lines(line('.'),10)
+!   let expect=[
+! \ "  2 ^Iabcd",
+! \ "#      opq",
+! \ "#      BCD",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr= cpo-=n')
+! endfunction
+  
+! function Test_breakindent08a()
+    " breakindent set and shift by 1, Number and list set sbr=# and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu nuw=4 sbr=# list')
+!   let lines=s:screen_lines(line('.'),10)
+!   let expect=[
+! \ "  2 ^Iabcd",
+! \ "    #  opq",
+! \ "    #  BCD",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr=')
+! endfunction
+  
+! function Test_breakindent09()
+    " breakindent set and shift by 1, Number and list set sbr=#
+    call s:test_windows('setl briopt=shift:1,min:0 nu nuw=4 sbr=# list')
+!   let lines=s:screen_lines(line('.'),10)
+!   let expect=[
+! \ "  2 ^Iabcd",
+! \ "       #op",
+! \ "       #AB",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr=')
+! endfunction
+  
+! function Test_breakindent10()
+    " breakindent set, Number set sbr=~
+    call s:test_windows('setl cpo+=n sbr=~ nu nuw=4 nolist briopt=sbr,min:0')
+    " make sure, cache is invalidated!
+--- 280,375 ----
+    redraw!
+    set ts=4
+    redraw!
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2 ^Iabcd",
+! 	\ "#      opq",
+! 	\ "#      BCD",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr= cpo-=n')
+! endfunc
+  
+! func Test_breakindent08_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " breakindent set and shift by 1, Number and list set sbr=# and briopt:sbr
+!   call s:test_windows('setl briopt=shift:1,sbr,min:0 nu nuw=4 sbr=# list cpo+=n ts=4 vts=4')
+!   " make sure, cache is invalidated!
+!   set ts=8
+!   redraw!
+!   set ts=4
+!   redraw!
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2 ^Iabcd",
+! 	\ "#      opq",
+! 	\ "#      BCD",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set sbr= cpo-=n vts&')
+! endfunc
+! 
+! func Test_breakindent08a()
+    " breakindent set and shift by 1, Number and list set sbr=# and briopt:sbr
+    call s:test_windows('setl briopt=shift:1,sbr,min:0 nu nuw=4 sbr=# list')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2 ^Iabcd",
+! 	\ "    #  opq",
+! 	\ "    #  BCD",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr=')
+! endfunc
+! 
+! func Test_breakindent08a_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " breakindent set and shift by 1, Number and list set sbr=# and briopt:sbr
+!   call s:test_windows('setl briopt=shift:1,sbr,min:0 nu nuw=4 sbr=# list vts=4')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2 ^Iabcd",
+! 	\ "    #  opq",
+! 	\ "    #  BCD",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set sbr= vts&')
+! endfunc
+  
+! func Test_breakindent09()
+    " breakindent set and shift by 1, Number and list set sbr=#
+    call s:test_windows('setl briopt=shift:1,min:0 nu nuw=4 sbr=# list')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2 ^Iabcd",
+! 	\ "       #op",
+! 	\ "       #AB",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr=')
+! endfunc
+  
+! func Test_breakindent09_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " breakindent set and shift by 1, Number and list set sbr=#
+!   call s:test_windows('setl briopt=shift:1,min:0 nu nuw=4 sbr=# list vts=4')
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2 ^Iabcd",
+! 	\ "       #op",
+! 	\ "       #AB",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set sbr= vts&')
+! endfunc
+! 
+! func Test_breakindent10()
+    " breakindent set, Number set sbr=~
+    call s:test_windows('setl cpo+=n sbr=~ nu nuw=4 nolist briopt=sbr,min:0')
+    " make sure, cache is invalidated!
+***************
+*** 192,232 ****
+    redraw!
+    set ts=4
+    redraw!
+!   let lines=s:screen_lines(line('.'),10)
+!   let expect=[
+! \ "  2     ab",
+! \ "~       mn",
+! \ "~       yz",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr= cpo-=n')
+! endfunction
+  
+! function Test_breakindent11()
+    " test strdisplaywidth()
+    call s:test_windows('setl cpo-=n sbr=>> nu nuw=4 nolist briopt= ts=4')
+!   let text=getline(2)
+    let width = strlen(text[1:])+indent(2)+strlen(&sbr)*3 " text wraps 3 times
+    call assert_equal(width, strdisplaywidth(text))
+    call s:close_windows('set sbr=')
+! endfunction
+  
+! function Test_breakindent12()
+    " test breakindent with long indent
+!   let s:input="\t\t\t\t\t{"
+    call s:test_windows('setl breakindent linebreak briopt=min:10 nu numberwidth=3 ts=4 list listchars=tab:>-')
+!   let lines=s:screen_lines(2,16)
+!   let expect=[
+! \ " 2 >--->--->--->",
+! \ "          ---{  ",
+! \ "~               ",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set nuw=4 listchars=')
+! endfunction
+  
+! function Test_breakindent13()
+!   let s:input=""
+    call s:test_windows('setl breakindent briopt=min:10 ts=8')
+    vert resize 20
+    call setline(1, ["    a\tb\tc\td\te", "    z   y       x       w       v"])
+--- 377,467 ----
+    redraw!
+    set ts=4
+    redraw!
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2     ab",
+! 	\ "~       mn",
+! 	\ "~       yz",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set sbr= cpo-=n')
+! endfunc
+  
+! func Test_breakindent10_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " breakindent set, Number set sbr=~
+!   call s:test_windows('setl cpo+=n sbr=~ nu nuw=4 nolist briopt=sbr,min:0 vts=4')
+!   " make sure, cache is invalidated!
+!   set ts=8
+!   redraw!
+!   set ts=4
+!   redraw!
+!   let lines = s:screen_lines(line('.'),10)
+!   let expect = [
+! 	\ "  2     ab",
+! 	\ "~       mn",
+! 	\ "~       yz",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set sbr= cpo-=n vts&')
+! endfunc
+! 
+! func Test_breakindent11()
+    " test strdisplaywidth()
+    call s:test_windows('setl cpo-=n sbr=>> nu nuw=4 nolist briopt= ts=4')
+!   let text = getline(2)
+    let width = strlen(text[1:])+indent(2)+strlen(&sbr)*3 " text wraps 3 times
+    call assert_equal(width, strdisplaywidth(text))
+    call s:close_windows('set sbr=')
+! endfunc
+! 
+! func Test_breakindent11_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " test strdisplaywidth()
+!   call s:test_windows('setl cpo-=n sbr=>> nu nuw=4 nolist briopt= ts=4 vts=4')
+!   let text = getline(2)
+!   let width = strlen(text[1:])+indent(2)+strlen(&sbr)*3 " text wraps 3 times
+!   call assert_equal(width, strdisplaywidth(text))
+!   call s:close_windows('set sbr= vts&')
+! endfunc
+  
+! func Test_breakindent12()
+    " test breakindent with long indent
+!   let s:input = "\t\t\t\t\t{"
+    call s:test_windows('setl breakindent linebreak briopt=min:10 nu numberwidth=3 ts=4 list listchars=tab:>-')
+!   let lines = s:screen_lines(2,16)
+!   let expect = [
+! 	\ " 2 >--->--->--->",
+! 	\ "          ---{  ",
+! 	\ "~               ",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows('set nuw=4 listchars=')
+! endfunc
+  
+! func Test_breakindent12_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " test breakindent with long indent
+!   let s:input = "\t\t\t\t\t{"
+!   call s:test_windows('setl breakindent linebreak briopt=min:10 nu numberwidth=3 ts=4 list listchars=tab:>- vts=4')
+!   let lines = s:screen_lines(2,16)
+!   let expect = [
+! 	\ " 2 >--->--->--->",
+! 	\ "          ---{  ",
+! 	\ "~               ",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set nuw=4 listchars= vts&')
+! endfunc
+! 
+! func Test_breakindent13()
+!   let s:input = ""
+    call s:test_windows('setl breakindent briopt=min:10 ts=8')
+    vert resize 20
+    call setline(1, ["    a\tb\tc\td\te", "    z   y       x       w       v"])
+***************
+*** 237,298 ****
+    call assert_equal('d', @a)
+    call assert_equal('w', @b)
+    call s:close_windows()
+! endfunction
+  
+! function Test_breakindent14()
+!   let s:input=""
+    call s:test_windows('setl breakindent briopt= ts=8')
+    vert resize 30
+    norm! 3a1234567890
+    norm! a    abcde
+    exec "norm! 0\<C-V>tex"
+!   let lines=s:screen_lines(line('.'),8)
+!   let expect=[
+! \ "e       ",
+! \ "~       ",
+! \ "~       ",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunction
+  
+! function Test_breakindent15()
+!   let s:input=""
+    call s:test_windows('setl breakindent briopt= ts=8 sw=8')
+    vert resize 30
+    norm! 4a1234567890
+    exe "normal! >>\<C-V>3f0x"
+!   let lines=s:screen_lines(line('.'),20)
+!   let expect=[
+! \ "        1234567890  ",
+! \ "~                   ",
+! \ "~                   ",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunction
+  
+! function Test_breakindent16()
+    " Check that overlong lines are indented correctly.
+!   let s:input=""
+    call s:test_windows('setl breakindent briopt=min:0 ts=4')
+    call setline(1, "\t".repeat("1234567890", 10))
+    resize 6
+    norm! 1gg$
+    redraw!
+!   let lines=s:screen_lines(1,10)
+!   let expect=[
+! \ "    789012",
+! \ "    345678",
+! \ "    901234",
+! \ ]
+!   call s:compare_lines(expect, lines)
+!   let lines=s:screen_lines(4,10)
+!   let expect=[
+! \ "    567890",
+! \ "    123456",
+! \ "    7890  ",
+! \ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunction
+--- 472,617 ----
+    call assert_equal('d', @a)
+    call assert_equal('w', @b)
+    call s:close_windows()
+! endfunc
+  
+! func Test_breakindent13_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   let s:input = ""
+!   call s:test_windows('setl breakindent briopt=min:10 ts=8 vts=8')
+!   vert resize 20
+!   call setline(1, ["    a\tb\tc\td\te", "    z   y       x       w       v"])
+!   1
+!   norm! fbgj"ayl
+!   2
+!   norm! fygj"byl
+!   call assert_equal('d', @a)
+!   call assert_equal('w', @b)
+!   call s:close_windows('set vts&')
+! endfunc
+! 
+! func Test_breakindent14()
+!   let s:input = ""
+    call s:test_windows('setl breakindent briopt= ts=8')
+    vert resize 30
+    norm! 3a1234567890
+    norm! a    abcde
+    exec "norm! 0\<C-V>tex"
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "e       ",
+! 	\ "~       ",
+! 	\ "~       ",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunc
+! 
+! func Test_breakindent14_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   let s:input = ""
+!   call s:test_windows('setl breakindent briopt= ts=8 vts=8')
+!   vert resize 30
+!   norm! 3a1234567890
+!   norm! a    abcde
+!   exec "norm! 0\<C-V>tex"
+!   let lines = s:screen_lines(line('.'),8)
+!   let expect = [
+! 	\ "e       ",
+! 	\ "~       ",
+! 	\ "~       ",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set vts&')
+! endfunc
+  
+! func Test_breakindent15()
+!   let s:input = ""
+    call s:test_windows('setl breakindent briopt= ts=8 sw=8')
+    vert resize 30
+    norm! 4a1234567890
+    exe "normal! >>\<C-V>3f0x"
+!   let lines = s:screen_lines(line('.'),20)
+!   let expect = [
+! 	\ "        1234567890  ",
+! 	\ "~                   ",
+! 	\ "~                   ",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunc
+! 
+! func Test_breakindent15_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   let s:input = ""
+!   call s:test_windows('setl breakindent briopt= ts=8 sw=8 vts=8')
+!   vert resize 30
+!   norm! 4a1234567890
+!   exe "normal! >>\<C-V>3f0x"
+!   let lines = s:screen_lines(line('.'),20)
+!   let expect = [
+! 	\ "        1234567890  ",
+! 	\ "~                   ",
+! 	\ "~                   ",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set vts&')
+! endfunc
+  
+! func Test_breakindent16()
+    " Check that overlong lines are indented correctly.
+!   let s:input = ""
+    call s:test_windows('setl breakindent briopt=min:0 ts=4')
+    call setline(1, "\t".repeat("1234567890", 10))
+    resize 6
+    norm! 1gg$
+    redraw!
+!   let lines = s:screen_lines(1,10)
+!   let expect = [
+! 	\ "    789012",
+! 	\ "    345678",
+! 	\ "    901234",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   let lines = s:screen_lines(4,10)
+!   let expect = [
+! 	\ "    567890",
+! 	\ "    123456",
+! 	\ "    7890  ",
+! 	\ ]
+    call s:compare_lines(expect, lines)
+    call s:close_windows()
+! endfunc
+! 
+! func Test_breakindent16_vartabs()
+!   if !has("vartabs")
+!     return
+!   endif
+!   " Check that overlong lines are indented correctly.
+!   let s:input = ""
+!   call s:test_windows('setl breakindent briopt=min:0 ts=4 vts=4')
+!   call setline(1, "\t".repeat("1234567890", 10))
+!   resize 6
+!   norm! 1gg$
+!   redraw!
+!   let lines = s:screen_lines(1,10)
+!   let expect = [
+! 	\ "    789012",
+! 	\ "    345678",
+! 	\ "    901234",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   let lines = s:screen_lines(4,10)
+!   let expect = [
+! 	\ "    567890",
+! 	\ "    123456",
+! 	\ "    7890  ",
+! 	\ ]
+!   call s:compare_lines(expect, lines)
+!   call s:close_windows('set vts&')
+! endfunc
+*** ../vim-8.1.0104/src/testdir/test_vartabs.vim	2018-06-23 19:18:52.740059396 +0200
+--- src/testdir/test_vartabs.vim	2018-06-23 18:05:31.387656858 +0200
+***************
+*** 0 ****
+--- 1,257 ----
++ " Test for variable tabstops
++ 
++ if !has("vartabs")
++   finish
++ endif
++ 
++ func! Test_vartabs()
++   new
++   %d
++ 
++   " Test normal operation of tabstops ...
++   set ts=4
++   call setline(1, join(split('aaaaa', '\zs'), "\t"))
++   retab 8
++   let expect = "a   a\<tab>a   a\<tab>a"
++   call assert_equal(expect, getline(1))
++ 
++   " ... and softtabstops
++   set ts=8 sts=6
++   exe "norm! Sb\<tab>b\<tab>b\<tab>b\<tab>b"
++   let expect = "b     b\<tab>    b\<tab>  b\<tab>b"
++   call assert_equal(expect, getline(1))
++ 
++   " Test variable tabstops.
++   set sts=0 vts=4,8,4,8
++   exe "norm! Sc\<tab>c\<tab>c\<tab>c\<tab>c\<tab>c"
++   retab 8
++   let expect = "c   c\<tab>    c\<tab>c\<tab>c\<tab>c"
++   call assert_equal(expect, getline(1))
++ 
++   set et vts=4,8,4,8
++   exe "norm! Sd\<tab>d\<tab>d\<tab>d\<tab>d\<tab>d"
++   let expect = "d   d       d   d       d       d"
++   call assert_equal(expect, getline(1))
++ 
++   " Changing ts should have no effect if vts is in use.
++   call cursor(1, 1)
++   set ts=6
++   exe "norm! Se\<tab>e\<tab>e\<tab>e\<tab>e\<tab>e"
++   let expect = "e   e       e   e       e       e"
++   call assert_equal(expect, getline(1))
++ 
++   " Clearing vts should revert to using ts.
++   set vts=
++   exe "norm! Sf\<tab>f\<tab>f\<tab>f\<tab>f\<tab>f"
++   let expect = "f     f     f     f     f     f"
++   call assert_equal(expect, getline(1))
++ 
++   " Test variable softtabstops.
++   set noet ts=8 vsts=12,2,6
++   exe "norm! Sg\<tab>g\<tab>g\<tab>g\<tab>g\<tab>g"
++   let expect = "g\<tab>    g g\<tab>    g\<tab>  g\<tab>g"
++   call assert_equal(expect, getline(1))
++ 
++   " Variable tabstops and softtabstops combined.
++   set vsts=6,12,8 vts=4,6,8
++   exe "norm! Sh\<tab>h\<tab>h\<tab>h\<tab>h"
++   let expect = "h\<tab>  h\<tab>\<tab>h\<tab>h\<tab>h"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with a single value, not using vts.
++   set ts=8 sts=0 vts= vsts=
++   exe "norm! Si\<tab>i\<tab>i\<tab>i\<tab>i"
++   retab 4
++   let expect = "i\<tab>\<tab>i\<tab>\<tab>i\<tab>\<tab>i\<tab>\<tab>i"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with a single value, using vts.
++   set ts=8 sts=0 vts=6 vsts=
++   exe "norm! Sj\<tab>j\<tab>j\<tab>j\<tab>j"
++   retab 4
++   let expect = "j\<tab>  j\<tab>\<tab>j\<tab>  j\<tab>\<tab>j"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with multiple values, not using vts.
++   set ts=6 sts=0 vts= vsts=
++   exe "norm! Sk\<tab>k\<tab>k\<tab>k\<tab>k\<tab>k"
++   retab 4,8
++   let expect = "k\<tab>  k\<tab>k     k\<tab>    k\<tab>  k"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with multiple values, using vts.
++   set ts=8 sts=0 vts=6 vsts=
++   exe "norm! Sl\<tab>l\<tab>l\<tab>l\<tab>l\<tab>l"
++   retab 4,8
++   let expect = "l\<tab>  l\<tab>l     l\<tab>    l\<tab>  l"
++   call assert_equal(expect, getline(1))
++ 
++   " Check that global and local values are set.
++   set ts=4 vts=6 sts=8 vsts=10
++   call assert_equal(&ts, 4)
++   call assert_equal(&vts, '6')
++   call assert_equal(&sts, 8)
++   call assert_equal(&vsts, '10')
++   new
++   call assert_equal(&ts, 4)
++   call assert_equal(&vts, '6')
++   call assert_equal(&sts, 8)
++   call assert_equal(&vsts, '10')
++   bwipeout!
++ 
++   " Check that local values only are set.
++   setlocal ts=5 vts=7 sts=9 vsts=11
++   call assert_equal(&ts, 5)
++   call assert_equal(&vts, '7')
++   call assert_equal(&sts, 9)
++   call assert_equal(&vsts, '11')
++   new
++   call assert_equal(&ts, 4)
++   call assert_equal(&vts, '6')
++   call assert_equal(&sts, 8)
++   call assert_equal(&vsts, '10')
++   bwipeout!
++ 
++   " Check that global values only are set.
++   setglobal ts=6 vts=8 sts=10 vsts=12
++   call assert_equal(&ts, 5)
++   call assert_equal(&vts, '7')
++   call assert_equal(&sts, 9)
++   call assert_equal(&vsts, '11')
++   new
++   call assert_equal(&ts, 6)
++   call assert_equal(&vts, '8')
++   call assert_equal(&sts, 10)
++   call assert_equal(&vsts, '12')
++   bwipeout!
++ 
++   set ts& vts& sts& vsts& et&
++   bwipeout!
++ endfunc
++ 
++ func! Test_vartabs_breakindent()
++   if !exists("+breakindent")
++     return
++   endif
++   new
++   %d
++ 
++   " Test normal operation of tabstops ...
++   set ts=4
++   call setline(1, join(split('aaaaa', '\zs'), "\t"))
++   retab 8
++   let expect = "a   a\<tab>a   a\<tab>a"
++   call assert_equal(expect, getline(1))
++ 
++   " ... and softtabstops
++   set ts=8 sts=6
++   exe "norm! Sb\<tab>b\<tab>b\<tab>b\<tab>b"
++   let expect = "b     b\<tab>    b\<tab>  b\<tab>b"
++   call assert_equal(expect, getline(1))
++ 
++   " Test variable tabstops.
++   set sts=0 vts=4,8,4,8
++   exe "norm! Sc\<tab>c\<tab>c\<tab>c\<tab>c\<tab>c"
++   retab 8
++   let expect = "c   c\<tab>    c\<tab>c\<tab>c\<tab>c"
++   call assert_equal(expect, getline(1))
++ 
++   set et vts=4,8,4,8
++   exe "norm! Sd\<tab>d\<tab>d\<tab>d\<tab>d\<tab>d"
++   let expect = "d   d       d   d       d       d"
++   call assert_equal(expect, getline(1))
++ 
++   " Changing ts should have no effect if vts is in use.
++   call cursor(1, 1)
++   set ts=6
++   exe "norm! Se\<tab>e\<tab>e\<tab>e\<tab>e\<tab>e"
++   let expect = "e   e       e   e       e       e"
++   call assert_equal(expect, getline(1))
++ 
++   " Clearing vts should revert to using ts.
++   set vts=
++   exe "norm! Sf\<tab>f\<tab>f\<tab>f\<tab>f\<tab>f"
++   let expect = "f     f     f     f     f     f"
++   call assert_equal(expect, getline(1))
++ 
++   " Test variable softtabstops.
++   set noet ts=8 vsts=12,2,6
++   exe "norm! Sg\<tab>g\<tab>g\<tab>g\<tab>g\<tab>g"
++   let expect = "g\<tab>    g g\<tab>    g\<tab>  g\<tab>g"
++   call assert_equal(expect, getline(1))
++ 
++   " Variable tabstops and softtabstops combined.
++   set vsts=6,12,8 vts=4,6,8
++   exe "norm! Sh\<tab>h\<tab>h\<tab>h\<tab>h"
++   let expect = "h\<tab>  h\<tab>\<tab>h\<tab>h\<tab>h"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with a single value, not using vts.
++   set ts=8 sts=0 vts= vsts=
++   exe "norm! Si\<tab>i\<tab>i\<tab>i\<tab>i"
++   retab 4
++   let expect = "i\<tab>\<tab>i\<tab>\<tab>i\<tab>\<tab>i\<tab>\<tab>i"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with a single value, using vts.
++   set ts=8 sts=0 vts=6 vsts=
++   exe "norm! Sj\<tab>j\<tab>j\<tab>j\<tab>j"
++   retab 4
++   let expect = "j\<tab>  j\<tab>\<tab>j\<tab>  j\<tab>\<tab>j"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with multiple values, not using vts.
++   set ts=6 sts=0 vts= vsts=
++   exe "norm! Sk\<tab>k\<tab>k\<tab>k\<tab>k\<tab>k"
++   retab 4,8
++   let expect = "k\<tab>  k\<tab>k     k\<tab>    k\<tab>  k"
++   call assert_equal(expect, getline(1))
++ 
++   " Retab with multiple values, using vts.
++   set ts=8 sts=0 vts=6 vsts=
++   exe "norm! Sl\<tab>l\<tab>l\<tab>l\<tab>l\<tab>l"
++   retab 4,8
++   let expect = "l\<tab>  l\<tab>l     l\<tab>    l\<tab>  l"
++   call assert_equal(expect, getline(1))
++ 
++   " Check that global and local values are set.
++   set ts=4 vts=6 sts=8 vsts=10
++   call assert_equal(&ts, 4)
++   call assert_equal(&vts, '6')
++   call assert_equal(&sts, 8)
++   call assert_equal(&vsts, '10')
++   new
++   call assert_equal(&ts, 4)
++   call assert_equal(&vts, '6')
++   call assert_equal(&sts, 8)
++   call assert_equal(&vsts, '10')
++   bwipeout!
++ 
++   " Check that local values only are set.
++   setlocal ts=5 vts=7 sts=9 vsts=11
++   call assert_equal(&ts, 5)
++   call assert_equal(&vts, '7')
++   call assert_equal(&sts, 9)
++   call assert_equal(&vsts, '11')
++   new
++   call assert_equal(&ts, 4)
++   call assert_equal(&vts, '6')
++   call assert_equal(&sts, 8)
++   call assert_equal(&vsts, '10')
++   bwipeout!
++ 
++   " Check that global values only are set.
++   setglobal ts=6 vts=8 sts=10 vsts=12
++   call assert_equal(&ts, 5)
++   call assert_equal(&vts, '7')
++   call assert_equal(&sts, 9)
++   call assert_equal(&vsts, '11')
++   new
++   call assert_equal(&ts, 6)
++   call assert_equal(&vts, '8')
++   call assert_equal(&sts, 10)
++   call assert_equal(&vsts, '12')
++   bwipeout!
++ 
++   bwipeout!
++ endfunc
+*** ../vim-8.1.0104/src/version.c	2018-06-23 17:14:36.801909989 +0200
+--- src/version.c	2018-06-23 19:18:18.788276086 +0200
+***************
+*** 677,682 ****
+--- 677,687 ----
+  #else
+  	"-user_commands",
+  #endif
++ #ifdef FEAT_VARTABS
++ 	"+vartabs",
++ #else
++ 	"-vartabs",
++ #endif
+  	"+vertsplit",
+  #ifdef FEAT_VIRTUALEDIT
+  	"+virtualedit",
+*** ../vim-8.1.0104/src/workshop.c	2017-11-18 21:10:42.000000000 +0100
+--- src/workshop.c	2018-06-23 17:41:10.116365995 +0200
+***************
+*** 49,55 ****
+--- 49,59 ----
+  static void	 warp_to_pc(int);
+  #ifdef FEAT_BEVAL_GUI
+  void		 workshop_beval_cb(BalloonEval *, int);
++ # ifdef FEAT_VARTABS
++ static int	 computeIndex(int, char_u *, int, int *);
++ # else
+  static int	 computeIndex(int, char_u *, int);
++ # endif
+  #endif
+  static char	*fixAccelText(char *);
+  static void	 addMenu(char *, char *, char *);
+***************
+*** 1534,1540 ****
+--- 1538,1548 ----
+  	     * a column number. Compute the index from col. Also set
+  	     * line to 0 because thats what dbx expects.
+  	     */
++ #ifdef FEAT_VARTABS
++ 	    idx = computeIndex(col, text, beval->ts, beval->vts);
++ #else
+  	    idx = computeIndex(col, text, beval->ts);
++ #endif
+  	    if (idx > 0)
+  	    {
+  		lnum = 0;
+***************
+*** 1569,1575 ****
+  computeIndex(
+  	int		 wantedCol,
+  	char_u		*line,
+! 	int		 ts)
+  {
+      int		 col = 0;
+      int		 idx = 0;
+--- 1577,1587 ----
+  computeIndex(
+  	int		 wantedCol,
+  	char_u		*line,
+! 	int		 ts
+! #ifdef FEAT_VARTABS
+! 	int		*vts
+! #else
+! 	)
+  {
+      int		 col = 0;
+      int		 idx = 0;
+***************
+*** 1577,1583 ****
+--- 1589,1599 ----
+      while (line[idx])
+      {
+  	if (line[idx] == '\t')
++ #ifdef FEAT_VARTABS
++ 	    col += tabstop_padding(col, ts, vts);
++ #else
+  	    col += ts - (col % ts);
++ #endif
+  	else
+  	    col++;
+  	idx++;
+*** ../vim-8.1.0104/src/Makefile	2018-06-03 14:42:17.836505122 +0200
+--- src/Makefile	2018-06-23 18:09:24.498279403 +0200
+***************
+*** 2305,2310 ****
+--- 2305,2311 ----
+  	test_usercommands \
+  	test_utf8 \
+  	test_utf8_comparisons \
++ 	test_vartabs \
+  	test_viminfo \
+  	test_vimscript \
+  	test_virtualedit \
+*** ../vim-8.1.0104/src/version.c	2018-06-23 17:14:36.801909989 +0200
+--- src/version.c	2018-06-23 19:18:18.788276086 +0200
+***************
+*** 780,781 ****
+--- 785,788 ----
+  {   /* Add new patch number below this line */
++ /**/
++     105,
+  /**/
+
+-- 
+# echo reboot >universe
+# chmod +x universe
+# ./universe
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

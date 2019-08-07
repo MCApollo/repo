@@ -1,0 +1,71 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0280
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0280
+Problem:    'incsearch' highlighting does not work for ":g!/".
+Solution:   Skip the exclamation mark. (Hirohito Higashi)
+Files:	    src/ex_getln.c, src/testdir/test_search.vim
+
+
+*** ../vim-8.1.0279/src/ex_getln.c	2018-08-12 22:02:55.494056691 +0200
+--- src/ex_getln.c	2018-08-13 22:53:06.873250045 +0200
+***************
+*** 298,303 ****
+--- 298,310 ----
+  			    || STRNCMP(cmd, "global", p - cmd) == 0
+  			    || STRNCMP(cmd, "vglobal", p - cmd) == 0))
+  		{
++ 		    // Check for "global!/".
++ 		    if (*cmd == 'g' && *p == '!')
++ 		    {
++ 			p++;
++ 			if (*skipwhite(p) == NUL)
++ 			    return FALSE;
++ 		    }
+  		    p = skipwhite(p);
+  		    delim = *p++;
+  		    end = skip_regexp(p, delim, p_magic, NULL);
+*** ../vim-8.1.0279/src/testdir/test_search.vim	2018-08-12 22:02:55.494056691 +0200
+--- src/testdir/test_search.vim	2018-08-13 22:50:49.374202563 +0200
+***************
+*** 399,404 ****
+--- 399,412 ----
+    undo
+    call feedkeys(":global/the\<c-l>/d\<cr>", 'tx')
+    call assert_equal('  3 the theother', getline(2))
++   undo
++   call feedkeys(":g!/the\<c-l>/d\<cr>", 'tx')
++   call assert_equal(1, line('$'))
++   call assert_equal('  2 the~e', getline(1))
++   undo
++   call feedkeys(":global!/the\<c-l>/d\<cr>", 'tx')
++   call assert_equal(1, line('$'))
++   call assert_equal('  2 the~e', getline(1))
+  
+    call Incsearch_cleanup()
+  endfunc
+*** ../vim-8.1.0279/src/version.c	2018-08-12 22:02:55.494056691 +0200
+--- src/version.c	2018-08-13 22:51:49.437786199 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     280,
+  /**/
+
+-- 
+A parent can be arrested if his child cannot hold back a burp during a church
+service.
+		[real standing law in Nebraska, United States of America]
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

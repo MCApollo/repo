@@ -1,0 +1,85 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0011
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0011
+Problem:    maparg() and mapcheck() confuse empty and non-existing.
+Solution:   Return <Nop> for an existing non-empty mapping. (closes #2940)
+Files:	    src/evalfunc.c, src/testdir/test_maparg.vim
+
+
+*** ../vim-8.1.0010/src/evalfunc.c	2018-05-13 15:23:25.000000000 +0200
+--- src/evalfunc.c	2018-05-21 13:16:25.980369218 +0200
+***************
+*** 7383,7389 ****
+      {
+  	/* Return a string. */
+  	if (rhs != NULL)
+! 	    rettv->vval.v_string = str2special_save(rhs, FALSE);
+  
+      }
+      else if (rettv_dict_alloc(rettv) != FAIL && rhs != NULL)
+--- 7383,7394 ----
+      {
+  	/* Return a string. */
+  	if (rhs != NULL)
+! 	{
+! 	    if (*rhs == NUL)
+! 		rettv->vval.v_string = vim_strsave((char_u *)"<Nop>");
+! 	    else
+! 		rettv->vval.v_string = str2special_save(rhs, FALSE);
+! 	}
+  
+      }
+      else if (rettv_dict_alloc(rettv) != FAIL && rhs != NULL)
+*** ../vim-8.1.0010/src/testdir/test_maparg.vim	2017-07-11 21:35:19.000000000 +0200
+--- src/testdir/test_maparg.vim	2018-05-21 13:23:58.341721377 +0200
+***************
+*** 29,37 ****
+          \ maparg('foo', '', 0, 1))
+  
+    map abc x<char-114>x
+!   call assert_equal(maparg('abc'), "xrx")
+    map abc y<S-char-114>y
+!   call assert_equal(maparg('abc'), "yRy")
+  endfunction
+  
+  function Test_range_map()
+--- 29,41 ----
+          \ maparg('foo', '', 0, 1))
+  
+    map abc x<char-114>x
+!   call assert_equal("xrx", maparg('abc'))
+    map abc y<S-char-114>y
+!   call assert_equal("yRy", maparg('abc'))
+! 
+!   map abc <Nop>
+!   call assert_equal("<Nop>", maparg('abc'))
+!   unmap abc
+  endfunction
+  
+  function Test_range_map()
+*** ../vim-8.1.0010/src/version.c	2018-05-20 15:41:12.884693893 +0200
+--- src/version.c	2018-05-21 13:22:09.938362521 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     11,
+  /**/
+
+-- 
+Why I like vim:
+> I like VIM because, when I ask a question in this newsgroup, I get a
+> one-line answer.  With xemacs, I get a 1Kb lisp script with bugs in it ;-)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

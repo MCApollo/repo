@@ -1,0 +1,47 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0072
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0092 (after 8.1.0091)
+Problem:    Prompt buffer test fails.
+Solution:   Set 'nomodified' before closing the window. (Ozaki Kiichi,
+            closes #3051
+Files:	    src/testdir/test_prompt_buffer.vim
+
+
+*** ../vim-8.1.0091/src/testdir/test_prompt_buffer.vim	2018-06-04 17:28:04.729961269 +0200
+--- src/testdir/test_prompt_buffer.vim	2018-06-21 11:27:42.514152796 +0200
+***************
+*** 24,29 ****
+--- 24,31 ----
+    call writefile([
+  	\ 'func TextEntered(text)',
+  	\ '  if a:text == "exit"',
++ 	\ '    " Reset &modified to allow the buffer to be closed.',
++ 	\ '    set nomodified',
+  	\ '    stopinsert',
+  	\ '    close',
+  	\ '  else',
+*** ../vim-8.1.0091/src/version.c	2018-06-20 22:37:52.658911284 +0200
+--- src/version.c	2018-06-21 12:06:40.685403486 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     92,
+  /**/
+
+-- 
+From "know your smileys":
+ <<<:-{    Worf (Never smiles anyways, so he's a bad smiley)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

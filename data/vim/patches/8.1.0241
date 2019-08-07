@@ -1,0 +1,58 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0241
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0241
+Problem:    Effect of ":tabmove N" is not clear.
+Solution:   Add a test that shows the behavior. (Christian Brabandt,
+            closes #3288)
+Files:	    src/testdir/test_tabpage.vim
+
+
+*** ../vim-8.1.0240/src/testdir/test_tabpage.vim	2018-05-20 14:57:19.117429791 +0200
+--- src/testdir/test_tabpage.vim	2018-08-07 13:12:02.469260514 +0200
+***************
+*** 105,110 ****
+--- 105,123 ----
+    call assert_equal(4, tabpagenr())
+    7tabmove 5
+    call assert_equal(5, tabpagenr())
++ 
++   " The following are a no-op
++   norm! 2gt
++   call assert_equal(2, tabpagenr())
++   tabmove 2
++   call assert_equal(2, tabpagenr())
++   2tabmove
++   call assert_equal(2, tabpagenr())
++   tabmove 1
++   call assert_equal(2, tabpagenr())
++   1tabmove
++   call assert_equal(2, tabpagenr())
++ 
+    call assert_fails("99tabmove", 'E16:')
+    call assert_fails("+99tabmove", 'E16:')
+    call assert_fails("-99tabmove", 'E16:')
+*** ../vim-8.1.0240/src/version.c	2018-08-05 13:22:22.474562651 +0200
+--- src/version.c	2018-08-07 13:13:11.940836186 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     241,
+  /**/
+
+-- 
+MESKIMEN'S LAW
+    There's never time to do it right, but always time to do it over.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

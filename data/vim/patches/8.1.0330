@@ -1,0 +1,219 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0330
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0330
+Problem:    The qf_add_entries() function is too long.
+Solution:   Split in two parts. (Yegappan Lakshmanan)
+Files:	    src/quickfix.c
+
+
+*** ../vim-8.1.0329/src/quickfix.c	2018-08-21 21:58:09.524674714 +0200
+--- src/quickfix.c	2018-08-28 22:05:22.995585778 +0200
+***************
+*** 5997,6002 ****
+--- 5997,6079 ----
+  }
+  
+  /*
++  * Add a new quickfix entry to list at 'qf_idx' in the stack 'qi' from the
++  * items in the dict 'd'.
++  */
++     static int
++ qf_add_entry_from_dict(
++ 	qf_info_T	*qi,
++ 	int		qf_idx,
++ 	dict_T		*d,
++ 	int		first_entry)
++ {
++     static int	did_bufnr_emsg;
++     char_u	*filename, *module, *pattern, *text, *type;
++     int		bufnum, valid, status, col, vcol, nr;
++     long	lnum;
++ 
++     if (first_entry)
++ 	did_bufnr_emsg = FALSE;
++ 
++     filename = get_dict_string(d, (char_u *)"filename", TRUE);
++     module = get_dict_string(d, (char_u *)"module", TRUE);
++     bufnum = (int)get_dict_number(d, (char_u *)"bufnr");
++     lnum = (int)get_dict_number(d, (char_u *)"lnum");
++     col = (int)get_dict_number(d, (char_u *)"col");
++     vcol = (int)get_dict_number(d, (char_u *)"vcol");
++     nr = (int)get_dict_number(d, (char_u *)"nr");
++     type = get_dict_string(d, (char_u *)"type", TRUE);
++     pattern = get_dict_string(d, (char_u *)"pattern", TRUE);
++     text = get_dict_string(d, (char_u *)"text", TRUE);
++     if (text == NULL)
++ 	text = vim_strsave((char_u *)"");
++ 
++     valid = TRUE;
++     if ((filename == NULL && bufnum == 0) || (lnum == 0 && pattern == NULL))
++ 	valid = FALSE;
++ 
++     // Mark entries with non-existing buffer number as not valid. Give the
++     // error message only once.
++     if (bufnum != 0 && (buflist_findnr(bufnum) == NULL))
++     {
++ 	if (!did_bufnr_emsg)
++ 	{
++ 	    did_bufnr_emsg = TRUE;
++ 	    EMSGN(_("E92: Buffer %ld not found"), bufnum);
++ 	}
++ 	valid = FALSE;
++ 	bufnum = 0;
++     }
++ 
++     // If the 'valid' field is present it overrules the detected value.
++     if ((dict_find(d, (char_u *)"valid", -1)) != NULL)
++ 	valid = (int)get_dict_number(d, (char_u *)"valid");
++ 
++     status =  qf_add_entry(qi,
++ 			qf_idx,
++ 			NULL,		// dir
++ 			filename,
++ 			module,
++ 			bufnum,
++ 			text,
++ 			lnum,
++ 			col,
++ 			vcol,		// vis_col
++ 			pattern,	// search pattern
++ 			nr,
++ 			type == NULL ? NUL : *type,
++ 			valid);
++ 
++     vim_free(filename);
++     vim_free(module);
++     vim_free(pattern);
++     vim_free(text);
++     vim_free(type);
++ 
++     return status;
++ }
++ 
++ /*
+   * Add list of entries to quickfix/location list. Each list entry is
+   * a dictionary with item information.
+   */
+***************
+*** 6010,6024 ****
+  {
+      listitem_T	*li;
+      dict_T	*d;
+-     char_u	*filename, *module, *pattern, *text, *type;
+-     int		bufnum;
+-     long	lnum;
+-     int		col, nr;
+-     int		vcol;
+      qfline_T	*old_last = NULL;
+-     int		valid, status;
+      int		retval = OK;
+-     int		did_bufnr_emsg = FALSE;
+  
+      if (action == ' ' || qf_idx == qi->qf_listcount)
+      {
+--- 6087,6094 ----
+***************
+*** 6044,6109 ****
+  	if (d == NULL)
+  	    continue;
+  
+! 	filename = get_dict_string(d, (char_u *)"filename", TRUE);
+! 	module = get_dict_string(d, (char_u *)"module", TRUE);
+! 	bufnum = (int)get_dict_number(d, (char_u *)"bufnr");
+! 	lnum = (int)get_dict_number(d, (char_u *)"lnum");
+! 	col = (int)get_dict_number(d, (char_u *)"col");
+! 	vcol = (int)get_dict_number(d, (char_u *)"vcol");
+! 	nr = (int)get_dict_number(d, (char_u *)"nr");
+! 	type = get_dict_string(d, (char_u *)"type", TRUE);
+! 	pattern = get_dict_string(d, (char_u *)"pattern", TRUE);
+! 	text = get_dict_string(d, (char_u *)"text", TRUE);
+! 	if (text == NULL)
+! 	    text = vim_strsave((char_u *)"");
+! 
+! 	valid = TRUE;
+! 	if ((filename == NULL && bufnum == 0) || (lnum == 0 && pattern == NULL))
+! 	    valid = FALSE;
+! 
+! 	/* Mark entries with non-existing buffer number as not valid. Give the
+! 	 * error message only once. */
+! 	if (bufnum != 0 && (buflist_findnr(bufnum) == NULL))
+! 	{
+! 	    if (!did_bufnr_emsg)
+! 	    {
+! 		did_bufnr_emsg = TRUE;
+! 		EMSGN(_("E92: Buffer %ld not found"), bufnum);
+! 	    }
+! 	    valid = FALSE;
+! 	    bufnum = 0;
+! 	}
+! 
+! 	/* If the 'valid' field is present it overrules the detected value. */
+! 	if ((dict_find(d, (char_u *)"valid", -1)) != NULL)
+! 	    valid = (int)get_dict_number(d, (char_u *)"valid");
+! 
+! 	status =  qf_add_entry(qi,
+! 			       qf_idx,
+! 			       NULL,	    /* dir */
+! 			       filename,
+! 			       module,
+! 			       bufnum,
+! 			       text,
+! 			       lnum,
+! 			       col,
+! 			       vcol,	    /* vis_col */
+! 			       pattern,	    /* search pattern */
+! 			       nr,
+! 			       type == NULL ? NUL : *type,
+! 			       valid);
+! 
+! 	vim_free(filename);
+! 	vim_free(module);
+! 	vim_free(pattern);
+! 	vim_free(text);
+! 	vim_free(type);
+! 
+! 	if (status == FAIL)
+! 	{
+! 	    retval = FAIL;
+  	    break;
+- 	}
+      }
+  
+      if (qi->qf_lists[qf_idx].qf_index == 0)
+--- 6114,6122 ----
+  	if (d == NULL)
+  	    continue;
+  
+! 	retval = qf_add_entry_from_dict(qi, qf_idx, d, li == list->lv_first);
+! 	if (retval == FAIL)
+  	    break;
+      }
+  
+      if (qi->qf_lists[qf_idx].qf_index == 0)
+*** ../vim-8.1.0329/src/version.c	2018-08-27 23:24:13.064009239 +0200
+--- src/version.c	2018-08-28 22:06:20.577141281 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     330,
+  /**/
+
+-- 
+An alien life briefly visits earth.  Just before departing it leaves a
+message in the dust on the back of a white van.  The world is shocked
+and wants to know what it means.  After months of studies the worlds
+best linguistic scientists are able to decipher the message: "Wash me!".
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

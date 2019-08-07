@@ -1,0 +1,95 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0278
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0278
+Problem:    'incsearch' highlighting does not accept reverse range.
+Solution:   Swap the range when needed. (issue #3321)
+Files:	    src/ex_getln.c, src/testdir/test_search.vim,
+            src/testdir/dumps/Test_incsearch_substitute_04.dump
+
+
+*** ../vim-8.1.0277/src/ex_getln.c	2018-08-12 17:38:50.544700253 +0200
+--- src/ex_getln.c	2018-08-12 21:46:02.876827779 +0200
+***************
+*** 320,327 ****
+  			parse_cmd_address(&ea, &dummy);
+  			if (ea.addr_count > 0)
+  			{
+! 			    search_first_line = ea.line1;
+! 			    search_last_line = ea.line2;
+  			}
+  			else if (*cmd == 's')
+  			{
+--- 320,336 ----
+  			parse_cmd_address(&ea, &dummy);
+  			if (ea.addr_count > 0)
+  			{
+! 			    // Allow for reverse match.
+! 			    if (ea.line2 < ea.line1)
+! 			    {
+! 				search_first_line = ea.line2;
+! 				search_last_line = ea.line1;
+! 			    }
+! 			    else
+! 			    {
+! 				search_first_line = ea.line1;
+! 				search_last_line = ea.line2;
+! 			    }
+  			}
+  			else if (*cmd == 's')
+  			{
+*** ../vim-8.1.0277/src/testdir/test_search.vim	2018-08-12 17:38:50.544700253 +0200
+--- src/testdir/test_search.vim	2018-08-12 21:47:42.928159249 +0200
+***************
+*** 862,867 ****
+--- 862,873 ----
+    call term_sendkeys(buf, "\<BS>")
+    sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_03', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
++   " Reverse range is accepted
++   call term_sendkeys(buf, ':5,2s/foo')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_04', {})
+  
+    call term_sendkeys(buf, "\<Esc>")
+    call StopVimInTerminal(buf)
+*** ../vim-8.1.0277/src/testdir/dumps/Test_incsearch_substitute_04.dump	2018-08-12 21:51:53.814482196 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_04.dump	2018-08-12 21:48:10.107977608 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+0&#ffffff0|o@1| |1| @64
++ |f+1&&|o@1| +0&&|2| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|3| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|4| @64
++ |f+0&#ffff4012|o@1| +0&#ffffff0|5| @64
++ |f|o@1| |6| @64
++ |f|o@1| |7| @64
++ |f|o@1| |8| @64
++ |:|5|,|2|s|/|f|o@1> @60
+*** ../vim-8.1.0277/src/version.c	2018-08-12 17:38:50.544700253 +0200
+--- src/version.c	2018-08-12 21:50:56.598864724 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     278,
+  /**/
+
+-- 
+Kisses may last for as much as, but no more than, five minutes.
+		[real standing law in Iowa, United States of America]
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0444
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0444
+Problem:    Unnecessary check for NULL pointer.
+Solution:   Remove check and call vim_free() directly.
+Files:	    src/beval.c
+
+
+*** ../vim-8.1.0443/src/beval.c	2018-06-23 19:22:45.598486362 +0200
+--- src/beval.c	2018-06-28 12:03:47.277451318 +0200
+***************
+*** 125,132 ****
+  		*textp = lbuf;
+  		*colp = col;
+  #ifdef FEAT_VARTABS
+! 		if (beval->vts)
+! 		    vim_free(beval->vts);
+  		beval->vts = tabstop_copy(wp->w_buffer->b_p_vts_array);
+  #endif
+  		beval->ts = wp->w_buffer->b_p_ts;
+--- 125,131 ----
+  		*textp = lbuf;
+  		*colp = col;
+  #ifdef FEAT_VARTABS
+! 		vim_free(beval->vts);
+  		beval->vts = tabstop_copy(wp->w_buffer->b_p_vts_array);
+  #endif
+  		beval->ts = wp->w_buffer->b_p_ts;
+*** ../vim-8.1.0443/src/version.c	2018-09-30 21:43:17.207693209 +0200
+--- src/version.c	2018-10-02 14:14:26.115583047 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     444,
+  /**/
+
+-- 
+In a world without fences, who needs Gates and Windows?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

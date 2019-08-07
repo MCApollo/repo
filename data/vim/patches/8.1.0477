@@ -1,0 +1,47 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0477
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0477 (after 8.1.0475)
+Problem:    Tiny build fails.
+Solution:   Add a dummy declaration for funccal_entry_T.
+Files:	    src/structs.h
+
+
+*** ../vim-8.1.0476/src/structs.h	2018-10-14 21:40:57.352848455 +0200
+--- src/structs.h	2018-10-14 22:36:20.990582112 +0200
+***************
+*** 1445,1450 ****
+--- 1445,1454 ----
+  {
+      int	    dummy;
+  } funcdict_T;
++ typedef struct
++ {
++     int	    dummy;
++ } funccal_entry_T;
+  #endif
+  
+  struct partial_S
+*** ../vim-8.1.0476/src/version.c	2018-10-14 22:03:52.699698553 +0200
+--- src/version.c	2018-10-14 22:37:15.774104455 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     477,
+  /**/
+
+-- 
+$ echo pizza > /dev/oven
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

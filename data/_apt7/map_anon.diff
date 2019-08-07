@@ -1,0 +1,17 @@
+diff -ru apt-0.7.25.3/apt-pkg/contrib/mmap.cc apt-0.7.25.3+iPhone/apt-pkg/contrib/mmap.cc
+--- apt-0.7.25.3/apt-pkg/contrib/mmap.cc	2010-02-22 18:15:52.000000000 +0000
++++ apt-0.7.25.3+iPhone/apt-pkg/contrib/mmap.cc	2010-02-22 18:14:42.000000000 +0000
+@@ -174,11 +174,11 @@
+ #ifdef _POSIX_MAPPED_FILES
+    // Set the permissions.
+    int Prot = PROT_READ;
+-   int Map = MAP_PRIVATE | MAP_ANONYMOUS;
++   int Map = MAP_PRIVATE | MAP_ANON;
+    if ((Flags & ReadOnly) != ReadOnly)
+       Prot |= PROT_WRITE;
+    if ((Flags & Public) == Public)
+-      Map = MAP_SHARED | MAP_ANONYMOUS;
++      Map = MAP_SHARED | MAP_ANON;
+ 
+    // use anonymous mmap() to get the memory
+    Base = (unsigned char*) mmap(0, WorkSpace, Prot, Map, -1, 0);

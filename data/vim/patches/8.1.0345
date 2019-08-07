@@ -1,0 +1,286 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0345
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0345
+Problem:    Cannot get the window id associated with the location list.
+Solution:   Add the "filewinid" argument to getloclist(). (Yegappan
+            Lakshmanan, closes #3202)
+Files:	    runtime/doc/eval.txt, src/quickfix.c,
+            src/testdir/test_quickfix.vim
+
+
+*** ../vim-8.1.0344/runtime/doc/eval.txt	2018-08-21 21:09:02.598739663 +0200
+--- runtime/doc/eval.txt	2018-09-02 15:13:00.638419373 +0200
+***************
+*** 4721,4726 ****
+--- 4729,4738 ----
+  		If the optional {what} dictionary argument is supplied, then
+  		returns the items listed in {what} as a dictionary. Refer to
+  		|getqflist()| for the supported items in {what}.
++ 		If {what} contains 'filewinid', then returns the id of the
++ 		window used to display files from the location list. This
++ 		field is applicable only when called from a location list
++ 		window.
+  
+  getmatches()						*getmatches()*
+  		Returns a |List| with all matches previously defined by
+*** ../vim-8.1.0344/src/quickfix.c	2018-08-28 22:07:38.574120540 +0200
+--- src/quickfix.c	2018-09-02 15:13:00.638419373 +0200
+***************
+*** 5670,5676 ****
+      QF_GETLIST_IDX	= 0x40,
+      QF_GETLIST_SIZE	= 0x80,
+      QF_GETLIST_TICK	= 0x100,
+!     QF_GETLIST_ALL	= 0x1FF,
+  };
+  
+  /*
+--- 5670,5677 ----
+      QF_GETLIST_IDX	= 0x40,
+      QF_GETLIST_SIZE	= 0x80,
+      QF_GETLIST_TICK	= 0x100,
+!     QF_GETLIST_FILEWINID	= 0x200,
+!     QF_GETLIST_ALL	= 0x3FF,
+  };
+  
+  /*
+***************
+*** 5744,5755 ****
+   * Convert the keys in 'what' to quickfix list property flags.
+   */
+      static int
+! qf_getprop_keys2flags(dict_T *what)
+  {
+      int		flags = QF_GETLIST_NONE;
+  
+      if (dict_find(what, (char_u *)"all", -1) != NULL)
+  	flags |= QF_GETLIST_ALL;
+  
+      if (dict_find(what, (char_u *)"title", -1) != NULL)
+  	flags |= QF_GETLIST_TITLE;
+--- 5745,5761 ----
+   * Convert the keys in 'what' to quickfix list property flags.
+   */
+      static int
+! qf_getprop_keys2flags(dict_T *what, int loclist)
+  {
+      int		flags = QF_GETLIST_NONE;
+  
+      if (dict_find(what, (char_u *)"all", -1) != NULL)
++     {
+  	flags |= QF_GETLIST_ALL;
++ 	if (!loclist)
++ 	    // File window ID is applicable only to location list windows
++ 	    flags &= ~ QF_GETLIST_FILEWINID;
++     }
+  
+      if (dict_find(what, (char_u *)"title", -1) != NULL)
+  	flags |= QF_GETLIST_TITLE;
+***************
+*** 5778,5783 ****
+--- 5784,5792 ----
+      if (dict_find(what, (char_u *)"changedtick", -1) != NULL)
+  	flags |= QF_GETLIST_TICK;
+  
++     if (loclist && dict_find(what, (char_u *)"filewinid", -1) != NULL)
++ 	flags |= QF_GETLIST_FILEWINID;
++ 
+      return flags;
+  }
+  
+***************
+*** 5870,5875 ****
+--- 5879,5886 ----
+  	status = dict_add_number(retdict, "size", 0);
+      if ((status == OK) && (flags & QF_GETLIST_TICK))
+  	status = dict_add_number(retdict, "changedtick", 0);
++     if ((status == OK) && (qi != &ql_info) && (flags & QF_GETLIST_FILEWINID))
++ 	status = dict_add_number(retdict, "filewinid", 0);
+  
+      return status;
+  }
+***************
+*** 5884,5889 ****
+--- 5895,5920 ----
+  }
+  
+  /*
++  * Returns the identifier of the window used to display files from a location
++  * list.  If there is no associated window, then returns 0. Useful only when
++  * called from a location list window.
++  */
++     static int
++ qf_getprop_filewinid(win_T *wp, qf_info_T *qi, dict_T *retdict)
++ {
++     int winid = 0;
++ 
++     if (wp != NULL && IS_LL_WINDOW(wp))
++     {
++ 	win_T	*ll_wp = qf_find_win_with_loclist(qi);
++ 	if (ll_wp != NULL)
++ 	    winid = ll_wp->w_id;
++     }
++ 
++     return dict_add_number(retdict, "filewinid", winid);
++ }
++ 
++ /*
+   * Return the quickfix list items/entries as 'items' in retdict
+   */
+      static int
+***************
+*** 5963,5969 ****
+      if (wp != NULL)
+  	qi = GET_LOC_LIST(wp);
+  
+!     flags = qf_getprop_keys2flags(what);
+  
+      if (qi != NULL && qi->qf_listcount != 0)
+  	qf_idx = qf_getprop_qfidx(qi, what);
+--- 5994,6000 ----
+      if (wp != NULL)
+  	qi = GET_LOC_LIST(wp);
+  
+!     flags = qf_getprop_keys2flags(what, (wp != NULL));
+  
+      if (qi != NULL && qi->qf_listcount != 0)
+  	qf_idx = qf_getprop_qfidx(qi, what);
+***************
+*** 5992,5997 ****
+--- 6023,6030 ----
+      if ((status == OK) && (flags & QF_GETLIST_TICK))
+  	status = dict_add_number(retdict, "changedtick",
+  					qi->qf_lists[qf_idx].qf_changedtick);
++     if ((status == OK) && (wp != NULL) && (flags & QF_GETLIST_FILEWINID))
++ 	status = qf_getprop_filewinid(wp, qi, retdict);
+  
+      return status;
+  }
+*** ../vim-8.1.0344/src/testdir/test_quickfix.vim	2018-08-30 15:58:23.244944556 +0200
+--- src/testdir/test_quickfix.vim	2018-09-02 15:13:00.638419373 +0200
+***************
+*** 1973,1978 ****
+--- 1973,1990 ----
+      call g:Xsetlist([], 'r', {'items' : [{'filename' : 'F1', 'lnum' : 10, 'text' : 'L10'}]})
+      call assert_equal('TestTitle', g:Xgetlist({'title' : 1}).title)
+  
++     " Test for getting id of window associated with a location list window
++     if a:cchar == 'l'
++       only
++       call assert_equal(0, g:Xgetlist({'all' : 1}).filewinid)
++       let wid = win_getid()
++       Xopen
++       call assert_equal(wid, g:Xgetlist({'filewinid' : 1}).filewinid)
++       wincmd w
++       call assert_equal(0, g:Xgetlist({'filewinid' : 1}).filewinid)
++       only
++     endif
++ 
+      " The following used to crash Vim with address sanitizer
+      call g:Xsetlist([], 'f')
+      call g:Xsetlist([], 'a', {'items' : [{'filename':'F1', 'lnum':10}]})
+***************
+*** 3000,3006 ****
+    call assert_equal('', g:Xgetlist({'title' : 0}).title)
+    call assert_equal(0, g:Xgetlist({'winid' : 0}).winid)
+    call assert_equal(0, g:Xgetlist({'changedtick' : 0}).changedtick)
+!   call assert_equal({'context' : '', 'id' : 0, 'idx' : 0, 'items' : [], 'nr' : 0, 'size' : 0, 'title' : '', 'winid' : 0, 'changedtick': 0}, g:Xgetlist({'all' : 0}))
+  
+    " Quickfix window with empty stack
+    silent! Xopen
+--- 3012,3028 ----
+    call assert_equal('', g:Xgetlist({'title' : 0}).title)
+    call assert_equal(0, g:Xgetlist({'winid' : 0}).winid)
+    call assert_equal(0, g:Xgetlist({'changedtick' : 0}).changedtick)
+!   if a:cchar == 'c'
+!     call assert_equal({'context' : '', 'id' : 0, 'idx' : 0,
+! 		  \ 'items' : [], 'nr' : 0, 'size' : 0,
+! 		  \ 'title' : '', 'winid' : 0, 'changedtick': 0},
+! 		  \ g:Xgetlist({'all' : 0}))
+!   else
+!     call assert_equal({'context' : '', 'id' : 0, 'idx' : 0,
+! 		\ 'items' : [], 'nr' : 0, 'size' : 0, 'title' : '',
+! 		\ 'winid' : 0, 'changedtick': 0, 'filewinid' : 0},
+! 		\ g:Xgetlist({'all' : 0}))
+!   endif
+  
+    " Quickfix window with empty stack
+    silent! Xopen
+***************
+*** 3033,3039 ****
+    call assert_equal('', g:Xgetlist({'id' : qfid, 'title' : 0}).title)
+    call assert_equal(0, g:Xgetlist({'id' : qfid, 'winid' : 0}).winid)
+    call assert_equal(0, g:Xgetlist({'id' : qfid, 'changedtick' : 0}).changedtick)
+!   call assert_equal({'context' : '', 'id' : 0, 'idx' : 0, 'items' : [], 'nr' : 0, 'size' : 0, 'title' : '', 'winid' : 0, 'changedtick' : 0}, g:Xgetlist({'id' : qfid, 'all' : 0}))
+  
+    " Non-existing quickfix list number
+    call assert_equal('', g:Xgetlist({'nr' : 5, 'context' : 0}).context)
+--- 3055,3070 ----
+    call assert_equal('', g:Xgetlist({'id' : qfid, 'title' : 0}).title)
+    call assert_equal(0, g:Xgetlist({'id' : qfid, 'winid' : 0}).winid)
+    call assert_equal(0, g:Xgetlist({'id' : qfid, 'changedtick' : 0}).changedtick)
+!   if a:cchar == 'c'
+!     call assert_equal({'context' : '', 'id' : 0, 'idx' : 0, 'items' : [],
+! 		\ 'nr' : 0, 'size' : 0, 'title' : '', 'winid' : 0,
+! 		\ 'changedtick' : 0}, g:Xgetlist({'id' : qfid, 'all' : 0}))
+!   else
+!     call assert_equal({'context' : '', 'id' : 0, 'idx' : 0, 'items' : [],
+! 		\ 'nr' : 0, 'size' : 0, 'title' : '', 'winid' : 0,
+! 		\ 'changedtick' : 0, 'filewinid' : 0},
+! 		\ g:Xgetlist({'id' : qfid, 'all' : 0}))
+!   endif
+  
+    " Non-existing quickfix list number
+    call assert_equal('', g:Xgetlist({'nr' : 5, 'context' : 0}).context)
+***************
+*** 3045,3051 ****
+    call assert_equal('', g:Xgetlist({'nr' : 5, 'title' : 0}).title)
+    call assert_equal(0, g:Xgetlist({'nr' : 5, 'winid' : 0}).winid)
+    call assert_equal(0, g:Xgetlist({'nr' : 5, 'changedtick' : 0}).changedtick)
+!   call assert_equal({'context' : '', 'id' : 0, 'idx' : 0, 'items' : [], 'nr' : 0, 'size' : 0, 'title' : '', 'winid' : 0, 'changedtick' : 0}, g:Xgetlist({'nr' : 5, 'all' : 0}))
+  endfunc
+  
+  func Test_getqflist()
+--- 3076,3091 ----
+    call assert_equal('', g:Xgetlist({'nr' : 5, 'title' : 0}).title)
+    call assert_equal(0, g:Xgetlist({'nr' : 5, 'winid' : 0}).winid)
+    call assert_equal(0, g:Xgetlist({'nr' : 5, 'changedtick' : 0}).changedtick)
+!   if a:cchar == 'c'
+!     call assert_equal({'context' : '', 'id' : 0, 'idx' : 0, 'items' : [],
+! 		\ 'nr' : 0, 'size' : 0, 'title' : '', 'winid' : 0,
+! 		\ 'changedtick' : 0}, g:Xgetlist({'nr' : 5, 'all' : 0}))
+!   else
+!     call assert_equal({'context' : '', 'id' : 0, 'idx' : 0, 'items' : [],
+! 		\ 'nr' : 0, 'size' : 0, 'title' : '', 'winid' : 0,
+! 		\ 'changedtick' : 0, 'filewinid' : 0},
+! 		\ g:Xgetlist({'nr' : 5, 'all' : 0}))
+!   endif
+  endfunc
+  
+  func Test_getqflist()
+*** ../vim-8.1.0344/src/version.c	2018-09-02 15:07:21.977655529 +0200
+--- src/version.c	2018-09-02 15:14:57.573305935 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     345,
+  /**/
+
+-- 
+The Feynman problem solving Algorithm:
+	1) Write down the problem
+	2) Think real hard
+	3) Write down the answer
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

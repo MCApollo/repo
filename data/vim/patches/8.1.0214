@@ -1,0 +1,66 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0214
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0214
+Problem:    +autochdir feature not reported by has() or :version.
+Solution:   Add the feature in the list.
+Files:	    src/evalfunc.c, src/version.c
+
+
+*** ../vim-8.1.0213/src/evalfunc.c	2018-07-25 21:19:09.363656976 +0200
+--- src/evalfunc.c	2018-07-27 22:01:31.050713281 +0200
+***************
+*** 6045,6050 ****
+--- 6045,6053 ----
+  	"arabic",
+  #endif
+  	"autocmd",
++ #ifdef FEAT_AUTOCHDIR
++        "autochdir",
++ #endif
+  #ifdef FEAT_AUTOSERVERNAME
+  	"autoservername",
+  #endif
+*** ../vim-8.1.0213/src/version.c	2018-07-25 22:36:48.991518559 +0200
+--- src/version.c	2018-07-27 22:04:16.085747831 +0200
+***************
+*** 101,106 ****
+--- 101,111 ----
+  	"-arabic",
+  #endif
+  	"+autocmd",
++ #ifdef FEAT_AUTOCHDIR
++        "+autochdir",
++ #else
++        "-autochdir",
++ #endif
+  #ifdef FEAT_AUTOSERVERNAME
+  	"+autoservername",
+  #else
+*** ../vim-8.1.0213/src/version.c	2018-07-25 22:36:48.991518559 +0200
+--- src/version.c	2018-07-27 22:04:16.085747831 +0200
+***************
+*** 795,796 ****
+--- 800,803 ----
+  {   /* Add new patch number below this line */
++ /**/
++     214,
+  /**/
+
+-- 
+LAUNCELOT: At last!   A call!  A cry of distress ...
+           (he draws his sword, and turns to CONCORDE)
+           Concorde!  Brave, Concorde ... you shall not have died in vain!
+CONCORDE:  I'm not quite dead, sir ...
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

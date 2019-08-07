@@ -1,0 +1,21 @@
+diff -ur libpar2-0.2/Makefile.am libpar2-0.2+iPhone/Makefile.am
+--- libpar2-0.2/Makefile.am	2006-02-26 11:40:08.000000000 -1000
++++ libpar2-0.2+iPhone/Makefile.am	2018-08-15 22:08:05.000000000 -1000
+@@ -47,8 +47,8 @@
+ 	verificationhashtable.cpp verificationhashtable.h \
+ 	verificationpacket.cpp verificationpacket.h
+ 
+-LDADD = -lstdc++ -lsigc-2.0
+-INCLUDES = `pkg-config sigc++-2.0 --cflags`
++LDADD = $(SIGC_LIBS)
++INCLUDES = $(SIGC_CFLAGS)
+ AM_CXXFLAGS = -Wall
+ 
+ EXTRA_DIST = PORTING ROADMAP debian/changelog debian/compat debian/control \
+@@ -68,4 +68,4 @@
+ libpar2_configdir = $(libdir)/libpar2/include
+ libpar2_config_DATA = config.h
+ 
+-libpar2_la_LDFLAGS = -version-info 0:1:0
+\ No newline at end of file
++libpar2_la_LDFLAGS = -version-info 0:1:0

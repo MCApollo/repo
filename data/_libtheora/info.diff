@@ -1,0 +1,31 @@
+diff -ru libtheora-1.1.1/lib/Makefile.am libtheora-1.1.1+iPhone/lib/Makefile.am
+--- libtheora-1.1.1/lib/Makefile.am	2009-09-25 05:20:06.000000000 -1000
++++ libtheora-1.1.1+iPhone/lib/Makefile.am	2019-04-03 15:32:30.000000000 -1000
+@@ -79,6 +79,7 @@
+ 	apiwrapper.c \
+ 	fragment.c \
+ 	idct.c \
++	info.c \
+ 	internal.c \
+ 	state.c \
+ 	quant.c \
+diff -ru libtheora-1.1.1/lib/Makefile.in libtheora-1.1.1+iPhone/lib/Makefile.in
+--- libtheora-1.1.1/lib/Makefile.in	2009-10-01 08:04:07.000000000 -1000
++++ libtheora-1.1.1+iPhone/lib/Makefile.in	2019-04-03 15:44:55.000000000 -1000
+@@ -207,6 +207,7 @@
+ @THEORA_DISABLE_ENCODE_FALSE@	apiwrapper.c \
+ @THEORA_DISABLE_ENCODE_FALSE@	fragment.c \
+ @THEORA_DISABLE_ENCODE_FALSE@	idct.c \
++@THEORA_DISABLE_ENCODE_FALSE@	info.c \
+ @THEORA_DISABLE_ENCODE_FALSE@	internal.c \
+ @THEORA_DISABLE_ENCODE_FALSE@	state.c \
+ @THEORA_DISABLE_ENCODE_FALSE@	quant.c \
+@@ -369,7 +370,7 @@
+ @CPU_x86_64_TRUE@@THEORA_DISABLE_ENCODE_FALSE@	$(am__objects_9)
+ @THEORA_DISABLE_ENCODE_TRUE@am__objects_11 = $(am__objects_7)
+ @THEORA_DISABLE_ENCODE_FALSE@am__objects_11 = apiwrapper.lo fragment.lo \
+-@THEORA_DISABLE_ENCODE_FALSE@	idct.lo internal.lo state.lo \
++@THEORA_DISABLE_ENCODE_FALSE@	idct.lo info.lo internal.lo state.lo \
+ @THEORA_DISABLE_ENCODE_FALSE@	quant.lo $(am__objects_10) \
+ @THEORA_DISABLE_ENCODE_FALSE@	$(am__objects_7)
+ am_libtheoraenc_la_OBJECTS = $(am__objects_11)

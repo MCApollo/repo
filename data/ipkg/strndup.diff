@@ -1,0 +1,30 @@
+diff -ru ipkg-0.99.163/ipkg_conf.c ipkg-0.99.163+iPhone/ipkg_conf.c
+--- ipkg-0.99.163/ipkg_conf.c	2006-04-17 22:20:44.000000000 +0000
++++ ipkg-0.99.163+iPhone/ipkg_conf.c	2009-06-12 00:16:22.000000000 +0000
+@@ -28,6 +28,26 @@
+ #include "str_util.h"
+ #include "xsystem.h"
+ 
++#ifndef HAVE_STRNDUP
++char *
++strndup (const char *string, size_t length)
++{
++    char *result;
++    
++    if ((int)strlen (string) < length)
++        return strdup (string);
++    
++    result = (char *)malloc (length + 1);
++    if (!result)
++        return NULL;
++    
++    memcpy (result, string, length);
++    result[length] = '\0';
++    
++    return result;
++}
++#endif
++
+ static int ipkg_conf_parse_file(ipkg_conf_t *conf, const char *filename,
+ 				pkg_src_list_t *pkg_src_list,
+ 				nv_pair_list_t *tmp_dest_nv_pair_list,

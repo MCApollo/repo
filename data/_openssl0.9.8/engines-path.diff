@@ -1,0 +1,54 @@
+diff -ur openssl-0.9.8zh/Configure openssl-0.9.8zh+iPhone/Configure
+--- openssl-0.9.8zh/Configure	2015-12-03 04:59:07.000000000 -1000
++++ openssl-0.9.8zh+iPhone/Configure	2018-12-10 10:00:55.000000000 -1000
+@@ -1700,7 +1700,7 @@
+ 		# $foo is to become "$prefix/lib$multilib/engines";
+ 		# as Makefile.org and engines/Makefile are adapted for
+ 		# $multilib suffix.
+-		my $foo = "$prefix/lib/engines";
++		my $foo = "$prefix/lib/engines-0.9.8";
+ 		$foo =~ s/\\/\\\\/g;
+ 		print OUT "#define ENGINESDIR \"$foo\"\n";
+ 		}
+diff -ur openssl-0.9.8zh/Makefile.org openssl-0.9.8zh+iPhone/Makefile.org
+--- openssl-0.9.8zh/Makefile.org	2015-12-03 04:59:07.000000000 -1000
++++ openssl-0.9.8zh+iPhone/Makefile.org	2018-12-10 10:00:01.000000000 -1000
+@@ -623,7 +623,7 @@
+ install_sw:
+ 	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR) \
+-		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines \
++		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-0.9.8 \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/pkgconfig \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl \
+ 		$(INSTALL_PREFIX)$(OPENSSLDIR)/misc \
+diff -ur openssl-0.9.8zh/engines/Makefile openssl-0.9.8zh+iPhone/engines/Makefile
+--- openssl-0.9.8zh/engines/Makefile	2015-12-03 05:00:15.000000000 -1000
++++ openssl-0.9.8zh+iPhone/engines/Makefile	2018-12-10 10:00:01.000000000 -1000
+@@ -92,7 +92,7 @@
+ 	@[ -n "$(INSTALLTOP)" ] # should be set by top Makefile...
+ 	@if [ -n "$(SHARED_LIBS)" ]; then \
+ 		set -e; \
+-		$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines; \
++		$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/lib/engines-0.9.8; \
+ 		for l in $(LIBNAMES); do \
+ 			( echo installing $$l; \
+ 			  if [ "$(PLATFORM)" != "Cygwin" ]; then \
+@@ -101,13 +101,13 @@
+ 				*DSO_DL*)	sfx="sl";;	\
+ 				*)		sfx="bad";;	\
+ 				esac; \
+-				cp lib$$l.$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/lib$$l.$$sfx.new; \
++				cp lib$$l.$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-0.9.8/lib$$l.$$sfx.new; \
+ 			  else \
+ 			  	sfx="so"; \
+-				cp cyg$$l.dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/lib$$l.$$sfx.new; \
++				cp cyg$$l.dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-0.9.8/lib$$l.$$sfx.new; \
+ 			  fi; \
+-			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/lib$$l.$$sfx.new; \
+-			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/lib$$l.$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/lib$$l.$$sfx ); \
++			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-0.9.8/lib$$l.$$sfx.new; \
++			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-0.9.8/lib$$l.$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-0.9.8/lib$$l.$$sfx ); \
+ 		done; \
+ 	fi
+ 

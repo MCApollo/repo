@@ -1,0 +1,53 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0585
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0585
+Problem:    Undo test may fail on MS-Windows.
+Solution:   Also handle lower case drive letters.
+Files:	    src/testdir/test_undo.vim
+
+
+*** ../vim-8.1.0584/src/testdir/test_undo.vim	2018-05-26 18:46:26.276087941 +0200
+--- src/testdir/test_undo.vim	2018-12-13 20:23:35.954899917 +0100
+***************
+*** 426,432 ****
+    let cwd = getcwd()
+    if has('win32')
+      " Replace windows drive such as C:... into C%...
+!     let cwd = substitute(cwd, '^\([A-Z]\):', '\1%', 'g')
+    endif
+    let cwd = substitute(cwd . '/Xundofoo', '/', '%', 'g')
+    if has('persistent_undo')
+--- 426,432 ----
+    let cwd = getcwd()
+    if has('win32')
+      " Replace windows drive such as C:... into C%...
+!     let cwd = substitute(cwd, '^\([a-zA-Z]\):', '\1%', 'g')
+    endif
+    let cwd = substitute(cwd . '/Xundofoo', '/', '%', 'g')
+    if has('persistent_undo')
+*** ../vim-8.1.0584/src/version.c	2018-12-14 15:46:59.519914793 +0100
+--- src/version.c	2018-12-14 15:48:06.983440116 +0100
+***************
+*** 801,802 ****
+--- 801,804 ----
+  {   /* Add new patch number below this line */
++ /**/
++     585,
+  /**/
+
+-- 
+An operatingsystem is just a name you give to the rest of bloating
+idiosyncratic machine-based-features you left out of your editor.
+			(author unknown)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

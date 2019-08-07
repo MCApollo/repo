@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0395
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0395
+Problem:    Compiler warning on 64-bit MS-Windows.
+Solution:   Add type cast. (Mike Williams)
+Files:	    src/diff.c
+
+
+*** ../vim-8.1.0394/src/diff.c	2018-09-16 14:10:28.300323360 +0200
+--- src/diff.c	2018-09-16 14:49:24.928809679 +0200
+***************
+*** 712,718 ****
+  
+      // xdiff requires one big block of memory with all the text.
+      for (lnum = 1; lnum <= buf->b_ml.ml_line_count; ++lnum)
+! 	len += STRLEN(ml_get_buf(buf, lnum, FALSE)) + 1;
+      ptr = lalloc(len, TRUE);
+      if (ptr == NULL)
+      {
+--- 712,718 ----
+  
+      // xdiff requires one big block of memory with all the text.
+      for (lnum = 1; lnum <= buf->b_ml.ml_line_count; ++lnum)
+! 	len += (long)STRLEN(ml_get_buf(buf, lnum, FALSE)) + 1;
+      ptr = lalloc(len, TRUE);
+      if (ptr == NULL)
+      {
+*** ../vim-8.1.0394/src/version.c	2018-09-16 14:10:28.300323360 +0200
+--- src/version.c	2018-09-16 14:50:28.972105814 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     395,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+63. You start using smileys in your snail mail.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

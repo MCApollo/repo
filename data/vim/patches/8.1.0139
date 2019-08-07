@@ -1,0 +1,86 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0139
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0139
+Problem:    Lua tests fail on some platforms.
+Solution:   Accept a hex number with and without "0x". (Ken Takata,
+            closes #3137)
+Files:	    src/testdir/test_lua.vim
+
+
+*** ../vim-8.1.0138/src/testdir/test_lua.vim	2018-07-01 19:49:23.605793273 +0200
+--- src/testdir/test_lua.vim	2018-07-02 22:51:02.549409377 +0200
+***************
+*** 305,311 ****
+    lua l:add(vim.eval("{'a':1, 'b':2, 'c':3}"))
+    call assert_equal([123.0, 'abc', v:true, v:false, [1, 2, 3], {'a': 1, 'b': 2, 'c': 3}], l)
+    call assert_equal(6.0, luaeval('#l'))
+!   call assert_match('^list: 0x\x\+$', luaeval('tostring(l)'))
+  
+    lua l[0] = 124
+    lua l[4] = nil
+--- 305,311 ----
+    lua l:add(vim.eval("{'a':1, 'b':2, 'c':3}"))
+    call assert_equal([123.0, 'abc', v:true, v:false, [1, 2, 3], {'a': 1, 'b': 2, 'c': 3}], l)
+    call assert_equal(6.0, luaeval('#l'))
+!   call assert_match('^list: \%(0x\)\?\x\+$', luaeval('tostring(l)'))
+  
+    lua l[0] = 124
+    lua l[4] = nil
+***************
+*** 358,364 ****
+  
+    call assert_equal('[1.0, 2.0, [...]]', string(luaeval('l')))
+  
+!   call assert_match('^list: 0x\x\+$', luaeval('tostring(l)'))
+    call assert_equal(luaeval('tostring(l)'), luaeval('tostring(l[2])'))
+  
+    call assert_equal(luaeval('l'), luaeval('l[2]'))
+--- 358,364 ----
+  
+    call assert_equal('[1.0, 2.0, [...]]', string(luaeval('l')))
+  
+!   call assert_match('^list: \%(0x\)\?\x\+$', luaeval('tostring(l)'))
+    call assert_equal(luaeval('tostring(l)'), luaeval('tostring(l[2])'))
+  
+    call assert_equal(luaeval('l'), luaeval('l[2]'))
+***************
+*** 380,386 ****
+    lua d[5] = vim.eval("{'a':1, 'b':2, 'c':3}")
+    call assert_equal({'0':123.0, '1':'abc', '2':v:true, '3':v:false, '4': [1, 2, 3], '5': {'a':1, 'b':2, 'c':3}}, d)
+    call assert_equal(6.0, luaeval('#d'))
+!   call assert_match('^dict: 0x\x\+$', luaeval('tostring(d)'))
+  
+    call assert_equal('abc', luaeval('d[1]'))
+  
+--- 380,386 ----
+    lua d[5] = vim.eval("{'a':1, 'b':2, 'c':3}")
+    call assert_equal({'0':123.0, '1':'abc', '2':v:true, '3':v:false, '4': [1, 2, 3], '5': {'a':1, 'b':2, 'c':3}}, d)
+    call assert_equal(6.0, luaeval('#d'))
+!   call assert_match('^dict: \%(0x\)\?\x\+$', luaeval('tostring(d)'))
+  
+    call assert_equal('abc', luaeval('d[1]'))
+  
+*** ../vim-8.1.0138/src/version.c	2018-07-02 20:51:21.035882093 +0200
+--- src/version.c	2018-07-02 22:52:54.644808570 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     139,
+  /**/
+
+-- 
+An error has occurred.  Hit any user to continue.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

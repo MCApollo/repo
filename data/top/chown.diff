@@ -1,0 +1,9 @@
+diff -ur top-39/Makefile top-39+iPhone/Makefile
+--- top-39/Makefile	2008-02-04 11:55:01.000000000 -1000
++++ top-39+iPhone/Makefile	2018-08-14 18:28:17.000000000 -1000
+@@ -103,5 +103,3 @@
+ 
+ $(SYMROOT)/$(BIN) : $(patsubst %.c,$(OBJROOT)/%.o,$(BIN_SRCS)) $(SYMROOT)/$(LIB)
+ 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+-	chown root $@
+-	chmod 4755 $@

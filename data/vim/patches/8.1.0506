@@ -1,0 +1,58 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0506
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0506
+Problem:    Modeline test fails when run by root.
+Solution:   Set 'modeline' for the test. (James McCoy, closes #3592)
+Files:	    src/testdir/test_modeline.vim
+
+
+*** ../vim-8.1.0505/src/testdir/test_modeline.vim	2018-07-24 04:51:15.698271642 +0200
+--- src/testdir/test_modeline.vim	2018-11-03 19:05:48.120034025 +0100
+***************
+*** 1,9 ****
+  " Tests for parsing the modeline.
+  
+  func Test_modeline_invalid()
+!   " This was reading before allocated memory.
+    call writefile(['vi:0', 'nothing'], 'Xmodeline')
+    call assert_fails('split Xmodeline', 'E518:')
+    bwipe!
+    call delete('Xmodeline')
+  endfunc
+--- 1,12 ----
+  " Tests for parsing the modeline.
+  
+  func Test_modeline_invalid()
+!   " This was reading allocated memory in the past.
+    call writefile(['vi:0', 'nothing'], 'Xmodeline')
++   let modeline = &modeline
++   set modeline
+    call assert_fails('split Xmodeline', 'E518:')
++   let &modeline = modeline
+    bwipe!
+    call delete('Xmodeline')
+  endfunc
+*** ../vim-8.1.0505/src/version.c	2018-11-03 18:59:49.690644045 +0100
+--- src/version.c	2018-11-03 19:02:17.793624465 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     506,
+  /**/
+
+-- 
+Not too long ago, cut and paste was done with scissors and glue...
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,230 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0495
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0495
+Problem:    :filter only supports some commands.
+Solution:   Add :filter support for more commands. (Marcin Szamotulski,
+            closes #2856)
+Files:	    runtime/doc/various.txt, src/eval.c, src/mark.c, src/option.c,
+            src/syntax.c, src/testdir/test_filter_cmd.vim, src/userfunc.c
+
+
+*** ../vim-8.1.0494/runtime/doc/various.txt	2018-07-29 16:09:14.628945654 +0200
+--- runtime/doc/various.txt	2018-10-25 13:27:43.431646937 +0200
+***************
+*** 565,571 ****
+  			The pattern is matched against the relevant part of
+  			the output, not necessarily the whole line. Only some
+  			commands support filtering, try it out to check if it
+! 			works.
+  
+  			Only normal messages are filtered, error messages are
+  			not.
+--- 565,582 ----
+  			The pattern is matched against the relevant part of
+  			the output, not necessarily the whole line. Only some
+  			commands support filtering, try it out to check if it
+! 			works. Some of the commands that support filtering:
+!                           |:#|          - filter whole line
+!                           |:command|    - filter by command name
+!                           |:files|      - filter by file name
+!                           |:highlight|  - filter by highlight group
+!                           |:jumps|      - filter by file name
+!                           |:let|        - filter by variable name
+!                           |:list|       - filter whole line
+!                           |:llist|      - filter by file name or module name
+!                           |:oldfiles|   - filter by file name
+!                           |:clist|      - filter by file name or module name
+!                           |:set|        - filter by variable name
+  
+  			Only normal messages are filtered, error messages are
+  			not.
+*** ../vim-8.1.0494/src/eval.c	2018-10-25 12:30:52.274659868 +0200
+--- src/eval.c	2018-10-25 13:26:29.104208433 +0200
+***************
+*** 1425,1430 ****
+--- 1425,1431 ----
+      hashitem_T	*hi;
+      dictitem_T	*di;
+      int		todo;
++     char_u	buf[IOSIZE];
+  
+      todo = (int)ht->ht_used;
+      for (hi = ht->ht_array; todo > 0 && !got_int; ++hi)
+***************
+*** 1433,1438 ****
+--- 1434,1446 ----
+  	{
+  	    --todo;
+  	    di = HI2DI(hi);
++ 
++ 	    // apply :filter /pat/ to variable name
++ 	    vim_strncpy((char_u *) buf, prefix, IOSIZE - 1);
++ 	    vim_strcat((char_u *) buf, di->di_key, IOSIZE);
++ 	    if (message_filtered(buf))
++ 		continue;
++ 
+  	    if (empty || di->di_tv.v_type != VAR_STRING
+  					   || di->di_tv.vval.v_string != NULL)
+  		list_one_var(di, prefix, first);
+*** ../vim-8.1.0494/src/mark.c	2018-07-08 17:57:30.571289935 +0200
+--- src/mark.c	2018-10-25 13:26:29.104208433 +0200
+***************
+*** 901,907 ****
+  	if (curwin->w_jumplist[i].fmark.mark.lnum != 0)
+  	{
+  	    name = fm_getname(&curwin->w_jumplist[i].fmark, 16);
+! 	    if (name == NULL)	    /* file name not available */
+  		continue;
+  
+  	    msg_putchar('\n');
+--- 901,909 ----
+  	if (curwin->w_jumplist[i].fmark.mark.lnum != 0)
+  	{
+  	    name = fm_getname(&curwin->w_jumplist[i].fmark, 16);
+! 
+! 	    // apply :filter /pat/ or file name not available
+! 	    if (name == NULL || message_filtered(name))
+  		continue;
+  
+  	    msg_putchar('\n');
+*** ../vim-8.1.0494/src/option.c	2018-10-15 22:51:46.744578471 +0200
+--- src/option.c	2018-10-25 13:26:29.108208403 +0200
+***************
+*** 10083,10088 ****
+--- 10083,10092 ----
+  	item_count = 0;
+  	for (p = &options[0]; p->fullname != NULL; p++)
+  	{
++ 	    // apply :filter /pat/
++ 	    if (message_filtered((char_u *) p->fullname))
++ 		continue;
++ 
+  	    varp = NULL;
+  	    isterm = istermoption(p);
+  	    if (opt_flags != 0)
+*** ../vim-8.1.0494/src/syntax.c	2018-09-30 21:43:17.207693209 +0200
+--- src/syntax.c	2018-10-25 13:30:08.094554329 +0200
+***************
+*** 352,358 ****
+  
+  /*
+   * A state stack is an array of integers or stateitem_T, stored in a
+!  * garray_T.  A state stack is invalid if it's itemsize entry is zero.
+   */
+  #define INVALID_STATE(ssp)  ((ssp)->ga_itemsize == 0)
+  #define VALID_STATE(ssp)    ((ssp)->ga_itemsize != 0)
+--- 352,358 ----
+  
+  /*
+   * A state stack is an array of integers or stateitem_T, stored in a
+!  * garray_T.  A state stack is invalid if its itemsize entry is zero.
+   */
+  #define INVALID_STATE(ssp)  ((ssp)->ga_itemsize == 0)
+  #define VALID_STATE(ssp)    ((ssp)->ga_itemsize != 0)
+***************
+*** 9189,9195 ****
+      struct hl_group	*sgp;
+      int			didh = FALSE;
+  
+!     sgp = &HL_TABLE()[id - 1];	    /* index is ID minus one */
+  
+      didh = highlight_list_arg(id, didh, LIST_ATTR,
+  				    sgp->sg_term, NULL, "term");
+--- 9189,9198 ----
+      struct hl_group	*sgp;
+      int			didh = FALSE;
+  
+!     sgp = &HL_TABLE()[id - 1];	    // index is ID minus one
+! 
+!     if (message_filtered(sgp->sg_name))
+! 	return;
+  
+      didh = highlight_list_arg(id, didh, LIST_ATTR,
+  				    sgp->sg_term, NULL, "term");
+*** ../vim-8.1.0494/src/testdir/test_filter_cmd.vim	2018-10-09 21:49:30.447622031 +0200
+--- src/testdir/test_filter_cmd.vim	2018-10-25 13:29:23.066894384 +0200
+***************
+*** 87,89 ****
+--- 87,129 ----
+    call assert_equal('a|b', out)
+    set shelltemp&
+  endfunction
++ 
++ func Test_filter_commands()
++   let g:test_filter_a = 1
++   let b:test_filter_b = 2
++   let test_filter_c = 3
++ 
++   " Test filtering :let command
++   let res = split(execute("filter /^test_filter/ let"), "\n")
++   call assert_equal(["test_filter_a         #1"], res)
++ 
++   let res = split(execute("filter /\\v^(b:)?test_filter/ let"), "\n")
++   call assert_equal(["test_filter_a         #1", "b:test_filter_b       #2"], res)
++ 
++   unlet g:test_filter_a
++   unlet b:test_filter_b
++   unlet test_filter_c
++ 
++   " Test filtering :set command
++   let res = join(split(execute("filter /^help/ set"), "\n")[1:], " ")
++   call assert_match('^\s*helplang=\w*$', res)
++ 
++   " Test filtering :llist command
++   call setloclist(0, [{"filename": "/path/vim.c"}, {"filename": "/path/vim.h"}, {"module": "Main.Test"}])
++   let res = split(execute("filter /\\.c$/ llist"), "\n")
++   call assert_equal([" 1 /path/vim.c:  "], res)
++ 
++   let res = split(execute("filter /\\.Test$/ llist"), "\n")
++   call assert_equal([" 3 Main.Test:  "], res)
++ 
++   " Test filtering :jump command
++   e file.c
++   e file.h
++   e file.hs
++   let res = split(execute("filter /\.c$/ jumps"), "\n")[1:]
++   call assert_equal(["   2     1    0 file.c", ">"], res)
++ 
++   bwipe file.c
++   bwipe file.h
++   bwipe file.hs
++ endfunc
+*** ../vim-8.1.0494/src/userfunc.c	2018-10-14 21:40:57.352848455 +0200
+--- src/userfunc.c	2018-10-25 13:26:29.108208403 +0200
+***************
+*** 1882,1887 ****
+--- 1882,1889 ----
+  		{
+  		    --todo;
+  		    fp = HI2UF(hi);
++ 		    if (message_filtered(fp->uf_name))
++ 			continue;
+  		    if (!func_name_refcount(fp->uf_name))
+  			list_func_head(fp, FALSE);
+  		}
+*** ../vim-8.1.0494/src/version.c	2018-10-25 13:11:13.111143297 +0200
+--- src/version.c	2018-10-25 13:27:11.279889812 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     495,
+  /**/
+
+-- 
+ARTHUR: This new learning amazes me, Sir Bedevere.  Explain again how sheep's
+        bladders may be employed to prevent earthquakes.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

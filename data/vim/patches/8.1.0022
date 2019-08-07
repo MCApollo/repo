@@ -1,0 +1,79 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0022
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0022
+Problem:    Repeating put from expression register fails.
+Solution:   Re-evaluate the expression register. (Andy Massimino,
+            closes #2945)
+Files:	    src/getchar.c, src/testdir/test_put.vim
+
+
+*** ../vim-8.1.0021/src/getchar.c	2018-05-22 20:35:13.554009274 +0200
+--- src/getchar.c	2018-05-23 21:46:55.680567676 +0200
+***************
+*** 844,849 ****
+--- 844,857 ----
+  	if (c >= '1' && c < '9')
+  	    ++c;
+  	add_char_buff(&readbuf2, c);
++ 
++ 	/* the expression register should be re-evaluated */
++ 	if (c == '=')
++ 	{
++ 	    add_char_buff(&readbuf2, CAR);
++ 	    cmd_silent = TRUE;
++ 	}
++ 
+  	c = read_redo(FALSE, old_redo);
+      }
+  
+*** ../vim-8.1.0021/src/testdir/test_put.vim	2017-06-27 15:22:24.000000000 +0200
+--- src/testdir/test_put.vim	2018-05-23 21:44:03.492595109 +0200
+***************
+*** 45,47 ****
+--- 45,60 ----
+    bw!
+    call setreg('a', a[0], a[1])
+  endfunc
++ 
++ func Test_put_expr()
++   new
++   call setline(1, repeat(['A'], 6))
++   exec "1norm! \"=line('.')\<cr>p"
++   norm! j0.
++   norm! j0.
++   exec "4norm! \"=\<cr>P"
++   norm! j0.
++   norm! j0.
++   call assert_equal(['A1','A2','A3','4A','5A','6A'], getline(1,'$'))
++   bw!
++ endfunc
+*** ../vim-8.1.0021/src/version.c	2018-05-23 20:30:52.738566360 +0200
+--- src/version.c	2018-05-23 21:45:38.776580863 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     22,
+  /**/
+
+-- 
+The word "leader" is derived from the word "lead", as in the material that
+bullets are made out of.  The term "leader" was popularized at about the same
+time as the invention of firearms.  It grew out of the observation that the
+person in charge of every organization was the person whom everyone wanted to
+fill with hot lead.
+   I don't recomment this; it's just a point of historical interest.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

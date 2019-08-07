@@ -1,0 +1,62 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0527
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0527
+Problem:    Using 'shiftwidth' from wrong buffer for folding.
+Solution:   Use "buf" instead of "curbuf". (Christian Brabandt)
+Files:	    src/fold.c
+
+
+*** ../vim-8.1.0526/src/fold.c	2017-09-16 19:50:08.000000000 +0200
+--- src/fold.c	2018-11-14 21:40:01.495215394 +0100
+***************
+*** 155,160 ****
+--- 155,161 ----
+      int		low_level = 0;
+  
+      checkupdate(win);
++ 
+      /*
+       * Return quickly when there is no folding at all in this window.
+       */
+***************
+*** 3219,3225 ****
+  	    flp->lvl = -1;
+      }
+      else
+! 	flp->lvl = get_indent_buf(buf, lnum) / get_sw_value(curbuf);
+      if (flp->lvl > flp->wp->w_p_fdn)
+      {
+  	flp->lvl = flp->wp->w_p_fdn;
+--- 3220,3226 ----
+  	    flp->lvl = -1;
+      }
+      else
+! 	flp->lvl = get_indent_buf(buf, lnum) / get_sw_value(buf);
+      if (flp->lvl > flp->wp->w_p_fdn)
+      {
+  	flp->lvl = flp->wp->w_p_fdn;
+*** ../vim-8.1.0526/src/version.c	2018-11-12 21:45:04.596729428 +0100
+--- src/version.c	2018-11-14 21:45:09.316748673 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     527,
+  /**/
+
+-- 
+If your life is a hard drive,
+Christ can be your backup.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

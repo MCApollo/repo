@@ -1,0 +1,124 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0229
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0229
+Problem:    Crash when dumping profiling data.
+Solution:   Reset flag indicating that initialization was done.
+Files:	    src/userfunc.c
+
+
+*** ../vim-8.1.0228/src/userfunc.c	2018-07-10 19:39:14.994973018 +0200
+--- src/userfunc.c	2018-07-22 03:43:14.268242302 +0200
+***************
+*** 1102,1107 ****
+--- 1102,1122 ----
+      return FALSE;
+  }
+  
++     static void
++ func_clear_items(ufunc_T *fp)
++ {
++     ga_clear_strings(&(fp->uf_args));
++     ga_clear_strings(&(fp->uf_lines));
++ #ifdef FEAT_PROFILE
++     vim_free(fp->uf_tml_count);
++     fp->uf_tml_count = NULL;
++     vim_free(fp->uf_tml_total);
++     fp->uf_tml_total = NULL;
++     vim_free(fp->uf_tml_self);
++     fp->uf_tml_self = NULL;
++ #endif
++ }
++ 
+  /*
+   * Free all things that a function contains.  Does not free the function
+   * itself, use func_free() for that.
+***************
+*** 1115,1127 ****
+      fp->uf_cleared = TRUE;
+  
+      /* clear this function */
+!     ga_clear_strings(&(fp->uf_args));
+!     ga_clear_strings(&(fp->uf_lines));
+! #ifdef FEAT_PROFILE
+!     vim_free(fp->uf_tml_count);
+!     vim_free(fp->uf_tml_total);
+!     vim_free(fp->uf_tml_self);
+! #endif
+      funccal_unref(fp->uf_scoped, fp, force);
+  }
+  
+--- 1130,1136 ----
+      fp->uf_cleared = TRUE;
+  
+      /* clear this function */
+!     func_clear_items(fp);
+      funccal_unref(fp->uf_scoped, fp, force);
+  }
+  
+***************
+*** 2312,2320 ****
+  	    else
+  	    {
+  		/* redefine existing function */
+- 		ga_clear_strings(&(fp->uf_args));
+- 		ga_clear_strings(&(fp->uf_lines));
+  		VIM_CLEAR(name);
+  	    }
+  	}
+      }
+--- 2321,2332 ----
+  	    else
+  	    {
+  		/* redefine existing function */
+  		VIM_CLEAR(name);
++ 		func_clear_items(fp);
++ #ifdef FEAT_PROFILE
++ 		fp->uf_profiling = FALSE;
++ 		fp->uf_prof_initialized = FALSE;
++ #endif
+  	    }
+  	}
+      }
+***************
+*** 2434,2443 ****
+  	fp->uf_scoped = NULL;
+  
+  #ifdef FEAT_PROFILE
+-     fp->uf_tml_count = NULL;
+-     fp->uf_tml_total = NULL;
+-     fp->uf_tml_self = NULL;
+-     fp->uf_profiling = FALSE;
+      if (prof_def_func())
+  	func_do_profile(fp);
+  #endif
+--- 2446,2451 ----
+*** ../vim-8.1.0228/src/version.c	2018-07-29 17:35:19.497750288 +0200
+--- src/version.c	2018-07-29 17:40:20.711582375 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     229,
+  /**/
+
+-- 
+CUSTOMER:     Well, can you hang around a couple of minutes?  He won't be
+              long.
+MORTICIAN:    Naaah, I got to go on to Robinson's -- they've lost nine today.
+CUSTOMER:     Well, when is your next round?
+MORTICIAN:    Thursday.
+DEAD PERSON:  I think I'll go for a walk.
+                                  The Quest for the Holy Grail (Monty Python)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

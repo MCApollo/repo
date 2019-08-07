@@ -1,0 +1,53 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0432
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0432
+Problem:    Compiler warning for signed/unsigned.
+Solution:   Add type cast. (Mike Williams)
+Files:	    src/xdiff/xemit.c
+
+
+*** ../vim-8.1.0431/src/xdiff/xemit.c	2018-09-10 22:18:47.785610418 +0200
+--- src/xdiff/xemit.c	2018-09-25 18:57:25.291739843 +0200
+***************
+*** 31,37 ****
+  
+  
+  static int xdl_emit_record(xdfile_t *xdf, long ri, char const *pre, xdemitcb_t *ecb) {
+! 	long size, psize = strlen(pre);
+  	char const *rec;
+  
+  	size = xdl_get_rec(xdf, ri, &rec);
+--- 31,37 ----
+  
+  
+  static int xdl_emit_record(xdfile_t *xdf, long ri, char const *pre, xdemitcb_t *ecb) {
+! 	long size, psize = (long)strlen(pre);
+  	char const *rec;
+  
+  	size = xdl_get_rec(xdf, ri, &rec);
+*** ../vim-8.1.0431/src/version.c	2018-09-24 21:50:08.932086794 +0200
+--- src/version.c	2018-09-25 18:58:40.595292389 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     432,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+96. On Super Bowl Sunday, you followed the score by going to the
+    Yahoo main page instead of turning on the TV.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

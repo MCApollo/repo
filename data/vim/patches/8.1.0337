@@ -1,0 +1,121 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0337
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0337
+Problem:    :file fails in quickfix command.
+Solution:   Allow :file without argument when curbuf_lock is set. (Jason
+            Franklin)
+Files:	    src/ex_docmd.c, src/testdir/test_quickfix.vim
+
+
+*** ../vim-8.1.0336/src/ex_docmd.c	2018-08-29 21:42:39.016365007 +0200
+--- src/ex_docmd.c	2018-08-30 15:42:47.756074140 +0200
+***************
+*** 2039,2050 ****
+  	    errormsg = (char_u *)_(get_text_locked_msg());
+  	    goto doend;
+  	}
+  	/* Disallow editing another buffer when "curbuf_lock" is set.
+! 	 * Do allow ":edit" (check for argument later).
+! 	 * Do allow ":checktime" (it's postponed). */
+  	if (!(ea.argt & CMDWIN)
+- 		&& ea.cmdidx != CMD_edit
+  		&& ea.cmdidx != CMD_checktime
+  		&& !IS_USER_CMDIDX(ea.cmdidx)
+  		&& curbuf_locked())
+  	    goto doend;
+--- 2039,2053 ----
+  	    errormsg = (char_u *)_(get_text_locked_msg());
+  	    goto doend;
+  	}
++ 
+  	/* Disallow editing another buffer when "curbuf_lock" is set.
+! 	 * Do allow ":checktime" (it is postponed).
+! 	 * Do allow ":edit" (check for an argument later).
+! 	 * Do allow ":file" with no arguments (check for an argument later). */
+  	if (!(ea.argt & CMDWIN)
+  		&& ea.cmdidx != CMD_checktime
++ 		&& ea.cmdidx != CMD_edit
++ 		&& ea.cmdidx != CMD_file
+  		&& !IS_USER_CMDIDX(ea.cmdidx)
+  		&& curbuf_locked())
+  	    goto doend;
+***************
+*** 2130,2135 ****
+--- 2133,2142 ----
+      else
+  	ea.arg = skipwhite(p);
+  
++     // ":file" cannot be run with an argument when "curbuf_lock" is set
++     if (ea.cmdidx == CMD_file && *ea.arg != NUL && curbuf_locked())
++ 	goto doend;
++ 
+      /*
+       * Check for "++opt=val" argument.
+       * Must be first, allow ":w ++enc=utf8 !cmd"
+*** ../vim-8.1.0336/src/testdir/test_quickfix.vim	2018-08-21 21:58:09.528674683 +0200
+--- src/testdir/test_quickfix.vim	2018-08-30 15:39:06.810888474 +0200
+***************
+*** 2485,2490 ****
+--- 2485,2519 ----
+    call test_override('starting', 0)
+  endfunc
+  
++ " Check that ":file" without an argument is possible even when "curbuf_lock"
++ " is set.
++ func Test_file_from_copen()
++   " Works without argument.
++   augroup QF_Test
++     au!
++     au FileType qf file
++   augroup END
++   copen
++ 
++   augroup QF_Test
++     au!
++   augroup END
++   cclose
++ 
++   " Fails with argument.
++   augroup QF_Test
++     au!
++     au FileType qf call assert_fails(':file foo', 'E788')
++   augroup END
++   copen
++   augroup QF_Test
++     au!
++   augroup END
++   cclose
++ 
++   augroup! QF_Test
++ endfunction
++ 
+  func Test_resize_from_copen()
+      augroup QF_Test
+  	au!
+*** ../vim-8.1.0336/src/version.c	2018-08-30 14:15:56.858667449 +0200
+--- src/version.c	2018-08-30 15:40:27.861841127 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     337,
+  /**/
+
+-- 
+The process for understanding customers primarily involves sitting around with
+other marketing people and talking about what you would to if you were dumb
+enough to be a customer.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

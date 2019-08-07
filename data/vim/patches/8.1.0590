@@ -1,0 +1,218 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0590
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0590
+Problem:    When a job ends the closed channels are not handled.
+Solution:   When a job is detected to have ended, check the channels again.
+            (closes #3530)
+Files:	    src/channel.c, src/proto/channel.pro, src/misc2.c
+
+
+*** ../vim-8.1.0589/src/channel.c	2018-10-19 17:35:58.081200733 +0200
+--- src/channel.c	2018-12-14 21:27:04.570167163 +0100
+***************
+*** 5510,5533 ****
+  
+  /*
+   * Called once in a while: check if any jobs that seem useful have ended.
+   */
+!     void
+  job_check_ended(void)
+  {
+      int		i;
+  
+      if (first_job == NULL)
+! 	return;
+  
+      for (i = 0; i < MAX_CHECK_ENDED; ++i)
+      {
+! 	/* NOTE: mch_detect_ended_job() must only return a job of which the
+! 	 * status was just set to JOB_ENDED. */
+  	job_T	*job = mch_detect_ended_job(first_job);
+  
+  	if (job == NULL)
+  	    break;
+! 	job_cleanup(job); /* may free "job" */
+      }
+  
+      if (channel_need_redraw)
+--- 5510,5537 ----
+  
+  /*
+   * Called once in a while: check if any jobs that seem useful have ended.
++  * Returns TRUE if a job did end.
+   */
+!     int
+  job_check_ended(void)
+  {
+      int		i;
++     int		did_end = FALSE;
+  
++     // be quick if there are no jobs to check
+      if (first_job == NULL)
+! 	return did_end;
+  
+      for (i = 0; i < MAX_CHECK_ENDED; ++i)
+      {
+! 	// NOTE: mch_detect_ended_job() must only return a job of which the
+! 	// status was just set to JOB_ENDED.
+  	job_T	*job = mch_detect_ended_job(first_job);
+  
+  	if (job == NULL)
+  	    break;
+! 	did_end = TRUE;
+! 	job_cleanup(job); // may free "job"
+      }
+  
+      if (channel_need_redraw)
+***************
+*** 5535,5540 ****
+--- 5539,5545 ----
+  	channel_need_redraw = FALSE;
+  	redraw_after_callback(TRUE);
+      }
++     return did_end;
+  }
+  
+  /*
+*** ../vim-8.1.0589/src/proto/channel.pro	2018-06-17 19:36:30.215317108 +0200
+--- src/proto/channel.pro	2018-12-14 21:24:32.683134493 +0100
+***************
+*** 65,71 ****
+  void job_set_options(job_T *job, jobopt_T *opt);
+  void job_stop_on_exit(void);
+  int has_pending_job(void);
+! void job_check_ended(void);
+  job_T *job_start(typval_T *argvars, char **argv_arg, jobopt_T *opt_arg, int is_terminal);
+  char *job_status(job_T *job);
+  void job_info(job_T *job, dict_T *dict);
+--- 65,71 ----
+  void job_set_options(job_T *job, jobopt_T *opt);
+  void job_stop_on_exit(void);
+  int has_pending_job(void);
+! int job_check_ended(void);
+  job_T *job_start(typval_T *argvars, char **argv_arg, jobopt_T *opt_arg, int is_terminal);
+  char *job_status(job_T *job);
+  void job_info(job_T *job, dict_T *dict);
+*** ../vim-8.1.0589/src/misc2.c	2018-12-13 22:17:52.877941474 +0100
+--- src/misc2.c	2018-12-14 21:27:39.313947112 +0100
+***************
+*** 6351,6356 ****
+--- 6351,6358 ----
+  #endif
+  
+  #if defined(MESSAGE_QUEUE) || defined(PROTO)
++ # define MAX_REPEAT_PARSE 8
++ 
+  /*
+   * Process messages that have been queued for netbeans or clientserver.
+   * Also check if any jobs have ended.
+***************
+*** 6360,6396 ****
+      void
+  parse_queued_messages(void)
+  {
+!     win_T *old_curwin = curwin;
+  
+      // Do not handle messages while redrawing, because it may cause buffers to
+      // change or be wiped while they are being redrawn.
+      if (updating_screen)
+  	return;
+  
+!     // For Win32 mch_breakcheck() does not check for input, do it here.
+  # if defined(WIN32) && defined(FEAT_JOB_CHANNEL)
+!     channel_handle_events(FALSE);
+  # endif
+  
+  # ifdef FEAT_NETBEANS_INTG
+!     // Process the queued netbeans messages.
+!     netbeans_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+!     // Write any buffer lines still to be written.
+!     channel_write_any_lines();
+  
+!     // Process the messages queued on channels.
+!     channel_parse_messages();
+  # endif
+  # if defined(FEAT_CLIENTSERVER) && defined(FEAT_X11)
+!     // Process the queued clientserver messages.
+!     server_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+!     // Check if any jobs have ended.
+!     job_check_ended();
+  # endif
+  
+      // If the current window changed we need to bail out of the waiting loop.
+      // E.g. when a job exit callback closes the terminal window.
+--- 6362,6406 ----
+      void
+  parse_queued_messages(void)
+  {
+!     win_T   *old_curwin = curwin;
+!     int	    i;
+  
+      // Do not handle messages while redrawing, because it may cause buffers to
+      // change or be wiped while they are being redrawn.
+      if (updating_screen)
+  	return;
+  
+!     // Loop when a job ended, but don't keep looping forever.
+!     for (i = 0; i < MAX_REPEAT_PARSE; ++i)
+!     {
+! 	// For Win32 mch_breakcheck() does not check for input, do it here.
+  # if defined(WIN32) && defined(FEAT_JOB_CHANNEL)
+! 	channel_handle_events(FALSE);
+  # endif
+  
+  # ifdef FEAT_NETBEANS_INTG
+! 	// Process the queued netbeans messages.
+! 	netbeans_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+! 	// Write any buffer lines still to be written.
+! 	channel_write_any_lines();
+  
+! 	// Process the messages queued on channels.
+! 	channel_parse_messages();
+  # endif
+  # if defined(FEAT_CLIENTSERVER) && defined(FEAT_X11)
+! 	// Process the queued clientserver messages.
+! 	server_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+! 	// Check if any jobs have ended.  If so, repeat the above to handle
+! 	// changes, e.g. stdin may have been closed.
+! 	if (job_check_ended())
+! 	    continue;
+  # endif
++ 	break;
++     }
+  
+      // If the current window changed we need to bail out of the waiting loop.
+      // E.g. when a job exit callback closes the terminal window.
+*** ../vim-8.1.0589/src/version.c	2018-12-14 19:54:35.711994528 +0100
+--- src/version.c	2018-12-14 21:31:00.840677937 +0100
+***************
+*** 801,802 ****
+--- 801,804 ----
+  {   /* Add new patch number below this line */
++ /**/
++     590,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+3. Your bookmark takes 15 minutes to scroll from top to bottom.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

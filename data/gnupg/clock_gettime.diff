@@ -1,0 +1,12 @@
+diff -ur gnupg-2.2.9/agent/protect.c gnupg-2.2.9+iPhone/agent/protect.c
+--- gnupg-2.2.9/agent/protect.c	2018-06-12 01:25:39.000000000 -1000
++++ gnupg-2.2.9+iPhone/agent/protect.c	2018-12-03 11:31:42.000000000 -1000
+@@ -105,7 +105,7 @@
+                    &data->creation_time, &data->exit_time,
+                    &data->kernel_time, &data->user_time);
+ # endif
+-#elif defined (CLOCK_THREAD_CPUTIME_ID)
++#elif defined (CLOCK_THREAD_CPUTIME_ID) && defined (HAVE_CLOCK_GETTIME)
+   struct timespec tmp;
+ 
+   clock_gettime (CLOCK_THREAD_CPUTIME_ID, &tmp);

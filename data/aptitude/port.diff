@@ -1,0 +1,15 @@
+diff -ru aptitude-0.4.4.orig/src/generic/util/util.cc aptitude-0.4.4.orig+iPhone/src/generic/util/util.cc
+--- aptitude-0.4.4.orig/src/generic/util/util.cc	2006-10-27 04:26:08.000000000 +0000
++++ aptitude-0.4.4.orig+iPhone/src/generic/util/util.cc	2008-05-13 09:08:45.000000000 +0000
+@@ -154,9 +154,9 @@
+     {
+       char *buf = new char[bufsize];
+ 
+-      char *result = strerror_r(errnum, buf, bufsize);
++      int result = strerror_r(errnum, buf, bufsize);
+ 
+-      if(result == NULL)
++      if(result == -1)
+ 	{
+ 	  delete[] buf;
+ 

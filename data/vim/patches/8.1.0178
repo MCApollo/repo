@@ -1,0 +1,55 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0178
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+
+Patch 8.1.0178
+Problem:    Warning for passing pointer to non-pointer argument.
+Solution:   Use zero instead of NULL.
+Files:	    src/if_ole.cpp
+
+
+*** ../vim-8.1.0177/src/if_ole.cpp	Mon Aug 29 22:42:20 2016
+--- src/if_ole.cpp	Wed Jul 11 22:55:56 2018
+***************
+*** 759,765 ****
+      hr = RegisterActiveObject(
+  	app,
+  	MYCLSID,
+! 	NULL,
+  	&app_id);
+  
+      if (FAILED(hr))
+--- 759,765 ----
+      hr = RegisterActiveObject(
+  	app,
+  	MYCLSID,
+! 	0,
+  	&app_id);
+  
+      if (FAILED(hr))
+*** ../vim-8.1.0177/src/version.c	Tue Jul 10 19:39:14 2018
+--- src/version.c	Wed Jul 11 22:56:50 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     178,
+  /**/
+
+-- 
+The term "free software" is defined by Richard M. Stallman as
+being software that isn't necessarily for free.  Confusing?
+Let's call it "Stallman software" then!
+				-- Bram Moolenaar
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

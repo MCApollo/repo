@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0580
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0580
+Problem:    Invalid memory access when using text properties.
+Solution:   Disable text properties for now.
+Files:	    src/feature.h
+
+
+*** ../vim-8.1.0579/src/feature.h	2018-12-13 22:17:52.877941474 +0100
+--- src/feature.h	2018-12-13 23:03:59.425680637 +0100
+***************
+*** 505,511 ****
+   * +textprop		Text properties
+   */
+  #if defined(FEAT_EVAL) && defined(FEAT_SYN_HL)
+! # define FEAT_TEXT_PROP
+  #endif
+  
+  /*
+--- 505,511 ----
+   * +textprop		Text properties
+   */
+  #if defined(FEAT_EVAL) && defined(FEAT_SYN_HL)
+! // # define FEAT_TEXT_PROP
+  #endif
+  
+  /*
+*** ../vim-8.1.0579/src/version.c	2018-12-13 23:05:42.580896679 +0100
+--- src/version.c	2018-12-13 22:42:18.650320782 +0100
+***************
+*** 801,802 ****
+--- 801,804 ----
+  {   /* Add new patch number below this line */
++ /**/
++     580,
+  /**/
+
+-- 
+It doesn't really matter what you are able to do if you don't do it.
+				(Bram Moolenaar)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

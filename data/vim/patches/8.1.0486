@@ -1,0 +1,56 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0486
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0486 (after 8.1.0485)
+Problem:    Can't build in MS-Windows.
+Solution:   Put mch_access() call inside #ifdef
+Files:	    src/channel.c
+
+
+*** ../vim-8.1.0485/src/channel.c	2018-10-19 16:53:36.732867808 +0200
+--- src/channel.c	2018-10-19 17:34:14.806125758 +0200
+***************
+*** 4917,4923 ****
+  		    break;
+  		opt->jo_cwd = get_tv_string_buf_chk(item, opt->jo_cwd_buf);
+  		if (opt->jo_cwd == NULL || !mch_isdir(opt->jo_cwd)
+! 				|| mch_access((char *)opt->jo_cwd, X_OK) != 0)
+  		{
+  		    EMSG2(_(e_invargval), "cwd");
+  		    return FAIL;
+--- 4917,4926 ----
+  		    break;
+  		opt->jo_cwd = get_tv_string_buf_chk(item, opt->jo_cwd_buf);
+  		if (opt->jo_cwd == NULL || !mch_isdir(opt->jo_cwd)
+! #ifndef WIN32  // Win32 directories don't have the concept of "executable"
+! 				|| mch_access((char *)opt->jo_cwd, X_OK) != 0
+! #endif
+! 				)
+  		{
+  		    EMSG2(_(e_invargval), "cwd");
+  		    return FAIL;
+*** ../vim-8.1.0485/src/version.c	2018-10-19 16:53:36.732867808 +0200
+--- src/version.c	2018-10-19 17:35:28.221467810 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     486,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+242. You turn down a better-paying job because it doesn't come with
+     a free e-mail account.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

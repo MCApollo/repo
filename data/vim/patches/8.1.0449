@@ -1,0 +1,188 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0449
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0449
+Problem:    When 'rnu' is set folded lines are not displayed correctly.
+            (Vitaly Yashin)
+Solution:   When only redrawing line numbers do draw folded lines.
+            (closes #3484)
+Files:	    src/screen.c, src/testdir/test_fold.vim,
+            src/testdir/dumps/Test_folds_with_rnu_01.dump,
+            src/testdir/dumps/Test_folds_with_rnu_02.dump
+
+
+*** ../vim-8.1.0448/src/screen.c	2018-09-30 21:43:17.203693237 +0200
+--- src/screen.c	2018-10-02 21:17:41.161356069 +0200
+***************
+*** 2176,2182 ****
+  	    {
+  		// 'relativenumber' set: The text doesn't need to be drawn, but
+  		// the number column nearly always does.
+! 		(void)win_line(wp, lnum, srow, wp->w_height, TRUE, TRUE);
+  	    }
+  
+  	    // This line does not need to be drawn, advance to the next one.
+--- 2176,2189 ----
+  	    {
+  		// 'relativenumber' set: The text doesn't need to be drawn, but
+  		// the number column nearly always does.
+! 		fold_count = foldedCount(wp, lnum, &win_foldinfo);
+! 		if (fold_count != 0)
+! 		{
+! 		    fold_line(wp, fold_count, &win_foldinfo, lnum, row);
+! 		    --fold_count;
+! 		}
+! 		else
+! 		    (void)win_line(wp, lnum, srow, wp->w_height, TRUE, TRUE);
+  	    }
+  
+  	    // This line does not need to be drawn, advance to the next one.
+***************
+*** 3315,3322 ****
+  	    has_spell = TRUE;
+  	    extra_check = TRUE;
+  
+! 	    /* Get the start of the next line, so that words that wrap to the next
+! 	     * line are found too: "et<line-break>al.".
+  	     * Trick: skip a few chars for C/shell/Vim comments */
+  	    nextline[SPWORDLEN] = NUL;
+  	    if (lnum < wp->w_buffer->b_ml.ml_line_count)
+--- 3322,3329 ----
+  	    has_spell = TRUE;
+  	    extra_check = TRUE;
+  
+! 	    /* Get the start of the next line, so that words that wrap to the
+! 	     * next line are found too: "et<line-break>al.".
+  	     * Trick: skip a few chars for C/shell/Vim comments */
+  	    nextline[SPWORDLEN] = NUL;
+  	    if (lnum < wp->w_buffer->b_ml.ml_line_count)
+***************
+*** 3325,3332 ****
+  		spell_cat_line(nextline + SPWORDLEN, line, SPWORDLEN);
+  	    }
+  
+! 	    /* When a word wrapped from the previous line the start of the current
+! 	     * line is valid. */
+  	    if (lnum == checked_lnum)
+  		cur_checked_col = checked_col;
+  	    checked_lnum = 0;
+--- 3332,3339 ----
+  		spell_cat_line(nextline + SPWORDLEN, line, SPWORDLEN);
+  	    }
+  
+! 	    /* When a word wrapped from the previous line the start of the
+! 	     * current line is valid. */
+  	    if (lnum == checked_lnum)
+  		cur_checked_col = checked_col;
+  	    checked_lnum = 0;
+*** ../vim-8.1.0448/src/testdir/test_fold.vim	2018-07-10 15:07:11.779668824 +0200
+--- src/testdir/test_fold.vim	2018-10-02 21:15:55.182278183 +0200
+***************
+*** 1,6 ****
+--- 1,7 ----
+  " Test for folding
+  
+  source view_util.vim
++ source screendump.vim
+  
+  func PrepIndent(arg)
+    return [a:arg] + repeat(["\t".a:arg], 5)
+***************
+*** 674,676 ****
+--- 675,697 ----
+    set fdm&
+    enew!
+  endfunc
++ 
++ func Test_folds_with_rnu()
++   if !CanRunVimInTerminal()
++     return
++   endif
++ 
++   call writefile([
++ 	\ 'set fdm=marker rnu foldcolumn=2',
++ 	\ 'call setline(1, ["{{{1", "nline 1", "{{{1", "line 2"])',
++ 	\ ], 'Xtest_folds_with_rnu')
++   let buf = RunVimInTerminal('-S Xtest_folds_with_rnu', {})
++ 
++   call VerifyScreenDump(buf, 'Test_folds_with_rnu_01', {})
++   call term_sendkeys(buf, "j")
++   call VerifyScreenDump(buf, 'Test_folds_with_rnu_02', {})
++ 
++   " clean up
++   call StopVimInTerminal(buf)
++   call delete('Xtest_folds_with_rnu')
++ endfunc
+*** ../vim-8.1.0448/src/testdir/dumps/Test_folds_with_rnu_01.dump	2018-10-02 21:19:43.940299759 +0200
+--- src/testdir/dumps/Test_folds_with_rnu_01.dump	2018-10-02 21:16:04.846193642 +0200
+***************
+*** 0 ****
+--- 1,20 ----
++ |++0#0000e05#a8a8a8255| @2|0| >+|-@1| @1|2| |l|i|n|e|s|:| |-@54
++ |+| @2|1| |+|-@1| @1|2| |l|i|n|e|s|:| |-@54
++ | @1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000000&@56|1|,|1| @10|A|l@1| 
+*** ../vim-8.1.0448/src/testdir/dumps/Test_folds_with_rnu_02.dump	2018-10-02 21:19:43.944299727 +0200
+--- src/testdir/dumps/Test_folds_with_rnu_02.dump	2018-10-02 21:16:05.894184479 +0200
+***************
+*** 0 ****
+--- 1,20 ----
++ |++0#0000e05#a8a8a8255| @2|1| |+|-@1| @1|2| |l|i|n|e|s|:| |-@54
++ |+| @2|0| >+|-@1| @1|2| |l|i|n|e|s|:| |-@54
++ | @1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @71
++ | +0#0000000&@56|3|,|1| @10|A|l@1| 
+*** ../vim-8.1.0448/src/version.c	2018-10-02 18:25:41.424867560 +0200
+--- src/version.c	2018-10-02 21:18:46.028796562 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     449,
+  /**/
+
+-- 
+The coffee just wasn't strong enough to defend itself -- Tom Waits
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

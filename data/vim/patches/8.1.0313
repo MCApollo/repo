@@ -1,0 +1,232 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0313
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0313
+Problem:    Information about a swap file is unavailable.
+Solution:   Add swapinfo(). (Enzo Ferber)
+Files:	    runtime/doc/eval.txt, src/evalfunc.c, src/memline.c,
+            src/proto/memline.pro, src/testdir/test_swap.vim
+
+
+*** ../vim-8.1.0312/runtime/doc/eval.txt	2018-08-21 16:56:28.363325301 +0200
+--- runtime/doc/eval.txt	2018-08-21 20:12:15.882157860 +0200
+***************
+*** 2409,2414 ****
+--- 2416,2422 ----
+  					specific match in ":s" or substitute()
+  substitute({expr}, {pat}, {sub}, {flags})
+  				String	all {pat} in {expr} replaced with {sub}
++ swapinfo({fname})		Dict	information about swap file {fname}
+  synID({lnum}, {col}, {trans})	Number	syntax ID at {lnum} and {col}
+  synIDattr({synID}, {what} [, {mode}])
+  				String	attribute {what} of syntax ID {synID}
+***************
+*** 7999,8004 ****
+--- 8009,8030 ----
+  		|submatch()| returns.  Example: >
+  		   :echo substitute(s, '%\(\x\x\)', {m -> '0x' . m[1]}, 'g')
+  
++ swapinfo({fname})					swapinfo()
++ 		The result is a dictionary, which holds information about the
++ 		swapfile {fname}. The available fields are:
++ 			version VIM version
++ 			user	user name
++ 			host	host name
++ 			fname	original file name
++ 			pid	PID of the VIM process that created the swap
++ 				file
++ 			mtime	last modification time in seconds
++ 			inode	Optional: INODE number of the file
++ 		In case of failure an "error" item is added with the reason:
++ 			Cannot open file: file not found or in accessible
++ 			Cannot read file: cannot read first block
++ 			magic number mismatch: info in first block is invalid
++ 
+  synID({lnum}, {col}, {trans})				*synID()*
+  		The result is a Number, which is the syntax ID at the position
+  		{lnum} and {col} in the current window.
+*** ../vim-8.1.0312/src/evalfunc.c	2018-08-21 16:56:28.367325278 +0200
+--- src/evalfunc.c	2018-08-21 20:26:36.876842294 +0200
+***************
+*** 398,403 ****
+--- 398,404 ----
+  static void f_strwidth(typval_T *argvars, typval_T *rettv);
+  static void f_submatch(typval_T *argvars, typval_T *rettv);
+  static void f_substitute(typval_T *argvars, typval_T *rettv);
++ static void f_swapinfo(typval_T *argvars, typval_T *rettv);
+  static void f_synID(typval_T *argvars, typval_T *rettv);
+  static void f_synIDattr(typval_T *argvars, typval_T *rettv);
+  static void f_synIDtrans(typval_T *argvars, typval_T *rettv);
+***************
+*** 859,864 ****
+--- 860,866 ----
+      {"strwidth",	1, 1, f_strwidth},
+      {"submatch",	1, 2, f_submatch},
+      {"substitute",	4, 4, f_substitute},
++     {"swapinfo",	1, 1, f_swapinfo},
+      {"synID",		3, 3, f_synID},
+      {"synIDattr",	2, 3, f_synIDattr},
+      {"synIDtrans",	1, 1, f_synIDtrans},
+***************
+*** 12314,12319 ****
+--- 12316,12331 ----
+  }
+  
+  /*
++  * "swapinfo(swap_filename)" function
++  */
++     static void
++ f_swapinfo(typval_T *argvars, typval_T *rettv)
++ {
++     if (rettv_dict_alloc(rettv) == OK)
++ 	get_b0_dict(get_tv_string(argvars), rettv->vval.v_dict);
++ }
++ 
++ /*
+   * "synID(lnum, col, trans)" function
+   */
+      static void
+*** ../vim-8.1.0312/src/memline.c	2018-08-21 18:50:11.153501902 +0200
+--- src/memline.c	2018-08-21 20:18:30.815871851 +0200
+***************
+*** 2042,2047 ****
+--- 2042,2090 ----
+  #endif
+  
+  /*
++  * Return information found in swapfile "fname" in dictionary "d".
++  * This is used by the swapinfo() function.
++  */
++     void
++ get_b0_dict(char_u *fname, dict_T *d)
++ {
++     int fd;
++     struct block0 b0;
++ 
++     if ((fd = mch_open((char *)fname, O_RDONLY | O_EXTRA, 0)) >= 0)
++     {
++ 	if (read_eintr(fd, &b0, sizeof(b0)) == sizeof(b0))
++ 	{
++ 	    if (b0_magic_wrong(&b0))
++ 	    {
++ 		dict_add_string(d, "error",
++ 			       vim_strsave((char_u *)"magic number mismatch"));
++ 	    }
++ 	    else
++ 	    {
++ 		/* we have swap information */
++ 		dict_add_string(d, "version", vim_strsave(b0.b0_version));
++ 		dict_add_string(d, "user", vim_strsave(b0.b0_uname));
++ 		dict_add_string(d, "host", vim_strsave(b0.b0_hname));
++ 		dict_add_string(d, "fname", vim_strsave(b0.b0_fname));
++ 
++ 		dict_add_number(d, "pid", char_to_long(b0.b0_pid));
++ 		dict_add_number(d, "mtime", char_to_long(b0.b0_mtime));
++ #ifdef CHECK_INODE
++ 		dict_add_number(d, "inode", char_to_long(b0.b0_ino));
++ #endif
++ 	    }
++ 	}
++ 	else
++ 	    dict_add_string(d, "error",
++ 				    vim_strsave((char_u *)"Cannot read file"));
++ 	close(fd);
++     }
++     else
++ 	dict_add_string(d, "error", vim_strsave((char_u *)"Cannot open file"));
++ }
++ 
++ /*
+   * Give information about an existing swap file.
+   * Returns timestamp (0 when unknown).
+   */
+*** ../vim-8.1.0312/src/proto/memline.pro	2018-08-07 21:39:09.251060096 +0200
+--- src/proto/memline.pro	2018-08-21 20:00:58.994558112 +0200
+***************
+*** 11,16 ****
+--- 11,18 ----
+  void ml_timestamp(buf_T *buf);
+  void ml_recover(void);
+  int recover_names(char_u *fname, int list, int nr, char_u **fname_out);
++ char_u *make_percent_swname(char_u *dir, char_u *name);
++ void get_b0_dict(char_u *fname, dict_T *d);
+  void ml_sync_all(int check_file, int check_char);
+  void ml_preserve(buf_T *buf, int message);
+  char_u *ml_get(linenr_T lnum);
+***************
+*** 34,38 ****
+  void ml_decrypt_data(memfile_T *mfp, char_u *data, off_T offset, unsigned size);
+  long ml_find_line_or_offset(buf_T *buf, linenr_T lnum, long *offp);
+  void goto_byte(long cnt);
+- char_u *make_percent_swname (char_u *dir, char_u *name);
+  /* vim: set ft=c : */
+--- 36,39 ----
+*** ../vim-8.1.0312/src/testdir/test_swap.vim	2018-05-12 15:57:33.000000000 +0200
+--- src/testdir/test_swap.vim	2018-08-21 20:18:23.395917660 +0200
+***************
+*** 97,99 ****
+--- 97,133 ----
+    set directory&
+    call delete('Xswapdir', 'rf')
+  endfunc
++ 
++ func Test_swapinfo()
++   new Xswapinfo
++   call setline(1, ['one', 'two', 'three'])
++   w
++   let fname = trim(execute('swapname'))
++   call assert_match('Xswapinfo', fname)
++   let info = swapinfo(fname)
++   call assert_match('8\.', info.version)
++   call assert_match('\w', info.user)
++   call assert_equal(hostname(), info.host)
++   call assert_match('Xswapinfo', info.fname)
++   call assert_equal(getpid(), info.pid)
++   call assert_match('^\d*$', info.mtime)
++   if has_key(info, 'inode')
++     call assert_match('\d', info.inode)
++   endif
++   bwipe!
++   call delete(fname)
++   call delete('Xswapinfo')
++ 
++   let info = swapinfo('doesnotexist')
++   call assert_equal('Cannot open file', info.error)
++ 
++   call writefile(['burp'], 'Xnotaswapfile')
++   let info = swapinfo('Xnotaswapfile')
++   call assert_equal('Cannot read file', info.error)
++   call delete('Xnotaswapfile')
++ 
++   call writefile([repeat('x', 10000)], 'Xnotaswapfile')
++   let info = swapinfo('Xnotaswapfile')
++   call assert_equal('magic number mismatch', info.error)
++   call delete('Xnotaswapfile')
++ endfunc
+*** ../vim-8.1.0312/src/version.c	2018-08-21 19:47:44.724053803 +0200
+--- src/version.c	2018-08-21 19:54:18.937247096 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     313,
+  /**/
+
+-- 
+DENNIS: Look,  strange women lying on their backs in ponds handing out
+        swords ... that's no basis for a system of government.  Supreme
+        executive power derives from a mandate from the masses, not from some
+        farcical aquatic ceremony.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

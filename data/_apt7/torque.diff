@@ -1,0 +1,147 @@
+diff -ru apt-0.7.25.3/apt-pkg/deb/deblistparser.cc apt-0.7.25.3+iPhone/apt-pkg/deb/deblistparser.cc
+--- apt-0.7.25.3/apt-pkg/deb/deblistparser.cc	2011-05-27 06:16:43.000000000 +0000
++++ apt-0.7.25.3+iPhone/apt-pkg/deb/deblistparser.cc	2011-05-27 06:17:16.000000000 +0000
+@@ -572,8 +572,10 @@
+    while (1)
+    {
+       Start = ParseDepends(Start,Stop,Package,Version,Op);
+-      if (Start == 0)
+-	 return _error->Error("Problem parsing dependency %s",Tag);
++      if (Start == 0) {
++	 _error->Warning("Problem parsing dependency %s",Tag);
++         return false;
++      }
+       
+       if (NewDepends(Ver,Package,Version,Op,Type) == false)
+ 	 return false;
+@@ -600,8 +602,11 @@
+    while (1)
+    {
+       Start = ParseDepends(Start,Stop,Package,Version,Op);
+-      if (Start == 0)
+-	 return _error->Error("Problem parsing Provides line");
++      if (Start == 0) {
++	 _error->Warning("Problem parsing Provides line");
++         return false;
++      }
++
+       if (Op != pkgCache::Dep::NoOp) {
+ 	 _error->Warning("Ignoring Provides line with DepCompareOp for package %s", std::string(Package).c_str());
+       } else {
+diff -ru apt-0.7.25.3/apt-pkg/pkgcachegen.cc apt-0.7.25.3+iPhone/apt-pkg/pkgcachegen.cc
+--- apt-0.7.25.3/apt-pkg/pkgcachegen.cc	2011-05-27 06:16:43.000000000 +0000
++++ apt-0.7.25.3+iPhone/apt-pkg/pkgcachegen.cc	2011-05-27 06:17:16.000000000 +0000
+@@ -108,6 +108,7 @@
+    debListParser *debian(dynamic_cast<debListParser *>(&List));
+ 
+    unsigned int Counter = 0;
++  step:
+    while (List.Step() == true)
+    {
+       // Get a pointer to the package structure
+@@ -120,8 +121,11 @@
+ 	 return false;
+       
+       pkgCache::PkgIterator Pkg;
+-      if (NewPackage(Pkg,PackageName) == false)
+-	 return _error->Error(_("Error occurred while processing %s (NewPackage)"),std::string(PackageName).c_str());
++      if (NewPackage(Pkg,PackageName) == false) {
++	 _error->Warning(_("Error occurred while processing %s (NewPackage)"),std::string(PackageName).c_str());
++         goto step;
++      }
++
+       Counter++;
+       if (Counter % 100 == 0 && Progress != 0)
+ 	 Progress->Progress(List.Offset());
+@@ -141,9 +145,11 @@
+ 	 // we first process the package, then the descriptions
+ 	 // (this has the bonus that we get MMap error when we run out
+ 	 //  of MMap space)
+-	 if (List.UsePackage(Pkg,pkgCache::VerIterator(Cache)) == false)
+-	    return _error->Error(_("Error occurred while processing %s (UsePackage1)"),
++	 if (List.UsePackage(Pkg,pkgCache::VerIterator(Cache)) == false) {
++	    _error->Warning(_("Error occurred while processing %s (UsePackage1)"),
+ 				 std::string(PackageName).c_str());
++            goto step;
++         }
+ 
+  	 // Find the right version to write the description
+  	 MD5SumValue CurMd5 = List.Description_md5();
+@@ -175,8 +181,10 @@
+  		  *LastDesc = NewDescription(Desc, language, CurMd5, *LastDesc);
+  		  Desc->ParentPkg = Pkg.Index();
+ 		  
+-		  if ((*LastDesc == 0 && _error->PendingError()) || NewFileDesc(Desc,List) == false)
+- 		     return _error->Error(_("Error occurred while processing %s (NewFileDesc1)"),std::string(PackageName).c_str());
++		  if ((*LastDesc == 0 && _error->PendingError()) || NewFileDesc(Desc,List) == false) {
++ 		     _error->Warning(_("Error occurred while processing %s (NewFileDesc1)"),std::string(PackageName).c_str());
++                     goto step;
++                  }
+  		  break;
+  	       }
+ 	    }
+@@ -200,13 +208,17 @@
+       unsigned long Hash = List.VersionHash();
+       if (Res == 0 && Ver->Hash == Hash)
+       {
+-	 if (List.UsePackage(Pkg,Ver) == false)
+-	    return _error->Error(_("Error occurred while processing %s (UsePackage2)"),
++	 if (List.UsePackage(Pkg,Ver) == false) {
++	    _error->Warning(_("Error occurred while processing %s (UsePackage2)"),
+ 				 std::string(PackageName).c_str());
++            goto step;
++         }
+ 
+-	 if (NewFileVer(Ver,List) == false)
+-	    return _error->Error(_("Error occurred while processing %s (NewFileVer1)"),
++	 if (NewFileVer(Ver,List) == false) {
++	    _error->Warning(_("Error occurred while processing %s (NewFileVer1)"),
+ 				 std::string(PackageName).c_str());
++            goto step;
++         }
+ 	 
+ 	 // Read only a single record and return
+ 	 if (OutVer != 0)
+@@ -235,17 +247,23 @@
+       Ver->ParentPkg = Pkg.Index();
+       Ver->Hash = Hash;
+ 
+-      if ((*LastVer == 0 && _error->PendingError()) || List.NewVersion(Ver) == false)
+-	 return _error->Error(_("Error occurred while processing %s (NewVersion1)"),
++      if ((*LastVer == 0 && _error->PendingError()) || List.NewVersion(Ver) == false) {
++	 _error->Warning(_("Error occurred while processing %s (NewVersion1)"),
+ 			      std::string(PackageName).c_str());
++         goto step;
++      }
+ 
+-      if (List.UsePackage(Pkg,Ver) == false)
+-	 return _error->Error(_("Error occurred while processing %s (UsePackage3)"),
++      if (List.UsePackage(Pkg,Ver) == false) {
++	 _error->Warning(_("Error occurred while processing %s (UsePackage3)"),
+ 			      std::string(PackageName).c_str());
++         goto step;
++      }
+       
+-      if (NewFileVer(Ver,List) == false)
+-	 return _error->Error(_("Error occurred while processing %s (NewVersion2)"),
++      if (NewFileVer(Ver,List) == false) {
++	 _error->Warning(_("Error occurred while processing %s (NewVersion2)"),
+ 			      std::string(PackageName).c_str());
++         goto step;
++      }
+ 
+       // Read only a single record and return
+       if (OutVer != 0)
+@@ -267,8 +285,10 @@
+       *LastDesc = NewDescription(Desc, language, List.Description_md5(), *LastDesc);
+       Desc->ParentPkg = Pkg.Index();
+ 
+-      if ((*LastDesc == 0 && _error->PendingError()) || NewFileDesc(Desc,List) == false)
+-	 return _error->Error(_("Error occurred while processing %s (NewFileDesc2)"),std::string(PackageName).c_str());
++      if ((*LastDesc == 0 && _error->PendingError()) || NewFileDesc(Desc,List) == false) {
++	 _error->Warning(_("Error occurred while processing %s (NewFileDesc2)"),std::string(PackageName).c_str());
++         goto step;
++      }
+    }
+ 
+    FoundFileDeps |= List.HasFileDeps();

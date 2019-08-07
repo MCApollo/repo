@@ -1,0 +1,11 @@
+diff -ru sniffit.0.3.7.beta/Makefile.in sniffit.0.3.7.beta+iPhone/Makefile.in
+--- sniffit.0.3.7.beta/Makefile.in	2009-02-26 13:39:46.000000000 +0000
++++ sniffit.0.3.7.beta+iPhone/Makefile.in	2009-02-26 13:40:34.000000000 +0000
+@@ -28,7 +28,6 @@
+ sniffit: $(SNIFFIT) $(DEP_FILES)
+ #	cd libpcap; make; cd ..
+ 	$(CC) $(EXE_FLAG) $(SNIFFIT) $(EXE_OBJ) $(EXE_OPT) $(LIBS) $(DEFS) $(OS_OPT) 
+-	strip sniffit
+ 
+ sn_cfgfile.o: sn_cfgfile.h sn_cfgfile.c sn_defines.h sn_structs.h sn_config.h
+ 	$(CC) $(OBJ_FLAG) sn_cfgfile.c $(OBJ_OPT) $(DEFS)

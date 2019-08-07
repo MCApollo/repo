@@ -1,0 +1,13 @@
+diff -ru ipkg-0.99.163/ipkg_utils.c ipkg-0.99.163+iPhone/ipkg_utils.c
+--- ipkg-0.99.163/ipkg_utils.c	2006-02-06 08:13:02.000000000 +0000
++++ ipkg-0.99.163+iPhone/ipkg_utils.c	2009-06-11 23:35:31.000000000 +0000
+@@ -18,7 +18,8 @@
+ #include "ipkg.h"
+ #include <errno.h>
+ #include <ctype.h>
+-#include <sys/vfs.h>
++#include <sys/param.h>
++#include <sys/mount.h>
+ 
+ #include "ipkg_utils.h"
+ #include "pkg.h"

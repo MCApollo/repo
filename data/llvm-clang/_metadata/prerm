@@ -1,0 +1,20 @@
+#!/bin/bash
+LLVMPROGS="ar as bcanalyzer cxxdump cxxfilt diff dlltool dsymutil dwarfdump nm objdump pdbutil profdata ranlib readelf readobj size split strings"
+case "$1" in
+    remove|deconfigure)
+        for prog in ${LLVMPROGS}; do
+            update-alternatives --quiet --remove ${prog} /usr/bin/llvm-${prog}
+        done
+        update-alternatives --quiet --remove gcc /usr/bin/clang
+        update-alternatives --quiet --remove cpp /usr/bin/clang-cpp
+        update-alternatives --quiet --remove g++ /usr/bin/clang++
+        ;;
+    upgrade)
+        ;;
+    failed-upgrade)
+        ;;
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 0
+        ;;
+esac

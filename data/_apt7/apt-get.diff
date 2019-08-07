@@ -1,0 +1,20 @@
+diff -ur apt-0.7.25.3/cmdline/apt-get.cc apt-0.7.25.3+iPhone/cmdline/apt-get.cc
+--- apt-0.7.25.3/cmdline/apt-get.cc	2018-12-03 13:17:35.000000000 -1000
++++ apt-0.7.25.3+iPhone/cmdline/apt-get.cc	2018-12-03 13:20:54.000000000 -1000
+@@ -1844,12 +1844,12 @@
+ 	 if ((*Cache)[I].Install() == false)
+ 	    continue;
+ 
+-	 const char **J;
+-	 for (J = CmdL.FileList + 1; *J != 0; J++)
+-	    if (strcmp(*J,I.Name()) == 0)
++	 const char **K;
++	 for (K = CmdL.FileList + 1; *K != 0; K++)
++	    if (strcmp(*K,I.Name()) == 0)
+ 		break;
+ 	 
+-	 if (*J == 0) {
++	 if (*K == 0) {
+ 	    List += string(I.Name()) + " ";
+ 	    VersionsList += string(Cache[I].CandVersion) + "\n";
+ 	 }

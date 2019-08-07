@@ -1,0 +1,31 @@
+diff -ur openssl-0.9.8zc/Configure openssl-0.9.8zc+iPhone/Configure
+--- openssl-0.9.8zc/Configure	2014-10-15 02:45:00.000000000 -1000
++++ openssl-0.9.8zc+iPhone/Configure	2018-12-10 08:55:55.000000000 -1000
+@@ -534,6 +534,13 @@
+ "darwin64-x86_64-cc","cc:-arch x86_64 -O3 -fomit-frame-pointer -DL_ENDIAN -DMD32_REG_T=int -Wall::-D_REENTRANT:MACOSX:-Wl,-search_paths_first%:SIXTY_FOUR_BIT_LONG RC4_CHAR RC4_CHUNK DES_INT DES_UNROLL:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-arch x86_64 -dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
+ "debug-darwin-ppc-cc","cc:-DBN_DEBUG -DREF_CHECK -DCONF_DEBUG -DCRYPTO_MDEBUG -DB_ENDIAN -g -Wall -O::-D_REENTRANT:MACOSX::BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR::osx_ppc32.o::::::::::dlfcn:darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
+ 
++##### iPhoneOS
++"darwin-arm-gcc","arm-apple-darwin-gcc:-arch arm -O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:MACOSX:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-arch arm -dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib:arm-apple-darwin-ranlib",
++"darwin8-arm-gcc","arm-apple-darwin8-gcc:-O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:MACOSX:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-arch arm -dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib:arm-apple-darwin8-ranlib",
++"darwin9-arm-gcc","arm-apple-darwin9-gcc:-O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:MACOSX:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-arch arm -dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib:arm-apple-darwin9-ranlib",
++"arm-apple-darwin11","arm-apple-darwin11-gcc:-O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:MACOSX:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib:arm-apple-darwin11-ranlib",
++"aarch64-apple-darwin17","aarch64-apple-darwin17-gcc:-O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:MACOSX:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib:aarch64-apple-darwin17-ranlib",
++
+ ##### A/UX
+ "aux3-gcc","gcc:-O2 -DTERMIO::(unknown):AUX:-lbsd:RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:::",
+ 
+diff -ur openssl-0.9.8zc/config openssl-0.9.8zc+iPhone/config
+--- openssl-0.9.8zc/config	2014-10-15 02:45:00.000000000 -1000
++++ openssl-0.9.8zc+iPhone/config	2018-12-10 08:57:55.000000000 -1000
+@@ -525,6 +525,10 @@
+   ppc-apple-rhapsody) OUT="rhapsody-ppc-cc" ;;
+   ppc-apple-darwin*) OUT="darwin-ppc-cc" ;;
+   i386-apple-darwin*) OUT="darwin-i386-cc" ;;
++  arm-apple-darwin11)
++       OUT="iphoneos-arm" ;;
++  aarch64-apple-darwin17)
++       OUT="iphoneos-arm" ;;
+   alpha-*-linux2)
+         ISA=`awk '/cpu model/{print$4;exit(0);}' /proc/cpuinfo`
+ 	case ${ISA:-generic} in

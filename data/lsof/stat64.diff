@@ -1,0 +1,14 @@
+diff -ru lsof-33/lsof/dialects/darwin/libproc/dsock.c lsof-33+iPhone/lsof/dialects/darwin/libproc/dsock.c
+--- lsof-33/lsof/dialects/darwin/libproc/dsock.c	2006-03-23 21:28:26.000000000 +0000
++++ lsof-33+iPhone/lsof/dialects/darwin/libproc/dsock.c	2008-09-15 10:38:08.000000000 +0000
+@@ -41,6 +41,10 @@
+ #endif
+ 
+ 
++#include <sys/cdefs.h>
++#undef __DARWIN_64_BIT_INO_T
++#define __DARWIN_64_BIT_INO_T 0
++
+ #include "lsof.h"
+ 
+ 

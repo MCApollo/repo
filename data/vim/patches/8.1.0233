@@ -1,0 +1,317 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0233
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0233
+Problem:    "safe" argument of call_vim_function() is always FALSE.
+Solution:   Remove the argument.
+Files:	    src/eval.c, src/proto/eval.pro, src/edit.c, src/mbyte.c,
+            src/normal.c, src/ex_getln.c
+
+
+*** ../vim-8.1.0232/src/eval.c	2018-07-25 21:19:09.359656999 +0200
+--- src/eval.c	2018-08-01 19:01:56.055522006 +0200
+***************
+*** 1021,1049 ****
+      char_u      *func,
+      int		argc,
+      typval_T	*argv,
+!     typval_T	*rettv,
+!     int		safe)		/* use the sandbox */
+  {
+      int		doesrange;
+-     void	*save_funccalp = NULL;
+      int		ret;
+  
+-     if (safe)
+-     {
+- 	save_funccalp = save_funccal();
+- 	++sandbox;
+-     }
+- 
+      rettv->v_type = VAR_UNKNOWN;		/* clear_tv() uses this */
+      ret = call_func(func, (int)STRLEN(func), rettv, argc, argv, NULL,
+  		    curwin->w_cursor.lnum, curwin->w_cursor.lnum,
+  		    &doesrange, TRUE, NULL, NULL);
+-     if (safe)
+-     {
+- 	--sandbox;
+- 	restore_funccal(save_funccalp);
+-     }
+- 
+      if (ret == FAIL)
+  	clear_tv(rettv);
+  
+--- 1021,1035 ----
+      char_u      *func,
+      int		argc,
+      typval_T	*argv,
+!     typval_T	*rettv)
+  {
+      int		doesrange;
+      int		ret;
+  
+      rettv->v_type = VAR_UNKNOWN;		/* clear_tv() uses this */
+      ret = call_func(func, (int)STRLEN(func), rettv, argc, argv, NULL,
+  		    curwin->w_cursor.lnum, curwin->w_cursor.lnum,
+  		    &doesrange, TRUE, NULL, NULL);
+      if (ret == FAIL)
+  	clear_tv(rettv);
+  
+***************
+*** 1060,1072 ****
+  call_func_retnr(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv,
+!     int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+      varnumber_T	retval;
+  
+!     if (call_vim_function(func, argc, argv, &rettv, safe) == FAIL)
+  	return -1;
+  
+      retval = get_tv_number_chk(&rettv, NULL);
+--- 1046,1057 ----
+  call_func_retnr(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv)
+  {
+      typval_T	rettv;
+      varnumber_T	retval;
+  
+!     if (call_vim_function(func, argc, argv, &rettv) == FAIL)
+  	return -1;
+  
+      retval = get_tv_number_chk(&rettv, NULL);
+***************
+*** 1088,1100 ****
+  call_func_retstr(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv,
+!     int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+      char_u	*retval;
+  
+!     if (call_vim_function(func, argc, argv, &rettv, safe) == FAIL)
+  	return NULL;
+  
+      retval = vim_strsave(get_tv_string(&rettv));
+--- 1073,1084 ----
+  call_func_retstr(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv)
+  {
+      typval_T	rettv;
+      char_u	*retval;
+  
+!     if (call_vim_function(func, argc, argv, &rettv) == FAIL)
+  	return NULL;
+  
+      retval = vim_strsave(get_tv_string(&rettv));
+***************
+*** 1113,1124 ****
+  call_func_retlist(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv,
+!     int		safe)		/* use the sandbox */
+  {
+      typval_T	rettv;
+  
+!     if (call_vim_function(func, argc, argv, &rettv, safe) == FAIL)
+  	return NULL;
+  
+      if (rettv.v_type != VAR_LIST)
+--- 1097,1107 ----
+  call_func_retlist(
+      char_u      *func,
+      int		argc,
+!     typval_T	*argv)
+  {
+      typval_T	rettv;
+  
+!     if (call_vim_function(func, argc, argv, &rettv) == FAIL)
+  	return NULL;
+  
+      if (rettv.v_type != VAR_LIST)
+*** ../vim-8.1.0232/src/proto/eval.pro	2018-07-25 21:19:09.359656999 +0200
+--- src/proto/eval.pro	2018-08-01 19:01:23.155692745 +0200
+***************
+*** 19,28 ****
+  list_T *eval_spell_expr(char_u *badword, char_u *expr);
+  int get_spellword(list_T *list, char_u **pp);
+  typval_T *eval_expr(char_u *arg, char_u **nextcmd);
+! int call_vim_function(char_u *func, int argc, typval_T *argv, typval_T *rettv, int safe);
+! varnumber_T call_func_retnr(char_u *func, int argc, typval_T *argv, int safe);
+! void *call_func_retstr(char_u *func, int argc, typval_T *argv, int safe);
+! void *call_func_retlist(char_u *func, int argc, typval_T *argv, int safe);
+  int eval_foldexpr(char_u *arg, int *cp);
+  void ex_let(exarg_T *eap);
+  void list_hashtable_vars(hashtab_T *ht, char_u *prefix, int empty, int *first);
+--- 19,28 ----
+  list_T *eval_spell_expr(char_u *badword, char_u *expr);
+  int get_spellword(list_T *list, char_u **pp);
+  typval_T *eval_expr(char_u *arg, char_u **nextcmd);
+! int call_vim_function(char_u *func, int argc, typval_T *argv, typval_T *rettv);
+! varnumber_T call_func_retnr(char_u *func, int argc, typval_T *argv);
+! void *call_func_retstr(char_u *func, int argc, typval_T *argv);
+! void *call_func_retlist(char_u *func, int argc, typval_T *argv);
+  int eval_foldexpr(char_u *arg, int *cp);
+  void ex_let(exarg_T *eap);
+  void list_hashtable_vars(hashtab_T *ht, char_u *prefix, int empty, int *first);
+*** ../vim-8.1.0232/src/edit.c	2018-07-29 16:09:14.632945629 +0200
+--- src/edit.c	2018-08-01 19:00:45.703885362 +0200
+***************
+*** 4239,4245 ****
+      curbuf_save = curbuf;
+  
+      /* Call a function, which returns a list or dict. */
+!     if (call_vim_function(funcname, 2, args, &rettv, FALSE) == OK)
+      {
+  	switch (rettv.v_type)
+  	{
+--- 4239,4245 ----
+      curbuf_save = curbuf;
+  
+      /* Call a function, which returns a list or dict. */
+!     if (call_vim_function(funcname, 2, args, &rettv) == OK)
+      {
+  	switch (rettv.v_type)
+  	{
+***************
+*** 5569,5575 ****
+  	    pos = curwin->w_cursor;
+  	    curwin_save = curwin;
+  	    curbuf_save = curbuf;
+! 	    col = call_func_retnr(funcname, 2, args, FALSE);
+  	    if (curwin_save != curwin || curbuf_save != curbuf)
+  	    {
+  		EMSG(_(e_complwin));
+--- 5569,5575 ----
+  	    pos = curwin->w_cursor;
+  	    curwin_save = curwin;
+  	    curbuf_save = curbuf;
+! 	    col = call_func_retnr(funcname, 2, args);
+  	    if (curwin_save != curwin || curbuf_save != curbuf)
+  	    {
+  		EMSG(_(e_complwin));
+*** ../vim-8.1.0232/src/mbyte.c	2018-07-14 19:30:32.320395535 +0200
+--- src/mbyte.c	2018-08-01 18:58:55.524439870 +0200
+***************
+*** 4825,4831 ****
+      argv[0].v_type = VAR_NUMBER;
+      argv[0].vval.v_number = active ? 1 : 0;
+      argv[1].v_type = VAR_UNKNOWN;
+!     (void)call_func_retnr(p_imaf, 1, argv, FALSE);
+  }
+  
+      static int
+--- 4825,4831 ----
+      argv[0].v_type = VAR_NUMBER;
+      argv[0].vval.v_number = active ? 1 : 0;
+      argv[1].v_type = VAR_UNKNOWN;
+!     (void)call_func_retnr(p_imaf, 1, argv);
+  }
+  
+      static int
+***************
+*** 4839,4845 ****
+      /* FIXME: :py print 'xxx' is shown duplicate result.
+       * Use silent to avoid it. */
+      ++msg_silent;
+!     is_active = call_func_retnr(p_imsf, 0, NULL, FALSE);
+      --msg_silent;
+      return (is_active > 0);
+  }
+--- 4839,4845 ----
+      /* FIXME: :py print 'xxx' is shown duplicate result.
+       * Use silent to avoid it. */
+      ++msg_silent;
+!     is_active = call_func_retnr(p_imsf, 0, NULL);
+      --msg_silent;
+      return (is_active > 0);
+  }
+*** ../vim-8.1.0232/src/normal.c	2018-07-29 16:09:14.640945583 +0200
+--- src/normal.c	2018-08-01 18:59:09.360371320 +0200
+***************
+*** 2248,2254 ****
+  	virtual_op = MAYBE;
+  # endif
+  
+! 	(void)call_func_retnr(p_opfunc, 1, argv, FALSE);
+  
+  # ifdef FEAT_VIRTUALEDIT
+  	virtual_op = save_virtual_op;
+--- 2248,2254 ----
+  	virtual_op = MAYBE;
+  # endif
+  
+! 	(void)call_func_retnr(p_opfunc, 1, argv);
+  
+  # ifdef FEAT_VIRTUALEDIT
+  	virtual_op = save_virtual_op;
+*** ../vim-8.1.0232/src/ex_getln.c	2018-07-28 19:20:09.787586245 +0200
+--- src/ex_getln.c	2018-08-01 19:00:06.272086002 +0200
+***************
+*** 5279,5285 ****
+   */
+      static void *
+  call_user_expand_func(
+!     void	*(*user_expand_func)(char_u *, int, typval_T *, int),
+      expand_T	*xp,
+      int		*num_file,
+      char_u	***file)
+--- 5279,5285 ----
+   */
+      static void *
+  call_user_expand_func(
+!     void	*(*user_expand_func)(char_u *, int, typval_T *),
+      expand_T	*xp,
+      int		*num_file,
+      char_u	***file)
+***************
+*** 5318,5324 ****
+      ccline.cmdprompt = NULL;
+      current_SID = xp->xp_scriptID;
+  
+!     ret = user_expand_func(xp->xp_arg, 3, args, FALSE);
+  
+      ccline = save_ccline;
+      current_SID = save_current_SID;
+--- 5318,5324 ----
+      ccline.cmdprompt = NULL;
+      current_SID = xp->xp_scriptID;
+  
+!     ret = user_expand_func(xp->xp_arg, 3, args);
+  
+      ccline = save_ccline;
+      current_SID = save_current_SID;
+*** ../vim-8.1.0232/src/version.c	2018-08-01 18:42:09.837344296 +0200
+--- src/version.c	2018-08-01 19:05:21.534428381 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     233,
+  /**/
+
+-- 
+Some say the world will end in fire; some say in segfaults.
+I say it will end in a curly bracket.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

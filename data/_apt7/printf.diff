@@ -1,0 +1,12 @@
+diff -ru apt-0.7.20.2/ftparchive/writer.cc apt-0.7.20.2+iPhone/ftparchive/writer.cc
+--- apt-0.7.20.2/ftparchive/writer.cc	2009-02-07 15:09:35.000000000 +0000
++++ apt-0.7.20.2+iPhone/ftparchive/writer.cc	2009-04-20 17:53:48.000000000 +0000
+@@ -629,7 +629,7 @@
+    
+    // Add the dsc to the files hash list
+    char Files[1000];
+-   snprintf(Files,sizeof(Files),"\n %s %lu %s\n %s",
++   snprintf(Files,sizeof(Files),"\n %s %llu %s\n %s",
+ 	    string(MD5.Result()).c_str(),St.st_size,
+ 	    flNotDir(FileName).c_str(),
+ 	    Tags.FindS("Files").c_str());

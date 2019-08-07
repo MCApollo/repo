@@ -1,0 +1,67 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0513
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0513
+Problem:    No error for set diffopt+=algorithm:.
+Solution:   Check for missing argument. (Hirohito Higashi, closes #3598)
+Files:	    src/diff.c, src/testdir/gen_opt_test.vim
+
+
+*** ../vim-8.1.0512/src/diff.c	2018-10-31 22:57:07.913017514 +0100
+--- src/diff.c	2018-11-05 21:17:35.763867796 +0100
+***************
+*** 2266,2271 ****
+--- 2266,2273 ----
+  		p += 9;
+  		diff_algorithm_new = XDF_HISTOGRAM_DIFF;
+  	    }
++ 	    else
++ 		return FAIL;
+  	}
+  
+  	if (*p != ',' && *p != NUL)
+*** ../vim-8.1.0512/src/testdir/gen_opt_test.vim	2018-06-23 19:22:45.614486258 +0200
+--- src/testdir/gen_opt_test.vim	2018-11-05 21:21:07.012543853 +0100
+***************
+*** 81,87 ****
+        \ 'cryptmethod': [['', 'zip'], ['xxx']],
+        \ 'cscopequickfix': [['', 's-', 's-,c+,e0'], ['xxx', 's,g,d']],
+        \ 'debug': [['', 'msg', 'msg', 'beep'], ['xxx']],
+!       \ 'diffopt': [['', 'filler', 'icase,iwhite'], ['xxx']],
+        \ 'display': [['', 'lastline', 'lastline,uhex'], ['xxx']],
+        \ 'eadirection': [['', 'both', 'ver'], ['xxx', 'ver,hor']],
+        \ 'encoding': [['latin1'], ['xxx', '']],
+--- 81,87 ----
+        \ 'cryptmethod': [['', 'zip'], ['xxx']],
+        \ 'cscopequickfix': [['', 's-', 's-,c+,e0'], ['xxx', 's,g,d']],
+        \ 'debug': [['', 'msg', 'msg', 'beep'], ['xxx']],
+!       \ 'diffopt': [['', 'filler', 'icase,iwhite'], ['xxx', 'algorithm:xxx', 'algorithm:']],
+        \ 'display': [['', 'lastline', 'lastline,uhex'], ['xxx']],
+        \ 'eadirection': [['', 'both', 'ver'], ['xxx', 'ver,hor']],
+        \ 'encoding': [['latin1'], ['xxx', '']],
+*** ../vim-8.1.0512/src/version.c	2018-11-05 20:25:48.804089622 +0100
+--- src/version.c	2018-11-05 21:19:58.913419770 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     513,
+  /**/
+
+-- 
+This is the polymorph virus!  Follow these instructions carefully:
+1. Send this message to everybody you know.
+2. Format your harddisk.
+Thank you for your cooperation in spreading the most powerful virus ever!
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

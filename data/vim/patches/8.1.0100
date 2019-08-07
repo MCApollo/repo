@@ -1,0 +1,49 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0100
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0100
+Problem:    Terminal debugger: error when setting a watch point.
+Solution:   Don't try defining a sign for a watch point.
+Files:	    runtime/pack/dist/opt/termdebug/plugin/termdebug.vim
+
+
+*** ../vim-8.1.0099/runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-21 20:31:10.627749367 +0200
+--- runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-23 13:56:49.559572378 +0200
+***************
+*** 863,868 ****
+--- 863,873 ----
+  " Handle setting a breakpoint
+  " Will update the sign that shows the breakpoint
+  func s:HandleNewBreakpoint(msg)
++   if a:msg !~ 'fullname='
++     " a watch does not have a file name
++     return
++   endif
++ 
+    let nr = substitute(a:msg, '.*number="\([0-9]\)*\".*', '\1', '') + 0
+    if nr == 0
+      return
+*** ../vim-8.1.0099/src/version.c	2018-06-23 14:34:24.551261826 +0200
+--- src/version.c	2018-06-23 14:35:29.442908084 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     100,
+  /**/
+
+-- 
+From "know your smileys":
+ [:-)	Frankenstein's monster
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

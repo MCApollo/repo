@@ -1,0 +1,17 @@
+diff -ru apt-0.7.20.2/apt-pkg/deb/debrecords.cc apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.cc
+--- apt-0.7.20.2/apt-pkg/deb/debrecords.cc	2009-04-20 08:54:09.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.cc	2009-04-20 17:26:22.000000000 +0000
+@@ -111,10 +122,9 @@
+   string orig, dest;
+   char *codeset = nl_langinfo(CODESET);
+ 
+-  if (!Section.FindS("Description").empty())
+-     orig = Section.FindS("Description").c_str();
+-  else 
+-     orig = Section.FindS(("Description-" + pkgIndexFile::LanguageCode()).c_str()).c_str();
++  orig = Section.FindS("Description");
++  if (orig.empty())
++     orig = Section.FindS(("Description-" + pkgIndexFile::LanguageCode()).c_str());
+ 
+   if (strcmp(codeset,"UTF-8") != 0) {
+      UTF8ToCodeset(codeset, orig, &dest);

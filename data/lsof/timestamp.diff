@@ -1,0 +1,34 @@
+diff -ru lsof-33/lsof/dialects/darwin/kmem/Makefile lsof-33+iPhone/lsof/dialects/darwin/kmem/Makefile
+--- lsof-33/lsof/dialects/darwin/kmem/Makefile	2007-05-24 22:35:11.000000000 +0000
++++ lsof-33+iPhone/lsof/dialects/darwin/kmem/Makefile	2008-06-17 22:11:04.000000000 +0000
+@@ -88,7 +88,6 @@
+ 	@echo '#define	LSOF_BLDCMT	"${LSOF_BLDCMT}"' > version.h;
+ 	@echo '#define	LSOF_CC		"${CC}"' >> version.h
+ 	@echo '#define	LSOF_CCV	"${CCV}"' >> version.h
+-	@echo '#define	LSOF_CCDATE	"'`date`'"' >> version.h
+ 	@echo '#define	LSOF_CCFLAGS	"'`echo ${CFLAGS} | sed 's/\\\\(/\\(/g' | sed 's/\\\\)/\\)/g' | sed 's/"/\\\\"/g'`'"' >> version.h
+ 	@echo '#define  LSOF_CINFO      "${CINFO}"' >> version.h
+ 	@if [ "X${LSOF_HOST}" = "X" ]; then \
+diff -ru lsof-33/lsof/dialects/darwin/libproc/Makefile lsof-33+iPhone/lsof/dialects/darwin/libproc/Makefile
+--- lsof-33/lsof/dialects/darwin/libproc/Makefile	2007-06-05 21:11:21.000000000 +0000
++++ lsof-33+iPhone/lsof/dialects/darwin/libproc/Makefile	2008-06-17 22:11:05.000000000 +0000
+@@ -92,7 +92,6 @@
+ 	@echo '#define	LSOF_BLDCMT	"${LSOF_BLDCMT}"' > version.h;
+ 	@echo '#define	LSOF_CC		"${CC}"' >> version.h
+ 	@echo '#define	LSOF_CCV	"${CCV}"' >> version.h
+-	@echo '#define	LSOF_CCDATE	"'`date`'"' >> version.h
+ 	@echo '#define	LSOF_CCFLAGS	"'`echo ${CFLAGS} | sed 's/\\\\(/\\(/g' | sed 's/\\\\)/\\)/g' | sed 's/"/\\\\"/g'`'"' >> version.h
+ 	@echo '#define  LSOF_CINFO      "${CINFO}"' >> version.h
+ 	@if [ "X${LSOF_HOST}" = "X" ]; then \
+diff -ru lsof-33/lsof/usage.c lsof-33+iPhone/lsof/usage.c
+--- lsof-33/lsof/usage.c	2007-05-24 22:35:11.000000000 +0000
++++ lsof-33+iPhone/lsof/usage.c	2008-06-17 22:11:20.000000000 +0000
+@@ -825,8 +825,6 @@
+ 		(void) fprintf(stderr, "    configuration info: %s\n", cp);
+ #endif	/* defined(LSOF_CINFO) */
+ 
+-	    if ((cp = isnullstr(LSOF_CCDATE)))
+-		(void) fprintf(stderr, "    constructed: %s\n", cp);
+ 	    cp = isnullstr(LSOF_HOST);
+ 	    if (!(cp1 = isnullstr(LSOF_LOGNAME)))
+ 		cp1 = isnullstr(LSOF_USER);

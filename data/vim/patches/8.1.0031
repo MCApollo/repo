@@ -1,0 +1,53 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0031
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0031
+Problem:    Terminal test aucmd_on_close is flaky.
+Solution:   Wait a bit longer.
+Files:	    src/testdir/test_terminal.vim
+
+
+*** ../vim-8.1.0030/src/testdir/test_terminal.vim	2018-06-03 15:26:31.866729762 +0200
+--- src/testdir/test_terminal.vim	2018-06-03 18:20:32.978001827 +0200
+***************
+*** 384,390 ****
+  func s:get_sleep_cmd()
+    if s:python != ''
+      let cmd = s:python . " test_short_sleep.py"
+!     let waittime = 500
+    else
+      echo 'This will take five seconds...'
+      let waittime = 2000
+--- 384,391 ----
+  func s:get_sleep_cmd()
+    if s:python != ''
+      let cmd = s:python . " test_short_sleep.py"
+!     " 500 was not enough for Travis
+!     let waittime = 900
+    else
+      echo 'This will take five seconds...'
+      let waittime = 2000
+*** ../vim-8.1.0030/src/version.c	2018-06-03 17:10:36.274226639 +0200
+--- src/version.c	2018-06-03 18:21:37.361916784 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     31,
+  /**/
+
+-- 
+Don't Panic!
+		-- The Hitchhiker's Guide to the Galaxy
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,65 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0007
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0007
+Problem:    No test for "o" and "O" in Visual block mode.
+Solution:   Add a test. (Dominique Pelle, closes #2932)
+Files:	    src/testdir/test_visual.vim
+
+
+*** ../vim-8.1.0006/src/testdir/test_visual.vim	2018-03-06 14:18:55.000000000 +0100
+--- src/testdir/test_visual.vim	2018-05-20 14:05:02.489093403 +0200
+***************
+*** 155,160 ****
+--- 155,179 ----
+    enew!
+  endfunc
+  
++ " Test swapping corners in blockwise visual mode with o and O
++ func Test_blockwise_visual_o_O()
++   enew!
++ 
++   exe "norm! 10i.\<Esc>Y4P3lj\<C-V>4l2jr "
++   exe "norm! gvO\<Esc>ra"
++   exe "norm! gvO\<Esc>rb"
++   exe "norm! gvo\<C-c>rc"
++   exe "norm! gvO\<C-c>rd"
++ 
++   call assert_equal(['..........',
++         \            '...c   d..',
++         \            '...     ..',
++         \            '...a   b..',
++         \            '..........'], getline(1, '$'))
++ 
++   enew!
++ endfun
++ 
+  " Test Virtual replace mode.
+  func Test_virtual_replace()
+    if exists('&t_kD')
+*** ../vim-8.1.0006/src/version.c	2018-05-20 13:35:40.193163458 +0200
+--- src/version.c	2018-05-20 14:05:52.113562894 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     7,
+  /**/
+
+-- 
+SOLDIER: Where did you get the coconuts?
+ARTHUR:  Through ... We found them.
+SOLDIER: Found them?  In Mercea.  The coconut's tropical!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,55 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0565
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0565
+Problem:    Asan complains about reading before allocated block.
+Solution:   Workaround: Avoid offset from becoming negative.
+Files:	    src/gui.c
+
+
+*** ../vim-8.1.0564/src/gui.c	2018-11-16 16:21:01.633310065 +0100
+--- src/gui.c	2018-12-05 19:44:07.455956642 +0100
+***************
+*** 2753,2759 ****
+  	}
+  	else if (enc_utf8)
+  	{
+! 	    if (ScreenLines[off + col1] == 0)
+  		--col1;
+  # ifdef FEAT_GUI_GTK
+  	    if (col2 + 1 < Columns && ScreenLines[off + col2 + 1] == 0)
+--- 2753,2760 ----
+  	}
+  	else if (enc_utf8)
+  	{
+! 	    // FIXME: how can the first character ever be zero?
+! 	    if (col1 > 0 && ScreenLines[off + col1] == 0)
+  		--col1;
+  # ifdef FEAT_GUI_GTK
+  	    if (col2 + 1 < Columns && ScreenLines[off + col2 + 1] == 0)
+*** ../vim-8.1.0564/src/version.c	2018-12-05 18:43:24.489493117 +0100
+--- src/version.c	2018-12-05 19:45:06.855458016 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     565,
+  /**/
+
+-- 
+SECOND SOLDIER: It could be carried by an African swallow!
+FIRST SOLDIER:  Oh  yes! An African swallow maybe ... but not a European
+                swallow. that's my point.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,33 @@
+diff -ru apt-0.6.46.4.1/apt-pkg/acquire.cc apt-0.6.46.4.1+iPhone/apt-pkg/acquire.cc
+--- apt-0.6.46.4.1/apt-pkg/acquire.cc	2006-12-04 14:37:34.000000000 +0000
++++ apt-0.6.46.4.1+iPhone/apt-pkg/acquire.cc	2009-01-21 10:47:16.000000000 +0000
+@@ -238,9 +238,27 @@
+    /* Single-Instance methods get exactly one queue per URI. This is
+       also used for the Access queue method  */
+    if (Config->SingleInstance == true || QueueMode == QueueAccess)
+-       return U.Access;
++      return U.Access;
++   string name(U.Access + ':' + U.Host);
+ 
+-   return U.Access + ':' + U.Host;
++   int parallel(_config->FindI("Acquire::"+U.Access+"::MaxParallel",8));
++   if (parallel <= 0)
++      return name;
++
++   typedef map<string, int> indexmap;
++   static indexmap indices;
++
++   pair<indexmap::iterator, bool> cache(indices.insert(indexmap::value_type(name, -1)));
++   if (cache.second || cache.first->second == -1) {
++      int &index(indices[U.Access]);
++      if (index >= parallel)
++         index = 0;
++      cache.first->second = index++;
++   }
++
++   ostringstream value;
++   value << U.Access << "::" << cache.first->second;
++   return value.str();
+ }
+ 									/*}}}*/
+ // Acquire::GetConfig - Fetch the configuration information		/*{{{*/

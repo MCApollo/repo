@@ -1,0 +1,22 @@
+diff -ru dmg2img/dmg2img.c dmg2img+iPhone/dmg2img.c
+--- dmg2img/dmg2img.c	2007-08-07 08:53:45.000000000 +0000
++++ dmg2img+iPhone/dmg2img.c	2008-01-30 18:54:01.000000000 +0000
+@@ -180,8 +180,9 @@
+     if (verbose)
+         printf("decompressing:\n");
+ 
++    in_offs = 0;
+     percent = 0.0;
+-    for (i = 0; i < partnum; i++) {
++    for (i = 0; i < partnum && in_offs != addr; i++) {
+         if (verbose)
+ 	    printf("opening partition %d ...",i);
+         if (verbose>=3)
+@@ -199,6 +200,7 @@
+             out_size = convert_char4(parts[i]+offset+20)*0x200;
+             in_offs = convert_char4(parts[i]+offset+28);
+             in_size = convert_char4(parts[i]+offset+36);
++            fseek(FOUT, out_offs, SEEK_SET);
+ 	    if (out_size!=0) {
+                if (block_type == BT_ZLIB) {
+  	           if (verbose>=3)

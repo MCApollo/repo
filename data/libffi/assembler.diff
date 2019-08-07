@@ -1,0 +1,34 @@
+diff -ur libffi-3.2.1/src/arm/sysv.S libffi-3.2.1+iPhone/src/arm/sysv.S
+--- libffi-3.2.1/src/arm/sysv.S	2014-11-08 02:47:24.000000000 -1000
++++ libffi-3.2.1+iPhone/src/arm/sysv.S	2019-03-30 22:41:22.000000000 -1000
+@@ -322,7 +322,9 @@
+    Add VFP FPU directive here. This is only compiled into the library
+    under EABI.  */
+ #ifdef __ARM_EABI__
++#ifndef __APPLE__
+ 	.fpu	vfp
++#endif
+ 
+ 	@ r0:   fn
+ 	@ r1:   &ecif
+@@ -416,7 +418,9 @@
+ 
+ .ffi_call_VFP_end:
+ 	UNWIND .fnend
++#ifdef __ELF__
+         .size    CNAME(ffi_call_VFP),.ffi_call_VFP_end-CNAME(ffi_call_VFP)
++#endif
+ 
+ 
+ ARM_FUNC_START(ffi_closure_VFP)
+@@ -478,8 +482,10 @@
+ 
+ .ffi_closure_VFP_end:
+ 	UNWIND .fnend
++#ifdef __ELF__
+         .size    CNAME(ffi_closure_VFP),.ffi_closure_VFP_end-CNAME(ffi_closure_VFP)
+ #endif
++#endif
+ 
+ ENTRY(ffi_arm_trampoline)
+ 	stmfd sp!, {r0-r3}

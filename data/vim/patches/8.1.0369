@@ -1,0 +1,297 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0369
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0369
+Problem:    Continuation lines cannot contain comments.
+Solution:   Support using "\ .
+Files:	    src/ex_cmds2.c, src/testdir/test_eval_stuff.vim,
+            runtime/indent/vim.vim, runtime/doc/repeat.txt
+
+
+*** ../vim-8.1.0368/src/ex_cmds2.c	2018-09-10 21:04:09.868392665 +0200
+--- src/ex_cmds2.c	2018-09-11 22:04:18.810842128 +0200
+***************
+*** 4864,4880 ****
+  	/* compensate for the one line read-ahead */
+  	--sourcing_lnum;
+  
+! 	/* Get the next line and concatenate it when it starts with a
+! 	 * backslash. We always need to read the next line, keep it in
+! 	 * sp->nextline. */
+  	sp->nextline = get_one_sourceline(sp);
+! 	if (sp->nextline != NULL && *(p = skipwhite(sp->nextline)) == '\\')
+  	{
+  	    garray_T    ga;
+  
+  	    ga_init2(&ga, (int)sizeof(char_u), 400);
+  	    ga_concat(&ga, line);
+! 	    ga_concat(&ga, p + 1);
+  	    for (;;)
+  	    {
+  		vim_free(sp->nextline);
+--- 4864,4884 ----
+  	/* compensate for the one line read-ahead */
+  	--sourcing_lnum;
+  
+! 	// Get the next line and concatenate it when it starts with a
+! 	// backslash. We always need to read the next line, keep it in
+! 	// sp->nextline.
+! 	/* Also check for a comment in between continuation lines: "\ */
+  	sp->nextline = get_one_sourceline(sp);
+! 	if (sp->nextline != NULL
+! 		&& (*(p = skipwhite(sp->nextline)) == '\\'
+! 			      || (p[0] == '"' && p[1] == '\\' && p[2] == ' ')))
+  	{
+  	    garray_T    ga;
+  
+  	    ga_init2(&ga, (int)sizeof(char_u), 400);
+  	    ga_concat(&ga, line);
+! 	    if (*p == '\\')
+! 		ga_concat(&ga, p + 1);
+  	    for (;;)
+  	    {
+  		vim_free(sp->nextline);
+***************
+*** 4882,4899 ****
+  		if (sp->nextline == NULL)
+  		    break;
+  		p = skipwhite(sp->nextline);
+! 		if (*p != '\\')
+! 		    break;
+! 		/* Adjust the growsize to the current length to speed up
+! 		 * concatenating many lines. */
+! 		if (ga.ga_len > 400)
+  		{
+! 		    if (ga.ga_len > 8000)
+! 			ga.ga_growsize = 8000;
+! 		    else
+! 			ga.ga_growsize = ga.ga_len;
+  		}
+! 		ga_concat(&ga, p + 1);
+  	    }
+  	    ga_append(&ga, NUL);
+  	    vim_free(line);
+--- 4886,4906 ----
+  		if (sp->nextline == NULL)
+  		    break;
+  		p = skipwhite(sp->nextline);
+! 		if (*p == '\\')
+  		{
+! 		    // Adjust the growsize to the current length to speed up
+! 		    // concatenating many lines.
+! 		    if (ga.ga_len > 400)
+! 		    {
+! 			if (ga.ga_len > 8000)
+! 			    ga.ga_growsize = 8000;
+! 			else
+! 			    ga.ga_growsize = ga.ga_len;
+! 		    }
+! 		    ga_concat(&ga, p + 1);
+  		}
+! 		else if (p[0] != '"' || p[1] != '\\' || p[2] != ' ')
+! 		    break;
+  	    }
+  	    ga_append(&ga, NUL);
+  	    vim_free(line);
+*** ../vim-8.1.0368/src/testdir/test_eval_stuff.vim	2018-04-14 13:36:34.000000000 +0200
+--- src/testdir/test_eval_stuff.vim	2018-09-11 22:16:11.397628697 +0200
+***************
+*** 42,44 ****
+--- 42,55 ----
+    call delete('Xfile')
+    call delete('Xmkdir', 'rf')
+  endfunc
++ 
++ func Test_line_continuation()
++   let array = [5,
++ 	"\ ignore this
++ 	\ 6,
++ 	"\ more to ignore
++ 	"\ more moreto ignore
++ 	\ ]
++ 	"\ and some more
++   call assert_equal([5, 6], array)
++ endfunc
+*** ../vim-8.1.0368/runtime/indent/vim.vim	2016-06-27 20:39:41.000000000 +0200
+--- runtime/indent/vim.vim	2018-09-11 22:19:48.151294837 +0200
+***************
+*** 10,16 ****
+  let b:did_indent = 1
+  
+  setlocal indentexpr=GetVimIndent()
+! setlocal indentkeys+==end,=else,=cat,=fina,=END,0\\
+  
+  let b:undo_indent = "setl indentkeys< indentexpr<"
+  
+--- 10,16 ----
+  let b:did_indent = 1
+  
+  setlocal indentexpr=GetVimIndent()
+! setlocal indentkeys+==end,=else,=cat,=fina,=END,0\\,0=\"\\\ 
+  
+  let b:undo_indent = "setl indentkeys< indentexpr<"
+  
+***************
+*** 31,45 ****
+    endtry
+  endfunc
+  
+  function GetVimIndentIntern()
+    " Find a non-blank line above the current line.
+    let lnum = prevnonblank(v:lnum - 1)
+  
+!   " If the current line doesn't start with '\' and below a line that starts
+!   " with '\', use the indent of the line above it.
+    let cur_text = getline(v:lnum)
+!   if cur_text !~ '^\s*\\'
+!     while lnum > 0 && getline(lnum) =~ '^\s*\\'
+        let lnum = lnum - 1
+      endwhile
+    endif
+--- 31,47 ----
+    endtry
+  endfunc
+  
++ let s:lineContPat = '^\s*\(\\\|"\\ \)'
++ 
+  function GetVimIndentIntern()
+    " Find a non-blank line above the current line.
+    let lnum = prevnonblank(v:lnum - 1)
+  
+!   " If the current line doesn't start with '\' or '"\ ' and below a line that
+!   " starts with '\' or '"\ ', use the indent of the line above it.
+    let cur_text = getline(v:lnum)
+!   if cur_text !~ s:lineContPat
+!     while lnum > 0 && getline(lnum) =~ s:lineContPat
+        let lnum = lnum - 1
+      endwhile
+    endif
+***************
+*** 51,60 ****
+    let prev_text = getline(lnum)
+  
+    " Add a 'shiftwidth' after :if, :while, :try, :catch, :finally, :function
+!   " and :else.  Add it three times for a line that starts with '\' after
+!   " a line that doesn't (or g:vim_indent_cont if it exists).
+    let ind = indent(lnum)
+!   if cur_text =~ '^\s*\\' && v:lnum > 1 && prev_text !~ '^\s*\\'
+      if exists("g:vim_indent_cont")
+        let ind = ind + g:vim_indent_cont
+      else
+--- 53,62 ----
+    let prev_text = getline(lnum)
+  
+    " Add a 'shiftwidth' after :if, :while, :try, :catch, :finally, :function
+!   " and :else.  Add it three times for a line that starts with '\' or '"\ '
+!   " after a line that doesn't (or g:vim_indent_cont if it exists).
+    let ind = indent(lnum)
+!   if cur_text =~ s:lineContPat && v:lnum > 1 && prev_text !~ s:lineContPat
+      if exists("g:vim_indent_cont")
+        let ind = ind + g:vim_indent_cont
+      else
+*** ../vim-8.1.0368/runtime/doc/repeat.txt	2018-05-17 13:42:02.000000000 +0200
+--- runtime/doc/repeat.txt	2018-09-11 22:34:47.266339513 +0200
+***************
+*** 265,271 ****
+  			loaded during initialization, see |load-plugins|.
+  
+  			Also see |pack-add|.
+! 			{only available when compiled with +eval}
+  
+  						*:packl* *:packloadall*
+  :packl[oadall][!]	Load all packages in the "start" directory under each
+--- 265,271 ----
+  			loaded during initialization, see |load-plugins|.
+  
+  			Also see |pack-add|.
+! 			{only available when compiled with |+eval|}
+  
+  						*:packl* *:packloadall*
+  :packl[oadall][!]	Load all packages in the "start" directory under each
+***************
+*** 289,295 ****
+  			An error only causes sourcing the script where it
+  			happens to be aborted, further plugins will be loaded.
+  			See |packages|.
+! 			{only available when compiled with +eval}
+  
+  :scripte[ncoding] [encoding]		*:scripte* *:scriptencoding* *E167*
+  			Specify the character encoding used in the script.
+--- 289,295 ----
+  			An error only causes sourcing the script where it
+  			happens to be aborted, further plugins will be loaded.
+  			See |packages|.
+! 			{only available when compiled with |+eval|}
+  
+  :scripte[ncoding] [encoding]		*:scripte* *:scriptencoding* *E167*
+  			Specify the character encoding used in the script.
+***************
+*** 465,470 ****
+--- 465,480 ----
+     .
+     :endfunction
+     :set cpo-=C
++ <
++ 					*line-continuation-comment*
++ To add a comment in between the lines start with '\" '.  Notice the space
++ after the double quote.  Example: >
++ 	let array = [
++ 		"\ first entry comment
++ 		\ 'first',
++ 		"\ second entry comment
++ 		\ 'second',
++ 		\ ]
+  
+  Rationale:
+  	Most programs work with a trailing backslash to indicate line
+***************
+*** 473,478 ****
+--- 483,496 ----
+  		:map xx  asdf\
+  <	Therefore the unusual leading backslash is used.
+  
++ 	Starting a comment in a continuation line results in all following
++ 	continuation lines to be part of the comment.  Since it was like this
++ 	for a long time, when making it possible to add a comment halfway a
++ 	sequence of continuation lines, it was not possible to use \", since
++ 	that was a valid continuation line.  Using '"\ ' comes closest, even
++ 	though it may look a bit weird.  Requiring the space after the
++ 	backslash is to make it very unlikely this is a normal comment line.
++ 
+  ==============================================================================
+  5. Using Vim packages					*packages*
+  
+***************
+*** 1010,1013 ****
+  - The "self" time is wrong when a function is used recursively.
+  
+  
+!  vim:tw=78:ts=8:ft=help:norl:
+--- 1028,1031 ----
+  - The "self" time is wrong when a function is used recursively.
+  
+  
+!  vim:tw=78:ts=8:noet:ft=help:norl:
+*** ../vim-8.1.0368/src/version.c	2018-09-11 21:30:05.253070476 +0200
+--- src/version.c	2018-09-11 22:03:43.867404925 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     369,
+  /**/
+
+-- 
+He who laughs last, thinks slowest.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

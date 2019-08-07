@@ -1,0 +1,12 @@
+diff -ur ngrep-1.45/configure.in ngrep-1.45+iPhone/configure.in
+--- ngrep-1.45/configure.in	2006-11-15 03:43:56.000000000 +0000
++++ ngrep-1.45+iPhone/configure.in	2007-12-31 01:29:18.000000000 +0000
+@@ -146,7 +146,7 @@
+ 
+ fi
+ 
+-( cd $REGEX_DIR && ./configure )
++( cd $REGEX_DIR && eval ./configure $ac_configure_args )
+ 
+ AC_SUBST(REGEX_DIR)
+ AC_SUBST(REGEX_OBJS)

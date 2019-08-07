@@ -1,0 +1,66 @@
+diff --git a/Configure b/Configure
+index bdcfaf17ef..d7d16e9332 100755
+--- a/Configure
++++ b/Configure
+@@ -1,4 +1,4 @@
+-#! /bin/sh
++#! /bin/bash
+ #
+ # If these # comments don't work, trim them. Don't worry about any other
+ # shell scripts, Configure will trim # comments from them for you.
+diff --git a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
+index 66a24d7838..7fa2983c20 100644
+--- a/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
++++ b/cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
+@@ -32,6 +32,7 @@ BEGIN {
+     $Is{Interix} = $^O eq 'interix';
+     $Is{SunOS4}  = $^O eq 'sunos';
+     $Is{Solaris} = $^O eq 'solaris';
++    $Is{Darwin}  = $^O eq 'darwin';
+     $Is{SunOS}   = $Is{SunOS4} || $Is{Solaris};
+     $Is{BSD}     = ($^O =~ /^(?:free|net|open)bsd$/ or
+                    grep( $^O eq $_, qw(bsdos interix dragonfly) )
+@@ -1022,7 +1023,7 @@ sub xs_make_dynamic_lib {
+     push(@m,"	\$(RM_F) \$\@\n");
+ 
+     my $libs = '$(LDLOADLIBS)';
+-    if (($Is{NetBSD} || $Is{Interix} || $Is{Android}) && $Config{'useshrplib'} eq 'true') {
++    if (($Is{NetBSD} || $Is{Interix} || $Is{Android} || $Is{Darwin} || $Is{iPhoneOS}) && $Config{'useshrplib'} eq 'true') {
+         # Use nothing on static perl platforms, and to the flags needed
+         # to link against the shared libperl library on shared perl
+         # platforms.  We peek at lddlflags to see if we need -Wl,-R
+@@ -1031,8 +1032,8 @@ sub xs_make_dynamic_lib {
+             $libs .= ' "-L$(PERL_INC)" "-Wl,-R$(INSTALLARCHLIB)/CORE" "-Wl,-R$(PERL_ARCHLIB)/CORE" -lperl';
+         } elsif ($Config{'lddlflags'} =~ /-R/) {
+             $libs .= ' "-L$(PERL_INC)" "-R$(INSTALLARCHLIB)/CORE" "-R$(PERL_ARCHLIB)/CORE" -lperl';
+-        } elsif ( $Is{Android} ) {
+-            # The Android linker will not recognize symbols from
++        } elsif ( $Is{Android} || $Is{Darwin} || $Is{iPhoneOS} ) {
++            # The Android and darwin linker will not recognize symbols from
+             # libperl unless the module explicitly depends on it.
+             $libs .= ' "-L$(PERL_INC)" -lperl';
+         }
+diff --git a/dist/PathTools/Cwd.xs b/dist/PathTools/Cwd.xs
+index c6c600b6ae..027f266152 100644
+--- a/dist/PathTools/Cwd.xs
++++ b/dist/PathTools/Cwd.xs
+@@ -9,7 +9,6 @@
+ #include "XSUB.h"
+ #define NEED_my_strlcpy
+ #define NEED_my_strlcat
+-#include "ppport.h"
+ 
+ #ifdef I_UNISTD
+ #   include <unistd.h>
+diff --git a/ext/Errno/Errno_pm.PL b/ext/Errno/Errno_pm.PL
+index d345e98042..85b9da7ded 100644
+--- a/ext/Errno/Errno_pm.PL
++++ b/ext/Errno/Errno_pm.PL
+@@ -105,6 +105,7 @@ sub default_cpp {
+ 		and -f $upup_cppstdin
+ 		    and -x $upup_cppstdin);
+ 	$cppstdin = $upup_cppstdin if $cppstdin_is_wrapper;
++	$cppstdin =~ s/-P//;
+     }
+     return "$cppstdin $Config{cppflags} $Config{cppminus}";
+ }

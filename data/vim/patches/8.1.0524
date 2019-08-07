@@ -1,0 +1,63 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0524
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0524 (after 8.1.0522)
+Problem:    Terminal test fails on Windows.
+Solution:   Skip Test_terminal_does_not_truncate_last_newlines() for now.
+Files:	    src/testdir/test_terminal.vim
+
+
+*** ../vim-8.1.0523/src/testdir/test_terminal.vim	2018-11-11 22:18:17.214948188 +0100
+--- src/testdir/test_terminal.vim	2018-11-11 23:13:11.944813440 +0100
+***************
+*** 1660,1666 ****
+  endfunc
+  
+  func Test_terminal_does_not_truncate_last_newlines()
+!   let cmd = has('win32') ? 'type' : 'cat'
+    let contents = [
+    \   [ 'One', '', 'X' ],
+    \   [ 'Two', '', '' ],
+--- 1660,1671 ----
+  endfunc
+  
+  func Test_terminal_does_not_truncate_last_newlines()
+!   " FIXME: currently doens't work for Windows
+!   if has('win32')
+!     return
+!   endif
+! 
+!   let cmd = 'cat'
+    let contents = [
+    \   [ 'One', '', 'X' ],
+    \   [ 'Two', '', '' ],
+*** ../vim-8.1.0523/src/version.c	2018-11-11 22:50:20.810297803 +0100
+--- src/version.c	2018-11-11 23:14:17.976227493 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     524,
+  /**/
+
+-- 
+ARTHUR:  You fight with the strength of many men, Sir knight.
+         I am Arthur, King of the Britons.  [pause]
+         I seek the finest and the bravest knights in the land to join me
+         in my Court of Camelot.  [pause]
+         You have proved yourself worthy; will you join me?  [pause]
+         You make me sad.  So be it.  Come, Patsy.
+BLACK KNIGHT:  None shall pass.
+                                  The Quest for the Holy Grail (Monty Python)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,189 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0390
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0390
+Problem:    Scrollbars are not tested.
+Solution:   Add test_scrollbar() and a test.
+Files:	    runtime/doc/eval.txt, src/evalfunc.c, src/testdir/test_gui.vim
+
+
+*** ../vim-8.1.0389/runtime/doc/eval.txt	2018-09-13 20:31:47.099018267 +0200
+--- runtime/doc/eval.txt	2018-09-14 21:26:26.864033563 +0200
+***************
+*** 2468,2473 ****
+--- 2475,2482 ----
+  test_null_string()		String	null value for testing
+  test_option_not_set({name})    none	reset flag indicating option was set
+  test_override({expr}, {val})    none	test with Vim internal overrides
++ test_scrollbar({which}, {value}, {dragging})
++ 				none	scroll in the GUI for testing
+  test_settime({expr})		none	set current time for testing
+  timer_info([{id}])		List	information about timers
+  timer_pause({id}, {pause})	none	pause or unpause a timer
+***************
+*** 8759,8764 ****
+--- 8775,8797 ----
+  <		The value of "starting" is saved.  It is restored by: >
+  			call test_override('starting', 0)
+  
++ test_scrollbar({which}, {value}, {dragging})		*test_scrollbar()*
++ 		Pretend using scrollbar {which} to move it to position
++ 		{value}.  {which} can be:
++ 			left	Left scrollbar of the current window
++ 			right	Right scrollbar of the current window
++ 			hor	Horizontal scrollbar
++ 
++ 		For the vertical scrollbars {value} can be 1 to the
++ 		line-count of the buffer.  For the horizontal scrollbar the
++ 		{value} can be between 1 and the maximum line length, assuming
++ 		'wrap' is not set.
++ 
++ 		When {dragging} is non-zero it's like dragging the scrollbar,
++ 		otherwise it's like clicking in the scrollbar.
++ 		Only works when the {which} scrollbar actually exists,
++ 		obviously only when using the GUI.
++ 
+  test_settime({expr})					*test_settime()*
+  		Set the time Vim uses internally.  Currently only used for
+  		timestamps in the history, as they are used in viminfo, and
+*** ../vim-8.1.0389/src/evalfunc.c	2018-09-13 21:30:01.622056753 +0200
+--- src/evalfunc.c	2018-09-14 21:01:40.062704672 +0200
+***************
+*** 429,434 ****
+--- 429,437 ----
+  static void f_test_null_list(typval_T *argvars, typval_T *rettv);
+  static void f_test_null_partial(typval_T *argvars, typval_T *rettv);
+  static void f_test_null_string(typval_T *argvars, typval_T *rettv);
++ #ifdef FEAT_GUI
++ static void f_test_scrollbar(typval_T *argvars, typval_T *rettv);
++ #endif
+  static void f_test_settime(typval_T *argvars, typval_T *rettv);
+  #ifdef FEAT_FLOAT
+  static void f_tan(typval_T *argvars, typval_T *rettv);
+***************
+*** 925,930 ****
+--- 928,936 ----
+      {"test_null_string", 0, 0, f_test_null_string},
+      {"test_option_not_set", 1, 1, f_test_option_not_set},
+      {"test_override",    2, 2, f_test_override},
++ #ifdef FEAT_GUI
++     {"test_scrollbar",	3, 3, f_test_scrollbar},
++ #endif
+      {"test_settime",	1, 1, f_test_settime},
+  #ifdef FEAT_TIMERS
+      {"timer_info",	0, 1, f_timer_info},
+***************
+*** 13202,13207 ****
+--- 13208,13248 ----
+      rettv->vval.v_string = NULL;
+  }
+  
++ #ifdef FEAT_GUI
++     static void
++ f_test_scrollbar(typval_T *argvars, typval_T *rettv UNUSED)
++ {
++     char_u	*which;
++     long	value;
++     int		dragging;
++     scrollbar_T *sb = NULL;
++ 
++     if (argvars[0].v_type != VAR_STRING
++ 	    || (argvars[1].v_type) != VAR_NUMBER
++ 	    || (argvars[2].v_type) != VAR_NUMBER)
++     {
++ 	EMSG(_(e_invarg));
++ 	return;
++     }
++     which = get_tv_string(&argvars[0]);
++     value = get_tv_number(&argvars[1]);
++     dragging = get_tv_number(&argvars[2]);
++ 
++     if (STRCMP(which, "left") == 0)
++ 	sb = &curwin->w_scrollbars[SBAR_LEFT];
++     else if (STRCMP(which, "right") == 0)
++ 	sb = &curwin->w_scrollbars[SBAR_RIGHT];
++     else if (STRCMP(which, "hor") == 0)
++ 	sb = &gui.bottom_sbar;
++     if (sb == NULL)
++     {
++ 	EMSG2(_(e_invarg2), which);
++ 	return;
++     }
++     gui_drag_scrollbar(sb, value, dragging);
++ }
++ #endif
++ 
+      static void
+  f_test_settime(typval_T *argvars, typval_T *rettv UNUSED)
+  {
+*** ../vim-8.1.0389/src/testdir/test_gui.vim	2018-05-14 21:29:28.000000000 +0200
+--- src/testdir/test_gui.vim	2018-09-14 21:24:26.053001659 +0200
+***************
+*** 667,672 ****
+--- 667,707 ----
+    let &guioptions = guioptions_saved
+  endfunc
+  
++ func Test_scrollbars()
++   new
++   " buffer with 200 lines
++   call setline(1, repeat(['one', 'two'], 100))
++   set guioptions+=rlb
++ 
++   " scroll to move line 11 at top, moves the cursor there
++   call test_scrollbar('left', 10, 0)
++   redraw
++   call assert_equal(1, winline())
++   call assert_equal(11, line('.'))
++ 
++   " scroll to move line 1 at top, cursor stays in line 11
++   call test_scrollbar('right', 0, 0)
++   redraw
++   call assert_equal(11, winline())
++   call assert_equal(11, line('.'))
++ 
++   set nowrap
++   call setline(11, repeat('x', 150))
++   redraw
++   call assert_equal(1, wincol())
++   call assert_equal(1, col('.'))
++ 
++   " scroll to character 11, cursor is moved
++   call test_scrollbar('hor', 10, 0)
++   redraw
++   call assert_equal(1, wincol())
++   call assert_equal(11, col('.'))
++ 
++   set guioptions&
++   set wrap&
++   bwipe!
++ endfunc
++ 
+  func Test_set_guipty()
+    let guipty_saved = &guipty
+  
+*** ../vim-8.1.0389/src/version.c	2018-09-14 20:10:15.878499433 +0200
+--- src/version.c	2018-09-14 21:25:18.748582439 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     390,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+52. You ask a plumber how much it would cost to replace the chair in front of
+    your computer with a toilet.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

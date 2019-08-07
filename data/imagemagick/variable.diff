@@ -1,0 +1,108 @@
+diff -ur ImageMagick-7.0.8-11/MagickCore/magick-baseconfig.h ImageMagick-7.0.8-11+iPhone/MagickCore/magick-baseconfig.h
+--- ImageMagick-7.0.8-11/MagickCore/magick-baseconfig.h	2018-08-28 14:01:38.000000000 -1000
++++ ImageMagick-7.0.8-11+iPhone/MagickCore/magick-baseconfig.h	2018-09-04 13:25:48.000000000 -1000
+@@ -1142,8 +1142,8 @@
+ #endif
+ 
+ /* Directory where architecture-dependent files live. */
+-#ifndef MAGICKCORE_LIBRARY_PATH
+-#define MAGICKCORE_LIBRARY_PATH "/usr/lib64/ImageMagick-7.0.8/"
++#ifndef MAGICKCORE_MK_LIBRARY_PATH
++#define MAGICKCORE_MK_LIBRARY_PATH "/usr/lib64/ImageMagick-7.0.8/"
+ #endif
+ 
+ /* Subdirectory of lib where ImageMagick architecture dependent files are
+diff -ur ImageMagick-7.0.8-11/MagickCore/magick-config.h ImageMagick-7.0.8-11+iPhone/MagickCore/magick-config.h
+--- ImageMagick-7.0.8-11/MagickCore/magick-config.h	2018-08-28 14:00:00.000000000 -1000
++++ ImageMagick-7.0.8-11+iPhone/MagickCore/magick-config.h	2018-09-04 13:25:48.000000000 -1000
+@@ -150,7 +150,7 @@
+ #endif
+  
+ #ifndef MAGICKCORE_MODULES_PATH
+-#  define MAGICKCORE_MODULES_PATH MAGICKCORE_LIBRARY_PATH MAGICKCORE_DIR_SEPARATOR MAGICKCORE_MODULES_DIRNAME
++#  define MAGICKCORE_MODULES_PATH MAGICKCORE_MK_LIBRARY_PATH MAGICKCORE_DIR_SEPARATOR MAGICKCORE_MODULES_DIRNAME
+ #endif
+  
+ #ifndef MAGICKCORE_MODULES_RELATIVE_PATH
+@@ -189,7 +189,7 @@
+ #endif
+  
+ #ifndef MAGICKCORE_SHAREARCH_PATH
+-#  define MAGICKCORE_SHAREARCH_PATH MAGICKCORE_LIBRARY_PATH MAGICKCORE_DIR_SEPARATOR MAGICKCORE_SHAREARCH_DIRNAME MAGICKCORE_DIR_SEPARATOR
++#  define MAGICKCORE_SHAREARCH_PATH MAGICKCORE_MK_LIBRARY_PATH MAGICKCORE_DIR_SEPARATOR MAGICKCORE_SHAREARCH_DIRNAME MAGICKCORE_DIR_SEPARATOR
+ #endif
+  
+ #ifndef MAGICKCORE_SHAREARCH_RELATIVE_PATH
+diff -ur ImageMagick-7.0.8-11/MagickCore/studio.h ImageMagick-7.0.8-11+iPhone/MagickCore/studio.h
+--- ImageMagick-7.0.8-11/MagickCore/studio.h	2018-08-28 14:00:00.000000000 -1000
++++ ImageMagick-7.0.8-11+iPhone/MagickCore/studio.h	2018-09-04 13:25:48.000000000 -1000
+@@ -274,7 +274,7 @@
+ #  define Exit  exit
+ #  define IsBasenameSeparator(c) \
+   (((c) == ']') || ((c) == ':') || ((c) == '/') ? MagickTrue : MagickFalse)
+-#  define MAGICKCORE_LIBRARY_PATH  "sys$login:"
++#  define MAGICKCORE_MK_LIBRARY_PATH  "sys$login:"
+ #  define MAGICKCORE_SHARE_PATH  "sys$login:"
+ #  define X11_PREFERENCES_PATH  "decw$user_defaults:"
+ #  define ProcessPendingEvents(text)
+diff -ur ImageMagick-7.0.8-11/config/config.h.in ImageMagick-7.0.8-11+iPhone/config/config.h.in
+--- ImageMagick-7.0.8-11/config/config.h.in	2018-08-28 14:00:17.000000000 -1000
++++ ImageMagick-7.0.8-11+iPhone/config/config.h.in	2018-09-04 13:27:34.000000000 -1000
+@@ -749,7 +749,7 @@
+ #undef LIBOPENJP2_DELEGATE
+ 
+ /* Directory where architecture-dependent files live. */
+-#undef LIBRARY_PATH
++#undef MK_LIBRARY_PATH
+ 
+ /* Subdirectory of lib where ImageMagick architecture dependent files are
+    installed. */
+diff -ur ImageMagick-7.0.8-11/configure.ac ImageMagick-7.0.8-11+iPhone/configure.ac
+--- ImageMagick-7.0.8-11/configure.ac	2018-08-28 14:00:00.000000000 -1000
++++ ImageMagick-7.0.8-11+iPhone/configure.ac	2018-09-04 13:25:48.000000000 -1000
+@@ -2974,15 +2974,15 @@
+ AC_SUBST(EXECUTABLE_PATH)
+ 
+ # Path to ImageMagick lib
+-LIBRARY_PATH="${LIB_DIR}/${LIBRARY_RELATIVE_PATH}"
++MK_LIBRARY_PATH="${LIB_DIR}/${LIBRARY_RELATIVE_PATH}"
+ DEFINE_LIBRARY_PATH="${LIB_DIR}/${LIBRARY_RELATIVE_PATH}/"
+ case "${build_os}" in
+   mingw* )
+     DEFINE_LIBRARY_PATH=`$WinPathScript "$DEFINE_LIBRARY_PATH" 1`
+     ;;
+ esac
+-AC_DEFINE_UNQUOTED(LIBRARY_PATH,"$DEFINE_LIBRARY_PATH",[Directory where architecture-dependent files live.])
+-AC_SUBST(LIBRARY_PATH)
++AC_DEFINE_UNQUOTED(MK_LIBRARY_PATH,"$DEFINE_LIBRARY_PATH",[Directory where architecture-dependent files live.])
++AC_SUBST(MK_LIBRARY_PATH)
+ 
+ #
+ # path to local binaries
+@@ -2999,7 +2999,7 @@
+ 
+ LIB_BIN_DIR_RELATIVE_PATH=$LIB_BIN_DIR
+ AC_SUBST(LIB_BIN_DIR_RELATIVE_PATH)
+-LIB_BIN_DIR_PATH="${LIBRARY_PATH}/${LIB_BIN_DIR_RELATIVE_PATH}"
++LIB_BIN_DIR_PATH="${MK_LIBRARY_PATH}/${LIB_BIN_DIR_RELATIVE_PATH}"
+ AC_SUBST(LIB_BIN_DIR_PATH)
+ 
+ #
+@@ -3019,7 +3019,7 @@
+ 
+ MODULES_RELATIVE_PATH="${MODULES_DIRNAME}"
+ AC_SUBST(MODULES_RELATIVE_PATH)
+-MODULES_PATH="${LIBRARY_PATH}/${MODULES_RELATIVE_PATH}"
++MODULES_PATH="${MK_LIBRARY_PATH}/${MODULES_RELATIVE_PATH}"
+ AC_SUBST(MODULES_PATH)
+ 
+ #
+@@ -3112,7 +3112,7 @@
+ 
+ SHAREARCH_RELATIVE_PATH="${SHAREARCH_DIRNAME}"
+ AC_SUBST(SHAREARCH_RELATIVE_PATH)
+-SHAREARCH_PATH="${LIBRARY_PATH}/${SHAREARCH_RELATIVE_PATH}"
++SHAREARCH_PATH="${MK_LIBRARY_PATH}/${SHAREARCH_RELATIVE_PATH}"
+ AC_SUBST(SHAREARCH_PATH)
+ 
+ #

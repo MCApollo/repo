@@ -1,0 +1,139 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0112
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0112
+Problem:    No error when using bad arguments with searchpair().
+Solution:   Add error messages.
+Files:	    src/evalfunc.c, src/testdir/test_search.vim
+
+
+*** ../vim-8.1.0111/src/evalfunc.c	2018-06-23 19:22:45.602486336 +0200
+--- src/evalfunc.c	2018-06-24 18:42:08.826927103 +0200
+***************
+*** 10152,10158 ****
+      long	lnum_stop = 0;
+      long	time_limit = 0;
+  
+!     /* Get the three pattern arguments: start, middle, end. */
+      spat = get_tv_string_chk(&argvars[0]);
+      mpat = get_tv_string_buf_chk(&argvars[1], nbuf1);
+      epat = get_tv_string_buf_chk(&argvars[2], nbuf2);
+--- 10152,10159 ----
+      long	lnum_stop = 0;
+      long	time_limit = 0;
+  
+!     /* Get the three pattern arguments: start, middle, end. Will result in an
+!      * error if not a valid argument. */
+      spat = get_tv_string_chk(&argvars[0]);
+      mpat = get_tv_string_buf_chk(&argvars[1], nbuf1);
+      epat = get_tv_string_buf_chk(&argvars[2], nbuf2);
+***************
+*** 10189,10207 ****
+--- 10190,10215 ----
+  	    && skip->v_type != VAR_STRING)
+  	{
+  	    /* Type error */
++ 	    EMSG2(_(e_invarg2), get_tv_string(&argvars[4]));
+  	    goto theend;
+  	}
+  	if (argvars[5].v_type != VAR_UNKNOWN)
+  	{
+  	    lnum_stop = (long)get_tv_number_chk(&argvars[5], NULL);
+  	    if (lnum_stop < 0)
++ 	    {
++ 		EMSG2(_(e_invarg2), get_tv_string(&argvars[5]));
+  		goto theend;
++ 	    }
+  #ifdef FEAT_RELTIME
+  	    if (argvars[6].v_type != VAR_UNKNOWN)
+  	    {
+  		time_limit = (long)get_tv_number_chk(&argvars[6], NULL);
+  		if (time_limit < 0)
++ 		{
++ 		    EMSG2(_(e_invarg2), get_tv_string(&argvars[6]));
+  		    goto theend;
++ 		}
+  	    }
+  #endif
+  	}
+*** ../vim-8.1.0111/src/testdir/test_search.vim	2018-04-30 13:22:53.000000000 +0200
+--- src/testdir/test_search.vim	2018-06-24 18:48:30.844524919 +0200
+***************
+*** 287,302 ****
+    new
+    call setline(1, ['other code here', '', '[', '" cursor here', ']'])
+    4
+!   let a=searchpair('\[','',']','bW')
+    call assert_equal(3, a)
+    set nomagic
+    4
+!   let a=searchpair('\[','',']','bW')
+    call assert_equal(3, a)
+    set magic
+    q!
+  endfunc
+  
+  func Test_searchpair_skip()
+      func Zero()
+  	return 0
+--- 287,312 ----
+    new
+    call setline(1, ['other code here', '', '[', '" cursor here', ']'])
+    4
+!   let a = searchpair('\[','',']','bW')
+    call assert_equal(3, a)
+    set nomagic
+    4
+!   let a = searchpair('\[','',']','bW')
+    call assert_equal(3, a)
+    set magic
+    q!
+  endfunc
+  
++ func Test_searchpair_errors()
++   call assert_fails("call searchpair([0], 'middle', 'end', 'bW', 'skip', 99, 100)", 'E730: using List as a String')
++   call assert_fails("call searchpair('start', {-> 0}, 'end', 'bW', 'skip', 99, 100)", 'E729: using Funcref as a String')
++   call assert_fails("call searchpair('start', 'middle', {'one': 1}, 'bW', 'skip', 99, 100)", 'E731: using Dictionary as a String')
++   call assert_fails("call searchpair('start', 'middle', 'end', 'flags', 'skip', 99, 100)", 'E475: Invalid argument: flags')
++   call assert_fails("call searchpair('start', 'middle', 'end', 'bW', 0, 99, 100)", 'E475: Invalid argument: 0')
++   call assert_fails("call searchpair('start', 'middle', 'end', 'bW', 'func', -99, 100)", 'E475: Invalid argument: -99')
++   call assert_fails("call searchpair('start', 'middle', 'end', 'bW', 'func', 99, -100)", 'E475: Invalid argument: -100')
++ endfunc
++ 
+  func Test_searchpair_skip()
+      func Zero()
+  	return 0
+***************
+*** 311,318 ****
+      3 | call assert_equal(1, searchpair('{', '', '}', 'bWn', {-> 0}))
+      3 | call assert_equal(1, searchpair('{', '', '}', 'bWn', function('Zero')))
+      3 | call assert_equal(1, searchpair('{', '', '}', 'bWn', function('Partial', [0])))
+-     " invalid argument
+-     3 | call assert_equal(0, searchpair('{', '', '}', 'bWn', 0))
+      bw!
+  endfunc
+  
+--- 321,326 ----
+*** ../vim-8.1.0111/src/version.c	2018-06-24 18:04:45.440091103 +0200
+--- src/version.c	2018-06-24 18:10:31.957980576 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     112,
+  /**/
+
+-- 
+Laughing helps. It's like jogging on the inside.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

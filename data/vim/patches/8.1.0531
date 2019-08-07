@@ -1,0 +1,83 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0531
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0531
+Problem:    Flaky tests often fail with a common error message.
+Solution:   Add a pattern to match an error message indicating a flaky test.
+Files:	    src/testdir/runtest.vim
+
+
+*** ../vim-8.1.0530/src/testdir/runtest.vim	2018-11-16 17:44:45.188170522 +0100
+--- src/testdir/runtest.vim	2018-11-16 18:20:21.285567865 +0100
+***************
+*** 273,279 ****
+  endif
+  
+  " Names of flaky tests.
+! let s:flaky = [
+        \ 'Test_call()',
+        \ 'Test_channel_handler()',
+        \ 'Test_client_server()',
+--- 273,279 ----
+  endif
+  
+  " Names of flaky tests.
+! let s:flaky_tests = [
+        \ 'Test_call()',
+        \ 'Test_channel_handler()',
+        \ 'Test_client_server()',
+***************
+*** 329,334 ****
+--- 329,337 ----
+        \ 'Test_zz1_terminal_in_gui()',
+        \ ]
+  
++ " Pattern indicating a common flaky test failure.
++ let s:flaky_errors_re = 'StopVimInTerminal'
++ 
+  " Locate Test_ functions and execute them.
+  redir @q
+  silent function /^Test_
+***************
+*** 353,359 ****
+    " Repeat a flaky test.  Give up when:
+    " - it fails again with the same message
+    " - it fails five times (with a different mesage)
+!   if len(v:errors) > 0 && index(s:flaky, s:test) >= 0
+      while 1
+        call add(s:messages, 'Found errors in ' . s:test . ':')
+        call extend(s:messages, v:errors)
+--- 356,364 ----
+    " Repeat a flaky test.  Give up when:
+    " - it fails again with the same message
+    " - it fails five times (with a different mesage)
+!   if len(v:errors) > 0
+!         \ && (index(s:flaky_tests, s:test) >= 0
+!         \      || v:errors[0] =~ s:flaky_errors_re)
+      while 1
+        call add(s:messages, 'Found errors in ' . s:test . ':')
+        call extend(s:messages, v:errors)
+*** ../vim-8.1.0530/src/version.c	2018-11-16 17:44:45.188170522 +0100
+--- src/version.c	2018-11-16 18:21:32.493085548 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     531,
+  /**/
+
+-- 
+Q: What's orange and sounds like a parrot?
+A: A carrot
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,154 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0161
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0161
+Problem:    Buffer not updated with 'autoread' set if file was deleted.
+            (Michael Naumann)
+Solution:   Don't set the timestamp to zero. (closes #3165)
+Files:	    src/fileio.c, src/testdir/test_stat.vim
+
+
+*** ../vim-8.1.0160/src/fileio.c	2018-06-22 21:30:27.351186530 +0200
+--- src/fileio.c	2018-07-07 17:31:23.592491109 +0200
+***************
+*** 6923,6933 ****
+      {
+  	retval = 1;
+  
+! 	/* set b_mtime to stop further warnings (e.g., when executing
+! 	 * FileChangedShell autocmd) */
+  	if (stat_res < 0)
+  	{
+! 	    buf->b_mtime = 0;
+  	    buf->b_orig_size = 0;
+  	    buf->b_orig_mode = 0;
+  	}
+--- 6923,6935 ----
+      {
+  	retval = 1;
+  
+! 	// set b_mtime to stop further warnings (e.g., when executing
+! 	// FileChangedShell autocmd)
+  	if (stat_res < 0)
+  	{
+! 	    // When 'autoread' is set we'll check the file again to see if it
+! 	    // re-appears.
+! 	    buf->b_mtime = buf->b_p_ar;
+  	    buf->b_orig_size = 0;
+  	    buf->b_orig_mode = 0;
+  	}
+*** ../vim-8.1.0160/src/testdir/test_stat.vim	2017-08-17 17:34:06.000000000 +0200
+--- src/testdir/test_stat.vim	2018-07-07 18:27:11.809270986 +0200
+***************
+*** 46,51 ****
+--- 46,60 ----
+    call assert_equal('rwx', getfperm(dname)[0:2])
+  endfunc
+  
++ func SleepForTimestamp()
++   " FAT has a granularity of 2 seconds, otherwise it's usually 1 second
++   if has('win32')
++     sleep 2
++   else
++     sleep 1
++   endif
++ endfunc
++ 
+  func Test_checktime()
+    let fname = 'Xtest.tmp'
+  
+***************
+*** 53,64 ****
+    call writefile(fl, fname)
+    set autoread
+    exec 'e' fname
+!   " FAT has a granularity of 2 seconds, otherwise it's usually 1 second
+!   if has('win32')
+!     sleep 2
+!   else
+!     sleep 1
+!   endif
+    let fl = readfile(fname)
+    let fl[0] .= ' - checktime'
+    call writefile(fl, fname)
+--- 62,68 ----
+    call writefile(fl, fname)
+    set autoread
+    exec 'e' fname
+!   call SleepForTimestamp()
+    let fl = readfile(fname)
+    let fl[0] .= ' - checktime'
+    call writefile(fl, fname)
+***************
+*** 68,73 ****
+--- 72,117 ----
+    call delete(fname)
+  endfunc
+  
++ func Test_autoread_file_deleted()
++   new Xautoread
++   set autoread
++   call setline(1, 'original')
++   w!
++ 
++   call SleepForTimestamp()
++   if has('win32')
++     silent !echo changed > Xautoread
++   else
++     silent !echo 'changed' > Xautoread
++   endif
++   checktime
++   call assert_equal('changed', trim(getline(1)))
++ 
++   call SleepForTimestamp()
++   messages clear
++   if has('win32')
++     silent !del Xautoread
++   else
++     silent !rm Xautoread
++   endif
++   checktime
++   call assert_match('E211:', execute('messages'))
++   call assert_equal('changed', trim(getline(1)))
++ 
++   call SleepForTimestamp()
++   if has('win32')
++     silent !echo recreated > Xautoread
++   else
++     silent !echo 'recreated' > Xautoread
++   endif
++   checktime
++   call assert_equal('recreated', trim(getline(1)))
++ 
++   call delete('Xautoread')
++   bwipe!
++ endfunc
++ 
++ 
+  func Test_nonexistent_file()
+    let fname = 'Xtest.tmp'
+  
+*** ../vim-8.1.0160/src/version.c	2018-07-07 17:21:49.120140280 +0200
+--- src/version.c	2018-07-07 17:33:03.899873420 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     161,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+197. Your desk collapses under the weight of your computer peripherals.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

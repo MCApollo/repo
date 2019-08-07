@@ -1,0 +1,21 @@
+diff -ru gdb-962/src/gdb/gdbserver/macosx-excthread.c gdb-962+iPhone/src/gdb/gdbserver/macosx-excthread.c
+--- gdb-962/src/gdb/gdbserver/macosx-excthread.c	2008-03-01 01:21:40.000000000 +0000
++++ gdb-962+iPhone/src/gdb/gdbserver/macosx-excthread.c	2008-11-11 06:37:08.000000000 +0000
+@@ -260,7 +260,7 @@
+    exception_type_t exception_type, exception_data_t exception_data,
+    mach_msg_type_number_t data_count, thread_state_flavor_t * state_flavor,
+    thread_state_t in_state, mach_msg_type_number_t in_state_count,
+-   thread_state_t out_state, mach_msg_type_number_t out_state_count)
++   thread_state_t out_state, mach_msg_type_number_t *out_state_count)
+ {
+   return KERN_FAILURE;
+ }
+@@ -271,7 +271,7 @@
+    exception_type_t exception_type, exception_data_t exception_data,
+    mach_msg_type_number_t data_count, thread_state_flavor_t * state_flavor,
+    thread_state_t in_state, mach_msg_type_number_t in_state_count,
+-   thread_state_t out_state, mach_msg_type_number_t out_state_count)
++   thread_state_t out_state, mach_msg_type_number_t *out_state_count)
+ {
+   kern_return_t kret;
+ 

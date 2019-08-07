@@ -1,0 +1,13 @@
+diff -ru krb5-1.6.3/src/lib/krb5/os/dnsglue.h krb5-1.6.3+iPhone/src/lib/krb5/os/dnsglue.h
+--- krb5-1.6.3/src/lib/krb5/os/dnsglue.h	2006-04-01 03:08:17.000000000 +0000
++++ krb5-1.6.3+iPhone/src/lib/krb5/os/dnsglue.h	2008-03-24 13:05:14.000000000 +0000
+@@ -109,6 +109,9 @@
+ /*
+  * Some BIND implementations might be old enough to lack these.
+  */
++#ifndef C_IN
++#define C_IN 1
++#endif
+ #ifndef T_TXT
+ #define T_TXT 15
+ #endif

@@ -1,0 +1,46 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0160
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0160
+Problem:    No Danish manual translations.
+Solution:   Add the Danish manual translations to the file list.
+Files:	    Filelist
+
+
+*** ../vim-8.1.0159/Filelist	2018-07-05 22:58:12.658446246 +0200
+--- Filelist	2018-07-07 17:20:09.996801627 +0200
+***************
+*** 851,856 ****
+--- 851,858 ----
+  
+  # generic language files
+  LANG_GEN = \
++ 		runtime/doc/*-da.1 \
++ 		runtime/doc/*-da.UTF-8.1 \
+  		runtime/doc/*-de.1 \
+  		runtime/doc/*-de.UTF-8.1 \
+  		runtime/doc/*-fr.1 \
+*** ../vim-8.1.0159/src/version.c	2018-07-07 16:41:10.153931299 +0200
+--- src/version.c	2018-07-07 17:21:19.424337015 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     160,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+196. Your computer costs more than your car.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

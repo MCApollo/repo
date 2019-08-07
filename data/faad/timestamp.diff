@@ -1,0 +1,30 @@
+diff -ur faad2-2.8.8/frontend/main.c faad2-2.8.8+iPhone/frontend/main.c
+--- faad2-2.8.8/frontend/main.c	2017-12-17 06:17:36.000000000 -1000
++++ faad2-2.8.8+iPhone/frontend/main.c	2018-07-27 22:48:22.000000000 -1000
+@@ -1202,7 +1202,7 @@
+     NeAACDecGetVersion(&faad_id_string, &faad_copyright_string);
+ 
+     faad_fprintf(stderr, " *********** Ahead Software MPEG-4 AAC Decoder V%s ******************\n\n", faad_id_string);
+-    faad_fprintf(stderr, " Build: %s\n", __DATE__);
++    faad_fprintf(stderr, " Build: 2.8.8\n");
+     faad_fprintf(stderr, "%s", faad_copyright_string);
+     if (cap & FIXED_POINT_CAP)
+         faad_fprintf(stderr, " Fixed point version\n");
+@@ -1361,4 +1361,4 @@
+ #else
+ 	return faad_main(argc, argv);
+ #endif
+-}
+\ No newline at end of file
++}
+diff -ur faad2-2.8.8/utils/win32/ac2ver.c faad2-2.8.8+iPhone/utils/win32/ac2ver.c
+--- faad2-2.8.8/utils/win32/ac2ver.c	2017-12-17 06:17:36.000000000 -1000
++++ faad2-2.8.8+iPhone/utils/win32/ac2ver.c	2018-07-27 22:49:02.000000000 -1000
+@@ -94,7 +94,6 @@
+ 	{
+ 		wchar_t file_name[_MAX_FNAME], file_ext[_MAX_EXT];
+ 		_wsplitpath(argv[0], NULL, NULL, file_name, file_ext);
+-		fprintf(stderr, "AC2VER [%s]\n\n", __DATE__);
+ 		fprintf(stderr, "Usage: %S%S <lib_name> <path/to/configure.ac>\n\n", file_name, file_ext);
+ 		return EXIT_FAILURE;
+ 	}

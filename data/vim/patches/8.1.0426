@@ -1,0 +1,72 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0426
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0426
+Problem:    Accessing invalid memory in SmcOpenConnection().
+Solution:   Reduce size of errorstring by one. (Dominique Pelle, closes #3469)
+Files:	    src/os_unix.c, src/testdir/test_startup.vim
+
+
+*** ../vim-8.1.0425/src/os_unix.c	2018-09-13 15:33:39.609712174 +0200
+--- src/os_unix.c	2018-09-22 14:02:39.348661291 +0200
+***************
+*** 8032,8038 ****
+  	    &smcallbacks,
+  	    NULL,
+  	    &xsmp.clientid,
+! 	    sizeof(errorstring),
+  	    errorstring);
+      if (xsmp.smcconn == NULL)
+      {
+--- 8032,8038 ----
+  	    &smcallbacks,
+  	    NULL,
+  	    &xsmp.clientid,
+! 	    sizeof(errorstring) - 1,
+  	    errorstring);
+      if (xsmp.smcconn == NULL)
+      {
+*** ../vim-8.1.0425/src/testdir/test_startup.vim	2018-09-21 12:54:02.685586971 +0200
+--- src/testdir/test_startup.vim	2018-09-22 14:02:39.348661291 +0200
+***************
+*** 272,278 ****
+  " Test the -V[N]{filename} argument to set the 'verbose' option to N
+  " and set 'verbosefile' to filename.
+  func Test_V_file_arg()
+!   if RunVim([], [], ' --clean -X -V2Xverbosefile -c "set verbose? verbosefile?" -cq')
+      let out = join(readfile('Xverbosefile'), "\n")
+      call assert_match("sourcing \"$VIMRUNTIME[\\/]defaults\.vim\"\n", out)
+      call assert_match("\n  verbose=2\n", out)
+--- 272,278 ----
+  " Test the -V[N]{filename} argument to set the 'verbose' option to N
+  " and set 'verbosefile' to filename.
+  func Test_V_file_arg()
+!   if RunVim([], [], ' --clean -V2Xverbosefile -c "set verbose? verbosefile?" -cq')
+      let out = join(readfile('Xverbosefile'), "\n")
+      call assert_match("sourcing \"$VIMRUNTIME[\\/]defaults\.vim\"\n", out)
+      call assert_match("\n  verbose=2\n", out)
+*** ../vim-8.1.0425/src/version.c	2018-09-21 16:59:40.113489779 +0200
+--- src/version.c	2018-09-22 14:06:41.382926281 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     426,
+  /**/
+
+-- 
+I AM THANKFUL...
+...for a lawn that needs mowing, windows that need cleaning
+and gutters that need fixing because it means I have a home.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

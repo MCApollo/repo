@@ -1,0 +1,498 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0306
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0306
+Problem:    Plural messages are not translated properly.
+Solution:   Add more usage of NGETTEXT(). (Sergey Alyoshin)
+Files:	    src/vim.h, src/buffer.c, src/ex_cmds.c, src/ex_docmd.c,
+            src/fileio.c, src/misc1.c, src/ops.c
+
+
+*** ../vim-8.1.0305/src/vim.h	2018-08-11 13:57:16.215969777 +0200
+--- src/vim.h	2018-08-21 14:34:37.322333098 +0200
+***************
+*** 553,558 ****
+--- 553,562 ----
+  /*
+   * The _() stuff is for using gettext().  It is a no-op when libintl.h is not
+   * found or the +multilang feature is disabled.
++  * Use NGETTEXT(single, multi, number) to get plural behavior:
++  * - single - message for singular form
++  * - multi  - message for plural form
++  * - number - the count
+   */
+  #ifdef FEAT_GETTEXT
+  # ifdef DYNAMIC_GETTEXT
+*** ../vim-8.1.0305/src/buffer.c	2018-08-11 13:57:16.207969835 +0200
+--- src/buffer.c	2018-08-21 14:39:25.584435950 +0200
+***************
+*** 1174,1199 ****
+  	else if (deleted >= p_report)
+  	{
+  	    if (command == DOBUF_UNLOAD)
+! 	    {
+! 		if (deleted == 1)
+! 		    MSG(_("1 buffer unloaded"));
+! 		else
+! 		    smsg((char_u *)_("%d buffers unloaded"), deleted);
+! 	    }
+  	    else if (command == DOBUF_DEL)
+! 	    {
+! 		if (deleted == 1)
+! 		    MSG(_("1 buffer deleted"));
+! 		else
+! 		    smsg((char_u *)_("%d buffers deleted"), deleted);
+! 	    }
+  	    else
+! 	    {
+! 		if (deleted == 1)
+! 		    MSG(_("1 buffer wiped out"));
+! 		else
+! 		    smsg((char_u *)_("%d buffers wiped out"), deleted);
+! 	    }
+  	}
+      }
+  
+--- 1174,1187 ----
+  	else if (deleted >= p_report)
+  	{
+  	    if (command == DOBUF_UNLOAD)
+! 		smsg((char_u *)NGETTEXT("%d buffer unloaded",
+! 			    "%d buffers unloaded", deleted), deleted);
+  	    else if (command == DOBUF_DEL)
+! 		smsg((char_u *)NGETTEXT("%d buffer deleted",
+! 			    "%d buffers deleted", deleted), deleted);
+  	    else
+! 		smsg((char_u *)NGETTEXT("%d buffer wiped out",
+! 			    "%d buffers wiped out", deleted), deleted);
+  	}
+      }
+  
+***************
+*** 3485,3503 ****
+  	n = (int)(((long)curwin->w_cursor.lnum * 100L) /
+  					    (long)curbuf->b_ml.ml_line_count);
+      if (curbuf->b_ml.ml_flags & ML_EMPTY)
+-     {
+  	vim_snprintf_add((char *)buffer, IOSIZE, "%s", _(no_lines_msg));
+-     }
+  #ifdef FEAT_CMDL_INFO
+      else if (p_ru)
+-     {
+  	/* Current line and column are already on the screen -- webb */
+! 	if (curbuf->b_ml.ml_line_count == 1)
+! 	    vim_snprintf_add((char *)buffer, IOSIZE, _("1 line --%d%%--"), n);
+! 	else
+! 	    vim_snprintf_add((char *)buffer, IOSIZE, _("%ld lines --%d%%--"),
+! 					 (long)curbuf->b_ml.ml_line_count, n);
+!     }
+  #endif
+      else
+      {
+--- 3473,3486 ----
+  	n = (int)(((long)curwin->w_cursor.lnum * 100L) /
+  					    (long)curbuf->b_ml.ml_line_count);
+      if (curbuf->b_ml.ml_flags & ML_EMPTY)
+  	vim_snprintf_add((char *)buffer, IOSIZE, "%s", _(no_lines_msg));
+  #ifdef FEAT_CMDL_INFO
+      else if (p_ru)
+  	/* Current line and column are already on the screen -- webb */
+! 	vim_snprintf_add((char *)buffer, IOSIZE,
+! 		NGETTEXT("%ld line --%d%%--", "%ld lines --%d%%--",
+! 						   curbuf->b_ml.ml_line_count),
+! 		(long)curbuf->b_ml.ml_line_count, n);
+  #endif
+      else
+      {
+*** ../vim-8.1.0305/src/ex_cmds.c	2018-08-11 14:41:48.326928864 +0200
+--- src/ex_cmds.c	2018-08-21 15:09:35.720800340 +0200
+***************
+*** 985,996 ****
+  	ml_delete(line1 + extra, TRUE);
+  
+      if (!global_busy && num_lines > p_report)
+!     {
+! 	if (num_lines == 1)
+! 	    MSG(_("1 line moved"));
+! 	else
+! 	    smsg((char_u *)_("%ld lines moved"), num_lines);
+!     }
+  
+      /*
+       * Leave the cursor on the last of the moved lines.
+--- 985,992 ----
+  	ml_delete(line1 + extra, TRUE);
+  
+      if (!global_busy && num_lines > p_report)
+! 	smsg((char_u *)NGETTEXT("%ld line moved", "%ld lines moved", num_lines),
+! 			(long)num_lines);
+  
+      /*
+       * Leave the cursor on the last of the moved lines.
+***************
+*** 5940,5962 ****
+  		|| count_only)
+  	    && messaging())
+      {
+  	if (got_int)
+  	    STRCPY(msg_buf, _("(Interrupted) "));
+  	else
+  	    *msg_buf = NUL;
+! 	if (sub_nsubs == 1)
+! 	    vim_snprintf_add((char *)msg_buf, sizeof(msg_buf),
+! 		    "%s", count_only ? _("1 match") : _("1 substitution"));
+! 	else
+! 	    vim_snprintf_add((char *)msg_buf, sizeof(msg_buf),
+! 		    count_only ? _("%ld matches") : _("%ld substitutions"),
+! 								   sub_nsubs);
+! 	if (sub_nlines == 1)
+! 	    vim_snprintf_add((char *)msg_buf, sizeof(msg_buf),
+! 		    "%s", _(" on 1 line"));
+! 	else
+! 	    vim_snprintf_add((char *)msg_buf, sizeof(msg_buf),
+! 		    _(" on %ld lines"), (long)sub_nlines);
+  	if (msg(msg_buf))
+  	    /* save message to display it after redraw */
+  	    set_keep_msg(msg_buf, 0);
+--- 5936,5964 ----
+  		|| count_only)
+  	    && messaging())
+      {
++ 	char	*msg_single;
++ 	char	*msg_plural;
++ 
+  	if (got_int)
+  	    STRCPY(msg_buf, _("(Interrupted) "));
+  	else
+  	    *msg_buf = NUL;
+! 
+! 	msg_single = count_only
+! 		    ? NGETTEXT("%ld match on %ld line",
+! 					  "%ld matches on %ld line", sub_nsubs)
+! 		    : NGETTEXT("%ld substitution on %ld line",
+! 				   "%ld substitutions on %ld line", sub_nsubs);
+! 	msg_plural = count_only
+! 		    ? NGETTEXT("%ld match on %ld lines",
+! 					 "%ld matches on %ld lines", sub_nsubs)
+! 		    : NGETTEXT("%ld substitution on %ld lines",
+! 				  "%ld substitutions on %ld lines", sub_nsubs);
+! 
+! 	vim_snprintf_add((char *)msg_buf, sizeof(msg_buf),
+! 				 NGETTEXT(msg_single, msg_plural, sub_nlines),
+! 				 sub_nsubs, (long)sub_nlines);
+! 
+  	if (msg(msg_buf))
+  	    /* save message to display it after redraw */
+  	    set_keep_msg(msg_buf, 0);
+*** ../vim-8.1.0305/src/ex_docmd.c	2018-08-15 20:59:44.227025009 +0200
+--- src/ex_docmd.c	2018-08-21 14:35:02.210167853 +0200
+***************
+*** 5749,5770 ****
+  	    {
+  		char_u	buff[DIALOG_MSG_SIZE];
+  
+! 		if (n == 1)
+! 		    vim_strncpy(buff,
+! 			    (char_u *)_("1 more file to edit.  Quit anyway?"),
+! 							 DIALOG_MSG_SIZE - 1);
+! 		else
+! 		    vim_snprintf((char *)buff, DIALOG_MSG_SIZE,
+! 			      _("%d more files to edit.  Quit anyway?"), n);
+  		if (vim_dialog_yesno(VIM_QUESTION, NULL, buff, 1) == VIM_YES)
+  		    return OK;
+  		return FAIL;
+  	    }
+  #endif
+! 	    if (n == 1)
+! 		EMSG(_("E173: 1 more file to edit"));
+! 	    else
+! 		EMSGN(_("E173: %ld more files to edit"), n);
+  	    quitmore = 2;	    /* next try to quit is allowed */
+  	}
+  	return FAIL;
+--- 5749,5764 ----
+  	    {
+  		char_u	buff[DIALOG_MSG_SIZE];
+  
+! 		vim_snprintf((char *)buff, DIALOG_MSG_SIZE,
+! 			NGETTEXT("%d more file to edit.  Quit anyway?",
+! 			    "%d more files to edit.  Quit anyway?", n), n);
+  		if (vim_dialog_yesno(VIM_QUESTION, NULL, buff, 1) == VIM_YES)
+  		    return OK;
+  		return FAIL;
+  	    }
+  #endif
+! 	    EMSGN(NGETTEXT("E173: %ld more file to edit",
+! 			"E173: %ld more files to edit", n), n);
+  	    quitmore = 2;	    /* next try to quit is allowed */
+  	}
+  	return FAIL;
+*** ../vim-8.1.0305/src/fileio.c	2018-08-11 13:57:16.211969806 +0200
+--- src/fileio.c	2018-08-21 14:35:02.214167827 +0200
+***************
+*** 5349,5364 ****
+  		"%ldL, %lldC", lnum, (long long)nchars);
+      else
+      {
+! 	if (lnum == 1)
+! 	    STRCPY(p, _("1 line, "));
+! 	else
+! 	    sprintf((char *)p, _("%ld lines, "), lnum);
+  	p += STRLEN(p);
+! 	if (nchars == 1)
+! 	    STRCPY(p, _("1 character"));
+! 	else
+! 	    vim_snprintf((char *)p, IOSIZE - (p - IObuff),
+! 		    _("%lld characters"), (long long)nchars);
+      }
+  }
+  
+--- 5349,5359 ----
+  		"%ldL, %lldC", lnum, (long long)nchars);
+      else
+      {
+! 	sprintf((char *)p, NGETTEXT("%ld line, ", "%ld lines, ", lnum), lnum);
+  	p += STRLEN(p);
+! 	vim_snprintf((char *)p, IOSIZE - (p - IObuff),
+! 		NGETTEXT("%lld character", "%lld characters", nchars),
+! 		(long long)nchars);
+      }
+  }
+  
+*** ../vim-8.1.0305/src/misc1.c	2018-07-29 16:09:14.636945607 +0200
+--- src/misc1.c	2018-08-21 14:35:02.214167827 +0200
+***************
+*** 3802,3825 ****
+  
+      if (pn > p_report)
+      {
+! 	if (pn == 1)
+! 	{
+! 	    if (n > 0)
+! 		vim_strncpy(msg_buf, (char_u *)_("1 more line"),
+! 							     MSG_BUF_LEN - 1);
+! 	    else
+! 		vim_strncpy(msg_buf, (char_u *)_("1 line less"),
+! 							     MSG_BUF_LEN - 1);
+! 	}
+  	else
+! 	{
+! 	    if (n > 0)
+! 		vim_snprintf((char *)msg_buf, MSG_BUF_LEN,
+! 						     _("%ld more lines"), pn);
+! 	    else
+! 		vim_snprintf((char *)msg_buf, MSG_BUF_LEN,
+! 						    _("%ld fewer lines"), pn);
+! 	}
+  	if (got_int)
+  	    vim_strcat(msg_buf, (char_u *)_(" (Interrupted)"), MSG_BUF_LEN);
+  	if (msg(msg_buf))
+--- 3802,3813 ----
+  
+      if (pn > p_report)
+      {
+! 	if (n > 0)
+! 	    vim_snprintf((char *)msg_buf, MSG_BUF_LEN,
+! 		    NGETTEXT("%ld more line", "%ld more lines", pn), pn);
+  	else
+! 	    vim_snprintf((char *)msg_buf, MSG_BUF_LEN,
+! 		    NGETTEXT("%ld line less", "%ld fewer lines", pn), pn);
+  	if (got_int)
+  	    vim_strcat(msg_buf, (char_u *)_(" (Interrupted)"), MSG_BUF_LEN);
+  	if (msg(msg_buf))
+*** ../vim-8.1.0305/src/ops.c	2018-07-29 16:09:14.640945583 +0200
+--- src/ops.c	2018-08-21 15:02:16.907624684 +0200
+***************
+*** 244,250 ****
+  {
+      long	    i;
+      int		    first_char;
+-     char_u	    *s;
+      int		    block_col = 0;
+  
+      if (u_save((linenr_T)(oap->start.lnum - 1),
+--- 244,249 ----
+***************
+*** 297,322 ****
+  
+      if (oap->line_count > p_report)
+      {
+  	if (oap->op_type == OP_RSHIFT)
+! 	    s = (char_u *)">";
+! 	else
+! 	    s = (char_u *)"<";
+! 	if (oap->line_count == 1)
+! 	{
+! 	    if (amount == 1)
+! 		sprintf((char *)IObuff, _("1 line %sed 1 time"), s);
+! 	    else
+! 		sprintf((char *)IObuff, _("1 line %sed %d times"), s, amount);
+! 	}
+  	else
+! 	{
+! 	    if (amount == 1)
+! 		sprintf((char *)IObuff, _("%ld lines %sed 1 time"),
+! 							  oap->line_count, s);
+! 	    else
+! 		sprintf((char *)IObuff, _("%ld lines %sed %d times"),
+! 						  oap->line_count, s, amount);
+! 	}
+  	msg(IObuff);
+      }
+  
+--- 296,316 ----
+  
+      if (oap->line_count > p_report)
+      {
++ 	char	    *op;
++ 	char	    *msg_line_single;
++ 	char	    *msg_line_plural;
++ 
+  	if (oap->op_type == OP_RSHIFT)
+! 	    op = ">";
+  	else
+! 	    op = "<";
+! 	msg_line_single = NGETTEXT("%ld line %sed %d time",
+! 					     "%ld line %sed %d times", amount);
+! 	msg_line_plural = NGETTEXT("%ld lines %sed %d time",
+! 					    "%ld lines %sed %d times", amount);
+! 	vim_snprintf((char *)IObuff, IOSIZE,
+! 		NGETTEXT(msg_line_single, msg_line_plural, oap->line_count),
+! 		oap->line_count, op, amount);
+  	msg(IObuff);
+      }
+  
+***************
+*** 789,798 ****
+      if (oap->line_count > p_report)
+      {
+  	i = oap->line_count - (i + 1);
+! 	if (i == 1)
+! 	    MSG(_("1 line indented "));
+! 	else
+! 	    smsg((char_u *)_("%ld lines indented "), i);
+      }
+      /* set '[ and '] marks */
+      curbuf->b_op_start = oap->start;
+--- 783,790 ----
+      if (oap->line_count > p_report)
+      {
+  	i = oap->line_count - (i + 1);
+! 	smsg((char_u *)NGETTEXT("%ld line indented ",
+! 						 "%ld lines indented ", i), i);
+      }
+      /* set '[ and '] marks */
+      curbuf->b_op_start = oap->start;
+***************
+*** 2529,2540 ****
+      curbuf->b_op_end = oap->end;
+  
+      if (oap->line_count > p_report)
+!     {
+! 	if (oap->line_count == 1)
+! 	    MSG(_("1 line changed"));
+! 	else
+! 	    smsg((char_u *)_("%ld lines changed"), oap->line_count);
+!     }
+  }
+  
+  /*
+--- 2521,2528 ----
+      curbuf->b_op_end = oap->end;
+  
+      if (oap->line_count > p_report)
+! 	smsg((char_u *)NGETTEXT("%ld line changed", "%ld lines changed",
+! 					    oap->line_count), oap->line_count);
+  }
+  
+  /*
+***************
+*** 3348,3366 ****
+  
+  	    /* redisplay now, so message is not deleted */
+  	    update_topline_redraw();
+! 	    if (yanklines == 1)
+  	    {
+! 		if (oap->block_mode)
+! 		    smsg((char_u *)_("block of 1 line yanked%s"), namebuf);
+! 		else
+! 		    smsg((char_u *)_("1 line yanked%s"), namebuf);
+  	    }
+- 	    else if (oap->block_mode)
+- 		smsg((char_u *)_("block of %ld lines yanked%s"),
+- 		     yanklines, namebuf);
+  	    else
+! 		smsg((char_u *)_("%ld lines yanked%s"), yanklines,
+! 		     namebuf);
+  	}
+      }
+  
+--- 3336,3353 ----
+  
+  	    /* redisplay now, so message is not deleted */
+  	    update_topline_redraw();
+! 	    if (oap->block_mode)
+  	    {
+! 		smsg((char_u *)NGETTEXT("block of %ld line yanked%s",
+! 				     "block of %ld lines yanked%s", yanklines),
+! 			yanklines, namebuf);
+  	    }
+  	    else
+! 	    {
+! 		smsg((char_u *)NGETTEXT("%ld line yanked%s",
+! 					      "%ld lines yanked%s", yanklines),
+! 			yanklines, namebuf);
+! 	    }
+  	}
+      }
+  
+***************
+*** 5653,5664 ****
+  	    curbuf->b_op_start = startpos;
+  
+  	if (change_cnt > p_report)
+! 	{
+! 	    if (change_cnt == 1)
+! 		MSG(_("1 line changed"));
+! 	    else
+! 		smsg((char_u *)_("%ld lines changed"), change_cnt);
+! 	}
+      }
+  }
+  
+--- 5640,5647 ----
+  	    curbuf->b_op_start = startpos;
+  
+  	if (change_cnt > p_report)
+! 	    smsg((char_u *)NGETTEXT("%ld line changed", "%ld lines changed",
+! 						      change_cnt), change_cnt);
+      }
+  }
+  
+*** ../vim-8.1.0305/src/version.c	2018-08-21 14:23:31.418606007 +0200
+--- src/version.c	2018-08-21 15:02:32.359526078 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     306,
+  /**/
+
+-- 
+LARGE MAN:   Who's that then?
+CART DRIVER: (Grudgingly) I dunno, Must be a king.
+LARGE MAN:   Why?
+CART DRIVER: He hasn't got shit all over him.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

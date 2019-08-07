@@ -1,0 +1,126 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0096
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0096
+Problem:    Inconsistent use of the word autocommands.
+Solution:   Don't use auto-commands or "auto commands".
+Files:	    src/fileio.c
+
+
+*** ../vim-8.1.0095/src/fileio.c	2018-05-22 20:35:13.562009272 +0200
+--- src/fileio.c	2018-06-22 21:26:06.200765470 +0200
+***************
+*** 8412,8430 ****
+   *				    will be automatically executed for <event>
+   *				    when editing a file matching <pat>, in
+   *				    the current group.
+!  * :autocmd <event> <pat>	    Show the auto-commands associated with
+   *				    <event> and <pat>.
+!  * :autocmd <event>		    Show the auto-commands associated with
+   *				    <event>.
+!  * :autocmd			    Show all auto-commands.
+!  * :autocmd! <event> <pat> <cmd>    Remove all auto-commands associated with
+   *				    <event> and <pat>, and add the command
+   *				    <cmd>, for the current group.
+!  * :autocmd! <event> <pat>	    Remove all auto-commands associated with
+   *				    <event> and <pat> for the current group.
+!  * :autocmd! <event>		    Remove all auto-commands associated with
+   *				    <event> for the current group.
+!  * :autocmd!			    Remove ALL auto-commands for the current
+   *				    group.
+   *
+   *  Multiple events and patterns may be given separated by commas.  Here are
+--- 8412,8430 ----
+   *				    will be automatically executed for <event>
+   *				    when editing a file matching <pat>, in
+   *				    the current group.
+!  * :autocmd <event> <pat>	    Show the autocommands associated with
+   *				    <event> and <pat>.
+!  * :autocmd <event>		    Show the autocommands associated with
+   *				    <event>.
+!  * :autocmd			    Show all autocommands.
+!  * :autocmd! <event> <pat> <cmd>    Remove all autocommands associated with
+   *				    <event> and <pat>, and add the command
+   *				    <cmd>, for the current group.
+!  * :autocmd! <event> <pat>	    Remove all autocommands associated with
+   *				    <event> and <pat> for the current group.
+!  * :autocmd! <event>		    Remove all autocommands associated with
+   *				    <event> for the current group.
+!  * :autocmd!			    Remove ALL autocommands for the current
+   *				    group.
+   *
+   *  Multiple events and patterns may be given separated by commas.  Here are
+***************
+*** 8534,8540 ****
+      if (!forceit && *cmd == NUL)
+      {
+  	/* Highlight title */
+! 	MSG_PUTS_TITLE(_("\n--- Auto-Commands ---"));
+      }
+  
+      /*
+--- 8534,8540 ----
+      if (!forceit && *cmd == NUL)
+      {
+  	/* Highlight title */
+! 	MSG_PUTS_TITLE(_("\n--- Autocommands ---"));
+      }
+  
+      /*
+***************
+*** 9602,9608 ****
+      autocmd_match = fname;
+  
+  
+!     /* Don't redraw while doing auto commands. */
+      ++RedrawingDisabled;
+      save_sourcing_name = sourcing_name;
+      sourcing_name = NULL;	/* don't free this one */
+--- 9602,9608 ----
+      autocmd_match = fname;
+  
+  
+!     /* Don't redraw while doing autocommands. */
+      ++RedrawingDisabled;
+      save_sourcing_name = sourcing_name;
+      sourcing_name = NULL;	/* don't free this one */
+***************
+*** 9855,9861 ****
+  		    : ap->buflocal_nr == apc->arg_bufnr)
+  	    {
+  		name = event_nr2name(apc->event);
+! 		s = _("%s Auto commands for \"%s\"");
+  		sourcing_name = alloc((unsigned)(STRLEN(s)
+  					    + STRLEN(name) + ap->patlen + 1));
+  		if (sourcing_name != NULL)
+--- 9855,9861 ----
+  		    : ap->buflocal_nr == apc->arg_bufnr)
+  	    {
+  		name = event_nr2name(apc->event);
+! 		s = _("%s Autocommands for \"%s\"");
+  		sourcing_name = alloc((unsigned)(STRLEN(s)
+  					    + STRLEN(name) + ap->patlen + 1));
+  		if (sourcing_name != NULL)
+*** ../vim-8.1.0095/src/version.c	2018-06-21 22:10:04.404854396 +0200
+--- src/version.c	2018-06-22 21:30:10.251289904 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     96,
+  /**/
+
+-- 
+Momento mori, ergo carpe diem
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

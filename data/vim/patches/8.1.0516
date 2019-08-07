@@ -1,0 +1,165 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0516
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0516
+Problem:    :move command marks buffer modified when nothing changed.
+Solution:   Do not set 'modified'.  Add a test. (Jason Franklin)
+Files:	    src/Make_all.mak, src/testdir/test_alot.vim,
+            src/testdir/test_move.vim, src/ex_cmds.c
+
+
+*** ../vim-8.1.0515/src/Make_all.mak	2018-09-22 21:36:38.158098521 +0200
+--- src/Make_all.mak	2018-11-10 18:43:06.098433191 +0100
+***************
+*** 123,128 ****
+--- 123,129 ----
+  	test_mksession \
+  	test_mksession_utf8 \
+  	test_modeline \
++ 	test_move \
+  	test_nested_function \
+  	test_netbeans \
+  	test_normal \
+*** ../vim-8.1.0515/src/testdir/test_alot.vim	2018-09-22 21:36:38.158098521 +0200
+--- src/testdir/test_alot.vim	2018-11-10 18:43:06.098433191 +0100
+***************
+*** 41,46 ****
+--- 41,47 ----
+  source test_menu.vim
+  source test_messages.vim
+  source test_modeline.vim
++ source test_move.vim
+  source test_partial.vim
+  source test_popup.vim
+  source test_put.vim
+*** ../vim-8.1.0515/src/testdir/test_move.vim	2018-11-10 18:54:25.084727968 +0100
+--- src/testdir/test_move.vim	2018-11-10 18:44:27.557751773 +0100
+***************
+*** 0 ****
+--- 1,40 ----
++ " Test the ":move" command.
++ 
++ func Test_move()
++   enew!
++   call append(0, ['line 1', 'line 2', 'line 3'])
++   g /^$/ delete _
++   set nomodified
++ 
++   move .
++   call assert_equal(['line 1', 'line 2', 'line 3'], getline(1, 3))
++   call assert_false(&modified)
++ 
++   1,2move 0
++   call assert_equal(['line 1', 'line 2', 'line 3'], getline(1, 3))
++   call assert_false(&modified)
++ 
++   1,3move 3
++   call assert_equal(['line 1', 'line 2', 'line 3'], getline(1, 3))
++   call assert_false(&modified)
++ 
++   1move 2
++   call assert_equal(['line 2', 'line 1', 'line 3'], getline(1, 3))
++   call assert_true(&modified)
++   set nomodified
++ 
++   3move 0
++   call assert_equal(['line 3', 'line 2', 'line 1'], getline(1, 3))
++   call assert_true(&modified)
++   set nomodified
++ 
++   2,3move 0
++   call assert_equal(['line 2', 'line 1', 'line 3'], getline(1, 3))
++   call assert_true(&modified)
++   set nomodified
++ 
++   call assert_fails('1,2move 1', 'E134')
++   call assert_fails('2,3move 2', 'E134')
++ 
++   %bwipeout!
++ endfunc
+*** ../vim-8.1.0515/src/ex_cmds.c	2018-10-11 19:27:43.920066119 +0200
+--- src/ex_cmds.c	2018-11-10 18:47:22.728288132 +0100
+***************
+*** 899,907 ****
+  {
+      char_u	*str;
+      linenr_T	l;
+!     linenr_T	extra;	    /* Num lines added before line1 */
+!     linenr_T	num_lines;  /* Num lines moved */
+!     linenr_T	last_line;  /* Last line in file after adding new text */
+  #ifdef FEAT_FOLDING
+      win_T	*win;
+      tabpage_T	*tp;
+--- 899,907 ----
+  {
+      char_u	*str;
+      linenr_T	l;
+!     linenr_T	extra;	    // Num lines added before line1
+!     linenr_T	num_lines;  // Num lines moved
+!     linenr_T	last_line;  // Last line in file after adding new text
+  #ifdef FEAT_FOLDING
+      win_T	*win;
+      tabpage_T	*tp;
+***************
+*** 909,918 ****
+  
+      if (dest >= line1 && dest < line2)
+      {
+! 	EMSG(_("E134: Move lines into themselves"));
+  	return FAIL;
+      }
+  
+      num_lines = line2 - line1 + 1;
+  
+      /*
+--- 909,932 ----
+  
+      if (dest >= line1 && dest < line2)
+      {
+! 	EMSG(_("E134: Cannot move a range of lines into itself"));
+  	return FAIL;
+      }
+  
++     // Do nothing if we are not actually moving any lines.  This will prevent
++     // the 'modified' flag from being set without cause.
++     if (dest == line1 - 1 || dest == line2)
++     {
++ 	// Move the cursor as if lines were moved (see below) to be backwards
++ 	// compatible.
++ 	if (dest >= line1)
++ 	    curwin->w_cursor.lnum = dest;
++ 	else
++ 	    curwin->w_cursor.lnum = dest + (line2 - line1) + 1;
++ 
++ 	return OK;
++     }
++ 
+      num_lines = line2 - line1 + 1;
+  
+      /*
+*** ../vim-8.1.0515/src/version.c	2018-11-10 17:33:23.091518784 +0100
+--- src/version.c	2018-11-10 18:53:56.184980615 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     516,
+  /**/
+
+-- 
+There are 2 kinds of people in my world: those who know Unix, Perl, Vim, GNU,
+Linux, etc, and those who know COBOL.  It gets very difficult for me at
+parties, not knowing which group to socialise with :-)
+						Sitaram Chamarty
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

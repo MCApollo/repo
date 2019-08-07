@@ -1,0 +1,371 @@
+diff -ur fakeroot-1.20.2/Makefile.am fakeroot-1.20.2+iPhone/Makefile.am
+--- fakeroot-1.20.2/Makefile.am	2014-10-05 05:16:00.000000000 -1000
++++ fakeroot-1.20.2+iPhone/Makefile.am	2019-01-28 21:53:27.000000000 -1000
+@@ -10,13 +10,8 @@
+ lib_LTLIBRARIES=libfakeroot.la
+ libfakeroot_la_SOURCES=libfakeroot.c statconv/glibc/linux/alpha/stats.h wrapdef.h  wrapstruct.h communicate.h
+ libfakeroot_la_LDFLAGS=-release 0
+-if MACOSX
+-libfakeroot_la_DEPENDENCIES=wrapdef.h wrapstruct.h libcommunicate.la libmacosx.la $(LTLIBOBJS)
+-libfakeroot_la_LIBADD = libcommunicate.la libmacosx.la $(LTLIBOBJS)
+-else !MACOSX
+ libfakeroot_la_DEPENDENCIES=wrapdef.h wrapstruct.h libcommunicate.la $(LTLIBOBJS)
+ libfakeroot_la_LIBADD = libcommunicate.la $(LTLIBOBJS)
+-endif !MACOSX
+ 
+ bin_PROGRAMS=faked
+ faked_SOURCES = faked.c
+diff -ur fakeroot-1.20.2/Makefile.in fakeroot-1.20.2+iPhone/Makefile.in
+--- fakeroot-1.20.2/Makefile.in	2014-10-05 05:16:28.000000000 -1000
++++ fakeroot-1.20.2+iPhone/Makefile.in	2019-01-28 21:53:27.000000000 -1000
+@@ -413,10 +413,8 @@
+ lib_LTLIBRARIES = libfakeroot.la
+ libfakeroot_la_SOURCES = libfakeroot.c statconv/glibc/linux/alpha/stats.h wrapdef.h  wrapstruct.h communicate.h
+ libfakeroot_la_LDFLAGS = -release 0
+-@MACOSX_FALSE@libfakeroot_la_DEPENDENCIES = wrapdef.h wrapstruct.h libcommunicate.la $(LTLIBOBJS)
+-@MACOSX_TRUE@libfakeroot_la_DEPENDENCIES = wrapdef.h wrapstruct.h libcommunicate.la libmacosx.la $(LTLIBOBJS)
+-@MACOSX_FALSE@libfakeroot_la_LIBADD = libcommunicate.la $(LTLIBOBJS)
+-@MACOSX_TRUE@libfakeroot_la_LIBADD = libcommunicate.la libmacosx.la $(LTLIBOBJS)
++libfakeroot_la_DEPENDENCIES = wrapdef.h wrapstruct.h libcommunicate.la $(LTLIBOBJS)
++libfakeroot_la_LIBADD = libcommunicate.la $(LTLIBOBJS)
+ faked_SOURCES = faked.c
+ faked_LDADD = libcommunicate.la
+ simple_SOURCES = simple.c
+diff -ur fakeroot-1.20.2/communicate.c fakeroot-1.20.2+iPhone/communicate.c
+--- fakeroot-1.20.2/communicate.c	2014-10-05 05:16:00.000000000 -1000
++++ fakeroot-1.20.2+iPhone/communicate.c	2019-01-28 21:53:27.000000000 -1000
+@@ -24,8 +24,14 @@
+    In this file, we want 'struct stat' to have a 32-bit 'ino_t'.
+    We use 'struct stat64' when we need a 64-bit 'ino_t'.
+ */
++# include <sys/cdefs.h>
++#if _DARWIN_FEATURE_ONLY_64_BIT_INODE
++#define STRUCT_STAT64 struct stat
++#else
++#define STRUCT_STAT64 struct stat64
+ #define _DARWIN_NO_64_BIT_INODE
+ #endif
++#endif
+ 
+ #include "communicate.h"
+ #include <dlfcn.h>
+@@ -218,7 +224,7 @@
+ #ifdef STAT64_SUPPORT
+ 
+ void cpyfakemstat64(struct fake_msg *f,
+-                 const struct stat64 *st
++                 const STRUCT_STAT64 *st
+ #ifdef STUPID_ALPHA_HACK
+                  , int ver
+ #endif
+@@ -281,7 +287,7 @@
+   }
+ #endif
+ }
+-void cpystat64fakem(struct stat64 *st,
++void cpystat64fakem(STRUCT_STAT64 *st,
+                  const struct fake_msg *f
+ #ifdef STUPID_ALPHA_HACK
+                  , int ver
+@@ -353,7 +359,7 @@
+ 
+ #ifdef _LARGEFILE_SOURCE
+ 
+-void stat64from32(struct stat64 *s64, const struct stat *s32)
++void stat64from32(STRUCT_STAT64 *s64, const struct stat *s32)
+ {
+   /* I've added st_size and st_blocks here.
+      Don't know why they were missing -- joost*/
+@@ -374,7 +380,7 @@
+ 
+ /* This assumes that the 64 bit structure is actually filled in and does not
+    down case the sizes from the 32 bit one.. */
+-void stat32from64(struct stat *s32, const struct stat64 *s64)
++void stat32from64(struct stat *s32, const STRUCT_STAT64 *s64)
+ {
+    s32->st_dev = s64->st_dev;
+    s32->st_ino = s64->st_ino;
+@@ -711,7 +717,7 @@
+ }
+ 
+ #ifdef STAT64_SUPPORT
+-void send_stat64(const struct stat64 *st,
++void send_stat64(const STRUCT_STAT64 *st,
+                  func_id_t f
+ #ifdef STUPID_ALPHA_HACK
+                  , int ver
+@@ -819,7 +825,7 @@
+ }
+ 
+ #ifdef STAT64_SUPPORT
+-void send_get_stat64(struct stat64 *st
++void send_get_stat64(STRUCT_STAT64 *st
+ #ifdef STUPID_ALPHA_HACK
+                      , int ver
+ #endif
+@@ -847,7 +853,7 @@
+   }
+ }
+ 
+-void send_get_xattr64(struct stat64 *st
++void send_get_xattr64(STRUCT_STAT64 *st
+ 		, xattr_args *xattr
+ #ifdef STUPID_ALPHA_HACK
+ 		, int ver
+diff -ur fakeroot-1.20.2/communicate.h fakeroot-1.20.2+iPhone/communicate.h
+--- fakeroot-1.20.2/communicate.h	2014-10-05 05:16:00.000000000 -1000
++++ fakeroot-1.20.2+iPhone/communicate.h	2019-01-28 21:53:27.000000000 -1000
+@@ -51,15 +51,13 @@
+ 
+ #ifdef __APPLE__
+ # include <AvailabilityMacros.h>
+-# ifndef MAC_OS_X_VERSION_10_5 1050
+-#  define MAC_OS_X_VERSION_10_5 1050
+-# endif
+-# ifndef MAC_OS_X_VERSION_10_6 1060
+-#  define MAC_OS_X_VERSION_10_6 1060
+-# endif
+-# if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
+-#  define HAVE_APPLE_STAT64 1
+-# endif
++# include <sys/cdefs.h>
++#if _DARWIN_FEATURE_ONLY_64_BIT_INODE
++#define STRUCT_STAT64 struct stat
++#else
++#define STRUCT_STAT64 struct stat64
++#endif
++# define HAVE_APPLE_STAT64 1
+ #endif
+ 
+ /* Then decide whether we do or do not use the stat64 support */
+@@ -205,16 +203,16 @@
+ 
+ #ifdef STAT64_SUPPORT
+ #ifndef STUPID_ALPHA_HACK
+-extern void send_stat64(const struct stat64 *st, func_id_t f);
+-extern void send_get_stat64(struct stat64 *buf);
+-extern void send_get_xattr64(struct stat64 *st, xattr_args *xattr);
+-#else
+-extern void send_stat64(const struct stat64 *st, func_id_t f, int ver);
+-extern void send_get_stat64(struct stat64 *buf, int ver);
+-extern void send_get_xattr64(struct stat64 *st, xattr_args *xattr, int ver);
++extern void send_stat64(const STRUCT_STAT64 *st, func_id_t f);
++extern void send_get_stat64(STRUCT_STAT64 *buf);
++extern void send_get_xattr64(STRUCT_STAT64 *st, xattr_args *xattr);
++#else
++extern void send_stat64(const STRUCT_STAT64 *st, func_id_t f, int ver);
++extern void send_get_stat64(STRUCT_STAT64 *buf, int ver);
++extern void send_get_xattr64(STRUCT_STAT64 *st, xattr_args *xattr, int ver);
+ #endif
+-extern void stat64from32(struct stat64 *s64, const struct stat *s32);
+-extern void stat32from64(struct stat *s32, const struct stat64 *s64);
++extern void stat64from32(STRUCT_STAT64 *s64, const struct stat *s32);
++extern void stat32from64(struct stat *s32, const STRUCT_STAT64 *s64);
+ #endif
+ 
+ #ifndef FAKEROOT_FAKENET
+diff -ur fakeroot-1.20.2/faked.c fakeroot-1.20.2+iPhone/faked.c
+--- fakeroot-1.20.2/faked.c	2014-10-05 05:16:00.000000000 -1000
++++ fakeroot-1.20.2+iPhone/faked.c	2019-01-28 21:53:27.000000000 -1000
+@@ -84,7 +84,10 @@
+    In this file, we want 'struct stat' to have a 32-bit 'ino_t'.
+    We use 'struct stat64' when we need a 64-bit 'ino_t'.
+ */
+-#define _DARWIN_NO_64_BIT_INODE
++# include <sys/cdefs.h>
++# if !__DARWIN_ONLY_64_BIT_INO_T
++#  define _DARWIN_NO_64_BIT_INODE
++# endif
+ #endif
+ 
+ #include "config.h"
+diff -ur fakeroot-1.20.2/libfakeroot.c fakeroot-1.20.2+iPhone/libfakeroot.c
+--- fakeroot-1.20.2/libfakeroot.c	2014-10-05 05:16:00.000000000 -1000
++++ fakeroot-1.20.2+iPhone/libfakeroot.c	2019-01-28 21:59:28.000000000 -1000
+@@ -29,6 +29,7 @@
+    fakeroot
+    always bombs. Simple fix:
+ */
++#import <sys/stat.h>
+ #define _GNU_SOURCE
+ 
+ #define FAKEROOT_LIBFAKEROOT
+@@ -38,7 +39,14 @@
+    In this file, we want 'struct stat' to have a 32-bit 'ino_t'.
+    We use 'struct stat64' when we need a 64-bit 'ino_t'.
+ */
++#include <sys/cdefs.h>
++
++#if _DARWIN_FEATURE_ONLY_64_BIT_INODE
++#define STRUCT_STAT64 struct stat
++#else
++#define STRUCT_STAT64 struct stat64
+ #define _DARWIN_NO_64_BIT_INODE
++#endif
+ 
+ /* The helper _unix2003 version of this file calls a few functions in this file
+    that are marked with static_nonapple so that needs to become private instead
+@@ -95,7 +103,7 @@
+    the fakeroot library owns the storage of the stat variable.
+ */
+ #ifdef STAT64_SUPPORT
+-#define INT_STRUCT_STAT struct stat64
++#define INT_STRUCT_STAT STRUCT_STAT64
+ #define INT_NEXT_STAT(a,b) NEXT_STAT64(_STAT_VER,a,b)
+ #define INT_NEXT_LSTAT(a,b) NEXT_LSTAT64(_STAT_VER,a,b)
+ #define INT_NEXT_FSTAT(a,b) NEXT_FSTAT64(_STAT_VER,a,b)
+@@ -686,7 +694,7 @@
+ 
+ int WRAP_LSTAT64 LSTAT64_ARG (int ver,
+ 			   const char *file_name,
+-			   struct stat64 *st){
++			   STRUCT_STAT64 *st){
+ 
+   int r;
+ 
+@@ -707,7 +715,7 @@
+ 
+ int WRAP_STAT64 STAT64_ARG(int ver,
+ 			   const char *file_name,
+-			   struct stat64 *st){
++			   STRUCT_STAT64 *st){
+   int r;
+ 
+ #ifdef LIBFAKEROOT_DEBUGGING
+@@ -725,7 +733,7 @@
+ 
+ int WRAP_FSTAT64 FSTAT64_ARG(int ver,
+ 			     int fd,
+-			     struct stat64 *st){
++			     STRUCT_STAT64 *st){
+   int r;
+ 
+ #ifdef LIBFAKEROOT_DEBUGGING
+@@ -745,7 +753,7 @@
+ int WRAP_FSTATAT64 FSTATAT64_ARG(int ver,
+ 				 int dir_fd,
+ 				 const char *path,
+-				 struct stat64 *st,
++				 STRUCT_STAT64 *st,
+ 				 int flags){
+ 
+ 
+@@ -1894,7 +1902,7 @@
+ }
+ #endif /* HAVE_FREMOVEXATTR */
+ 
+-int setpriority(int which, int who, int prio){
++int setpriority(int which, id_t who, int prio){
+   if (fakeroot_disabled)
+     return next_setpriority(which, who, prio);
+   next_setpriority(which, who, prio);
+Only in fakeroot-1.20.2+iPhone/: libfakeroot.c.orig
+diff -ur fakeroot-1.20.2/libfakeroot_unix2003.c fakeroot-1.20.2+iPhone/libfakeroot_unix2003.c
+--- fakeroot-1.20.2/libfakeroot_unix2003.c	2014-10-05 05:16:00.000000000 -1000
++++ fakeroot-1.20.2+iPhone/libfakeroot_unix2003.c	2019-01-28 21:53:27.000000000 -1000
+@@ -18,7 +18,13 @@
+    In this file, we want 'struct stat' to have a 32-bit 'ino_t'.
+    We use 'struct stat64' when we need a 64-bit 'ino_t'.
+ */
++#include <sys/cdefs.h>
++#if _DARWIN_FEATURE_ONLY_64_BIT_INODE
++#define INT_STRUCT_STAT struct stat
++#else
++#define INT_STRUCT_STAT struct stat64
+ #define _DARWIN_NO_64_BIT_INODE
++#endif
+ 
+ /*
+    This file is for 32-bit symbols which have the "$UNIX2003" version, i.e.
+@@ -48,14 +54,12 @@
+    the fakeroot library owns the storage of the stat variable.
+ */
+ #ifdef STAT64_SUPPORT
+-#define INT_STRUCT_STAT struct stat64
+ #define INT_NEXT_STAT(a,b) NEXT_STAT64(_STAT_VER,a,b)
+ #define INT_NEXT_LSTAT(a,b) NEXT_LSTAT64(_STAT_VER,a,b)
+ #define INT_NEXT_FSTAT(a,b) NEXT_FSTAT64(_STAT_VER,a,b)
+ #define INT_NEXT_FSTATAT(a,b,c,d) NEXT_FSTATAT64(_STAT_VER,a,b,c,d)
+ #define INT_SEND_STAT(a,b) SEND_STAT64(a,b,_STAT_VER)
+ #else
+-#define INT_STRUCT_STAT struct stat
+ #define INT_NEXT_STAT(a,b) NEXT_STAT(_STAT_VER,a,b)
+ #define INT_NEXT_LSTAT(a,b) NEXT_LSTAT(_STAT_VER,a,b)
+ #define INT_NEXT_FSTAT(a,b) NEXT_FSTAT(_STAT_VER,a,b)
+diff -ur fakeroot-1.20.2/wrapfunc.inp fakeroot-1.20.2+iPhone/wrapfunc.inp
+--- fakeroot-1.20.2/wrapfunc.inp	2014-10-05 05:16:00.000000000 -1000
++++ fakeroot-1.20.2+iPhone/wrapfunc.inp	2019-01-28 21:59:28.000000000 -1000
+@@ -16,6 +16,14 @@
+ /* __*xstat are used on glibc systems instead of just *xstat. */
+ /**/
+ 
++#include <sys/cdefs.h>
++
++#if _DARWIN_FEATURE_ONLY_64_BIT_INODE
++#define STRUCT_STAT64 struct stat
++#else
++#define STRUCT_STAT64 struct stat64
++#endif
++
+ WRAP_LSTAT;int;LSTAT_ARG(int ver, const char *file_name, struct stat *buf);LSTAT_ARG(ver, file_name, buf);LSTAT
+ WRAP_STAT;int;STAT_ARG(int ver, const char *file_name, struct stat *buf);STAT_ARG(ver, file_name, buf);STAT
+ WRAP_FSTAT;int;FSTAT_ARG(int ver, int fd, struct stat *buf);FSTAT_ARG(ver, fd, buf);FSTAT
+@@ -24,11 +32,11 @@
+ #endif /* HAVE_FSTATAT */
+ 
+ #ifdef STAT64_SUPPORT
+-WRAP_LSTAT64;int;LSTAT64_ARG(int ver, const char *file_name, struct stat64 *buf);LSTAT64_ARG(ver, file_name, buf);LSTAT64
+-WRAP_STAT64;int;STAT64_ARG(int ver, const char *file_name, struct stat64 *buf);STAT64_ARG(ver, file_name, buf);STAT64
+-WRAP_FSTAT64;int;FSTAT64_ARG(int ver, int fd, struct stat64 *buf);FSTAT64_ARG(ver, fd, buf);FSTAT64
++WRAP_LSTAT64;int;LSTAT64_ARG(int ver, const char *file_name, STRUCT_STAT64 *buf);LSTAT64_ARG(ver, file_name, buf);LSTAT64
++WRAP_STAT64;int;STAT64_ARG(int ver, const char *file_name, STRUCT_STAT64 *buf);STAT64_ARG(ver, file_name, buf);STAT64
++WRAP_FSTAT64;int;FSTAT64_ARG(int ver, int fd, STRUCT_STAT64 *buf);FSTAT64_ARG(ver, fd, buf);FSTAT64
+ #ifdef HAVE_FSTATAT
+-WRAP_FSTATAT64;int;FSTATAT64_ARG(int ver, int dir_fd, const char *path, struct stat64 *buf, int flags);FSTATAT64_ARG(ver, dir_fd, path, buf, flags);FSTATAT64
++WRAP_FSTATAT64;int;FSTATAT64_ARG(int ver, int dir_fd, const char *path, STRUCT_STAT64 *buf, int flags);FSTATAT64_ARG(ver, dir_fd, path, buf, flags);FSTATAT64
+ #endif /* HAVE_FSTATAT */
+ #endif /* STAT64_SUPPORT */
+ 
+@@ -48,9 +56,11 @@
+ #endif
+ #endif
+ #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
++#if !_DARWIN_FEATURE_ONLY_64_BIT_INODE
+ lstat$INODE64;int;(const char *file_name, struct stat *buf);(file_name, buf)
+ stat$INODE64;int;(const char *file_name, struct stat *buf);(file_name, buf)
+ fstat$INODE64;int;(int fd, struct stat *buf);(fd, buf)
++#endif
+ posix_spawn;int;(pid_t * __restrict pid, const char * __restrict path, const posix_spawn_file_actions_t *file_actions, const posix_spawnattr_t * __restrict attrp, char *const argv[ __restrict], char *const envp[ __restrict]);(pid, path, file_actions, attrp, argv, envp)
+ posix_spawnp;int;(pid_t * __restrict pid, const char * __restrict path, const posix_spawn_file_actions_t *file_actions, const posix_spawnattr_t * __restrict attrp, char *const argv[ __restrict], char *const envp[ __restrict]);(pid, path, file_actions, attrp, argv, envp)
+ #endif
+@@ -145,7 +155,7 @@
+ #endif /* HAVE_SETFSGID */
+ initgroups;int;(const char *user, INITGROUPS_SECOND_ARG group);(user, group)
+ setgroups;int;(SETGROUPS_SIZE_TYPE size, const gid_t *list);(size, list)
+-setpriority;int;(int which, int who, int prio);(which, who, prio)
++setpriority;int;(int which, id_t who, int prio);(which, who, prio)
+ #ifdef HAVE_CAPSET
+ capset;int;(cap_user_header_t hdrp, const cap_user_data_t datap);(hdrp, datap)
+ #endif /* HAVE_CAPSET */
+@@ -218,16 +228,20 @@
+ fts_read;FTSENT *;(FTS *ftsp);(ftsp)
+ #ifdef __APPLE__
+ #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
++#if !_DARWIN_FEATURE_ONLY_64_BIT_INODE
+ fts_read$INODE64;FTSENT *;(FTS *ftsp);(ftsp)
+ #endif
++#endif
+ #endif /* ifdef __APPLE__ */
+ #endif /* HAVE_FTS_READ */
+ #ifdef HAVE_FTS_CHILDREN
+ fts_children;FTSENT *;(FTS *ftsp, int options);(ftsp, options)
+ #ifdef __APPLE__
+ #if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_5
++#if !_DARWIN_FEATURE_ONLY_64_BIT_INODE
+ fts_children$INODE64;FTSENT *;(FTS *ftsp, int options);(ftsp, options)
+ #endif
++#endif
+ #endif /* ifdef __APPLE__ */
+ #endif /* HAVE_FTS_CHILDREN */
+ 
+Only in fakeroot-1.20.2+iPhone/: wrapfunc.inp.orig

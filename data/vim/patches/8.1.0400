@@ -1,0 +1,101 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0400
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0400
+Problem:    Using freed memory with :diffget.
+Solution:   Skip ex_diffupdate() while updating diffs. (closes #3442)
+Files:	    src/diff.c
+
+
+*** ../vim-8.1.0399/src/diff.c	2018-09-16 15:47:45.629425398 +0200
+--- src/diff.c	2018-09-16 18:05:01.223981230 +0200
+***************
+*** 21,27 ****
+  
+  #if defined(FEAT_DIFF) || defined(PROTO)
+  
+! static int	diff_busy = FALSE;	/* ex_diffgetput() is busy */
+  
+  /* flags obtained from the 'diffopt' option */
+  #define DIFF_FILLER	0x001	// display filler lines
+--- 21,28 ----
+  
+  #if defined(FEAT_DIFF) || defined(PROTO)
+  
+! static int diff_busy = FALSE;	    // using diff structs, don't change them
+! static int diff_need_update = FALSE; // ex_diffupdate needs to be called
+  
+  /* flags obtained from the 'diffopt' option */
+  #define DIFF_FILLER	0x001	// display filler lines
+***************
+*** 908,913 ****
+--- 909,920 ----
+      int		idx_new;
+      diffio_T	diffio;
+  
++     if (diff_busy)
++     {
++ 	diff_need_update = TRUE;
++ 	return;
++     }
++ 
+      // Delete all diffblocks.
+      diff_clear(curtab);
+      curtab->tp_diff_invalid = FALSE;
+***************
+*** 2660,2666 ****
+  	if (diff_buf_idx(curbuf) != idx_to)
+  	{
+  	    EMSG(_("E787: Buffer changed unexpectedly"));
+! 	    return;
+  	}
+      }
+  
+--- 2667,2673 ----
+  	if (diff_buf_idx(curbuf) != idx_to)
+  	{
+  	    EMSG(_("E787: Buffer changed unexpectedly"));
+! 	    goto theend;
+  	}
+      }
+  
+***************
+*** 2831,2837 ****
+--- 2838,2850 ----
+  	aucmd_restbuf(&aco);
+      }
+  
++ theend:
+      diff_busy = FALSE;
++     if (diff_need_update)
++     {
++ 	diff_need_update = FALSE;
++ 	ex_diffupdate(NULL);
++     }
+  
+      /* Check that the cursor is on a valid character and update it's position.
+       * When there were filler lines the topline has become invalid. */
+*** ../vim-8.1.0399/src/version.c	2018-09-16 17:07:40.125853848 +0200
+--- src/version.c	2018-09-16 18:09:16.718696612 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     400,
+  /**/
+
+-- 
+Q: How many legs does a giraffe have?
+A: Eight: two in front, two behind, two on the left and two on the right
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

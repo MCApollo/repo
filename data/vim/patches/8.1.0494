@@ -1,0 +1,154 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0494
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0494
+Problem:    Functions do not check for a window ID in other tabs.
+Solution:   Also find the window ID in other than the current tab.
+Files:	    src/evalfunc.c
+
+
+*** ../vim-8.1.0493/src/evalfunc.c	2018-10-25 12:30:52.270659874 +0200
+--- src/evalfunc.c	2018-10-25 12:37:49.997123096 +0200
+***************
+*** 5291,5297 ****
+  #ifdef FEAT_QUICKFIX
+      win_T	*wp;
+  
+!     wp = find_win_by_nr(&argvars[0], NULL);
+      get_qf_loc_list(FALSE, wp, &argvars[1], rettv);
+  #endif
+  }
+--- 5291,5297 ----
+  #ifdef FEAT_QUICKFIX
+      win_T	*wp;
+  
+!     wp = find_win_by_nr_or_id(&argvars[0]);
+      get_qf_loc_list(FALSE, wp, &argvars[1], rettv);
+  #endif
+  }
+***************
+*** 5796,5802 ****
+      if (rettv_list_alloc(rettv) == FAIL)
+  	return;
+  
+!     wp = find_win_by_nr(&argvars[0], NULL);
+      list_append_number(rettv->vval.v_list, wp == NULL ? 0 : wp->w_winrow + 1);
+      list_append_number(rettv->vval.v_list, wp == NULL ? 0 : wp->w_wincol + 1);
+  }
+--- 5796,5802 ----
+      if (rettv_list_alloc(rettv) == FAIL)
+  	return;
+  
+!     wp = find_win_by_nr_or_id(&argvars[0]);
+      list_append_number(rettv->vval.v_list, wp == NULL ? 0 : wp->w_winrow + 1);
+      list_append_number(rettv->vval.v_list, wp == NULL ? 0 : wp->w_wincol + 1);
+  }
+***************
+*** 8028,8034 ****
+  
+      if ((di = dict_find(tv->vval.v_dict, (char_u *)"window", -1)) != NULL)
+      {
+! 	*win = find_win_by_nr(&di->di_tv, NULL);
+  	if (*win == NULL)
+  	{
+  	    EMSG(_("E957: Invalid window number"));
+--- 8028,8034 ----
+  
+      if ((di = dict_find(tv->vval.v_dict, (char_u *)"window", -1)) != NULL)
+      {
+! 	*win = find_win_by_nr_or_id(&di->di_tv);
+  	if (*win == NULL)
+  	{
+  	    EMSG(_("E957: Invalid window number"));
+***************
+*** 10785,10791 ****
+  
+      rettv->vval.v_number = -1;
+  
+!     win = find_win_by_nr(&argvars[0], NULL);
+      if (win != NULL)
+  	set_qf_ll_list(win, &argvars[1], &argvars[2], &argvars[3], rettv);
+  }
+--- 10785,10791 ----
+  
+      rettv->vval.v_number = -1;
+  
+!     win = find_win_by_nr_or_id(&argvars[0]);
+      if (win != NULL)
+  	set_qf_ll_list(win, &argvars[1], &argvars[2], &argvars[3], rettv);
+  }
+***************
+*** 13843,13849 ****
+  {
+      win_T	*wp;
+  
+!     wp = find_win_by_nr(&argvars[0], NULL);
+      if (wp == NULL)
+  	rettv->vval.v_number = -1;
+      else
+--- 13843,13849 ----
+  {
+      win_T	*wp;
+  
+!     wp = find_win_by_nr_or_id(&argvars[0]);
+      if (wp == NULL)
+  	rettv->vval.v_number = -1;
+      else
+***************
+*** 13868,13874 ****
+  {
+      win_T	*wp;
+  
+!     wp = find_win_by_nr(&argvars[0], NULL);
+      if (wp == NULL)
+  	rettv->vval.v_number = -1;
+      else
+--- 13868,13874 ----
+  {
+      win_T	*wp;
+  
+!     wp = find_win_by_nr_or_id(&argvars[0]);
+      if (wp == NULL)
+  	rettv->vval.v_number = -1;
+      else
+***************
+*** 14035,14041 ****
+  {
+      win_T	*wp;
+  
+!     wp = find_win_by_nr(&argvars[0], NULL);
+      if (wp == NULL)
+  	rettv->vval.v_number = -1;
+      else
+--- 14035,14041 ----
+  {
+      win_T	*wp;
+  
+!     wp = find_win_by_nr_or_id(&argvars[0]);
+      if (wp == NULL)
+  	rettv->vval.v_number = -1;
+      else
+*** ../vim-8.1.0493/src/version.c	2018-10-25 12:30:52.274659868 +0200
+--- src/version.c	2018-10-25 12:38:27.696929844 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     494,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+10E. You start counting in hex.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

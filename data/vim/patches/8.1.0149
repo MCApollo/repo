@@ -1,0 +1,263 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0149
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0149
+Problem:    The generated sessions file does not restore tabs properly if :lcd
+            was used in one of them.
+Solution:   Create the tab pages before setting the directory. (Yee Cheng
+            Chin, closes #3152)
+Files:	    src/ex_docmd.c, src/testdir/test_mksession.vim
+
+
+*** ../vim-8.1.0148/src/ex_docmd.c	2018-06-21 22:10:04.404854396 +0200
+--- src/ex_docmd.c	2018-07-04 22:21:20.461625002 +0200
+***************
+*** 5491,5497 ****
+  ex_autocmd(exarg_T *eap)
+  {
+      /*
+!      * Disallow auto commands from .exrc and .vimrc in current
+       * directory for security reasons.
+       */
+      if (secure)
+--- 5491,5497 ----
+  ex_autocmd(exarg_T *eap)
+  {
+      /*
+!      * Disallow autocommands from .exrc and .vimrc in current
+       * directory for security reasons.
+       */
+      if (secure)
+***************
+*** 11080,11089 ****
+  #endif
+  
+      /*
+!      * Close all windows but one.
+       */
+      if (put_line(fd, "silent only") == FAIL)
+  	return FAIL;
+  
+      /*
+       * Now a :cd command to the session directory or the current directory
+--- 11080,11092 ----
+  #endif
+  
+      /*
+!      * Close all windows and tabs but one.
+       */
+      if (put_line(fd, "silent only") == FAIL)
+  	return FAIL;
++     if ((ssop_flags & SSOP_TABPAGES)
++ 	    && put_line(fd, "silent tabonly") == FAIL)
++ 	return FAIL;
+  
+      /*
+       * Now a :cd command to the session directory or the current directory
+***************
+*** 11193,11201 ****
+       */
+      tab_firstwin = firstwin;	/* first window in tab page "tabnr" */
+      tab_topframe = topframe;
+      for (tabnr = 1; ; ++tabnr)
+      {
+! 	int	need_tabnew = FALSE;
+  	int	cnr = 1;
+  
+  	if ((ssop_flags & SSOP_TABPAGES))
+--- 11196,11228 ----
+       */
+      tab_firstwin = firstwin;	/* first window in tab page "tabnr" */
+      tab_topframe = topframe;
++     if ((ssop_flags & SSOP_TABPAGES))
++     {
++ 	int	num_tabs;
++ 
++ 	/*
++ 	 * Similar to ses_win_rec() below, populate the tab pages first so
++ 	 * later local options won't be copied to the new tabs.
++ 	 */
++ 	for (tabnr = 1; ; ++tabnr)
++ 	{
++ 	    tabpage_T *tp = find_tabpage(tabnr);
++ 
++ 	    if (tp == NULL)	/* done all tab pages */
++ 		break;
++ 
++ 	    if (tabnr > 1 && put_line(fd, "tabnew") == FAIL)
++ 		return FAIL;
++ 	}
++ 
++ 	num_tabs = tabnr - 1;
++ 	if (num_tabs > 1 && (fprintf(fd, "tabnext -%d", num_tabs - 1) < 0
++ 						       || put_eol(fd) == FAIL))
++ 	    return FAIL;
++     }
+      for (tabnr = 1; ; ++tabnr)
+      {
+! 	int	need_tabnext = FALSE;
+  	int	cnr = 1;
+  
+  	if ((ssop_flags & SSOP_TABPAGES))
+***************
+*** 11215,11221 ****
+  		tab_topframe = tp->tp_topframe;
+  	    }
+  	    if (tabnr > 1)
+! 		need_tabnew = TRUE;
+  	}
+  
+  	/*
+--- 11242,11248 ----
+  		tab_topframe = tp->tp_topframe;
+  	    }
+  	    if (tabnr > 1)
+! 		need_tabnext = TRUE;
+  	}
+  
+  	/*
+***************
+*** 11233,11243 ****
+  #endif
+  		    )
+  	    {
+! 		if (fputs(need_tabnew ? "tabedit " : "edit ", fd) < 0
+  			      || ses_fname(fd, wp->w_buffer, &ssop_flags, TRUE)
+  								       == FAIL)
+  		    return FAIL;
+- 		need_tabnew = FALSE;
+  		if (!wp->w_arg_idx_invalid)
+  		    edited_win = wp;
+  		break;
+--- 11260,11273 ----
+  #endif
+  		    )
+  	    {
+! 		if (need_tabnext && put_line(fd, "tabnext") == FAIL)
+! 		    return FAIL;
+! 		need_tabnext = FALSE;
+! 
+! 		if (fputs("edit ", fd) < 0
+  			      || ses_fname(fd, wp->w_buffer, &ssop_flags, TRUE)
+  								       == FAIL)
+  		    return FAIL;
+  		if (!wp->w_arg_idx_invalid)
+  		    edited_win = wp;
+  		break;
+***************
+*** 11245,11251 ****
+  	}
+  
+  	/* If no file got edited create an empty tab page. */
+! 	if (need_tabnew && put_line(fd, "tabnew") == FAIL)
+  	    return FAIL;
+  
+  	/*
+--- 11275,11281 ----
+  	}
+  
+  	/* If no file got edited create an empty tab page. */
+! 	if (need_tabnext && put_line(fd, "tabnext") == FAIL)
+  	    return FAIL;
+  
+  	/*
+***************
+*** 11348,11354 ****
+      /*
+       * Wipe out an empty unnamed buffer we started in.
+       */
+!     if (put_line(fd, "if exists('s:wipebuf') && s:wipebuf != bufnr('%')")
+  								       == FAIL)
+  	return FAIL;
+      if (put_line(fd, "  silent exe 'bwipe ' . s:wipebuf") == FAIL)
+--- 11378,11384 ----
+      /*
+       * Wipe out an empty unnamed buffer we started in.
+       */
+!     if (put_line(fd, "if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0")
+  								       == FAIL)
+  	return FAIL;
+      if (put_line(fd, "  silent exe 'bwipe ' . s:wipebuf") == FAIL)
+*** ../vim-8.1.0148/src/testdir/test_mksession.vim	2018-06-12 16:49:26.366028607 +0200
+--- src/testdir/test_mksession.vim	2018-07-04 22:15:48.099410298 +0200
+***************
+*** 162,167 ****
+--- 162,214 ----
+    call delete('Xtest_mks.out')
+  endfunc
+  
++ func Test_mksession_lcd_multiple_tabs()
++   tabnew
++   tabnew
++   lcd
++   tabfirst
++   lcd
++   mksession! Xtest_mks.out
++   tabonly
++   source Xtest_mks.out
++   call assert_true(haslocaldir(), 'Tab 1 localdir')
++   tabnext 2
++   call assert_true(!haslocaldir(), 'Tab 2 localdir')
++   tabnext 3
++   call assert_true(haslocaldir(), 'Tab 3 localdir')
++   call delete('Xtest_mks.out')
++ endfunc
++ 
++ func Test_mksession_blank_tabs()
++   tabnew
++   tabnew
++   tabnew
++   tabnext 3
++   mksession! Xtest_mks.out
++   tabnew
++   tabnew
++   tabnext 2
++   source Xtest_mks.out
++   call assert_equal(4, tabpagenr('$'), 'session restore should restore number of tabs')
++   call assert_equal(3, tabpagenr(), 'session restore should restore the active tab')
++   call delete('Xtest_mks.out')
++ endfunc
++ 
++ func Test_mksession_blank_windows()
++   split
++   split
++   split
++   3 wincmd w
++   mksession! Xtest_mks.out
++   split
++   split
++   2 wincmd w
++   source Xtest_mks.out
++   call assert_equal(4, winnr('$'), 'session restore should restore number of windows')
++   call assert_equal(3, winnr(), 'session restore should restore the active window')
++   call delete('Xtest_mks.out')
++ endfunc
++ 
+  if has('terminal')
+  
+  func Test_mksession_terminal_shell()
+*** ../vim-8.1.0148/src/version.c	2018-07-04 22:12:19.880483379 +0200
+--- src/version.c	2018-07-04 22:18:05.734679485 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     149,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+179. You wonder why your household garbage can doesn't have an
+     "empty recycle bin" button.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

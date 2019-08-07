@@ -1,0 +1,56 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0088
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0088
+Problem:    Terminal test for stdout and stderr is a bit flaky.
+Solution:   Wait for both stdout and stderr to have been processed. (Ozaki
+            Kiichi, closes #2991)
+Files:	    src/testdir/test_terminal.vim
+
+
+*** ../vim-8.1.0087/src/testdir/test_terminal.vim	2018-06-19 19:59:15.248704265 +0200
+--- src/testdir/test_terminal.vim	2018-06-19 20:04:17.711202392 +0200
+***************
+*** 1487,1494 ****
+  
+    let outfile = 'Xtermstdout'
+    let buf = term_start(['./Xechoerrout.sh'], {'out_io': 'file', 'out_name': outfile})
+!   call WaitForAssert({-> assert_inrange(1, 2, len(readfile(outfile)))})
+!   call assert_equal("this is standard out", readfile(outfile)[0])
+    call assert_equal('this is standard error', term_getline(buf, 1))
+  
+    call WaitForAssert({-> assert_equal('dead', job_status(term_getjob(buf)))})
+--- 1487,1495 ----
+  
+    let outfile = 'Xtermstdout'
+    let buf = term_start(['./Xechoerrout.sh'], {'out_io': 'file', 'out_name': outfile})
+! 
+!   call WaitFor({-> !empty(readfile(outfile)) && !empty(term_getline(buf, 1))})
+!   call assert_equal(['this is standard out'], readfile(outfile))
+    call assert_equal('this is standard error', term_getline(buf, 1))
+  
+    call WaitForAssert({-> assert_equal('dead', job_status(term_getjob(buf)))})
+*** ../vim-8.1.0087/src/version.c	2018-06-19 19:59:15.248704265 +0200
+--- src/version.c	2018-06-19 20:05:36.722799665 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     88,
+  /**/
+
+-- 
+From "know your smileys":
+ :~)	A man with a tape recorder up his nose
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

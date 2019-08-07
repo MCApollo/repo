@@ -1,0 +1,280 @@
+diff -ru apt-0.7.20.2/apt-pkg/cacheiterators.h apt-0.7.20.2+iPhone/apt-pkg/cacheiterators.h
+--- apt-0.7.20.2/apt-pkg/cacheiterators.h	2009-04-20 16:50:43.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/cacheiterators.h	2009-04-20 18:27:20.000000000 +0000
+@@ -79,6 +79,7 @@
+    inline VerIterator CurrentVer() const;
+    inline DepIterator RevDependsList() const;
+    inline PrvIterator ProvidesList() const;
++   inline TagIterator TagList() const;
+    inline unsigned long Index() const {return Pkg - Owner->PkgP;};
+    OkState State() const;
+    
+@@ -148,6 +150,48 @@
+    };
+ };
+ 									/*}}}*/
++// Tag Iterator								/*{{{*/
++class pkgCache::TagIterator
++{
++   Tag *Tg;
++   pkgCache *Owner;
++   
++   void _dummy();
++   
++   public:
++
++   // Iteration
++   void operator ++(int) {if (Tg != Owner->TagP) Tg = Owner->TagP + Tg->NextTag;};
++   inline void operator ++() {operator ++(0);};
++   inline bool end() const {return Tg == Owner->TagP?true:false;};
++   inline void operator =(const TagIterator &B) {Tg = B.Tg; Owner = B.Owner;};
++   
++   // Comparison
++   inline bool operator ==(const TagIterator &B) const {return Tg == B.Tg;};
++   inline bool operator !=(const TagIterator &B) const {return Tg != B.Tg;};
++   int CompareTag(const TagIterator &B) const;
++   
++   // Accessors
++   inline Tag *operator ->() {return Tg;};
++   inline Tag const *operator ->() const {return Tg;};
++   inline Tag &operator *() {return *Tg;};
++   inline Tag const &operator *() const {return *Tg;};
++   inline operator Tag *() {return Tg == Owner->TagP?0:Tg;};
++   inline operator Tag const *() const {return Tg == Owner->TagP?0:Tg;};
++   inline pkgCache *Cache() {return Owner;};
++      
++   inline const char *Name() const {return Owner->StrP + Tg->Name;};
++   inline unsigned long Index() const {return Tg - Owner->TagP;};
++
++   inline TagIterator() : Tg(0), Owner(0) {};   
++   inline TagIterator(pkgCache &Owner,Tag *Trg = 0) : Tg(Trg), 
++              Owner(&Owner) 
++   { 
++      if (Tg == 0)
++	 Tg = Owner.TagP;
++   };
++};
++									/*}}}*/
+ // Description Iterator							/*{{{*/
+ class pkgCache::DescIterator
+ {
+@@ -423,6 +467,8 @@
+        {return DepIterator(*Owner,Owner->DepP + Pkg->RevDepends,Pkg);};
+ inline pkgCache::PrvIterator pkgCache::PkgIterator::ProvidesList() const
+        {return PrvIterator(*Owner,Owner->ProvideP + Pkg->ProvidesList,Pkg);};
++inline pkgCache::TagIterator pkgCache::PkgIterator::TagList() const
++       {return TagIterator(*Owner,Owner->TagP + Pkg->TagList);};
+ inline pkgCache::DescIterator pkgCache::VerIterator::DescriptionList() const
+        {return DescIterator(*Owner,Owner->DescP + Ver->DescriptionList);};
+ inline pkgCache::PrvIterator pkgCache::VerIterator::ProvidesList() const
+diff -ru apt-0.7.20.2/apt-pkg/deb/deblistparser.cc apt-0.7.20.2+iPhone/apt-pkg/deb/deblistparser.cc
+--- apt-0.7.20.2/apt-pkg/deb/deblistparser.cc	2009-04-20 17:02:43.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/deb/deblistparser.cc	2009-04-20 19:27:47.000000000 +0000
+@@ -185,6 +189,11 @@
+    
+    if (ParseStatus(Pkg,Ver) == false)
+       return false;
++
++   if (Pkg->TagList == 0)
++      if (ParseTag(Pkg) == false)
++         return false;
++
+    return true;
+ }
+ 									/*}}}*/
+@@ -570,6 +579,46 @@
+    return true;
+ }
+ 									/*}}}*/
++// ListParser::ParseTag - Parse the tag list				/*{{{*/
++// ---------------------------------------------------------------------
++/* */
++bool debListParser::ParseTag(pkgCache::PkgIterator Pkg)
++{
++   const char *Start;
++   const char *Stop;
++   if (Section.Find("Tag",Start,Stop) == false)
++      return true;
++   
++   while (1) {
++      while (1) {
++         if (Start == Stop)
++            return true;
++         if (Stop[-1] != ' ' && Stop[-1] != '\t')
++            break;
++         --Stop;
++      }
++
++      const char *Begin = Stop - 1;
++      while (Begin != Start && Begin[-1] != ' ' && Begin[-1] != ',')
++         --Begin;
++
++      if (NewTag(Pkg, Begin, Stop - Begin) == false)
++         return false;
++
++      while (1) {
++         if (Begin == Start)
++            return true;
++         if (Begin[-1] == ',')
++            break;
++         --Begin;
++      }
++
++      Stop = Begin - 1;
++   }
++
++   return true;
++}
++									/*}}}*/
+ // ListParser::GrabWord - Matches a word and returns			/*{{{*/
+ // ---------------------------------------------------------------------
+ /* Looks for a word in a list of words - for ParseStatus */
+diff -ru apt-0.7.20.2/apt-pkg/deb/deblistparser.h apt-0.7.20.2+iPhone/apt-pkg/deb/deblistparser.h
+--- apt-0.7.20.2/apt-pkg/deb/deblistparser.h	2009-02-07 15:09:35.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/deb/deblistparser.h	2009-04-20 18:29:09.000000000 +0000
+@@ -38,6 +38,7 @@
+    bool ParseDepends(pkgCache::VerIterator Ver,const char *Tag,
+ 		     unsigned int Type);
+    bool ParseProvides(pkgCache::VerIterator Ver);
++   bool ParseTag(pkgCache::PkgIterator Pkg);
+    static bool GrabWord(string Word,WordList *List,unsigned char &Out);
+    
+    public:
+diff -ru apt-0.7.20.2/apt-pkg/pkgcache.cc apt-0.7.20.2+iPhone/apt-pkg/pkgcache.cc
+--- apt-0.7.20.2/apt-pkg/pkgcache.cc	2009-02-07 15:09:35.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/pkgcache.cc	2009-04-20 19:10:52.000000000 +0000
+@@ -124,6 +124,7 @@
+    VerP = (Version *)Map.Data();
+    DescP = (Description *)Map.Data();
+    ProvideP = (Provides *)Map.Data();
++   TagP = (Tag *)Map.Data();
+    DepP = (Dependency *)Map.Data();
+    StringItemP = (StringItem *)Map.Data();
+    StrP = (char *)Map.Data();
+diff -ru apt-0.7.20.2/apt-pkg/pkgcachegen.cc apt-0.7.20.2+iPhone/apt-pkg/pkgcachegen.cc
+--- apt-0.7.20.2/apt-pkg/pkgcachegen.cc	2009-02-07 15:09:35.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/pkgcachegen.cc	2009-04-20 19:28:52.000000000 +0000
+@@ -570,6 +570,32 @@
+    return true;
+ }
+ 									/*}}}*/
++// ListParser::NewTag - Create a Tag element				/*{{{*/
++// ---------------------------------------------------------------------
++/* */
++bool pkgCacheGenerator::ListParser::NewTag(pkgCache::PkgIterator Pkg,
++					   const char *NameStart,
++					   unsigned int NameSize)
++{
++   pkgCache &Cache = Owner->Cache;
++
++   // Get a structure
++   unsigned long Tagg = Owner->Map.Allocate(sizeof(pkgCache::Tag));
++   if (Tagg == 0)
++      return false;
++   Cache.HeaderP->TagCount++;
++   
++   // Fill it in
++   pkgCache::TagIterator Tg(Cache,Cache.TagP + Tagg);
++   Tg->Name = WriteString(NameStart,NameSize);
++   if (Tg->Name == 0)
++      return false;
++   Tg->NextTag = Pkg->TagList;
++   Pkg->TagList = Tg.Index();
++   
++   return true;
++}
++									/*}}}*/
+ // CacheGenerator::SelectFile - Select the current file being parsed	/*{{{*/
+ // ---------------------------------------------------------------------
+ /* This is used to select which file is to be associated with all newly
+diff -ru apt-0.7.20.2/apt-pkg/pkgcachegen.h apt-0.7.20.2+iPhone/apt-pkg/pkgcachegen.h
+--- apt-0.7.20.2/apt-pkg/pkgcachegen.h	2009-02-07 15:09:35.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/pkgcachegen.h	2009-04-20 18:47:57.000000000 +0000
+@@ -101,6 +101,7 @@
+ 		   unsigned int Type);
+    bool NewProvides(pkgCache::VerIterator Ver,const string &Package,
+ 		    const string &Version);
++   bool NewTag(pkgCache::PkgIterator Pkg,const char *NameStart,unsigned int NameSize);
+    
+    public:
+    
+diff -ru apt-0.7.20.2/apt-pkg/pkgcache.h apt-0.7.20.2+iPhone/apt-pkg/pkgcache.h
+--- apt-0.7.20.2/apt-pkg/pkgcache.h	2009-04-20 16:49:55.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/pkgcache.h	2009-04-20 18:26:48.000000000 +0000
+@@ -41,6 +41,7 @@
+    struct StringItem;
+    struct VerFile;
+    struct DescFile;
++   struct Tag;
+    
+    // Iterators
+    class PkgIterator;
+@@ -51,6 +52,7 @@
+    class PkgFileIterator;
+    class VerFileIterator;
+    class DescFileIterator;
++   class TagIterator;
+    friend class PkgIterator;
+    friend class VerIterator;
+    friend class DescInterator;
+@@ -59,6 +61,7 @@
+    friend class PkgFileIterator;
+    friend class VerFileIterator;
+    friend class DescFileIterator;
++   friend class TagIterator;
+    
+    class Namespace;
+    
+@@ -109,6 +112,7 @@
+    DescFile *DescFileP;
+    PackageFile *PkgFileP;
+    Version *VerP;
++   Tag *TagP;
+    Description *DescP;
+    Provides *ProvideP;
+    Dependency *DepP;
+@@ -161,6 +165,7 @@
+    unsigned short PackageSz;
+    unsigned short PackageFileSz;
+    unsigned short VersionSz;
++   unsigned short TagSz;
+    unsigned short DescriptionSz;
+    unsigned short DependencySz;
+    unsigned short ProvidesSz;
+@@ -170,6 +175,7 @@
+    // Structure counts
+    unsigned long PackageCount;
+    unsigned long VersionCount;
++   unsigned long TagCount;
+    unsigned long DescriptionCount;
+    unsigned long DependsCount;
+    unsigned long PackageFileCount;
+@@ -209,6 +215,7 @@
+    map_ptrloc NextPackage;       // Package
+    map_ptrloc RevDepends;        // Dependency
+    map_ptrloc ProvidesList;      // Provides
++   map_ptrloc TagList;           // Tag
+ 
+    // Install/Remove/Purge etc
+    unsigned char SelectedState;     // What
+@@ -248,6 +255,12 @@
+    unsigned short Size;
+ };
+ 									/*}}}*/
++struct pkgCache::Tag						/*{{{*/
++{
++   map_ptrloc Name;           // Stringtable
++   map_ptrloc NextTag;        // Tag
++};
++									/*}}}*/
+ struct pkgCache::DescFile						/*{{{*/
+ {
+    map_ptrloc File;           // PackageFile
+@@ -340,6 +354,7 @@
+ 
+    typedef pkgCache::PkgIterator PkgIterator;
+    typedef pkgCache::VerIterator VerIterator;
++   typedef pkgCache::TagIterator TagIterator;
+    typedef pkgCache::DescIterator DescIterator;
+    typedef pkgCache::DepIterator DepIterator;
+    typedef pkgCache::PrvIterator PrvIterator;

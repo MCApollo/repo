@@ -1,0 +1,108 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0140
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0140
+Problem:    Recording into a register has focus events. (Michael Naumann)
+Solution:   Don't record K_FOCUSGAINED and K_FOCUSLOST. (closes #3143)
+Files:	    src/getchar.c
+
+
+*** ../vim-8.1.0139/src/getchar.c	2018-06-12 21:35:37.518665900 +0200
+--- src/getchar.c	2018-07-03 14:44:36.364310432 +0200
+***************
+*** 1246,1272 ****
+      static void
+  gotchars(char_u *chars, int len)
+  {
+!     char_u	*s = chars;
+!     int		c;
+!     char_u	buf[2];
+!     int		todo = len;
+  
+-     /* remember how many chars were last recorded */
+-     if (reg_recording != 0)
+- 	last_recorded_len += len;
+- 
+-     buf[1] = NUL;
+      while (todo--)
+      {
+  	/* Handle one byte at a time; no translation to be done. */
+! 	c = *s++;
+! 	updatescript(c);
+  
+  	if (reg_recording != 0)
+  	{
+! 	    buf[0] = c;
+! 	    add_buff(&recordbuff, buf, 1L);
+  	}
+      }
+      may_sync_undo();
+  
+--- 1246,1288 ----
+      static void
+  gotchars(char_u *chars, int len)
+  {
+!     char_u		*s = chars;
+!     int			i;
+!     static char_u	buf[4];
+!     static int		buflen = 0;
+!     int			todo = len;
+  
+      while (todo--)
+      {
++ 	buf[buflen++] = *s++;
++ 
++ 	// When receiving a special key sequence, store it until we have all
++ 	// the bytes and we can decide what to do with it.
++ 	if (buflen == 1 && buf[0] == K_SPECIAL)
++ 	    continue;
++ 	if (buflen == 2)
++ 	    continue;
++ 	if (buflen == 3 && buf[1] == KS_EXTRA
++ 		       && (buf[2] == KE_FOCUSGAINED || buf[2] == KE_FOCUSLOST))
++ 	{
++ 	    // Drop K_FOCUSGAINED and K_FOCUSLOST, they are not useful in a
++ 	    // recording.
++ 	    buflen = 0;
++ 	    continue;
++ 	}
++ 
+  	/* Handle one byte at a time; no translation to be done. */
+! 	for (i = 0; i < buflen; ++i)
+! 	    updatescript(buf[i]);
+  
+  	if (reg_recording != 0)
+  	{
+! 	    buf[buflen] = NUL;
+! 	    add_buff(&recordbuff, buf, (long)buflen);
+! 	    /* remember how many chars were last recorded */
+! 	    last_recorded_len += buflen;
+  	}
++ 	buflen = 0;
+      }
+      may_sync_undo();
+  
+*** ../vim-8.1.0139/src/version.c	2018-07-02 22:54:32.488278811 +0200
+--- src/version.c	2018-07-03 14:40:15.567864170 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     140,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+171. You invent another person and chat with yourself in empty chat rooms.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

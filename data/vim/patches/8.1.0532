@@ -1,0 +1,381 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0532
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0532
+Problem:    Cannot distinguish between quickfix and location list.
+Solution:   Add an explicit type variable. (Yegappan Lakshmanan)
+Files:	    src/quickfix.c
+
+
+*** ../vim-8.1.0531/src/quickfix.c	2018-11-11 22:50:20.810297803 +0100
+--- src/quickfix.c	2018-11-16 18:44:56.584395369 +0100
+***************
+*** 50,55 ****
+--- 50,65 ----
+  #define INVALID_QFIDX (-1)
+  
+  /*
++  * Quickfix list type.
++  */
++ typedef enum
++ {
++     QFLT_QUICKFIX, // Quickfix list - global list
++     QFLT_LOCATION, // Location list - per window list
++     QFLT_INTERNAL  // Internal - Temporary list used by getqflist()/getloclist()
++ } qfltype_T;
++ 
++ /*
+   * Quickfix/Location list definition
+   * Contains a list of entries (qfline_T). qf_start points to the first entry
+   * and qf_last points to the last entry. qf_count contains the list size.
+***************
+*** 61,66 ****
+--- 71,77 ----
+  typedef struct qf_list_S
+  {
+      int_u	qf_id;		// Unique identifier for this list
++     qfltype_T	qfl_type;
+      qfline_T	*qf_start;	// pointer to the first error
+      qfline_T	*qf_last;	// pointer to the last error
+      qfline_T	*qf_ptr;	// pointer to the current error
+***************
+*** 95,100 ****
+--- 106,112 ----
+      int		qf_listcount;	    // current number of lists
+      int		qf_curlist;	    // current error list
+      qf_list_T	qf_lists[LISTCOUNT];
++     qfltype_T	qfl_type;	    // type of list
+  };
+  
+  static qf_info_T ql_info;	// global quickfix list
+***************
+*** 170,177 ****
+  #define IS_LL_WINDOW(wp) (bt_quickfix(wp->w_buffer) && wp->w_llist_ref != NULL)
+  
+  // Quickfix and location list stack check helper macros
+! #define IS_QF_STACK(qi)		(qi == &ql_info)
+! #define IS_LL_STACK(qi)		(qi != &ql_info)
+  
+  /*
+   * Return location list for window 'wp'
+--- 182,191 ----
+  #define IS_LL_WINDOW(wp) (bt_quickfix(wp->w_buffer) && wp->w_llist_ref != NULL)
+  
+  // Quickfix and location list stack check helper macros
+! #define IS_QF_STACK(qi)		(qi->qfl_type == QFLT_QUICKFIX)
+! #define IS_LL_STACK(qi)		(qi->qfl_type == QFLT_LOCATION)
+! #define IS_QF_LIST(qfl)		(qfl->qfl_type == QFLT_QUICKFIX)
+! #define IS_LL_LIST(qfl)		(qfl->qfl_type == QFLT_LOCATION)
+  
+  /*
+   * Return location list for window 'wp'
+***************
+*** 1847,1852 ****
+--- 1861,1867 ----
+      qfl = &qi->qf_lists[qi->qf_curlist];
+      vim_memset(qfl, 0, (size_t)(sizeof(qf_list_T)));
+      qf_store_title(qfl, qf_title);
++     qfl->qfl_type = qi->qfl_type;
+      qfl->qf_id = ++last_qf_id;
+  }
+  
+***************
+*** 2007,2013 ****
+  	qfp->qf_fnum = bufnum;
+  	if (buf != NULL)
+  	    buf->b_has_qf_entry |=
+! 		IS_QF_STACK(qi) ? BUF_HAS_QF_ENTRY : BUF_HAS_LL_ENTRY;
+      }
+      else
+  	qfp->qf_fnum = qf_get_fnum(qi, qf_idx, dir, fname);
+--- 2022,2028 ----
+  	qfp->qf_fnum = bufnum;
+  	if (buf != NULL)
+  	    buf->b_has_qf_entry |=
+! 		IS_QF_LIST(qfl) ? BUF_HAS_QF_ENTRY : BUF_HAS_LL_ENTRY;
+      }
+      else
+  	qfp->qf_fnum = qf_get_fnum(qi, qf_idx, dir, fname);
+***************
+*** 2069,2084 ****
+  }
+  
+  /*
+!  * Allocate a new location list stack
+   */
+      static qf_info_T *
+! ll_new_list(void)
+  {
+      qf_info_T *qi;
+  
+      qi = (qf_info_T *)alloc_clear((unsigned)sizeof(qf_info_T));
+      if (qi != NULL)
+  	qi->qf_refcount++;
+      return qi;
+  }
+  
+--- 2084,2102 ----
+  }
+  
+  /*
+!  * Allocate a new quickfix/location list stack
+   */
+      static qf_info_T *
+! qf_alloc_stack(qfltype_T qfltype)
+  {
+      qf_info_T *qi;
+  
+      qi = (qf_info_T *)alloc_clear((unsigned)sizeof(qf_info_T));
+      if (qi != NULL)
++     {
+  	qi->qf_refcount++;
++ 	qi->qfl_type = qfltype;
++     }
+      return qi;
+  }
+  
+***************
+*** 2098,2104 ****
+      ll_free_all(&wp->w_llist_ref);
+  
+      if (wp->w_llist == NULL)
+! 	wp->w_llist = ll_new_list();	    // new location list
+      return wp->w_llist;
+  }
+  
+--- 2116,2122 ----
+      ll_free_all(&wp->w_llist_ref);
+  
+      if (wp->w_llist == NULL)
+! 	wp->w_llist = qf_alloc_stack(QFLT_LOCATION);	// new location list
+      return wp->w_llist;
+  }
+  
+***************
+*** 2153,2158 ****
+--- 2171,2177 ----
+  copy_loclist(qf_list_T *from_qfl, qf_list_T *to_qfl, qf_info_T *to_qi)
+  {
+      // Some of the fields are populated by qf_add_entry()
++     to_qfl->qfl_type = from_qfl->qfl_type;
+      to_qfl->qf_nonevalid = from_qfl->qf_nonevalid;
+      to_qfl->qf_count = 0;
+      to_qfl->qf_index = 0;
+***************
+*** 2214,2220 ****
+  	return;
+  
+      // allocate a new location list
+!     if ((to->w_llist = ll_new_list()) == NULL)
+  	return;
+  
+      to->w_llist->qf_listcount = qi->qf_listcount;
+--- 2233,2239 ----
+  	return;
+  
+      // allocate a new location list
+!     if ((to->w_llist = qf_alloc_stack(QFLT_LOCATION)) == NULL)
+  	return;
+  
+      to->w_llist->qf_listcount = qi->qf_listcount;
+***************
+*** 2300,2306 ****
+  	return 0;
+  
+      buf->b_has_qf_entry =
+! 			IS_QF_STACK(qi) ? BUF_HAS_QF_ENTRY : BUF_HAS_LL_ENTRY;
+      return buf->b_fnum;
+  }
+  
+--- 2319,2325 ----
+  	return 0;
+  
+      buf->b_has_qf_entry =
+! 			IS_QF_LIST(qfl) ? BUF_HAS_QF_ENTRY : BUF_HAS_LL_ENTRY;
+      return buf->b_fnum;
+  }
+  
+***************
+*** 2995,3000 ****
+--- 3014,3020 ----
+  	int		*opened_window)
+  {
+      qf_list_T	*qfl = &qi->qf_lists[qi->qf_curlist];
++     qfltype_T	qfl_type = qfl->qfl_type;
+      int		retval = OK;
+      int		old_qf_curlist = qi->qf_curlist;
+      int		save_qfid = qfl->qf_id;
+***************
+*** 3019,3032 ****
+  
+      // If a location list, check whether the associated window is still
+      // present.
+!     if (IS_LL_STACK(qi) && !win_valid_any_tab(oldwin))
+      {
+  	EMSG(_("E924: Current window was closed"));
+  	*opened_window = FALSE;
+  	return NOTDONE;
+      }
+  
+!     if (IS_QF_STACK(qi) && !qflist_valid(NULL, save_qfid))
+      {
+  	EMSG(_("E925: Current quickfix was changed"));
+  	return NOTDONE;
+--- 3039,3052 ----
+  
+      // If a location list, check whether the associated window is still
+      // present.
+!     if (qfl_type == QFLT_LOCATION && !win_valid_any_tab(oldwin))
+      {
+  	EMSG(_("E924: Current window was closed"));
+  	*opened_window = FALSE;
+  	return NOTDONE;
+      }
+  
+!     if (qfl_type == QFLT_QUICKFIX && !qflist_valid(NULL, save_qfid))
+      {
+  	EMSG(_("E925: Current quickfix was changed"));
+  	return NOTDONE;
+***************
+*** 3035,3041 ****
+      if (old_qf_curlist != qi->qf_curlist
+  	    || !is_qf_entry_present(qfl, qf_ptr))
+      {
+! 	if (IS_QF_STACK(qi))
+  	    EMSG(_("E925: Current quickfix was changed"));
+  	else
+  	    EMSG(_(e_loc_list_changed));
+--- 3055,3061 ----
+      if (old_qf_curlist != qi->qf_curlist
+  	    || !is_qf_entry_present(qfl, qf_ptr))
+      {
+! 	if (qfl_type == QFLT_QUICKFIX)
+  	    EMSG(_("E925: Current quickfix was changed"));
+  	else
+  	    EMSG(_(e_loc_list_changed));
+***************
+*** 5896,5902 ****
+  	if (l == NULL)
+  	    return FAIL;
+  
+! 	qi = ll_new_list();
+  	if (qi != NULL)
+  	{
+  	    if (qf_init_ext(qi, 0, NULL, NULL, &di->di_tv, errorformat,
+--- 5916,5922 ----
+  	if (l == NULL)
+  	    return FAIL;
+  
+! 	qi = qf_alloc_stack(QFLT_INTERNAL);
+  	if (qi != NULL)
+  	{
+  	    if (qf_init_ext(qi, 0, NULL, NULL, &di->di_tv, errorformat,
+***************
+*** 6040,6046 ****
+   * Return default values for quickfix list properties in retdict.
+   */
+      static int
+! qf_getprop_defaults(qf_info_T *qi, int flags, dict_T *retdict)
+  {
+      int		status = OK;
+  
+--- 6060,6066 ----
+   * Return default values for quickfix list properties in retdict.
+   */
+      static int
+! qf_getprop_defaults(qf_info_T *qi, int flags, int locstack, dict_T *retdict)
+  {
+      int		status = OK;
+  
+***************
+*** 6068,6074 ****
+  	status = dict_add_number(retdict, "size", 0);
+      if ((status == OK) && (flags & QF_GETLIST_TICK))
+  	status = dict_add_number(retdict, "changedtick", 0);
+!     if ((status == OK) && IS_LL_STACK(qi) && (flags & QF_GETLIST_FILEWINID))
+  	status = dict_add_number(retdict, "filewinid", 0);
+  
+      return status;
+--- 6088,6094 ----
+  	status = dict_add_number(retdict, "size", 0);
+      if ((status == OK) && (flags & QF_GETLIST_TICK))
+  	status = dict_add_number(retdict, "changedtick", 0);
+!     if ((status == OK) && locstack && (flags & QF_GETLIST_FILEWINID))
+  	status = dict_add_number(retdict, "filewinid", 0);
+  
+      return status;
+***************
+*** 6191,6197 ****
+  
+      // List is not present or is empty
+      if (qf_stack_empty(qi) || qf_idx == INVALID_QFIDX)
+! 	return qf_getprop_defaults(qi, flags, retdict);
+  
+      qfl = &qi->qf_lists[qf_idx];
+  
+--- 6211,6217 ----
+  
+      // List is not present or is empty
+      if (qf_stack_empty(qi) || qf_idx == INVALID_QFIDX)
+! 	return qf_getprop_defaults(qi, flags, wp != NULL, retdict);
+  
+      qfl = &qi->qf_lists[qf_idx];
+  
+***************
+*** 6616,6622 ****
+      {
+  	// If the location list window is open, then create a new empty
+  	// location list
+! 	qf_info_T *new_ll = ll_new_list();
+  
+  	// first free the list reference in the location list window
+  	ll_free_all(&orig_wp->w_llist_ref);
+--- 6636,6642 ----
+      {
+  	// If the location list window is open, then create a new empty
+  	// location list
+! 	qf_info_T *new_ll = qf_alloc_stack(QFLT_LOCATION);
+  
+  	// first free the list reference in the location list window
+  	ll_free_all(&orig_wp->w_llist_ref);
+***************
+*** 6964,6970 ****
+      if (qi == NULL)
+      {
+  	// Allocate a new location list for help text matches
+! 	if ((qi = ll_new_list()) == NULL)
+  	    return NULL;
+  	*new_ll = TRUE;
+      }
+--- 6984,6990 ----
+      if (qi == NULL)
+      {
+  	// Allocate a new location list for help text matches
+! 	if ((qi = qf_alloc_stack(QFLT_LOCATION)) == NULL)
+  	    return NULL;
+  	*new_ll = TRUE;
+      }
+*** ../vim-8.1.0531/src/version.c	2018-11-16 18:22:42.336615956 +0100
+--- src/version.c	2018-11-16 18:41:03.385706240 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     532,
+  /**/
+
+-- 
+Time flies like an arrow.
+Fruit flies like a banana.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

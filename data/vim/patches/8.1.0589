@@ -1,0 +1,90 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0589
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0589
+Problem:    Compilation error in gvimext.cpp.
+Solution:   Return a value.  Also fix using uninitialized variable.
+Files:	    src/GvimExt/gvimext.cpp, src/dosinst.c
+
+
+*** ../vim-8.1.0588/src/GvimExt/gvimext.cpp	2018-12-14 19:19:58.939094931 +0100
+--- src/GvimExt/gvimext.cpp	2018-12-14 19:51:07.765220863 +0100
+***************
+*** 1025,1031 ****
+      cmdlen = BUFSIZE;
+      cmdStrW  = (wchar_t *) malloc(cmdlen * sizeof(wchar_t));
+      if (cmdStrW == NULL)
+! 	return;
+      getGvimInvocationW(cmdStrW);
+  
+      if (useDiff)
+--- 1025,1031 ----
+      cmdlen = BUFSIZE;
+      cmdStrW  = (wchar_t *) malloc(cmdlen * sizeof(wchar_t));
+      if (cmdStrW == NULL)
+! 	return E_FAIL;
+      getGvimInvocationW(cmdStrW);
+  
+      if (useDiff)
+***************
+*** 1043,1049 ****
+  	    cmdlen = len + BUFSIZE;
+  	    wchar_t *cmdStrW_new = (wchar_t *)realloc(cmdStrW, cmdlen * sizeof(wchar_t));
+  	    if (cmdStrW_new == NULL)
+! 		goto theend;
+  	    cmdStrW = cmdStrW_new;
+  	}
+  	wcscat(cmdStrW, L" \"");
+--- 1043,1052 ----
+  	    cmdlen = len + BUFSIZE;
+  	    wchar_t *cmdStrW_new = (wchar_t *)realloc(cmdStrW, cmdlen * sizeof(wchar_t));
+  	    if (cmdStrW_new == NULL)
+! 	    {
+! 		free(cmdStrW);
+! 		return E_FAIL;
+! 	    }
+  	    cmdStrW = cmdStrW_new;
+  	}
+  	wcscat(cmdStrW, L" \"");
+*** ../vim-8.1.0588/src/dosinst.c	2018-11-21 13:58:27.092110956 +0100
+--- src/dosinst.c	2018-12-14 19:52:30.904732290 +0100
+***************
+*** 2459,2465 ****
+  	}
+  	else if (strcmp(argv[i], "-create-directories") == 0)
+  	{
+! 	    int vimfiles_dir_choice;
+  
+  	    init_directories_choice();
+  	    if (argv[i + 1][0] != '-')
+--- 2459,2465 ----
+  	}
+  	else if (strcmp(argv[i], "-create-directories") == 0)
+  	{
+! 	    int vimfiles_dir_choice = (int)vimfiles_dir_none;
+  
+  	    init_directories_choice();
+  	    if (argv[i + 1][0] != '-')
+*** ../vim-8.1.0588/src/version.c	2018-12-14 19:37:03.681899394 +0100
+--- src/version.c	2018-12-14 19:53:29.836384520 +0100
+***************
+*** 801,802 ****
+--- 801,804 ----
+  {   /* Add new patch number below this line */
++ /**/
++     589,
+  /**/
+
+-- 
+A)bort, R)etry, P)lease don't bother me again
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

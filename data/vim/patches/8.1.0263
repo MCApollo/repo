@@ -1,0 +1,142 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0263
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0263
+Problem:    Channel log doesn't show part of channel.
+Solution:   Add "sock", "out", "err" or "in". (Ozaki Kiichi, closes #3303)
+Files:	    src/channel.c
+
+
+*** ../vim-8.1.0262/src/channel.c	2018-07-08 17:18:58.416462371 +0200
+--- src/channel.c	2018-08-09 22:13:36.575628935 +0200
+***************
+*** 138,144 ****
+  }
+  
+      static void
+! ch_log_lead(const char *what, channel_T *ch)
+  {
+      if (log_fd != NULL)
+      {
+--- 138,144 ----
+  }
+  
+      static void
+! ch_log_lead(const char *what, channel_T *ch, ch_part_T part)
+  {
+      if (log_fd != NULL)
+      {
+***************
+*** 150,156 ****
+  	fprintf(log_fd, "%s ", profile_msg(&log_now));
+  #endif
+  	if (ch != NULL)
+! 	    fprintf(log_fd, "%son %d: ", what, ch->ch_id);
+  	else
+  	    fprintf(log_fd, "%s: ", what);
+      }
+--- 150,162 ----
+  	fprintf(log_fd, "%s ", profile_msg(&log_now));
+  #endif
+  	if (ch != NULL)
+! 	{
+! 	    if (part < PART_COUNT)
+! 		fprintf(log_fd, "%son %d(%s): ",
+! 					   what, ch->ch_id, part_names[part]);
+! 	    else
+! 		fprintf(log_fd, "%son %d: ", what, ch->ch_id);
+! 	}
+  	else
+  	    fprintf(log_fd, "%s: ", what);
+      }
+***************
+*** 166,172 ****
+      {
+  	va_list ap;
+  
+! 	ch_log_lead("", ch);
+  	va_start(ap, fmt);
+  	vfprintf(log_fd, fmt, ap);
+  	va_end(ap);
+--- 172,178 ----
+      {
+  	va_list ap;
+  
+! 	ch_log_lead("", ch, PART_COUNT);
+  	va_start(ap, fmt);
+  	vfprintf(log_fd, fmt, ap);
+  	va_end(ap);
+***************
+*** 191,197 ****
+      {
+  	va_list ap;
+  
+! 	ch_log_lead("ERR ", ch);
+  	va_start(ap, fmt);
+  	vfprintf(log_fd, fmt, ap);
+  	va_end(ap);
+--- 197,203 ----
+      {
+  	va_list ap;
+  
+! 	ch_log_lead("ERR ", ch, PART_COUNT);
+  	va_start(ap, fmt);
+  	vfprintf(log_fd, fmt, ap);
+  	va_end(ap);
+***************
+*** 1849,1855 ****
+  
+      if (ch_log_active() && lead != NULL)
+      {
+! 	ch_log_lead(lead, channel);
+  	fprintf(log_fd, "'");
+  	ignored = (int)fwrite(buf, len, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+--- 1855,1861 ----
+  
+      if (ch_log_active() && lead != NULL)
+      {
+! 	ch_log_lead(lead, channel, part);
+  	fprintf(log_fd, "'");
+  	ignored = (int)fwrite(buf, len, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+***************
+*** 3718,3724 ****
+  
+      if (ch_log_active())
+      {
+! 	ch_log_lead("SEND ", channel);
+  	fprintf(log_fd, "'");
+  	ignored = (int)fwrite(buf_arg, len_arg, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+--- 3724,3730 ----
+  
+      if (ch_log_active())
+      {
+! 	ch_log_lead("SEND ", channel, part);
+  	fprintf(log_fd, "'");
+  	ignored = (int)fwrite(buf_arg, len_arg, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+*** ../vim-8.1.0262/src/version.c	2018-08-09 22:08:53.017560100 +0200
+--- src/version.c	2018-08-09 22:14:51.103121696 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     263,
+  /**/
+
+-- 
+Veni, Vidi, VW -- I came, I saw, I drove around in a little car.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,224 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0371
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0371
+Problem:    Argument types for select() may be wrong.
+Solution:   Use a configure macro. (Tobias Ulmer)
+Files:	    src/config.h.in, src/configure.ac, src/auto/configure,
+            src/os_unix.c
+
+
+*** ../vim-8.1.0370/src/config.h.in	2018-05-13 15:37:01.000000000 +0200
+--- src/config.h.in	2018-09-12 20:25:27.109676243 +0200
+***************
+*** 113,118 ****
+--- 113,121 ----
+  /* Define if you can safely include both <sys/time.h> and <sys/select.h>.  */
+  #undef SYS_SELECT_WITH_SYS_TIME
+  
++ /* Define to a typecast for select() arguments 2, 3 and 4. */
++ #undef SELECT_TYPE_ARG234
++ 
+  /* Define if you have /dev/ptc */
+  #undef HAVE_DEV_PTC
+  
+*** ../vim-8.1.0370/src/configure.ac	2018-08-04 15:13:31.026718187 +0200
+--- src/configure.ac	2018-09-12 20:20:02.744871078 +0200
+***************
+*** 3721,3726 ****
+--- 3721,3727 ----
+  	sigprocmask sigvec strcasecmp strerror strftime stricmp strncasecmp \
+  	strnicmp strpbrk strtol tgetent towlower towupper iswupper \
+  	usleep utime utimes mblen ftruncate unsetenv)
++ AC_FUNC_SELECT_ARGTYPES
+  AC_FUNC_FSEEKO
+  
+  dnl define _LARGE_FILES, _FILE_OFFSET_BITS and _LARGEFILE_SOURCE when
+*** ../vim-8.1.0370/src/auto/configure	2018-08-04 15:13:31.034718130 +0200
+--- src/auto/configure	2018-09-12 20:23:36.130733921 +0200
+***************
+*** 12630,12635 ****
+--- 12630,12710 ----
+  fi
+  done
+  
++ for ac_header in sys/select.h sys/socket.h
++ do :
++   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
++ ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
++ if eval test \"x\$"$as_ac_Header"\" = x"yes"; then :
++   cat >>confdefs.h <<_ACEOF
++ #define `$as_echo "HAVE_$ac_header" | $as_tr_cpp` 1
++ _ACEOF
++ 
++ fi
++ 
++ done
++ 
++ { $as_echo "$as_me:${as_lineno-$LINENO}: checking types of arguments for select" >&5
++ $as_echo_n "checking types of arguments for select... " >&6; }
++ if ${ac_cv_func_select_args+:} false; then :
++   $as_echo_n "(cached) " >&6
++ else
++   for ac_arg234 in 'fd_set *' 'int *' 'void *'; do
++  for ac_arg1 in 'int' 'size_t' 'unsigned long int' 'unsigned int'; do
++   for ac_arg5 in 'struct timeval *' 'const struct timeval *'; do
++    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++ /* end confdefs.h.  */
++ $ac_includes_default
++ #ifdef HAVE_SYS_SELECT_H
++ # include <sys/select.h>
++ #endif
++ #ifdef HAVE_SYS_SOCKET_H
++ # include <sys/socket.h>
++ #endif
++ 
++ int
++ main ()
++ {
++ extern int select ($ac_arg1,
++ 					    $ac_arg234, $ac_arg234, $ac_arg234,
++ 					    $ac_arg5);
++   ;
++   return 0;
++ }
++ _ACEOF
++ if ac_fn_c_try_compile "$LINENO"; then :
++   ac_cv_func_select_args="$ac_arg1,$ac_arg234,$ac_arg5"; break 3
++ fi
++ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
++   done
++  done
++ done
++ # Provide a safe default value.
++ : "${ac_cv_func_select_args=int,int *,struct timeval *}"
++ 
++ fi
++ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_func_select_args" >&5
++ $as_echo "$ac_cv_func_select_args" >&6; }
++ ac_save_IFS=$IFS; IFS=','
++ set dummy `echo "$ac_cv_func_select_args" | sed 's/\*/\*/g'`
++ IFS=$ac_save_IFS
++ shift
++ 
++ cat >>confdefs.h <<_ACEOF
++ #define SELECT_TYPE_ARG1 $1
++ _ACEOF
++ 
++ 
++ cat >>confdefs.h <<_ACEOF
++ #define SELECT_TYPE_ARG234 ($2)
++ _ACEOF
++ 
++ 
++ cat >>confdefs.h <<_ACEOF
++ #define SELECT_TYPE_ARG5 ($3)
++ _ACEOF
++ 
++ rm -f conftest*
++ 
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for _LARGEFILE_SOURCE value needed for large files" >&5
+  $as_echo_n "checking for _LARGEFILE_SOURCE value needed for large files... " >&6; }
+  if ${ac_cv_sys_largefile_source+:} false; then :
+*** ../vim-8.1.0370/src/os_unix.c	2018-09-06 13:14:39.140722555 +0200
+--- src/os_unix.c	2018-09-12 20:28:52.939783579 +0200
+***************
+*** 18,34 ****
+   * changed beyond recognition.
+   */
+  
+- /*
+-  * Some systems have a prototype for select() that has (int *) instead of
+-  * (fd_set *), which is wrong. This define removes that prototype. We define
+-  * our own prototype below.
+-  * Don't use it for the Mac, it causes a warning for precompiled headers.
+-  * TODO: use a configure check for precompiled headers?
+-  */
+- #if !defined(__APPLE__) && !defined(__TANDEM)
+- # define select select_declared_wrong
+- #endif
+- 
+  #include "vim.h"
+  
+  #ifdef FEAT_MZSCHEME
+--- 18,23 ----
+***************
+*** 54,67 ****
+  # endif
+  #endif
+  
+! /*
+!  * Use this prototype for select, some include files have a wrong prototype
+!  */
+! #ifndef __TANDEM
+  # undef select
+! # ifdef __BEOS__
+! #  define select	beos_select
+! # endif
+  #endif
+  
+  #ifdef __CYGWIN__
+--- 43,51 ----
+  # endif
+  #endif
+  
+! #ifdef __BEOS__
+  # undef select
+! # define select	beos_select
+  #endif
+  
+  #ifdef __CYGWIN__
+***************
+*** 77,86 ****
+  # endif
+  #endif
+  
+- #if defined(HAVE_SELECT)
+- extern int   select(int, fd_set *, fd_set *, fd_set *, struct timeval *);
+- #endif
+- 
+  #ifdef FEAT_MOUSE_GPM
+  # include <gpm.h>
+  /* <linux/keyboard.h> contains defines conflicting with "keymap.h",
+--- 61,66 ----
+***************
+*** 6316,6322 ****
+  	if (interrupted != NULL)
+  	    *interrupted = FALSE;
+  
+! 	ret = select(maxfd + 1, &rfds, &wfds, &efds, tvp);
+  	result = ret > 0 && FD_ISSET(fd, &rfds);
+  	if (result)
+  	    --ret;
+--- 6296,6303 ----
+  	if (interrupted != NULL)
+  	    *interrupted = FALSE;
+  
+! 	ret = select(maxfd + 1, SELECT_TYPE_ARG234 &rfds,
+! 		      SELECT_TYPE_ARG234 &wfds, SELECT_TYPE_ARG234 &efds, tvp);
+  	result = ret > 0 && FD_ISSET(fd, &rfds);
+  	if (result)
+  	    --ret;
+*** ../vim-8.1.0370/src/version.c	2018-09-12 18:00:08.937570191 +0200
+--- src/version.c	2018-09-12 20:18:50.065639189 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     371,
+  /**/
+
+-- 
+I wonder how much deeper the ocean would be without sponges.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,11 @@
+diff -ru socat-1.6.0.1/sysincludes.h socat-1.6.0.1+iPhone/sysincludes.h
+--- socat-1.6.0.1/sysincludes.h	2008-02-09 21:59:11.000000000 +0000
++++ socat-1.6.0.1+iPhone/sysincludes.h	2008-08-23 19:29:01.000000000 +0000
+@@ -104,6 +104,7 @@
+ #include <netinet6/in6.h>
+ #  endif
+ #include <arpa/inet.h>	/* Linux: inet_aton() */
++#define BIND_8_COMPAT
+ #if HAVE_ARPA_NAMESER_H
+ #include <arpa/nameser.h>	/* req for resolv.h (esp. on MacOSX) */
+ #endif

@@ -1,0 +1,58 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0257
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0257
+Problem:    No test for pathshorten().
+Solution:   Add a test. (Dominique Pelle, closes #3295)
+Files:	    src/testdir/test_functions.vim
+
+
+*** ../vim-8.1.0256/src/testdir/test_functions.vim	2018-07-29 15:34:20.868300075 +0200
+--- src/testdir/test_functions.vim	2018-08-08 22:26:53.791238105 +0200
+***************
+*** 208,213 ****
+--- 208,228 ----
+    call assert_fails('call simplify(1.2)', 'E806:')
+  endfunc
+  
++ func Test_pathshorten()
++   call assert_equal('', pathshorten(''))
++   call assert_equal('foo', pathshorten('foo'))
++   call assert_equal('/foo', pathshorten('/foo'))
++   call assert_equal('f/', pathshorten('foo/'))
++   call assert_equal('f/bar', pathshorten('foo/bar'))
++   call assert_equal('f/b/foobar', pathshorten('foo/bar/foobar'))
++   call assert_equal('/f/b/foobar', pathshorten('/foo/bar/foobar'))
++   call assert_equal('.f/bar', pathshorten('.foo/bar'))
++   call assert_equal('~f/bar', pathshorten('~foo/bar'))
++   call assert_equal('~.f/bar', pathshorten('~.foo/bar'))
++   call assert_equal('.~f/bar', pathshorten('.~foo/bar'))
++   call assert_equal('~/f/bar', pathshorten('~/foo/bar'))
++ endfunc
++ 
+  func Test_strpart()
+    call assert_equal('de', strpart('abcdefg', 3, 2))
+    call assert_equal('ab', strpart('abcdefg', -2, 4))
+*** ../vim-8.1.0256/src/version.c	2018-08-08 22:08:28.326846653 +0200
+--- src/version.c	2018-08-08 22:24:55.740064770 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     257,
+  /**/
+
+-- 
+Why isn't there mouse-flavored cat food?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

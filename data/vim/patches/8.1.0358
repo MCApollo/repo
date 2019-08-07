@@ -1,0 +1,51 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0358
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0358
+Problem:    Crash when using term_dumpwrite() after the job finished.
+Solution:   Check for a finished job and give an error message.
+Files:	    src/terminal.c
+
+
+*** ../vim-8.1.0357/src/terminal.c	2018-08-24 21:30:24.818557489 +0200
+--- src/terminal.c	2018-09-09 18:24:15.762463460 +0200
+***************
+*** 3871,3876 ****
+--- 3871,3881 ----
+      if (buf == NULL)
+  	return;
+      term = buf->b_term;
++     if (term->tl_vterm == NULL)
++     {
++ 	EMSG(_("E958: Job already finished"));
++ 	return;
++     }
+  
+      if (argvars[2].v_type != VAR_UNKNOWN)
+      {
+*** ../vim-8.1.0357/src/version.c	2018-09-09 15:56:03.143904759 +0200
+--- src/version.c	2018-09-09 19:55:31.327054155 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     358,
+  /**/
+
+-- 
+"Space is big.  Really big.  You just won't believe how vastly hugely mind-
+bogglingly big it is.  I mean, you may think it's a long way down the
+road to the chemist, but that's just peanuts to space."
+		-- Douglas Adams, "The Hitchhiker's Guide to the Galaxy"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

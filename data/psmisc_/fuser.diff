@@ -1,0 +1,23 @@
+diff -r -u psmisc-22.6/src/Makefile.am psmisc-22.6+iPhone/src/Makefile.am
+--- psmisc-22.6/src/Makefile.am	2007-07-04 02:21:50.000000000 +0000
++++ psmisc-22.6+iPhone/src/Makefile.am	2007-12-27 13:27:03.000000000 +0000
+@@ -1,7 +1,7 @@
+ 
+ AM_CFLAGS = -Wall -DLOCALEDIR=\"/usr/share/locale\"
+ 
+-bin_PROGRAMS = fuser killall pstree oldfuser 
++bin_PROGRAMS = killall pstree
+ if WANT_PEEKFD_I386
+   bin_PROGRAMS += peekfd
+   AM_CFLAGS += -DI386
+@@ -15,10 +15,6 @@
+   AM_CFLAGS += -DPPC
+ endif
+ 
+-oldfuser_SOURCES = oldfuser.c comm.h signals.c signals.h loop.h i18n.h
+-
+-fuser_SOURCES = fuser.c comm.h signals.c signals.h i18n.h fuser.h
+-
+ killall_SOURCES = killall.c comm.h signals.c signals.h i18n.h
+ 
+ killall_LDADD = @SELINUX_LIB@

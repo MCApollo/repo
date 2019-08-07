@@ -1,0 +1,49 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0122
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0122
+Problem:    Translators don't always understand the maintainer message.
+Solution:   Add a comment that ends up in the generated po file. (Christian
+            Brabandt, closes #3037)
+Files:	    src/message.c
+
+
+*** ../vim-8.1.0121/src/message.c	2018-06-23 19:22:45.610486284 +0200
+--- src/message.c	2018-06-28 14:52:34.909193468 +0200
+***************
+*** 982,988 ****
+--- 982,992 ----
+      {
+  	s = mch_getenv((char_u *)"LANG");
+  	if (s != NULL && *s != NUL)
++ 	    // The next comment is extracted by xgettext and put in po file for
++ 	    // translators to read.
+  	    msg_attr((char_u *)
++ 		    // Translator: Please replace the name and email address
++ 		    // with the appropriate text for your translation.
+  		    _("Messages maintainer: Bram Moolenaar <Bram@vim.org>"),
+  		    HL_ATTR(HLF_T));
+      }
+*** ../vim-8.1.0121/src/version.c	2018-06-28 12:05:07.089006904 +0200
+--- src/version.c	2018-06-28 14:53:46.820830021 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     122,
+  /**/
+
+-- 
+In a world without fences, who needs Gates and Windows?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

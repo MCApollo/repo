@@ -1,0 +1,1135 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0226
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0226
+Problem:    Too many #ifdefs.
+Solution:   Graduate the +vreplace feature, it's not much code and quite a few
+            #ifdefs.
+Files:	    runtime/doc/change.txt, runtime/doc/various.txt, src/edit.c,
+            src/evalfunc.c, src/gui.c, src/misc1.c, src/misc2.c, src/normal.c,
+            src/ops.c, src/screen.c, src/version.c, src/feature.h,
+            src/globals.h, src/macros.h, src/vim.h
+
+
+*** ../vim-8.1.0225/runtime/doc/change.txt	2018-06-23 19:22:45.594486390 +0200
+--- runtime/doc/change.txt	2018-07-29 15:38:09.666898986 +0200
+***************
+*** 177,184 ****
+  			<Tab> may replace several characters at once.
+  			Repeat the entered text [count]-1 times.  See
+  			|Virtual-Replace-mode| for more details.
+- 			{not available when compiled without the |+vreplace|
+- 			feature}
+  
+  							*c*
+  ["x]c{motion}		Delete {motion} text [into register x] and start
+--- 177,182 ----
+***************
+*** 303,310 ****
+  			space.  See |gR| and |Virtual-Replace-mode| for more
+  			details.  As with |r| a count may be given.
+  			{char} can be entered like with |r|.
+- 			{not available when compiled without the |+vreplace|
+- 			feature}
+  
+  						*digraph-arg*
+  The argument for Normal mode commands like |r| and |t| is a single character.
+--- 301,306 ----
+*** ../vim-8.1.0225/runtime/doc/various.txt	2018-06-23 19:22:45.598486362 +0200
+--- runtime/doc/various.txt	2018-07-29 15:38:59.894590610 +0200
+***************
+*** 461,467 ****
+  N  *+virtualedit*	|'virtualedit'|
+  S  *+visual*		Visual mode |Visual-mode| Always enabled since 7.4.200.
+  N  *+visualextra*	extra Visual mode commands |blockwise-operators|
+! N  *+vreplace*		|gR| and |gr|
+     *+vtp*		on MS-Windows console: support for 'termguicolors'
+  N  *+wildignore*	|'wildignore'|
+  N  *+wildmenu*		|'wildmenu'|
+--- 461,467 ----
+  N  *+virtualedit*	|'virtualedit'|
+  S  *+visual*		Visual mode |Visual-mode| Always enabled since 7.4.200.
+  N  *+visualextra*	extra Visual mode commands |blockwise-operators|
+! T  *+vreplace*		|gR| and |gr|
+     *+vtp*		on MS-Windows console: support for 'termguicolors'
+  N  *+wildignore*	|'wildignore'|
+  N  *+wildmenu*		|'wildmenu'|
+*** ../vim-8.1.0225/src/edit.c	2018-07-28 23:12:01.578163697 +0200
+--- src/edit.c	2018-07-29 15:43:22.341227944 +0200
+***************
+*** 463,469 ****
+      {
+  	ResetRedobuff();
+  	AppendNumberToRedobuff(count);
+- #ifdef FEAT_VREPLACE
+  	if (cmdchar == 'V' || cmdchar == 'v')
+  	{
+  	    /* "gR" or "gr" command */
+--- 463,468 ----
+***************
+*** 471,477 ****
+  	    AppendCharToRedobuff((cmdchar == 'v') ? 'r' : 'R');
+  	}
+  	else
+- #endif
+  	{
+  	    if (cmdchar == K_PS)
+  		AppendCharToRedobuff('a');
+--- 470,475 ----
+***************
+*** 497,503 ****
+  #endif
+  	State = REPLACE;
+      }
+- #ifdef FEAT_VREPLACE
+      else if (cmdchar == 'V' || cmdchar == 'v')
+      {
+  	State = VREPLACE;
+--- 495,500 ----
+***************
+*** 505,511 ****
+  	orig_line_count = curbuf->b_ml.ml_line_count;
+  	vr_lines_changed = 1;
+      }
+- #endif
+      else
+  	State = INSERT;
+  
+--- 502,507 ----
+***************
+*** 2042,2048 ****
+      int		save_p_list;
+      int		start_col;
+      colnr_T	vc;
+- #ifdef FEAT_VREPLACE
+      colnr_T	orig_col = 0;		/* init for GCC */
+      char_u	*new_line, *orig_line = NULL;	/* init for GCC */
+  
+--- 2038,2043 ----
+***************
+*** 2052,2058 ****
+  	orig_line = vim_strsave(ml_get_curline());  /* Deal with NULL below */
+  	orig_col = curwin->w_cursor.col;
+      }
+- #endif
+  
+      /* for the following tricks we don't want list mode */
+      save_p_list = curwin->w_p_list;
+--- 2047,2052 ----
+***************
+*** 2091,2107 ****
+  	(void)set_indent(amount, call_changed_bytes ? SIN_CHANGED : 0);
+      else
+      {
+- #ifdef FEAT_VREPLACE
+  	int	save_State = State;
+  
+  	/* Avoid being called recursively. */
+  	if (State & VREPLACE_FLAG)
+  	    State = INSERT;
+- #endif
+  	shift_line(type == INDENT_DEC, round, 1, call_changed_bytes);
+- #ifdef FEAT_VREPLACE
+  	State = save_State;
+- #endif
+      }
+      insstart_less -= curwin->w_cursor.col;
+  
+--- 2085,2097 ----
+***************
+*** 2233,2239 ****
+  	}
+      }
+  
+- #ifdef FEAT_VREPLACE
+      /*
+       * For VREPLACE mode, we also have to fix the replace stack.  In this case
+       * it is always possible because we backspace over the whole line and then
+--- 2223,2228 ----
+***************
+*** 2266,2272 ****
+  
+  	vim_free(new_line);
+      }
+- #endif
+  }
+  
+  /*
+--- 2255,2260 ----
+***************
+*** 2288,2295 ****
+      line[i + 1] = NUL;
+  }
+  
+- #if defined(FEAT_VREPLACE) || defined(FEAT_INS_EXPAND) \
+- 	|| defined(FEAT_COMMENTS) || defined(PROTO)
+  /*
+   * Backspace the cursor until the given column.  Handles REPLACE and VREPLACE
+   * modes correctly.  May also be used when not in insert mode at all.
+--- 2276,2281 ----
+***************
+*** 2308,2314 ****
+  	    break;
+      }
+  }
+- #endif
+  
+  /*
+   * Like del_char(), but make sure not to go before column "limit_col".
+--- 2294,2299 ----
+***************
+*** 6224,6232 ****
+  	    && (force_format
+  		|| (!VIM_ISWHITE(c)
+  		    && !((State & REPLACE_FLAG)
+- #ifdef FEAT_VREPLACE
+  			&& !(State & VREPLACE_FLAG)
+- #endif
+  			&& *ml_get_cursor() != NUL)
+  		    && (curwin->w_cursor.lnum != Insstart.lnum
+  			|| ((!has_format_option(FO_INS_LONG)
+--- 6209,6215 ----
+***************
+*** 6471,6481 ****
+       * When 'ai' is off we don't want a space under the cursor to be
+       * deleted.  Replace it with an 'x' temporarily.
+       */
+!     if (!curbuf->b_p_ai
+! #ifdef FEAT_VREPLACE
+! 	    && !(State & VREPLACE_FLAG)
+! #endif
+! 	    )
+      {
+  	cc = gchar_cursor();
+  	if (VIM_ISWHITE(cc))
+--- 6454,6460 ----
+       * When 'ai' is off we don't want a space under the cursor to be
+       * deleted.  Replace it with an 'x' temporarily.
+       */
+!     if (!curbuf->b_p_ai && !(State & VREPLACE_FLAG))
+      {
+  	cc = gchar_cursor();
+  	if (VIM_ISWHITE(cc))
+***************
+*** 6496,6505 ****
+  	int	end_foundcol = 0;	/* column for start of word */
+  	colnr_T	len;
+  	colnr_T	virtcol;
+- #ifdef FEAT_VREPLACE
+  	int	orig_col = 0;
+  	char_u	*saved_text = NULL;
+- #endif
+  	colnr_T	col;
+  	colnr_T	end_col;
+  
+--- 6475,6482 ----
+***************
+*** 6669,6679 ****
+  	 * stack functions.  VREPLACE does not use this, and backspaces
+  	 * over the text instead.
+  	 */
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	    orig_col = startcol;	/* Will start backspacing from here */
+  	else
+- #endif
+  	    replace_offset = startcol - end_foundcol;
+  
+  	/*
+--- 6646,6654 ----
+***************
+*** 6688,6694 ****
+  	if (startcol < 0)
+  	    startcol = 0;
+  
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    /*
+--- 6663,6668 ----
+***************
+*** 6706,6712 ****
+  		backspace_until_column(foundcol);
+  	}
+  	else
+- #endif
+  	{
+  	    /* put cursor after pos. to break line */
+  	    if (!fo_white_par)
+--- 6680,6685 ----
+***************
+*** 6744,6755 ****
+  				 get_number_indent(curwin->w_cursor.lnum - 1);
+  		if (second_indent >= 0)
+  		{
+- #ifdef FEAT_VREPLACE
+  		    if (State & VREPLACE_FLAG)
+  			change_indent(INDENT_SET, second_indent,
+  							    FALSE, NUL, TRUE);
+  		    else
+- #endif
+  #ifdef FEAT_COMMENTS
+  			if (leader_len > 0 && second_indent - leader_len > 0)
+  		    {
+--- 6717,6726 ----
+***************
+*** 6778,6784 ****
+  	    first_line = FALSE;
+  	}
+  
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    /*
+--- 6749,6754 ----
+***************
+*** 6789,6795 ****
+  	    vim_free(saved_text);
+  	}
+  	else
+- #endif
+  	{
+  	    /*
+  	     * Check if cursor is not past the NUL off the line, cindent
+--- 6759,6764 ----
+***************
+*** 7140,7152 ****
+  	}
+  
+  	ai_col = 0;
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    orig_line_count = curbuf->b_ml.ml_line_count;
+  	    vr_lines_changed = 1;
+  	}
+- #endif
+  	ResetRedobuff();
+  	AppendToRedobuff((char_u *)"1i");   /* pretend we start an insertion */
+  	new_insert_skip = 2;
+--- 7109,7119 ----
+***************
+*** 7983,7989 ****
+  replace_do_bs(int limit_col)
+  {
+      int		cc;
+- #ifdef FEAT_VREPLACE
+      int		orig_len = 0;
+      int		ins_len;
+      int		orig_vcols = 0;
+--- 7950,7955 ----
+***************
+*** 7991,8002 ****
+      char_u	*p;
+      int		i;
+      int		vcol;
+- #endif
+  
+      cc = replace_pop();
+      if (cc > 0)
+      {
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    /* Get the number of screen cells used by the character we are
+--- 7957,7966 ----
+***************
+*** 8004,8032 ****
+  	    getvcol(curwin, &curwin->w_cursor, NULL, &start_vcol, NULL);
+  	    orig_vcols = chartabsize(ml_get_cursor(), start_vcol);
+  	}
+- #endif
+  #ifdef FEAT_MBYTE
+  	if (has_mbyte)
+  	{
+  	    (void)del_char_after_col(limit_col);
+- # ifdef FEAT_VREPLACE
+  	    if (State & VREPLACE_FLAG)
+  		orig_len = (int)STRLEN(ml_get_cursor());
+- # endif
+  	    replace_push(cc);
+  	}
+  	else
+  #endif
+  	{
+  	    pchar_cursor(cc);
+- #ifdef FEAT_VREPLACE
+  	    if (State & VREPLACE_FLAG)
+  		orig_len = (int)STRLEN(ml_get_cursor()) - 1;
+- #endif
+  	}
+  	replace_pop_ins();
+  
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    /* Get the number of screen cells used by the inserted characters */
+--- 7968,7990 ----
+***************
+*** 8052,8058 ****
+  	    }
+  	    curwin->w_cursor.col -= ins_len;
+  	}
+- #endif
+  
+  	/* mark the buffer as changed and prepare for displaying */
+  	changed_bytes(curwin->w_cursor.lnum, curwin->w_cursor.col);
+--- 8010,8015 ----
+***************
+*** 8966,8976 ****
+  
+  # ifdef FEAT_EVAL
+      set_vim_var_string(VV_INSERTMODE,
+! 		   (char_u *)((State & REPLACE_FLAG) ? "i" :
+! #  ifdef FEAT_VREPLACE
+! 			    replaceState == VREPLACE ? "v" :
+! #  endif
+! 			    "r"), 1);
+  # endif
+      apply_autocmds(EVENT_INSERTCHANGE, NULL, NULL, FALSE, curbuf);
+      if (State & REPLACE_FLAG)
+--- 8923,8931 ----
+  
+  # ifdef FEAT_EVAL
+      set_vim_var_string(VV_INSERTMODE,
+! 		   (char_u *)((State & REPLACE_FLAG) ? "i"
+! 		          : replaceState == VREPLACE ? "v"
+! 						     : "r"), 1);
+  # endif
+      apply_autocmds(EVENT_INSERTCHANGE, NULL, NULL, FALSE, curbuf);
+      if (State & REPLACE_FLAG)
+***************
+*** 8990,9000 ****
+      static void
+  ins_ctrl_o(void)
+  {
+- #ifdef FEAT_VREPLACE
+      if (State & VREPLACE_FLAG)
+  	restart_edit = 'V';
+      else
+- #endif
+  	if (State & REPLACE_FLAG)
+  	restart_edit = 'R';
+      else
+--- 8945,8953 ----
+***************
+*** 9067,9080 ****
+  	else
+  	{
+  	    curwin->w_cursor.col = temp;
+- #ifdef FEAT_VREPLACE
+  	    /* Adjust orig_line_count in case more lines have been deleted than
+  	     * have been added. That makes sure, that open_line() later
+  	     * can access all buffer lines correctly */
+  	    if (State & VREPLACE_FLAG &&
+  		    orig_line_count > curbuf->b_ml.ml_line_count)
+  		orig_line_count = curbuf->b_ml.ml_line_count;
+- #endif
+  	}
+      }
+      else if (del_char(FALSE) == FAIL)  /* delete char under cursor */
+--- 9020,9031 ----
+***************
+*** 9229,9238 ****
+  	}
+  	else
+  	{
+- #ifdef FEAT_VREPLACE
+  	    if (!(State & VREPLACE_FLAG)
+  				   || curwin->w_cursor.lnum > orig_line_count)
+- #endif
+  	    {
+  		temp = gchar_cursor();	/* remember current char */
+  		--curwin->w_cursor.lnum;
+--- 9180,9187 ----
+***************
+*** 9256,9265 ****
+  		if (temp == NUL && gchar_cursor() != NUL)
+  		    inc_cursor();
+  	    }
+- #ifdef FEAT_VREPLACE
+  	    else
+  		dec_cursor();
+- #endif
+  
+  	    /*
+  	     * In REPLACE mode we have to put back the text that was replaced
+--- 9205,9212 ----
+***************
+*** 9386,9396 ****
+  				   && curwin->w_cursor.col < Insstart_orig.col)
+  		    Insstart_orig.col = curwin->w_cursor.col;
+  
+- #ifdef FEAT_VREPLACE
+  		if (State & VREPLACE_FLAG)
+  		    ins_char(' ');
+  		else
+- #endif
+  		{
+  		    ins_str((char_u *)" ");
+  		    if ((State & REPLACE_FLAG))
+--- 9333,9341 ----
+***************
+*** 10231,10241 ****
+      ins_char(' ');
+      while (--temp > 0)
+      {
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	    ins_char(' ');
+  	else
+- #endif
+  	{
+  	    ins_str((char_u *)" ");
+  	    if (State & REPLACE_FLAG)	    /* no char replaced */
+--- 10176,10184 ----
+***************
+*** 10255,10264 ****
+  #endif
+      {
+  	char_u		*ptr;
+- #ifdef FEAT_VREPLACE
+  	char_u		*saved_line = NULL;	/* init for GCC */
+  	pos_T		pos;
+- #endif
+  	pos_T		fpos;
+  	pos_T		*cursor;
+  	colnr_T		want_vcol, vcol;
+--- 10198,10205 ----
+***************
+*** 10269,10275 ****
+  	 * Get the current line.  For VREPLACE mode, don't make real changes
+  	 * yet, just work on a copy of the line.
+  	 */
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    pos = curwin->w_cursor;
+--- 10210,10215 ----
+***************
+*** 10280,10286 ****
+  	    ptr = saved_line + pos.col;
+  	}
+  	else
+- #endif
+  	{
+  	    ptr = ml_get_cursor();
+  	    cursor = &curwin->w_cursor;
+--- 10220,10225 ----
+***************
+*** 10360,10370 ****
+  	    {
+  		STRMOVE(ptr, ptr + i);
+  		/* correct replace stack. */
+! 		if ((State & REPLACE_FLAG)
+! #ifdef FEAT_VREPLACE
+! 			&& !(State & VREPLACE_FLAG)
+! #endif
+! 			)
+  		    for (temp = i; --temp >= 0; )
+  			replace_join(repl_off);
+  	    }
+--- 10299,10305 ----
+  	    {
+  		STRMOVE(ptr, ptr + i);
+  		/* correct replace stack. */
+! 		if ((State & REPLACE_FLAG) && !(State & VREPLACE_FLAG))
+  		    for (temp = i; --temp >= 0; )
+  			replace_join(repl_off);
+  	    }
+***************
+*** 10378,10384 ****
+  #endif
+  	    cursor->col -= i;
+  
+- #ifdef FEAT_VREPLACE
+  	    /*
+  	     * In VREPLACE mode, we haven't changed anything yet.  Do it now by
+  	     * backspacing over the changed spacing and then inserting the new
+--- 10313,10318 ----
+***************
+*** 10394,10406 ****
+  		ins_bytes_len(saved_line + change_col,
+  						    cursor->col - change_col);
+  	    }
+- #endif
+  	}
+  
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	    vim_free(saved_line);
+- #endif
+  	curwin->w_p_list = save_list;
+      }
+  
+--- 10328,10337 ----
+***************
+*** 10427,10437 ****
+       * character under the cursor.  Only push a NUL on the replace stack,
+       * nothing to put back when the NL is deleted.
+       */
+!     if ((State & REPLACE_FLAG)
+! #ifdef FEAT_VREPLACE
+! 	    && !(State & VREPLACE_FLAG)
+! #endif
+! 	    )
+  	replace_push(NUL);
+  
+      /*
+--- 10358,10364 ----
+       * character under the cursor.  Only push a NUL on the replace stack,
+       * nothing to put back when the NL is deleted.
+       */
+!     if ((State & REPLACE_FLAG) && !(State & VREPLACE_FLAG))
+  	replace_push(NUL);
+  
+      /*
+***************
+*** 10700,10710 ****
+  		curwin->w_cursor = *pos;
+  	    i = get_indent();
+  	    curwin->w_cursor = old_pos;
+- #ifdef FEAT_VREPLACE
+  	    if (State & VREPLACE_FLAG)
+  		change_indent(INDENT_SET, i, FALSE, NUL, TRUE);
+  	    else
+- #endif
+  		(void)set_indent(i, SIN_CHANGED);
+  	}
+  	else if (curwin->w_cursor.col > 0)
+--- 10627,10635 ----
+*** ../vim-8.1.0225/src/evalfunc.c	2018-07-29 15:34:20.868300075 +0200
+--- src/evalfunc.c	2018-07-29 15:43:54.165096144 +0200
+***************
+*** 6450,6458 ****
+  #ifdef FEAT_VISUALEXTRA
+  	"visualextra",
+  #endif
+- #ifdef FEAT_VREPLACE
+  	"vreplace",
+- #endif
+  #ifdef FEAT_VTP
+  	"vtp",
+  #endif
+--- 6450,6456 ----
+***************
+*** 8400,8413 ****
+  	buf[0] = '!';
+      else if (State & INSERT)
+      {
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    buf[0] = 'R';
+  	    buf[1] = 'v';
+  	}
+  	else
+- #endif
+  	{
+  	    if (State & REPLACE_FLAG)
+  		buf[0] = 'R';
+--- 8398,8409 ----
+*** ../vim-8.1.0225/src/gui.c	2018-06-28 12:05:07.089006904 +0200
+--- src/gui.c	2018-07-29 15:44:03.357057435 +0200
+***************
+*** 3181,3190 ****
+  	case SELECTMODE:	checkfor = MOUSE_VISUAL;	break;
+  	case REPLACE:
+  	case REPLACE+LANGMAP:
+- # ifdef FEAT_VREPLACE
+  	case VREPLACE:
+  	case VREPLACE+LANGMAP:
+- # endif
+  	case INSERT:
+  	case INSERT+LANGMAP:	checkfor = MOUSE_INSERT;	break;
+  	case ASKMORE:
+--- 3181,3188 ----
+*** ../vim-8.1.0225/src/misc1.c	2018-07-25 21:19:09.363656976 +0200
+--- src/misc1.c	2018-07-29 15:45:58.180552032 +0200
+***************
+*** 784,793 ****
+      char_u	*leader = NULL;		/* copy of comment leader */
+  #endif
+      char_u	*allocated = NULL;	/* allocated memory */
+- #if defined(FEAT_SMARTINDENT) || defined(FEAT_VREPLACE) || defined(FEAT_LISP) \
+- 	|| defined(FEAT_CINDENT) || defined(FEAT_COMMENTS)
+      char_u	*p;
+- #endif
+      int		saved_char = NUL;	/* init for GCC */
+  #if defined(FEAT_SMARTINDENT) || defined(FEAT_COMMENTS)
+      pos_T	*pos;
+--- 784,790 ----
+***************
+*** 804,810 ****
+      int		no_si = FALSE;		/* reset did_si afterwards */
+      int		first_char = NUL;	/* init for GCC */
+  #endif
+! #if defined(FEAT_VREPLACE) && (defined(FEAT_LISP) || defined(FEAT_CINDENT))
+      int		vreplace_mode;
+  #endif
+      int		did_append;		/* appended a new line */
+--- 801,807 ----
+      int		no_si = FALSE;		/* reset did_si afterwards */
+      int		first_char = NUL;	/* init for GCC */
+  #endif
+! #if defined(FEAT_LISP) || defined(FEAT_CINDENT)
+      int		vreplace_mode;
+  #endif
+      int		did_append;		/* appended a new line */
+***************
+*** 817,823 ****
+      if (saved_line == NULL)	    /* out of memory! */
+  	return FALSE;
+  
+- #ifdef FEAT_VREPLACE
+      if (State & VREPLACE_FLAG)
+      {
+  	/*
+--- 814,819 ----
+***************
+*** 857,869 ****
+  	}
+  	saved_line[curwin->w_cursor.col] = NUL;
+      }
+- #endif
+  
+!     if ((State & INSERT)
+! #ifdef FEAT_VREPLACE
+! 	    && !(State & VREPLACE_FLAG)
+! #endif
+! 	    )
+      {
+  	p_extra = saved_line + curwin->w_cursor.col;
+  #ifdef FEAT_SMARTINDENT
+--- 853,860 ----
+  	}
+  	saved_line[curwin->w_cursor.col] = NUL;
+      }
+  
+!     if ((State & INSERT) && !(State & VREPLACE_FLAG))
+      {
+  	p_extra = saved_line + curwin->w_cursor.col;
+  #ifdef FEAT_SMARTINDENT
+***************
+*** 1601,1609 ****
+      old_cursor = curwin->w_cursor;
+      if (dir == BACKWARD)
+  	--curwin->w_cursor.lnum;
+- #ifdef FEAT_VREPLACE
+      if (!(State & VREPLACE_FLAG) || old_cursor.lnum >= orig_line_count)
+- #endif
+      {
+  	if (ml_append(curwin->w_cursor.lnum, p_extra, (colnr_T)0, FALSE)
+  								      == FAIL)
+--- 1592,1598 ----
+***************
+*** 1620,1626 ****
+  	    mark_adjust(curwin->w_cursor.lnum + 1, (linenr_T)MAXLNUM, 1L, 0L);
+  	did_append = TRUE;
+      }
+- #ifdef FEAT_VREPLACE
+      else
+      {
+  	/*
+--- 1609,1614 ----
+***************
+*** 1640,1646 ****
+  	curwin->w_cursor.lnum--;
+  	did_append = FALSE;
+      }
+- #endif
+  
+      if (newindent
+  #ifdef FEAT_SMARTINDENT
+--- 1628,1633 ----
+***************
+*** 1744,1750 ****
+      curwin->w_cursor.coladd = 0;
+  #endif
+  
+! #if defined(FEAT_VREPLACE) && (defined(FEAT_LISP) || defined(FEAT_CINDENT))
+      /*
+       * In VREPLACE mode, we are handling the replace stack ourselves, so stop
+       * fixthisline() from doing it (via change_indent()) by telling it we're in
+--- 1731,1737 ----
+      curwin->w_cursor.coladd = 0;
+  #endif
+  
+! #if defined(FEAT_LISP) || defined(FEAT_CINDENT)
+      /*
+       * In VREPLACE mode, we are handling the replace stack ourselves, so stop
+       * fixthisline() from doing it (via change_indent()) by telling it we're in
+***************
+*** 1791,1802 ****
+  	ai_col = (colnr_T)getwhitecols_curline();
+      }
+  #endif
+! #if defined(FEAT_VREPLACE) && (defined(FEAT_LISP) || defined(FEAT_CINDENT))
+      if (vreplace_mode != 0)
+  	State = vreplace_mode;
+  #endif
+  
+- #ifdef FEAT_VREPLACE
+      /*
+       * Finally, VREPLACE gets the stuff on the new line, then puts back the
+       * original line, and inserts the new stuff char by char, pushing old stuff
+--- 1778,1788 ----
+  	ai_col = (colnr_T)getwhitecols_curline();
+      }
+  #endif
+! #if defined(FEAT_LISP) || defined(FEAT_CINDENT)
+      if (vreplace_mode != 0)
+  	State = vreplace_mode;
+  #endif
+  
+      /*
+       * Finally, VREPLACE gets the stuff on the new line, then puts back the
+       * original line, and inserts the new stuff char by char, pushing old stuff
+***************
+*** 1821,1827 ****
+  	vim_free(p_extra);
+  	next_line = NULL;
+      }
+- #endif
+  
+      retval = OK;		/* success! */
+  theend:
+--- 1807,1812 ----
+***************
+*** 2307,2313 ****
+      return (count);
+  }
+  
+- #if defined(FEAT_VREPLACE) || defined(FEAT_INS_EXPAND) || defined(PROTO)
+  /*
+   * Insert string "p" at the cursor position.  Stops at a NUL byte.
+   * Handles Replace mode and multi-byte characters.
+--- 2292,2297 ----
+***************
+*** 2317,2326 ****
+  {
+      ins_bytes_len(p, (int)STRLEN(p));
+  }
+- #endif
+  
+- #if defined(FEAT_VREPLACE) || defined(FEAT_INS_EXPAND) \
+- 	|| defined(FEAT_COMMENTS) || defined(FEAT_MBYTE) || defined(PROTO)
+  /*
+   * Insert string "p" with length "len" at the cursor position.
+   * Handles Replace mode and multi-byte characters.
+--- 2301,2307 ----
+***************
+*** 2329,2335 ****
+  ins_bytes_len(char_u *p, int len)
+  {
+      int		i;
+! # ifdef FEAT_MBYTE
+      int		n;
+  
+      if (has_mbyte)
+--- 2310,2316 ----
+  ins_bytes_len(char_u *p, int len)
+  {
+      int		i;
+! #ifdef FEAT_MBYTE
+      int		n;
+  
+      if (has_mbyte)
+***************
+*** 2343,2353 ****
+  	    ins_char_bytes(p + i, n);
+  	}
+      else
+! # endif
+  	for (i = 0; i < len; ++i)
+  	    ins_char(p[i]);
+  }
+- #endif
+  
+  /*
+   * Insert or replace a single character at the cursor position.
+--- 2324,2333 ----
+  	    ins_char_bytes(p + i, n);
+  	}
+      else
+! #endif
+  	for (i = 0; i < len; ++i)
+  	    ins_char(p[i]);
+  }
+  
+  /*
+   * Insert or replace a single character at the cursor position.
+***************
+*** 2406,2412 ****
+  
+      if (State & REPLACE_FLAG)
+      {
+- #ifdef FEAT_VREPLACE
+  	if (State & VREPLACE_FLAG)
+  	{
+  	    colnr_T	new_vcol = 0;   /* init for GCC */
+--- 2386,2391 ----
+***************
+*** 2456,2462 ****
+  	    curwin->w_p_list = old_list;
+  	}
+  	else
+- #endif
+  	    if (oldp[col] != NUL)
+  	{
+  	    /* normal replace */
+--- 2435,2440 ----
+*** ../vim-8.1.0225/src/misc2.c	2018-06-29 20:28:27.505661796 +0200
+--- src/misc2.c	2018-07-29 15:46:23.876433899 +0200
+***************
+*** 3766,3775 ****
+  #endif
+      if (!mouse && State == SHOWMATCH)
+  	return SHAPE_IDX_SM;
+- #ifdef FEAT_VREPLACE
+      if (State & VREPLACE_FLAG)
+  	return SHAPE_IDX_R;
+- #endif
+      if (State & REPLACE_FLAG)
+  	return SHAPE_IDX_R;
+      if (State & INSERT)
+--- 3766,3773 ----
+*** ../vim-8.1.0225/src/normal.c	2018-07-25 22:36:48.987518583 +0200
+--- src/normal.c	2018-07-29 15:46:49.824312935 +0200
+***************
+*** 111,119 ****
+  static void	nv_undo(cmdarg_T *cap);
+  static void	nv_kundo(cmdarg_T *cap);
+  static void	nv_Replace(cmdarg_T *cap);
+- #ifdef FEAT_VREPLACE
+  static void	nv_vreplace(cmdarg_T *cap);
+- #endif
+  static void	v_swap_corners(int cmdchar);
+  static void	nv_replace(cmdarg_T *cap);
+  static void	n_swapchar(cmdarg_T *cap);
+--- 111,117 ----
+***************
+*** 7300,7306 ****
+      }
+  }
+  
+- #ifdef FEAT_VREPLACE
+  /*
+   * "gr".
+   */
+--- 7298,7303 ----
+***************
+*** 7323,7337 ****
+  		cap->extra_char = get_literal();
+  	    stuffcharReadbuff(cap->extra_char);
+  	    stuffcharReadbuff(ESC);
+! # ifdef FEAT_VIRTUALEDIT
+  	    if (virtual_active())
+  		coladvance(getviscol());
+! # endif
+  	    invoke_edit(cap, TRUE, 'v', FALSE);
+  	}
+      }
+  }
+- #endif
+  
+  /*
+   * Swap case for "~" command, when it does not work like an operator.
+--- 7320,7333 ----
+  		cap->extra_char = get_literal();
+  	    stuffcharReadbuff(cap->extra_char);
+  	    stuffcharReadbuff(ESC);
+! #ifdef FEAT_VIRTUALEDIT
+  	    if (virtual_active())
+  		coladvance(getviscol());
+! #endif
+  	    invoke_edit(cap, TRUE, 'v', FALSE);
+  	}
+      }
+  }
+  
+  /*
+   * Swap case for "~" command, when it does not work like an operator.
+***************
+*** 7944,7950 ****
+  	    clearopbeep(oap);
+  	break;
+  
+- #ifdef FEAT_VREPLACE
+      /*
+       * "gR": Enter virtual replace mode.
+       */
+--- 7940,7945 ----
+***************
+*** 7956,7962 ****
+      case 'r':
+  	nv_vreplace(cap);
+  	break;
+- #endif
+  
+      case '&':
+  	do_cmdline_cmd((char_u *)"%s//~/&");
+--- 7951,7956 ----
+*** ../vim-8.1.0225/src/ops.c	2018-07-08 16:50:33.107216836 +0200
+--- src/ops.c	2018-07-29 15:47:03.452248760 +0200
+***************
+*** 376,386 ****
+      }
+  
+      /* Set new indent */
+- #ifdef FEAT_VREPLACE
+      if (State & VREPLACE_FLAG)
+  	change_indent(INDENT_SET, count, FALSE, NUL, call_changed_bytes);
+      else
+- #endif
+  	(void)set_indent(count, call_changed_bytes ? SIN_CHANGED : 0);
+  }
+  
+--- 376,384 ----
+*** ../vim-8.1.0225/src/screen.c	2018-06-28 22:22:56.233315600 +0200
+--- src/screen.c	2018-07-29 15:47:23.308154491 +0200
+***************
+*** 10375,10386 ****
+  	    else
+  #endif
+  	    {
+- #ifdef FEAT_VREPLACE
+  		if (State & VREPLACE_FLAG)
+  		    MSG_PUTS_ATTR(_(" VREPLACE"), attr);
+! 		else
+! #endif
+! 		    if (State & REPLACE_FLAG)
+  		    MSG_PUTS_ATTR(_(" REPLACE"), attr);
+  		else if (State & INSERT)
+  		{
+--- 10375,10383 ----
+  	    else
+  #endif
+  	    {
+  		if (State & VREPLACE_FLAG)
+  		    MSG_PUTS_ATTR(_(" VREPLACE"), attr);
+! 		else if (State & REPLACE_FLAG)
+  		    MSG_PUTS_ATTR(_(" REPLACE"), attr);
+  		else if (State & INSERT)
+  		{
+*** ../vim-8.1.0225/src/version.c	2018-07-29 15:34:20.868300075 +0200
+--- src/version.c	2018-07-29 15:50:26.887245482 +0200
+***************
+*** 714,724 ****
+  #else
+  	"-viminfo",
+  #endif
+- #ifdef FEAT_VREPLACE
+  	"+vreplace",
+- #else
+- 	"-vreplace",
+- #endif
+  #ifdef WIN3264
+  # ifdef FEAT_VTP
+  	"+vtp",
+--- 714,720 ----
+*** ../vim-8.1.0225/src/feature.h	2018-06-23 19:22:45.606486311 +0200
+--- src/feature.h	2018-07-29 15:47:53.028011765 +0200
+***************
+*** 207,219 ****
+  #endif
+  
+  /*
+-  * +vreplace		"gR" and "gr" commands.
+-  */
+- #ifdef FEAT_NORMAL
+- # define FEAT_VREPLACE
+- #endif
+- 
+- /*
+   * +cmdline_info	'showcmd' and 'ruler' options.
+   */
+  #ifdef FEAT_NORMAL
+--- 207,212 ----
+*** ../vim-8.1.0225/src/globals.h	2018-06-23 16:12:15.780258265 +0200
+--- src/globals.h	2018-07-29 15:48:07.903939623 +0200
+***************
+*** 778,790 ****
+   * op_insert(), to detect correctly where inserting by the user started. */
+  EXTERN pos_T	Insstart_orig;
+  
+- #ifdef FEAT_VREPLACE
+  /*
+   * Stuff for VREPLACE mode.
+   */
+  EXTERN int	orig_line_count INIT(= 0);  /* Line count when "gR" started */
+  EXTERN int	vr_lines_changed INIT(= 0); /* #Lines changed by "gR" so far */
+- #endif
+  
+  #if defined(FEAT_X11) && defined(FEAT_XCLIPBOARD)
+  /* argument to SETJMP() for handling X IO errors */
+--- 778,788 ----
+*** ../vim-8.1.0225/src/macros.h	2018-06-28 19:26:24.321655175 +0200
+--- src/macros.h	2018-07-29 15:48:34.883807640 +0200
+***************
+*** 235,245 ****
+  # define TIME_MSG(s) do { /**/ } while (0)
+  #endif
+  
+! #ifdef FEAT_VREPLACE
+! # define REPLACE_NORMAL(s) (((s) & REPLACE_FLAG) && !((s) & VREPLACE_FLAG))
+! #else
+! # define REPLACE_NORMAL(s) ((s) & REPLACE_FLAG)
+! #endif
+  
+  #ifdef FEAT_ARABIC
+  # define UTF_COMPOSINGLIKE(p1, p2)  utf_composinglike((p1), (p2))
+--- 235,241 ----
+  # define TIME_MSG(s) do { /**/ } while (0)
+  #endif
+  
+! #define REPLACE_NORMAL(s) (((s) & REPLACE_FLAG) && !((s) & VREPLACE_FLAG))
+  
+  #ifdef FEAT_ARABIC
+  # define UTF_COMPOSINGLIKE(p1, p2)  utf_composinglike((p1), (p2))
+*** ../vim-8.1.0225/src/vim.h	2018-06-23 14:21:38.467484932 +0200
+--- src/vim.h	2018-07-29 15:48:48.695739525 +0200
+***************
+*** 675,684 ****
+  
+  #define REPLACE_FLAG	0x40	/* Replace mode flag */
+  #define REPLACE		(REPLACE_FLAG + INSERT)
+! #ifdef FEAT_VREPLACE
+! # define VREPLACE_FLAG	0x80	/* Virtual-replace mode flag */
+! # define VREPLACE	(REPLACE_FLAG + VREPLACE_FLAG + INSERT)
+! #endif
+  #define LREPLACE	(REPLACE_FLAG + LANGMAP)
+  
+  #define NORMAL_BUSY	(0x100 + NORMAL) /* Normal mode, busy with a command */
+--- 675,682 ----
+  
+  #define REPLACE_FLAG	0x40	/* Replace mode flag */
+  #define REPLACE		(REPLACE_FLAG + INSERT)
+! #define VREPLACE_FLAG	0x80	/* Virtual-replace mode flag */
+! #define VREPLACE	(REPLACE_FLAG + VREPLACE_FLAG + INSERT)
+  #define LREPLACE	(REPLACE_FLAG + LANGMAP)
+  
+  #define NORMAL_BUSY	(0x100 + NORMAL) /* Normal mode, busy with a command */
+*** ../vim-8.1.0225/src/version.c	2018-07-29 15:34:20.868300075 +0200
+--- src/version.c	2018-07-29 15:50:26.887245482 +0200
+***************
+*** 800,801 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     226,
+  /**/
+
+-- 
+Shit makes the flowers grow and that's beautiful
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

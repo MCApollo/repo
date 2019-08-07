@@ -1,0 +1,118 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0334
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0334
+Problem:    'autowrite' takes effect when buffer is not to be written.
+Solution:   Don't write buffers that are not supposed to be written. (Even Q
+            Jones, closes #3391)  Add tests for 'autowrite'.
+Files:	    src/ex_cmds2.c, src/testdir/test_writefile.vim
+
+
+*** ../vim-8.1.0333/src/ex_cmds2.c	2018-07-08 17:18:58.416462371 +0200
+--- src/ex_cmds2.c	2018-08-30 12:54:53.366211602 +0200
+***************
+*** 2041,2047 ****
+  }
+  
+  /*
+!  * flush all buffers, except the ones that are readonly
+   */
+      void
+  autowrite_all(void)
+--- 2041,2047 ----
+  }
+  
+  /*
+!  * Flush all buffers, except the ones that are readonly or are never written.
+   */
+      void
+  autowrite_all(void)
+***************
+*** 2051,2057 ****
+      if (!(p_aw || p_awa) || !p_write)
+  	return;
+      FOR_ALL_BUFFERS(buf)
+! 	if (bufIsChanged(buf) && !buf->b_p_ro)
+  	{
+  	    bufref_T	bufref;
+  
+--- 2051,2057 ----
+      if (!(p_aw || p_awa) || !p_write)
+  	return;
+      FOR_ALL_BUFFERS(buf)
+! 	if (bufIsChanged(buf) && !buf->b_p_ro && !bt_dontwrite(buf))
+  	{
+  	    bufref_T	bufref;
+  
+*** ../vim-8.1.0333/src/testdir/test_writefile.vim	2018-04-21 20:10:32.000000000 +0200
+--- src/testdir/test_writefile.vim	2018-08-30 13:03:35.924399170 +0200
+***************
+*** 112,114 ****
+--- 112,152 ----
+      throw 'Skipped: /dev/stdout is not writable'
+    endif
+  endfunc
++ 
++ func Test_writefile_autowrite()
++   set autowrite
++   new
++   next Xa Xb Xc
++   call setline(1, 'aaa')
++   next
++   call assert_equal(['aaa'], readfile('Xa'))
++   call setline(1, 'bbb')
++   call assert_fails('edit XX')
++   call assert_false(filereadable('Xb'))
++ 
++   set autowriteall
++   edit XX
++   call assert_equal(['bbb'], readfile('Xb'))
++ 
++   bwipe!
++   call delete('Xa')
++   call delete('Xb')
++   set noautowrite
++ endfunc
++ 
++ func Test_writefile_autowrite_nowrite()
++   set autowrite
++   new
++   next Xa Xb Xc
++   set buftype=nowrite
++   call setline(1, 'aaa')
++   let buf = bufnr('%')
++   " buffer contents silently lost
++   edit XX
++   call assert_false(filereadable('Xa'))
++   rewind
++   call assert_equal('', getline(1))
++ 
++   bwipe!
++   set noautowrite
++ endfunc
+*** ../vim-8.1.0333/src/version.c	2018-08-29 21:42:39.016365007 +0200
+--- src/version.c	2018-08-30 12:50:09.857472529 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     334,
+  /**/
+
+-- 
+I learned the customs and mannerisms of engineers by observing them, much the
+way Jane Goodall learned about the great apes, but without the hassle of
+grooming.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

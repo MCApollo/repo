@@ -1,0 +1,36 @@
+diff -ru gdb-1461/src/gdb/config/arm/macosx.mh gdb-1461+iPhone/src/gdb/config/arm/macosx.mh
+--- gdb-1461/src/gdb/config/arm/macosx.mh	2009-07-23 23:52:47.000000000 +0000
++++ gdb-1461+iPhone/src/gdb/config/arm/macosx.mh	2010-03-29 05:59:07.000000000 +0000
+@@ -54,7 +54,7 @@
+ _all: all
+ 
+ excServer.c excUser.c: macosx.defs
+-	xcrun -sdk "$(SDKROOT)" mig -arch armv6 -isysroot "$(SDKROOT)" -I. $<
++	mig -arch armv6 -I. $<
+ 
+ clean::
+ 	rm -f excServer.c excUser.c exc.h
+diff -ru gdb-1461/src/gdb/config/i386/macosx.mh gdb-1461+iPhone/src/gdb/config/i386/macosx.mh
+--- gdb-1461/src/gdb/config/i386/macosx.mh	2009-06-05 17:44:20.000000000 +0000
++++ gdb-1461+iPhone/src/gdb/config/i386/macosx.mh	2010-03-29 05:41:09.000000000 +0000
+@@ -60,7 +60,7 @@
+ _all: all
+ 
+ $(MACH_EXC_SERVER_PREFACE)excServer.c $(MACH_EXC_SERVER_PREFACE)excUser.c: macosx.defs
+-	$(SDKROOT)/usr/bin/mig -I. $<
++	mig -I. $<
+ 
+ clean::
+ 	rm -f $(MACH_EXC_SERVER_PREFACE)excServer.c $(MACH_EXC_SERVER_PREFACE)excUser.c $(MACH_EXC_SERVER_PREFACE)exc.h
+diff -ru gdb-1461/src/gdb/config/powerpc/macosx.mh gdb-1461+iPhone/src/gdb/config/powerpc/macosx.mh
+--- gdb-1461/src/gdb/config/powerpc/macosx.mh	2009-06-05 17:44:20.000000000 +0000
++++ gdb-1461+iPhone/src/gdb/config/powerpc/macosx.mh	2010-03-29 05:41:03.000000000 +0000
+@@ -62,7 +62,7 @@
+ _all: all
+ 
+ $(MACH_EXC_SERVER_PREFACE)excServer.c $(MACH_EXC_SERVER_PREFACE)excUser.c: macosx.defs
+-	$(SDKROOT)/usr/bin/mig -I. $<
++	mig -I. $<
+ 
+ clean::
+ 	rm -f $(MACH_EXC_SERVER_PREFACE)excServer.c $(MACH_EXC_SERVER_PREFACE)excUser.c $(MACH_EXC_SERVER_PREFACE)exc.h

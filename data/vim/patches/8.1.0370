@@ -1,0 +1,51 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0370
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0370
+Problem:    Not using internal diff if 'diffopt' is not changed.
+Solution:   Correct initialization of diff_flags. (Christian Brabandt)
+Files:	    src/diff.c
+
+
+*** ../vim-8.1.0369/src/diff.c	2018-09-10 17:50:32.713306941 +0200
+--- src/diff.c	2018-09-12 17:56:59.002582092 +0200
+***************
+*** 31,37 ****
+  #define DIFF_VERTICAL	16	// vertical splits
+  #define DIFF_HIDDEN_OFF	32	// diffoff when hidden
+  #define DIFF_INTERNAL	64	// use internal xdiff algorithm
+! static int	diff_flags = DIFF_FILLER;
+  
+  static long diff_algorithm = 0;
+  
+--- 31,37 ----
+  #define DIFF_VERTICAL	16	// vertical splits
+  #define DIFF_HIDDEN_OFF	32	// diffoff when hidden
+  #define DIFF_INTERNAL	64	// use internal xdiff algorithm
+! static int	diff_flags = DIFF_INTERNAL | DIFF_FILLER;
+  
+  static long diff_algorithm = 0;
+  
+*** ../vim-8.1.0369/src/version.c	2018-09-11 22:36:48.129548374 +0200
+--- src/version.c	2018-09-12 17:57:59.986272285 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     370,
+  /**/
+
+-- 
+Seen it all, done it all, can't remember most of it.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

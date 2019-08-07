@@ -1,0 +1,12 @@
+diff -ru 3proxy/Makefile.unix 3proxy+iPhone/Makefile.unix
+--- 3proxy/Makefile.unix	2005-04-30 18:29:00.000000000 +0000
++++ 3proxy+iPhone/Makefile.unix	2009-02-03 00:39:50.000000000 +0000
+@@ -9,7 +9,7 @@
+ CC = gcc
+ 
+ # you may need -L/usr/pkg/lib for older NetBSD versions
+-CFLAGS = -Wall -g -O2 -c -pthread -D_THREAD_SAFE -D_REENTRANT -DNOODBC -DWITH_STD_MALLOC -DFD_SETSIZE=4096 -DWITH_POLL
++CFLAGS = -Wall -g -O2 -c -pthread -D_THREAD_SAFE -D_REENTRANT -DNOODBC -DWITH_STD_MALLOC -DFD_SETSIZE=4096
+ COUT = -o 
+ LN = gcc
+ LDFLAGS = -Wall -O2 -pthread

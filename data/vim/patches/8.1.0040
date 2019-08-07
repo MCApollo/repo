@@ -1,0 +1,73 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0040
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0040
+Problem:    Warnings from 64-bit compiler.
+Solution:   Add type casts. (Mike Williams)
+Files:	    src/edit.c
+
+
+*** ../vim-8.1.0039/src/edit.c	2018-06-06 18:02:31.402773772 +0200
+--- src/edit.c	2018-06-10 13:11:02.468619199 +0200
+***************
+*** 1894,1900 ****
+  				   || Insstart_orig.col != (int)STRLEN(prompt))
+      {
+  	Insstart.lnum = curwin->w_cursor.lnum;
+! 	Insstart.col = STRLEN(prompt);
+  	Insstart_orig = Insstart;
+  	Insstart_textlen = Insstart.col;
+  	Insstart_blank_vcol = MAXCOL;
+--- 1894,1900 ----
+  				   || Insstart_orig.col != (int)STRLEN(prompt))
+      {
+  	Insstart.lnum = curwin->w_cursor.lnum;
+! 	Insstart.col = (int)STRLEN(prompt);
+  	Insstart_orig = Insstart;
+  	Insstart_textlen = Insstart.col;
+  	Insstart_blank_vcol = MAXCOL;
+***************
+*** 1904,1910 ****
+      if (cmdchar_todo == 'A')
+  	coladvance((colnr_T)MAXCOL);
+      if (cmdchar_todo == 'I' || curwin->w_cursor.col <= (int)STRLEN(prompt))
+! 	curwin->w_cursor.col = STRLEN(prompt);
+      /* Make sure the cursor is in a valid position. */
+      check_cursor();
+  }
+--- 1904,1910 ----
+      if (cmdchar_todo == 'A')
+  	coladvance((colnr_T)MAXCOL);
+      if (cmdchar_todo == 'I' || curwin->w_cursor.col <= (int)STRLEN(prompt))
+! 	curwin->w_cursor.col = (int)STRLEN(prompt);
+      /* Make sure the cursor is in a valid position. */
+      check_cursor();
+  }
+*** ../vim-8.1.0039/src/version.c	2018-06-07 18:17:42.278227523 +0200
+--- src/version.c	2018-06-10 13:12:46.188502730 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     40,
+  /**/
+
+-- 
+The technology involved in making anything invisible is so infinitely
+complex that nine hundred and ninety-nine billion, nine hundred and
+ninety-nine million, nine hundred and ninety-nine thousand, nine hundred
+and ninety-nine times out of a trillion it is much simpler and more
+effective just to take the thing away and do without it.
+		-- Douglas Adams, "The Hitchhiker's Guide to the Galaxy"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

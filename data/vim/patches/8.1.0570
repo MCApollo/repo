@@ -1,0 +1,126 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0570
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0570
+Problem:    'commentstring' not used when adding fold marker. (Maxim Kim)
+Solution:   Only use empty 'comments' middle when leader is empty. (Christian
+            Brabandt, closes #3670)
+Files:	    src/misc1.c, src/testdir/test_fold.vim
+
+
+*** ../vim-8.1.0569/src/misc1.c	2018-11-16 19:39:47.346937404 +0100
+--- src/misc1.c	2018-12-07 21:00:29.985700550 +0100
+***************
+*** 1993,1998 ****
+--- 1993,1999 ----
+  	for (list = curbuf->b_p_com; *list; )
+  	{
+  	    char_u *flags_save = list;
++ 	    int	    is_only_whitespace = FALSE;
+  
+  	    /*
+  	     * Get one option part into part_buf[].  Advance list to next one.
+***************
+*** 2018,2025 ****
+  	    {
+  		if (i == 0 || !VIM_ISWHITE(line[i - 1]))
+  		    continue;
+! 		while (VIM_ISWHITE(string[0]))
+  		    ++string;
+  	    }
+  	    for (j = 0; string[j] != NUL && string[j] == line[i + j]; ++j)
+  		/* do nothing */;
+--- 2019,2028 ----
+  	    {
+  		if (i == 0 || !VIM_ISWHITE(line[i - 1]))
+  		    continue;
+! 		while (VIM_ISWHITE(*string))
+  		    ++string;
++ 		if (*string == NUL)
++ 		    is_only_whitespace = TRUE;
+  	    }
+  	    for (j = 0; string[j] != NUL && string[j] == line[i + j]; ++j)
+  		/* do nothing */;
+***************
+*** 2032,2039 ****
+  	     */
+  	    if (vim_strchr(part_buf, COM_BLANK) != NULL
+  		    && !VIM_ISWHITE(line[i + j]) && line[i + j] != NUL)
+- 	    {
+  		continue;
+  	    }
+  
+  	    /*
+--- 2035,2051 ----
+  	     */
+  	    if (vim_strchr(part_buf, COM_BLANK) != NULL
+  		    && !VIM_ISWHITE(line[i + j]) && line[i + j] != NUL)
+  		continue;
++ 
++ 	    // For a middlepart comment that is only white space, only consider
++ 	    // it to match if everything before the current position in the
++ 	    // line is also whitespace.
++ 	    if (is_only_whitespace && vim_strchr(part_buf, COM_MIDDLE) != NULL)
++ 	    {
++ 		for (j = 0; VIM_ISWHITE(line[j]) && j <= i; j++)
++ 		    ;
++ 		if (j < i)
++ 		    continue;
+  	    }
+  
+  	    /*
+*** ../vim-8.1.0569/src/testdir/test_fold.vim	2018-10-02 21:20:08.688088162 +0200
+--- src/testdir/test_fold.vim	2018-12-07 21:03:08.585295165 +0100
+***************
+*** 695,697 ****
+--- 695,714 ----
+    call StopVimInTerminal(buf)
+    call delete('Xtest_folds_with_rnu')
+  endfunc
++ 
++ func Test_folds_marker_in_comment2()
++   new
++   call setline(1, ['Lorem ipsum dolor sit', 'Lorem ipsum dolor sit', 'Lorem ipsum dolor sit'])
++   setl fen fdm=marker
++   setl commentstring=<!--%s-->
++   setl comments=s:<!--,m:\ \ \ \ ,e:-->
++   norm! zf2j
++   setl nofen
++   :1y
++   call assert_equal(['Lorem ipsum dolor sit<!--{{{-->'], getreg(0,1,1))
++   :+2y
++   call assert_equal(['Lorem ipsum dolor sit<!--}}}-->'], getreg(0,1,1))
++ 
++   set foldmethod&
++   bwipe!
++ endfunc
+*** ../vim-8.1.0569/src/version.c	2018-12-07 16:38:20.461472100 +0100
+--- src/version.c	2018-12-07 20:53:51.333542516 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     570,
+  /**/
+
+-- 
+Any resemblance between the above views and those of my employer, my terminal,
+or the view out my window are purely coincidental.  Any resemblance between
+the above and my own views is non-deterministic.  The question of the
+existence of views in the absence of anyone to hold them is left as an
+exercise for the reader.  The question of the existence of the reader is left
+as an exercise for the second god coefficient.  (A discussion of
+non-orthogonal, non-integral polytheism is beyond the scope of this article.)
+						(Ralph Jennings)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

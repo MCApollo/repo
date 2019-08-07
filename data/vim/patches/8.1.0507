@@ -1,0 +1,102 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0507
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0507
+Problem:    .raml files not properly detected.
+Solution:   Recognize .raml as raml instead of yaml. (closes #3594)
+Files:      runtime/filetype.vim, src/testdir/test_filetype.vim
+
+
+*** ../vim-8.1.0506/runtime/filetype.vim	2018-10-27 14:27:17.535786698 +0200
+--- runtime/filetype.vim	2018-11-03 19:45:12.980445332 +0100
+***************
+*** 1129,1135 ****
+  " PDF
+  au BufNewFile,BufRead *.pdf			setf pdf
+  
+! " PCMK - HAE - crm configure edit 
+  au BufNewFile,BufRead *.pcmk 			setf pcmk
+  
+  " Perl
+--- 1129,1135 ----
+  " PDF
+  au BufNewFile,BufRead *.pdf			setf pdf
+  
+! " PCMK - HAE - crm configure edit
+  au BufNewFile,BufRead *.pcmk 			setf pcmk
+  
+  " Perl
+***************
+*** 1893,1900 ****
+  " Yacc or racc
+  au BufNewFile,BufRead *.y			call dist#ft#FTy()
+  
+! " Yaml or Raml
+! au BufNewFile,BufRead *.yaml,*.yml,*.raml	setf yaml
+  
+  " yum conf (close enough to dosini)
+  au BufNewFile,BufRead */etc/yum.conf		setf dosini
+--- 1893,1903 ----
+  " Yacc or racc
+  au BufNewFile,BufRead *.y			call dist#ft#FTy()
+  
+! " Yaml
+! au BufNewFile,BufRead *.yaml,*.yml		setf yaml
+! 
+! " Raml
+! au BufNewFile,BufRead *.raml			setf raml
+  
+  " yum conf (close enough to dosini)
+  au BufNewFile,BufRead */etc/yum.conf		setf dosini
+***************
+*** 2107,2113 ****
+  au BufNewFile,BufRead *.text,README		setf text
+  
+  " Help files match *.txt but should have a last line that is a modeline.
+! au BufNewFile,BufRead *.txt	
+  	\  if getline('$') !~ 'vim:.*ft=help'
+  	\|   setf text
+  	\| endif
+--- 2110,2116 ----
+  au BufNewFile,BufRead *.text,README		setf text
+  
+  " Help files match *.txt but should have a last line that is a modeline.
+! au BufNewFile,BufRead *.txt
+  	\  if getline('$') !~ 'vim:.*ft=help'
+  	\|   setf text
+  	\| endif
+*** ../vim-8.1.0506/src/testdir/test_filetype.vim	2018-10-27 14:27:17.539786667 +0200
+--- src/testdir/test_filetype.vim	2018-11-03 19:45:43.716269306 +0100
+***************
+*** 495,500 ****
+--- 495,501 ----
+      \ 'xslt': ['file.xsl', 'file.xslt'],
+      \ 'yacc': ['file.yy', 'file.yxx', 'file.y++'],
+      \ 'yaml': ['file.yaml', 'file.yml'],
++     \ 'raml': ['file.raml'],
+      \ 'z8a': ['file.z8a'],
+      \ 'zimbu': ['file.zu'],
+      \ 'zimbutempl': ['file.zut'],
+*** ../vim-8.1.0506/src/version.c	2018-11-03 19:06:20.211795974 +0100
+--- src/version.c	2018-11-03 19:46:31.539992781 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     507,
+  /**/
+
+-- 
+Not too long ago, a program was something you watched on TV...
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,78 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0073
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0073
+Problem:    Crash when autocommands call setloclist(). (Dominique Pelle)
+Solution:   If the quickfix list changes then don't jump to the error.
+Files:	    src/quickfix.c, src/testdir/test_quickfix.vim
+
+
+
+*** ../vim-8.1.0072/src/quickfix.c	2018-06-16 22:16:43.232576946 +0200
+--- src/quickfix.c	2018-06-18 20:46:57.982804364 +0200
+***************
+*** 6348,6356 ****
+  	    if (au_name != NULL)
+  		apply_autocmds(EVENT_QUICKFIXCMDPOST, au_name,
+  						curbuf->b_fname, TRUE, curbuf);
+! 	    if (res > 0 && (eap->cmdidx == CMD_cexpr ||
+! 						eap->cmdidx == CMD_lexpr))
+! 		qf_jump(qi, 0, 0, eap->forceit);  /* display first error */
+  	}
+  	else
+  	    EMSG(_("E777: String or List expected"));
+--- 6348,6358 ----
+  	    if (au_name != NULL)
+  		apply_autocmds(EVENT_QUICKFIXCMDPOST, au_name,
+  						curbuf->b_fname, TRUE, curbuf);
+! 	    if (res > 0 && (eap->cmdidx == CMD_cexpr
+! 						   || eap->cmdidx == CMD_lexpr)
+! 		    && qi == ll_get_or_alloc_list(curwin))
+! 		// Jump to the first error if autocmds didn't free the list.
+! 		qf_jump(qi, 0, 0, eap->forceit);
+  	}
+  	else
+  	    EMSG(_("E777: String or List expected"));
+*** ../vim-8.1.0072/src/testdir/test_quickfix.vim	2018-06-16 22:16:43.232576946 +0200
+--- src/testdir/test_quickfix.vim	2018-06-18 20:48:23.134324971 +0200
+***************
+*** 3362,3364 ****
+--- 3362,3375 ----
+      au!
+    augroup END
+  endfunc
++ 
++ func Test_setloclist_in_aucmd()
++   " This was using freed memory.
++   augroup nasty
++     au * * call setloclist(0, [], 'f')
++   augroup END
++   lexpr "x"
++   augroup nasty
++     au!
++   augroup END
++ endfunc
+*** ../vim-8.1.0072/src/version.c	2018-06-17 22:19:07.267202961 +0200
+--- src/version.c	2018-06-18 20:51:25.897295981 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     73,
+  /**/
+
+-- 
+Q: How many legs does a giraffe have?
+A: Eight: two in front, two behind, two on the left and two on the right
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

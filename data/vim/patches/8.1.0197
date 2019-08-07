@@ -1,0 +1,74 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0197
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0197
+Problem:    Windows GUI: title for search/replace is wrong.
+Solution:   Remove remark about doubling backslash. (closes #3230)
+Files:      src/gui_win32.c
+
+
+*** ../vim-8.1.0196/src/gui_w32.c	2018-06-28 12:05:07.085006926 +0200
+--- src/gui_w32.c	2018-07-20 04:55:11.444216436 +0200
+***************
+*** 2820,2827 ****
+  		s_findrep_hwnd = FindText((LPFINDREPLACE) &s_findrep_struct);
+  	}
+  
+! 	set_window_title(s_findrep_hwnd,
+! 			       _("Find string (use '\\\\' to find a '\\')"));
+  	(void)SetFocus(s_findrep_hwnd);
+  
+  	s_findrep_is_find = TRUE;
+--- 2820,2826 ----
+  		s_findrep_hwnd = FindText((LPFINDREPLACE) &s_findrep_struct);
+  	}
+  
+! 	set_window_title(s_findrep_hwnd, _("Find string"));
+  	(void)SetFocus(s_findrep_hwnd);
+  
+  	s_findrep_is_find = TRUE;
+***************
+*** 2855,2862 ****
+  					   (LPFINDREPLACE) &s_findrep_struct);
+  	}
+  
+! 	set_window_title(s_findrep_hwnd,
+! 			    _("Find & Replace (use '\\\\' to find a '\\')"));
+  	(void)SetFocus(s_findrep_hwnd);
+  
+  	s_findrep_is_find = FALSE;
+--- 2854,2860 ----
+  					   (LPFINDREPLACE) &s_findrep_struct);
+  	}
+  
+! 	set_window_title(s_findrep_hwnd, _("Find & Replace"));
+  	(void)SetFocus(s_findrep_hwnd);
+  
+  	s_findrep_is_find = FALSE;
+*** ../vim-8.1.0196/src/version.c	2018-07-19 04:13:30.332453051 +0200
+--- src/version.c	2018-07-20 05:00:43.838081685 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     197,
+  /**/
+
+-- 
+MAN:     You don't frighten us, English pig-dog!  Go and boil your bottoms,
+         son of a silly person.  I blow my nose on you, so-called Arthur-king,
+         you and your silly English K...kaniggets.
+   He puts hands to his ears and blows a raspberry.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

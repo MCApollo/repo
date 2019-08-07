@@ -1,0 +1,11 @@
+diff -ru vfdecrypt-iphone/util.c vfdecrypt-iphone+iPhone/util.c
+--- vfdecrypt-iphone/util.c	2007-08-12 22:02:19.000000000 +0000
++++ vfdecrypt-iphone+iPhone/util.c	2008-03-24 13:12:13.000000000 +0000
+@@ -3,6 +3,7 @@
+ #include <string.h>
+ #include <unistd.h>
+ 
++#include <libkern/OSByteOrder.h>
+ #include "util.h"
+ 
+ void print_hex(uint8_t *data, uint32_t len)

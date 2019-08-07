@@ -1,0 +1,110 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0310
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0310
+Problem:    File info message not always suppressed with 'F' in 'shortmess'.
+            (Asheq Imran)
+Solution:   Save and restore msg_silent. (Christian Brabandt, closes #3221)
+Files:	    src/buffer.c, src/memline.c, src/testdir/test_options.vim
+
+
+*** ../vim-8.1.0309/src/buffer.c	2018-08-21 15:12:10.831801698 +0200
+--- src/buffer.c	2018-08-21 18:36:25.882450971 +0200
+***************
+*** 1035,1041 ****
+--- 1035,1048 ----
+  	    buf = old_curbuf->br_buf;
+  	if (buf != NULL)
+  	{
++ 	    int old_msg_silent = msg_silent;
++ 
++ 	    if (shortmess(SHM_FILEINFO))
++ 		msg_silent = 1;  // prevent fileinfo message
+  	    enter_buffer(buf);
++ 	    // restore msg_silent, so that the command line will be shown
++ 	    msg_silent = old_msg_silent;
++ 
+  # ifdef FEAT_SYN_HL
+  	    if (old_tw != curbuf->b_p_tw)
+  		check_colorcolumn(curwin);
+*** ../vim-8.1.0309/src/memline.c	2018-08-20 22:53:00.210105086 +0200
+--- src/memline.c	2018-08-21 18:38:03.481885916 +0200
+***************
+*** 828,837 ****
+   */
+      void
+  check_need_swap(
+!     int	    newfile)		/* reading file into new buffer */
+  {
+      if (curbuf->b_may_swap && (!curbuf->b_p_ro || !newfile))
+  	ml_open_file(curbuf);
+  }
+  
+  /*
+--- 828,840 ----
+   */
+      void
+  check_need_swap(
+!     int	    newfile)		// reading file into new buffer
+  {
++     int old_msg_silent = msg_silent; // might be reset by an E325 message
++ 
+      if (curbuf->b_may_swap && (!curbuf->b_p_ro || !newfile))
+  	ml_open_file(curbuf);
++     msg_silent = old_msg_silent;
+  }
+  
+  /*
+*** ../vim-8.1.0309/src/testdir/test_options.vim	2018-08-11 17:52:57.848311971 +0200
+--- src/testdir/test_options.vim	2018-08-21 18:34:20.687161831 +0200
+***************
+*** 414,416 ****
+--- 414,437 ----
+    set shortmess&
+    bwipe
+  endfunc
++ 
++ func Test_shortmess_F2()
++   e file1
++   e file2
++   call assert_match('file1', execute('bn', ''))
++   call assert_match('file2', execute('bn', ''))
++   set shortmess+=F
++   call assert_true(empty(execute('bn', '')))
++   call assert_true(empty(execute('bn', '')))
++   set hidden
++   call assert_true(empty(execute('bn', '')))
++   call assert_true(empty(execute('bn', '')))
++   set nohidden
++   call assert_true(empty(execute('bn', '')))
++   call assert_true(empty(execute('bn', '')))
++   set shortmess&
++   call assert_match('file1', execute('bn', ''))
++   call assert_match('file2', execute('bn', ''))
++   bwipe
++   bwipe
++ endfunc
+*** ../vim-8.1.0309/src/version.c	2018-08-21 17:49:50.993308900 +0200
+--- src/version.c	2018-08-21 18:42:36.348269248 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     310,
+  /**/
+
+-- 
+"The future's already arrived - it's just not evenly distributed yet."
+		-- William Gibson
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

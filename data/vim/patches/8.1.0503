@@ -1,0 +1,61 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0503
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0503
+Problem:    Missing change to diff test. (Hirohito Higashi)
+Solution:   Add the missing test function.
+Files:	    src/testdir/test_diffmode.vim
+
+
+*** ../vim-8.1.0502/src/testdir/test_diffmode.vim	2018-10-25 17:52:20.386489835 +0200
+--- src/testdir/test_diffmode.vim	2018-10-31 22:47:48.081600686 +0100
+***************
+*** 885,887 ****
+--- 885,907 ----
+    call StopVimInTerminal(buf)
+    call delete('Xtest_diff_cursorline')
+  endfunc
++ 
++ func Test_diff_of_diff()
++   if !CanRunVimInTerminal()
++     return
++   endif
++ 
++   call writefile([
++ 	\ 'call setline(1, ["aa","bb","cc","@@ -3,2 +5,7 @@","dd","ee","ff"])',
++ 	\ 'vnew',
++ 	\ 'call setline(1, ["aa","bb","cc"])',
++ 	\ 'windo diffthis',
++ 	\ ], 'Xtest_diff_diff')
++   let buf = RunVimInTerminal('-S Xtest_diff_diff', {})
++ 
++   call VerifyScreenDump(buf, 'Test_diff_of_diff_01', {})
++ 
++   " clean up
++   call StopVimInTerminal(buf)
++   call delete('Xtest_diff_diff')
++ endfunc
+*** ../vim-8.1.0502/src/version.c	2018-10-31 22:57:07.913017514 +0100
+--- src/version.c	2018-11-01 21:13:52.394235270 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     503,
+  /**/
+
+-- 
+"My particular problem is with registry entries, which seem to just
+accumulate like plastic coffee cups..."           -- Paul Moore
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

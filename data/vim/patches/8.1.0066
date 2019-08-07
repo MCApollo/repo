@@ -1,0 +1,129 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0066
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0066
+Problem:    Nasty autocommand causes using freed memory. (Dominique Pelle)
+Solution:   Do not force executing autocommands if the value of 'syntax' or
+            'filetype' did not change.
+Files:	    src/option.c
+
+
+*** ../vim-8.1.0065/src/option.c	2018-06-16 22:58:11.791025515 +0200
+--- src/option.c	2018-06-17 17:30:01.421260379 +0200
+***************
+*** 6029,6035 ****
+      /* set when changing an option that only requires a redraw in the GUI */
+      int		redraw_gui_only = FALSE;
+  #endif
+!     int		ft_changed = FALSE;
+  #if defined(FEAT_VTP) && defined(FEAT_TERMGUICOLORS)
+      int		did_swaptcap = FALSE;
+  #endif
+--- 6029,6035 ----
+      /* set when changing an option that only requires a redraw in the GUI */
+      int		redraw_gui_only = FALSE;
+  #endif
+!     int		value_changed = FALSE;
+  #if defined(FEAT_VTP) && defined(FEAT_TERMGUICOLORS)
+      int		did_swaptcap = FALSE;
+  #endif
+***************
+*** 7437,7443 ****
+  	if (!valid_filetype(*varp))
+  	    errmsg = e_invarg;
+  	else
+! 	    ft_changed = STRCMP(oldval, *varp) != 0;
+      }
+  
+  #ifdef FEAT_SYN_HL
+--- 7437,7443 ----
+  	if (!valid_filetype(*varp))
+  	    errmsg = e_invarg;
+  	else
+! 	    value_changed = STRCMP(oldval, *varp) != 0;
+      }
+  
+  #ifdef FEAT_SYN_HL
+***************
+*** 7445,7450 ****
+--- 7445,7452 ----
+      {
+  	if (!valid_filetype(*varp))
+  	    errmsg = e_invarg;
++ 	else
++ 	    value_changed = STRCMP(oldval, *varp) != 0;
+      }
+  #endif
+  
+***************
+*** 7565,7584 ****
+  	/* When 'syntax' is set, load the syntax of that name */
+  	if (varp == &(curbuf->b_p_syn))
+  	{
+  	    apply_autocmds(EVENT_SYNTAX, curbuf->b_p_syn,
+! 					       curbuf->b_fname, TRUE, curbuf);
+  	}
+  #endif
+  	else if (varp == &(curbuf->b_p_ft))
+  	{
+  	    /* 'filetype' is set, trigger the FileType autocommand.
+  	     * Skip this when called from a modeline and the filetype was
+! 	     * already set to this value. */
+! 	    if (!(opt_flags & OPT_MODELINE) || ft_changed)
+  	    {
+  		did_filetype = TRUE;
+  		apply_autocmds(EVENT_FILETYPE, curbuf->b_p_ft,
+! 					       curbuf->b_fname, TRUE, curbuf);
+  		/* Just in case the old "curbuf" is now invalid. */
+  		if (varp != &(curbuf->b_p_ft))
+  		    varp = NULL;
+--- 7567,7590 ----
+  	/* When 'syntax' is set, load the syntax of that name */
+  	if (varp == &(curbuf->b_p_syn))
+  	{
++ 	    // Only pass TRUE for "force" when the value changed, to avoid
++ 	    // endless recurrence. */
+  	    apply_autocmds(EVENT_SYNTAX, curbuf->b_p_syn,
+! 				       curbuf->b_fname, value_changed, curbuf);
+  	}
+  #endif
+  	else if (varp == &(curbuf->b_p_ft))
+  	{
+  	    /* 'filetype' is set, trigger the FileType autocommand.
+  	     * Skip this when called from a modeline and the filetype was
+! 	     * already set to this value.
+! 	     * Only pass TRUE for "force" when the value changed, to avoid
+! 	     * endless recurrence. */
+! 	    if (!(opt_flags & OPT_MODELINE) || value_changed)
+  	    {
+  		did_filetype = TRUE;
+  		apply_autocmds(EVENT_FILETYPE, curbuf->b_p_ft,
+! 				       curbuf->b_fname, value_changed, curbuf);
+  		/* Just in case the old "curbuf" is now invalid. */
+  		if (varp != &(curbuf->b_p_ft))
+  		    varp = NULL;
+*** ../vim-8.1.0065/src/version.c	2018-06-17 17:10:55.636590392 +0200
+--- src/version.c	2018-06-17 17:32:02.240534510 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     66,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+61. Your best friends know your e-mail address, but neither your phone number
+    nor the address where you live.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

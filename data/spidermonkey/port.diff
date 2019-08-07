@@ -1,0 +1,99 @@
+diff -ru js/src/config/Darwin.mk js+iPhone/src/config/Darwin.mk
+--- js/src/config/Darwin.mk	2007-02-05 16:24:49.000000000 +0000
++++ js+iPhone/src/config/Darwin.mk	2008-04-05 05:47:23.000000000 +0000
+@@ -43,13 +43,13 @@
+ # Just ripped from Linux config
+ #
+ 
+-CC = cc
+-CCC = g++
++CC = $${PKG_TARG}-gcc
++CCC = $${PKG_TARG}-g++
+ CFLAGS +=  -Wall -Wno-format
+ OS_CFLAGS = -DXP_UNIX -DSVR4 -DSYSV -D_BSD_SOURCE -DPOSIX_SOURCE -DDARWIN
+ 
+-RANLIB = ranlib
+-MKSHLIB = $(CC) -dynamiclib $(XMKSHLIBOPTS) -framework System
++RANLIB = $${PKG_TARG}-ranlib
++MKSHLIB = $(CC) -dynamiclib $(XMKSHLIBOPTS)
+ 
+ SO_SUFFIX = dylib
+ 
+@@ -63,7 +63,7 @@
+ endif
+ GFX_ARCH = x
+ 
+-OS_LIBS = -lc -framework System
++OS_LIBS = -lc
+ 
+ ASFLAGS += -x assembler-with-cpp
+ 
+@@ -81,3 +81,4 @@
+ # Don't allow Makefile.ref to use libmath
+ NO_LIBM = 1
+ 
++PREBUILT_CPUCFG = 1
+diff -ru js/src/config.mk js+iPhone/src/config.mk
+--- js/src/config.mk	2006-07-27 21:00:57.000000000 +0000
++++ js+iPhone/src/config.mk	2007-12-31 20:58:38.000000000 +0000
+@@ -45,9 +45,11 @@
+ 
+ # Set os+release dependent make variables
+ OS_ARCH         := $(subst /,_,$(shell uname -s | sed /\ /s//_/))
++OS_ARCH := Darwin
+ 
+ # Attempt to differentiate between SunOS 5.4 and x86 5.4
+ OS_CPUARCH      := $(shell uname -m)
++OS_CPUARCH := iPhone1,1
+ ifeq ($(OS_CPUARCH),i86pc)
+ OS_RELEASE      := $(shell uname -r)_$(OS_CPUARCH)
+ else
+diff -ru js/src/jscpucfg.h js+iPhone/src/jscpucfg.h
+--- js/src/jscpucfg.h	2006-07-07 02:12:01.000000000 +0000
++++ js+iPhone/src/jscpucfg.h	2007-12-31 20:58:38.000000000 +0000
+@@ -46,7 +46,7 @@
+ 
+ #if defined(_WIN64)
+ 
+-#if defined(_M_X64) || defined(_M_AMD64) || defined(_AMD64_)
++#if 0//defined(_M_X64) || defined(_M_AMD64) || defined(_AMD64_)
+ #define IS_LITTLE_ENDIAN 1
+ #undef  IS_BIG_ENDIAN
+ 
+@@ -94,7 +94,7 @@
+ #error "CPU type is unknown"
+ #endif /* !(defined(_M_X64) || defined(_M_AMD64) || defined(_AMD64_)) */
+ 
+-#elif defined(_WIN32) || defined(XP_OS2) || defined(WINCE)
++#elif 1//defined(_WIN32) || defined(XP_OS2) || defined(WINCE)
+ 
+ #ifdef __WATCOMC__
+ #define HAVE_VA_LIST_AS_ARRAY
+diff -ru js/src/jsnum.c js+iPhone/src/jsnum.c
+--- js/src/jsnum.c	2007-04-06 20:53:22.000000000 +0000
++++ js+iPhone/src/jsnum.c	2007-12-31 20:58:38.000000000 +0000
+@@ -517,7 +517,7 @@
+ 
+ static jsdouble NaN;
+ 
+-#if (defined XP_WIN || defined XP_OS2) &&                                     \
++#if 0 && (defined XP_WIN || defined XP_OS2) &&                                     \
+     !defined WINCE &&                                                         \
+     !defined __MWERKS__ &&                                                    \
+     (defined _M_IX86 ||                                                       \
+diff -ru js/src/Makefile.ref js+iPhone/src/Makefile.ref
+--- js/src/Makefile.ref	2006-07-26 19:16:47.000000000 +0000
++++ js+iPhone/src/Makefile.ref	2007-12-31 21:07:20.000000000 +0000
+@@ -320,10 +320,10 @@
+ 
+ $(OBJDIR)/jskwgen.o: jskwgen.c jskeyword.tbl
+ 	@$(MAKE_OBJDIR)
+-	$(CC) -o $@ -c $(CFLAGS) $<
++	gcc -o $@ -c $(CFLAGS) $<
+ 
+ $(OBJDIR)/jskwgen$(HOST_BIN_SUFFIX): $(OBJDIR)/jskwgen.$(OBJ_SUFFIX)
+-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^
++	gcc -o $@ $(CFLAGS) $(LDFLAGS) $^
+ 
+ endif
+ 

@@ -1,0 +1,64 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0500
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0500
+Problem:    Cleaning up in src/tee may not always work.
+Solution:   Use "rm" when appropriate. (Michael Soyka, closes #3571)
+Files:	    src/tee/Makefile
+
+
+*** ../vim-8.1.0499/src/tee/Makefile	2018-10-17 22:45:51.167602173 +0200
+--- src/tee/Makefile	2018-10-28 15:39:22.597604713 +0100
+***************
+*** 3,8 ****
+--- 3,14 ----
+  CC=gcc
+  CFLAGS=-O2 -fno-strength-reduce
+  
++ ifneq (sh.exe, $(SHELL))
++ DEL = rm
++ else
++ DEL = del
++ endif
++ 
+  tee.exe: tee.o
+  	$(CC) $(CFLAGS) -s -o $@ $<
+  
+***************
+*** 10,15 ****
+  	$(CC) $(CFLAGS) -c $<
+  
+  clean:
+! 	- del tee.o
+! 	- del tee.exe
+  
+--- 16,21 ----
+  	$(CC) $(CFLAGS) -c $<
+  
+  clean:
+! 	- $(DEL) tee.o
+! 	- $(DEL) tee.exe
+  
+*** ../vim-8.1.0499/src/version.c	2018-10-28 14:36:04.222247691 +0100
+--- src/version.c	2018-10-28 15:42:12.040813500 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     500,
+  /**/
+
+-- 
+The software said it requires Windows 95 or better, so I installed Linux.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

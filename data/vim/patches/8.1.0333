@@ -1,0 +1,215 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0333
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0333
+Problem:    :mkview does not restore cursor properly after "$". (Dominique
+            Pelle)
+Solution:   Position the cursor with "normal! $".
+Files:	    src/ex_docmd.c, src/testdir/test_mksession.vim
+
+
+*** ../vim-8.1.0332/src/ex_docmd.c	2018-08-23 22:51:30.878144125 +0200
+--- src/ex_docmd.c	2018-08-29 20:55:57.947479752 +0200
+***************
+*** 11706,11711 ****
+--- 11706,11723 ----
+      return TRUE;
+  }
+  
++     static int
++ put_view_curpos(FILE *fd, win_T *wp, char *spaces)
++ {
++     int r;
++ 
++     if (wp->w_curswant == MAXCOL)
++ 	r = fprintf(fd, "%snormal! $", spaces);
++     else
++ 	r = fprintf(fd, "%snormal! 0%d|", spaces, wp->w_virtcol + 1);
++     return r < 0 || put_eol(fd) == FAIL ? FALSE : OK;
++ }
++ 
+  /*
+   * Write commands to "fd" to restore the view of a window.
+   * Caller must make sure 'scrolloff' is zero.
+***************
+*** 11897,11913 ****
+  			    (long)wp->w_virtcol + 1) < 0
+  			|| put_eol(fd) == FAIL
+  			|| put_line(fd, "else") == FAIL
+! 			|| fprintf(fd, "  normal! 0%d|", wp->w_virtcol + 1) < 0
+! 			|| put_eol(fd) == FAIL
+  			|| put_line(fd, "endif") == FAIL)
+  		    return FAIL;
+  	    }
+! 	    else
+! 	    {
+! 		if (fprintf(fd, "normal! 0%d|", wp->w_virtcol + 1) < 0
+! 			|| put_eol(fd) == FAIL)
+! 		    return FAIL;
+! 	    }
+  	}
+      }
+  
+--- 11909,11920 ----
+  			    (long)wp->w_virtcol + 1) < 0
+  			|| put_eol(fd) == FAIL
+  			|| put_line(fd, "else") == FAIL
+! 			|| put_view_curpos(fd, wp, "  ") == FAIL
+  			|| put_line(fd, "endif") == FAIL)
+  		    return FAIL;
+  	    }
+! 	    else if (put_view_curpos(fd, wp, "") == FAIL)
+! 		return FAIL;
+  	}
+      }
+  
+*** ../vim-8.1.0332/src/testdir/test_mksession.vim	2018-08-28 22:19:27.739993071 +0200
+--- src/testdir/test_mksession.vim	2018-08-29 20:54:27.800200938 +0200
+***************
+*** 22,28 ****
+      \   'two	tabs	in one line',
+      \   'one ä multibyteCharacter',
+      \   'aä Ä  two multiByte characters',
+!     \   'Aäöü  three mulTibyte characters'
+      \ ])
+    let tmpfile = 'Xtemp'
+    exec 'w! ' . tmpfile
+--- 22,29 ----
+      \   'two	tabs	in one line',
+      \   'one ä multibyteCharacter',
+      \   'aä Ä  two multiByte characters',
+!     \   'Aäöü  three mulTibyte characters',
+!     \   'short line',
+      \ ])
+    let tmpfile = 'Xtemp'
+    exec 'w! ' . tmpfile
+***************
+*** 44,49 ****
+--- 45,52 ----
+    norm! j16|
+    split
+    norm! j16|
++   split
++   norm! j$
+    wincmd l
+  
+    set nowrap
+***************
+*** 66,72 ****
+    split
+    call wincol()
+    mksession! Xtest_mks.out
+!   let li = filter(readfile('Xtest_mks.out'), 'v:val =~# "\\(^ *normal! 0\\|^ *exe ''normal!\\)"')
+    let expected = [
+      \   'normal! 016|',
+      \   'normal! 016|',
+--- 69,75 ----
+    split
+    call wincol()
+    mksession! Xtest_mks.out
+!   let li = filter(readfile('Xtest_mks.out'), 'v:val =~# "\\(^ *normal! [0$]\\|^ *exe ''normal!\\)"')
+    let expected = [
+      \   'normal! 016|',
+      \   'normal! 016|',
+***************
+*** 76,81 ****
+--- 79,85 ----
+      \   'normal! 016|',
+      \   'normal! 016|',
+      \   'normal! 016|',
++     \   'normal! $',
+      \   "  exe 'normal! ' . s:c . '|zs' . 16 . '|'",
+      \   "  normal! 016|",
+      \   "  exe 'normal! ' . s:c . '|zs' . 16 . '|'",
+***************
+*** 317,323 ****
+    help :mkview
+    set number
+    norm! V}zf
+!   let pos = getpos('.')
+    let linefoldclosed1 = foldclosed('.')
+    mkview! Xview
+    set nonumber
+--- 321,327 ----
+    help :mkview
+    set number
+    norm! V}zf
+!   let pos = getcurpos()
+    let linefoldclosed1 = foldclosed('.')
+    mkview! Xview
+    set nonumber
+***************
+*** 329,335 ****
+    source Xview
+    call assert_equal(1, &number)
+    call assert_match('\*:mkview\*$', getline('.'))
+!   call assert_equal(pos, getpos('.'))
+    call assert_equal(linefoldclosed1, foldclosed('.'))
+  
+    " Creating a view again with the same file name should fail (file
+--- 333,339 ----
+    source Xview
+    call assert_equal(1, &number)
+    call assert_match('\*:mkview\*$', getline('.'))
+!   call assert_equal(pos, getcurpos())
+    call assert_equal(linefoldclosed1, foldclosed('.'))
+  
+    " Creating a view again with the same file name should fail (file
+***************
+*** 352,358 ****
+    help :mkview
+    set number
+    norm! V}zf
+!   let pos = getpos('.')
+    let linefoldclosed1 = foldclosed('.')
+    mkview 1
+    set nonumber
+--- 356,362 ----
+    help :mkview
+    set number
+    norm! V}zf
+!   let pos = getcurpos()
+    let linefoldclosed1 = foldclosed('.')
+    mkview 1
+    set nonumber
+***************
+*** 369,375 ****
+          \           glob('Xviewdir/*'))
+    call assert_equal(1, &number)
+    call assert_match('\*:mkview\*$', getline('.'))
+!   call assert_equal(pos, getpos('.'))
+    call assert_equal(linefoldclosed1, foldclosed('.'))
+  
+    call delete('Xviewdir', 'rf')
+--- 373,379 ----
+          \           glob('Xviewdir/*'))
+    call assert_equal(1, &number)
+    call assert_match('\*:mkview\*$', getline('.'))
+!   call assert_equal(pos, getcurpos())
+    call assert_equal(linefoldclosed1, foldclosed('.'))
+  
+    call delete('Xviewdir', 'rf')
+*** ../vim-8.1.0332/src/version.c	2018-08-28 23:09:03.893824422 +0200
+--- src/version.c	2018-08-29 20:57:17.814830811 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     333,
+  /**/
+
+-- 
+Q:  What's a light-year?
+A:  One-third less calories than a regular year.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

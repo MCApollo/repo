@@ -1,0 +1,153 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0577
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0577
+Problem:    Tabpage right-click menu never shows "Close tab".
+Solution:   Always create the "Close tab" item but ignore the event if there
+            is only one tab.
+Files:	    src/gui_gtk_x11.c, src/gui_mac.c, src/gui_motif.c, src/gui.c
+
+
+*** ../vim-8.1.0576/src/gui_gtk_x11.c	2018-11-16 16:21:01.637310049 +0100
+--- src/gui_gtk_x11.c	2018-12-11 20:26:44.539749674 +0100
+***************
+*** 3337,3345 ****
+      GtkWidget *menu;
+  
+      menu = gtk_menu_new();
+!     if (first_tabpage->tp_next != NULL)
+! 	add_tabline_menu_item(menu, (char_u *)_("Close tab"),
+! 							  TABLINE_MENU_CLOSE);
+      add_tabline_menu_item(menu, (char_u *)_("New tab"), TABLINE_MENU_NEW);
+      add_tabline_menu_item(menu, (char_u *)_("Open Tab..."), TABLINE_MENU_OPEN);
+  
+--- 3337,3343 ----
+      GtkWidget *menu;
+  
+      menu = gtk_menu_new();
+!     add_tabline_menu_item(menu, (char_u *)_("Close tab"), TABLINE_MENU_CLOSE);
+      add_tabline_menu_item(menu, (char_u *)_("New tab"), TABLINE_MENU_NEW);
+      add_tabline_menu_item(menu, (char_u *)_("Open Tab..."), TABLINE_MENU_OPEN);
+  
+*** ../vim-8.1.0576/src/gui_mac.c	2018-11-16 16:21:01.645310017 +0100
+--- src/gui_mac.c	2018-12-11 20:30:12.142418680 +0100
+***************
+*** 6705,6712 ****
+  
+      // create tabline popup menu required by vim docs (see :he tabline-menu)
+      CreateNewMenu(kTabContextMenuId, 0, &contextMenu);
+!     if (first_tabpage->tp_next != NULL)
+! 	AppendMenuItemTextWithCFString(contextMenu, CFSTR("Close Tab"), 0,
+  						    TABLINE_MENU_CLOSE, NULL);
+      AppendMenuItemTextWithCFString(contextMenu, CFSTR("New Tab"), 0,
+  						      TABLINE_MENU_NEW, NULL);
+--- 6705,6711 ----
+  
+      // create tabline popup menu required by vim docs (see :he tabline-menu)
+      CreateNewMenu(kTabContextMenuId, 0, &contextMenu);
+!     AppendMenuItemTextWithCFString(contextMenu, CFSTR("Close Tab"), 0,
+  						    TABLINE_MENU_CLOSE, NULL);
+      AppendMenuItemTextWithCFString(contextMenu, CFSTR("New Tab"), 0,
+  						      TABLINE_MENU_NEW, NULL);
+*** ../vim-8.1.0576/src/gui_motif.c	2018-11-16 16:21:01.641310033 +0100
+--- src/gui_motif.c	2018-12-11 20:31:07.886061365 +0100
+***************
+*** 514,534 ****
+      XtVaSetValues(scroller, XmNwidth, 0, XmNresizable, False,
+  		  XmNtraversalOn, False, NULL);
+  
+!     /* Create the tabline popup menu */
+      tabLine_menu = XmCreatePopupMenu(tabLine, "tabline popup", NULL, 0);
+  
+!     /* Add the buttons to the menu */
+!     if (first_tabpage->tp_next != NULL)
+!     {
+! 	n = 0;
+! 	XtSetArg(args[n], XmNuserData, TABLINE_MENU_CLOSE); n++;
+! 	xms = XmStringCreate((char *)"Close tab", STRING_TAG);
+! 	XtSetArg(args[n], XmNlabelString, xms); n++;
+! 	button = XmCreatePushButton(tabLine_menu, "Close", args, n);
+! 	XtAddCallback(button, XmNactivateCallback,
+! 		      (XtCallbackProc)tabline_button_cb, NULL);
+! 	XmStringFree(xms);
+!     }
+  
+      n = 0;
+      XtSetArg(args[n], XmNuserData, TABLINE_MENU_NEW); n++;
+--- 514,531 ----
+      XtVaSetValues(scroller, XmNwidth, 0, XmNresizable, False,
+  		  XmNtraversalOn, False, NULL);
+  
+!     // Create the tabline popup menu
+      tabLine_menu = XmCreatePopupMenu(tabLine, "tabline popup", NULL, 0);
+  
+!     // Add the buttons to the tabline popup menu
+!     n = 0;
+!     XtSetArg(args[n], XmNuserData, TABLINE_MENU_CLOSE); n++;
+!     xms = XmStringCreate((char *)"Close tab", STRING_TAG);
+!     XtSetArg(args[n], XmNlabelString, xms); n++;
+!     button = XmCreatePushButton(tabLine_menu, "Close", args, n);
+!     XtAddCallback(button, XmNactivateCallback,
+! 		  (XtCallbackProc)tabline_button_cb, NULL);
+!     XmStringFree(xms);
+  
+      n = 0;
+      XtSetArg(args[n], XmNuserData, TABLINE_MENU_NEW); n++;
+*** ../vim-8.1.0576/src/gui.c	2018-12-07 14:10:33.930952449 +0100
+--- src/gui.c	2018-12-11 20:27:29.995458213 +0100
+***************
+*** 3865,3874 ****
+  {
+      char_u	    string[3];
+  
+!     /* Don't put events in the input queue now. */
+      if (hold_gui_events)
+  	return;
+  
+      string[0] = CSI;
+      string[1] = KS_TABMENU;
+      string[2] = KE_FILLER;
+--- 3865,3878 ----
+  {
+      char_u	    string[3];
+  
+!     // Don't put events in the input queue now.
+      if (hold_gui_events)
+  	return;
+  
++     // Cannot close the last tabpage.
++     if (event == TABLINE_MENU_CLOSE && first_tabpage->tp_next == NULL)
++ 	return;
++ 
+      string[0] = CSI;
+      string[1] = KS_TABMENU;
+      string[2] = KE_FILLER;
+*** ../vim-8.1.0576/src/version.c	2018-12-10 21:36:52.869487030 +0100
+--- src/version.c	2018-12-11 20:38:57.595051427 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     577,
+  /**/
+
+-- 
+A salesperson says:            Translation:
+"backward compatible"          Old technology
+"Premium"                      Overpriced
+"Can't keep it on the shelf"   Unavailable
+"Stands alone"                 Piece of shit
+"Proprietary"                  Incompatible
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

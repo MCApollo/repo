@@ -1,0 +1,239 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0342
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0342
+Problem:    Crash when a callback deletes a window that is being used.
+Solution:   Do not unload a buffer that is being displayed while redrawing the
+            screen. Also avoid invoking callbacks while redrawing.
+            (closes #2107)
+Files:	    src/buffer.c, src/misc2.c
+
+
+*** ../vim-8.1.0341/src/buffer.c	2018-08-21 18:50:11.153501902 +0200
+--- src/buffer.c	2018-09-01 15:16:57.753412395 +0200
+***************
+*** 412,418 ****
+  	hash_remove(&buf_hashtab, hi);
+  }
+  
+! static char *e_buflocked = N_("E937: Attempt to delete a buffer that is in use");
+  
+  /*
+   * Close the link to a buffer.
+--- 412,439 ----
+  	hash_remove(&buf_hashtab, hi);
+  }
+  
+! /*
+!  * Return TRUE when buffer "buf" can be unloaded.
+!  * Give an error message and return FALSE when the buffer is locked or the
+!  * screen is being redrawn and the buffer is in a window.
+!  */
+!     static int
+! can_unload_buffer(buf_T *buf)
+! {
+!     int	    can_unload = !buf->b_locked;
+! 
+!     if (can_unload && updating_screen)
+!     {
+! 	win_T	*wp;
+! 
+! 	FOR_ALL_WINDOWS(wp)
+! 	    if (wp->w_buffer == buf)
+! 		can_unload = FALSE;
+!     }
+!     if (!can_unload)
+! 	EMSG(_("E937: Attempt to delete a buffer that is in use"));
+!     return can_unload;
+! }
+  
+  /*
+   * Close the link to a buffer.
+***************
+*** 474,484 ****
+  	{
+  	    if (wipe_buf || unload_buf)
+  	    {
+! 		if (buf->b_locked)
+! 		{
+! 		    EMSG(_(e_buflocked));
+  		    return;
+! 		}
+  		/* Wiping out or unloading a terminal buffer kills the job. */
+  		free_terminal(buf);
+  	    }
+--- 495,503 ----
+  	{
+  	    if (wipe_buf || unload_buf)
+  	    {
+! 		if (!can_unload_buffer(buf))
+  		    return;
+! 
+  		/* Wiping out or unloading a terminal buffer kills the job. */
+  		free_terminal(buf);
+  	    }
+***************
+*** 501,511 ****
+  
+      /* Disallow deleting the buffer when it is locked (already being closed or
+       * halfway a command that relies on it). Unloading is allowed. */
+!     if (buf->b_locked > 0 && (del_buf || wipe_buf))
+!     {
+! 	EMSG(_(e_buflocked));
+  	return;
+-     }
+  
+      /* check no autocommands closed the window */
+      if (win != NULL && win_valid_any_tab(win))
+--- 520,527 ----
+  
+      /* Disallow deleting the buffer when it is locked (already being closed or
+       * halfway a command that relies on it). Unloading is allowed. */
+!     if ((del_buf || wipe_buf) && !can_unload_buffer(buf))
+  	return;
+  
+      /* check no autocommands closed the window */
+      if (win != NULL && win_valid_any_tab(win))
+***************
+*** 1196,1203 ****
+      return errormsg;
+  }
+  
+- static int	empty_curbuf(int close_others, int forceit, int action);
+- 
+  /*
+   * Make the current buffer empty.
+   * Used when it is wiped out and it's the last buffer.
+--- 1212,1217 ----
+***************
+*** 1238,1243 ****
+--- 1252,1258 ----
+  	need_fileinfo = FALSE;
+      return retval;
+  }
++ 
+  /*
+   * Implementation of the commands for the buffer list.
+   *
+***************
+*** 1359,1369 ****
+  	int	forward;
+  	bufref_T bufref;
+  
+! 	if (buf->b_locked)
+! 	{
+! 	    EMSG(_(e_buflocked));
+  	    return FAIL;
+- 	}
+  
+  	set_bufref(&bufref, buf);
+  
+--- 1374,1381 ----
+  	int	forward;
+  	bufref_T bufref;
+  
+! 	if (!can_unload_buffer(buf))
+  	    return FAIL;
+  
+  	set_bufref(&bufref, buf);
+  
+*** ../vim-8.1.0341/src/misc2.c	2018-07-29 16:09:14.636945607 +0200
+--- src/misc2.c	2018-09-01 15:07:10.019535433 +0200
+***************
+*** 6366,6398 ****
+  {
+      win_T *old_curwin = curwin;
+  
+!     /* For Win32 mch_breakcheck() does not check for input, do it here. */
+  # if defined(WIN32) && defined(FEAT_JOB_CHANNEL)
+      channel_handle_events(FALSE);
+  # endif
+  
+  # ifdef FEAT_NETBEANS_INTG
+!     /* Process the queued netbeans messages. */
+      netbeans_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+!     /* Write any buffer lines still to be written. */
+      channel_write_any_lines();
+  
+!     /* Process the messages queued on channels. */
+      channel_parse_messages();
+  # endif
+  # if defined(FEAT_CLIENTSERVER) && defined(FEAT_X11)
+!     /* Process the queued clientserver messages. */
+      server_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+!     /* Check if any jobs have ended. */
+      job_check_ended();
+  # endif
+  
+!     /* If the current window changed we need to bail out of the waiting loop.
+!      * E.g. when a job exit callback closes the terminal window. */
+      if (curwin != old_curwin)
+  	ins_char_typebuf(K_IGNORE);
+  }
+--- 6366,6403 ----
+  {
+      win_T *old_curwin = curwin;
+  
+!     // Do not handle messages while redrawing, because it may cause buffers to
+!     // change or be wiped while they are being redrawn.
+!     if (updating_screen)
+! 	return;
+! 
+!     // For Win32 mch_breakcheck() does not check for input, do it here.
+  # if defined(WIN32) && defined(FEAT_JOB_CHANNEL)
+      channel_handle_events(FALSE);
+  # endif
+  
+  # ifdef FEAT_NETBEANS_INTG
+!     // Process the queued netbeans messages.
+      netbeans_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+!     // Write any buffer lines still to be written.
+      channel_write_any_lines();
+  
+!     // Process the messages queued on channels.
+      channel_parse_messages();
+  # endif
+  # if defined(FEAT_CLIENTSERVER) && defined(FEAT_X11)
+!     // Process the queued clientserver messages.
+      server_parse_messages();
+  # endif
+  # ifdef FEAT_JOB_CHANNEL
+!     // Check if any jobs have ended.
+      job_check_ended();
+  # endif
+  
+!     // If the current window changed we need to bail out of the waiting loop.
+!     // E.g. when a job exit callback closes the terminal window.
+      if (curwin != old_curwin)
+  	ins_char_typebuf(K_IGNORE);
+  }
+*** ../vim-8.1.0341/src/version.c	2018-08-31 23:06:18.735841246 +0200
+--- src/version.c	2018-09-01 15:02:16.242604587 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     342,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+5. You find yourself brainstorming for new subjects to search.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

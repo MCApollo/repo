@@ -1,0 +1,132 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0154
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0154
+Problem:    Crash with "set smarttab shiftwidth=0 softtabstop=-1".
+Solution:   Fall back to using 'tabstop'. (closes #3155)
+Files:	    src/edit.c, src/testdir/test_tab.vim
+
+
+*** ../vim-8.1.0153/src/edit.c	2018-07-02 20:51:21.031882115 +0200
+--- src/edit.c	2018-07-05 22:23:27.440802276 +0200
+***************
+*** 9347,9366 ****
+  				&& (!*inserted_space_p
+  				    || arrow_used))))))
+  	{
+- #ifndef FEAT_VARTABS
+  	    int		ts;
+- #endif
+  	    colnr_T	vcol;
+  	    colnr_T	want_vcol;
+  	    colnr_T	start_vcol;
+  
+  	    *inserted_space_p = FALSE;
+- #ifndef FEAT_VARTABS
+- 	    if (p_sta && in_indent)
+- 		ts = (int)get_sw_value(curbuf);
+- 	    else
+- 		ts = (int)get_sts_value();
+- #endif
+  	    /* Compute the virtual column where we want to be.  Since
+  	     * 'showbreak' may get in the way, need to get the last column of
+  	     * the previous character. */
+--- 9347,9358 ----
+***************
+*** 9371,9381 ****
+  	    inc_cursor();
+  #ifdef FEAT_VARTABS
+  	    if (p_sta && in_indent)
+! 		want_vcol = (want_vcol / curbuf->b_p_sw) * curbuf->b_p_sw;
+  	    else
+  		want_vcol = tabstop_start(want_vcol, get_sts_value(),
+  						     curbuf->b_p_vsts_array);
+  #else
+  	    want_vcol = (want_vcol / ts) * ts;
+  #endif
+  
+--- 9363,9380 ----
+  	    inc_cursor();
+  #ifdef FEAT_VARTABS
+  	    if (p_sta && in_indent)
+! 	    {
+! 		ts = (int)get_sw_value(curbuf);
+! 		want_vcol = (want_vcol / ts) * ts;
+! 	    }
+  	    else
+  		want_vcol = tabstop_start(want_vcol, get_sts_value(),
+  						     curbuf->b_p_vsts_array);
+  #else
++ 	    if (p_sta && in_indent)
++ 		ts = (int)get_sw_value(curbuf);
++ 	    else
++ 		ts = (int)get_sts_value();
+  	    want_vcol = (want_vcol / ts) * ts;
+  #endif
+  
+***************
+*** 10200,10206 ****
+  #ifdef FEAT_VARTABS
+      if (p_sta && ind)		/* insert tab in indent, use 'shiftwidth' */
+      {
+! 	temp = (int)curbuf->b_p_sw;
+  	temp -= get_nolist_virtcol() % temp;
+      }
+      else if (tabstop_count(curbuf->b_p_vsts_array) > 0 || curbuf->b_p_sts != 0)
+--- 10199,10205 ----
+  #ifdef FEAT_VARTABS
+      if (p_sta && ind)		/* insert tab in indent, use 'shiftwidth' */
+      {
+! 	temp = (int)get_sw_value(curbuf);
+  	temp -= get_nolist_virtcol() % temp;
+      }
+      else if (tabstop_count(curbuf->b_p_vsts_array) > 0 || curbuf->b_p_sts != 0)
+*** ../vim-8.1.0153/src/testdir/test_tab.vim	2018-07-02 20:51:21.035882093 +0200
+--- src/testdir/test_tab.vim	2018-07-05 22:19:41.994015889 +0200
+***************
+*** 76,81 ****
+    exe "normal A\<BS>x\<Esc>"
+    call assert_equal("x   x", getline(1))
+  
+!   set sts=0 sw=0 backspace&
+    bwipe!
+  endfunc
+--- 76,90 ----
+    exe "normal A\<BS>x\<Esc>"
+    call assert_equal("x   x", getline(1))
+  
+!   call setline(1, 'x')
+!   set sts=-1 sw=0 smarttab
+!   exe "normal I\<Tab>\<Esc>"
+!   call assert_equal("\tx", getline(1))
+! 
+!   call setline(1, 'x')
+!   exe "normal I\<Tab>\<BS>\<Esc>"
+!   call assert_equal("x", getline(1))
+! 
+!   set sts=0 sw=0 backspace& nosmarttab
+    bwipe!
+  endfunc
+*** ../vim-8.1.0153/src/version.c	2018-07-05 17:11:15.726937929 +0200
+--- src/version.c	2018-07-05 22:26:36.351782249 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     154,
+  /**/
+
+-- 
+A computer program does what you tell it to do, not what you want it to do.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,24 @@
+diff -ur cctools-895/libmacho/Makefile cctools-895+iPhone/libmacho/Makefile
+--- cctools-895/libmacho/Makefile	2016-12-09 08:02:59.000000000 -1000
++++ cctools-895+iPhone/libmacho/Makefile	2018-09-05 10:18:21.000000000 -1000
+@@ -16,9 +16,7 @@
+   LIBSYSCALL=-lsystem_kernel
+ endif
+ 
+-DEPENDENT_LIBS = -nodefaultlibs -umbrella System -L/usr/lib/system \
+-		 -ldyld -lsystem_malloc -lsystem_c $(LIBSYSCALL) \
+-		 -lcompiler_rt
++DEPENDENT_LIBS = -nodefaultlibs -umbrella System -L"${SDKROOT}/usr/lib/system" -lSystem
+ 
+ ifneq "" "$(SDKROOT)"
+   SDK = -isysroot $(SDKROOT)
+@@ -324,7 +322,7 @@
+ 	    install -c -m 555 dtmp_obj/libmacho.dylib			\
+ 		     $(DSTROOT)$(DYLIBDIR)/libmacho.dylib;		\
+ 	    $(STRIP) -S $(DSTROOT)$(DYLIBDIR)/libmacho.dylib;		\
+-	    install -c -m 555 dtmp_obj/libmacho_profile.dylib		\
++	    install -c -m 555 ptmp_obj/libmacho_profile.dylib		\
+ 		     $(DSTROOT)$(DYLIBDIR)/libmacho_profile.dylib;	\
+ 	    $(STRIP) -S $(DSTROOT)$(DYLIBDIR)/libmacho_profile.dylib;	\
+ 	    install -c -m 555 dtmp_obj/libmacho_debug.dylib		\
+Only in cctools-895+iPhone/libmacho: Makefile.orig

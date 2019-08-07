@@ -1,0 +1,2 @@
+pkg:setup
+pkg:install

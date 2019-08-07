@@ -1,0 +1,31 @@
+diff -ru openssh-6.0p1/configure.ac openssh-6.0p1+iPhone/configure.ac
+--- openssh-6.0p1/configure.ac	2012-04-19 11:46:38.000000000 +0000
++++ openssh-6.0p1+iPhone/configure.ac	2012-05-15 09:18:25.000000000 +0000
+@@ -1235,26 +1235,7 @@
+ AC_CHECK_DECLS([GLOB_NOMATCH], , , [#include <glob.h>])
+ 
+ AC_MSG_CHECKING([whether struct dirent allocates space for d_name])
+-AC_RUN_IFELSE(
+-	[AC_LANG_PROGRAM([[
+-#include <sys/types.h>
+-#include <dirent.h>]],
+-	[[
+-	struct dirent d;
+-	exit(sizeof(d.d_name)<=sizeof(char));
+-	]])],
+-	[AC_MSG_RESULT([yes])],
+-	[
+-		AC_MSG_RESULT([no])
+-		AC_DEFINE([BROKEN_ONE_BYTE_DIRENT_D_NAME], [1],
+-			[Define if your struct dirent expects you to
+-			allocate extra space for d_name])
+-	],
+-	[
+-		AC_MSG_WARN([cross compiling: assuming BROKEN_ONE_BYTE_DIRENT_D_NAME])
+-		AC_DEFINE([BROKEN_ONE_BYTE_DIRENT_D_NAME])
+-	]
+-)
++AC_MSG_RESULT([yes])
+ 
+ AC_MSG_CHECKING([for /proc/pid/fd directory])
+ if test -d "/proc/$$/fd" ; then

@@ -1,0 +1,144 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0015
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0015
+Problem:    Cursor color wrong when closing a terminal window, ending up in
+            another terminal window. (Dominique Pelle)
+Solution:   Bail out of terminal_loop() when the buffer changes.
+            (closes #2942)
+Files:	    src/terminal.c
+
+
+*** ../vim-8.1.0014/src/terminal.c	2018-05-21 14:55:22.555983588 +0200
+--- src/terminal.c	2018-05-21 18:37:16.628386002 +0200
+***************
+*** 183,196 ****
+   * 1. Generic code for all systems.
+   */
+  
+!     static void
+! cursor_color_copy(char_u** to_color, char_u* from_color)
+! {
+!     vim_free(*to_color);
+!     *to_color = (from_color == NULL) ? NULL : vim_strsave(from_color);
+! }
+! 
+! 	static int
+  cursor_color_equal(char_u *lhs_color, char_u *rhs_color)
+  {
+      if (lhs_color != NULL && rhs_color != NULL)
+--- 183,189 ----
+   * 1. Generic code for all systems.
+   */
+  
+!     static int
+  cursor_color_equal(char_u *lhs_color, char_u *rhs_color)
+  {
+      if (lhs_color != NULL && rhs_color != NULL)
+***************
+*** 198,204 ****
+      return lhs_color == NULL && rhs_color == NULL;
+  }
+  
+! 	static char_u *
+  cursor_color_get(char_u *color)
+  {
+      return (color == NULL) ? (char_u *)"" : color;
+--- 191,207 ----
+      return lhs_color == NULL && rhs_color == NULL;
+  }
+  
+!     static void
+! cursor_color_copy(char_u **to_color, char_u *from_color)
+! {
+!     // Avoid a free & alloc if the value is already right.
+!     if (cursor_color_equal(*to_color, from_color))
+! 	return;
+!     vim_free(*to_color);
+!     *to_color = (from_color == NULL) ? NULL : vim_strsave(from_color);
+! }
+! 
+!     static char_u *
+  cursor_color_get(char_u *color)
+  {
+      return (color == NULL) ? (char_u *)"" : color;
+***************
+*** 2119,2125 ****
+  	    while (must_redraw != 0)
+  		if (update_screen(0) == FAIL)
+  		    break;
+! 	if (!term_use_loop_check(TRUE))
+  	    /* job finished while redrawing */
+  	    break;
+  
+--- 2122,2128 ----
+  	    while (must_redraw != 0)
+  		if (update_screen(0) == FAIL)
+  		    break;
+! 	if (!term_use_loop_check(TRUE) || in_terminal_loop != curbuf->b_term)
+  	    /* job finished while redrawing */
+  	    break;
+  
+***************
+*** 2127,2133 ****
+  	restore_cursor = TRUE;
+  
+  	c = term_vgetc();
+! 	if (!term_use_loop_check(TRUE))
+  	{
+  	    /* Job finished while waiting for a character.  Push back the
+  	     * received character. */
+--- 2130,2136 ----
+  	restore_cursor = TRUE;
+  
+  	c = term_vgetc();
+! 	if (!term_use_loop_check(TRUE) || in_terminal_loop != curbuf->b_term)
+  	{
+  	    /* Job finished while waiting for a character.  Push back the
+  	     * received character. */
+***************
+*** 2178,2184 ****
+  #ifdef FEAT_CMDL_INFO
+  	    clear_showcmd();
+  #endif
+! 	    if (!term_use_loop_check(TRUE))
+  		/* job finished while waiting for a character */
+  		break;
+  
+--- 2181,2188 ----
+  #ifdef FEAT_CMDL_INFO
+  	    clear_showcmd();
+  #endif
+! 	    if (!term_use_loop_check(TRUE)
+! 					 || in_terminal_loop != curbuf->b_term)
+  		/* job finished while waiting for a character */
+  		break;
+  
+*** ../vim-8.1.0014/src/version.c	2018-05-21 16:56:33.687217173 +0200
+--- src/version.c	2018-05-21 17:16:16.343071822 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     15,
+  /**/
+
+-- 
+OLD WOMAN: Well, how did you become king, then?
+ARTHUR: The Lady of the Lake, her arm clad in the purest shimmering samite,
+        held Excalibur aloft from the bosom of the water to signify by Divine
+        Providence ...  that I, Arthur, was to carry Excalibur ...  That is
+        why I am your king!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

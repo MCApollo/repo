@@ -1,0 +1,199 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0089
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0089
+Problem:    error when ending the terminal debugger
+Solution:   Fix deleting defined signs for breakpoints.  Make the debugger
+            work better on MS-Windows.
+Files:	    runtime/pack/dist/opt/termdebug/plugin/termdebug.vim
+
+
+*** ../vim-8.1.0088/runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-19 17:27:50.085385875 +0200
+--- runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-19 22:33:23.557472678 +0200
+***************
+*** 408,414 ****
+  
+    " Drop the gdb prompt, we have our own.
+    " Drop status and echo'd commands.
+!   if a:text == '(gdb) ' || a:text == '^done' || a:text[0] == '&' || a:text[0] == '='
+      return
+    endif
+    if a:text =~ '^^error,msg='
+--- 408,414 ----
+  
+    " Drop the gdb prompt, we have our own.
+    " Drop status and echo'd commands.
+!   if a:text == '(gdb) ' || a:text == '^done' || a:text[0] == '&'
+      return
+    endif
+    if a:text =~ '^^error,msg='
+***************
+*** 439,445 ****
+  " to the next ", unescaping characters.
+  func s:DecodeMessage(quotedText)
+    if a:quotedText[0] != '"'
+!     echoerr 'DecodeMessage(): missing quote'
+      return
+    endif
+    let result = ''
+--- 439,445 ----
+  " to the next ", unescaping characters.
+  func s:DecodeMessage(quotedText)
+    if a:quotedText[0] != '"'
+!     echoerr 'DecodeMessage(): missing quote in ' . a:quotedText
+      return
+    endif
+    let result = ''
+***************
+*** 459,464 ****
+--- 459,474 ----
+    return result
+  endfunc
+  
++ " Extract the "name" value from a gdb message with fullname="name".
++ func s:GetFullname(msg)
++   let name = s:DecodeMessage(substitute(a:msg, '.*fullname=', '', ''))
++   if has('win32') && name =~ ':\\\\'
++     " sometimes the name arrives double-escaped
++     let name = substitute(name, '\\\\', '\\', 'g')
++   endif
++   return name
++ endfunc
++ 
+  func s:EndTermDebug(job, status)
+    exe 'bwipe! ' . s:commbuf
+    unlet s:gdbwin
+***************
+*** 639,647 ****
+    for key in keys(s:breakpoints)
+      exe 'sign unplace ' . (s:break_id + key)
+    endfor
+-   sign undefine debugPC
+-   sign undefine debugBreakpoint
+    unlet s:breakpoints
+  endfunc
+  
+  " :Break - Set a breakpoint at the cursor position.
+--- 649,661 ----
+    for key in keys(s:breakpoints)
+      exe 'sign unplace ' . (s:break_id + key)
+    endfor
+    unlet s:breakpoints
++ 
++   sign undefine debugPC
++   for val in s:BreakpointSigns
++     exe "sign undefine debugBreakpoint" . val
++   endfor
++   unlet s:BreakpointSigns
+  endfunc
+  
+  " :Break - Set a breakpoint at the cursor position.
+***************
+*** 660,667 ****
+      endif
+      sleep 10m
+    endif
+!   call s:SendCommand('-break-insert --source '
+! 	\ . fnameescape(expand('%:p')) . ' --line ' . line('.'))
+    if do_continue
+      call s:SendCommand('-exec-continue')
+    endif
+--- 674,682 ----
+      endif
+      sleep 10m
+    endif
+!   " Use the fname:lnum format, older gdb can't handle --source.
+!   call s:SendCommand('-break-insert '
+! 	\ . fnameescape(expand('%:p')) . ':' . line('.'))
+    if do_continue
+      call s:SendCommand('-exec-continue')
+    endif
+***************
+*** 790,796 ****
+  
+    call s:GotoSourcewinOrCreateIt()
+  
+!   let fname = substitute(a:msg, '.*fullname="\([^"]*\)".*', '\1', '')
+    if a:msg =~ '^\(\*stopped\|=thread-selected\)' && filereadable(fname)
+      let lnum = substitute(a:msg, '.*line="\([^"]*\)".*', '\1', '')
+      if lnum =~ '^[0-9]*$'
+--- 805,815 ----
+  
+    call s:GotoSourcewinOrCreateIt()
+  
+!   if a:msg =~ 'fullname='
+!     let fname = s:GetFullname(a:msg)
+!   else
+!     let fname = ''
+!   endif
+    if a:msg =~ '^\(\*stopped\|=thread-selected\)' && filereadable(fname)
+      let lnum = substitute(a:msg, '.*line="\([^"]*\)".*', '\1', '')
+      if lnum =~ '^[0-9]*$'
+***************
+*** 816,828 ****
+    call win_gotoid(wid)
+  endfunc
+  
+  func s:CreateBreakpoint(nr)
+-   if !exists("s:BreakpointSigns")
+-     let s:BreakpointSigns = []
+-   endif
+    if index(s:BreakpointSigns, a:nr) == -1
+      call add(s:BreakpointSigns, a:nr)
+!     exe "sign define debugBreakpoint". a:nr . " text=" . a:nr . " texthl=debugBreakpoint"
+    endif
+  endfunc
+  
+--- 835,846 ----
+    call win_gotoid(wid)
+  endfunc
+  
++ let s:BreakpointSigns = []
++ 
+  func s:CreateBreakpoint(nr)
+    if index(s:BreakpointSigns, a:nr) == -1
+      call add(s:BreakpointSigns, a:nr)
+!     exe "sign define debugBreakpoint" . a:nr . " text=" . a:nr . " texthl=debugBreakpoint"
+    endif
+  endfunc
+  
+***************
+*** 842,848 ****
+      let s:breakpoints[nr] = entry
+    endif
+  
+!   let fname = substitute(a:msg, '.*fullname="\([^"]*\)".*', '\1', '')
+    let lnum = substitute(a:msg, '.*line="\([^"]*\)".*', '\1', '')
+    let entry['fname'] = fname
+    let entry['lnum'] = lnum
+--- 860,866 ----
+      let s:breakpoints[nr] = entry
+    endif
+  
+!   let fname = s:GetFullname(a:msg)
+    let lnum = substitute(a:msg, '.*line="\([^"]*\)".*', '\1', '')
+    let entry['fname'] = fname
+    let entry['lnum'] = lnum
+*** ../vim-8.1.0088/src/version.c	2018-06-19 20:08:10.382007834 +0200
+--- src/version.c	2018-06-19 22:31:10.318179415 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     89,
+  /**/
+
+-- 
+How many light bulbs does it take to change a person?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

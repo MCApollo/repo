@@ -1,0 +1,217 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0582
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0582
+Problem:    Text properties are not enabled.
+Solution:   Fix sizeof argument and re-enable the text properties feature.
+            Fix memory leak.
+Files:	    src/feature.h, src/textprop.c
+
+
+*** ../vim-8.1.0581/src/feature.h	2018-12-13 23:05:52.740820586 +0100
+--- src/feature.h	2018-12-13 23:20:19.014745889 +0100
+***************
+*** 505,511 ****
+   * +textprop		Text properties
+   */
+  #if defined(FEAT_EVAL) && defined(FEAT_SYN_HL)
+! // # define FEAT_TEXT_PROP
+  #endif
+  
+  /*
+--- 505,511 ----
+   * +textprop		Text properties
+   */
+  #if defined(FEAT_EVAL) && defined(FEAT_SYN_HL)
+! # define FEAT_TEXT_PROP
+  #endif
+  
+  /*
+*** ../vim-8.1.0581/src/textprop.c	2018-12-13 22:17:52.881941445 +0100
+--- src/textprop.c	2018-12-14 12:03:01.498830663 +0100
+***************
+*** 151,157 ****
+      size_t	textlen;
+      char_u	*props;
+      char_u	*newprops;
+!     static textprop_T	tmp_prop; // static to get it aligned.
+      int		i;
+  
+      lnum = get_tv_number(&argvars[0]);
+--- 151,157 ----
+      size_t	textlen;
+      char_u	*props;
+      char_u	*newprops;
+!     textprop_T	tmp_prop;
+      int		i;
+  
+      lnum = get_tv_number(&argvars[0]);
+***************
+*** 212,219 ****
+  
+      // Fetch the line to get the ml_line_len field updated.
+      proplen = get_text_props(buf, lnum, &props, TRUE);
+  
+!     if (col >= (colnr_T)STRLEN(buf->b_ml.ml_line_ptr))
+      {
+  	EMSGN(_(e_invalid_col), (long)col);
+  	return;
+--- 212,220 ----
+  
+      // Fetch the line to get the ml_line_len field updated.
+      proplen = get_text_props(buf, lnum, &props, TRUE);
++     textlen = buf->b_ml.ml_line_len - proplen * sizeof(textprop_T);
+  
+!     if (col >= (colnr_T)textlen - 1)
+      {
+  	EMSGN(_(e_invalid_col), (long)col);
+  	return;
+***************
+*** 224,230 ****
+      if (newtext == NULL)
+  	return;
+      // Copy the text, including terminating NUL.
+-     textlen = buf->b_ml.ml_line_len - proplen * sizeof(textprop_T);
+      mch_memmove(newtext, buf->b_ml.ml_line_ptr, textlen);
+  
+      // Find the index where to insert the new property.
+--- 225,230 ----
+***************
+*** 232,239 ****
+      // text, we need to copy them as bytes before using it as a struct.
+      for (i = 0; i < proplen; ++i)
+      {
+! 	mch_memmove(&tmp_prop, props + i * sizeof(proptype_T),
+! 							   sizeof(proptype_T));
+  	if (tmp_prop.tp_col >= col)
+  	    break;
+      }
+--- 232,239 ----
+      // text, we need to copy them as bytes before using it as a struct.
+      for (i = 0; i < proplen; ++i)
+      {
+! 	mch_memmove(&tmp_prop, props + i * sizeof(textprop_T),
+! 							   sizeof(textprop_T));
+  	if (tmp_prop.tp_col >= col)
+  	    break;
+      }
+***************
+*** 274,280 ****
+  }
+  
+  /*
+!  * Fetch the text properties for line "lnum" in buffer 'buf".
+   * Returns the number of text properties and, when non-zero, a pointer to the
+   * first one in "props" (note that it is not aligned, therefore the char_u
+   * pointer).
+--- 274,280 ----
+  }
+  
+  /*
+!  * Fetch the text properties for line "lnum" in buffer "buf".
+   * Returns the number of text properties and, when non-zero, a pointer to the
+   * first one in "props" (note that it is not aligned, therefore the char_u
+   * pointer).
+***************
+*** 617,627 ****
+  	{
+  	    *htp = (hashtab_T *)alloc(sizeof(hashtab_T));
+  	    if (*htp == NULL)
+  		return;
+  	    hash_init(*htp);
+  	}
+! 	hash_add(buf == NULL ? global_proptypes : buf->b_proptypes,
+! 							       PT2HIKEY(prop));
+      }
+      else
+      {
+--- 617,629 ----
+  	{
+  	    *htp = (hashtab_T *)alloc(sizeof(hashtab_T));
+  	    if (*htp == NULL)
++ 	    {
++ 		vim_free(prop);
+  		return;
++ 	    }
+  	    hash_init(*htp);
+  	}
+! 	hash_add(*htp, PT2HIKEY(prop));
+      }
+      else
+      {
+***************
+*** 640,646 ****
+  	    char_u	*highlight;
+  	    int		hl_id = 0;
+  
+! 	    highlight = get_dict_string(dict, (char_u *)"highlight", TRUE);
+  	    if (highlight != NULL && *highlight != NUL)
+  		hl_id = syn_name2id(highlight);
+  	    if (hl_id <= 0)
+--- 642,648 ----
+  	    char_u	*highlight;
+  	    int		hl_id = 0;
+  
+! 	    highlight = get_dict_string(dict, (char_u *)"highlight", FALSE);
+  	    if (highlight != NULL && *highlight != NUL)
+  		hl_id = syn_name2id(highlight);
+  	    if (hl_id <= 0)
+***************
+*** 721,732 ****
+--- 723,736 ----
+      if (hi != NULL)
+      {
+  	hashtab_T	*ht;
++ 	proptype_T	*prop = HI2PT(hi);
+  
+  	if (buf == NULL)
+  	    ht = global_proptypes;
+  	else
+  	    ht = buf->b_proptypes;
+  	hash_remove(ht, hi);
++ 	vim_free(prop);
+      }
+  }
+  
+***************
+*** 846,852 ****
+  
+  #if defined(EXITFREE) || defined(PROTO)
+  /*
+!  * Free all property types for "buf".
+   */
+      void
+  clear_global_prop_types(void)
+--- 850,856 ----
+  
+  #if defined(EXITFREE) || defined(PROTO)
+  /*
+!  * Free all global property types.
+   */
+      void
+  clear_global_prop_types(void)
+*** ../vim-8.1.0581/src/version.c	2018-12-13 23:16:32.808280772 +0100
+--- src/version.c	2018-12-14 11:56:24.389414251 +0100
+***************
+*** 801,802 ****
+--- 801,804 ----
+  {   /* Add new patch number below this line */
++ /**/
++     582,
+  /**/
+
+-- 
+Normal people believe that if it ain't broke, don't fix it.  Engineers believe
+that if it ain't broke, it doesn't have enough features yet.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

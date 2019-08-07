@@ -1,0 +1,53 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0367
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0367
+Problem:    getchar(1) no longer processes pending messages. (Yasuhiro
+            Matsumoto)
+Solution:   Call parse_queued_messages().
+Files:	    src/evalfunc.c
+
+
+*** ../vim-8.1.0366/src/evalfunc.c	2018-09-10 21:04:09.864392710 +0200
+--- src/evalfunc.c	2018-09-11 12:36:26.133399983 +0200
+***************
+*** 4680,4685 ****
+--- 4680,4692 ----
+      varnumber_T		n;
+      int			error = FALSE;
+  
++ #ifdef MESSAGE_QUEUE
++     // vpeekc() used to check for messages, but that caused problems, invoking
++     // a callback where it was not expected.  Some plugins use getchar(1) in a
++     // loop to await a message, therefore make sure we check for messages here.
++     parse_queued_messages();
++ #endif
++ 
+      /* Position the cursor.  Needed after a message that ends in a space. */
+      windgoto(msg_row, msg_col);
+  
+*** ../vim-8.1.0366/src/version.c	2018-09-10 22:18:47.785610418 +0200
+--- src/version.c	2018-09-11 12:38:36.956320723 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     367,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+36. You miss more than five meals a week downloading the latest games from
+    Apogee.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

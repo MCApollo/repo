@@ -1,0 +1,102 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0009
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0009
+Problem:    Tabpages insufficiently tested.
+Solution:   Add more test coverage. (Dominique Pelle, closes #2934)
+Files:	    src/testdir/test_tabpage.vim
+
+
+*** ../vim-8.1.0008/src/testdir/test_tabpage.vim	2018-02-12 21:49:22.000000000 +0100
+--- src/testdir/test_tabpage.vim	2018-05-20 14:55:02.425998478 +0200
+***************
+*** 1,5 ****
+--- 1,6 ----
+  " Tests for tabpage
+  
++ 
+  function Test_tabpage()
+    bw!
+    " Simple test for opening and closing a tab page
+***************
+*** 317,322 ****
+--- 318,351 ----
+    endfor
+  endfunc
+  
++ func Test_tabpage_ctrl_pgup_pgdown()
++   enew!
++   tabnew tab1
++   tabnew tab2
++ 
++   call assert_equal(3, tabpagenr())
++   exe "norm! \<C-PageUp>"
++   call assert_equal(2, tabpagenr())
++   exe "norm! \<C-PageDown>"
++   call assert_equal(3, tabpagenr())
++ 
++   " Check wrapping at last or first page.
++   exe "norm! \<C-PageDown>"
++   call assert_equal(1, tabpagenr())
++   exe "norm! \<C-PageUp>"
++   call assert_equal(3, tabpagenr())
++ 
++  " With a count, <C-PageUp> and <C-PageDown> are not symmetrical somehow:
++  " - {count}<C-PageUp> goes {count} pages downward (relative count)
++  " - {count}<C-PageDown> goes to page number {count} (absolute count)
++   exe "norm! 2\<C-PageUp>"
++   call assert_equal(1, tabpagenr())
++   exe "norm! 2\<C-PageDown>"
++   call assert_equal(2, tabpagenr())
++ 
++   1tabonly!
++ endfunc
++ 
+  " Test for [count] of tabclose
+  function Test_tabpage_with_tabclose()
+  
+***************
+*** 491,494 ****
+--- 520,537 ----
+    buf Xtest
+  endfunc
+  
++ func Test_tabs()
++   enew!
++   tabnew tab1
++   norm ixxx
++   let a=split(execute(':tabs'), "\n")
++   call assert_equal(['Tab page 1',
++       \              '    [No Name]',
++       \              'Tab page 2',
++       \              '> + tab1'], a)
++ 
++   1tabonly!
++   bw!
++ endfunc
++ 
+  " vim: shiftwidth=2 sts=2 expandtab
+*** ../vim-8.1.0008/src/version.c	2018-05-20 14:11:07.125342749 +0200
+--- src/version.c	2018-05-20 14:56:27.560347600 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     9,
+  /**/
+
+-- 
+Clothes make the man.  Naked people have little or no influence on society.
+                               -- Mark Twain (Samuel Clemens) (1835-1910)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

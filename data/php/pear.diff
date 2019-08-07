@@ -1,0 +1,12 @@
+diff -ru php-5.2.8/pear/Makefile.frag php-5.2.8+iPhone/pear/Makefile.frag
+--- php-5.2.8/pear/Makefile.frag	2006-11-08 19:05:41.000000000 +0000
++++ php-5.2.8+iPhone/pear/Makefile.frag	2009-01-18 10:27:12.000000000 +0000
+@@ -8,7 +8,7 @@
+ FETCH = `which fetch 2>/dev/null`
+ 
+ install-pear-installer: $(SAPI_CLI_PATH)
+-	@$(top_builddir)/sapi/cli/php $(PEAR_INSTALL_FLAGS) $(builddir)/install-pear-nozlib.phar -d "$(peardir)" -b "$(bindir)"
++	@php $(PEAR_INSTALL_FLAGS) $(builddir)/install-pear-nozlib.phar -d "$(peardir)" -b "$(bindir)"
+ 
+ install-pear:
+ 	@echo "Installing PEAR environment:      $(INSTALL_ROOT)$(peardir)/"

@@ -1,0 +1,228 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0211
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0211
+Problem:    Expanding a file name "~" results in $HOME. (Aidan Shafran)
+Solution:   Change "~" to "./~" before expanding. (closes #3072)
+Files:	    src/testdir/test_expand.vim, src/ex_docmd.c, src/eval.c,
+            src/proto/eval.pro, src/evalfunc.c, src/if_cscope.c, src/misc1.c
+
+
+*** ../vim-8.1.0210/src/testdir/test_expand.vim	Sun Jan 17 18:33:03 2016
+--- src/testdir/test_expand.vim	Wed Jul 25 21:05:55 2018
+***************
+*** 39,41 ****
+--- 39,49 ----
+    call delete('Xdir ~ dir', 'd')
+    call assert_false(isdirectory('Xdir ~ dir'))
+  endfunc
++ 
++ func Test_expand_tilde_filename()
++   split ~
++   call assert_equal('~', expand('%')) 
++   call assert_notequal(expand('%:p'), expand('~/'))
++   call assert_match('\~', expand('%:p')) 
++   bwipe!
++ endfunc
+*** ../vim-8.1.0210/src/ex_docmd.c	Sat Jul  7 16:41:10 2018
+--- src/ex_docmd.c	Wed Jul 25 21:03:33 2018
+***************
+*** 10654,10659 ****
+--- 10654,10660 ----
+      int		resultlen;
+      buf_T	*buf;
+      int		valid = VALID_HEAD + VALID_PATH;    /* assume valid result */
++     int		tilde_file = FALSE;
+      int		spec_idx;
+  #ifdef FEAT_MODIFY_FNAME
+      int		skip_mod = FALSE;
+***************
+*** 10720,10726 ****
+--- 10721,10730 ----
+  		    valid = 0;	    /* Must have ":p:h" to be valid */
+  		}
+  		else
++ 		{
+  		    result = curbuf->b_fname;
++ 		    tilde_file = STRCMP(result, "~") == 0;
++ 		}
+  		break;
+  
+  	case SPEC_HASH:		/* '#' or "#99": alternate file */
+***************
+*** 10784,10790 ****
+--- 10788,10797 ----
+  			valid = 0;	    /* Must have ":p:h" to be valid */
+  		    }
+  		    else
++ 		    {
+  			result = buf->b_fname;
++ 			tilde_file = STRCMP(result, "~") == 0;
++ 		    }
+  		}
+  		break;
+  
+***************
+*** 10877,10883 ****
+  #ifdef FEAT_MODIFY_FNAME
+  	else if (!skip_mod)
+  	{
+! 	    valid |= modify_fname(src, usedlen, &result, &resultbuf,
+  								  &resultlen);
+  	    if (result == NULL)
+  	    {
+--- 10884,10890 ----
+  #ifdef FEAT_MODIFY_FNAME
+  	else if (!skip_mod)
+  	{
+! 	    valid |= modify_fname(src, tilde_file, usedlen, &result, &resultbuf,
+  								  &resultlen);
+  	    if (result == NULL)
+  	    {
+*** ../vim-8.1.0210/src/eval.c	Wed Jul 25 19:49:41 2018
+--- src/eval.c	Wed Jul 25 21:05:06 2018
+***************
+*** 9690,9700 ****
+   */
+      int
+  modify_fname(
+!     char_u	*src,		/* string with modifiers */
+!     int		*usedlen,	/* characters after src that are used */
+!     char_u	**fnamep,	/* file name so far */
+!     char_u	**bufp,		/* buffer for allocated file name or NULL */
+!     int		*fnamelen)	/* length of fnamep */
+  {
+      int		valid = 0;
+      char_u	*tail;
+--- 9690,9701 ----
+   */
+      int
+  modify_fname(
+!     char_u	*src,		// string with modifiers
+!     int		tilde_file,	// "~" is a file name, not $HOME
+!     int		*usedlen,	// characters after src that are used
+!     char_u	**fnamep,	// file name so far
+!     char_u	**bufp,		// buffer for allocated file name or NULL
+!     int		*fnamelen)	// length of fnamep
+  {
+      int		valid = 0;
+      char_u	*tail;
+***************
+*** 9724,9731 ****
+  		    || (*fnamep)[1] == '\\'
+  # endif
+  		    || (*fnamep)[1] == NUL)
+- 
+  #endif
+  	   )
+  	{
+  	    *fnamep = expand_env_save(*fnamep);
+--- 9725,9732 ----
+  		    || (*fnamep)[1] == '\\'
+  # endif
+  		    || (*fnamep)[1] == NUL)
+  #endif
++ 		&& !(tilde_file && (*fnamep)[1] == NUL)
+  	   )
+  	{
+  	    *fnamep = expand_env_save(*fnamep);
+*** ../vim-8.1.0210/src/proto/eval.pro	Tue Jun 12 22:05:10 2018
+--- src/proto/eval.pro	Wed Jul 25 21:03:50 2018
+***************
+*** 136,142 ****
+  int typval_compare(typval_T *typ1, typval_T *typ2, exptype_T type, int type_is, int ic);
+  char_u *typval_tostring(typval_T *arg);
+  int var_exists(char_u *var);
+! int modify_fname(char_u *src, int *usedlen, char_u **fnamep, char_u **bufp, int *fnamelen);
+  char_u *do_string_sub(char_u *str, char_u *pat, char_u *sub, typval_T *expr, char_u *flags);
+  void filter_map(typval_T *argvars, typval_T *rettv, int map);
+  /* vim: set ft=c : */
+--- 136,142 ----
+  int typval_compare(typval_T *typ1, typval_T *typ2, exptype_T type, int type_is, int ic);
+  char_u *typval_tostring(typval_T *arg);
+  int var_exists(char_u *var);
+! int modify_fname(char_u *src, int tilde_file, int *usedlen, char_u **fnamep, char_u **bufp, int *fnamelen);
+  char_u *do_string_sub(char_u *str, char_u *pat, char_u *sub, typval_T *expr, char_u *flags);
+  void filter_map(typval_T *argvars, typval_T *rettv, int map);
+  /* vim: set ft=c : */
+*** ../vim-8.1.0210/src/evalfunc.c	Wed Jul 25 19:49:41 2018
+--- src/evalfunc.c	Wed Jul 25 21:01:17 2018
+***************
+*** 3801,3807 ****
+      else
+      {
+  	len = (int)STRLEN(fname);
+! 	(void)modify_fname(mods, &usedlen, &fname, &fbuf, &len);
+      }
+  
+      rettv->v_type = VAR_STRING;
+--- 3801,3807 ----
+      else
+      {
+  	len = (int)STRLEN(fname);
+! 	(void)modify_fname(mods, FALSE, &usedlen, &fname, &fbuf, &len);
+      }
+  
+      rettv->v_type = VAR_STRING;
+*** ../vim-8.1.0210/src/if_cscope.c	Sun Mar  4 16:07:23 2018
+--- src/if_cscope.c	Wed Jul 25 21:10:45 2018
+***************
+*** 519,525 ****
+  #ifdef FEAT_MODIFY_FNAME
+      len = (int)STRLEN(fname);
+      fbuf = (char_u *)fname;
+!     (void)modify_fname((char_u *)":p", &usedlen,
+  					      (char_u **)&fname, &fbuf, &len);
+      if (fname == NULL)
+  	goto add_err;
+--- 519,525 ----
+  #ifdef FEAT_MODIFY_FNAME
+      len = (int)STRLEN(fname);
+      fbuf = (char_u *)fname;
+!     (void)modify_fname((char_u *)":p", FALSE, &usedlen,
+  					      (char_u **)&fname, &fbuf, &len);
+      if (fname == NULL)
+  	goto add_err;
+*** ../vim-8.1.0210/src/misc1.c	Sat Jul  7 16:41:10 2018
+--- src/misc1.c	Wed Jul 25 21:11:10 2018
+***************
+*** 4908,4914 ****
+  	char_u	*fbuf = NULL;
+  
+  	flen = (int)STRLEN(homedir_env);
+! 	(void)modify_fname((char_u *)":p", &usedlen,
+  						  &homedir_env, &fbuf, &flen);
+  	flen = (int)STRLEN(homedir_env);
+  	if (flen > 0 && vim_ispathsep(homedir_env[flen - 1]))
+--- 4908,4914 ----
+  	char_u	*fbuf = NULL;
+  
+  	flen = (int)STRLEN(homedir_env);
+! 	(void)modify_fname((char_u *)":p", FALSE, &usedlen,
+  						  &homedir_env, &fbuf, &flen);
+  	flen = (int)STRLEN(homedir_env);
+  	if (flen > 0 && vim_ispathsep(homedir_env[flen - 1]))
+*** ../vim-8.1.0210/src/version.c	Wed Jul 25 19:49:41 2018
+--- src/version.c	Wed Jul 25 21:18:08 2018
+***************
+*** 795,796 ****
+--- 795,798 ----
+  {   /* Add new patch number below this line */
++ /**/
++     211,
+  /**/
+
+-- 
+You were lucky to have a LAKE! There were a hundred and sixty of
+us living in a small shoebox in the middle of the road.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

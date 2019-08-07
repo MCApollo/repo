@@ -1,0 +1,71 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0510
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0510
+Problem:    Filter test fails when $LANG is C.UTF-8.
+Solution:   Set 'helplang' to "en" for any C language. (Christian Brabandt,
+            closes #3577)
+Files:	    src/option.c
+
+
+*** ../vim-8.1.0509/src/option.c	2018-10-25 13:31:33.829906902 +0200
+--- src/option.c	2018-11-04 14:34:39.233665491 +0100
+***************
+*** 4256,4267 ****
+  	    p_hlg = empty_option;
+  	else
+  	{
+! 	    /* zh_CN becomes "cn", zh_TW becomes "tw". */
+  	    if (STRNICMP(p_hlg, "zh_", 3) == 0 && STRLEN(p_hlg) >= 5)
+  	    {
+  		p_hlg[0] = TOLOWER_ASC(p_hlg[3]);
+  		p_hlg[1] = TOLOWER_ASC(p_hlg[4]);
+  	    }
+  	    p_hlg[2] = NUL;
+  	}
+  	options[idx].flags |= P_ALLOCED;
+--- 4256,4273 ----
+  	    p_hlg = empty_option;
+  	else
+  	{
+! 	    // zh_CN becomes "cn", zh_TW becomes "tw"
+  	    if (STRNICMP(p_hlg, "zh_", 3) == 0 && STRLEN(p_hlg) >= 5)
+  	    {
+  		p_hlg[0] = TOLOWER_ASC(p_hlg[3]);
+  		p_hlg[1] = TOLOWER_ASC(p_hlg[4]);
+  	    }
++ 	    // any C like setting, such as C.UTF-8, becomes "en"
++ 	    else if (STRLEN(p_hlg) >= 1 && *p_hlg == 'C')
++ 	    {
++ 		p_hlg[0] = 'e';
++ 		p_hlg[1] = 'n';
++ 	    }
+  	    p_hlg[2] = NUL;
+  	}
+  	options[idx].flags |= P_ALLOCED;
+*** ../vim-8.1.0509/src/version.c	2018-11-03 21:47:10.949346136 +0100
+--- src/version.c	2018-11-04 14:40:33.523200579 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     510,
+  /**/
+
+-- 
+FATHER:    Did you kill all those guards?
+LAUNCELOT: Yes ...  I'm very sorry ...
+FATHER:    They cost fifty pounds each!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

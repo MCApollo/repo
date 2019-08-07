@@ -1,0 +1,90 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0454
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0454
+Problem:    resolve() was not tested with a symlink cycle.
+Solution:   Add a test. (Dominique Pelle, closes #3513)
+Files:	    src/testdir/test_functions.vim
+
+
+*** ../vim-8.1.0453/src/testdir/test_functions.vim	2018-10-06 15:18:41.616657339 +0200
+--- src/testdir/test_functions.vim	2018-10-06 15:41:03.832363288 +0200
+***************
+*** 190,195 ****
+--- 190,241 ----
+    call assert_fails('call strftime("%Y", [])', 'E745:')
+  endfunc
+  
++ func Test_resolve()
++   if !has('unix')
++     return
++   endif
++ 
++   " Xlink1 -> Xlink2
++   " Xlink2 -> Xlink3
++   silent !ln -s -f Xlink2 Xlink1
++   silent !ln -s -f Xlink3 Xlink2
++   call assert_equal('Xlink3', resolve('Xlink1'))
++   call assert_equal('./Xlink3', resolve('./Xlink1'))
++   call assert_equal('Xlink3/', resolve('Xlink2/'))
++   " FIXME: these tests result in things like "Xlink2/" instead of "Xlink3/"?!
++   "call assert_equal('Xlink3/', resolve('Xlink1/'))
++   "call assert_equal('./Xlink3/', resolve('./Xlink1/'))
++   "call assert_equal(getcwd() . '/Xlink3/', resolve(getcwd() . '/Xlink1/'))
++   call assert_equal(getcwd() . '/Xlink3', resolve(getcwd() . '/Xlink1'))
++ 
++   " Test resolve() with a symlink cycle.
++   " Xlink1 -> Xlink2
++   " Xlink2 -> Xlink3
++   " Xlink3 -> Xlink1
++   silent !ln -s -f Xlink1 Xlink3
++   call assert_fails('call resolve("Xlink1")',   'E655:')
++   call assert_fails('call resolve("./Xlink1")', 'E655:')
++   call assert_fails('call resolve("Xlink2")',   'E655:')
++   call assert_fails('call resolve("Xlink3")',   'E655:')
++   call delete('Xlink1')
++   call delete('Xlink2')
++   call delete('Xlink3')
++ 
++   silent !ln -s -f Xdir//Xfile Xlink
++   call assert_equal('Xdir/Xfile', resolve('Xlink'))
++   call delete('Xlink')
++ 
++   silent !ln -s -f Xlink2/ Xlink1
++   call assert_equal('Xlink2', resolve('Xlink1'))
++   call assert_equal('Xlink2/', resolve('Xlink1/'))
++   call delete('Xlink1')
++ 
++   silent !ln -s -f ./Xlink2 Xlink1
++   call assert_equal('Xlink2', resolve('Xlink1'))
++   call assert_equal('./Xlink2', resolve('./Xlink1'))
++   call delete('Xlink1')
++ endfunc
++ 
+  func Test_simplify()
+    call assert_equal('',            simplify(''))
+    call assert_equal('/',           simplify('/'))
+*** ../vim-8.1.0453/src/version.c	2018-10-06 15:18:41.616657339 +0200
+--- src/version.c	2018-10-06 15:42:05.823641492 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     454,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+162. You go outside and look for a brightness knob to turn down the sun.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

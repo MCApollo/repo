@@ -1,0 +1,75 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0413
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0413
+Problem:    Test output is duplicated or missing.
+Solution:   Adjust the MS-Windows and Unix test makefiles. (Ken Takata,
+            closes #3452)
+Files:      src/testdir/Make_dos.mak, src/testdir/Makefile
+
+
+*** ../vim-8.1.0412/src/testdir/Make_dos.mak	2018-07-14 21:48:42.444978086 +0200
+--- src/testdir/Make_dos.mak	2018-09-20 21:33:05.054779441 +0200
+***************
+*** 112,118 ****
+  # to write and a lot easier to read and debug.
+  # Limitation: Only works with the +eval feature.
+  
+! newtests: $(NEW_TESTS)
+  
+  .vim.res:
+  	@echo $(VIMPROG) > vimcmd
+--- 112,121 ----
+  # to write and a lot easier to read and debug.
+  # Limitation: Only works with the +eval feature.
+  
+! newtests: newtestssilent
+! 	@if exist messages (findstr "SKIPPED FAILED" messages > nul) && type messages
+! 
+! newtestssilent: $(NEW_TESTS)
+  
+  .vim.res:
+  	@echo $(VIMPROG) > vimcmd
+*** ../vim-8.1.0412/src/testdir/Makefile	2018-07-14 21:48:42.448978060 +0200
+--- src/testdir/Makefile	2018-09-20 21:33:05.054779441 +0200
+***************
+*** 121,127 ****
+  RUN_VIMTEST = VIMRUNTIME=$(SCRIPTSOURCE); export VIMRUNTIME; $(VALGRIND) $(VIMPROG) -f $(GUI_FLAG) -u unix.vim
+  
+  newtests: newtestssilent
+! 	@/bin/sh -c "if test -f messages && grep -q 'SKIPPED\|FAILED' messages; then cat messages && if test -f test.log; then cat test.log; fi ; fi"
+  
+  newtestssilent: $(NEW_TESTS)
+  
+--- 121,127 ----
+  RUN_VIMTEST = VIMRUNTIME=$(SCRIPTSOURCE); export VIMRUNTIME; $(VALGRIND) $(VIMPROG) -f $(GUI_FLAG) -u unix.vim
+  
+  newtests: newtestssilent
+! 	@/bin/sh -c "if test -f messages && grep -q 'SKIPPED\|FAILED' messages; then cat messages; fi"
+  
+  newtestssilent: $(NEW_TESTS)
+  
+*** ../vim-8.1.0412/src/version.c	2018-09-19 22:39:59.816157865 +0200
+--- src/version.c	2018-09-20 21:36:32.656899510 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     413,
+  /**/
+
+-- 
+From "know your smileys":
+ =):-)	Uncle Sam
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

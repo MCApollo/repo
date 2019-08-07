@@ -1,0 +1,22 @@
+diff -ur musl-rpmatch-1.0/rpmatch.h musl-rpmatch-1.0+iPhone/rpmatch.h
+--- musl-rpmatch-1.0/rpmatch.h	2016-07-07 03:31:00.000000000 -1000
++++ musl-rpmatch-1.0+iPhone/rpmatch.h	2018-08-31 15:41:43.000000000 -1000
+@@ -1,6 +1,9 @@
+ #if !defined(_RPMATCH_H_)
+ #define _RPMATCH_H_
+ 
++#ifdef __cplusplus
++extern "C" {
++#endif
+ /*
+  * Determine whether the string value of RESPONSE matches the affirmation
+  * or negative response expression as specified by the LC_MESSAGES category
+@@ -8,5 +11,8 @@
+  * negative, and -1 if not matching.
+  */
+ extern int rpmatch (const char *response);
++#ifdef __cplusplus
++}
++#endif
+ 
+ #endif /* !defined(_RPMATCH_H_) */

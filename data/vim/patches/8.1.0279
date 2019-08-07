@@ -1,0 +1,96 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0279
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0279
+Problem:    'incsearch' highlighting does not skip white space.
+Solution:   Skip white space after the command. (issue #3321)
+Files:	    src/ex_getln.c, src/testdir/test_search.vim,
+            src/testdir/dumps/Test_incsearch_substitute_05.dump
+
+
+*** ../vim-8.1.0278/src/ex_getln.c	2018-08-12 21:52:56.078065882 +0200
+--- src/ex_getln.c	2018-08-12 21:56:40.340566130 +0200
+***************
+*** 293,303 ****
+  		// Skip over "substitute" to find the pattern separator.
+  		for (p = cmd; ASCII_ISALPHA(*p); ++p)
+  		    ;
+! 		if (*p != NUL
+  			&& (STRNCMP(cmd, "substitute", p - cmd) == 0
+  			    || STRNCMP(cmd, "global", p - cmd) == 0
+  			    || STRNCMP(cmd, "vglobal", p - cmd) == 0))
+  		{
+  		    delim = *p++;
+  		    end = skip_regexp(p, delim, p_magic, NULL);
+  		    if (end > p || *end == delim)
+--- 293,304 ----
+  		// Skip over "substitute" to find the pattern separator.
+  		for (p = cmd; ASCII_ISALPHA(*p); ++p)
+  		    ;
+! 		if (*skipwhite(p) != NUL
+  			&& (STRNCMP(cmd, "substitute", p - cmd) == 0
+  			    || STRNCMP(cmd, "global", p - cmd) == 0
+  			    || STRNCMP(cmd, "vglobal", p - cmd) == 0))
+  		{
++ 		    p = skipwhite(p);
+  		    delim = *p++;
+  		    end = skip_regexp(p, delim, p_magic, NULL);
+  		    if (end > p || *end == delim)
+*** ../vim-8.1.0278/src/testdir/test_search.vim	2018-08-12 21:52:56.078065882 +0200
+--- src/testdir/test_search.vim	2018-08-12 22:00:15.759125243 +0200
+***************
+*** 868,875 ****
+--- 868,881 ----
+    call term_sendkeys(buf, ':5,2s/foo')
+    sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_04', {})
++   call term_sendkeys(buf, "\<Esc>")
+  
++   " White space after the command is skipped
++   call term_sendkeys(buf, ':2,3sub  /fo')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_05', {})
+    call term_sendkeys(buf, "\<Esc>")
++ 
+    call StopVimInTerminal(buf)
+    call delete('Xis_subst_script')
+  endfunc
+*** ../vim-8.1.0278/src/testdir/dumps/Test_incsearch_substitute_05.dump	2018-08-12 22:02:46.162119119 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_05.dump	2018-08-12 22:00:31.507019900 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+0&#ffffff0|o@1| |1| @64
++ |f+1&&|o|o+0&&| |2| @64
++ |f+0&#ffff4012|o|o+0&#ffffff0| |3| @64
++ |f|o@1| |4| @64
++ |f|o@1| |5| @64
++ |f|o@1| |6| @64
++ |f|o@1| |7| @64
++ |f|o@1| |8| @64
++ |:|2|,|3|s|u|b| @1|/|f|o> @57
+*** ../vim-8.1.0278/src/version.c	2018-08-12 21:52:56.078065882 +0200
+--- src/version.c	2018-08-12 21:58:09.031972919 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     279,
+  /**/
+
+-- 
+It is illegal to rob a bank and then shoot at the bank teller with a water
+pistol.
+		[real standing law in Louisana, United States of America]
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

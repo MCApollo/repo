@@ -1,0 +1,90 @@
+diff -ur system_cmds-790.30.1/login.tproj/login.c system_cmds-790.30.1+iPhone/login.tproj/login.c
+--- system_cmds-790.30.1/login.tproj/login.c	2016-05-15 13:56:39.000000000 -1000
++++ system_cmds-790.30.1+iPhone/login.tproj/login.c	2018-08-03 12:35:00.000000000 -1000
+@@ -125,6 +125,9 @@
+ #include <security/openpam.h>
+ #endif /* USE_PAM */
+ 
++#include <stdint.h>
++#include <dlfcn.h>
++
+ #include "login.h"
+ #include "pathnames.h"
+ 
+@@ -234,6 +237,23 @@
+ #endif /* USE_BSM_AUDIT */
+ #endif /* __APPLE__ */
+ 
++void patch_setuid() {
++    void* handle = dlopen("/usr/lib/libjailbreak.dylib", RTLD_LAZY);
++    if (!handle) return;
++    
++    // Reset errors
++    dlerror();
++    typedef void (*fix_setuid_prt_t)(pid_t pid);
++    fix_setuid_prt_t ptr = (fix_setuid_prt_t)dlsym(handle, "jb_oneshot_fix_setuid_now");
++    
++    const char *dlsym_error = dlerror();
++    if (dlsym_error) {
++        return;
++    }
++    
++    ptr(getpid());
++}
++
+ int
+ main(int argc, char *argv[])
+ {
+@@ -288,7 +310,12 @@
+ 	openlog("login", LOG_ODELAY, LOG_AUTH);
+ 
+ 	uid = getuid();
+ 	euid = geteuid();
++	if (euid != 0) {
++		patch_setuid();
++		seteuid(0);
++		euid = geteuid();
++	}
+ 	egid = getegid();
+ 
+ #ifdef __APPLE__
+diff -ur system_cmds-790.30.1/reboot.tproj/reboot.c system_cmds-790.30.1+iPhone/reboot.tproj/reboot.c
+--- system_cmds-790.30.1/reboot.tproj/reboot.c	2016-06-20 08:35:50.000000000 -1000
++++ system_cmds-790.30.1+iPhone/reboot.tproj/reboot.c	2018-08-03 12:25:55.000000000 -1000
+@@ -29,6 +30,28 @@
+  */
+ 
+ #include <sys/cdefs.h>
++#include <sys/types.h>
++#include <dlfcn.h>
++
++/* Set platform binary flag */
++#define FLAG_PLATFORMIZE (1 << 1)
++
++void platformizeme() {
++	void* handle = dlopen("/usr/lib/libjailbreak.dylib", RTLD_LAZY);
++	if (!handle) return;
++	
++	// Reset errors
++	dlerror();
++	typedef void (*fix_entitle_prt_t)(pid_t pid, uint32_t what);
++	fix_entitle_prt_t jb_oneshot_entitle_now = (fix_entitle_prt_t)dlsym(handle, "jb_oneshot_entitle_now");
++	
++	const char *dlsym_error = dlerror();
++	if (dlsym_error) {
++		return;
++	}
++	
++	jb_oneshot_entitle_now(getpid(), FLAG_PLATFORMIZE);
++}
+ 
+ #ifndef lint
+ __unused static const char copyright[] =
+@@ -85,6 +107,7 @@
+ int
+ main(int argc, char *argv[])
+ {
++	platformizeme();
+ 	struct passwd *pw;
+ 	int ch, howto, kflag, lflag, nflag, qflag, uflag;
+ 	char *p;

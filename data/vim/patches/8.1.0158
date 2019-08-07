@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0158
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0158
+Problem:    GUI: input() fails if CTRL-C was pressed before. (Michael Naumann)
+Solution:   call vpeekc() to drop the CTRL-C from the input stream.
+Files:	    src/ex_docmd.c
+
+
+*** ../vim-8.1.0157/src/ex_docmd.c	2018-07-04 22:26:24.515946368 +0200
+--- src/ex_docmd.c	2018-07-07 16:11:37.571323580 +0200
+***************
+*** 9157,9162 ****
+--- 9157,9167 ----
+  	parse_queued_messages();
+  #endif
+      }
++ 
++     // If CTRL-C was typed to interrupt the sleep, drop the CTRL-C from the
++     // input buffer, otherwise a following call to input() fails.
++     if (got_int)
++ 	(void)vpeekc();
+  }
+  
+      static void
+*** ../vim-8.1.0157/src/version.c	2018-07-06 23:11:35.484671649 +0200
+--- src/version.c	2018-07-07 16:12:59.190883016 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     158,
+  /**/
+
+-- 
+Some of the well known MS-Windows errors:
+	EMULTI		Multitasking attempted, system confused
+	EKEYBOARD	Keyboard locked, try getting out of this one!
+	EXPLAIN		Unexplained error, please tell us what happened
+	EFUTURE		Reserved for our future mistakes
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,115 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0424
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0424
+Problem:    Test output is very verbose, loading CI log is slow.
+Solution:   Redirect output to /dev/null. (Ken Takata, closes #3456)
+Files:	    src/testdir/Makefile
+
+
+*** ../vim-8.1.0423/src/testdir/Makefile	2018-09-20 21:39:29.643309960 +0200
+--- src/testdir/Makefile	2018-09-21 16:32:28.010556536 +0200
+***************
+*** 9,14 ****
+--- 9,17 ----
+  
+  SCRIPTSOURCE = ../../runtime
+  
++ # Change this to empty to see the verbose output of tests.
++ REDIR_TEST_TO_NULL = > /dev/null
++ 
+  # Uncomment this line to use valgrind for memory leaks and extra warnings.
+  #   The output goes into a file "valgrind.testN"
+  #   Vim should be compiled with EXITFREE to avoid false warnings.
+***************
+*** 59,65 ****
+  
+  test1.out: test1.in
+  	-rm -rf $*.failed $(RM_ON_RUN) $(RM_ON_START) wrongtermsize
+! 	$(RUN_VIM) $*.in
+  	@/bin/sh -c "if test -f wrongtermsize; \
+  		then echo; \
+  		echo test1 FAILED - terminal size must be 80x24 or larger; \
+--- 62,68 ----
+  
+  test1.out: test1.in
+  	-rm -rf $*.failed $(RM_ON_RUN) $(RM_ON_START) wrongtermsize
+! 	$(RUN_VIM) $*.in $(REDIR_TEST_TO_NULL)
+  	@/bin/sh -c "if test -f wrongtermsize; \
+  		then echo; \
+  		echo test1 FAILED - terminal size must be 80x24 or larger; \
+***************
+*** 78,84 ****
+  	# 200 msec is sufficient, but only modern sleep supports a fraction of
+  	# a second, fall back to a second if it fails.
+  	@-/bin/sh -c "sleep .2 > /dev/null 2>&1 || sleep 1"
+! 	$(RUN_VIM) $*.in
+  
+  	# For flaky tests retry one time.  No tests at the moment.
+  	#@/bin/sh -c "if test -f test.out -a $* = test61; then \
+--- 81,87 ----
+  	# 200 msec is sufficient, but only modern sleep supports a fraction of
+  	# a second, fall back to a second if it fails.
+  	@-/bin/sh -c "sleep .2 > /dev/null 2>&1 || sleep 1"
+! 	$(RUN_VIM) $*.in $(REDIR_TEST_TO_NULL)
+  
+  	# For flaky tests retry one time.  No tests at the moment.
+  	#@/bin/sh -c "if test -f test.out -a $* = test61; then \
+***************
+*** 108,114 ****
+  	# 200 msec is sufficient, but only modern sleep supports a fraction of
+  	# a second, fall back to a second if it fails.
+  	@-/bin/sh -c "sleep .2 > /dev/null 2>&1 || sleep 1"
+! 	$(RUN_VIM) $*.in
+  	@/bin/sh -c "if test -f benchmark.out; then cat benchmark.out; fi"
+  
+  nolog:
+--- 111,117 ----
+  	# 200 msec is sufficient, but only modern sleep supports a fraction of
+  	# a second, fall back to a second if it fails.
+  	@-/bin/sh -c "sleep .2 > /dev/null 2>&1 || sleep 1"
+! 	$(RUN_VIM) $*.in $(REDIR_TEST_TO_NULL)
+  	@/bin/sh -c "if test -f benchmark.out; then cat benchmark.out; fi"
+  
+  nolog:
+***************
+*** 129,135 ****
+  .vim.res: writevimcmd
+  	@echo "$(VIMPROG)" > vimcmd
+  	@echo "$(RUN_VIMTEST)" >> vimcmd
+! 	$(RUN_VIMTEST) $(NO_INITS) -S runtest.vim $*.vim
+  	@rm vimcmd
+  
+  test_gui.res: test_gui.vim
+--- 132,138 ----
+  .vim.res: writevimcmd
+  	@echo "$(VIMPROG)" > vimcmd
+  	@echo "$(RUN_VIMTEST)" >> vimcmd
+! 	$(RUN_VIMTEST) $(NO_INITS) -S runtest.vim $*.vim $(REDIR_TEST_TO_NULL)
+  	@rm vimcmd
+  
+  test_gui.res: test_gui.vim
+*** ../vim-8.1.0423/src/version.c	2018-09-21 14:48:49.644214400 +0200
+--- src/version.c	2018-09-21 16:35:42.513022884 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     424,
+  /**/
+
+-- 
+I AM THANKFUL...
+...for the taxes that I pay because it means that I am employed.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

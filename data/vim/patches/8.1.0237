@@ -1,0 +1,61 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0237
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0237
+Problem:    Ruby on Cygwin doesn't always work.
+Solution:   Use LIBRUBY_SO if LIBRUBY_ALIASES isn't set. (Ken Takata)
+Files:	    src/configure.ac, src/auto/configure
+
+
+*** ../vim-8.1.0236/src/configure.ac	2018-07-27 22:35:12.305014510 +0200
+--- src/configure.ac	2018-08-04 15:10:33.240017113 +0200
+***************
+*** 1956,1961 ****
+--- 1956,1964 ----
+  	AC_DEFINE(FEAT_RUBY)
+  	if test "$enable_rubyinterp" = "dynamic"; then
+  	  libruby_soname=`$vi_cv_path_ruby -r rbconfig -e "puts $ruby_rbconfig::CONFIG[['LIBRUBY_ALIASES']].split[[0]]"`
++ 	  if test -z "$libruby_soname"; then
++ 	    libruby_soname=`$vi_cv_path_ruby -r rbconfig -e "puts $ruby_rbconfig::CONFIG[['LIBRUBY_SO']]"`
++ 	  fi
+  	  AC_DEFINE(DYNAMIC_RUBY)
+  	  RUBY_CFLAGS="-DDYNAMIC_RUBY_DLL=\\\"$libruby_soname\\\" -DDYNAMIC_RUBY_VER=$rubyversion $RUBY_CFLAGS"
+  	  RUBY_LIBS=
+*** ../vim-8.1.0236/src/auto/configure	2018-07-27 22:35:12.309014484 +0200
+--- src/auto/configure	2018-08-04 15:10:39.099973736 +0200
+***************
+*** 7606,7611 ****
+--- 7606,7614 ----
+  
+  	if test "$enable_rubyinterp" = "dynamic"; then
+  	  libruby_soname=`$vi_cv_path_ruby -r rbconfig -e "puts $ruby_rbconfig::CONFIG['LIBRUBY_ALIASES'].split[0]"`
++ 	  if test -z "$libruby_soname"; then
++ 	    libruby_soname=`$vi_cv_path_ruby -r rbconfig -e "puts $ruby_rbconfig::CONFIG['LIBRUBY_SO']"`
++ 	  fi
+  	  $as_echo "#define DYNAMIC_RUBY 1" >>confdefs.h
+  
+  	  RUBY_CFLAGS="-DDYNAMIC_RUBY_DLL=\\\"$libruby_soname\\\" -DDYNAMIC_RUBY_VER=$rubyversion $RUBY_CFLAGS"
+*** ../vim-8.1.0236/src/version.c	2018-08-03 22:03:13.178295933 +0200
+--- src/version.c	2018-08-04 15:12:44.107057819 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     237,
+  /**/
+
+-- 
+"It's so simple to be wise.  Just think of something stupid to say
+and then don't say it."        -- Sam Levenson
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

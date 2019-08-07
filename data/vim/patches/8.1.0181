@@ -1,0 +1,66 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0181
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0181
+Problem:    Memory leak with trailing characters in skip expression.
+Solution:   Free the return value.
+Files:	    src/eval.c, src/testdir/test_search.vim
+
+
+*** ../vim-8.1.0180/src/eval.c	Tue Jun 12 22:05:10 2018
+--- src/eval.c	Sat Jul 14 17:17:35 2018
+***************
+*** 729,734 ****
+--- 729,735 ----
+  	    return FAIL;
+  	if (*s != NUL)  /* check for trailing chars after expr */
+  	{
++ 	    clear_tv(rettv);
+  	    EMSG2(_(e_invexpr2), s);
+  	    return FAIL;
+  	}
+*** ../vim-8.1.0180/src/testdir/test_search.vim	Sun Jun 24 19:01:55 2018
+--- src/testdir/test_search.vim	Sat Jul 14 17:14:23 2018
+***************
+*** 324,329 ****
+--- 324,339 ----
+      bw!
+  endfunc
+  
++ func Test_searchpair_leak()
++   new
++   call setline(1, 'if one else another endif')
++ 
++   " The error in the skip expression caused memory to leak.
++   call assert_fails("call searchpair('\\<if\\>', '\\<else\\>', '\\<endif\\>', '', '\"foo\" 2')", 'E15:')
++ 
++   bwipe!
++ endfunc
++ 
+  func Test_searchc()
+    " These commands used to cause memory overflow in searchc().
+    new
+*** ../vim-8.1.0180/src/version.c	Fri Jul 13 22:08:19 2018
+--- src/version.c	Sat Jul 14 17:02:20 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     181,
+  /**/
+
+-- 
+"Marriage is when a man and woman become as one; the trouble starts
+when they try to decide which one"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

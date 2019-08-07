@@ -1,0 +1,266 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0578
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0578
+Problem:    Cannot disable arabic, rightleft and farsi in configure.
+Solution:   Add configur flags. (Diego Fernando Carrión, closes #1867)
+Files:	    src/configure.ac, src/auto/configure, src/config.h.in,
+            src/feature.h, src/Makefile
+
+
+*** ../vim-8.1.0577/src/configure.ac	2018-09-13 17:23:05.165150925 +0200
+--- src/configure.ac	2018-12-12 20:24:39.847759473 +0100
+***************
+*** 2138,2143 ****
+--- 2138,2182 ----
+    AC_DEFINE(FEAT_MBYTE)
+  fi
+  
++ dnl Right-to-Left language support for Vim will be included with big features,
++ dnl unless ENABLE_RIGHTLEFT is undefined.
++ AC_MSG_CHECKING(--disable-rightleft argument)
++ AC_ARG_ENABLE(rightleft,
++ 	[  --disable-rightleft     Do not include Right-to-Left language support.],
++ 	, [enable_rightleft="yes"])
++ if test "$enable_rightleft" = "yes"; then
++ 	AC_MSG_RESULT(no)
++ else
++ 	AC_MSG_RESULT(yes)
++ 	AC_DEFINE(DISABLE_RIGHTLEFT)
++ fi
++ 
++ dnl Arabic language support for Vim will be included with big features,
++ dnl unless ENABLE_ARABIC is undefined.
++ AC_MSG_CHECKING(--disable-arabic argument)
++ AC_ARG_ENABLE(arabic,
++ 	[  --disable-arabic        Do not include Arabic language support.],
++ 	, [enable_arabic="yes"])
++ if test "$enable_arabic" = "yes"; then
++ 	AC_MSG_RESULT(no)
++ else
++ 	AC_MSG_RESULT(yes)
++ 	AC_DEFINE(DISABLE_ARABIC)
++ fi
++ 
++ dnl Farsi language support for vim will be included with big features,
++ dnl unless ENABLE_FARSI is undefined.
++ AC_MSG_CHECKING(--disable-farsi argument)
++ AC_ARG_ENABLE(farsi,
++ 	[  --disable-farsi         Do not include Farsi language support.],
++ 	, [enable_farsi="yes"])
++ if test "$enable_farsi" = "yes"; then
++ 	AC_MSG_RESULT(no)
++ else
++ 	AC_MSG_RESULT(yes)
++ 	AC_DEFINE(DISABLE_FARSI)
++ fi
++ 
+  AC_MSG_CHECKING(--enable-hangulinput argument)
+  AC_ARG_ENABLE(hangulinput,
+  	[  --enable-hangulinput    Include Hangul input support.], ,
+*** ../vim-8.1.0577/src/auto/configure	2018-09-13 17:23:05.169150892 +0200
+--- src/auto/configure	2018-12-12 20:24:43.739736987 +0100
+***************
+*** 818,823 ****
+--- 818,826 ----
+  enable_terminal
+  enable_autoservername
+  enable_multibyte
++ enable_rightleft
++ enable_arabic
++ enable_farsi
+  enable_hangulinput
+  enable_xim
+  enable_fontset
+***************
+*** 1497,1502 ****
+--- 1500,1508 ----
+    --enable-terminal       Enable terminal emulation support.
+    --enable-autoservername Automatically define servername at vim startup.
+    --enable-multibyte      Include multibyte editing support.
++   --disable-rightleft     Do not include Right-to-Left language support.
++   --disable-arabic        Do not include Arabic language support.
++   --disable-farsi         Do not include Farsi language support.
+    --enable-hangulinput    Include Hangul input support.
+    --enable-xim            Include XIM input support.
+    --enable-fontset        Include X fontset output support.
+***************
+*** 7954,7959 ****
+--- 7960,8022 ----
+  
+  fi
+  
++ { $as_echo "$as_me:${as_lineno-$LINENO}: checking --disable-rightleft argument" >&5
++ $as_echo_n "checking --disable-rightleft argument... " >&6; }
++ # Check whether --enable-rightleft was given.
++ if test "${enable_rightleft+set}" = set; then :
++   enableval=$enable_rightleft;
++ else
++   enable_rightleft="yes"
++ fi
++ 
++ if test "$enable_rightleft" = "yes"; then
++ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++ $as_echo "no" >&6; }
++ else
++ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++ $as_echo "yes" >&6; }
++ 	$as_echo "#define DISABLE_RIGHTLEFT 1" >>confdefs.h
++ 
++ fi
++ 
++ { $as_echo "$as_me:${as_lineno-$LINENO}: checking --disable-arabic argument" >&5
++ $as_echo_n "checking --disable-arabic argument... " >&6; }
++ # Check whether --enable-arabic was given.
++ if test "${enable_arabic+set}" = set; then :
++   enableval=$enable_arabic;
++ else
++   enable_arabic="yes"
++ fi
++ 
++ if test "$enable_arabic" = "yes"; then
++ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++ $as_echo "no" >&6; }
++ else
++ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++ $as_echo "yes" >&6; }
++ 	$as_echo "#define DISABLE_ARABIC 1" >>confdefs.h
++ 
++ fi
++ 
++ { $as_echo "$as_me:${as_lineno-$LINENO}: checking --disable-farsi argument" >&5
++ $as_echo_n "checking --disable-farsi argument... " >&6; }
++ # Check whether --enable-farsi was given.
++ if test "${enable_farsi+set}" = set; then :
++   enableval=$enable_farsi;
++ else
++   enable_farsi="yes"
++ fi
++ 
++ if test "$enable_farsi" = "yes"; then
++ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
++ $as_echo "no" >&6; }
++ else
++ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
++ $as_echo "yes" >&6; }
++ 	$as_echo "#define DISABLE_FARSI 1" >>confdefs.h
++ 
++ fi
++ 
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking --enable-hangulinput argument" >&5
+  $as_echo_n "checking --enable-hangulinput argument... " >&6; }
+  # Check whether --enable-hangulinput was given.
+*** ../vim-8.1.0577/src/config.h.in	2018-09-12 20:29:05.475670636 +0200
+--- src/config.h.in	2018-12-12 20:23:45.344072492 +0100
+***************
+*** 390,395 ****
+--- 390,404 ----
+  /* Define if you want to include multibyte support. */
+  #undef FEAT_MBYTE
+  
++ /* Define if you don't want to include right-left support. */
++ #undef DISABLE_RIGHTLEFT
++ 
++ /* Define if you don't want to include Farsi support. */
++ #undef DISABLE_FARSI
++ 
++ /* Define if you don't want to include Arabic support. */
++ #undef DISABLE_ARABIC
++ 
+  /* Define if you want to always define a server name at vim startup. */
+  #undef FEAT_AUTOSERVERNAME
+  
+*** ../vim-8.1.0577/src/feature.h	2018-08-14 13:38:12.744559267 +0200
+--- src/feature.h	2018-12-12 20:21:57.672679147 +0100
+***************
+*** 263,269 ****
+   *
+   * Disabled for EBCDIC as it requires multibyte.
+   */
+! #if defined(FEAT_BIG) && !defined(EBCDIC)
+  # define FEAT_RIGHTLEFT
+  #endif
+  
+--- 263,269 ----
+   *
+   * Disabled for EBCDIC as it requires multibyte.
+   */
+! #if defined(FEAT_BIG) && !defined(DISABLE_RIGHTLEFT) && !defined(EBCDIC)
+  # define FEAT_RIGHTLEFT
+  #endif
+  
+***************
+*** 273,279 ****
+   *
+   * Disabled for EBCDIC as it requires multibyte.
+   */
+! #if defined(FEAT_BIG) && !defined(EBCDIC)
+  # define FEAT_FKMAP
+  #endif
+  #ifdef FEAT_FKMAP
+--- 273,279 ----
+   *
+   * Disabled for EBCDIC as it requires multibyte.
+   */
+! #if defined(FEAT_BIG) && !defined(DISABLE_FARSI) && !defined(EBCDIC)
+  # define FEAT_FKMAP
+  #endif
+  #ifdef FEAT_FKMAP
+***************
+*** 288,294 ****
+   *
+   * Disabled for EBCDIC as it requires multibyte.
+   */
+! #if defined(FEAT_BIG) && VIM_SIZEOF_INT >= 4 && !defined(EBCDIC)
+  # define FEAT_ARABIC
+  #endif
+  #ifdef FEAT_ARABIC
+--- 288,294 ----
+   *
+   * Disabled for EBCDIC as it requires multibyte.
+   */
+! #if defined(FEAT_BIG) && !defined(DISABLE_ARABIC) && VIM_SIZEOF_INT >= 4 && !defined(EBCDIC)
+  # define FEAT_ARABIC
+  #endif
+  #ifdef FEAT_ARABIC
+*** ../vim-8.1.0577/src/Makefile	2018-09-21 13:56:21.522830206 +0200
+--- src/Makefile	2018-12-12 20:31:58.225141981 +0100
+***************
+*** 499,504 ****
+--- 499,508 ----
+  # configure tests may fail.
+  #CONF_OPT_MULTIBYTE = --enable-multibyte
+  
++ # When building with at least "big" features, right-left, Arabic and Farsi
++ # features are enabled.  Use this to disable them.
++ #CONF_OPT_MULTIBYTE = --disable-rightleft --disable-farsi --disable-arabic
++ 
+  # NLS - National Language Support
+  # Uncomment this when you do not want to support translated messages, even
+  # though configure can find support for it.
+*** ../vim-8.1.0577/src/version.c	2018-12-11 20:39:15.446937049 +0100
+--- src/version.c	2018-12-12 20:15:00.894808786 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     578,
+  /**/
+
+-- 
+The fastest way to get an engineer to solve a problem is to declare that the
+problem is unsolvable.  No engineer can walk away from an unsolvable problem
+until it's solved.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

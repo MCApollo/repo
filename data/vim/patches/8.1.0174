@@ -1,0 +1,130 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0174
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0174
+Problem:    After paging up and down fold line is wrong.
+Solution:   Correct the computation of w_topline and w_botline. (Hirohito
+            Higashi)
+Files:	    src/move.c, src/testdir/test_fold.vim
+
+
+*** ../vim-8.1.0173/src/move.c	Sun Mar  4 20:06:26 2018
+--- src/move.c	Tue Jul 10 14:50:55 2018
+***************
+*** 2457,2478 ****
+  	beginline(BL_SOL | BL_FIX);
+      curwin->w_valid &= ~(VALID_WCOL|VALID_WROW|VALID_VIRTCOL);
+  
+!     /*
+!      * Avoid the screen jumping up and down when 'scrolloff' is non-zero.
+!      * But make sure we scroll at least one line (happens with mix of long
+!      * wrapping lines and non-wrapping line).
+!      */
+!     if (retval == OK && dir == FORWARD && check_top_offset())
+      {
+! 	scroll_cursor_top(1, FALSE);
+! 	if (curwin->w_topline <= old_topline
+! 				  && old_topline < curbuf->b_ml.ml_line_count)
+  	{
+! 	    curwin->w_topline = old_topline + 1;
+  #ifdef FEAT_FOLDING
+! 	    (void)hasFolding(curwin->w_topline, &curwin->w_topline, NULL);
+  #endif
+  	}
+      }
+  
+      redraw_later(VALID);
+--- 2457,2483 ----
+  	beginline(BL_SOL | BL_FIX);
+      curwin->w_valid &= ~(VALID_WCOL|VALID_WROW|VALID_VIRTCOL);
+  
+!     if (retval == OK && dir == FORWARD)
+      {
+! 	// Avoid the screen jumping up and down when 'scrolloff' is non-zero.
+! 	// But make sure we scroll at least one line (happens with mix of long
+! 	// wrapping lines and non-wrapping line).
+! 	if (check_top_offset())
+  	{
+! 	    scroll_cursor_top(1, FALSE);
+! 	    if (curwin->w_topline <= old_topline
+! 				  && old_topline < curbuf->b_ml.ml_line_count)
+! 	    {
+! 		curwin->w_topline = old_topline + 1;
+  #ifdef FEAT_FOLDING
+! 		(void)hasFolding(curwin->w_topline, &curwin->w_topline, NULL);
+  #endif
++ 	    }
+  	}
++ #ifdef FEAT_FOLDING
++ 	else if (curwin->w_botline > curbuf->b_ml.ml_line_count)
++ 	    (void)hasFolding(curwin->w_topline, &curwin->w_topline, NULL);
++ #endif
+      }
+  
+      redraw_later(VALID);
+*** ../vim-8.1.0173/src/testdir/test_fold.vim	Sun Nov  5 20:53:03 2017
+--- src/testdir/test_fold.vim	Tue Jul 10 14:50:55 2018
+***************
+*** 1,5 ****
+--- 1,7 ----
+  " Test for folding
+  
++ source view_util.vim
++ 
+  func PrepIndent(arg)
+    return [a:arg] + repeat(["\t".a:arg], 5)
+  endfu
+***************
+*** 648,650 ****
+--- 650,676 ----
+    endtry
+    call assert_match('E492:', a)
+  endfunc
++ 
++ func Test_fold_last_line_with_pagedown()
++   enew!
++   set fdm=manual
++ 
++   let expect = '+-- 11 lines: 9---'
++   let content = range(1,19)
++   call append(0, content)
++   normal dd9G
++   normal zfG
++   normal zt
++   call assert_equal('9', getline(foldclosed('.')))
++   call assert_equal('19', getline(foldclosedend('.')))
++   call assert_equal(expect, ScreenLines(1, len(expect))[0])
++   call feedkeys("\<C-F>", 'xt')
++   call assert_equal(expect, ScreenLines(1, len(expect))[0])
++   call feedkeys("\<C-F>", 'xt')
++   call assert_equal(expect, ScreenLines(1, len(expect))[0])
++   call feedkeys("\<C-B>\<C-F>\<C-F>", 'xt')
++   call assert_equal(expect, ScreenLines(1, len(expect))[0])
++ 
++   set fdm&
++   enew!
++ endfunc
+*** ../vim-8.1.0173/src/version.c	Mon Jul  9 20:39:12 2018
+--- src/version.c	Tue Jul 10 14:52:30 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     174,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+220. Your wife asks for sex and you tell her where to find you on IRC.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

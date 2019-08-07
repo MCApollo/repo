@@ -1,0 +1,25 @@
+diff -ur minicom-2.7.1/src/minicom.c minicom-2.7.1+iPhone/src/minicom.c
+--- minicom-2.7.1/src/minicom.c	2013-12-08 00:34:44.000000000 -1000
++++ minicom-2.7.1+iPhone/src/minicom.c	2018-08-18 11:44:56.000000000 -1000
+@@ -1159,9 +1159,6 @@
+       switch(c) {
+ 	case 'v':
+ 	  printf(_("%s version %s"), PACKAGE, VERSION);
+-#ifdef __DATE__
+-	  printf(_(" (compiled %s)"), __DATE__);
+-#endif
+ 	  printf("\n");
+ 	  printf(_("Copyright (C) Miquel van Smoorenburg.\n\n"));
+ 	  printf("This program is free software; you can redistribute it and/or\n"
+@@ -1462,9 +1459,6 @@
+ 
+   mc_wprintf(us, "\n%s %s\r\n", _("Welcome to minicom"), VERSION);
+   mc_wprintf(us, "\n%s: %s\r\n", _("OPTIONS"), option_string);
+-#if defined (__DATE__) && defined (__TIME__)
+-  mc_wprintf(us, "%s %s, %s.\r\n",_("Compiled on"), __DATE__,__TIME__);
+-#endif
+   {
+     struct stat st;
+     char port_date[20] = "";
+Only in minicom-2.7.1+iPhone/src: minicom.c.orig
+Only in minicom-2.7.1+iPhone/src: minicom.c.rej

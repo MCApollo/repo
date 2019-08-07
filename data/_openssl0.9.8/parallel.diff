@@ -1,0 +1,14 @@
+diff -ur openssl-0.9.8zh/Makefile.org openssl-0.9.8zc+iPhone/Makefile.org
+--- openssl-0.9.8zh/Makefile.org	2014-10-15 02:45:00.000000000 -1000
++++ openssl-0.9.8zh+iPhone/Makefile.org	2018-12-10 08:55:55.000000000 -1000
+@@ -371,6 +371,10 @@
+ 		exit 1; \
+ 	fi
+ 
++libcrypto.a: build_crypto
++
++libssl.a: build_ssl
++
+ libssl$(SHLIB_EXT): libcrypto$(SHLIB_EXT) libssl.a
+ 	@if [ "$(SHLIB_TARGET)" != "" ]; then \
+ 		shlibdeps=-lcrypto; \

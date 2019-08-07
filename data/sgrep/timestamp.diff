@@ -1,0 +1,28 @@
+diff -ru sgrep-1.92a/index.c sgrep-1.92a+iPhone/index.c
+--- sgrep-1.92a/index_main.c	1998-12-21 23:43:02.000000000 +0000
++++ sgrep-1.92a+iPhone/index_main.c	2008-06-18 02:08:31.000000000 +0000
+@@ -1988,8 +1988,8 @@
+ 			if (!o->input_stop_word_file) return SGREP_ERROR;
+ 			break;
+ 		case 'V':
+-			printf("sgindex version %s compiled at %s\n",
+-				VERSION,__DATE__);
++			printf("sgindex version %s\n",
++				VERSION);
+ 			o->index_mode=IM_DONE;
+ 			break;
+ 		case 'v':
+diff -ru sgrep-1.92a/main.c sgrep-1.92a+iPhone/main.c
+--- sgrep-1.92a/main.c	1998-12-12 04:13:53.000000000 +0000
++++ sgrep-1.92a+iPhone/main.c	2008-06-18 02:08:38.000000000 +0000
+@@ -727,8 +727,8 @@
+ 			print_help();
+ 			break;
+ 		case 'V':
+-			printf("sgrep version %s compiled at %s\n",
+-				VERSION,__DATE__);
++			printf("sgrep version %s\n",
++				VERSION);
+ 			exit(0);
+ 			break;
+ 		case 'v':

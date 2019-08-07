@@ -1,0 +1,50 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0273
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0273
+Problem:    Invalid memory access when using 'incsearch'.
+Solution:   Reset "patlen" when using previous search pattern.
+Files:	    src/ex_getln.c
+
+
+*** ../vim-8.1.0272/src/ex_getln.c	2018-08-11 16:40:39.064311995 +0200
+--- src/ex_getln.c	2018-08-11 18:56:30.997198115 +0200
+***************
+*** 504,510 ****
+--- 504,514 ----
+  	return FAIL;
+  
+      if (firstc == ccline.cmdbuff[skiplen])
++     {
+  	pat = last_search_pattern();
++ 	skiplen = 0;
++ 	patlen = STRLEN(pat);
++     }
+      else
+  	pat = ccline.cmdbuff + skiplen;
+  
+*** ../vim-8.1.0272/src/version.c	2018-08-11 17:52:57.848311971 +0200
+--- src/version.c	2018-08-11 19:01:58.394713331 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     273,
+  /**/
+
+-- 
+It is illegal for anyone to try and stop a child from playfully jumping over
+puddles of water.
+		[real standing law in California, United States of America]
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

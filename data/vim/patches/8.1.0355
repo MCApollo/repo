@@ -1,0 +1,96 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0355
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0355
+Problem:    Incorrect adjusting the popup menu for the preview window.
+Solution:   Compute position and height properl. (Ronan Pigott)  Also show at
+            least ten items. (closes #3414)
+Files:	    src/popupmnu.c
+
+
+*** ../vim-8.1.0354/src/popupmnu.c	2018-06-17 17:10:55.636590392 +0200
+--- src/popupmnu.c	2018-09-09 15:17:57.698993041 +0200
+***************
+*** 141,148 ****
+  	if (p_ph > 0 && pum_height > p_ph)
+  	    pum_height = p_ph;
+  
+! 	/* Put the pum below "pum_win_row" if possible.  If there are few lines decide
+! 	 * on where there is more room. */
+  	if (pum_win_row + 2 >= below_row - pum_height
+  		      && pum_win_row - above_row > (below_row - above_row) / 2)
+  	{
+--- 141,148 ----
+  	if (p_ph > 0 && pum_height > p_ph)
+  	    pum_height = p_ph;
+  
+! 	/* Put the pum below "pum_win_row" if possible.  If there are few lines
+! 	 * decide on where there is more room. */
+  	if (pum_win_row + 2 >= below_row - pum_height
+  		      && pum_win_row - above_row > (below_row - above_row) / 2)
+  	{
+***************
+*** 196,206 ****
+  	    return;
+  
+  #if defined(FEAT_QUICKFIX)
+! 	/* If there is a preview window at the above avoid drawing over it. */
+! 	if (pvwin != NULL && pum_row < above_row && pum_height > above_row)
+  	{
+! 	    pum_row += above_row;
+! 	    pum_height -= above_row;
+  	}
+  #endif
+  
+--- 196,215 ----
+  	    return;
+  
+  #if defined(FEAT_QUICKFIX)
+! 	// If there is a preview window at the above avoid drawing over it.
+! 	// Do keep at least 10 entries.
+! 	if (pvwin != NULL && pum_row < above_row && pum_height > 10)
+  	{
+! 	    if (pum_win_row - above_row < 10)
+! 	    {
+! 		pum_row = pum_win_row - 10;
+! 		pum_height = 10;
+! 	    }
+! 	    else
+! 	    {
+! 		pum_row = above_row;
+! 		pum_height = pum_win_row - above_row;
+! 	    }
+  	}
+  #endif
+  
+*** ../vim-8.1.0354/src/version.c	2018-09-08 19:12:09.333935467 +0200
+--- src/version.c	2018-09-09 15:19:36.357838496 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     355,
+  /**/
+
+-- 
+In many of the more relaxed civilizations on the Outer Eastern Rim of the
+Galaxy, "The Hitchhiker's Guide to the Galaxy" has already supplanted the
+great "Encyclopedia Galactica" as the standard repository of all knowledge
+and wisdom, for though it has many omissions and contains much that is
+apocryphal, or at least wildly inaccurate, it scores over the older, more
+pedestrian work in two important respects.
+First, it is slightly cheaper; and second, it has the words "DON'T PANIC"
+inscribed in large friendly letters on its cover.
+		-- Douglas Adams, "The Hitchhiker's Guide to the Galaxy"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

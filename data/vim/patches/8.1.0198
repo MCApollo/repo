@@ -1,0 +1,88 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0198
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0198
+Problem:    There is no hint that syntax is disabled for 'redrawtime'.
+Solution:   Add a message.
+Files:      src/syntax.c
+
+
+*** ../vim-8.1.0197/src/syntax.c	2018-06-23 14:21:38.459484976 +0200
+--- src/syntax.c	2018-07-20 19:54:46.527523073 +0200
+***************
+*** 3355,3362 ****
+      }
+  #endif
+  #ifdef FEAT_RELTIME
+!     if (timed_out)
+  	syn_win->w_s->b_syn_slow = TRUE;
+  #endif
+  
+      if (r > 0)
+--- 3355,3365 ----
+      }
+  #endif
+  #ifdef FEAT_RELTIME
+!     if (timed_out && !syn_win->w_s->b_syn_slow)
+!     {
+  	syn_win->w_s->b_syn_slow = TRUE;
++ 	MSG(_("'redrawtime' exceeded, syntax highlighting disabled"));
++     }
+  #endif
+  
+      if (r > 0)
+***************
+*** 3575,3585 ****
+      if (*arg == NUL)
+      {
+  	MSG_PUTS("\n");
+- 	MSG_PUTS(_("syntax iskeyword "));
+  	if (curwin->w_s->b_syn_isk != empty_option)
+  	    msg_outtrans(curwin->w_s->b_syn_isk);
+  	else
+! 	    msg_outtrans((char_u *)"not set");
+      }
+      else
+      {
+--- 3578,3590 ----
+      if (*arg == NUL)
+      {
+  	MSG_PUTS("\n");
+  	if (curwin->w_s->b_syn_isk != empty_option)
++ 	{
++ 	    MSG_PUTS(_("syntax iskeyword "));
+  	    msg_outtrans(curwin->w_s->b_syn_isk);
++ 	}
+  	else
+! 	    msg_outtrans((char_u *)_("syntax iskeyword not set"));
+      }
+      else
+      {
+*** ../vim-8.1.0197/src/version.c	2018-07-20 05:03:10.565146691 +0200
+--- src/version.c	2018-07-20 19:49:51.905211855 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     198,
+  /**/
+
+-- 
+    A KNIGHT rides into shot and hacks him to the ground.  He rides off.
+    We stay for a moment on the glade.  A MIDDLE-AGED LADY in a C. & A.
+    twin-set emerges from the trees and looks in horror at the body of her
+    HUSBAND.
+MRS HISTORIAN: FRANK!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

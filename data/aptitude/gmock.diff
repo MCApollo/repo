@@ -1,0 +1,34 @@
+diff -ur aptitude-0.8.10/configure aptitude-0.8.10+iPhone/configure
+--- aptitude-0.8.10/configure	2017-11-14 14:18:50.000000000 -1000
++++ aptitude-0.8.10+iPhone/configure	2018-08-31 16:44:30.000000000 -1000
+@@ -9699,7 +9699,7 @@
+ else
+                           LIBS="$OLD_LIBS -lpthread"
+          OLD_CPPFLAGS="$CPPFLAGS"
+-         CPPFLAGS="$CPPFLAGS -I/usr/src/googletest/googletest -I/usr/src/googletest/googlemock"
++         CPPFLAGS="$CPPFLAGS -I$GOOGLETEST/googletest/googletest -I$GOOGLETEST/googletest/googlemock"
+          cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -9712,8 +9712,8 @@
+ }
+ _ACEOF
+ if ac_fn_cxx_try_link "$LINENO"; then :
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: source is in /usr/src/googletest/googlemock" >&5
+-$as_echo "source is in /usr/src/googletest/googlemock" >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: result: source is in $GOOGLETEST/googletest/googlemock" >&5
++$as_echo "source is in $GOOGLETEST/googletest/googlemock" >&6; }
+             BUILD_LOCAL_GMOCK=1
+ else
+   as_fn_error $? "Can't figure out where Google Mock lives; either install the google-mock package or place the library in the link path" "$LINENO" 5
+@@ -12663,8 +12663,8 @@
+   done
+ }
+  ;;
+-    "copy-gtest":C) cp -uv /usr/src/googletest/googletest/src/gtest-all.cc tests/gtest-all.cc ;;
+-    "copy-gmock":C) cp -uv /usr/src/googletest/googlemock/src/gmock-all.cc tests/gmock-all.cc ;;
++    "copy-gtest":C) cp -v ${GOOGLETEST}/googletest/googletest/src/gtest-all.cc tests/gtest-all.cc ;;
++    "copy-gmock":C) cp -v ${GOOGLETEST}/googletest/googlemock/src/gmock-all.cc tests/gmock-all.cc ;;
+ 
+   esac
+ done # for ac_tag

@@ -1,0 +1,196 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0394
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0394
+Problem:    Diffs are not always updated correctly.
+Solution:   When using internal diff update for any changes properly.
+Files:	    src/structs.h, src/diff.c, src/proto/diff.pro, src/misc1.c,
+            src/main.c
+
+
+*** ../vim-8.1.0393/src/structs.h	2018-09-13 18:33:02.366426166 +0200
+--- src/structs.h	2018-09-16 13:55:20.676506925 +0200
+***************
+*** 2509,2515 ****
+  #ifdef FEAT_DIFF
+      diff_T	    *tp_first_diff;
+      buf_T	    *(tp_diffbuf[DB_COUNT]);
+!     int		    tp_diff_invalid;	/* list of diffs is outdated */
+  #endif
+      frame_T	    *(tp_snapshot[SNAP_COUNT]);  /* window layout snapshots */
+  #ifdef FEAT_EVAL
+--- 2509,2516 ----
+  #ifdef FEAT_DIFF
+      diff_T	    *tp_first_diff;
+      buf_T	    *(tp_diffbuf[DB_COUNT]);
+!     int		    tp_diff_invalid;	// list of diffs is outdated
+!     int		    tp_diff_update;	// update diffs before redrawing
+  #endif
+      frame_T	    *(tp_snapshot[SNAP_COUNT]);  /* window layout snapshots */
+  #ifdef FEAT_EVAL
+*** ../vim-8.1.0393/src/diff.c	2018-09-15 19:17:07.510653263 +0200
+--- src/diff.c	2018-09-16 13:57:36.259501809 +0200
+***************
+*** 292,297 ****
+--- 292,307 ----
+      linenr_T	lnum_deleted = line1;	/* lnum of remaining deletion */
+      int		check_unchanged;
+  
++     if (diff_internal())
++     {
++ 	// Will udpate diffs before redrawing.  Set _invalid to update the
++ 	// diffs themselves, set _update to also update folds properly just
++ 	// before redrawing.
++ 	tp->tp_diff_invalid = TRUE;
++ 	tp->tp_diff_update = TRUE;
++ 	return;
++     }
++ 
+      if (line2 == MAXLNUM)
+      {
+  	/* mark_adjust(99, MAXLNUM, 9, 0): insert lines */
+***************
+*** 640,646 ****
+   */
+      static void
+  diff_redraw(
+!     int		dofold)	    /* also recompute the folds */
+  {
+      win_T	*wp;
+      int		n;
+--- 650,656 ----
+   */
+      static void
+  diff_redraw(
+!     int		dofold)	    // also recompute the folds
+  {
+      win_T	*wp;
+      int		n;
+***************
+*** 863,869 ****
+   * Note that if the internal diff failed for one of the buffers, the external
+   * diff will be used anyway.
+   */
+!     static int
+  diff_internal(void)
+  {
+      return (diff_flags & DIFF_INTERNAL) != 0 && *p_dex == NUL;
+--- 873,879 ----
+   * Note that if the internal diff failed for one of the buffers, the external
+   * diff will be used anyway.
+   */
+!     int
+  diff_internal(void)
+  {
+      return (diff_flags & DIFF_INTERNAL) != 0 && *p_dex == NUL;
+***************
+*** 887,895 ****
+  
+  /*
+   * Completely update the diffs for the buffers involved.
+!  * This uses the ordinary "diff" command.
+!  * The buffers are written to a file, also for unmodified buffers (the file
+!  * could have been produced by autocommands, e.g. the netrw plugin).
+   */
+      void
+  ex_diffupdate(exarg_T *eap)	// "eap" can be NULL
+--- 897,905 ----
+  
+  /*
+   * Completely update the diffs for the buffers involved.
+!  * When using the external "diff" command the buffers are written to a file,
+!  * also for unmodified buffers (the file could have been produced by
+!  * autocommands, e.g. the netrw plugin).
+   */
+      void
+  ex_diffupdate(exarg_T *eap)	// "eap" can be NULL
+*** ../vim-8.1.0393/src/proto/diff.pro	2018-05-17 13:52:31.000000000 +0200
+--- src/proto/diff.pro	2018-09-15 19:36:03.456884220 +0200
+***************
+*** 4,9 ****
+--- 4,10 ----
+  void diff_buf_add(buf_T *buf);
+  void diff_invalidate(buf_T *buf);
+  void diff_mark_adjust(linenr_T line1, linenr_T line2, long amount, long amount_after);
++ int diff_internal(void);
+  void ex_diffupdate(exarg_T *eap);
+  void ex_diffpatch(exarg_T *eap);
+  void ex_diffsplit(exarg_T *eap);
+*** ../vim-8.1.0393/src/misc1.c	2018-09-10 19:03:01.641716307 +0200
+--- src/misc1.c	2018-09-16 14:00:38.606151494 +0200
+***************
+*** 3093,3099 ****
+      changed_lines_buf(curbuf, lnum, lnume, xtra);
+  
+  #ifdef FEAT_DIFF
+!     if (xtra == 0 && curwin->w_p_diff)
+      {
+  	/* When the number of lines doesn't change then mark_adjust() isn't
+  	 * called and other diff buffers still need to be marked for
+--- 3093,3099 ----
+      changed_lines_buf(curbuf, lnum, lnume, xtra);
+  
+  #ifdef FEAT_DIFF
+!     if (xtra == 0 && curwin->w_p_diff && !diff_internal())
+      {
+  	/* When the number of lines doesn't change then mark_adjust() isn't
+  	 * called and other diff buffers still need to be marked for
+***************
+*** 3173,3178 ****
+--- 3173,3183 ----
+      /* mark the buffer as modified */
+      changed();
+  
++ #ifdef FEAT_DIFF
++     if (curwin->w_p_diff && diff_internal())
++ 	curtab->tp_diff_update = TRUE;
++ #endif
++ 
+      /* set the '. mark */
+      if (!cmdmod.keepjumps)
+      {
+*** ../vim-8.1.0393/src/main.c	2018-09-13 15:33:39.605712221 +0200
+--- src/main.c	2018-09-16 14:01:36.921719929 +0200
+***************
+*** 1200,1205 ****
+--- 1200,1214 ----
+  	    }
+  
+  #if defined(FEAT_DIFF)
++ 	    // Updating diffs from changed() does not always work properly,
++ 	    // esp. updating folds.  Do an update just before redrawing if
++ 	    // needed.
++ 	    if (curtab->tp_diff_update || curtab->tp_diff_invalid)
++ 	    {
++ 		ex_diffupdate(NULL);
++ 		curtab->tp_diff_update = FALSE;
++ 	    }
++ 
+  	    /* Scroll-binding for diff mode may have been postponed until
+  	     * here.  Avoids doing it for every change. */
+  	    if (diff_need_scrollbind)
+*** ../vim-8.1.0393/src/version.c	2018-09-15 19:17:07.514653227 +0200
+--- src/version.c	2018-09-15 20:13:51.888452794 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     394,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+60. As your car crashes through the guardrail on a mountain road, your first
+    instinct is to search for the "back" button.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

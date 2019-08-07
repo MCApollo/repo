@@ -1,0 +1,50 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0520
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0520
+Problem:    Screen diff test sometimes fails.
+Solution:   Add to list of flaky tests.
+Files:	    src/testdir/runtest.vim
+
+
+*** ../vim-8.1.0519/src/testdir/runtest.vim	2018-10-07 15:42:04.279309175 +0200
+--- src/testdir/runtest.vim	2018-11-11 18:45:38.800483945 +0100
+***************
+*** 279,284 ****
+--- 279,285 ----
+        \ 'Test_collapse_buffers()',
+        \ 'Test_communicate()',
+        \ 'Test_cwd()',
++       \ 'Test_diff_screen()',
+        \ 'Test_exit_callback_interval()',
+        \ 'Test_nb_basic()',
+        \ 'Test_oneshot()',
+*** ../vim-8.1.0519/src/version.c	2018-11-11 15:20:32.436704418 +0100
+--- src/version.c	2018-11-11 18:48:12.159297738 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     520,
+  /**/
+
+-- 
+ARTHUR:  Be quiet!
+DENNIS:  Well you can't expect to wield supreme executive power just 'cause
+         some watery tart threw a sword at you!
+ARTHUR:  Shut up!
+DENNIS:  I mean, if I went around sayin' I was an empereror just because some
+         moistened bint had lobbed a scimitar at me they'd put me away!
+                                  The Quest for the Holy Grail (Monty Python)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

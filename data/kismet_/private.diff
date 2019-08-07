@@ -1,0 +1,21 @@
+diff -r -u kismet-2008-05-R1/configure kismet-2008-05-R1+iPhone/configure
+--- kismet-2008-05-R1/configure	2008-05-12 20:14:14.000000000 +0000
++++ kismet-2008-05-R1+iPhone/configure	2008-06-14 21:10:54.000000000 +0000
+@@ -3533,7 +3533,7 @@
+ _ACEOF
+ 
+         CFLAGS="-no-cpp-precomp $CFLAGS"
+-		LDFLAGS="$LDFLAGS -framework Foundation -framework CoreFoundation -F/System/Library/PrivateFrameworks -framework Apple80211 -framework IOKit"
++		LDFLAGS="$LDFLAGS -framework Foundation -framework CoreFoundation -F${PKG_ROOT}/System/Library/PrivateFrameworks -framework Apple80211 -framework IOKit"
+ 		objc_link='$(OBJC_CONTROL_O)'
+         { echo "$as_me:$LINENO: result: Apple GCC - added Apple80211 frameworks and no-precomp" >&5
+ echo "${ECHO_T}Apple GCC - added Apple80211 frameworks and no-precomp" >&6; }
+@@ -3615,7 +3615,7 @@
+ _ACEOF
+ 
+         CFLAGS="-no-cpp-precomp $CFLAGS"
+-		LDFLAGS="$LDFLAGS -framework Foundation -framework CoreFoundation -F/System/Library/PrivateFrameworks -framework Apple80211 -framework IOKit"
++		LDFLAGS="$LDFLAGS -framework Foundation -framework CoreFoundation -F${PKG_ROOT}/System/Library/PrivateFrameworks -framework Apple80211 -framework IOKit"
+ 		objc_link='$(OBJC_CONTROL_O)'
+         { echo "$as_me:$LINENO: result: Apple GCC - added Apple80211 frameworks and no-precomp" >&5
+ echo "${ECHO_T}Apple GCC - added Apple80211 frameworks and no-precomp" >&6; }

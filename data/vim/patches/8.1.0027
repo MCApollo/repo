@@ -1,0 +1,1480 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0027
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0027
+Problem:    Difficult to make a plugin that feeds a line to a job.
+Solution:   Add the nitial code for the "prompt" buftype.
+Files:	    runtime/doc/channel.txt, runtime/doc/eval.txt,
+            runtime/doc/options.txt, runtime/doc/tags, runtime/doc/todo.txt,
+            src/Makefile, src/buffer.c, src/channel.c, src/diff.c, src/edit.c,
+            src/evalfunc.c, src/normal.c, src/ops.c, src/option.c,
+            src/proto/buffer.pro, src/proto/channel.pro, src/proto/edit.pro,
+            src/proto/ops.pro, src/structs.h, src/testdir/Make_all.mak,
+            src/testdir/screendump.vim, src/testdir/test_prompt_buffer.vim
+
+
+*** ../vim-8.1.0026/runtime/doc/channel.txt	2018-05-17 13:40:51.000000000 +0200
+--- runtime/doc/channel.txt	2018-06-03 14:00:04.714957909 +0200
+***************
+*** 22,27 ****
+--- 22,28 ----
+  9. Starting a job without a channel	|job-start-nochannel|
+  10. Job options				|job-options|
+  11. Controlling a job			|job-control|
++ 12. Using a prompt buffer		|prompt-buffer|
+  
+  {Vi does not have any of these features}
+  {only when compiled with the |+channel| feature for channel stuff}
+***************
+*** 770,774 ****
+--- 771,813 ----
+  
+  For more options see |job_stop()|.
+  
++ ==============================================================================
++ 12. Using a prompt buffer				*prompt-buffer*
++ 
++ If you want to type input for the job in a Vim window you have a few options:
++ - Use a normal buffer and handle all possible commands yourself.
++   This will be complicated, since there are so many possible commands.
++ - Use a terminal window.  This works well if what you type goes directly to
++   the job and the job output is directly displayed in the window.
++   See |terminal-window|.
++ - Use a prompt window. This works well when entering a line for the job in Vim
++   while displaying (possibly filtered) output from the job.
++ 
++ A prompt buffer is created by setting 'buftype' to "prompt". You would
++ normally only do that in a newly created buffer.
++ 
++ The user can edit and enter one line of text at the very last line of the
++ buffer.  When pressing Enter in the prompt line the callback set with
++ |prompt_setcallback()| is invoked.  It would normally send the line to a job.
++ Another callback would receive the output from the job and display it in the
++ buffer, below the prompt (and above the next prompt).
++ 
++ Only the text in the last line, after the prompt, is editable. The rest of the
++ buffer is not modifiable with Normal mode commands.  It can be modified by
++ calling functions, such as |append()|.  Using other commands may mess up the
++ buffer.
++ 
++ After setting 'buftype' to "prompt" Vim does not automatically start Insert
++ mode, use `:startinsert` if you want to enter Insert mode, so that the user
++ can start typing a line.
++ 
++ The text of the prompt can be set with the |prompt_setprompt()| function.
++ 
++ The user can go to Normal mode and navigate through the buffer.  This can be
++ useful see older output or copy text.
++ 
++ Any command that starts Insert mode, such as "a", "i", "A" and "I", will move
++ the cursor to the last line, after the prompt.
++ 
+  
+   vim:tw=78:ts=8:ft=help:norl:
+*** ../vim-8.1.0026/runtime/doc/eval.txt	2018-05-22 20:35:13.550009275 +0200
+--- runtime/doc/eval.txt	2018-06-03 14:00:04.722957906 +0200
+***************
+*** 2294,2299 ****
+--- 2294,2302 ----
+  pow({x}, {y})			Float	{x} to the power of {y}
+  prevnonblank({lnum})		Number	line nr of non-blank line <= {lnum}
+  printf({fmt}, {expr1}...)	String	format text
++ prompt_addtext({buf}, {expr})	none	add text to a prompt buffer
++ prompt_setprompt({buf}, {text}) none	set prompt text
++ prompt_setcallback({buf}, {expr}) none	set prompt callback function
+  pumvisible()			Number	whether popup menu is visible
+  pyeval({expr})			any	evaluate |Python| expression
+  py3eval({expr})			any	evaluate |python3| expression
+***************
+*** 2302,2308 ****
+  				List	items from {expr} to {max}
+  readfile({fname} [, {binary} [, {max}]])
+  				List	get list of lines from file {fname}
+! reg_executing()			Number	get the executing register name
+  reg_recording()			String	get the recording register name
+  reltime([{start} [, {end}]])	List	get time value
+  reltimefloat({time})		Float	turn the time value into a Float
+--- 2305,2311 ----
+  				List	items from {expr} to {max}
+  readfile({fname} [, {binary} [, {max}]])
+  				List	get list of lines from file {fname}
+! reg_executing()			String	get the executing register name
+  reg_recording()			String	get the recording register name
+  reltime([{start} [, {end}]])	List	get time value
+  reltimefloat({time})		Float	turn the time value into a Float
+***************
+*** 4650,4656 ****
+  		from the current buffer.  Example: >
+  			getline(1)
+  <		When {lnum} is a String that doesn't start with a
+! 		digit, line() is called to translate the String into a Number.
+  		To get the line under the cursor: >
+  			getline(".")
+  <		When {lnum} is smaller than 1 or bigger than the number of
+--- 4653,4659 ----
+  		from the current buffer.  Example: >
+  			getline(1)
+  <		When {lnum} is a String that doesn't start with a
+! 		digit, |line()| is called to translate the String into a Number.
+  		To get the line under the cursor: >
+  			getline(".")
+  <		When {lnum} is smaller than 1 or bigger than the number of
+***************
+*** 5822,5828 ****
+  		listing.
+  
+  		When there is no mapping for {name}, an empty String is
+! 		returned.
+  
+  		The {name} can have special key names, like in the ":map"
+  		command.
+--- 5825,5832 ----
+  		listing.
+  
+  		When there is no mapping for {name}, an empty String is
+! 		returned.  When the mapping for {name} is empty, then "<Nop>"
+! 		is returned.
+  
+  		The {name} can have special key names, like in the ":map"
+  		command.
+***************
+*** 5889,5897 ****
+  		mapping that matches with {name}, while maparg() only finds a
+  		mapping for {name} exactly.
+  		When there is no mapping that starts with {name}, an empty
+! 		String is returned.  If there is one, the rhs of that mapping
+  		is returned.  If there are several mappings that start with
+! 		{name}, the rhs of one of them is returned.
+  		The mappings local to the current buffer are checked first,
+  		then the global mappings.
+  		This function can be used to check if a mapping can be added
+--- 5893,5902 ----
+  		mapping that matches with {name}, while maparg() only finds a
+  		mapping for {name} exactly.
+  		When there is no mapping that starts with {name}, an empty
+! 		String is returned.  If there is one, the RHS of that mapping
+  		is returned.  If there are several mappings that start with
+! 		{name}, the RHS of one of them is returned.  This will be
+! 		"<Nop>" if the RHS is empty.
+  		The mappings local to the current buffer are checked first,
+  		then the global mappings.
+  		This function can be used to check if a mapping can be added
+***************
+*** 6473,6478 ****
+--- 6478,6519 ----
+  		arguments an error is given.  Up to 18 arguments can be used.
+  
+  
++ prompt_setprompt({buf}, {text})				*prompt_setprompt()*
++ 		Set prompt for buffer {buf} to {text}.  You most likely want
++ 		{text} to end in a space.
++ 		The result is only visible if {buf} has 'buftype' set to
++ 		"prompt".  Example: >
++ 			call prompt_setprompt(bufnr(''), 'command: ')
++ 
++ 
++ prompt_setcallback({buf}, {expr})			*prompt_setcallback()*
++ 		Set prompt callback for buffer {buf} to {expr}.  This has only
++ 		effect if {buf} has 'buftype' set to "prompt".
++ 		The callback is invoked when pressing Enter.  The current
++ 		buffer will always be the prompt buffer.  A new line for a
++ 		prompt is added before invoking the callback, thus the prompt
++ 		for which the callback was invoked will be in the last but one
++ 		line.
++ 		If the callback wants to add text to the buffer, it must
++ 		insert it above the last line, since that is where the current
++ 		prompt is.  This can also be done asynchronously.
++ 		The callback is invoked with one argument, which is the text
++ 		that was entered at the prompt.  This can be an empty string
++ 		if the user only typed Enter.
++ 		Example: >
++ 		   call prompt_setcallback(bufnr(''), function('s:TextEntered'))
++ 		   func s:TextEntered(text)
++ 		     if a:text == 'exit' || a:text == 'quit'
++ 		       stopinsert
++ 		       close
++ 		     else
++ 		       call append(line('$') - 1, 'Entered: "' . a:text . '"')
++ 		       " Reset 'modified' to allow the buffer to be closed.
++ 		       set nomodified
++ 		     endif
++ 		   endfunc
++ 
++ 
+  pumvisible()						*pumvisible()*
+  		Returns non-zero when the popup menu is visible, zero
+  		otherwise.  See |ins-completion-menu|.
+*** ../vim-8.1.0026/runtime/doc/options.txt	2018-05-17 13:41:41.000000000 +0200
+--- runtime/doc/options.txt	2018-06-03 14:00:04.726957904 +0200
+***************
+*** 1394,1399 ****
+--- 1394,1402 ----
+  			manually)
+  	  terminal	buffer for a |terminal| (you are not supposed to set
+  			this manually)
++ 	  prompt	buffer where only the last line can be edited, meant
++ 			to be used by a plugin, see |prompt-buffer|
++ 			{only when compiled with the |+channel| feature}
+  
+  	This option is used together with 'bufhidden' and 'swapfile' to
+  	specify special kinds of buffers.   See |special-buffers|.
+***************
+*** 4264,4270 ****
+  'imactivatefunc' 'imaf'	string (default "")
+  			global
+  			{not in Vi}
+! 			{only available when compiled with |+mbyte|}
+  	This option specifies a function that will be called to
+  	activate or deactivate the Input Method.
+  	It is not used in the GUI.
+--- 4267,4274 ----
+  'imactivatefunc' 'imaf'	string (default "")
+  			global
+  			{not in Vi}
+! 			{only available when compiled with the |+multi_byte|
+! 			feature}
+  	This option specifies a function that will be called to
+  	activate or deactivate the Input Method.
+  	It is not used in the GUI.
+***************
+*** 4316,4322 ****
+  'imcmdline' 'imc'	boolean (default off)
+  			global
+  			{not in Vi}
+! 			{only available when compiled with |+mbyte|}
+  	When set the Input Method is always on when starting to edit a command
+  	line, unless entering a search pattern (see 'imsearch' for that).
+  	Setting this option is useful when your input method allows entering
+--- 4320,4327 ----
+  'imcmdline' 'imc'	boolean (default off)
+  			global
+  			{not in Vi}
+! 			{only available when compiled with the |+multi_byte|
+! 			feature}
+  	When set the Input Method is always on when starting to edit a command
+  	line, unless entering a search pattern (see 'imsearch' for that).
+  	Setting this option is useful when your input method allows entering
+***************
+*** 4327,4333 ****
+  'imdisable' 'imd'	boolean (default off, on for some systems (SGI))
+  			global
+  			{not in Vi}
+! 			{only available when compiled with |+mbyte|}
+  	When set the Input Method is never used.  This is useful to disable
+  	the IM when it doesn't work properly.
+  	Currently this option is on by default for SGI/IRIX machines.  This
+--- 4332,4339 ----
+  'imdisable' 'imd'	boolean (default off, on for some systems (SGI))
+  			global
+  			{not in Vi}
+! 			{only available when compiled with the |+multi_byte|
+! 			feature}
+  	When set the Input Method is never used.  This is useful to disable
+  	the IM when it doesn't work properly.
+  	Currently this option is on by default for SGI/IRIX machines.  This
+***************
+*** 4380,4386 ****
+  'imstatusfunc' 'imsf'	string (default "")
+  			global
+  			{not in Vi}
+! 			{only available when compiled with |+mbyte|}
+  	This option specifies a function that is called to obtain the status
+  	of Input Method.  It must return a positive number when IME is active.
+  	It is not used in the GUI.
+--- 4386,4393 ----
+  'imstatusfunc' 'imsf'	string (default "")
+  			global
+  			{not in Vi}
+! 			{only available when compiled with the |+multi_byte|
+! 			feature}
+  	This option specifies a function that is called to obtain the status
+  	of Input Method.  It must return a positive number when IME is active.
+  	It is not used in the GUI.
+***************
+*** 5187,5193 ****
+  	more depth, set 'maxfuncdepth' to a bigger number.  But this will use
+  	more memory, there is the danger of failing when memory is exhausted.
+  	Increasing this limit above 200 also changes the maximum for Ex
+! 	command resursion, see |E169|.
+  	See also |:function|.
+  
+  						*'maxmapdepth'* *'mmd'* *E223*
+--- 5194,5200 ----
+  	more depth, set 'maxfuncdepth' to a bigger number.  But this will use
+  	more memory, there is the danger of failing when memory is exhausted.
+  	Increasing this limit above 200 also changes the maximum for Ex
+! 	command recursion, see |E169|.
+  	See also |:function|.
+  
+  						*'maxmapdepth'* *'mmd'* *E223*
+*** ../vim-8.1.0026/runtime/doc/tags	2018-05-17 16:27:20.000000000 +0200
+--- runtime/doc/tags	2018-06-03 14:00:04.730957903 +0200
+***************
+*** 4749,4754 ****
+--- 4749,4755 ----
+  PHP_BracesAtCodeLevel	indent.txt	/*PHP_BracesAtCodeLevel*
+  PHP_autoformatcomment	indent.txt	/*PHP_autoformatcomment*
+  PHP_default_indenting	indent.txt	/*PHP_default_indenting*
++ PHP_noArrowMatching	indent.txt	/*PHP_noArrowMatching*
+  PHP_outdentSLComments	indent.txt	/*PHP_outdentSLComments*
+  PHP_outdentphpescape	indent.txt	/*PHP_outdentphpescape*
+  PHP_removeCRwhenUnix	indent.txt	/*PHP_removeCRwhenUnix*
+***************
+*** 8058,8063 ****
+--- 8059,8067 ----
+  progname-variable	eval.txt	/*progname-variable*
+  progpath-variable	eval.txt	/*progpath-variable*
+  progress.vim	syntax.txt	/*progress.vim*
++ prompt-buffer	channel.txt	/*prompt-buffer*
++ prompt_setcallback()	eval.txt	/*prompt_setcallback()*
++ prompt_setprompt()	eval.txt	/*prompt_setprompt()*
+  pronounce	intro.txt	/*pronounce*
+  psql	ft_sql.txt	/*psql*
+  ptcap.vim	syntax.txt	/*ptcap.vim*
+***************
+*** 8198,8203 ****
+--- 8202,8209 ----
+  ref	intro.txt	/*ref*
+  reference	intro.txt	/*reference*
+  reference_toc	help.txt	/*reference_toc*
++ reg_executing()	eval.txt	/*reg_executing()*
++ reg_recording()	eval.txt	/*reg_recording()*
+  regexp	pattern.txt	/*regexp*
+  regexp-changes-5.4	version5.txt	/*regexp-changes-5.4*
+  register	sponsor.txt	/*register*
+*** ../vim-8.1.0026/runtime/doc/todo.txt	2018-05-17 13:42:03.000000000 +0200
+--- runtime/doc/todo.txt	2018-06-03 14:00:04.730957903 +0200
+***************
+*** 38,48 ****
+  							*known-bugs*
+  -------------------- Known bugs and current work -----------------------
+  
+  Terminal emulator window:
+! - Win32: Termdebug doesn't work, because gdb does not support mi2.
+!   This plugin: https://github.com/cpiger/NeoDebug  runs gdb as a job,
+!   redirecting input and output.
+!   Open new console for for program with: "set new-console on"
+  - Win32: Redirecting input does not work, half of Test_terminal_redir_file()
+    is disabled.
+  - Win32: Redirecting output works but includes escape sequences.
+--- 38,60 ----
+  							*known-bugs*
+  -------------------- Known bugs and current work -----------------------
+  
++ Prompt buffer:
++ - Add a command line history.
++ - delay next prompt until plugin gives OK?
++ end?
++ 
+  Terminal emulator window:
+! - With a vertical split only one window is updated. (Linwei, 2018 Jun 2,
+!   #2977)
+! - When typing : at the more prompt, instead of entering a new Vim command, the
+!   : is inserted in the terminal window.  Should skip terminal_loop here.
+!   ()
+! - How to access selection in Terminal running a shell? (damnskippy, 2018 May
+!   27, #29620  When terminal doesn't use the mouse, use modeless selection.
+! - Win32: Termdebug doesn't work, because gdb does not support mi2 on a tty.
+!   This plugin: https://github.com/cpiger/NeoDebug  runs gdb as a job,
+!   redirecting input and output.
+!   Open new console for for program with: "set new-console on"
+  - Win32: Redirecting input does not work, half of Test_terminal_redir_file()
+    is disabled.
+  - Win32: Redirecting output works but includes escape sequences.
+***************
+*** 60,66 ****
+    after "run".  Everything else works, including communication channel.  Not
+    initializing mzscheme avoid the problem, thus it's not some #ifdef.
+  
+! Patch to refactor efm_to_regpat(). (Yegappan Lakshmanan, 2018 May 16, #2924)
+  
+  Crash when mixing matchadd and substitute()? (Max Christian Pohle, 2018 May
+  13, #2910)  Can't reproduce?
+--- 73,83 ----
+    after "run".  Everything else works, including communication channel.  Not
+    initializing mzscheme avoid the problem, thus it's not some #ifdef.
+  
+! Patch to fix that ++bad no longer works. (Christian Brabandt, on #2947)
+! 
+! Does not build with MinGW out of the box:
+! - _stat64 is not defined, need to use "struct stat" in vim.h
+! - WINVER conflict, should use 0x0600 by default?
+  
+  Crash when mixing matchadd and substitute()? (Max Christian Pohle, 2018 May
+  13, #2910)  Can't reproduce?
+***************
+*** 68,76 ****
+  On Win32 when not in the console and t_Co >= 256, allow using 'tgc'.
+  (Nobuhiro Takasaki, #2833)  Also check t_Co.
+  
+! balloon_show() does not work properly in the terminal. (Ben Jackson, 2017 Dec
+! 20, #2481)
+! Also see #2352, want better control over balloon, perhaps set the position.
+  
+  Errors found with random data:
+      heap-buffer-overflow in alist_add (#2472)
+--- 85,99 ----
+  On Win32 when not in the console and t_Co >= 256, allow using 'tgc'.
+  (Nobuhiro Takasaki, #2833)  Also check t_Co.
+  
+! Patch to fix arguments of :edit. (Dominique Pelle, 2018 May 28 #2966)
+! 
+! Ptch to update html syntax. (Jorge Maldonado Ventura, #2974)
+! 
+! Patch to fix that restoring window doesn't work when 'winheight' is large.
+! (Darrell Nash, 2018 May 30, #2971)  Doesn't work?  Issue #2970
+! 
+! Patch to add completion to :unlet for environment vars. (Jason Franklin, 2018
+! May 30) Last update.
+  
+  Errors found with random data:
+      heap-buffer-overflow in alist_add (#2472)
+***************
+*** 78,83 ****
+--- 101,122 ----
+  More warnings from static analysis:
+  https://lgtm.com/projects/g/vim/vim/alerts/?mode=list
+  
++ Patch to make "is" and "as" work bettter. (Jason Franklin, 2018 May 19)
++ 
++ Patch to add tests for user and language completion. (Dominique Pelle, 2018
++ Jun 2, #2978)
++ 
++ Using ":file" in quickfix window during an autocommand doesn't work. 
++ (Jason Franklin, 2018 May 23) Allow for using it when there is no argument.
++ 
++ Pull request #2967: Allow white space in sign text. (Ben Jackson)
++ 
++ Patch for xterm and vt320 builtin termcap. (Kouichi Iwamoto, 2018 May 31,
++ #2973)
++ 
++ Patch to add more testing for :cd command. (Dominique Pelle, 2018 May 30,
++ #2972)
++ 
+  Script generated by :mksession does not work well if there are windows with
+  modified buffers
+    change "silent only" into "silent only!"
+***************
+*** 85,100 ****
+--- 124,150 ----
+    skip "badd fname" if "fname" is already in the buffer list
+    remove remark about unloading buffers from documentation
+  
++ Patch to make :help work for tags with a ?. (Hirohito Higashi, 2018 May 28)
++ 
+  Compiler warnings (geeknik, 2017 Oct 26):
+  - signed integer overflow in do_sub() (#2249)
+  - signed integer overflow in get_address() (#2248)
+  - signed integer overflow in getdecchrs() (#2254)
+  - undefined left shift in get_string_tv() (#2250)
+  
++ Patch for more quickfix refactoring. (Yegappan Lakshmanan, #2950)
++ 
+  Tests failing for "make testgui" with GTK:
+  - Test_setbufvar_options()
+  - Test_exit_callback_interval()
+  
++ Make balloon_show() work outside of 'balloonexpr'?  Users expect it to work:
++ #2948. (related to #1512?)
++ On Win32 it stops showing, because showState is already ShS_SHOWING.
++ balloon_show() does not work properly in the terminal. (Ben Jackson, 2017 Dec
++ 20, #2481)
++ Also see #2352, want better control over balloon, perhaps set the position.
++ 
+  Try out background make plugin: 
+    https://github.com/AndrewVos/vim-make-background
+  or asyncmake: 
+***************
+*** 109,114 ****
+--- 159,166 ----
+  
+  Cursor in wrong position when line wraps. (#2540)
+  
++ Patch for Lua support. (Kazunobu Kuriyama, 2018 May 26)
++ 
+  Add an option similar to 'lazyredraw' to skip redrawing while executing a
+  script or function.
+  
+***************
+*** 120,130 ****
+  Should add a test for every command line argument.  Check coverage for what is
+  missing: --nofork, -A , -b, -h, etc.
+  
+! Completing a command sometimes results in duplicates, since 7.4.672.
+! (Yegappan Lakshmanan, 2018 May 16)
+! Duplication of completion suggestions for ":!hom".  Issue #539.
+! Patch by Christian, 2016 Jan 29
+! Another patch in #2733.
+  
+  Improve the installer for MS-Windows.  There are a few alternatives:
+  - Add silent install option. (Shane Lee, #751)
+--- 172,179 ----
+  Should add a test for every command line argument.  Check coverage for what is
+  missing: --nofork, -A , -b, -h, etc.
+  
+! Patch for variable tabstops.  On github (Christian Brabandt, 2014 May 15)
+! Update 2018 March 12, #2711
+  
+  Improve the installer for MS-Windows.  There are a few alternatives:
+  - Add silent install option. (Shane Lee, #751)
+***************
+*** 141,146 ****
+--- 190,198 ----
+  
+  Alternative manpager.vim. (Enno, 2018 Jan 5, #2529)
+  
++ Patch to use NGETTEXT() in many more places. (Sergey Alyoshin, 2018 May 25)
++ Updated ptach May 27.
++ 
+  Does setting 'cursorline' cause syntax highlighting to slow down?  Perhaps is
+  mess up the cache?  (Mike Lee Williams, 2018 Jan 27, #2539)
+  Also: 'foldtext' is evaluated too often. (Daniel Hahler, #2773)
+***************
+*** 149,154 ****
+--- 201,207 ----
+  with packages under "start". (xtal8, #1994)
+  
+  Patch to support "xxd -ps". (Erik Auerswald, 2018 May 1)
++ Lacks a test.
+  
+  Column number is wrong when using 'linebreak' and 'wrap'. (Keith Smiley, 2018
+  Jan 15, #2555)
+***************
+*** 157,164 ****
+  
+  Check argument of systemlist(). (Pavlov)
+  
+- Patch to add reg_executing() and reg_recording(). (Hirohito Higashi, #2745)
+- 
+  No maintainer for Vietnamese translations.
+  No maintainer for Simplified Chinese translations.
+  
+--- 210,215 ----
+***************
+*** 1181,1189 ****
+  Patch: On MS-Windows shellescape() may have to triple double quotes.
+  (Ingo Karkat, 2015 Jan 16)
+  
+- Patch for variable tabstops.  On github (Christian Brabandt, 2014 May 15)
+- Update 2018 March 12, #2711
+- 
+  Redo only remembers the last change.  Could use "{count}g." to redo an older
+  change.  How does the user know which change?  At least have a way to list
+  them: ":repeats".
+--- 1232,1237 ----
+*** ../vim-8.1.0026/src/Makefile	2018-05-19 15:00:48.841017887 +0200
+--- src/Makefile	2018-06-03 14:10:39.298297816 +0200
+***************
+*** 2252,2257 ****
+--- 2252,2258 ----
+  	test_popup \
+  	test_preview \
+  	test_profile \
++ 	test_prompt_buffer \
+  	test_put \
+  	test_python2 \
+  	test_python3 \
+*** ../vim-8.1.0026/src/buffer.c	2018-05-13 18:00:51.000000000 +0200
+--- src/buffer.c	2018-06-03 14:00:04.730957903 +0200
+***************
+*** 851,856 ****
+--- 851,860 ----
+  #ifdef FEAT_TERMINAL
+      free_terminal(buf);
+  #endif
++ #ifdef FEAT_JOB_CHANNEL
++     vim_free(buf->b_prompt_text);
++     free_callback(buf->b_prompt_callback, buf->b_prompt_partial);
++ #endif
+  
+      buf_hashtab_remove(buf);
+  
+***************
+*** 5634,5639 ****
+--- 5638,5652 ----
+  }
+  
+  /*
++  * Return TRUE if "buf" is a prompt buffer.
++  */
++     int
++ bt_prompt(buf_T *buf)
++ {
++     return buf != NULL && buf->b_p_bt[0] == 'p';
++ }
++ 
++ /*
+   * Return TRUE if "buf" is a "nofile", "acwrite" or "terminal" buffer.
+   * This means the buffer name is not a file name.
+   */
+***************
+*** 5642,5648 ****
+  {
+      return buf != NULL && ((buf->b_p_bt[0] == 'n' && buf->b_p_bt[2] == 'f')
+  	    || buf->b_p_bt[0] == 'a'
+! 	    || buf->b_p_bt[0] == 't');
+  }
+  
+  /*
+--- 5655,5662 ----
+  {
+      return buf != NULL && ((buf->b_p_bt[0] == 'n' && buf->b_p_bt[2] == 'f')
+  	    || buf->b_p_bt[0] == 'a'
+! 	    || buf->b_p_bt[0] == 't'
+! 	    || buf->b_p_bt[0] == 'p');
+  }
+  
+  /*
+***************
+*** 5651,5657 ****
+      int
+  bt_dontwrite(buf_T *buf)
+  {
+!     return buf != NULL && (buf->b_p_bt[0] == 'n' || buf->b_p_bt[0] == 't');
+  }
+  
+      int
+--- 5665,5673 ----
+      int
+  bt_dontwrite(buf_T *buf)
+  {
+!     return buf != NULL && (buf->b_p_bt[0] == 'n'
+! 	         || buf->b_p_bt[0] == 't'
+! 	         || buf->b_p_bt[0] == 'p');
+  }
+  
+      int
+*** ../vim-8.1.0026/src/channel.c	2018-05-13 14:00:48.000000000 +0200
+--- src/channel.c	2018-06-03 14:21:30.877730377 +0200
+***************
+*** 5836,5839 ****
+--- 5836,5873 ----
+      return 1;
+  }
+  
++     void
++ invoke_prompt_callback(void)
++ {
++     typval_T	rettv;
++     int		dummy;
++     typval_T	argv[2];
++     char_u	*text;
++     char_u	*prompt;
++     linenr_T	lnum = curbuf->b_ml.ml_line_count;
++ 
++     // Add a new line for the prompt before invoking the callback, so that
++     // text can always be inserted above the last line.
++     ml_append(lnum, (char_u  *)"", 0, FALSE);
++     curwin->w_cursor.lnum = lnum + 1;
++     curwin->w_cursor.col = 0;
++ 
++     if (curbuf->b_prompt_callback == NULL)
++ 	return;
++     text = ml_get(lnum);
++     prompt = prompt_text();
++     if (STRLEN(text) >= STRLEN(prompt))
++ 	text += STRLEN(prompt);
++     argv[0].v_type = VAR_STRING;
++     argv[0].vval.v_string = vim_strsave(text);
++     argv[1].v_type = VAR_UNKNOWN;
++ 
++     call_func(curbuf->b_prompt_callback,
++ 	      (int)STRLEN(curbuf->b_prompt_callback),
++ 	      &rettv, 1, argv, NULL, 0L, 0L, &dummy, TRUE,
++ 	      curbuf->b_prompt_partial, NULL);
++     clear_tv(&argv[0]);
++     clear_tv(&rettv);
++ }
++ 
+  #endif /* FEAT_JOB_CHANNEL */
+*** ../vim-8.1.0026/src/diff.c	2018-04-29 12:16:29.000000000 +0200
+--- src/diff.c	2018-06-03 14:00:04.730957903 +0200
+***************
+*** 2141,2146 ****
+--- 2141,2153 ----
+      exarg_T	ea;
+      char_u	buf[30];
+  
++ #ifdef FEAT_JOB_CHANNEL
++     if (bt_prompt(curbuf))
++     {
++ 	vim_beep(BO_OPER);
++ 	return;
++     }
++ #endif
+      if (count == 0)
+  	ea.arg = (char_u *)"";
+      else
+*** ../vim-8.1.0026/src/edit.c	2018-05-22 20:35:13.562009272 +0200
+--- src/edit.c	2018-06-03 14:25:28.549560429 +0200
+***************
+*** 203,208 ****
+--- 203,211 ----
+  
+  static void ins_redraw(int ready);
+  static void ins_ctrl_v(void);
++ #ifdef FEAT_JOB_CHANNEL
++ static void init_prompt(int cmdchar_todo);
++ #endif
+  static void undisplay_dollar(void);
+  static void insert_special(int, int, int);
+  static void internal_format(int textwidth, int second_indent, int flags, int format_only, int c);
+***************
+*** 351,356 ****
+--- 354,362 ----
+      int		inserted_space = FALSE;     /* just inserted a space */
+      int		replaceState = REPLACE;
+      int		nomove = FALSE;		    /* don't move cursor on return */
++ #ifdef FEAT_JOB_CHANNEL
++     int		cmdchar_todo = cmdchar;
++ #endif
+  
+      /* Remember whether editing was restarted after CTRL-O. */
+      did_restart_edit = restart_edit;
+***************
+*** 707,712 ****
+--- 713,726 ----
+  	    foldCheckClose();
+  #endif
+  
++ #ifdef FEAT_JOB_CHANNEL
++ 	if (bt_prompt(curbuf))
++ 	{
++ 	    init_prompt(cmdchar_todo);
++ 	    cmdchar_todo = NUL;
++ 	}
++ #endif
++ 
+  	/*
+  	 * If we inserted a character at the last position of the last line in
+  	 * the window, scroll the window one line up. This avoids an extra
+***************
+*** 1374,1379 ****
+--- 1388,1405 ----
+  		goto doESCkey;
+  	    }
+  #endif
++ #ifdef FEAT_JOB_CHANNEL
++ 	    if (bt_prompt(curbuf))
++ 	    {
++ 		buf_T *buf = curbuf;
++ 
++ 		invoke_prompt_callback();
++ 		if (curbuf != buf)
++ 		    // buffer changed, get out of Insert mode
++ 		    goto doESCkey;
++ 		break;
++ 	    }
++ #endif
+  	    if (ins_eol(c) == FAIL && !p_im)
+  		goto doESCkey;	    /* out of memory */
+  	    auto_format(FALSE, FALSE);
+***************
+*** 1808,1813 ****
+--- 1834,1891 ----
+      }
+  }
+  
++ #if defined(FEAT_JOB_CHANNEL) || defined(PROTO)
++ /*
++  * Return the effective prompt for the current buffer.
++  */
++     char_u *
++ prompt_text(void)
++ {
++     if (curbuf->b_prompt_text == NULL)
++ 	return (char_u *)"% ";
++     return curbuf->b_prompt_text;
++ }
++ 
++ /*
++  * Prepare for prompt mode: Make sure the last line has the prompt text.
++  * Move the cursor to this line.
++  */
++     static void
++ init_prompt(int cmdchar_todo)
++ {
++     char_u *prompt = prompt_text();
++     char_u *text;
++ 
++     curwin->w_cursor.lnum = curbuf->b_ml.ml_line_count;
++     text = ml_get_curline();
++     if (STRNCMP(text, prompt, STRLEN(prompt)) != 0)
++     {
++ 	// prompt is missing, insert it or append a line with it
++ 	if (*text == NUL)
++ 	    ml_replace(curbuf->b_ml.ml_line_count, prompt, TRUE);
++ 	else
++ 	    ml_append(curbuf->b_ml.ml_line_count, prompt, 0, FALSE);
++ 	curwin->w_cursor.lnum = curbuf->b_ml.ml_line_count;
++ 	coladvance((colnr_T)MAXCOL);
++ 	changed_bytes(curbuf->b_ml.ml_line_count, 0);
++     }
++     if (cmdchar_todo == 'A')
++ 	coladvance((colnr_T)MAXCOL);
++     if (cmdchar_todo == 'I' || curwin->w_cursor.col <= (int)STRLEN(prompt))
++ 	curwin->w_cursor.col = STRLEN(prompt);
++ }
++ 
++ /*
++  * Return TRUE if the cursor is in the editable position of the prompt line.
++  */
++     int
++ prompt_curpos_editable()
++ {
++     return curwin->w_cursor.lnum == curbuf->b_ml.ml_line_count
++ 	&& curwin->w_cursor.col >= (int)STRLEN(prompt_text());
++ }
++ #endif
++ 
+  /*
+   * Undo the previous edit_putchar().
+   */
+*** ../vim-8.1.0026/src/evalfunc.c	2018-05-22 20:35:13.554009274 +0200
+--- src/evalfunc.c	2018-06-03 14:06:18.146613314 +0200
+***************
+*** 294,299 ****
+--- 294,303 ----
+  #endif
+  static void f_prevnonblank(typval_T *argvars, typval_T *rettv);
+  static void f_printf(typval_T *argvars, typval_T *rettv);
++ #ifdef FEAT_JOB_CHANNEL
++ static void f_prompt_setcallback(typval_T *argvars, typval_T *rettv);
++ static void f_prompt_setprompt(typval_T *argvars, typval_T *rettv);
++ #endif
+  static void f_pumvisible(typval_T *argvars, typval_T *rettv);
+  #ifdef FEAT_PYTHON3
+  static void f_py3eval(typval_T *argvars, typval_T *rettv);
+***************
+*** 744,749 ****
+--- 748,757 ----
+  #endif
+      {"prevnonblank",	1, 1, f_prevnonblank},
+      {"printf",		1, 19, f_printf},
++ #ifdef FEAT_JOB_CHANNEL
++     {"prompt_setcallback", 2, 2, f_prompt_setcallback},
++     {"prompt_setprompt", 2, 2, f_prompt_setprompt},
++ #endif
+      {"pumvisible",	0, 0, f_pumvisible},
+  #ifdef FEAT_PYTHON3
+      {"py3eval",		1, 1, f_py3eval},
+***************
+*** 1240,1245 ****
+--- 1248,1258 ----
+  	appended_lines_mark(lnum, added);
+  	if (curwin->w_cursor.lnum > lnum)
+  	    curwin->w_cursor.lnum += added;
++ #ifdef FEAT_JOB_CHANNEL
++ 	if (bt_prompt(curbuf) && (State & INSERT))
++ 	    // show the line with the prompt
++ 	    update_topline();
++ #endif
+      }
+      else
+  	rettv->vval.v_number = 1;	/* Failed */
+***************
+*** 8379,8384 ****
+--- 8392,8448 ----
+      did_emsg |= saved_did_emsg;
+  }
+  
++ #ifdef FEAT_JOB_CHANNEL
++ /*
++  * "prompt_setcallback({buffer}, {callback})" function
++  */
++     static void
++ f_prompt_setcallback(typval_T *argvars, typval_T *rettv UNUSED)
++ {
++     buf_T	*buf;
++     char_u	*callback;
++     partial_T	*partial;
++ 
++     if (check_secure())
++ 	return;
++     buf = get_buf_tv(&argvars[0], FALSE);
++     if (buf == NULL)
++ 	return;
++ 
++     callback = get_callback(&argvars[1], &partial);
++     if (callback == NULL)
++ 	return;
++ 
++     free_callback(buf->b_prompt_callback, buf->b_prompt_partial);
++     if (partial == NULL)
++ 	buf->b_prompt_callback = vim_strsave(callback);
++     else
++ 	/* pointer into the partial */
++ 	buf->b_prompt_callback = callback;
++     buf->b_prompt_partial = partial;
++ }
++ 
++ /*
++  * "prompt_setprompt({buffer}, {text})" function
++  */
++     static void
++ f_prompt_setprompt(typval_T *argvars, typval_T *rettv UNUSED)
++ {
++     buf_T	*buf;
++     char_u	*text;
++ 
++     if (check_secure())
++ 	return;
++     buf = get_buf_tv(&argvars[0], FALSE);
++     if (buf == NULL)
++ 	return;
++ 
++     text = get_tv_string(&argvars[1]);
++     vim_free(buf->b_prompt_text);
++     buf->b_prompt_text = vim_strsave(text);
++ }
++ #endif
++ 
+  /*
+   * "pumvisible()" function
+   */
+*** ../vim-8.1.0026/src/normal.c	2018-05-22 20:35:13.558009273 +0200
+--- src/normal.c	2018-06-03 14:00:04.734957901 +0200
+***************
+*** 4180,4185 ****
+--- 4180,4190 ----
+      static void
+  nv_addsub(cmdarg_T *cap)
+  {
++ #ifdef FEAT_JOB_CHANNEL
++     if (bt_prompt(curbuf) && !prompt_curpos_editable())
++ 	clearopbeep(cap->oap);
++     else
++ #endif
+      if (!VIsual_active && cap->oap->op_type == OP_NOP)
+      {
+  	prep_redo_cmd(cap);
+***************
+*** 6214,6219 ****
+--- 6219,6235 ----
+  	    cmdwin_result = CAR;
+  	else
+  #endif
++ #ifdef FEAT_JOB_CHANNEL
++ 	/* In a prompt buffer a <CR> in the last line invokes the callback. */
++ 	if (bt_prompt(curbuf) && cap->cmdchar == CAR
++ 		       && curwin->w_cursor.lnum == curbuf->b_ml.ml_line_count)
++ 	{
++ 	    invoke_prompt_callback();
++ 	    if (restart_edit == 0)
++ 		restart_edit = 'a';
++ 	}
++ 	else
++ #endif
+  	{
+  	    cap->oap->motion_type = MLINE;
+  	    if (cursor_down(cap->count1, cap->oap->op_type == OP_NOP) == FAIL)
+***************
+*** 6972,6977 ****
+--- 6988,7000 ----
+  {
+      if (!checkclearopq(cap->oap))
+      {
++ #ifdef FEAT_JOB_CHANNEL
++ 	if (bt_prompt(curbuf))
++ 	{
++ 	    clearopbeep(cap->oap);
++ 	    return;
++ 	}
++ #endif
+  	u_undo((int)cap->count1);
+  	curwin->w_set_curswant = TRUE;
+      }
+***************
+*** 6989,6994 ****
+--- 7012,7024 ----
+  
+      if (checkclearop(cap->oap))
+  	return;
++ #ifdef FEAT_JOB_CHANNEL
++     if (bt_prompt(curbuf) && !prompt_curpos_editable())
++     {
++ 	clearopbeep(cap->oap);
++ 	return;
++     }
++ #endif
+  
+      /* get another character */
+      if (cap->nchar == Ctrl_V)
+***************
+*** 7465,7470 ****
+--- 7495,7507 ----
+      if (term_swap_diff() == OK)
+  	return;
+  #endif
++ #ifdef FEAT_JOB_CHANNEL
++     if (bt_prompt(curbuf) && !prompt_curpos_editable())
++     {
++ 	clearopbeep(cap->oap);
++ 	return;
++     }
++ #endif
+      if (VIsual_active)	/* "vs" and "vS" are the same as "vc" */
+      {
+  	if (cap->cmdchar == 'S')
+***************
+*** 8570,8576 ****
+--- 8607,8622 ----
+  nv_tilde(cmdarg_T *cap)
+  {
+      if (!p_to && !VIsual_active && cap->oap->op_type != OP_TILDE)
++     {
++ #ifdef FEAT_JOB_CHANNEL
++ 	if (bt_prompt(curbuf) && !prompt_curpos_editable())
++ 	{
++ 	    clearopbeep(cap->oap);
++ 	    return;
++ 	}
++ #endif
+  	n_swapchar(cap);
++     }
+      else
+  	nv_operator(cap);
+  }
+***************
+*** 8585,8590 ****
+--- 8631,8643 ----
+      int	    op_type;
+  
+      op_type = get_op_type(cap->cmdchar, cap->nchar);
++ #ifdef FEAT_JOB_CHANNEL
++     if (bt_prompt(curbuf) && op_is_change(op_type) && !prompt_curpos_editable())
++     {
++ 	clearopbeep(cap->oap);
++ 	return;
++     }
++ #endif
+  
+      if (op_type == cap->oap->op_type)	    /* double operator works on lines */
+  	nv_lineop(cap);
+***************
+*** 9426,9431 ****
+--- 9479,9490 ----
+  #endif
+  	clearopbeep(cap->oap);
+      }
++ #ifdef FEAT_JOB_CHANNEL
++     else if (bt_prompt(curbuf) && !prompt_curpos_editable())
++     {
++ 	clearopbeep(cap->oap);
++     }
++ #endif
+      else
+      {
+  	dir = (cap->cmdchar == 'P'
+***************
+*** 9551,9556 ****
+--- 9610,9621 ----
+  #endif
+      if (VIsual_active)  /* switch start and end of visual */
+  	v_swap_corners(cap->cmdchar);
++ #ifdef FEAT_JOB_CHANNEL
++     else if (bt_prompt(curbuf))
++     {
++ 	clearopbeep(cap->oap);
++     }
++ #endif
+      else
+  	n_opencmd(cap);
+  }
+*** ../vim-8.1.0026/src/ops.c	2018-05-22 20:35:13.558009273 +0200
+--- src/ops.c	2018-06-03 14:00:04.734957901 +0200
+***************
+*** 126,168 ****
+  static int	fmt_check_par(linenr_T);
+  #endif
+  
+  /*
+   * The names of operators.
+   * IMPORTANT: Index must correspond with defines in vim.h!!!
+!  * The third field indicates whether the operator always works on lines.
+   */
+  static char opchars[][3] =
+  {
+!     {NUL, NUL, FALSE},	/* OP_NOP */
+!     {'d', NUL, FALSE},	/* OP_DELETE */
+!     {'y', NUL, FALSE},	/* OP_YANK */
+!     {'c', NUL, FALSE},	/* OP_CHANGE */
+!     {'<', NUL, TRUE},	/* OP_LSHIFT */
+!     {'>', NUL, TRUE},	/* OP_RSHIFT */
+!     {'!', NUL, TRUE},	/* OP_FILTER */
+!     {'g', '~', FALSE},	/* OP_TILDE */
+!     {'=', NUL, TRUE},	/* OP_INDENT */
+!     {'g', 'q', TRUE},	/* OP_FORMAT */
+!     {':', NUL, TRUE},	/* OP_COLON */
+!     {'g', 'U', FALSE},	/* OP_UPPER */
+!     {'g', 'u', FALSE},	/* OP_LOWER */
+!     {'J', NUL, TRUE},	/* DO_JOIN */
+!     {'g', 'J', TRUE},	/* DO_JOIN_NS */
+!     {'g', '?', FALSE},	/* OP_ROT13 */
+!     {'r', NUL, FALSE},	/* OP_REPLACE */
+!     {'I', NUL, FALSE},	/* OP_INSERT */
+!     {'A', NUL, FALSE},	/* OP_APPEND */
+!     {'z', 'f', TRUE},	/* OP_FOLD */
+!     {'z', 'o', TRUE},	/* OP_FOLDOPEN */
+!     {'z', 'O', TRUE},	/* OP_FOLDOPENREC */
+!     {'z', 'c', TRUE},	/* OP_FOLDCLOSE */
+!     {'z', 'C', TRUE},	/* OP_FOLDCLOSEREC */
+!     {'z', 'd', TRUE},	/* OP_FOLDDEL */
+!     {'z', 'D', TRUE},	/* OP_FOLDDELREC */
+!     {'g', 'w', TRUE},	/* OP_FORMAT2 */
+!     {'g', '@', FALSE},	/* OP_FUNCTION */
+!     {Ctrl_A, NUL, FALSE},	/* OP_NR_ADD */
+!     {Ctrl_X, NUL, FALSE},	/* OP_NR_SUB */
+  };
+  
+  /*
+--- 126,172 ----
+  static int	fmt_check_par(linenr_T);
+  #endif
+  
++ // Flags for third item in "opchars".
++ #define OPF_LINES  1	// operator always works on lines
++ #define OPF_CHANGE 2	// operator changes text
++ 
+  /*
+   * The names of operators.
+   * IMPORTANT: Index must correspond with defines in vim.h!!!
+!  * The third field holds OPF_ flags.
+   */
+  static char opchars[][3] =
+  {
+!     {NUL, NUL, 0},			// OP_NOP
+!     {'d', NUL, OPF_CHANGE},		// OP_DELETE
+!     {'y', NUL, 0},			// OP_YANK
+!     {'c', NUL, OPF_CHANGE},		// OP_CHANGE
+!     {'<', NUL, OPF_LINES | OPF_CHANGE},	// OP_LSHIFT
+!     {'>', NUL, OPF_LINES | OPF_CHANGE},	// OP_RSHIFT
+!     {'!', NUL, OPF_LINES | OPF_CHANGE},	// OP_FILTER
+!     {'g', '~', OPF_CHANGE},		// OP_TILDE
+!     {'=', NUL, OPF_LINES | OPF_CHANGE},	// OP_INDENT
+!     {'g', 'q', OPF_LINES | OPF_CHANGE},	// OP_FORMAT
+!     {':', NUL, OPF_LINES},		// OP_COLON
+!     {'g', 'U', OPF_CHANGE},		// OP_UPPER
+!     {'g', 'u', OPF_CHANGE},		// OP_LOWER
+!     {'J', NUL, OPF_LINES | OPF_CHANGE},	// DO_JOIN
+!     {'g', 'J', OPF_LINES | OPF_CHANGE},	// DO_JOIN_NS
+!     {'g', '?', OPF_CHANGE},		// OP_ROT13
+!     {'r', NUL, OPF_CHANGE},		// OP_REPLACE
+!     {'I', NUL, OPF_CHANGE},		// OP_INSERT
+!     {'A', NUL, OPF_CHANGE},		// OP_APPEND
+!     {'z', 'f', OPF_LINES},		// OP_FOLD
+!     {'z', 'o', OPF_LINES},		// OP_FOLDOPEN
+!     {'z', 'O', OPF_LINES},		// OP_FOLDOPENREC
+!     {'z', 'c', OPF_LINES},		// OP_FOLDCLOSE
+!     {'z', 'C', OPF_LINES},		// OP_FOLDCLOSEREC
+!     {'z', 'd', OPF_LINES},		// OP_FOLDDEL
+!     {'z', 'D', OPF_LINES},		// OP_FOLDDELREC
+!     {'g', 'w', OPF_LINES | OPF_CHANGE},	// OP_FORMAT2
+!     {'g', '@', OPF_CHANGE},		// OP_FUNCTION
+!     {Ctrl_A, NUL, OPF_CHANGE},		// OP_NR_ADD
+!     {Ctrl_X, NUL, OPF_CHANGE},		// OP_NR_SUB
+  };
+  
+  /*
+***************
+*** 201,207 ****
+      int
+  op_on_lines(int op)
+  {
+!     return opchars[op][2];
+  }
+  
+  /*
+--- 205,220 ----
+      int
+  op_on_lines(int op)
+  {
+!     return opchars[op][2] & OPF_LINES;
+! }
+! 
+! /*
+!  * Return TRUE if operator "op" changes text.
+!  */
+!     int
+! op_is_change(int op)
+! {
+!     return opchars[op][2] & OPF_CHANGE;
+  }
+  
+  /*
+*** ../vim-8.1.0026/src/option.c	2018-05-05 16:27:58.000000000 +0200
+--- src/option.c	2018-06-03 14:00:04.738957899 +0200
+***************
+*** 3229,3235 ****
+  static char *(p_scbopt_values[]) = {"ver", "hor", "jump", NULL};
+  static char *(p_debug_values[]) = {"msg", "throw", "beep", NULL};
+  static char *(p_ead_values[]) = {"both", "ver", "hor", NULL};
+! static char *(p_buftype_values[]) = {"nofile", "nowrite", "quickfix", "help", "terminal", "acwrite", NULL};
+  static char *(p_bufhidden_values[]) = {"hide", "unload", "delete", "wipe", NULL};
+  static char *(p_bs_values[]) = {"indent", "eol", "start", NULL};
+  #ifdef FEAT_FOLDING
+--- 3229,3235 ----
+  static char *(p_scbopt_values[]) = {"ver", "hor", "jump", NULL};
+  static char *(p_debug_values[]) = {"msg", "throw", "beep", NULL};
+  static char *(p_ead_values[]) = {"both", "ver", "hor", NULL};
+! static char *(p_buftype_values[]) = {"nofile", "nowrite", "quickfix", "help", "terminal", "acwrite", "prompt", NULL};
+  static char *(p_bufhidden_values[]) = {"hide", "unload", "delete", "wipe", NULL};
+  static char *(p_bs_values[]) = {"indent", "eol", "start", NULL};
+  #ifdef FEAT_FOLDING
+*** ../vim-8.1.0026/src/proto/buffer.pro	2018-05-17 13:52:29.000000000 +0200
+--- src/proto/buffer.pro	2018-06-03 14:00:04.738957899 +0200
+***************
+*** 59,64 ****
+--- 59,65 ----
+  int bt_quickfix(buf_T *buf);
+  int bt_terminal(buf_T *buf);
+  int bt_help(buf_T *buf);
++ int bt_prompt(buf_T *buf);
+  int bt_nofile(buf_T *buf);
+  int bt_dontwrite(buf_T *buf);
+  int bt_dontwrite_msg(buf_T *buf);
+*** ../vim-8.1.0026/src/proto/channel.pro	2018-05-17 13:52:58.000000000 +0200
+--- src/proto/channel.pro	2018-06-03 14:00:04.738957899 +0200
+***************
+*** 71,74 ****
+--- 71,75 ----
+  void job_info(job_T *job, dict_T *dict);
+  void job_info_all(list_T *l);
+  int job_stop(job_T *job, typval_T *argvars, char *type);
++ void invoke_prompt_callback(void);
+  /* vim: set ft=c : */
+*** ../vim-8.1.0026/src/proto/edit.pro	2018-05-17 13:52:32.000000000 +0200
+--- src/proto/edit.pro	2018-06-03 14:22:02.357707185 +0200
+***************
+*** 1,6 ****
+--- 1,8 ----
+  /* edit.c */
+  int edit(int cmdchar, int startln, long count);
+  void edit_putchar(int c, int highlight);
++ char_u *prompt_text(void);
++ int prompt_curpos_editable(void);
+  void edit_unputchar(void);
+  void display_dollar(colnr_T col);
+  void change_indent(int type, int amount, int round, int replaced, int call_changed_bytes);
+*** ../vim-8.1.0026/src/proto/ops.pro	2018-05-17 13:52:47.000000000 +0200
+--- src/proto/ops.pro	2018-06-03 14:00:04.742957898 +0200
+***************
+*** 1,6 ****
+--- 1,7 ----
+  /* ops.c */
+  int get_op_type(int char1, int char2);
+  int op_on_lines(int op);
++ int op_is_change(int op);
+  int get_op_char(int optype);
+  int get_extra_op_char(int optype);
+  void op_shift(oparg_T *oap, int curs_top, int amount);
+*** ../vim-8.1.0026/src/structs.h	2018-05-13 14:01:15.000000000 +0200
+--- src/structs.h	2018-06-03 14:00:04.742957898 +0200
+***************
+*** 2356,2361 ****
+--- 2356,2366 ----
+  
+      int		b_shortname;	/* this file has an 8.3 file name */
+  
++ #ifdef FEAT_JOB_CHANNEL
++     char_u	*b_prompt_text;	     // set by prompt_setprompt()
++     char_u	*b_prompt_callback;  // set by prompt_setcallback()
++     partial_T	*b_prompt_partial;   // set by prompt_setcallback()
++ #endif
+  #ifdef FEAT_MZSCHEME
+      void	*b_mzscheme_ref; /* The MzScheme reference to this buffer */
+  #endif
+*** ../vim-8.1.0026/src/testdir/Make_all.mak	2018-04-10 18:52:08.000000000 +0200
+--- src/testdir/Make_all.mak	2018-06-03 14:00:04.742957898 +0200
+***************
+*** 147,152 ****
+--- 147,153 ----
+  	    test_perl.res \
+  	    test_plus_arg_edit.res \
+  	    test_preview.res \
++ 	    test_prompt_buffer.res \
+  	    test_profile.res \
+  	    test_python2.res \
+  	    test_python3.res \
+*** ../vim-8.1.0026/src/testdir/screendump.vim	2018-05-05 16:33:08.000000000 +0200
+--- src/testdir/screendump.vim	2018-06-03 14:17:25.161921247 +0200
+***************
+*** 5,23 ****
+    finish
+  endif
+  
+! " Need to be able to run terminal Vim with 256 colors.  On MS-Windows the
+! " console only has 16 colors and the GUI can't run in a terminal.
+! if !has('terminal') || has('win32')
+!   func CanRunVimInTerminal()
+!     return 0
+!   endfunc
+!   finish
+! endif
+! 
+  func CanRunVimInTerminal()
+!   return 1
+  endfunc
+  
+  source shared.vim
+  
+  " Run Vim with "arguments" in a new terminal window.
+--- 5,22 ----
+    finish
+  endif
+  
+! " For most tests we need to be able to run terminal Vim with 256 colors.  On
+! " MS-Windows the console only has 16 colors and the GUI can't run in a
+! " terminal.
+  func CanRunVimInTerminal()
+!   return has('terminal') && !has('win32')
+  endfunc
+  
++ " Skip the rest if there is no terminal feature at all.
++ if !has('terminal')
++   finish
++ endif
++ 
+  source shared.vim
+  
+  " Run Vim with "arguments" in a new terminal window.
+***************
+*** 54,59 ****
+--- 53,59 ----
+    let cols = get(a:options, 'cols', 75)
+  
+    let cmd = GetVimCommandClean()
++ 
+    " Add -v to have gvim run in the terminal (if possible)
+    let cmd .= ' -v ' . a:arguments
+    let buf = term_start(cmd, {'curwin': 1, 'term_rows': rows, 'term_cols': cols})
+***************
+*** 64,74 ****
+      let cols = term_getsize(buf)[1]
+    endif
+  
+!   " Wait for "All" or "Top" of the ruler in the status line to be shown.  This
+!   " can be quite slow (e.g. when using valgrind).
+    " If it fails then show the terminal contents for debugging.
+    try
+!     call WaitFor({-> len(term_getline(buf, rows)) >= cols - 1})
+    catch /timed out after/
+      let lines = map(range(1, rows), {key, val -> term_getline(buf, val)})
+      call assert_report('RunVimInTerminal() failed, screen contents: ' . join(lines, "<NL>"))
+--- 64,75 ----
+      let cols = term_getsize(buf)[1]
+    endif
+  
+!   " Wait for "All" or "Top" of the ruler to be shown in the last line or in
+!   " the status line of the last window. This can be quite slow (e.g. when
+!   " using valgrind).
+    " If it fails then show the terminal contents for debugging.
+    try
+!     call WaitFor({-> len(term_getline(buf, rows)) >= cols - 1 || len(term_getline(buf, rows - 1)) >= cols - 1})
+    catch /timed out after/
+      let lines = map(range(1, rows), {key, val -> term_getline(buf, val)})
+      call assert_report('RunVimInTerminal() failed, screen contents: ' . join(lines, "<NL>"))
+***************
+*** 80,86 ****
+  " Stop a Vim running in terminal buffer "buf".
+  func StopVimInTerminal(buf)
+    call assert_equal("running", term_getstatus(a:buf))
+!   call term_sendkeys(a:buf, "\<Esc>\<Esc>:qa!\<cr>")
+    call WaitForAssert({-> assert_equal("finished", term_getstatus(a:buf))})
+    only!
+  endfunc
+--- 81,87 ----
+  " Stop a Vim running in terminal buffer "buf".
+  func StopVimInTerminal(buf)
+    call assert_equal("running", term_getstatus(a:buf))
+!   call term_sendkeys(a:buf, "\<Esc>:qa!\<cr>")
+    call WaitForAssert({-> assert_equal("finished", term_getstatus(a:buf))})
+    only!
+  endfunc
+*** ../vim-8.1.0026/src/testdir/test_prompt_buffer.vim	2018-06-03 14:39:38.860806632 +0200
+--- src/testdir/test_prompt_buffer.vim	2018-06-03 14:32:25.681281861 +0200
+***************
+*** 0 ****
+--- 1,55 ----
++ " Tests for setting 'buftype' to "prompt"
++ 
++ if !has('channel')
++   finish
++ endif
++ 
++ source shared.vim
++ source screendump.vim
++ 
++ func Test_prompt_basic()
++   " We need to use a terminal window to be able to feed keys without leaving
++   " Insert mode.
++   if !has('terminal')
++     call assert_report('no terminal')
++     return
++   endif
++   call writefile([
++ 	\ 'func TextEntered(text)',
++ 	\ '  if a:text == "exit"',
++ 	\ '    stopinsert',
++ 	\ '    close',
++ 	\ '  else',
++ 	\ '    " Add the output above the current prompt.',
++ 	\ '    call append(line("$") - 1, "Command: \"" . a:text . "\"")',
++ 	\ '    " Reset &modified to allow the buffer to be closed.',
++ 	\ '    set nomodified',
++ 	\ '    call timer_start(20, {id -> TimerFunc(a:text)})',
++ 	\ '  endif',
++ 	\ 'endfunc',
++ 	\ '',
++ 	\ 'func TimerFunc(text)',
++ 	\ '  " Add the output above the current prompt.',
++ 	\ '  call append(line("$") - 1, "Result: \"" . a:text . "\"")',
++ 	\ 'endfunc',
++ 	\ '',
++ 	\ 'call setline(1, "other buffer")',
++ 	\ 'new',
++ 	\ 'set buftype=prompt',
++ 	\ 'call prompt_setcallback(bufnr(""), function("TextEntered"))',
++ 	\ 'startinsert',
++ 	\ ], 'Xpromptscript')
++   let buf = RunVimInTerminal('-S Xpromptscript', {})
++   call WaitForAssert({-> assert_equal('%', term_getline(buf, 1))})
++ 
++   call term_sendkeys(buf, "hello\<CR>")
++   call WaitForAssert({-> assert_equal('% hello', term_getline(buf, 1))})
++   call WaitForAssert({-> assert_equal('Command: "hello"', term_getline(buf, 2))})
++   call WaitForAssert({-> assert_equal('Result: "hello"', term_getline(buf, 3))})
++ 
++   call term_sendkeys(buf, "exit\<CR>")
++   call WaitForAssert({-> assert_equal('other buffer', term_getline(buf, 1))})
++ 
++   call StopVimInTerminal(buf)
++   call delete('Xpromptscript')
++ endfunc
+*** ../vim-8.1.0026/src/version.c	2018-05-26 18:58:47.306367819 +0200
+--- src/version.c	2018-06-03 14:04:04.270811668 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     27,
+  /**/
+
+-- 
+Q: What is the difference between open-source and commercial software?
+A: If you have a problem with commercial software you can call a phone
+   number and they will tell you it might be solved in a future version.
+   For open-source software there isn't a phone number to call, but you
+   get the solution within a day.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

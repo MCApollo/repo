@@ -1,0 +1,73 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0255
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0255 (after 8.1.0251)
+Problem:    Backup test fails when using shadow directory.
+Solution:   Remove check for "src".
+Files:	    src/testdir/test_backup.vim
+
+
+*** ../vim-8.1.0254/src/testdir/test_backup.vim	2018-08-07 21:39:09.251060096 +0200
+--- src/testdir/test_backup.vim	2018-08-08 11:00:33.345896867 +0200
+***************
+*** 29,35 ****
+    sp *Xbackup.txt~
+    call assert_equal(['line1', 'line2', 'line3'], getline(1,'$'))
+    let f=expand('%')
+!   call assert_match('src%testdir%Xbackup.txt\~', f)
+    bw!
+    bw!
+    call delete('Xbackup.txt')
+--- 29,35 ----
+    sp *Xbackup.txt~
+    call assert_equal(['line1', 'line2', 'line3'], getline(1,'$'))
+    let f=expand('%')
+!   call assert_match('%testdir%Xbackup.txt\~', f)
+    bw!
+    bw!
+    call delete('Xbackup.txt')
+***************
+*** 49,55 ****
+    sp *Xbackup.txt~
+    call assert_equal(['line1', 'line2', 'line3'], getline(1,'$'))
+    let f=expand('%')
+!   call assert_match('src%testdir%Xbackup.txt\~', f)
+    bw!
+    bw!
+    call delete('Xbackup.txt')
+--- 49,55 ----
+    sp *Xbackup.txt~
+    call assert_equal(['line1', 'line2', 'line3'], getline(1,'$'))
+    let f=expand('%')
+!   call assert_match('%testdir%Xbackup.txt\~', f)
+    bw!
+    bw!
+    call delete('Xbackup.txt')
+*** ../vim-8.1.0254/src/version.c	2018-08-07 22:42:48.965416564 +0200
+--- src/version.c	2018-08-08 11:01:24.270573213 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     255,
+  /**/
+
+-- 
+TIM:    Too late.
+ARTHUR: What?
+TIM:    There he is!
+   [They all turn, and see a large white RABBIT lollop a few yards out of the
+   cave.  Accompanied by terrifying chord and jarring metallic monster noise.]
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,771 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0377
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0377
+Problem:    Xdiff doesn't use the Vim memory allocation functions.
+Solution:   Change the xdl_ defines.  Check for out-of-memory.  Rename
+            "ignored" to "vim_ignored".
+Files:	    src/xdiff/xdiff.h, src/xdiff/xpatience.c, src/xdiff/xdiffi.c,
+            src/channel.c, src/diff.c, src/evalfunc.c, src/ex_cmds.c,
+            src/fileio.c, src/main.c, src/mbyte.c, src/netbeans.c,
+            src/os_unix.c, src/os_win32.c, src/ui.c, src/window.c,
+            src/globals.h, src/term.c
+
+
+*** ../vim-8.1.0376/src/xdiff/xdiff.h	2018-09-10 17:50:32.713306941 +0200
+--- src/xdiff/xdiff.h	2018-09-13 15:18:00.938808604 +0200
+***************
+*** 108,117 ****
+  	long bsize;
+  } bdiffparam_t;
+  
+  
+! #define xdl_malloc(x) malloc(x)
+! #define xdl_free(ptr) free(ptr)
+! #define xdl_realloc(ptr,x) realloc(ptr,x)
+  
+  void *xdl_mmfile_first(mmfile_t *mmf, long *size);
+  long xdl_mmfile_size(mmfile_t *mmf);
+--- 108,118 ----
+  	long bsize;
+  } bdiffparam_t;
+  
++ #include "vim.h"
+  
+! #define xdl_malloc(x) lalloc((x), TRUE)
+! #define xdl_free(ptr) vim_free(ptr)
+! #define xdl_realloc(ptr,x) vim_realloc((ptr),(x))
+  
+  void *xdl_mmfile_first(mmfile_t *mmf, long *size);
+  long xdl_mmfile_size(mmfile_t *mmf);
+*** ../vim-8.1.0376/src/xdiff/xpatience.c	2018-09-10 17:50:32.717306902 +0200
+--- src/xdiff/xpatience.c	2018-09-13 15:12:42.501925972 +0200
+***************
+*** 210,215 ****
+--- 210,219 ----
+  	int longest = 0, i;
+  	struct entry *entry;
+  
++ 	/* Added to silence Coverity. */
++ 	if (sequence == NULL)
++ 		return map->first;
++ 
+  	/*
+  	 * If not -1, this entry in sequence must never be overridden.
+  	 * Therefore, overriding entries before this has no effect, so
+*** ../vim-8.1.0376/src/xdiff/xdiffi.c	2018-09-10 17:50:32.713306941 +0200
+--- src/xdiff/xdiffi.c	2018-09-13 15:18:46.014371180 +0200
+***************
+*** 392,400 ****
+  }
+  
+  /*
+!  * If a line is indented more than this, get_indent() just returns this value.
+   * This avoids having to do absurd amounts of work for data that are not
+!  * human-readable text, and also ensures that the output of get_indent fits within
+   * an int.
+   */
+  #define MAX_INDENT 200
+--- 392,400 ----
+  }
+  
+  /*
+!  * If a line is indented more than this, xget_indent() just returns this value.
+   * This avoids having to do absurd amounts of work for data that are not
+!  * human-readable text, and also ensures that the output of xget_indent fits within
+   * an int.
+   */
+  #define MAX_INDENT 200
+***************
+*** 404,410 ****
+   * columns. Return -1 if line is empty or contains only whitespace. Clamp the
+   * output value at MAX_INDENT.
+   */
+! static int get_indent(xrecord_t *rec)
+  {
+  	long i;
+  	int ret = 0;
+--- 404,410 ----
+   * columns. Return -1 if line is empty or contains only whitespace. Clamp the
+   * output value at MAX_INDENT.
+   */
+! static int xget_indent(xrecord_t *rec)
+  {
+  	long i;
+  	int ret = 0;
+***************
+*** 492,504 ****
+  		m->indent = -1;
+  	} else {
+  		m->end_of_file = 0;
+! 		m->indent = get_indent(xdf->recs[split]);
+  	}
+  
+  	m->pre_blank = 0;
+  	m->pre_indent = -1;
+  	for (i = split - 1; i >= 0; i--) {
+! 		m->pre_indent = get_indent(xdf->recs[i]);
+  		if (m->pre_indent != -1)
+  			break;
+  		m->pre_blank += 1;
+--- 492,504 ----
+  		m->indent = -1;
+  	} else {
+  		m->end_of_file = 0;
+! 		m->indent = xget_indent(xdf->recs[split]);
+  	}
+  
+  	m->pre_blank = 0;
+  	m->pre_indent = -1;
+  	for (i = split - 1; i >= 0; i--) {
+! 		m->pre_indent = xget_indent(xdf->recs[i]);
+  		if (m->pre_indent != -1)
+  			break;
+  		m->pre_blank += 1;
+***************
+*** 511,517 ****
+  	m->post_blank = 0;
+  	m->post_indent = -1;
+  	for (i = split + 1; i < xdf->nrec; i++) {
+! 		m->post_indent = get_indent(xdf->recs[i]);
+  		if (m->post_indent != -1)
+  			break;
+  		m->post_blank += 1;
+--- 511,517 ----
+  	m->post_blank = 0;
+  	m->post_indent = -1;
+  	for (i = split + 1; i < xdf->nrec; i++) {
+! 		m->post_indent = xget_indent(xdf->recs[i]);
+  		if (m->post_indent != -1)
+  			break;
+  		m->post_blank += 1;
+*** ../vim-8.1.0376/src/channel.c	2018-09-06 16:27:20.664831945 +0200
+--- src/channel.c	2018-09-13 15:20:13.661522640 +0200
+***************
+*** 1858,1864 ****
+      {
+  	ch_log_lead(lead, channel, part);
+  	fprintf(log_fd, "'");
+! 	ignored = (int)fwrite(buf, len, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+      }
+      return OK;
+--- 1858,1864 ----
+      {
+  	ch_log_lead(lead, channel, part);
+  	fprintf(log_fd, "'");
+! 	vim_ignored = (int)fwrite(buf, len, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+      }
+      return OK;
+***************
+*** 2388,2394 ****
+  
+      u_sync(TRUE);
+      /* ignore undo failure, undo is not very useful here */
+!     ignored = u_save(lnum - empty, lnum + 1);
+  
+      if (empty)
+      {
+--- 2388,2394 ----
+  
+      u_sync(TRUE);
+      /* ignore undo failure, undo is not very useful here */
+!     vim_ignored = u_save(lnum - empty, lnum + 1);
+  
+      if (empty)
+      {
+***************
+*** 3730,3736 ****
+      {
+  	ch_log_lead("SEND ", channel, part);
+  	fprintf(log_fd, "'");
+! 	ignored = (int)fwrite(buf_arg, len_arg, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+  	fflush(log_fd);
+  	did_log_msg = TRUE;
+--- 3730,3736 ----
+      {
+  	ch_log_lead("SEND ", channel, part);
+  	fprintf(log_fd, "'");
+! 	vim_ignored = (int)fwrite(buf_arg, len_arg, 1, log_fd);
+  	fprintf(log_fd, "'\n");
+  	fflush(log_fd);
+  	did_log_msg = TRUE;
+*** ../vim-8.1.0376/src/diff.c	2018-09-13 13:03:08.228724142 +0200
+--- src/diff.c	2018-09-13 15:20:28.509379140 +0200
+***************
+*** 1203,1212 ****
+      {
+  # ifdef TEMPDIRNAMES
+  	if (vim_tempdir != NULL)
+! 	    ignored = mch_chdir((char *)vim_tempdir);
+  	else
+  # endif
+! 	    ignored = mch_chdir("/tmp");
+  	shorten_fnames(TRUE);
+      }
+  #endif
+--- 1203,1212 ----
+      {
+  # ifdef TEMPDIRNAMES
+  	if (vim_tempdir != NULL)
+! 	    vim_ignored = mch_chdir((char *)vim_tempdir);
+  	else
+  # endif
+! 	    vim_ignored = mch_chdir("/tmp");
+  	shorten_fnames(TRUE);
+      }
+  #endif
+*** ../vim-8.1.0376/src/evalfunc.c	2018-09-11 20:10:17.138525018 +0200
+--- src/evalfunc.c	2018-09-13 15:20:58.541089065 +0200
+***************
+*** 14016,14022 ****
+  	else if (do_fsync)
+  	    /* Ignore the error, the user wouldn't know what to do about it.
+  	     * May happen for a device. */
+! 	    ignored = fsync(fileno(fd));
+  #endif
+  	fclose(fd);
+      }
+--- 14016,14022 ----
+  	else if (do_fsync)
+  	    /* Ignore the error, the user wouldn't know what to do about it.
+  	     * May happen for a device. */
+! 	    vim_ignored = fsync(fileno(fd));
+  #endif
+  	fclose(fd);
+      }
+*** ../vim-8.1.0376/src/ex_cmds.c	2018-08-21 15:12:10.835801673 +0200
+--- src/ex_cmds.c	2018-09-13 15:21:18.432897079 +0200
+***************
+*** 2117,2123 ****
+  		if (st_old.st_uid != tmp_st.st_uid)
+  		    /* Changing the owner might fail, in which case the
+  		     * file will now owned by the current user, oh well. */
+! 		    ignored = fchown(fileno(fp_out), st_old.st_uid, -1);
+  		if (st_old.st_gid != tmp_st.st_gid
+  			&& fchown(fileno(fp_out), -1, st_old.st_gid) == -1)
+  		    /* can't set the group to what it should be, remove
+--- 2117,2123 ----
+  		if (st_old.st_uid != tmp_st.st_uid)
+  		    /* Changing the owner might fail, in which case the
+  		     * file will now owned by the current user, oh well. */
+! 		    vim_ignored = fchown(fileno(fp_out), st_old.st_uid, -1);
+  		if (st_old.st_gid != tmp_st.st_gid
+  			&& fchown(fileno(fp_out), -1, st_old.st_gid) == -1)
+  		    /* can't set the group to what it should be, remove
+*** ../vim-8.1.0376/src/fileio.c	2018-09-10 21:04:09.868392665 +0200
+--- src/fileio.c	2018-09-13 15:25:58.942199081 +0200
+***************
+*** 2408,2414 ****
+      {
+  	/* Use stderr for stdin, makes shell commands work. */
+  	close(0);
+! 	ignored = dup(2);
+      }
+  #endif
+  
+--- 2408,2414 ----
+      {
+  	/* Use stderr for stdin, makes shell commands work. */
+  	close(0);
+! 	vim_ignored = dup(2);
+      }
+  #endif
+  
+***************
+*** 3751,3757 ****
+  		{
+  # ifdef UNIX
+  #  ifdef HAVE_FCHOWN
+! 		    ignored = fchown(fd, st_old.st_uid, st_old.st_gid);
+  #  endif
+  		    if (mch_stat((char *)IObuff, &st) < 0
+  			    || st.st_uid != st_old.st_uid
+--- 3751,3757 ----
+  		{
+  # ifdef UNIX
+  #  ifdef HAVE_FCHOWN
+! 		    vim_ignored = fchown(fd, st_old.st_uid, st_old.st_gid);
+  #  endif
+  		    if (mch_stat((char *)IObuff, &st) < 0
+  			    || st.st_uid != st_old.st_uid
+***************
+*** 4509,4515 ****
+  #endif
+  #ifdef HAVE_FTRUNCATE
+  	    if (!append)
+! 		ignored = ftruncate(fd, (off_t)0);
+  #endif
+  
+  #if defined(WIN3264)
+--- 4509,4515 ----
+  #endif
+  #ifdef HAVE_FTRUNCATE
+  	    if (!append)
+! 		vim_ignored = ftruncate(fd, (off_t)0);
+  #endif
+  
+  #if defined(WIN3264)
+***************
+*** 4789,4795 ****
+  		    || st.st_gid != st_old.st_gid)
+  	    {
+  		/* changing owner might not be possible */
+! 		ignored = fchown(fd, st_old.st_uid, -1);
+  		/* if changing group fails clear the group permissions */
+  		if (fchown(fd, -1, st_old.st_gid) == -1 && perm > 0)
+  		    perm &= ~070;
+--- 4789,4795 ----
+  		    || st.st_gid != st_old.st_gid)
+  	    {
+  		/* changing owner might not be possible */
+! 		vim_ignored = fchown(fd, st_old.st_uid, -1);
+  		/* if changing group fails clear the group permissions */
+  		if (fchown(fd, -1, st_old.st_gid) == -1 && perm > 0)
+  		    perm &= ~070;
+***************
+*** 6482,6490 ****
+  	{
+  	    tbuf[FGETS_SIZE - 2] = NUL;
+  #ifdef USE_CR
+! 	    ignoredp = fgets_cr((char *)tbuf, FGETS_SIZE, fp);
+  #else
+! 	    ignoredp = fgets((char *)tbuf, FGETS_SIZE, fp);
+  #endif
+  	} while (tbuf[FGETS_SIZE - 2] != NUL && tbuf[FGETS_SIZE - 2] != '\n');
+      }
+--- 6482,6490 ----
+  	{
+  	    tbuf[FGETS_SIZE - 2] = NUL;
+  #ifdef USE_CR
+! 	    vim_ignoredp = fgets_cr((char *)tbuf, FGETS_SIZE, fp);
+  #else
+! 	    vim_ignoredp = fgets((char *)tbuf, FGETS_SIZE, fp);
+  #endif
+  	} while (tbuf[FGETS_SIZE - 2] != NUL && tbuf[FGETS_SIZE - 2] != '\n');
+      }
+*** ../vim-8.1.0376/src/main.c	2018-09-10 21:04:09.872392623 +0200
+--- src/main.c	2018-09-13 15:22:28.516221441 +0200
+***************
+*** 2632,2638 ****
+       * Is there any other system that cannot do this?
+       */
+      close(0);
+!     ignored = dup(2);
+  #endif
+  }
+  
+--- 2632,2638 ----
+       * Is there any other system that cannot do this?
+       */
+      close(0);
+!     vim_ignored = dup(2);
+  #endif
+  }
+  
+*** ../vim-8.1.0376/src/mbyte.c	2018-09-11 21:30:05.253070476 +0200
+--- src/mbyte.c	2018-09-13 15:22:39.728113472 +0200
+***************
+*** 756,762 ****
+  		     * where mblen() returns 0 for invalid character.
+  		     * Therefore, following condition includes 0.
+  		     */
+! 		    ignored = mblen(NULL, 0);	/* First reset the state. */
+  		    if (mblen(buf, (size_t)1) <= 0)
+  			n = 2;
+  		    else
+--- 756,762 ----
+  		     * where mblen() returns 0 for invalid character.
+  		     * Therefore, following condition includes 0.
+  		     */
+! 		    vim_ignored = mblen(NULL, 0);  // First reset the state.
+  		    if (mblen(buf, (size_t)1) <= 0)
+  			n = 2;
+  		    else
+*** ../vim-8.1.0376/src/netbeans.c	2018-03-04 16:12:13.000000000 +0100
+--- src/netbeans.c	2018-09-13 15:23:17.979745287 +0200
+***************
+*** 1988,1997 ****
+  	    pos = get_off_or_lnum(buf->bufp, &args);
+  
+  	    cp = (char *)args;
+! 	    ignored = (int)strtol(cp, &cp, 10);
+  	    args = (char_u *)cp;
+  # ifdef NBDEBUG
+! 	    if (ignored != -1)
+  	    {
+  		nbdebug(("    partial line annotation -- Not Yet Implemented!\n"));
+  	    }
+--- 1988,1997 ----
+  	    pos = get_off_or_lnum(buf->bufp, &args);
+  
+  	    cp = (char *)args;
+! 	    vim_ignored = (int)strtol(cp, &cp, 10);
+  	    args = (char_u *)cp;
+  # ifdef NBDEBUG
+! 	    if (vim_ignored != -1)
+  	    {
+  		nbdebug(("    partial line annotation -- Not Yet Implemented!\n"));
+  	    }
+*** ../vim-8.1.0376/src/os_unix.c	2018-09-12 20:29:05.479670601 +0200
+--- src/os_unix.c	2018-09-13 15:24:00.571335689 +0200
+***************
+*** 357,363 ****
+      void
+  mch_write(char_u *s, int len)
+  {
+!     ignored = (int)write(1, (char *)s, len);
+      if (p_wd)		/* Unix is too fast, slow down a bit more */
+  	RealWaitForChar(read_cmd_fd, p_wd, NULL, NULL);
+  }
+--- 357,363 ----
+      void
+  mch_write(char_u *s, int len)
+  {
+!     vim_ignored = (int)write(1, (char *)s, len);
+      if (p_wd)		/* Unix is too fast, slow down a bit more */
+  	RealWaitForChar(read_cmd_fd, p_wd, NULL, NULL);
+  }
+***************
+*** 4693,4701 ****
+  		 */
+  		if (fd >= 0)
+  		{
+! 		    ignored = dup(fd); /* To replace stdin  (fd 0) */
+! 		    ignored = dup(fd); /* To replace stdout (fd 1) */
+! 		    ignored = dup(fd); /* To replace stderr (fd 2) */
+  
+  		    /* Don't need this now that we've duplicated it */
+  		    close(fd);
+--- 4693,4701 ----
+  		 */
+  		if (fd >= 0)
+  		{
+! 		    vim_ignored = dup(fd); /* To replace stdin  (fd 0) */
+! 		    vim_ignored = dup(fd); /* To replace stdout (fd 1) */
+! 		    vim_ignored = dup(fd); /* To replace stderr (fd 2) */
+  
+  		    /* Don't need this now that we've duplicated it */
+  		    close(fd);
+***************
+*** 4752,4764 ****
+  
+  		    /* set up stdin/stdout/stderr for the child */
+  		    close(0);
+! 		    ignored = dup(pty_slave_fd);
+  		    close(1);
+! 		    ignored = dup(pty_slave_fd);
+  		    if (gui.in_use)
+  		    {
+  			close(2);
+! 			ignored = dup(pty_slave_fd);
+  		    }
+  
+  		    close(pty_slave_fd);    /* has been dupped, close it now */
+--- 4752,4764 ----
+  
+  		    /* set up stdin/stdout/stderr for the child */
+  		    close(0);
+! 		    vim_ignored = dup(pty_slave_fd);
+  		    close(1);
+! 		    vim_ignored = dup(pty_slave_fd);
+  		    if (gui.in_use)
+  		    {
+  			close(2);
+! 			vim_ignored = dup(pty_slave_fd);
+  		    }
+  
+  		    close(pty_slave_fd);    /* has been dupped, close it now */
+***************
+*** 4769,4781 ****
+  		    /* set up stdin for the child */
+  		    close(fd_toshell[1]);
+  		    close(0);
+! 		    ignored = dup(fd_toshell[0]);
+  		    close(fd_toshell[0]);
+  
+  		    /* set up stdout for the child */
+  		    close(fd_fromshell[0]);
+  		    close(1);
+! 		    ignored = dup(fd_fromshell[1]);
+  		    close(fd_fromshell[1]);
+  
+  # ifdef FEAT_GUI
+--- 4769,4781 ----
+  		    /* set up stdin for the child */
+  		    close(fd_toshell[1]);
+  		    close(0);
+! 		    vim_ignored = dup(fd_toshell[0]);
+  		    close(fd_toshell[0]);
+  
+  		    /* set up stdout for the child */
+  		    close(fd_fromshell[0]);
+  		    close(1);
+! 		    vim_ignored = dup(fd_fromshell[1]);
+  		    close(fd_fromshell[1]);
+  
+  # ifdef FEAT_GUI
+***************
+*** 4783,4789 ****
+  		    {
+  			/* set up stderr for the child */
+  			close(2);
+! 			ignored = dup(1);
+  		    }
+  # endif
+  		}
+--- 4783,4789 ----
+  		    {
+  			/* set up stderr for the child */
+  			close(2);
+! 			vim_ignored = dup(1);
+  		    }
+  # endif
+  		}
+***************
+*** 4920,4926 ****
+  					    && (lnum !=
+  						    curbuf->b_ml.ml_line_count
+  						    || curbuf->b_p_eol)))
+! 				    ignored = write(toshell_fd, "\n",
+  								   (size_t)1);
+  				++lnum;
+  				if (lnum > curbuf->b_op_end.lnum)
+--- 4920,4926 ----
+  					    && (lnum !=
+  						    curbuf->b_ml.ml_line_count
+  						    || curbuf->b_p_eol)))
+! 				    vim_ignored = write(toshell_fd, "\n",
+  								   (size_t)1);
+  				++lnum;
+  				if (lnum > curbuf->b_op_end.lnum)
+***************
+*** 5611,5644 ****
+  	/* set up stdin for the child */
+  	close(0);
+  	if (use_null_for_in && null_fd >= 0)
+! 	    ignored = dup(null_fd);
+  	else if (fd_in[0] < 0)
+! 	    ignored = dup(pty_slave_fd);
+  	else
+! 	    ignored = dup(fd_in[0]);
+  
+  	/* set up stderr for the child */
+  	close(2);
+  	if (use_null_for_err && null_fd >= 0)
+  	{
+! 	    ignored = dup(null_fd);
+  	    stderr_works = FALSE;
+  	}
+  	else if (use_out_for_err)
+! 	    ignored = dup(fd_out[1]);
+  	else if (fd_err[1] < 0)
+! 	    ignored = dup(pty_slave_fd);
+  	else
+! 	    ignored = dup(fd_err[1]);
+  
+  	/* set up stdout for the child */
+  	close(1);
+  	if (use_null_for_out && null_fd >= 0)
+! 	    ignored = dup(null_fd);
+  	else if (fd_out[1] < 0)
+! 	    ignored = dup(pty_slave_fd);
+  	else
+! 	    ignored = dup(fd_out[1]);
+  
+  	if (fd_in[0] >= 0)
+  	    close(fd_in[0]);
+--- 5611,5644 ----
+  	/* set up stdin for the child */
+  	close(0);
+  	if (use_null_for_in && null_fd >= 0)
+! 	    vim_ignored = dup(null_fd);
+  	else if (fd_in[0] < 0)
+! 	    vim_ignored = dup(pty_slave_fd);
+  	else
+! 	    vim_ignored = dup(fd_in[0]);
+  
+  	/* set up stderr for the child */
+  	close(2);
+  	if (use_null_for_err && null_fd >= 0)
+  	{
+! 	    vim_ignored = dup(null_fd);
+  	    stderr_works = FALSE;
+  	}
+  	else if (use_out_for_err)
+! 	    vim_ignored = dup(fd_out[1]);
+  	else if (fd_err[1] < 0)
+! 	    vim_ignored = dup(pty_slave_fd);
+  	else
+! 	    vim_ignored = dup(fd_err[1]);
+  
+  	/* set up stdout for the child */
+  	close(1);
+  	if (use_null_for_out && null_fd >= 0)
+! 	    vim_ignored = dup(null_fd);
+  	else if (fd_out[1] < 0)
+! 	    vim_ignored = dup(pty_slave_fd);
+  	else
+! 	    vim_ignored = dup(fd_out[1]);
+  
+  	if (fd_in[0] >= 0)
+  	    close(fd_in[0]);
+*** ../vim-8.1.0376/src/os_win32.c	2018-09-06 13:14:39.144722527 +0200
+--- src/os_win32.c	2018-09-13 15:24:11.255233005 +0200
+***************
+*** 4388,4394 ****
+  		    && (lnum != curbuf->b_ml.ml_line_count
+  			|| curbuf->b_p_eol)))
+  	    {
+! 		WriteFile(g_hChildStd_IN_Wr, "\n", 1, (LPDWORD)&ignored, NULL);
+  	    }
+  
+  	    ++lnum;
+--- 4388,4395 ----
+  		    && (lnum != curbuf->b_ml.ml_line_count
+  			|| curbuf->b_p_eol)))
+  	    {
+! 		WriteFile(g_hChildStd_IN_Wr, "\n", 1,
+! 						  (LPDWORD)&vim_ignored, NULL);
+  	    }
+  
+  	    ++lnum;
+*** ../vim-8.1.0376/src/ui.c	2018-05-11 21:58:49.000000000 +0200
+--- src/ui.c	2018-09-13 15:24:57.474788997 +0200
+***************
+*** 403,409 ****
+      void
+  ui_breakcheck_force(int force)
+  {
+!     int save_us = updating_screen;
+  
+      /* We do not want gui_resize_shell() to redraw the screen here. */
+      ++updating_screen;
+--- 403,409 ----
+      void
+  ui_breakcheck_force(int force)
+  {
+!     int save_updating_screen = updating_screen;
+  
+      /* We do not want gui_resize_shell() to redraw the screen here. */
+      ++updating_screen;
+***************
+*** 415,422 ****
+  #endif
+  	mch_breakcheck(force);
+  
+!     if (save_us)
+! 	updating_screen = save_us;
+      else
+  	reset_updating_screen(FALSE);
+  }
+--- 415,422 ----
+  #endif
+  	mch_breakcheck(force);
+  
+!     if (save_updating_screen)
+! 	updating_screen = TRUE;
+      else
+  	reset_updating_screen(FALSE);
+  }
+***************
+*** 1885,1891 ****
+  #ifdef HAVE_DUP
+  	    /* Use stderr for stdin, also works for shell commands. */
+  	    close(0);
+! 	    ignored = dup(2);
+  #else
+  	    read_cmd_fd = 2;	/* read from stderr instead of stdin */
+  #endif
+--- 1885,1891 ----
+  #ifdef HAVE_DUP
+  	    /* Use stderr for stdin, also works for shell commands. */
+  	    close(0);
+! 	    vim_ignored = dup(2);
+  #else
+  	    read_cmd_fd = 2;	/* read from stderr instead of stdin */
+  #endif
+*** ../vim-8.1.0376/src/window.c	2018-08-21 16:56:28.367325278 +0200
+--- src/window.c	2018-09-13 15:25:10.614662839 +0200
+***************
+*** 4436,4442 ****
+      {
+  	/* Window doesn't have a local directory and we are not in the global
+  	 * directory: Change to the global directory. */
+! 	ignored = mch_chdir((char *)globaldir);
+  	VIM_CLEAR(globaldir);
+  	shorten_fnames(TRUE);
+      }
+--- 4436,4442 ----
+      {
+  	/* Window doesn't have a local directory and we are not in the global
+  	 * directory: Change to the global directory. */
+! 	vim_ignored = mch_chdir((char *)globaldir);
+  	VIM_CLEAR(globaldir);
+  	shorten_fnames(TRUE);
+      }
+*** ../vim-8.1.0376/src/globals.h	2018-09-10 21:04:09.868392665 +0200
+--- src/globals.h	2018-09-13 15:26:19.670000302 +0200
+***************
+*** 1621,1628 ****
+   * can't do anything useful with the value.  Assign to this variable to avoid
+   * the warning.
+   */
+! EXTERN int ignored;
+! EXTERN char *ignoredp;
+  
+  #ifdef FEAT_EVAL
+  /* set by alloc_fail(): ID */
+--- 1621,1628 ----
+   * can't do anything useful with the value.  Assign to this variable to avoid
+   * the warning.
+   */
+! EXTERN int vim_ignored;
+! EXTERN char *vim_ignoredp;
+  
+  #ifdef FEAT_EVAL
+  /* set by alloc_fail(): ID */
+*** ../vim-8.1.0376/src/term.c	2018-09-10 21:04:09.872392623 +0200
+--- src/term.c	2018-09-13 15:26:15.598039345 +0200
+***************
+*** 7013,7019 ****
+  		size_t	len;
+  		int	pos;
+  
+! 		ignoredp = fgets(line, LINE_LEN, fd);
+  		len = strlen(line);
+  
+  		if (len <= 1 || line[len - 1] != '\n')
+--- 7013,7019 ----
+  		size_t	len;
+  		int	pos;
+  
+! 		vim_ignoredp = fgets(line, LINE_LEN, fd);
+  		len = strlen(line);
+  
+  		if (len <= 1 || line[len - 1] != '\n')
+*** ../vim-8.1.0376/src/version.c	2018-09-13 14:57:37.915261048 +0200
+--- src/version.c	2018-09-13 15:30:49.183420346 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     377,
+  /**/
+
+-- 
+Don't read everything you believe.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

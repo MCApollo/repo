@@ -1,0 +1,87 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0483
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0483
+Problem:    MinGW does not build tee.exe.
+Solution:   Add build instructions. (Yasuhiro Matsumoto, closes #3548)
+Files:	    src/Make_cyg_ming.mak, src/tee/Makefile
+
+
+*** ../vim-8.1.0482/src/Make_cyg_ming.mak	2018-10-17 22:12:10.627845134 +0200
+--- src/Make_cyg_ming.mak	2018-10-17 22:43:01.705335899 +0200
+***************
+*** 943,949 ****
+  LFLAGS += -Wl,-Map=$(TARGET).map
+  endif
+  
+! all: $(TARGET) vimrun.exe xxd/xxd.exe install.exe uninstal.exe GvimExt/gvimext.dll
+  
+  vimrun.exe: vimrun.c
+  	$(CC) $(CFLAGS) -o vimrun.exe vimrun.c $(LIB)
+--- 943,949 ----
+  LFLAGS += -Wl,-Map=$(TARGET).map
+  endif
+  
+! all: $(TARGET) vimrun.exe xxd/xxd.exe tee/tee.exe install.exe uninstal.exe GvimExt/gvimext.dll
+  
+  vimrun.exe: vimrun.c
+  	$(CC) $(CFLAGS) -o vimrun.exe vimrun.c $(LIB)
+***************
+*** 968,973 ****
+--- 968,976 ----
+  xxd/xxd.exe: xxd/xxd.c
+  	$(MAKE) -C xxd -f Make_ming.mak CC='$(CC)'
+  
++ tee/tee.exe: tee/tee.c
++ 	$(MAKE) -C tee CC='$(CC)'
++ 
+  GvimExt/gvimext.dll: GvimExt/gvimext.cpp GvimExt/gvimext.rc GvimExt/gvimext.h
+  	$(MAKE) -C GvimExt -f Make_ming.mak CROSS=$(CROSS) CROSS_COMPILE=$(CROSS_COMPILE) CXX='$(CXX)' STATIC_STDCPLUS=$(STATIC_STDCPLUS)
+  
+***************
+*** 996,1001 ****
+--- 999,1005 ----
+  endif
+  	$(MAKE) -C GvimExt -f Make_ming.mak clean
+  	$(MAKE) -C xxd -f Make_ming.mak clean
++ 	$(MAKE) -C tee clean
+  
+  ###########################################################################
+  INCL =	vim.h alloc.h arabic.h ascii.h ex_cmds.h farsi.h feature.h globals.h \
+*** ../vim-8.1.0482/src/tee/Makefile	2010-05-15 13:04:08.000000000 +0200
+--- src/tee/Makefile	2018-10-17 22:43:52.592811771 +0200
+***************
+*** 1,4 ****
+! # A very (if not the most) simplistic Makefile for OS/2
+  
+  CC=gcc
+  CFLAGS=-O2 -fno-strength-reduce
+--- 1,4 ----
+! # A very (if not the most) simplistic Makefile for MS-Windows and OS/2
+  
+  CC=gcc
+  CFLAGS=-O2 -fno-strength-reduce
+*** ../vim-8.1.0482/src/version.c	2018-10-17 22:12:10.627845134 +0200
+--- src/version.c	2018-10-17 22:44:59.276129663 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     483,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+229. You spend so much time thinking what to add on this list.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

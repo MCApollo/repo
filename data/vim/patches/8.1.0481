@@ -1,0 +1,81 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0481
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0481
+Problem:    When "Terminal" highlight is reverted cursor doesn't show.
+Solution:   Get the colors of the "Terminal" group. (closes #3546)
+Files:	    src/terminal.c
+
+
+*** ../vim-8.1.0480/src/terminal.c	2018-09-09 19:56:03.434838223 +0200
+--- src/terminal.c	2018-10-16 22:05:15.814900004 +0200
+***************
+*** 1953,1958 ****
+--- 1953,1960 ----
+  {
+      term_T		 *term = in_terminal_loop;
+      static cursorentry_T entry;
++     int			 id;
++     guicolor_T		term_fg, term_bg;
+  
+      vim_memset(&entry, 0, sizeof(entry));
+      entry.shape = entry.mshape =
+***************
+*** 1966,1974 ****
+  	entry.blinkon = 400;
+  	entry.blinkoff = 250;
+      }
+!     *fg = gui.back_pixel;
+      if (term->tl_cursor_color == NULL)
+! 	*bg = gui.norm_pixel;
+      else
+  	*bg = color_name2handle(term->tl_cursor_color);
+      entry.name = "n";
+--- 1968,1991 ----
+  	entry.blinkon = 400;
+  	entry.blinkoff = 250;
+      }
+! 
+!     /* The "Terminal" highlight group overrules the defaults. */
+!     id = syn_name2id((char_u *)"Terminal");
+!     if (id != 0)
+!     {
+! 	syn_id2colors(id, &term_fg, &term_bg);
+! 	*fg = term_bg;
+!     }
+!     else
+! 	*fg = gui.back_pixel;
+! 
+      if (term->tl_cursor_color == NULL)
+!     {
+! 	if (id != 0)
+! 	    *bg = term_fg;
+! 	else
+! 	    *bg = gui.norm_pixel;
+!     }
+      else
+  	*bg = color_name2handle(term->tl_cursor_color);
+      entry.name = "n";
+*** ../vim-8.1.0480/src/version.c	2018-10-16 21:13:10.411812362 +0200
+--- src/version.c	2018-10-16 22:07:53.913539102 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     481,
+  /**/
+
+-- 
+Your fault: core dumped
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

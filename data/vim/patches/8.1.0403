@@ -1,0 +1,45 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0403
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0403
+Problem:    Header file missing from distribution.
+Solution:   Add src/protodef.h.
+Files:	    Filelist
+
+
+*** ../vim-8.1.0402/Filelist	2018-09-10 21:15:34.637000672 +0200
+--- Filelist	2018-09-18 21:38:54.686006138 +0200
+***************
+*** 141,146 ****
+--- 141,147 ----
+  		src/testdir/if_ver*.vim \
+  		src/testdir/color_ramp.vim \
+  		src/proto.h \
++ 		src/protodef.h \
+  		src/proto/arabic.pro \
+  		src/proto/beval.pro \
+  		src/proto/blowfish.pro \
+*** ../vim-8.1.0402/src/version.c	2018-09-18 21:20:22.507148523 +0200
+--- src/version.c	2018-09-18 21:39:33.961691227 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     403,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+90. Instead of calling you to dinner, your spouse sends e-mail.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,16 @@
+diff -r -u screen-4.0.2/pty.c screen-4.0.2+iPhone/pty.c
+--- screen-4.0.2/pty.c	2003-09-08 14:26:18.000000000 +0000
++++ screen-4.0.2+iPhone/pty.c	2008-02-12 10:56:58.000000000 +0000
+@@ -33,11 +33,6 @@
+ # include <sys/ioctl.h>
+ #endif
+ 
+-/* for solaris 2.1, Unixware (SVR4.2) and possibly others */
+-#ifdef HAVE_SVR4_PTYS
+-# include <sys/stropts.h>
+-#endif
+-
+ #if defined(sun) && defined(LOCKPTY) && !defined(TIOCEXCL)
+ # include <sys/ttold.h>
+ #endif
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ $1 == install || $1 == upgrade ]]; then
+    /usr/libexec/cydia/move.sh /usr/lib/vfs
+    /usr/libexec/cydia/move.sh /usr/samba
+fi
+
+exit 0

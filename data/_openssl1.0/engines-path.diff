@@ -1,0 +1,83 @@
+diff -ur openssl-1.0.2q/Configure openssl-1.0.2q+iPhone/Configure
+--- openssl-1.0.2q/Configure	2018-11-20 03:44:48.000000000 -1000
++++ openssl-1.0.2q+iPhone/Configure	2018-12-09 21:49:24.000000000 -1000
+@@ -1939,7 +1939,7 @@
+ 		}
+ 	elsif	(/^#define\s+ENGINESDIR/)
+ 		{
+-		my $foo = "$prefix/$libdir/engines";
++		my $foo = "$prefix/$libdir/engines-1.0";
+ 		$foo =~ s/\\/\\\\/g;
+ 		print OUT "#define ENGINESDIR \"$foo\"\n";
+ 		}
+diff -ur openssl-1.0.2q/Makefile.org openssl-1.0.2q+iPhone/Makefile.org
+--- openssl-1.0.2q/Makefile.org	2018-11-20 03:44:48.000000000 -1000
++++ openssl-1.0.2q+iPhone/Makefile.org	2018-12-09 21:49:24.000000000 -1000
+@@ -545,7 +545,7 @@
+ install_sw:
+ 	@$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/bin \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR) \
+-		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines \
++		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0 \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/pkgconfig \
+ 		$(INSTALL_PREFIX)$(INSTALLTOP)/include/openssl \
+ 		$(INSTALL_PREFIX)$(OPENSSLDIR)/misc \
+diff -ur openssl-1.0.2q/engines/Makefile openssl-1.0.2q+iPhone/engines/Makefile
+--- openssl-1.0.2q/engines/Makefile	2018-11-20 03:44:49.000000000 -1000
++++ openssl-1.0.2q+iPhone/engines/Makefile	2018-12-09 21:50:10.000000000 -1000
+@@ -107,13 +107,13 @@
+ 	@[ -n "$(INSTALLTOP)" ] # should be set by top Makefile...
+ 	@if [ -n "$(SHARED_LIBS)" ]; then \
+ 		set -e; \
+-		$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines; \
++		$(PERL) $(TOP)/util/mkdir-p.pl $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0; \
+ 		for l in $(LIBNAMES); do \
+ 			( echo installing $$l; \
+ 			  pfx=lib; \
+ 			  if expr "$(PLATFORM)" : "Cygwin" >/dev/null; then \
+ 				sfx=".so"; \
+-				cp cyg$$l.dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new; \
++				cp cyg$$l.dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$$pfx$$l$$sfx.new; \
+ 			  else \
+ 				case "$(CFLAGS)" in \
+ 				*DSO_BEOS*)	sfx=".so";;	\
+@@ -122,10 +122,10 @@
+ 				*DSO_WIN32*)	sfx="eay32.dll"; pfx=;;	\
+ 				*)		sfx=".bad";;	\
+ 				esac; \
+-				cp $$pfx$$l$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new; \
++				cp $$pfx$$l$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$$pfx$$l$$sfx.new; \
+ 			  fi; \
+-			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new; \
+-			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$$pfx$$l$$sfx ); \
++			  chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$$pfx$$l$$sfx.new; \
++			  mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$$pfx$$l$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$$pfx$$l$$sfx ); \
+ 		done; \
+ 	fi
+ 	@target=install; $(RECURSIVE_MAKE)
+diff -ur openssl-1.0.2q/engines/ccgost/Makefile openssl-1.0.2q+iPhone/engines/ccgost/Makefile
+--- openssl-1.0.2q/engines/ccgost/Makefile	2018-11-20 03:44:49.000000000 -1000
++++ openssl-1.0.2q+iPhone/engines/ccgost/Makefile	2018-12-09 21:50:45.000000000 -1000
+@@ -47,7 +47,7 @@
+ 		pfx=lib; \
+ 		if expr "$(PLATFORM)" : "Cygwin" >/dev/null; then \
+ 			sfx=".so"; \
+-			cp cyg$(LIBNAME).dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new; \
++			cp cyg$(LIBNAME).dll $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$${pfx}$(LIBNAME)$$sfx.new; \
+ 		else \
+ 			case "$(CFLAGS)" in \
+ 			*DSO_BEOS*) sfx=".so";; \
+@@ -56,10 +56,10 @@
+ 			*DSO_WIN32*) sfx="eay32.dll"; pfx=;; \
+ 			*) sfx=".bad";; \
+ 			esac; \
+-			cp $${pfx}$(LIBNAME)$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new; \
++			cp $${pfx}$(LIBNAME)$$sfx $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$${pfx}$(LIBNAME)$$sfx.new; \
+ 		fi; \
+-		chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new; \
+-		mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines/$${pfx}$(LIBNAME)$$sfx; \
++		chmod 555 $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$${pfx}$(LIBNAME)$$sfx.new; \
++		mv -f $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$${pfx}$(LIBNAME)$$sfx.new $(INSTALL_PREFIX)$(INSTALLTOP)/$(LIBDIR)/engines-1.0/$${pfx}$(LIBNAME)$$sfx; \
+ 	fi
+ 
+ links:

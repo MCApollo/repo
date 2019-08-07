@@ -1,0 +1,10 @@
+--- vim81/src/configure.ac	2018-05-13 03:37:01.000000000 -1000
++++ vim81+iPhone/src/configure.ac	2018-07-27 09:41:25.000000000 -1000
+@@ -5,6 +5,7 @@
+ 
+ AC_INIT(vim.h)
+ AC_CONFIG_HEADER(auto/config.h:config.h.in)
++AC_CHECK_HEADERS([sys/types.h])
+ 
+ dnl Being able to run configure means the system is Unix (compatible).
+ AC_DEFINE(UNIX)

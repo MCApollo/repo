@@ -1,0 +1,85 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0344
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0344
+Problem:    'hlsearch' highlighting has a gap after /$.
+Solution:   Remove suspicious code. (Ricky Zhou, closes #3400)
+Files:	    src/screen.c, src/testdir/test_hlsearch.vim
+
+
+*** ../vim-8.1.0343/src/screen.c	2018-08-26 21:23:03.400383307 +0200
+--- src/screen.c	2018-09-02 15:01:39.828954706 +0200
+***************
+*** 5496,5510 ****
+  	if (c == NUL)
+  	{
+  #ifdef FEAT_SYN_HL
+- 	    if (eol_hl_off > 0 && vcol - eol_hl_off == (long)wp->w_virtcol
+- 		    && lnum == wp->w_cursor.lnum)
+- 	    {
+- 		/* highlight last char after line */
+- 		--col;
+- 		--off;
+- 		--vcol;
+- 	    }
+- 
+  	    /* Highlight 'cursorcolumn' & 'colorcolumn' past end of the line. */
+  	    if (wp->w_p_wrap)
+  		v = wp->w_skipcol;
+--- 5496,5501 ----
+*** ../vim-8.1.0343/src/testdir/test_hlsearch.vim	2017-06-17 20:28:35.000000000 +0200
+--- src/testdir/test_hlsearch.vim	2018-09-02 15:00:49.269446213 +0200
+***************
+*** 4,10 ****
+    new
+    call setline(1, repeat(['aaa'], 10))
+    set hlsearch nolazyredraw
+-   let r=[]
+    " redraw is needed to make hlsearch highlight the matches
+    exe "normal! /aaa\<CR>" | redraw
+    let r1 = screenattr(1, 1)
+--- 4,9 ----
+***************
+*** 51,53 ****
+--- 50,65 ----
+    set nohlsearch redrawtime&
+    bwipe!
+  endfunc
++ 
++ func Test_hlsearch_eol_highlight()
++   new
++   call append(1, repeat([''], 9))
++   set hlsearch nolazyredraw
++   exe "normal! /$\<CR>" | redraw
++   let attr = screenattr(1, 1)
++   for row in range(2, 10)
++     call assert_equal(attr, screenattr(row, 1), 'in line ' . row)
++   endfor
++   set nohlsearch
++   bwipe!
++ endfunc
+*** ../vim-8.1.0343/src/version.c	2018-09-02 14:25:02.330801508 +0200
+--- src/version.c	2018-09-02 14:58:34.506763279 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     344,
+  /**/
+
+-- 
+"How is your new girlfriend?"
+"90-60-90 man!"
+"What, pale purple?"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

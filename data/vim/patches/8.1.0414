@@ -1,0 +1,96 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0414
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0414
+Problem:    v:option_old and v:option_new are cleared when using :set in
+            OptionSet autocmd. (Gary Johnson)
+Solution:   Don't trigger OptionSet recursively.
+Files:	    src/option.c
+
+
+*** ../vim-8.1.0413/src/option.c	2018-09-13 20:31:47.103018229 +0200
+--- src/option.c	2018-09-20 21:26:55.954190027 +0200
+***************
+*** 4359,4365 ****
+  	char_u *oldval,
+  	char_u *newval)
+  {
+!     if (oldval != NULL && newval != NULL)
+      {
+  	char_u buf_type[7];
+  
+--- 4359,4367 ----
+  	char_u *oldval,
+  	char_u *newval)
+  {
+!     // Don't do this recursively.
+!     if (oldval != NULL && newval != NULL
+! 				    && *get_vim_var_str(VV_OPTION_TYPE) == NUL)
+      {
+  	char_u buf_type[7];
+  
+***************
+*** 8858,8866 ****
+      options[opt_idx].flags |= P_WAS_SET;
+  
+  #if defined(FEAT_EVAL)
+!     if (!starting)
+      {
+  	char_u buf_old[2], buf_new[2], buf_type[7];
+  	vim_snprintf((char *)buf_old, 2, "%d", old_value ? TRUE: FALSE);
+  	vim_snprintf((char *)buf_new, 2, "%d", value ? TRUE: FALSE);
+  	vim_snprintf((char *)buf_type, 7, "%s", (opt_flags & OPT_LOCAL) ? "local" : "global");
+--- 8860,8870 ----
+      options[opt_idx].flags |= P_WAS_SET;
+  
+  #if defined(FEAT_EVAL)
+!     // Don't do this while starting up or recursively.
+!     if (!starting && *get_vim_var_str(VV_OPTION_TYPE) == NUL)
+      {
+  	char_u buf_old[2], buf_new[2], buf_type[7];
++ 
+  	vim_snprintf((char *)buf_old, 2, "%d", old_value ? TRUE: FALSE);
+  	vim_snprintf((char *)buf_new, 2, "%d", value ? TRUE: FALSE);
+  	vim_snprintf((char *)buf_type, 7, "%s", (opt_flags & OPT_LOCAL) ? "local" : "global");
+***************
+*** 9415,9421 ****
+      options[opt_idx].flags |= P_WAS_SET;
+  
+  #if defined(FEAT_EVAL)
+!     if (!starting && errmsg == NULL)
+      {
+  	char_u buf_old[11], buf_new[11], buf_type[7];
+  	vim_snprintf((char *)buf_old, 10, "%ld", old_value);
+--- 9419,9426 ----
+      options[opt_idx].flags |= P_WAS_SET;
+  
+  #if defined(FEAT_EVAL)
+!     // Don't do this while starting up, failure or recursively.
+!     if (!starting && errmsg == NULL && *get_vim_var_str(VV_OPTION_TYPE) == NUL)
+      {
+  	char_u buf_old[11], buf_new[11], buf_type[7];
+  	vim_snprintf((char *)buf_old, 10, "%ld", old_value);
+*** ../vim-8.1.0413/src/version.c	2018-09-20 21:39:29.643309960 +0200
+--- src/version.c	2018-09-21 11:58:57.971879329 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     414,
+  /**/
+
+-- 
+From "know your smileys":
+ (X0||)   Double hamburger with lettuce and tomato
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

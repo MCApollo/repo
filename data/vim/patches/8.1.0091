@@ -1,0 +1,369 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0091
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0091
+Problem:    MS-Windows: Cannot interrupt gdb when program is running.
+Solution:   Add debugbreak() and use it in the terminal debugger.
+            Respect 'modified' in a prompt buffer.
+Files:	    src/evalfunc.c, runtime/doc/eval.txt, src/undo.c,
+	    runtime/pack/dist/opt/termdebug/plugin/termdebug.vim
+
+
+*** ../vim-8.1.0090/src/evalfunc.c	2018-06-17 19:36:30.215317108 +0200
+--- src/evalfunc.c	2018-06-20 21:37:04.384279452 +0200
+***************
+*** 123,128 ****
+--- 123,131 ----
+  static void f_count(typval_T *argvars, typval_T *rettv);
+  static void f_cscope_connection(typval_T *argvars, typval_T *rettv);
+  static void f_cursor(typval_T *argsvars, typval_T *rettv);
++ #ifdef WIN3264
++ static void f_debugbreak(typval_T *argvars, typval_T *rettv);
++ #endif
+  static void f_deepcopy(typval_T *argvars, typval_T *rettv);
+  static void f_delete(typval_T *argvars, typval_T *rettv);
+  static void f_deletebufline(typval_T *argvars, typval_T *rettv);
+***************
+*** 577,582 ****
+--- 580,588 ----
+      {"count",		2, 4, f_count},
+      {"cscope_connection",0,3, f_cscope_connection},
+      {"cursor",		1, 3, f_cursor},
++ #ifdef WIN3264
++     {"debugbreak",	1, 1, f_debugbreak},
++ #endif
+      {"deepcopy",	1, 2, f_deepcopy},
+      {"delete",		1, 2, f_delete},
+      {"deletebufline",	2, 3, f_deletebufline},
+***************
+*** 2761,2766 ****
+--- 2767,2799 ----
+      rettv->vval.v_number = 0;
+  }
+  
++ #ifdef WIN3264
++ /*
++  * "debugbreak()" function
++  */
++     static void
++ f_debugbreak(typval_T *argvars, typval_T *rettv)
++ {
++     int		pid;
++ 
++     rettv->vval.v_number = FAIL;
++     pid = (int)get_tv_number(&argvars[0]);
++     if (pid == 0)
++ 	EMSG(_(e_invarg));
++     else
++     {
++ 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
++ 
++ 	if (hProcess != NULL)
++ 	{
++ 	    DebugBreakProcess(hProcess);
++ 	    CloseHandle(hProcess);
++ 	    rettv->vval.v_number = OK;
++ 	}
++     }
++ }
++ #endif
++ 
+  /*
+   * "deepcopy()" function
+   */
+*** ../vim-8.1.0090/runtime/doc/eval.txt	2018-06-17 19:36:30.211317130 +0200
+--- runtime/doc/eval.txt	2018-06-20 20:49:26.069391126 +0200
+***************
+*** 2108,2113 ****
+--- 2108,2114 ----
+  cursor({lnum}, {col} [, {off}])
+  				Number	move cursor to {lnum}, {col}, {off}
+  cursor({list})			Number	move cursor to position in {list}
++ debugbreak({pid})		Number  interrupt process being debugged
+  deepcopy({expr} [, {noref}])	any	make a full copy of {expr}
+  delete({fname} [, {flags}])	Number	delete the file or directory {fname}
+  deletebufline({expr}, {first}[, {last}])
+***************
+*** 3480,3485 ****
+--- 3481,3491 ----
+  		position within a <Tab> or after the last character.
+  		Returns 0 when the position could be set, -1 otherwise.
+  
++ debugbreak({pid})					*debugbreak()*
++ 		Specifically used to interrupt a program being debugged.  It
++ 		will cause process {pid} to get a SIGTRAP.  Behavior for other
++ 		processes is undefined. See |terminal-debugger|.
++ 		{only available on MS-Windows}
+  
+  deepcopy({expr} [, {noref}])				*deepcopy()* *E698*
+  		Make a copy of {expr}.  For Numbers and Strings this isn't
+***************
+*** 5488,5493 ****
+--- 5494,5513 ----
+  		The returned Job object can be used to get the status with
+  		|job_status()| and stop the job with |job_stop()|.
+  
++ 		Note that the job object will be deleted if there are no
++ 		references to it.  This closes the stdin and stderr, which may
++ 		cause the job to fail with an error.  To avoid this keep a
++ 		reference to the job.  Thus instead of: >
++ 	call job_start('my-command')
++ <		use: >
++ 	let myjob = job_start('my-command')
++ <		and unlet "myjob" once the job is not needed or is past the
++ 		point where it would fail (e.g. when it prints a message on
++ 		startup).  Keep in mind that variables local to a function
++ 		will cease to exist if the function returns.  Use a
++ 		script-local variable if needed: >
++ 	let s:myjob = job_start('my-command')
++ <
+  		{options} must be a Dictionary.  It can contain many optional
+  		items, see |job-options|.
+  
+*** ../vim-8.1.0090/src/undo.c	2018-04-08 12:53:24.000000000 +0200
+--- src/undo.c	2018-06-20 22:01:18.595276435 +0200
+***************
+*** 3539,3545 ****
+      int
+  bufIsChangedNotTerm(buf_T *buf)
+  {
+!     return !bt_dontwrite(buf)
+  	&& (buf->b_changed || file_ff_differs(buf, TRUE));
+  }
+  
+--- 3539,3547 ----
+      int
+  bufIsChangedNotTerm(buf_T *buf)
+  {
+!     // In a "prompt" buffer we do respect 'modified', so that we can control
+!     // closing the window by setting or resetting that option.
+!     return (!bt_dontwrite(buf) || bt_prompt(buf))
+  	&& (buf->b_changed || file_ff_differs(buf, TRUE));
+  }
+  
+*** ../vim-8.1.0090/runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-19 22:34:39.608993263 +0200
+--- runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-06-20 22:35:22.126433823 +0200
+***************
+*** 98,103 ****
+--- 98,104 ----
+      return
+    endif
+    let s:ptywin = 0
++   let s:pid = 0
+  
+    " Uncomment this line to write logging in "debuglog".
+    " call ch_logfile('debuglog', 'w')
+***************
+*** 271,276 ****
+--- 272,279 ----
+      exe 'bwipe! ' . s:promptbuf
+      return
+    endif
++   " Mark the buffer modified so that it's not easy to close.
++   set modified
+    let s:gdb_channel = job_getchannel(s:gdbjob)  
+  
+    " Interpret commands while the target is running.  This should usualy only
+***************
+*** 396,405 ****
+    call s:SendCommand(a:text)
+  endfunc
+  
+! " Function called when pressing CTRL-C in the prompt buffer.
+  func s:PromptInterrupt()
+!   call ch_log('Interrupting gdb')
+!   call job_stop(s:gdbjob, 'int')
+  endfunc
+  
+  " Function called when gdb outputs text.
+--- 399,414 ----
+    call s:SendCommand(a:text)
+  endfunc
+  
+! " Function called when pressing CTRL-C in the prompt buffer and when placing a
+! " breakpoint.
+  func s:PromptInterrupt()
+!   if s:pid == 0
+!     echoerr 'Cannot interrupt gdb, did not find a process ID'
+!   else
+!     call ch_log('Interrupting gdb')
+!     " Using job_stop(s:gdbjob, 'int') does not work.
+!     call debugbreak(s:pid)
+!   endif
+  endfunc
+  
+  " Function called when gdb outputs text.
+***************
+*** 430,436 ****
+  
+    " Add the output above the current prompt.
+    call append(line('$') - 1, text)
+!   set nomodified
+  
+    call win_gotoid(curwinid)
+  endfunc
+--- 439,445 ----
+  
+    " Add the output above the current prompt.
+    call append(line('$') - 1, text)
+!   set modified
+  
+    call win_gotoid(curwinid)
+  endfunc
+***************
+*** 509,514 ****
+--- 518,524 ----
+  func s:EndPromptDebug(job, status)
+    let curwinid = win_getid(winnr())
+    call win_gotoid(s:gdbwin)
++   set nomodified
+    close
+    if curwinid != s:gdbwin
+      call win_gotoid(curwinid)
+***************
+*** 535,540 ****
+--- 545,552 ----
+  	call s:HandleNewBreakpoint(msg)
+        elseif msg =~ '^=breakpoint-deleted,'
+  	call s:HandleBreakpointDelete(msg)
++       elseif msg =~ '^=thread-group-started'
++ 	call s:HandleProgramRun(msg)
+        elseif msg =~ '^\^done,value='
+  	call s:HandleEvaluate(msg)
+        elseif msg =~ '^\^error,msg='
+***************
+*** 655,661 ****
+    for val in s:BreakpointSigns
+      exe "sign undefine debugBreakpoint" . val
+    endfor
+!   unlet s:BreakpointSigns
+  endfunc
+  
+  " :Break - Set a breakpoint at the cursor position.
+--- 667,673 ----
+    for val in s:BreakpointSigns
+      exe "sign undefine debugBreakpoint" . val
+    endfor
+!   let s:BreakpointSigns = []
+  endfunc
+  
+  " :Break - Set a breakpoint at the cursor position.
+***************
+*** 666,674 ****
+    if !s:stopped
+      let do_continue = 1
+      if s:way == 'prompt'
+!       " Need to send a signal to get the UI to listen.  Strangely this is only
+!       " needed once.
+!       call job_stop(s:gdbjob, 'int')
+      else
+        call s:SendCommand('-exec-interrupt')
+      endif
+--- 678,684 ----
+    if !s:stopped
+      let do_continue = 1
+      if s:way == 'prompt'
+!       call s:PromptInterrupt()
+      else
+        call s:SendCommand('-exec-interrupt')
+      endif
+***************
+*** 798,810 ****
+    let wid = win_getid(winnr())
+  
+    if a:msg =~ '^\*stopped'
+      let s:stopped = 1
+    elseif a:msg =~ '^\*running'
+      let s:stopped = 0
+    endif
+  
+-   call s:GotoSourcewinOrCreateIt()
+- 
+    if a:msg =~ 'fullname='
+      let fname = s:GetFullname(a:msg)
+    else
+--- 808,820 ----
+    let wid = win_getid(winnr())
+  
+    if a:msg =~ '^\*stopped'
++     call ch_log('program stopped')
+      let s:stopped = 1
+    elseif a:msg =~ '^\*running'
++     call ch_log('program running')
+      let s:stopped = 0
+    endif
+  
+    if a:msg =~ 'fullname='
+      let fname = s:GetFullname(a:msg)
+    else
+***************
+*** 813,818 ****
+--- 823,829 ----
+    if a:msg =~ '^\(\*stopped\|=thread-selected\)' && filereadable(fname)
+      let lnum = substitute(a:msg, '.*line="\([^"]*\)".*', '\1', '')
+      if lnum =~ '^[0-9]*$'
++     call s:GotoSourcewinOrCreateIt()
+        if expand('%:p') != fnamemodify(fname, ':p')
+  	if &modified
+  	  " TODO: find existing window
+***************
+*** 828,834 ****
+        exe 'sign place ' . s:pc_id . ' line=' . lnum . ' name=debugPC file=' . fname
+        setlocal signcolumn=yes
+      endif
+!   else
+      exe 'sign unplace ' . s:pc_id
+    endif
+  
+--- 839,845 ----
+        exe 'sign place ' . s:pc_id . ' line=' . lnum . ' name=debugPC file=' . fname
+        setlocal signcolumn=yes
+      endif
+!   elseif !s:stopped || fname != ''
+      exe 'sign unplace ' . s:pc_id
+    endif
+  
+***************
+*** 892,897 ****
+--- 903,919 ----
+    endif
+  endfunc
+  
++ " Handle the debugged program starting to run.
++ " Will store the process ID in s:pid
++ func s:HandleProgramRun(msg)
++   let nr = substitute(a:msg, '.*pid="\([0-9]*\)\".*', '\1', '') + 0
++   if nr == 0
++     return
++   endif
++   let s:pid = nr
++   call ch_log('Detected process ID: ' . s:pid)
++ endfunc
++ 
+  " Handle a BufRead autocommand event: place any signs.
+  func s:BufRead()
+    let fname = expand('<afile>:p')
+*** ../vim-8.1.0090/src/version.c	2018-06-20 20:37:32.469561678 +0200
+--- src/version.c	2018-06-20 20:50:45.560821218 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     91,
+  /**/
+
+-- 
+From "know your smileys":
+ :q	vi user saying, "How do I get out of this damn emacs editor?"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

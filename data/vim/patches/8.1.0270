@@ -1,0 +1,55 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0270
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0270
+Problem:    Checking for a Tab in a line could be faster.
+Solution:   Use strchr() instead of strrchr(). (closes #3312)
+Files:      src/ex_cmds.c
+    
+
+*** ../vim-8.1.0269/src/ex_cmds.c	2018-08-02 22:23:53.342591238 +0200
+--- src/ex_cmds.c	2018-08-11 14:39:13.611943727 +0200
+***************
+*** 281,287 ****
+      *last = NUL;
+      len = linetabsize(line);		/* get line length */
+      if (has_tab != NULL)		/* check for embedded TAB */
+! 	*has_tab = (vim_strrchr(first, TAB) != NULL);
+      *last = save;
+  
+      return len;
+--- 281,287 ----
+      *last = NUL;
+      len = linetabsize(line);		/* get line length */
+      if (has_tab != NULL)		/* check for embedded TAB */
+! 	*has_tab = (vim_strchr(first, TAB) != NULL);
+      *last = save;
+  
+      return len;
+*** ../vim-8.1.0269/src/version.c	2018-08-11 14:24:06.945748177 +0200
+--- src/version.c	2018-08-11 14:41:05.107212697 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     270,
+  /**/
+
+-- 
+BRIDGEKEEPER: What is the air-speed velocity of an unladen swallow?
+ARTHUR:       What do you mean?  An African or European swallow?
+BRIDGEKEEPER: Er ...  I don't know that ... Aaaaarrrrrrggghhh!
+   BRIDGEKEEPER is cast into the gorge.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

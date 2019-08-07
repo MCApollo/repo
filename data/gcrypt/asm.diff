@@ -1,0 +1,100 @@
+diff -ur libgcrypt-1.8.3/mpi/aarch64/mpih-add1.S libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-add1.S
+--- libgcrypt-1.8.3/mpi/aarch64/mpih-add1.S	2017-11-23 08:16:58.000000000 -1000
++++ libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-add1.S	2018-08-15 10:10:26.000000000 -1000
+@@ -33,9 +33,8 @@
+ 
+ .text
+ 
+-.globl _gcry_mpih_add_n
+-.type  _gcry_mpih_add_n,%function
+-_gcry_mpih_add_n:
++.globl __gcry_mpih_add_n
++__gcry_mpih_add_n:
+ 	and	x5, x3, #3;
+ 	adds	xzr, xzr, xzr; /* clear carry flag */
+ 
+@@ -68,4 +67,3 @@
+ .Lend:
+ 	adc	x0, xzr, xzr;
+ 	ret;
+-.size _gcry_mpih_add_n,.-_gcry_mpih_add_n;
+diff -ur libgcrypt-1.8.3/mpi/aarch64/mpih-mul1.S libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-mul1.S
+--- libgcrypt-1.8.3/mpi/aarch64/mpih-mul1.S	2017-11-23 08:16:58.000000000 -1000
++++ libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-mul1.S	2018-08-15 10:10:34.000000000 -1000
+@@ -33,9 +33,8 @@
+ 
+ .text
+ 
+-.globl _gcry_mpih_mul_1
+-.type  _gcry_mpih_mul_1,%function
+-_gcry_mpih_mul_1:
++.globl __gcry_mpih_mul_1
++__gcry_mpih_mul_1:
+ 	and	x5, x2, #3;
+ 	mov	x4, xzr;
+ 
+@@ -93,4 +92,3 @@
+ .Lend:
+ 	mov	x0, x4;
+ 	ret;
+-.size _gcry_mpih_mul_1,.-_gcry_mpih_mul_1;
+diff -ur libgcrypt-1.8.3/mpi/aarch64/mpih-mul2.S libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-mul2.S
+--- libgcrypt-1.8.3/mpi/aarch64/mpih-mul2.S	2017-11-23 08:16:58.000000000 -1000
++++ libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-mul2.S	2018-08-15 10:10:41.000000000 -1000
+@@ -33,9 +33,8 @@
+ 
+ .text
+ 
+-.globl _gcry_mpih_addmul_1
+-.type  _gcry_mpih_addmul_1,%function
+-_gcry_mpih_addmul_1:
++.globl __gcry_mpih_addmul_1
++__gcry_mpih_addmul_1:
+ 	and	x5, x2, #3;
+ 	mov	x6, xzr;
+ 	mov	x7, xzr;
+@@ -105,4 +104,3 @@
+ .Lend:
+ 	mov	x0, x6;
+ 	ret;
+-.size _gcry_mpih_addmul_1,.-_gcry_mpih_addmul_1;
+diff -ur libgcrypt-1.8.3/mpi/aarch64/mpih-mul3.S libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-mul3.S
+--- libgcrypt-1.8.3/mpi/aarch64/mpih-mul3.S	2017-11-23 08:16:58.000000000 -1000
++++ libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-mul3.S	2018-08-15 10:10:49.000000000 -1000
+@@ -33,9 +33,8 @@
+ 
+ .text
+ 
+-.globl _gcry_mpih_submul_1
+-.type  _gcry_mpih_submul_1,%function
+-_gcry_mpih_submul_1:
++.globl __gcry_mpih_submul_1
++__gcry_mpih_submul_1:
+ 	and	x5, x2, #3;
+ 	mov	x7, xzr;
+ 	cbz	x5, .Large_loop;
+@@ -118,4 +117,3 @@
+ .Loop_end:
+ 	cinc	x0, x7, cc;
+ 	ret;
+-.size _gcry_mpih_submul_1,.-_gcry_mpih_submul_1;
+diff -ur libgcrypt-1.8.3/mpi/aarch64/mpih-sub1.S libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-sub1.S
+--- libgcrypt-1.8.3/mpi/aarch64/mpih-sub1.S	2017-11-23 08:16:58.000000000 -1000
++++ libgcrypt-1.8.3+iPhone/mpi/aarch64/mpih-sub1.S	2018-08-15 10:10:52.000000000 -1000
+@@ -33,9 +33,8 @@
+ 
+ .text
+ 
+-.globl _gcry_mpih_sub_n
+-.type  _gcry_mpih_sub_n,%function
+-_gcry_mpih_sub_n:
++.globl __gcry_mpih_sub_n
++__gcry_mpih_sub_n:
+ 	and	x5, x3, #3;
+ 	subs	xzr, xzr, xzr; /* prepare carry flag for sub */
+ 
+@@ -68,4 +67,3 @@
+ .Lend:
+ 	cset	x0, cc;
+ 	ret;
+-.size _gcry_mpih_sub_n,.-_gcry_mpih_sub_n;

@@ -1,0 +1,217 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0120
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0120
+Problem:    Buffer 'modified' set even when :sort has no changes.
+Solution:   Only set 'modified' when lines are moved. (Jason Franklin)
+Files:	    src/ex_cmds.c, src/testdir/test_sort.vim
+
+
+*** ../vim-8.1.0119/src/ex_cmds.c	2018-06-24 23:53:25.149526513 +0200
+--- src/ex_cmds.c	2018-06-28 11:22:44.383108832 +0200
+***************
+*** 398,403 ****
+--- 398,404 ----
+      colnr_T	end_col;
+      int		sort_what = 0;
+      int		format_found = 0;
++     int		change_occurred = FALSE; // Buffer contents changed.
+  
+      /* Sorting one line is really quick! */
+      if (count <= 1)
+***************
+*** 616,627 ****
+      lnum = eap->line2;
+      for (i = 0; i < count; ++i)
+      {
+! 	s = ml_get(nrs[eap->forceit ? count - i - 1 : i].lnum);
+  	if (!unique || i == 0
+  		|| (sort_ic ? STRICMP(s, sortbuf1) : STRCMP(s, sortbuf1)) != 0)
+  	{
+! 	    /* Copy the line into a buffer, it may become invalid in
+! 	     * ml_append(). And it's needed for "unique". */
+  	    STRCPY(sortbuf1, s);
+  	    if (ml_append(lnum++, sortbuf1, (colnr_T)0, FALSE) == FAIL)
+  		break;
+--- 617,635 ----
+      lnum = eap->line2;
+      for (i = 0; i < count; ++i)
+      {
+! 	linenr_T get_lnum = nrs[eap->forceit ? count - i - 1 : i].lnum;
+! 
+! 	// If the original line number of the line being placed is not the same
+! 	// as "lnum" (accounting for offset), we know that the buffer changed.
+! 	if (get_lnum + ((linenr_T)count - 1) != lnum)
+! 	    change_occurred = TRUE;
+! 
+! 	s = ml_get(get_lnum);
+  	if (!unique || i == 0
+  		|| (sort_ic ? STRICMP(s, sortbuf1) : STRCMP(s, sortbuf1)) != 0)
+  	{
+! 	    // Copy the line into a buffer, it may become invalid in
+! 	    // ml_append(). And it's needed for "unique".
+  	    STRCPY(sortbuf1, s);
+  	    if (ml_append(lnum++, sortbuf1, (colnr_T)0, FALSE) == FAIL)
+  		break;
+***************
+*** 644,650 ****
+  	mark_adjust(eap->line2 - deleted, eap->line2, (long)MAXLNUM, -deleted);
+      else if (deleted < 0)
+  	mark_adjust(eap->line2, MAXLNUM, -deleted, 0L);
+!     changed_lines(eap->line1, 0, eap->line2 + 1, -deleted);
+  
+      curwin->w_cursor.lnum = eap->line1;
+      beginline(BL_WHITE | BL_FIX);
+--- 652,660 ----
+  	mark_adjust(eap->line2 - deleted, eap->line2, (long)MAXLNUM, -deleted);
+      else if (deleted < 0)
+  	mark_adjust(eap->line2, MAXLNUM, -deleted, 0L);
+! 
+!     if (change_occurred || deleted != 0)
+! 	changed_lines(eap->line1, 0, eap->line2 + 1, -deleted);
+  
+      curwin->w_cursor.lnum = eap->line1;
+      beginline(BL_WHITE | BL_FIX);
+*** ../vim-8.1.0119/src/testdir/test_sort.vim	2017-09-23 18:58:18.000000000 +0200
+--- src/testdir/test_sort.vim	2018-06-28 11:21:15.071564844 +0200
+***************
+*** 1,13 ****
+! " Test sort()
+  
+! :func Compare1(a, b) abort
+      call sort(range(3), 'Compare2')
+      return a:a - a:b
+! :endfunc
+  
+! :func Compare2(a, b) abort
+      return a:a - a:b
+! :endfunc
+  
+  func Test_sort_strings()
+    " numbers compared as strings
+--- 1,13 ----
+! " Tests for the "sort()" function and for the ":sort" command.
+  
+! func Compare1(a, b) abort
+      call sort(range(3), 'Compare2')
+      return a:a - a:b
+! endfunc
+  
+! func Compare2(a, b) abort
+      return a:a - a:b
+! endfunc
+  
+  func Test_sort_strings()
+    " numbers compared as strings
+***************
+*** 45,51 ****
+    call assert_fails('call sort([3.3, 1, "2"], 3)', "E474")
+  endfunc
+  
+! " Tests for the :sort command
+  func Test_sort_cmd()
+    let tests = [
+  	\ {
+--- 45,51 ----
+    call assert_fails('call sort([3.3, 1, "2"], 3)', "E474")
+  endfunc
+  
+! " Tests for the ":sort" command.
+  func Test_sort_cmd()
+    let tests = [
+  	\ {
+***************
+*** 1167,1181 ****
+  	\	'1.234',
+  	\	'123.456'
+  	\    ]
+! 	\ }
+  	\ ]
+  
+    for t in tests
+      enew!
+      call append(0, t.input)
+      $delete _
+!     exe t.cmd
+      call assert_equal(t.expected, getline(1, '$'), t.name)
+    endfor
+  
+    call assert_fails('sort no', 'E474')
+--- 1167,1220 ----
+  	\	'1.234',
+  	\	'123.456'
+  	\    ]
+! 	\ },
+! 	\ {
+! 	\    'name' : 'alphabetical, sorted input',
+! 	\    'cmd' : 'sort',
+! 	\    'input' : [
+! 	\	'a',
+! 	\	'b',
+! 	\	'c',
+! 	\    ],
+! 	\    'expected' : [
+! 	\	'a',
+! 	\	'b',
+! 	\	'c',
+! 	\    ]
+! 	\ },
+! 	\ {
+! 	\    'name' : 'alphabetical, sorted input, unique at end',
+! 	\    'cmd' : 'sort u',
+! 	\    'input' : [
+! 	\	'aa',
+! 	\	'bb',
+! 	\	'cc',
+! 	\	'cc',
+! 	\    ],
+! 	\    'expected' : [
+! 	\	'aa',
+! 	\	'bb',
+! 	\	'cc',
+! 	\    ]
+! 	\ },
+  	\ ]
+  
+    for t in tests
+      enew!
+      call append(0, t.input)
+      $delete _
+!     setlocal nomodified
+!     execute t.cmd
+! 
+      call assert_equal(t.expected, getline(1, '$'), t.name)
++ 
++     " Previously, the ":sort" command would set 'modified' even if the buffer
++     " contents did not change.  Here, we check that this problem is fixed.
++     if t.input == t.expected
++       call assert_false(&modified, t.name . ': &mod is not correct')
++     else
++       call assert_true(&modified, t.name . ': &mod is not correct')
++     endif
+    endfor
+  
+    call assert_fails('sort no', 'E474')
+*** ../vim-8.1.0119/src/version.c	2018-06-27 23:12:30.608811033 +0200
+--- src/version.c	2018-06-28 11:09:56.954947638 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     120,
+  /**/
+
+-- 
+You cannot have a baby in one month by getting nine women pregnant.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

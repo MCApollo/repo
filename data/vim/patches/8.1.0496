@@ -1,0 +1,413 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0496
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0496
+Problem:    No tests for indent files.
+Solution:   Add a mechanism for running indent file tests.  Add a first test
+            for Vim indenting.
+Files:	    runtime/indent/Makefile, runtime/indent/testdir/runtest.vim,
+            runtime/indent/testdir/cleantest.vim, runtime/indent/README.txt,
+            runtime/indent/testdir/README.txt, runtime/indent/testdir/vim.in,
+            runtime/indent/testdir/vim.ok, Filelist
+
+
+*** ../vim-8.1.0495/runtime/indent/Makefile	2018-10-25 16:50:51.432794651 +0200
+--- runtime/indent/Makefile	2018-10-25 15:09:00.266824902 +0200
+***************
+*** 0 ****
+--- 1,13 ----
++ # Portable Makefile for running indent tests.
++ 
++ VIM = vim
++ 
++ # Run the tests that didn't run yet or failed previously.
++ # If a test succeeds a testdir/*.out file will be written.
++ # If a test fails a testdir/*.fail file will be written.
++ test:
++ 	$(VIM) --not-a-term -u testdir/runtest.vim
++ 
++ 
++ clean:
++ 	$(VIM) --not-a-term -u testdir/cleantest.vim
+*** ../vim-8.1.0495/runtime/indent/testdir/runtest.vim	1970-01-01 01:00:00.000000000 +0100
+--- runtime/indent/testdir/runtest.vim	2018-10-25 16:46:35.694821475 +0200
+***************
+*** 0 ****
+--- 1,117 ----
++ " Runs all the indent tests for which there is no .out file
++ 
++ set nocp
++ filetype indent on
++ set nowrapscan
++ 
++ au! SwapExists * call HandleSwapExists()
++ func HandleSwapExists()
++   " Ignore finding a swap file for the test input and output, the user might be
++   " editing them and that's OK.
++   if expand('<afile>') =~ '.*\.\(in\|out\|fail\|ok\)'
++     let v:swapchoice = 'e'
++   endif
++ endfunc
++ 
++ for fname in glob('testdir/*.in', 1, 1)
++   let root = substitute(fname, '\.in', '', '')
++ 
++   " Execute the test if the .out file does not exist of when the .in file is
++   " newer.
++   let in_time = getftime(fname)
++   let out_time = getftime(root . '.out')
++   if out_time < 0 || in_time > out_time
++     call delete(root . '.fail')
++     call delete(root . '.out')
++ 
++     set sw& ts& filetype=
++     exe 'split ' . fname
++ 
++     let did_some = 0
++     let failed = 0
++     let end = 1
++     while 1
++       " Indent all the lines between "START_INDENT" and "END_INDENT"
++       exe end
++       let start = search('\<START_INDENT\>')
++       let end = search('\<END_INDENT\>')
++       if start <= 0 || end <= 0 || end <= start
++ 	if did_some == 0
++ 	  call append(0, 'ERROR: START_INDENT and/or END_INDENT not found')
++ 	  let failed = 1
++ 	endif
++ 	break
++       else
++ 	let did_some = 1
++ 
++ 	" Execute all commands marked with INDENT_EXE and find any pattern.
++ 	let lnum = start
++ 	let pattern = ''
++ 	let at = ''
++ 	while 1
++ 	  exe lnum + 1
++ 	  let lnum_exe = search('\<INDENT_EXE\>')
++ 	  exe lnum + 1
++ 	  let indent_at = search('\<INDENT_\(AT\|NEXT\|PREV\)\>')
++ 	  if lnum_exe > 0 && lnum_exe < end && (indent_at <= 0 || lnum_exe < indent_at)
++ 	    exe substitute(getline(lnum_exe), '.*INDENT_EXE', '', '')
++ 	    let lnum = lnum_exe
++ 	    let start = lnum
++ 	  elseif indent_at > 0 && indent_at < end
++ 	    if pattern != ''
++ 	      call append(indent_at, 'ERROR: duplicate pattern')
++ 	      let failed = 1
++ 	      break
++ 	    endif
++ 	    let text = getline(indent_at)
++ 	    let pattern = substitute(text, '.*INDENT_\S*\s*', '', '')
++ 	    let at = substitute(text, '.*INDENT_\(\S*\).*', '\1', '')
++ 	    let lnum = indent_at
++ 	    let start = lnum
++ 	  else
++ 	    break
++ 	  endif
++ 	endwhile
++ 
++ 	exe start + 1
++ 	if pattern == ''
++ 	  exe 'normal =' . (end - 1) . 'G'
++ 	else
++ 	  let lnum = search(pattern)
++ 	  if lnum <= 0
++ 	    call append(indent_at, 'ERROR: pattern not found: ' . pattern)
++ 	    let failed = 1
++ 	    break
++ 	  endif
++ 	  if at == 'AT'
++ 	    exe lnum
++ 	  elseif at == 'NEXT'
++ 	    exe lnum + 1
++ 	  else
++ 	    exe lnum - 1
++ 	  endif
++ 	  normal ==
++ 	endif
++       endif
++     endwhile
++ 
++     if !failed
++       " Check the resulting text equals the .ok file.
++       if getline(1, '$') != readfile(root . '.ok')
++ 	let failed = 1
++       endif
++     endif
++ 
++     if failed
++       exe 'write ' . root . '.fail'
++       echoerr 'Test ' . fname . ' FAILED!'
++       sleep 2
++     else
++       exe 'write ' . root . '.out'
++     endif
++ 
++     quit!  " close the indented file
++   endif
++ endfor
++ 
++ qall!
+*** ../vim-8.1.0495/runtime/indent/testdir/cleantest.vim	1970-01-01 01:00:00.000000000 +0100
+--- runtime/indent/testdir/cleantest.vim	2018-10-25 14:30:08.074821926 +0200
+***************
+*** 0 ****
+--- 1,6 ----
++ " Deletes all the test output files: *.fail and *.out
++ for fname in glob('testdir/*.out', 1, 1) + glob('testdir/*.fail', 1, 1)
++   call delete(fname)
++ endfor
++ 
++ quit
+*** ../vim-8.1.0495/runtime/indent/README.txt	2010-05-15 13:03:29.000000000 +0200
+--- runtime/indent/README.txt	2018-10-25 16:42:14.648927510 +0200
+***************
+*** 43,45 ****
+--- 43,47 ----
+  The user may have several options set unlike you, try to write the file such
+  that it works with any option settings.  Also be aware of certain features not
+  being compiled in.
++ 
++ To test the indent file, see testdir/README.txt.
+*** ../vim-8.1.0495/runtime/indent/testdir/README.txt	1970-01-01 01:00:00.000000000 +0100
+--- runtime/indent/testdir/README.txt	2018-10-25 16:43:55.332109491 +0200
+***************
+*** 0 ****
+--- 1,92 ----
++ TESTING INDENT SCRIPTS
++ 
++ We'll use FILETYPE for the filetype name here.
++ 
++ 
++ FORMAT OF THE FILETYPE.IN FILE
++ 
++ First of all, create a FILETYPE.in file.  It should contain:
++ 
++ - A modeline setting the 'filetype' and any other option values.
++   This must work like a comment for FILETYPE.  E.g. for vim:
++ 	" vim: set ft=vim sw=4 :
++ 
++ - At least one block of lines to indent, prefixed with START_INDENT and
++   followed by END_INDENT.  These lines must also look like a comment for your
++   FILETYPE.  You would normally leave out all indent, so that the effect of
++   the indent command results in adding indent.  Example:
++ 
++ 	" START_INDENT
++ 	func Some()
++ 	let x = 1
++ 	endfunc
++ 	" END_INDENT
++ 
++ - Optionally, a line with INDENT_EXE, followed by a Vim command.  This will be
++   executed before indenting the lines.  Example:
++ 
++ 	" START_INDENT
++ 	" INDENT_EXE let g:vim_indent_cont = 6
++ 	let cmd =
++ 	      \ 'some '
++ 	      \ 'string'
++ 	" END_INDENT
++ 
++   Note that the command is not undone, you may need to reverse the effect for
++   the next block of lines.
++ 
++ - Alternatively to indenting all the lines between START_INDENT and
++   END_INDENT, use a INDENT_AT line, which specifies a pattern to find the line
++   to indent.  Example:
++ 
++ 	" START_INDENT
++ 	" INDENT_AT  this-line
++ 	func Some()
++ 	let f = x " this-line
++ 	endfunc
++ 	" END_INDENT
++ 
++   Alternatively you can use INDENT_NEXT to indent the line below the matching
++   pattern:
++ 
++ 	" START_INDENT
++ 	" INDENT_NEXT  next-line
++ 	func Some()
++ 	" next-line
++ 	let f = x
++ 	endfunc
++ 	" END_INDENT
++ 
++   Or use INDENT_PREV to indent the line above the matching pattern:
++ 
++ 	" START_INDENT
++ 	" INDENT_PREV  prev-line
++ 	func Some()
++       	let f = x
++ 	" prev-line
++ 	endfunc
++ 	" END_INDENT
++ 
++ It's best to keep the whole file valid for FILETYPE, so that syntax
++ highlighting works normally, and any indenting that depends on the syntax
++ highlighting also works.
++ 
++ 
++ RUNNING THE TEST
++ 
++ Before running the test, create a FILETYPE.ok file.  You can leave it empty at
++ first.
++ 
++ Now run "make test".  After Vim has done the indenting you will see a
++ FILETYPE.fail file.  This contains the actual result of indenting, and it's
++ different from the FILETYPE.ok file.
++ 
++ Check the contents of the FILETYPE.fail file.  If it is perfectly OK, then
++ rename it to overwrite the FILETYPE.ok file. If you now run "make test" again,
++ the test will pass and create a FILETYPE.out file, which is identical to the
++ FILETYPE.ok file.
++ 
++ If you try to run "make test" again you will notice that nothing happens,
++ because the FILETYPE.out file already exists.  Delete it, or do "make clean",
++ so that the text runs again.  If you edit the FILETYPE.in file, so that it's
++ newer than the FILETYPE.out file, the test will also run.
+*** ../vim-8.1.0495/runtime/indent/testdir/vim.in	1970-01-01 01:00:00.000000000 +0100
+--- runtime/indent/testdir/vim.in	2018-10-25 16:47:11.262537836 +0200
+***************
+*** 0 ****
+--- 1,46 ----
++ " vim: set ft=vim sw=4 :
++ 
++ " START_INDENT
++ 
++ func Some()
++ let x = 1
++ endfunc
++ 
++ let cmd =
++ \ 'some '
++ \ 'string'
++ 
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_EXE let g:vim_indent_cont = 6
++ 
++ let cmd =
++ \ 'some '
++ \ 'string'
++ 
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_EXE unlet g:vim_indent_cont
++ " INDENT_AT  this-line
++ func Some()
++ let f = x " this-line
++ endfunc
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_NEXT  next-line
++ func Some()
++      " next-line
++ let f = x
++ endfunc
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_PREV  prev-line
++ func Some()
++ let f = x
++ " prev-line
++ endfunc
++ " END_INDENT
+*** ../vim-8.1.0495/runtime/indent/testdir/vim.ok	1970-01-01 01:00:00.000000000 +0100
+--- runtime/indent/testdir/vim.ok	2018-10-25 16:45:29.103354381 +0200
+***************
+*** 0 ****
+--- 1,46 ----
++ " vim: set ft=vim sw=4 :
++ 
++ " START_INDENT
++ 
++ func Some()
++     let x = 1
++ endfunc
++ 
++ let cmd =
++ 	    \ 'some '
++ 	    \ 'string'
++ 
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_EXE let g:vim_indent_cont = 6
++ 
++ let cmd =
++       \ 'some '
++       \ 'string'
++ 
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_EXE unlet g:vim_indent_cont
++ " INDENT_AT  this-line
++ func Some()
++     let f = x " this-line
++ endfunc
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_NEXT  next-line
++ func Some()
++      " next-line
++      let f = x
++ endfunc
++ " END_INDENT
++ 
++ " START_INDENT
++ " INDENT_PREV  prev-line
++ func Some()
++     let f = x
++ " prev-line
++ endfunc
++ " END_INDENT
+*** ../vim-8.1.0495/Filelist	2018-09-19 22:00:26.150988737 +0200
+--- Filelist	2018-10-25 15:16:32.851409638 +0200
+***************
+*** 691,696 ****
+--- 691,701 ----
+  		runtime/compiler/README.txt \
+  		runtime/indent/*.vim \
+  		runtime/indent/README.txt \
++ 		runtime/indent/Makefile \
++ 		runtime/indent/testdir/README.txt \
++ 		runtime/indent/testdir/*.vim \
++ 		runtime/indent/testdir/*.in \
++ 		runtime/indent/testdir/*.ok \
+  		runtime/ftplugin/*.vim \
+  		runtime/ftplugin/logtalk.dict \
+  		runtime/ftplugin/README.txt \
+*** ../vim-8.1.0495/src/version.c	2018-10-25 13:31:33.833906872 +0200
+--- src/version.c	2018-10-25 16:50:35.800917806 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     496,
+  /**/
+
+-- 
+God made the integers; all else is the work of Man.
+		-- Kronecker
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

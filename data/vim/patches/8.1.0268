@@ -1,0 +1,380 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0268
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0268
+Problem:    File type checking has too many #ifdef.
+Solution:   Always define the S_IF macros. (Ken Takata, closes #3306)
+Files:	    src/buffer.c, src/evalfunc.c, src/fileio.c, src/if_cscope.c,
+            src/os_unix.c, src/os_unix.h, src/vim.h
+
+
+*** ../vim-8.1.0267/src/buffer.c	2018-08-07 22:30:26.670240840 +0200
+--- src/buffer.c	2018-08-11 13:48:31.531925854 +0200
+***************
+*** 204,216 ****
+  #endif
+  #ifdef UNIX
+  	perm = mch_getperm(curbuf->b_ffname);
+! 	if (perm >= 0 && (0
+! # ifdef S_ISFIFO
+! 		      || S_ISFIFO(perm)
+! # endif
+! # ifdef S_ISSOCK
+  		      || S_ISSOCK(perm)
+- # endif
+  # ifdef OPEN_CHR_FILES
+  		      || (S_ISCHR(perm) && is_dev_fd_file(curbuf->b_ffname))
+  # endif
+--- 204,211 ----
+  #endif
+  #ifdef UNIX
+  	perm = mch_getperm(curbuf->b_ffname);
+! 	if (perm >= 0 && (S_ISFIFO(perm)
+  		      || S_ISSOCK(perm)
+  # ifdef OPEN_CHR_FILES
+  		      || (S_ISCHR(perm) && is_dev_fd_file(curbuf->b_ffname))
+  # endif
+*** ../vim-8.1.0267/src/evalfunc.c	2018-08-09 22:08:53.017560100 +0200
+--- src/evalfunc.c	2018-08-11 13:48:31.535925823 +0200
+***************
+*** 5088,5150 ****
+      rettv->v_type = VAR_STRING;
+      if (mch_lstat((char *)fname, &st) >= 0)
+      {
+- #ifdef S_ISREG
+  	if (S_ISREG(st.st_mode))
+  	    t = "file";
+  	else if (S_ISDIR(st.st_mode))
+  	    t = "dir";
+- # ifdef S_ISLNK
+  	else if (S_ISLNK(st.st_mode))
+  	    t = "link";
+- # endif
+- # ifdef S_ISBLK
+  	else if (S_ISBLK(st.st_mode))
+  	    t = "bdev";
+- # endif
+- # ifdef S_ISCHR
+  	else if (S_ISCHR(st.st_mode))
+  	    t = "cdev";
+- # endif
+- # ifdef S_ISFIFO
+  	else if (S_ISFIFO(st.st_mode))
+  	    t = "fifo";
+- # endif
+- # ifdef S_ISSOCK
+  	else if (S_ISSOCK(st.st_mode))
+  	    t = "socket";
+- # endif
+  	else
+  	    t = "other";
+- #else
+- # ifdef S_IFMT
+- 	switch (st.st_mode & S_IFMT)
+- 	{
+- 	    case S_IFREG: t = "file"; break;
+- 	    case S_IFDIR: t = "dir"; break;
+- #  ifdef S_IFLNK
+- 	    case S_IFLNK: t = "link"; break;
+- #  endif
+- #  ifdef S_IFBLK
+- 	    case S_IFBLK: t = "bdev"; break;
+- #  endif
+- #  ifdef S_IFCHR
+- 	    case S_IFCHR: t = "cdev"; break;
+- #  endif
+- #  ifdef S_IFIFO
+- 	    case S_IFIFO: t = "fifo"; break;
+- #  endif
+- #  ifdef S_IFSOCK
+- 	    case S_IFSOCK: t = "socket"; break;
+- #  endif
+- 	    default: t = "other";
+- 	}
+- # else
+- 	if (mch_isdir(fname))
+- 	    t = "dir";
+- 	else
+- 	    t = "file";
+- # endif
+- #endif
+  	type = vim_strsave((char_u *)t);
+      }
+      rettv->vval.v_string = type;
+--- 5088,5109 ----
+*** ../vim-8.1.0267/src/fileio.c	2018-08-07 21:39:09.247060119 +0200
+--- src/fileio.c	2018-08-11 13:48:31.535925823 +0200
+***************
+*** 424,435 ****
+  	 */
+  	perm = mch_getperm(fname);
+  	if (perm >= 0 && !S_ISREG(perm)		    /* not a regular file ... */
+- # ifdef S_ISFIFO
+  		      && !S_ISFIFO(perm)	    /* ... or fifo */
+- # endif
+- # ifdef S_ISSOCK
+  		      && !S_ISSOCK(perm)	    /* ... or socket */
+- # endif
+  # ifdef OPEN_CHR_FILES
+  		      && !(S_ISCHR(perm) && is_dev_fd_file(fname))
+  			/* ... or a character special file named /dev/fd/<n> */
+--- 424,431 ----
+***************
+*** 2497,2524 ****
+  	    c = FALSE;
+  
+  #ifdef UNIX
+! # ifdef S_ISFIFO
+! 	    if (S_ISFIFO(perm))			    /* fifo or socket */
+! 	    {
+! 		STRCAT(IObuff, _("[fifo/socket]"));
+! 		c = TRUE;
+! 	    }
+! # else
+! #  ifdef S_IFIFO
+! 	    if ((perm & S_IFMT) == S_IFIFO)	    /* fifo */
+  	    {
+  		STRCAT(IObuff, _("[fifo]"));
+  		c = TRUE;
+  	    }
+! #  endif
+! #  ifdef S_IFSOCK
+! 	    if ((perm & S_IFMT) == S_IFSOCK)	    /* or socket */
+  	    {
+  		STRCAT(IObuff, _("[socket]"));
+  		c = TRUE;
+  	    }
+- #  endif
+- # endif
+  # ifdef OPEN_CHR_FILES
+  	    if (S_ISCHR(perm))			    /* or character special */
+  	    {
+--- 2493,2508 ----
+  	    c = FALSE;
+  
+  #ifdef UNIX
+! 	    if (S_ISFIFO(perm))			    /* fifo */
+  	    {
+  		STRCAT(IObuff, _("[fifo]"));
+  		c = TRUE;
+  	    }
+! 	    if (S_ISSOCK(perm))			    /* or socket */
+  	    {
+  		STRCAT(IObuff, _("[socket]"));
+  		c = TRUE;
+  	    }
+  # ifdef OPEN_CHR_FILES
+  	    if (S_ISCHR(perm))			    /* or character special */
+  	    {
+*** ../vim-8.1.0267/src/if_cscope.c	2018-07-25 21:19:09.363656976 +0200
+--- src/if_cscope.c	2018-08-11 13:48:31.539925791 +0200
+***************
+*** 550,556 ****
+      }
+  
+      /* if filename is a directory, append the cscope database name to it */
+!     if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+      {
+  	fname2 = (char *)alloc((unsigned)(strlen(CSCOPE_DBFILE) + strlen(fname) + 2));
+  	if (fname2 == NULL)
+--- 550,556 ----
+      }
+  
+      /* if filename is a directory, append the cscope database name to it */
+!     if (S_ISDIR(statbuf.st_mode))
+      {
+  	fname2 = (char *)alloc((unsigned)(strlen(CSCOPE_DBFILE) + strlen(fname) + 2));
+  	if (fname2 == NULL)
+***************
+*** 581,592 ****
+  
+  	i = cs_insert_filelist(fname2, ppath, flags, &statbuf);
+      }
+- #if defined(UNIX)
+      else if (S_ISREG(statbuf.st_mode) || S_ISLNK(statbuf.st_mode))
+- #else
+- 	/* WIN32 - substitute define S_ISREG from os_unix.h */
+-     else if (((statbuf.st_mode) & S_IFMT) == S_IFREG)
+- #endif
+      {
+  	i = cs_insert_filelist(fname, ppath, flags, &statbuf);
+      }
+--- 581,587 ----
+*** ../vim-8.1.0267/src/os_unix.c	2018-08-07 22:30:26.666240863 +0200
+--- src/os_unix.c	2018-08-11 13:48:31.539925791 +0200
+***************
+*** 3138,3148 ****
+  	return FALSE;
+      if (stat((char *)name, &statb))
+  	return FALSE;
+- #ifdef _POSIX_SOURCE
+      return (S_ISDIR(statb.st_mode) ? TRUE : FALSE);
+- #else
+-     return ((statb.st_mode & S_IFMT) == S_IFDIR ? TRUE : FALSE);
+- #endif
+  }
+  
+  /*
+--- 3138,3144 ----
+***************
+*** 3159,3169 ****
+  	return FALSE;
+      if (mch_lstat((char *)name, &statb))
+  	return FALSE;
+- #ifdef _POSIX_SOURCE
+      return (S_ISDIR(statb.st_mode) ? TRUE : FALSE);
+- #else
+-     return ((statb.st_mode & S_IFMT) == S_IFDIR ? TRUE : FALSE);
+- #endif
+  }
+  
+  static int executable_file(char_u *name);
+--- 3155,3161 ----
+*** ../vim-8.1.0267/src/os_unix.h	2018-02-28 23:12:59.000000000 +0100
+--- src/os_unix.h	2018-08-11 13:48:31.539925791 +0200
+***************
+*** 458,482 ****
+  # endif
+  #endif
+  
+- #if !defined(S_ISDIR) && defined(S_IFDIR)
+- # define	S_ISDIR(m) (((m) & S_IFMT) == S_IFDIR)
+- #endif
+- #if !defined(S_ISREG) && defined(S_IFREG)
+- # define	S_ISREG(m) (((m) & S_IFMT) == S_IFREG)
+- #endif
+- #if !defined(S_ISBLK) && defined(S_IFBLK)
+- # define	S_ISBLK(m) (((m) & S_IFMT) == S_IFBLK)
+- #endif
+- #if !defined(S_ISSOCK) && defined(S_IFSOCK)
+- # define	S_ISSOCK(m) (((m) & S_IFMT) == S_IFSOCK)
+- #endif
+- #if !defined(S_ISFIFO) && defined(S_IFIFO)
+- # define	S_ISFIFO(m) (((m) & S_IFMT) == S_IFIFO)
+- #endif
+- #if !defined(S_ISCHR) && defined(S_IFCHR)
+- # define	S_ISCHR(m) (((m) & S_IFMT) == S_IFCHR)
+- #endif
+- 
+  /* Note: Some systems need both string.h and strings.h (Savage).  However,
+   * some systems can't handle both, only use string.h in that case. */
+  #ifdef HAVE_STRING_H
+--- 458,463 ----
+*** ../vim-8.1.0267/src/vim.h	2018-08-07 22:42:48.965416564 +0200
+--- src/vim.h	2018-08-11 13:48:31.539925791 +0200
+***************
+*** 2290,2304 ****
+  
+  #endif
+  
+- /* ISSYMLINK(mode) tests if a file is a symbolic link. */
+- #if (defined(S_IFMT) && defined(S_IFLNK)) || defined(S_ISLNK)
+- # define HAVE_ISSYMLINK
+- # if defined(S_IFMT) && defined(S_IFLNK)
+- #  define ISSYMLINK(mode) (((mode) & S_IFMT) == S_IFLNK)
+- # else
+- #  define ISSYMLINK(mode) S_ISLNK(mode)
+- # endif
+- #endif
+  
+  #define SIGN_BYTE 1	    /* byte value used where sign is displayed;
+  			       attribute value is sign type */
+--- 2290,2295 ----
+***************
+*** 2517,2526 ****
+  
+  /* BSD is supposed to cover FreeBSD and similar systems. */
+  #if (defined(SUN_SYSTEM) || defined(BSD) || defined(__FreeBSD_kernel__)) \
+! 	&& defined(S_ISCHR)
+  # define OPEN_CHR_FILES
+  #endif
+  
+  #if defined(HAVE_GETTIMEOFDAY) && defined(HAVE_SYS_TIME_H)
+  # define ELAPSED_TIMEVAL
+  # define ELAPSED_INIT(v) gettimeofday(&v, NULL)
+--- 2508,2568 ----
+  
+  /* BSD is supposed to cover FreeBSD and similar systems. */
+  #if (defined(SUN_SYSTEM) || defined(BSD) || defined(__FreeBSD_kernel__)) \
+! 	&& (defined(S_ISCHR) || defined(S_IFCHR))
+  # define OPEN_CHR_FILES
+  #endif
+  
++ /* stat macros */
++ #ifndef S_ISDIR
++ # ifdef S_IFDIR
++ #  define S_ISDIR(m)	(((m) & S_IFMT) == S_IFDIR)
++ # else
++ #  define S_ISDIR(m)	0
++ # endif
++ #endif
++ #ifndef S_ISREG
++ # ifdef S_IFREG
++ #  define S_ISREG(m)	(((m) & S_IFMT) == S_IFREG)
++ # else
++ #  define S_ISREG(m)	0
++ # endif
++ #endif
++ #ifndef S_ISBLK
++ # ifdef S_IFBLK
++ #  define S_ISBLK(m)	(((m) & S_IFMT) == S_IFBLK)
++ # else
++ #  define S_ISBLK(m)	0
++ # endif
++ #endif
++ #ifndef S_ISSOCK
++ # ifdef S_IFSOCK
++ #  define S_ISSOCK(m)	(((m) & S_IFMT) == S_IFSOCK)
++ # else
++ #  define S_ISSOCK(m)	0
++ # endif
++ #endif
++ #ifndef S_ISFIFO
++ # ifdef S_IFIFO
++ #  define S_ISFIFO(m)	(((m) & S_IFMT) == S_IFIFO)
++ # else
++ #  define S_ISFIFO(m)	0
++ # endif
++ #endif
++ #ifndef S_ISCHR
++ # ifdef S_IFCHR
++ #  define S_ISCHR(m)	(((m) & S_IFMT) == S_IFCHR)
++ # else
++ #  define S_ISCHR(m)	0
++ # endif
++ #endif
++ #ifndef S_ISLNK
++ # ifdef S_IFLNK
++ #  define S_ISLNK(m)	(((m) & S_IFMT) == S_IFLNK)
++ # else
++ #  define S_ISLNK(m)	0
++ # endif
++ #endif
++ 
+  #if defined(HAVE_GETTIMEOFDAY) && defined(HAVE_SYS_TIME_H)
+  # define ELAPSED_TIMEVAL
+  # define ELAPSED_INIT(v) gettimeofday(&v, NULL)
+*** ../vim-8.1.0267/src/version.c	2018-08-11 13:36:51.806140673 +0200
+--- src/version.c	2018-08-11 13:49:48.951318065 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     268,
+  /**/
+
+-- 
+Q: What kind of stuff do you do?
+A: I collect hobbies.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,233 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0448
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0448
+Problem:    Cursorline not removed when using 'cursorbind'. (Justin Keyes)
+Solution:   Store the last cursor line per window. (closes #3488)
+Files:	    src/testdir/test_diffmode.vim,
+            src/testdir/dumps/Test_diff_with_cursorline_01.dump,
+            src/testdir/dumps/Test_diff_with_cursorline_02.dump,
+            src/testdir/dumps/Test_diff_with_cursorline_03.dump,
+            src/structs.h, src/move.c
+
+
+*** ../vim-8.1.0447/src/testdir/test_diffmode.vim	2018-09-16 15:47:45.629425398 +0200
+--- src/testdir/test_diffmode.vim	2018-10-02 17:13:44.568029822 +0200
+***************
+*** 817,819 ****
+--- 817,845 ----
+    call delete('Xfile2')
+  endfunc
+  
++ func Test_diff_with_cursorline()
++   if !CanRunVimInTerminal()
++     return
++   endif
++ 
++   call writefile([
++ 	\ 'hi CursorLine ctermbg=red ctermfg=white',
++ 	\ 'set cursorline',
++ 	\ 'call setline(1, ["foo","foo","foo","bar"])',
++ 	\ 'vnew',
++ 	\ 'call setline(1, ["bee","foo","foo","baz"])',
++ 	\ 'windo diffthis',
++ 	\ '2wincmd w',
++ 	\ ], 'Xtest_diff_cursorline')
++   let buf = RunVimInTerminal('-S Xtest_diff_cursorline', {})
++ 
++   call VerifyScreenDump(buf, 'Test_diff_with_cursorline_01', {})
++   call term_sendkeys(buf, "j")
++   call VerifyScreenDump(buf, 'Test_diff_with_cursorline_02', {})
++   call term_sendkeys(buf, "j")
++   call VerifyScreenDump(buf, 'Test_diff_with_cursorline_03', {})
++ 
++   " clean up
++   call StopVimInTerminal(buf)
++   call delete('Xtest_diff_cursorline')
++ endfunc
+*** ../vim-8.1.0447/src/testdir/dumps/Test_diff_with_cursorline_01.dump	2018-10-02 18:24:28.837408182 +0200
+--- src/testdir/dumps/Test_diff_with_cursorline_01.dump	2018-10-02 17:13:50.367983071 +0200
+***************
+*** 0 ****
+--- 1,20 ----
++ | +0#0000e05#a8a8a8255@1|b+8#ffffff16#ff404010|e@1| @31||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34
++ | +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31||+1&&| +0#0000e05#a8a8a8255@1>f+8#ffffff16#ff404010|o@1| @31
++ | +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31||+1&&| +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31
++ | +0#0000e05#a8a8a8255@1|b+2#0000000#ff404010|a|z| +0&#ffd7ff255@31||+1&#ffffff0| +0#0000e05#a8a8a8255@1|f+2#0000000#ff404010|o@1| +0&#ffd7ff255@31
++ | +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|b+0#0000000#5fd7ff255|a|r| @31
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ |[+1#0000000&|N|o| |N|a|m|e|]| |[|+|]| @5|1|,|1| @11|A|l@1| |[+3&&|N|o| |N|a|m|e|]| |[|+|]| @5|1|,|1| @11|A|l@1
++ | +0&&@74
+*** ../vim-8.1.0447/src/testdir/dumps/Test_diff_with_cursorline_02.dump	2018-10-02 18:24:28.841408152 +0200
+--- src/testdir/dumps/Test_diff_with_cursorline_02.dump	2018-10-02 17:58:28.616935305 +0200
+***************
+*** 0 ****
+--- 1,20 ----
++ | +0#0000e05#a8a8a8255@1|b+0#0000000#5fd7ff255|e@1| @31||+1&#ffffff0| +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34
++ | +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31||+1&&| +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31
++ | +0#0000e05#a8a8a8255@1|f+8#ffffff16#ff404010|o@1| @31||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1>f+8#ffffff16#ff404010|o@1| @31
++ | +0#0000e05#a8a8a8255@1|b+2#0000000#ff404010|a|z| +0&#ffd7ff255@31||+1&#ffffff0| +0#0000e05#a8a8a8255@1|f+2#0000000#ff404010|o@1| +0&#ffd7ff255@31
++ | +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|b+0#0000000#5fd7ff255|a|r| @31
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ |[+1#0000000&|N|o| |N|a|m|e|]| |[|+|]| @5|3|,|1| @11|A|l@1| |[+3&&|N|o| |N|a|m|e|]| |[|+|]| @5|2|,|1| @11|A|l@1
++ | +0&&@74
+*** ../vim-8.1.0447/src/testdir/dumps/Test_diff_with_cursorline_03.dump	2018-10-02 18:24:28.845408122 +0200
+--- src/testdir/dumps/Test_diff_with_cursorline_03.dump	2018-10-02 17:58:29.668927931 +0200
+***************
+*** 0 ****
+--- 1,20 ----
++ | +0#0000e05#a8a8a8255@1|b+0#0000000#5fd7ff255|e@1| @31||+1&#ffffff0| +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34
++ | +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31||+1&&| +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31
++ | +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31||+1&&| +0#0000e05#a8a8a8255@1|f+0#0000000#ffffff0|o@1| @31
++ | +0#0000e05#a8a8a8255@1|b+10#ffffff16#ff404010|a|z| +8&&@31||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1>f+10#ffffff16#ff404010|o@1| +8&&@31
++ | +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|b+0#0000000#5fd7ff255|a|r| @31
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ |[+1#0000000&|N|o| |N|a|m|e|]| |[|+|]| @5|4|,|1| @11|A|l@1| |[+3&&|N|o| |N|a|m|e|]| |[|+|]| @5|3|,|1| @11|A|l@1
++ | +0&&@74
+*** ../vim-8.1.0447/src/structs.h	2018-09-16 14:10:28.300323360 +0200
+--- src/structs.h	2018-10-02 17:27:47.385431264 +0200
+***************
+*** 2686,2691 ****
+--- 2686,2695 ----
+  				       time through cursupdate() to the
+  				       current virtual column */
+  
++ #ifdef FEAT_SYN_HL
++     linenr_T	w_last_cursorline;  // where last time 'cursorline' was drawn
++ #endif
++ 
+      /*
+       * the next seven are used to update the visual part
+       */
+*** ../vim-8.1.0447/src/move.c	2018-09-30 21:43:17.195693290 +0200
+--- src/move.c	2018-10-02 17:29:27.368662974 +0200
+***************
+*** 117,128 ****
+  }
+  
+  #ifdef FEAT_SYN_HL
+- static linenr_T	last_cursorline = 0;
+- 
+      void
+  reset_cursorline(void)
+  {
+!     last_cursorline = 0;
+  }
+  #endif
+  
+--- 117,126 ----
+  }
+  
+  #ifdef FEAT_SYN_HL
+      void
+  reset_cursorline(void)
+  {
+!     curwin->w_last_cursorline = 0;
+  }
+  #endif
+  
+***************
+*** 150,167 ****
+  #ifdef FEAT_SYN_HL
+  	if (wp->w_p_cul)
+  	{
+! 	    if (wp->w_redr_type <= VALID && last_cursorline != 0)
+  	    {
+! 		// "last_cursorline" may be set for another window, worst case
+! 		// we redraw too much.  This is optimized for moving the cursor
+! 		// around in the same window.
+! 		redrawWinline(wp, last_cursorline, FALSE);
+  		redrawWinline(wp, wp->w_cursor.lnum, FALSE);
+  		redraw_win_later(wp, VALID);
+  	    }
+  	    else
+  		redraw_win_later(wp, SOME_VALID);
+! 	    last_cursorline = wp->w_cursor.lnum;
+  	}
+  #endif
+      }
+--- 148,165 ----
+  #ifdef FEAT_SYN_HL
+  	if (wp->w_p_cul)
+  	{
+! 	    if (wp->w_redr_type <= VALID && wp->w_last_cursorline != 0)
+  	    {
+! 		// "w_last_cursorline" may be outdated, worst case we redraw
+! 		// too much.  This is optimized for moving the cursor around in
+! 		// the current window.
+! 		redrawWinline(wp, wp->w_last_cursorline, FALSE);
+  		redrawWinline(wp, wp->w_cursor.lnum, FALSE);
+  		redraw_win_later(wp, VALID);
+  	    }
+  	    else
+  		redraw_win_later(wp, SOME_VALID);
+! 	    wp->w_last_cursorline = wp->w_cursor.lnum;
+  	}
+  #endif
+      }
+*** ../vim-8.1.0447/src/version.c	2018-10-02 16:23:55.323037143 +0200
+--- src/version.c	2018-10-02 18:24:16.109503149 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     448,
+  /**/
+
+-- 
+"The sun oozed over the horizon, shoved aside darkness, crept along the
+greensward, and, with sickly fingers, pushed through the castle window,
+revealing the pillaged princess, hand at throat, crown asunder, gaping
+in frenzied horror at the sated, sodden amphibian lying beside her,
+disbelieving the magnitude of the frog's deception, screaming madly,
+"You lied!"
+    - Winner of the Bulwer-Lytton contest (San Jose State University),
+      wherein one writes only the first line of a bad novel
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,54 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0501
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0501
+Problem:    Cppcheck warns for using array index before bounds check.
+Solution:   Swap the conditions. (Dominique Pelle)
+Files:	    src/memline.c
+
+
+*** ../vim-8.1.0500/src/memline.c	2018-10-13 19:06:23.502240830 +0200
+--- src/memline.c	2018-10-30 22:09:37.994123602 +0100
+***************
+*** 5029,5036 ****
+  	    curline += buf->b_ml.ml_chunksize[curix].mlcs_numlines;
+  	}
+      }
+!     else if (line >= curline + buf->b_ml.ml_chunksize[curix].mlcs_numlines
+! 		 && curix < buf->b_ml.ml_usedchunks - 1)
+      {
+  	/* Adjust cached curix & curline */
+  	curline += buf->b_ml.ml_chunksize[curix].mlcs_numlines;
+--- 5029,5036 ----
+  	    curline += buf->b_ml.ml_chunksize[curix].mlcs_numlines;
+  	}
+      }
+!     else if (curix < buf->b_ml.ml_usedchunks - 1
+! 	      && line >= curline + buf->b_ml.ml_chunksize[curix].mlcs_numlines)
+      {
+  	/* Adjust cached curix & curline */
+  	curline += buf->b_ml.ml_chunksize[curix].mlcs_numlines;
+*** ../vim-8.1.0500/src/version.c	2018-10-28 15:43:54.248419267 +0100
+--- src/version.c	2018-10-30 22:10:34.545673410 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     501,
+  /**/
+
+-- 
+Facepalm reply #9: "Speed up, you can drive 80 here" "Why, the cars behind us
+are also driving 60"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,797 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0528
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0528
+Problem:    Various typos in comments.
+Solution:   Fix the typos.
+Files:	    src/fileio.c, src/gui.c, src/macros.h, src/screen.c, src/search.c,
+            src/spell.c, src/spellfile.c, src/vim.h, src/testdir/README.txt,
+	    src/INSTALL, src/gui_athena.c, src/gui_gtk.c,
+	    src/gui_gtk_x11.c, src/gui_motif.c, src/gui_xmebw.c,
+	    src/if_tcl.c, src/os_amiga.c, src/gui_w32.c, src/os_win32.c,
+	    src/gui_mac.c, src/os_vms_fix.com
+
+
+*** ../vim-8.1.0527/src/fileio.c	2018-10-14 21:40:57.352848455 +0200
+--- src/fileio.c	2018-10-23 21:33:23.638928974 +0200
+***************
+*** 8086,8092 ****
+  
+  /*
+   * Add an autocmd group name.
+!  * Return it's ID.  Returns AUGROUP_ERROR (< 0) for error.
+   */
+      static int
+  au_new_group(char_u *name)
+--- 8086,8092 ----
+  
+  /*
+   * Add an autocmd group name.
+!  * Return its ID.  Returns AUGROUP_ERROR (< 0) for error.
+   */
+      static int
+  au_new_group(char_u *name)
+***************
+*** 8153,8159 ****
+  
+  /*
+   * Find the ID of an autocmd group name.
+!  * Return it's ID.  Returns AUGROUP_ERROR (< 0) for error.
+   */
+      static int
+  au_find_group(char_u *name)
+--- 8153,8159 ----
+  
+  /*
+   * Find the ID of an autocmd group name.
+!  * Return its ID.  Returns AUGROUP_ERROR (< 0) for error.
+   */
+      static int
+  au_find_group(char_u *name)
+*** ../vim-8.1.0527/src/gui.c	2018-09-30 21:43:17.191693320 +0200
+--- src/gui.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 5501,5507 ****
+  	    p = NULL;
+  
+  	/* Handle the drop, :edit or :split to get to the file.  This also
+! 	 * frees fnames[].  Skip this if there is only one item it's a
+  	 * directory and Shift is held down. */
+  	if (count == 1 && (modifiers & MOUSE_SHIFT) != 0
+  						     && mch_isdir(fnames[0]))
+--- 5501,5507 ----
+  	    p = NULL;
+  
+  	/* Handle the drop, :edit or :split to get to the file.  This also
+! 	 * frees fnames[].  Skip this if there is only one item, it's a
+  	 * directory and Shift is held down. */
+  	if (count == 1 && (modifiers & MOUSE_SHIFT) != 0
+  						     && mch_isdir(fnames[0]))
+*** ../vim-8.1.0527/src/macros.h	2018-07-29 16:09:14.644945560 +0200
+--- src/macros.h	2018-10-23 21:33:23.646928902 +0200
+***************
+*** 192,198 ****
+  #   define mch_access(n, p)	access((n), (p))
+  # endif
+  # define mch_fstat(n, p)	fstat((n), (p))
+! # ifdef MSWIN	/* has it's own mch_stat() function */
+  #  define mch_stat(n, p)	vim_stat((n), (p))
+  # else
+  #  ifdef STAT_IGNORES_SLASH
+--- 192,198 ----
+  #   define mch_access(n, p)	access((n), (p))
+  # endif
+  # define mch_fstat(n, p)	fstat((n), (p))
+! # ifdef MSWIN	/* has its own mch_stat() function */
+  #  define mch_stat(n, p)	vim_stat((n), (p))
+  # else
+  #  ifdef STAT_IGNORES_SLASH
+*** ../vim-8.1.0527/src/screen.c	2018-10-02 21:48:30.641640211 +0200
+--- src/screen.c	2018-10-23 21:33:23.646928902 +0200
+***************
+*** 6223,6229 ****
+  	     * first highlighted character.  The stop-highlighting code must
+  	     * be written with the cursor just after the last highlighted
+  	     * character.
+! 	     * Overwriting a character doesn't remove it's highlighting.  Need
+  	     * to clear the rest of the line, and force redrawing it
+  	     * completely.
+  	     */
+--- 6223,6229 ----
+  	     * first highlighted character.  The stop-highlighting code must
+  	     * be written with the cursor just after the last highlighted
+  	     * character.
+! 	     * Overwriting a character doesn't remove its highlighting.  Need
+  	     * to clear the rest of the line, and force redrawing it
+  	     * completely.
+  	     */
+*** ../vim-8.1.0527/src/search.c	2018-09-30 21:43:17.203693237 +0200
+--- src/search.c	2018-10-23 21:33:23.646928902 +0200
+***************
+*** 357,365 ****
+   * Save and restore the search pattern for incremental highlight search
+   * feature.
+   *
+!  * It's similar but differnt from save_search_patterns() and
+   * restore_search_patterns(), because the search pattern must be restored when
+!  * cannceling incremental searching even if it's called inside user functions.
+   */
+      void
+  save_last_search_pattern(void)
+--- 357,365 ----
+   * Save and restore the search pattern for incremental highlight search
+   * feature.
+   *
+!  * It's similar to but different from save_search_patterns() and
+   * restore_search_patterns(), because the search pattern must be restored when
+!  * canceling incremental searching even if it's called inside user functions.
+   */
+      void
+  save_last_search_pattern(void)
+***************
+*** 2869,2875 ****
+  	    }
+  #endif
+  
+! 	    /* POSIX has it's own ideas of what a paragraph boundary is and it
+  	     * doesn't match historical Vi: It also stops at a "{" in the
+  	     * first column and at an empty line. */
+  	    if (!first && did_skip && (startPS(curr, what, both)
+--- 2869,2875 ----
+  	    }
+  #endif
+  
+! 	    /* POSIX has its own ideas of what a paragraph boundary is and it
+  	     * doesn't match historical Vi: It also stops at a "{" in the
+  	     * first column and at an empty line. */
+  	    if (!first && did_skip && (startPS(curr, what, both)
+*** ../vim-8.1.0527/src/spell.c	2018-09-30 21:43:17.203693237 +0200
+--- src/spell.c	2018-10-23 21:33:23.646928902 +0200
+***************
+*** 2686,2692 ****
+  
+  /*
+   * Find the region "region[2]" in "rp" (points to "sl_regions").
+!  * Each region is simply stored as the two characters of it's name.
+   * Returns the index if found (first is 0), REGION_ALL if not found.
+   */
+      static int
+--- 2686,2692 ----
+  
+  /*
+   * Find the region "region[2]" in "rp" (points to "sl_regions").
+!  * Each region is simply stored as the two characters of its name.
+   * Returns the index if found (first is 0), REGION_ALL if not found.
+   */
+      static int
+*** ../vim-8.1.0527/src/spellfile.c	2018-09-30 21:43:17.203693237 +0200
+--- src/spellfile.c	2018-10-23 21:33:23.650928864 +0200
+***************
+*** 3784,3790 ****
+  	if (get_affitem(affile->af_flagtype, &p) != 0)
+  	{
+  	    /* A flag is a postponed prefix flag if it appears in "af_pref"
+! 	     * and it's ID is not zero. */
+  	    vim_strncpy(key, prevp, p - prevp);
+  	    hi = hash_find(&affile->af_pref, key);
+  	    if (!HASHITEM_EMPTY(hi))
+--- 3784,3790 ----
+  	if (get_affitem(affile->af_flagtype, &p) != 0)
+  	{
+  	    /* A flag is a postponed prefix flag if it appears in "af_pref"
+! 	     * and its ID is not zero. */
+  	    vim_strncpy(key, prevp, p - prevp);
+  	    hi = hash_find(&affile->af_pref, key);
+  	    if (!HASHITEM_EMPTY(hi))
+*** ../vim-8.1.0527/src/vim.h	2018-10-07 23:16:33.134616234 +0200
+--- src/vim.h	2018-10-23 20:29:03.588597981 +0200
+***************
+*** 1270,1276 ****
+      EVENT_BUFWRITECMD,		// write buffer using command
+      EVENT_BUFWRITEPOST,		// after writing a buffer
+      EVENT_BUFWRITEPRE,		// before writing a buffer
+!     EVENT_CMDLINECHANGED,	// command line was modified*/
+      EVENT_CMDLINEENTER,		// after entering the command line
+      EVENT_CMDLINELEAVE,		// before leaving the command line
+      EVENT_CMDUNDEFINED,		// command undefined
+--- 1270,1276 ----
+      EVENT_BUFWRITECMD,		// write buffer using command
+      EVENT_BUFWRITEPOST,		// after writing a buffer
+      EVENT_BUFWRITEPRE,		// before writing a buffer
+!     EVENT_CMDLINECHANGED,	// command line was modified
+      EVENT_CMDLINEENTER,		// after entering the command line
+      EVENT_CMDLINELEAVE,		// before leaving the command line
+      EVENT_CMDUNDEFINED,		// command undefined
+*** ../vim-8.1.0527/src/testdir/README.txt	2018-09-09 15:56:03.143904759 +0200
+--- src/testdir/README.txt	2018-09-16 14:26:14.690949666 +0200
+***************
+*** 54,60 ****
+  
+  TO ADD A SCREEN DUMP TEST:
+  
+! Mostly the same as writing a new style test.  Additonally, see help on
+  "terminal-dumptest".  Put the reference dump in "dumps/Test_func_name.dump".
+  
+  
+--- 54,60 ----
+  
+  TO ADD A SCREEN DUMP TEST:
+  
+! Mostly the same as writing a new style test.  Additionally, see help on
+  "terminal-dumptest".  Put the reference dump in "dumps/Test_func_name.dump".
+  
+  
+*** ../vim-8.1.0527/src/INSTALL	2016-11-12 20:11:25.000000000 +0100
+--- src/INSTALL	2018-09-08 15:56:45.698920295 +0200
+***************
+*** 11,20 ****
+  
+  See INSTALLami.txt              for Amiga
+  See INSTALLmac.txt              for Macintosh
+! See INSTALLpc.txt               for PC (Windows 95/98/NT/XP/Vista/7/8/10)
+  See INSTALLvms.txt              for VMS
+  See INSTALLx.txt		for cross-compiling on Unix
+! See ../README_390.txt           for OS/390 Unix
+  See ../runtime/doc/os_beos.txt  for BeBox
+  
+  
+--- 11,20 ----
+  
+  See INSTALLami.txt              for Amiga
+  See INSTALLmac.txt              for Macintosh
+! See INSTALLpc.txt               for PC (Windows XP/Vista/7/8/10)
+  See INSTALLvms.txt              for VMS
+  See INSTALLx.txt		for cross-compiling on Unix
+! See ../READMEdir/README_390.txt for z/OS and OS/390 Unix
+  See ../runtime/doc/os_beos.txt  for BeBox
+  
+  
+*** ../vim-8.1.0527/src/gui_athena.c	2018-09-30 21:43:17.191693320 +0200
+--- src/gui_athena.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 900,906 ****
+  	{
+  	    XtUnmanageChild(id);
+  	    XtVaSetValues(id, XtNfontSet, gui.menu_fontset, NULL);
+! 	    /* We should force the widget to recalculate it's
+  	     * geometry now. */
+  	    XtManageChild(id);
+  	}
+--- 900,906 ----
+  	{
+  	    XtUnmanageChild(id);
+  	    XtVaSetValues(id, XtNfontSet, gui.menu_fontset, NULL);
+! 	    /* We should force the widget to recalculate its
+  	     * geometry now. */
+  	    XtManageChild(id);
+  	}
+***************
+*** 929,935 ****
+  	if (has_submenu(id))
+  	    XtVaSetValues(id, XtNrightBitmap, pullerBitmap, NULL);
+  
+! 	/* Force the widget to recalculate it's geometry now. */
+  	if (managed)
+  	    XtManageChild(id);
+      }
+--- 929,935 ----
+  	if (has_submenu(id))
+  	    XtVaSetValues(id, XtNrightBitmap, pullerBitmap, NULL);
+  
+! 	/* Force the widget to recalculate its geometry now. */
+  	if (managed)
+  	    XtManageChild(id);
+      }
+***************
+*** 989,995 ****
+  	}
+      }
+      /* Now, to simulate the window being resized.  Only, this
+!      * will resize the window to it's current state.
+       *
+       * There has to be a better way, but I do not see one at this time.
+       * (David Harrison)
+--- 989,995 ----
+  	}
+      }
+      /* Now, to simulate the window being resized.  Only, this
+!      * will resize the window to its current state.
+       *
+       * There has to be a better way, but I do not see one at this time.
+       * (David Harrison)
+***************
+*** 1071,1077 ****
+  		}
+  
+  # ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change it's colors */
+  		if (mp->tip != NULL)
+  		{
+  		    Arg args[2];
+--- 1071,1077 ----
+  		}
+  
+  # ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change its colors */
+  		if (mp->tip != NULL)
+  		{
+  		    Arg args[2];
+***************
+*** 1089,1095 ****
+  	    {
+  		gui_athena_menu_font(mp->id);
+  #ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change it's font */
+  		/* Assume XtNinternational == True (in createBalloonEvalWindow)
+  		 */
+  		if (mp->tip != NULL)
+--- 1089,1095 ----
+  	    {
+  		gui_athena_menu_font(mp->id);
+  #ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change its font */
+  		/* Assume XtNinternational == True (in createBalloonEvalWindow)
+  		 */
+  		if (mp->tip != NULL)
+***************
+*** 1552,1558 ****
+  	 * This is a hack to stop the Athena simpleMenuWidget from getting a
+  	 * BadValue error when a menu's last child is destroyed. We check to
+  	 * see if this is the last child and if so, don't delete it. The parent
+! 	 * will be deleted soon anyway, and it will delete it's children like
+  	 * all good widgets do.
+  	 */
+  	/* NOTE: The cause of the BadValue X Protocol Error is because when the
+--- 1552,1558 ----
+  	 * This is a hack to stop the Athena simpleMenuWidget from getting a
+  	 * BadValue error when a menu's last child is destroyed. We check to
+  	 * see if this is the last child and if so, don't delete it. The parent
+! 	 * will be deleted soon anyway, and it will delete its children like
+  	 * all good widgets do.
+  	 */
+  	/* NOTE: The cause of the BadValue X Protocol Error is because when the
+*** ../vim-8.1.0527/src/gui_gtk.c	2018-09-18 22:29:59.888041388 +0200
+--- src/gui_gtk.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 925,931 ****
+  	g_object_ref(menu->id);
+  
+      /* Workaround for a spurious gtk warning in Ubuntu: "Trying to remove
+!      * a child that doesn't believe we're it's parent."
+       * Remove widget from gui.menubar before destroying it. */
+      if (menu->id != NULL && gui.menubar != NULL
+  			    && gtk_widget_get_parent(menu->id) == gui.menubar)
+--- 925,931 ----
+  	g_object_ref(menu->id);
+  
+      /* Workaround for a spurious gtk warning in Ubuntu: "Trying to remove
+!      * a child that doesn't believe we're its parent."
+       * Remove widget from gui.menubar before destroying it. */
+      if (menu->id != NULL && gui.menubar != NULL
+  			    && gtk_widget_get_parent(menu->id) == gui.menubar)
+*** ../vim-8.1.0527/src/gui_gtk_x11.c	2018-09-30 21:43:17.191693320 +0200
+--- src/gui_gtk_x11.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 4284,4290 ****
+   * hints (and thus the required size from -geom), but that after that we
+   * put the hints back to normal (the actual minimum size) so we may
+   * subsequently be resized smaller.  GtkSocket (the parent end) uses the
+!  * plug's window 'min hints to set *it's* minimum size, but that's also the
+   * only way we have of making ourselves bigger (by set lines/columns).
+   * Thus set hints at start-up to ensure correct init. size, then a
+   * second after the final attempt to reset the real minimum hints (done by
+--- 4284,4290 ----
+   * hints (and thus the required size from -geom), but that after that we
+   * put the hints back to normal (the actual minimum size) so we may
+   * subsequently be resized smaller.  GtkSocket (the parent end) uses the
+!  * plug's window 'min hints to set *its* minimum size, but that's also the
+   * only way we have of making ourselves bigger (by set lines/columns).
+   * Thus set hints at start-up to ensure correct init. size, then a
+   * second after the final attempt to reset the real minimum hints (done by
+*** ../vim-8.1.0527/src/gui_motif.c	2018-09-30 21:43:17.191693320 +0200
+--- src/gui_motif.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 1114,1120 ****
+  	XtManageChild(id);
+  
+      /*
+!      * Now find the menu item that is the furthest down, and get it's position.
+       */
+      maxy = 0;
+      for (mp = root_menu; mp != NULL; mp = mp->next)
+--- 1114,1120 ----
+  	XtManageChild(id);
+  
+      /*
+!      * Now find the menu item that is the furthest down, and get its position.
+       */
+      maxy = 0;
+      for (mp = root_menu; mp != NULL; mp = mp->next)
+***************
+*** 1550,1556 ****
+  		    XtSetValues(mp->id, args, n);
+  		}
+  # ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change it's font */
+  		if (mp->tip != NULL)
+  		{
+  		    Arg args[2];
+--- 1550,1556 ----
+  		    XtSetValues(mp->id, args, n);
+  		}
+  # ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change its font */
+  		if (mp->tip != NULL)
+  		{
+  		    Arg args[2];
+***************
+*** 1568,1574 ****
+  	    {
+  		gui_motif_menu_fontlist(mp->id);
+  #ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change it's font */
+  		if (mp->tip != NULL)
+  		{
+  		    Arg args[1];
+--- 1568,1574 ----
+  	    {
+  		gui_motif_menu_fontlist(mp->id);
+  #ifdef FEAT_BEVAL_GUI
+! 		/* If we have a tooltip, then we need to change its font */
+  		if (mp->tip != NULL)
+  		{
+  		    Arg args[1];
+***************
+*** 2089,2095 ****
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate it's
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+--- 2089,2095 ----
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate its
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+***************
+*** 2108,2114 ****
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate it's
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+--- 2108,2114 ----
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate its
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+***************
+*** 3407,3413 ****
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate it's
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+--- 3407,3413 ----
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate its
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+***************
+*** 3428,3434 ****
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate it's
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+--- 3428,3434 ----
+  	    {
+  		XtUnmanageChild(id);
+  		XtVaSetValues(id, XmNfontList, fl, NULL);
+! 		/* We should force the widget to recalculate its
+  		 * geometry now. */
+  		XtManageChild(id);
+  	    }
+*** ../vim-8.1.0527/src/gui_xmebw.c	2016-08-29 22:42:20.000000000 +0200
+--- src/gui_xmebw.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 50,56 ****
+   * implementation.  Also missing in Motif 1.2 and earlier.
+   *
+   * We neither use XmeGetPixmapData or _XmGetPixmapData, since with LessTif the
+!  * pixmap will not appear in it's caches properly. We cache the interesting
+   * values in XmEnhancedButtonPart instead ourself.
+   */
+  #if defined(LESSTIF_VERSION) || (XmVersion <= 1002)
+--- 50,56 ----
+   * implementation.  Also missing in Motif 1.2 and earlier.
+   *
+   * We neither use XmeGetPixmapData or _XmGetPixmapData, since with LessTif the
+!  * pixmap will not appear in its caches properly. We cache the interesting
+   * values in XmEnhancedButtonPart instead ourself.
+   */
+  #if defined(LESSTIF_VERSION) || (XmVersion <= 1002)
+*** ../vim-8.1.0527/src/if_tcl.c	2018-07-25 22:02:32.235966277 +0200
+--- src/if_tcl.c	2018-10-23 21:33:23.646928902 +0200
+***************
+*** 113,119 ****
+  
+  /*
+   *  List of Tcl interpreters who reference a vim window or buffer.
+!  *  Each buffer and window has it's own list in the w_tcl_ref or b_tcl_ref
+   *  struct member.  We need this because Tcl can create sub-interpreters with
+   *  the "interp" command, and each interpreter can reference all windows and
+   *  buffers.
+--- 113,119 ----
+  
+  /*
+   *  List of Tcl interpreters who reference a vim window or buffer.
+!  *  Each buffer and window has its own list in the w_tcl_ref or b_tcl_ref
+   *  struct member.  We need this because Tcl can create sub-interpreters with
+   *  the "interp" command, and each interpreter can reference all windows and
+   *  buffers.
+*** ../vim-8.1.0527/src/os_amiga.c	2018-08-07 22:30:26.670240840 +0200
+--- src/os_amiga.c	2018-10-23 21:33:23.646928902 +0200
+***************
+*** 941,947 ****
+   *	getch() will return immediately rather than wait for a return. You
+   *	lose editing features though.
+   *
+!  * Cooked: This function returns the designate file pointer to it's normal,
+   *	wait for a <CR> mode. This is exactly like raw() except that
+   *	it sends a 0 to the console to make it back into a CON: from a RAW:
+   */
+--- 941,947 ----
+   *	getch() will return immediately rather than wait for a return. You
+   *	lose editing features though.
+   *
+!  * Cooked: This function returns the designate file pointer to its normal,
+   *	wait for a <CR> mode. This is exactly like raw() except that
+   *	it sends a 0 to the console to make it back into a CON: from a RAW:
+   */
+***************
+*** 1387,1393 ****
+  	got_int = TRUE;
+  }
+  
+! /* this routine causes manx to use this Chk_Abort() rather than it's own */
+  /* otherwise it resets our ^C when doing any I/O (even when Enable_Abort */
+  /* is zero).  Since we want to check for our own ^C's			 */
+  
+--- 1387,1393 ----
+  	got_int = TRUE;
+  }
+  
+! /* this routine causes manx to use this Chk_Abort() rather than its own */
+  /* otherwise it resets our ^C when doing any I/O (even when Enable_Abort */
+  /* is zero).  Since we want to check for our own ^C's			 */
+  
+*** ../vim-8.1.0527/src/gui_w32.c	2018-09-30 21:43:17.191693320 +0200
+--- src/gui_w32.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 5658,5664 ****
+      HMONITOR	    mon;
+      MONITORINFO	    moninfo;
+  
+!     /* work out which monitor the window is on, and get *it's* work area */
+      mon = MonitorFromWindow(s_hwnd, MONITOR_DEFAULTTOPRIMARY);
+      if (mon != NULL)
+      {
+--- 5658,5664 ----
+      HMONITOR	    mon;
+      MONITORINFO	    moninfo;
+  
+!     /* work out which monitor the window is on, and get *its* work area */
+      mon = MonitorFromWindow(s_hwnd, MONITOR_DEFAULTTOPRIMARY);
+      if (mon != NULL)
+      {
+*** ../vim-8.1.0527/src/os_win32.c	2018-10-07 15:49:50.819989002 +0200
+--- src/os_win32.c	2018-10-16 21:14:09.815286843 +0200
+***************
+*** 5035,5043 ****
+      {
+  	/* Use a terminal window to run the command in. */
+  	x = mch_call_shell_terminal(cmd, options);
+! #ifdef FEAT_TITLE
+  	resettitle();
+! #endif
+  	return x;
+      }
+  #endif
+--- 5035,5043 ----
+      {
+  	/* Use a terminal window to run the command in. */
+  	x = mch_call_shell_terminal(cmd, options);
+! # ifdef FEAT_TITLE
+  	resettitle();
+! # endif
+  	return x;
+      }
+  #endif
+***************
+*** 7341,7347 ****
+   */
+  
+  /* These magic numbers are from the MS header files */
+! #define MIN_STACK_WINNT 2
+  
+  /*
+   * This function does the same thing as _resetstkoflw(), which is only
+--- 7341,7347 ----
+   */
+  
+  /* These magic numbers are from the MS header files */
+! # define MIN_STACK_WINNT 2
+  
+  /*
+   * This function does the same thing as _resetstkoflw(), which is only
+***************
+*** 7586,7592 ****
+  	{
+  	    int literal = used_file_literal;
+  
+! #ifdef FEAT_DIFF
+  	    /* When using diff mode may need to concatenate file name to
+  	     * directory name.  Just like it's done in main(). */
+  	    if (used_file_diff_mode && mch_isdir(str) && GARGCOUNT > 0
+--- 7586,7592 ----
+  	{
+  	    int literal = used_file_literal;
+  
+! # ifdef FEAT_DIFF
+  	    /* When using diff mode may need to concatenate file name to
+  	     * directory name.  Just like it's done in main(). */
+  	    if (used_file_diff_mode && mch_isdir(str) && GARGCOUNT > 0
+***************
+*** 7601,7607 ****
+  		    str = r;
+  		}
+  	    }
+! #endif
+  	    /* Re-use the old buffer by renaming it.  When not using literal
+  	     * names it's done by alist_expand() below. */
+  	    if (used_file_literal)
+--- 7601,7607 ----
+  		    str = r;
+  		}
+  	    }
+! # endif
+  	    /* Re-use the old buffer by renaming it.  When not using literal
+  	     * names it's done by alist_expand() below. */
+  	    if (used_file_literal)
+***************
+*** 7679,7687 ****
+  #endif
+      {
+  	_putenv((char *)envbuf);
+! # ifdef libintl_putenv
+  	libintl_putenv((char *)envbuf);
+! # endif
+  	/* Unlike Un*x systems, we can free the string for _putenv(). */
+  	vim_free(envbuf);
+      }
+--- 7679,7687 ----
+  #endif
+      {
+  	_putenv((char *)envbuf);
+! #ifdef libintl_putenv
+  	libintl_putenv((char *)envbuf);
+! #endif
+  	/* Unlike Un*x systems, we can free the string for _putenv(). */
+  	vim_free(envbuf);
+      }
+***************
+*** 7742,7748 ****
+      fg = (GetRValue(fg) << 16) | (GetGValue(fg) << 8) | GetBValue(fg);
+      default_console_color_bg = bg;
+      default_console_color_fg = fg;
+! #endif
+  
+      set_console_color_rgb();
+  }
+--- 7742,7748 ----
+      fg = (GetRValue(fg) << 16) | (GetGValue(fg) << 8) | GetBValue(fg);
+      default_console_color_bg = bg;
+      default_console_color_fg = fg;
+! # endif
+  
+      set_console_color_rgb();
+  }
+*** ../vim-8.1.0527/src/gui_mac.c	2018-09-30 21:43:17.191693320 +0200
+--- src/gui_mac.c	2018-10-23 21:33:23.642928936 +0200
+***************
+*** 2278,2284 ****
+      if (p_mh)
+  	ObscureCursor();
+  
+!     /* Get the key code and it's ASCII representation */
+      key_sym = ((theEvent->message & keyCodeMask) >> 8);
+      key_char = theEvent->message & charCodeMask;
+      num = 1;
+--- 2278,2284 ----
+      if (p_mh)
+  	ObscureCursor();
+  
+!     /* Get the key code and its ASCII representation */
+      key_sym = ((theEvent->message & keyCodeMask) >> 8);
+      key_char = theEvent->message & charCodeMask;
+      num = 1;
+***************
+*** 2597,2603 ****
+  bail:
+      /*
+       * when we fail give any additional callback handler a chance to perform
+!      * it's actions
+       */
+      return CallNextEventHandler(nextHandler, theEvent);
+  }
+--- 2597,2603 ----
+  bail:
+      /*
+       * when we fail give any additional callback handler a chance to perform
+!      * its actions
+       */
+      return CallNextEventHandler(nextHandler, theEvent);
+  }
+*** ../vim-8.1.0527/src/os_vms_fix.com	2010-05-15 13:04:11.000000000 +0200
+--- src/os_vms_fix.com	2018-10-23 21:33:23.646928902 +0200
+***************
+*** 15,21 ****
+  $! remember when DCL didn't have them, and I wanted this to be as
+  $! portable as possible, so...  If you want to structure it nicer for
+  $! your own use, please feel free to do so.  However, please only
+! $! distribute it in it's original form.
+  $!
+  $! I wrote it in DCL for portability and ease of use - a C version
+  $! would definitely run faster, but then I'd have to deal with compiler
+--- 15,21 ----
+  $! remember when DCL didn't have them, and I wanted this to be as
+  $! portable as possible, so...  If you want to structure it nicer for
+  $! your own use, please feel free to do so.  However, please only
+! $! distribute it in its original form.
+  $!
+  $! I wrote it in DCL for portability and ease of use - a C version
+  $! would definitely run faster, but then I'd have to deal with compiler
+*** ../vim-8.1.0527/src/version.c	2018-11-14 21:45:28.996589969 +0100
+--- src/version.c	2018-11-16 16:19:14.749927495 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     528,
+  /**/
+
+-- 
+ARTHUR: Listen, old crone!  Unless you tell us where we can buy a shrubbery,
+        my friend and I will ... we will say "Ni!"
+CRONE:  Do your worst!
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

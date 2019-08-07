@@ -1,0 +1,92 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0303
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0303
+Problem:    line2byte() is wrong for last line with 'noeol' and 'nofixeol'.
+Solution:   Fix off-by-one error. (Shane Harper, closes #3351)
+Files:	    src/memline.c, src/testdir/test_functions.vim
+
+
+*** ../vim-8.1.0302/src/memline.c	2018-08-07 21:39:09.251060096 +0200
+--- src/memline.c	2018-08-20 22:49:13.023489795 +0200
+***************
+*** 5267,5273 ****
+  	/* Don't count the last line break if 'noeol' and ('bin' or
+  	 * 'nofixeol'). */
+  	if ((!buf->b_p_fixeol || buf->b_p_bin) && !buf->b_p_eol
+! 					   && buf->b_ml.ml_line_count == lnum)
+  	    size -= ffdos + 1;
+      }
+  
+--- 5267,5273 ----
+  	/* Don't count the last line break if 'noeol' and ('bin' or
+  	 * 'nofixeol'). */
+  	if ((!buf->b_p_fixeol || buf->b_p_bin) && !buf->b_p_eol
+! 					   && lnum > buf->b_ml.ml_line_count)
+  	    size -= ffdos + 1;
+      }
+  
+*** ../vim-8.1.0302/src/testdir/test_functions.vim	2018-08-08 22:27:27.043005000 +0200
+--- src/testdir/test_functions.vim	2018-08-20 22:48:48.891637382 +0200
+***************
+*** 682,687 ****
+--- 682,688 ----
+  
+  func Test_byte2line_line2byte()
+    new
++   set endofline
+    call setline(1, ['a', 'bc', 'd'])
+  
+    set fileformat=unix
+***************
+*** 702,708 ****
+    call assert_equal([-1, -1, 1, 4, 8, 11, -1],
+    \                 map(range(-1, 5), 'line2byte(v:val)'))
+  
+!   set fileformat&
+    bw!
+  endfunc
+  
+--- 703,718 ----
+    call assert_equal([-1, -1, 1, 4, 8, 11, -1],
+    \                 map(range(-1, 5), 'line2byte(v:val)'))
+  
+!   bw!
+!   set noendofline nofixendofline
+!   normal a-
+!   for ff in ["unix", "mac", "dos"]
+!     let &fileformat = ff
+!     call assert_equal(1, line2byte(1))
+!     call assert_equal(2, line2byte(2))  " line2byte(line("$") + 1) is the buffer size plus one (as per :help line2byte).
+!   endfor
+! 
+!   set endofline& fixendofline& fileformat&
+    bw!
+  endfunc
+  
+*** ../vim-8.1.0302/src/version.c	2018-08-20 21:58:53.509410779 +0200
+--- src/version.c	2018-08-20 22:51:02.218823269 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     303,
+  /**/
+
+-- 
+FIRST SOLDIER:  So they wouldn't be able to bring a coconut back anyway.
+SECOND SOLDIER: Wait a minute! Suppose two swallows carried it together?
+FIRST SOLDIER:  No, they'd have to have it on a line.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,12 @@
+diff -r -u srelay-0.4.6/main.c srelay-0.4.6+iPhone/main.c
+--- srelay-0.4.6/main.c	2003-03-26 20:45:12.000000000 +0000
++++ srelay-0.4.6+iPhone/main.c	2007-12-27 12:37:47.000000000 +0000
+@@ -322,7 +322,7 @@
+   setsignal(SIGTERM, cleanup);
+   setsignal(SIGUSR1, SIG_IGN);
+   setsignal(SIGUSR2, SIG_IGN);
+-#ifndef FREEBSD
++#if !defined(FREEBSD) && !defined(__APPLE__)
+   setsignal(SIGPOLL, SIG_IGN);
+ #endif
+   setsignal(SIGVTALRM, SIG_IGN);

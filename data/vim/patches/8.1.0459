@@ -1,0 +1,51 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0459
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0459
+Problem:    Test_executable fails when there is a dog in the system.
+Solution:   Rename the dog. (Hirohito Higashi)
+Files:	    src/testdir/test_functions.vim
+
+
+*** ../vim-8.1.0458/src/testdir/test_functions.vim	2018-10-06 15:43:13.062876189 +0200
+--- src/testdir/test_functions.vim	2018-10-07 18:37:24.796308417 +0200
+***************
+*** 855,861 ****
+      call assert_equal(0, executable('win.ini'))
+    elseif has('unix')
+      call assert_equal(1, executable('cat'))
+!     call assert_equal(0, executable('dog'))
+    endif
+  endfunc
+  
+--- 855,861 ----
+      call assert_equal(0, executable('win.ini'))
+    elseif has('unix')
+      call assert_equal(1, executable('cat'))
+!     call assert_equal(0, executable('nodogshere'))
+    endif
+  endfunc
+  
+*** ../vim-8.1.0458/src/version.c	2018-10-07 17:46:37.699826982 +0200
+--- src/version.c	2018-10-07 18:41:07.553885998 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     459,
+  /**/
+
+-- 
+Apathy Error: Don't bother striking any key.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,254 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0573
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0573
+Problem:    Cannot redefine user command without ! in same script
+Solution:   Allow redefining user command without ! in same script, like with
+            functions.
+Files:	    src/ex_docmd.c, src/testdir/test_usercommands.vim,
+            runtime/doc/map.txt
+
+
+*** ../vim-8.1.0572/src/ex_docmd.c	2018-12-02 18:21:46.035419603 +0100
+--- src/ex_docmd.c	2018-12-08 16:01:27.672777222 +0100
+***************
+*** 5869,5877 ****
+  
+  	if (cmp == 0)
+  	{
+! 	    if (!force)
+  	    {
+! 		EMSG(_("E174: Command already exists: add ! to replace it"));
+  		goto fail;
+  	    }
+  
+--- 5869,5881 ----
+  
+  	if (cmp == 0)
+  	{
+! 	    // Command can be replaced with "command!" and when sourcing the
+! 	    // same script again, but only once.
+! 	    if (!force && (cmd->uc_script_ctx.sc_sid != current_sctx.sc_sid
+! 			  || cmd->uc_script_ctx.sc_seq == current_sctx.sc_seq))
+  	    {
+! 		EMSG2(_("E174: Command already exists: add ! to replace it: %s"),
+! 									 name);
+  		goto fail;
+  	    }
+  
+*** ../vim-8.1.0572/src/testdir/test_usercommands.vim	2018-12-02 18:21:46.035419603 +0100
+--- src/testdir/test_usercommands.vim	2018-12-08 15:50:37.400773622 +0100
+***************
+*** 90,95 ****
+--- 90,123 ----
+    delcommand Dothat
+  endfunc
+  
++ func Test_redefine_on_reload()
++   call writefile(['command ExistingCommand echo "yes"'], 'Xcommandexists')
++   call assert_equal(0, exists(':ExistingCommand'))
++   source Xcommandexists
++   call assert_equal(2, exists(':ExistingCommand'))
++   " Redefining a command when reloading a script is OK.
++   source Xcommandexists
++   call assert_equal(2, exists(':ExistingCommand'))
++ 
++   " But redefining in another script is not OK.
++   call writefile(['command ExistingCommand echo "yes"'], 'Xcommandexists2')
++   call assert_fails('source Xcommandexists2', 'E174:')
++   call delete('Xcommandexists2')
++ 
++   " And defining twice in one script is not OK.
++   delcommand ExistingCommand
++   call assert_equal(0, exists(':ExistingCommand'))
++   call writefile([
++ 	\ 'command ExistingCommand echo "yes"',
++ 	\ 'command ExistingCommand echo "no"',
++ 	\ ], 'Xcommandexists')
++   call assert_fails('source Xcommandexists', 'E174:')
++   call assert_equal(2, exists(':ExistingCommand'))
++ 
++   call delete('Xcommandexists')
++   delcommand ExistingCommand
++ endfunc
++ 
+  func Test_CmdUndefined()
+    call assert_fails('Doit', 'E492:')
+    au CmdUndefined Doit :command Doit let g:didit = 'yes'
+*** ../vim-8.1.0572/runtime/doc/map.txt	2018-05-17 13:41:41.000000000 +0200
+--- runtime/doc/map.txt	2018-12-08 15:54:00.039525767 +0100
+***************
+*** 1220,1225 ****
+--- 1223,1232 ----
+  			attributes (see below) are {attr}.  If the command
+  			already exists, an error is reported, unless a ! is
+  			specified, in which case the command is redefined.
++ 			There is one exception: When sourcing a script again,
++ 			a command that was previously defined in that script
++ 			will be silently replaced.
++ 
+  
+  :delc[ommand] {cmd}				*:delc* *:delcommand* *E184*
+  			Delete the user-defined command {cmd}.
+***************
+*** 1227,1233 ****
+  :comc[lear]						*:comc* *:comclear*
+  			Delete all user-defined commands.
+  
+! Command attributes
+  
+  User-defined commands are treated by Vim just like any other Ex commands.  They
+  can have arguments, or have a range specified.  Arguments are subject to
+--- 1234,1241 ----
+  :comc[lear]						*:comc* *:comclear*
+  			Delete all user-defined commands.
+  
+! 
+! Command attributes ~
+  
+  User-defined commands are treated by Vim just like any other Ex commands.  They
+  can have arguments, or have a range specified.  Arguments are subject to
+***************
+*** 1238,1245 ****
+  handling, completion behavior, range handling, and special cases.  The
+  attributes are described below, by category.
+  
+- Argument handling				*E175* *E176* *:command-nargs*
+  
+  By default, a user defined command will take no arguments (and an error is
+  reported if any are supplied).  However, it is possible to specify that the
+  command can take arguments, using the -nargs attribute.  Valid cases are:
+--- 1246,1254 ----
+  handling, completion behavior, range handling, and special cases.  The
+  attributes are described below, by category.
+  
+  
++ Argument handling ~
++ 						*E175* *E176* *:command-nargs*
+  By default, a user defined command will take no arguments (and an error is
+  reported if any are supplied).  However, it is possible to specify that the
+  command can take arguments, using the -nargs attribute.  Valid cases are:
+***************
+*** 1268,1275 ****
+  Executing script2.vim will result in "None" being echoed.  Not what you
+  intended!  Calling a function may be an alternative.
+  
+! Completion behavior				*:command-completion* *E179*
+! 					*E180* *E181* *:command-complete*
+  By default, the arguments of user defined commands do not undergo completion.
+  However, by specifying one or the other of the following attributes, argument
+  completion can be enabled:
+--- 1277,1286 ----
+  Executing script2.vim will result in "None" being echoed.  Not what you
+  intended!  Calling a function may be an alternative.
+  
+! 
+! Completion behavior ~
+! 				*:command-completion* *E179* *E180* *E181* 
+! 				*:command-complete*
+  By default, the arguments of user defined commands do not undergo completion.
+  However, by specifying one or the other of the following attributes, argument
+  completion can be enabled:
+***************
+*** 1314,1322 ****
+  Note: That some completion methods might expand environment variables.
+  
+  
+! Custom completion			*:command-completion-custom*
+! 					*:command-completion-customlist*
+! 					*E467* *E468*
+  It is possible to define customized completion schemes via the "custom,{func}"
+  or the "customlist,{func}" completion argument.  The {func} part should be a
+  function with the following signature: >
+--- 1325,1333 ----
+  Note: That some completion methods might expand environment variables.
+  
+  
+! Custom completion ~
+! 				*:command-completion-custom*
+! 				*:command-completion-customlist* *E467* *E468*
+  It is possible to define customized completion schemes via the "custom,{func}"
+  or the "customlist,{func}" completion argument.  The {func} part should be a
+  function with the following signature: >
+***************
+*** 1361,1368 ****
+  This example does not work for file names with spaces!
+  
+  
+! Range handling				*E177* *E178* *:command-range*
+! 							*:command-count*
+  By default, user-defined commands do not accept a line number range.  However,
+  it is possible to specify that the command does take a range (the -range
+  attribute), or that it takes an arbitrary count value, either in the line
+--- 1372,1379 ----
+  This example does not work for file names with spaces!
+  
+  
+! Range handling ~
+! 				*E177* *E178* *:command-range* *:command-count*
+  By default, user-defined commands do not accept a line number range.  However,
+  it is possible to specify that the command does take a range (the -range
+  attribute), or that it takes an arbitrary count value, either in the line
+***************
+*** 1396,1403 ****
+  	-addr=loaded_buffers	Range for loaded buffers
+  	-addr=windows		Range for windows
+  	-addr=tabs		Range for tab pages
+  
+! Special cases				*:command-bang* *:command-bar*
+  					*:command-register* *:command-buffer*
+  There are some special cases as well:
+  
+--- 1407,1417 ----
+  	-addr=loaded_buffers	Range for loaded buffers
+  	-addr=windows		Range for windows
+  	-addr=tabs		Range for tab pages
++ 	-addr=other		other kind of range 
++ 
+  
+! Special cases ~
+! 					*:command-bang* *:command-bar*
+  					*:command-register* *:command-buffer*
+  There are some special cases as well:
+  
+***************
+*** 1415,1421 ****
+  Note that these arguments can be abbreviated, but that is a deprecated
+  feature.  Use the full name for new scripts.
+  
+! Replacement text
+  
+  The replacement text for a user defined command is scanned for special escape
+  sequences, using <...> notation.  Escape sequences are replaced with values
+--- 1429,1436 ----
+  Note that these arguments can be abbreviated, but that is a deprecated
+  feature.  Use the full name for new scripts.
+  
+! 
+! Replacement text ~
+  
+  The replacement text for a user defined command is scanned for special escape
+  sequences, using <...> notation.  Escape sequences are replaced with values
+*** ../vim-8.1.0572/src/version.c	2018-12-08 14:39:00.055120155 +0100
+--- src/version.c	2018-12-08 15:41:53.560022228 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     573,
+  /**/
+
+-- 
+I have read and understood the above. X________________
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

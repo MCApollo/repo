@@ -1,0 +1,176 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0225
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0225
+Problem:    Mode() does not indicate using CTRL-O from Insert mode.
+Solution:   Add "niI", "niR" and "niV" to mode() result. (closes #3000)
+Files:	    runtime/doc/eval.txt, src/evalfunc.c,
+            src/testdir/test_functions.vim
+
+
+*** ../vim-8.1.0224/runtime/doc/eval.txt	2018-07-28 16:55:51.435217148 +0200
+--- runtime/doc/eval.txt	2018-07-29 15:22:39.416519885 +0200
+***************
+*** 6223,6254 ****
+  		a non-empty String (|non-zero-arg|), then the full mode is
+  		returned, otherwise only the first letter is returned.
+  
+! 			n	Normal, Terminal-Normal
+! 			no	Operator-pending
+! 			v	Visual by character
+! 			V	Visual by line
+! 			CTRL-V	Visual blockwise
+! 			s	Select by character
+! 			S	Select by line
+! 			CTRL-S	Select blockwise
+! 			i	Insert
+! 			ic	Insert mode completion |compl-generic|
+! 			ix	Insert mode |i_CTRL-X| completion
+! 			R	Replace |R|
+! 			Rc	Replace mode completion |compl-generic|
+! 			Rv	Virtual Replace |gR|
+! 			Rx	Replace mode |i_CTRL-X| completion
+! 			c	Command-line editing
+! 			cv	Vim Ex mode |gQ|
+! 			ce	Normal Ex mode |Q|
+! 			r	Hit-enter prompt
+! 			rm	The -- more -- prompt
+! 			r?	A |:confirm| query of some sort
+! 			!	Shell or external command is executing
+! 			t	Terminal-Job mode: keys go to the job
+  		This is useful in the 'statusline' option or when used
+  		with |remote_expr()| In most other places it always returns
+  		"c" or "n".
+  		Also see |visualmode()|.
+  
+  mzeval({expr})							*mzeval()*
+--- 6224,6261 ----
+  		a non-empty String (|non-zero-arg|), then the full mode is
+  		returned, otherwise only the first letter is returned.
+  
+! 		   n	    Normal, Terminal-Normal
+! 		   no	    Operator-pending
+! 		   niI	    Normal using |i_CTRL-O| in |Insert-mode|
+! 		   niR	    Normal using |i_CTRL-O| in |Replace-mode|
+! 		   niV	    Normal using |i_CTRL-O| in |Virtual-Replace-mode|
+! 		   v	    Visual by character
+! 		   V	    Visual by line
+! 		   CTRL-V   Visual blockwise
+! 		   s	    Select by character
+! 		   S	    Select by line
+! 		   CTRL-S   Select blockwise
+! 		   i	    Insert
+! 		   ic	    Insert mode completion |compl-generic|
+! 		   ix	    Insert mode |i_CTRL-X| completion
+! 		   R	    Replace |R|
+! 		   Rc	    Replace mode completion |compl-generic|
+! 		   Rv	    Virtual Replace |gR|
+! 		   Rx	    Replace mode |i_CTRL-X| completion
+! 		   c	    Command-line editing
+! 		   cv	    Vim Ex mode |gQ|
+! 		   ce	    Normal Ex mode |Q|
+! 		   r	    Hit-enter prompt
+! 		   rm	    The -- more -- prompt
+! 		   r?	    A |:confirm| query of some sort
+! 		   !	    Shell or external command is executing
+! 		   t	    Terminal-Job mode: keys go to the job
+  		This is useful in the 'statusline' option or when used
+  		with |remote_expr()| In most other places it always returns
+  		"c" or "n".
++ 		Note that in the future more modes and more specific modes may
++ 		be added. It's better not to compare the whole string but only
++ 		the leading character(s).
+  		Also see |visualmode()|.
+  
+  mzeval({expr})							*mzeval()*
+*** ../vim-8.1.0224/src/evalfunc.c	2018-07-28 16:55:51.435217148 +0200
+--- src/evalfunc.c	2018-07-29 15:23:57.768058068 +0200
+***************
+*** 8366,8375 ****
+      static void
+  f_mode(typval_T *argvars, typval_T *rettv)
+  {
+!     char_u	buf[3];
+  
+!     buf[1] = NUL;
+!     buf[2] = NUL;
+  
+      if (time_for_testing == 93784)
+      {
+--- 8366,8374 ----
+      static void
+  f_mode(typval_T *argvars, typval_T *rettv)
+  {
+!     char_u	buf[4];
+  
+!     vim_memset(buf, 0, sizeof(buf));
+  
+      if (time_for_testing == 93784)
+      {
+***************
+*** 8435,8440 ****
+--- 8434,8445 ----
+  	buf[0] = 'n';
+  	if (finish_op)
+  	    buf[1] = 'o';
++ 	else if (restart_edit == 'I' || restart_edit == 'R'
++ 							|| restart_edit == 'V')
++ 	{
++ 	    buf[1] = 'i';
++ 	    buf[2] = restart_edit;
++ 	}
+      }
+  
+      /* Clear out the minor mode when the argument is not a non-zero number or
+*** ../vim-8.1.0224/src/testdir/test_functions.vim	2018-07-22 19:36:29.251125855 +0200
+--- src/testdir/test_functions.vim	2018-07-29 15:31:26.897360022 +0200
+***************
+*** 464,469 ****
+--- 464,481 ----
+    call assert_equal('n', mode(0))
+    call assert_equal('n', mode(1))
+  
++   " i_CTRL-O
++   exe "normal i\<C-O>:call Save_mode()\<Cr>\<Esc>"
++   call assert_equal("n-niI", g:current_modes)
++ 
++   " R_CTRL-O
++   exe "normal R\<C-O>:call Save_mode()\<Cr>\<Esc>"
++   call assert_equal("n-niR", g:current_modes)
++ 
++   " gR_CTRL-O
++   exe "normal gR\<C-O>:call Save_mode()\<Cr>\<Esc>"
++   call assert_equal("n-niV", g:current_modes)
++ 
+    " How to test operator-pending mode?
+  
+    call feedkeys("v", 'xt')
+*** ../vim-8.1.0224/src/version.c	2018-07-28 23:12:01.578163697 +0200
+--- src/version.c	2018-07-29 15:17:05.914434445 +0200
+***************
+*** 800,801 ****
+--- 800,803 ----
+  {   /* Add new patch number below this line */
++ /**/
++     225,
+  /**/
+
+-- 
+MORTICIAN:    What?
+CUSTOMER:     Nothing -- here's your nine pence.
+DEAD PERSON:  I'm not dead!
+MORTICIAN:    Here -- he says he's not dead!
+CUSTOMER:     Yes, he is.
+DEAD PERSON:  I'm not!
+                                  The Quest for the Holy Grail (Monty Python)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

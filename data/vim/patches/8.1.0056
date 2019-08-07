@@ -1,0 +1,130 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0056
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0056
+Problem:    Crash when using :hardcopy with illegal byte.
+Solution:   Check for string_convert() returning NULL. (Dominique Pelle)
+Files:	    src/hardcopy.c, src/testdir/test_hardcopy.vim
+
+
+*** ../vim-8.1.0055/src/hardcopy.c	2018-02-11 15:38:21.000000000 +0100
+--- src/hardcopy.c	2018-06-16 14:43:41.918213746 +0200
+***************
+*** 3372,3379 ****
+  }
+  
+      int
+! mch_print_text_out(char_u *p, int len UNUSED)
+  {
+      int		need_break;
+      char_u	ch;
+      char_u      ch_buff[8];
+--- 3372,3380 ----
+  }
+  
+      int
+! mch_print_text_out(char_u *textp, int len UNUSED)
+  {
++     char_u	*p = textp;
+      int		need_break;
+      char_u	ch;
+      char_u      ch_buff[8];
+***************
+*** 3508,3515 ****
+--- 3509,3523 ----
+  
+  #ifdef FEAT_MBYTE
+      if (prt_do_conv)
++     {
+  	/* Convert from multi-byte to 8-bit encoding */
+  	tofree = p = string_convert(&prt_conv, p, &len);
++ 	if (p == NULL)
++ 	{
++ 	    p = (char_u *)"";
++ 	    len = 0;
++ 	}
++     }
+  
+      if (prt_out_mbyte)
+      {
+*** ../vim-8.1.0055/src/testdir/test_hardcopy.vim	2017-10-26 23:41:07.000000000 +0200
+--- src/testdir/test_hardcopy.vim	2018-06-16 14:39:00.343781251 +0200
+***************
+*** 63,74 ****
+  endfunc
+  
+  func Test_fname_with_spaces()
+!   if has('postscript')
+!     split t\ e\ s\ t.txt
+!     call setline(1, ['just', 'some', 'text'])
+!     hardcopy > %.ps
+!     call assert_true(filereadable('t e s t.txt.ps'))
+!     call delete('t e s t.txt.ps')
+!     bwipe!
+    endif
+  endfunc
+--- 63,89 ----
+  endfunc
+  
+  func Test_fname_with_spaces()
+!   if !has('postscript')
+!     return
+    endif
++   split t\ e\ s\ t.txt
++   call setline(1, ['just', 'some', 'text'])
++   hardcopy > %.ps
++   call assert_true(filereadable('t e s t.txt.ps'))
++   call delete('t e s t.txt.ps')
++   bwipe!
+  endfunc
++ 
++ func Test_illegal_byte()
++   if !has('postscript') || &enc != 'utf-8'
++     return
++   endif
++   new
++   " conversion of 0xff will fail, this used to cause a crash
++   call setline(1, "\xff")
++   hardcopy >Xpstest
++ 
++   bwipe!
++   call delete('Xpstest')
++ endfunc
++ 
+*** ../vim-8.1.0055/src/version.c	2018-06-13 21:27:20.213366293 +0200
+--- src/version.c	2018-06-16 14:39:45.695527854 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     56,
+  /**/
+
+-- 
+The real
+trick is
+this: to
+keep the
+lines as
+short as
+possible
+and keep
+the size
+the same
+yet free
+from the
+need for
+hyphena-
+Dammit!!  (Matthew Winn)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

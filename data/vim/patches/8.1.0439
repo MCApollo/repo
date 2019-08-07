@@ -1,0 +1,600 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0439
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0439
+Problem:    Recursive use of getcmdline() still not protected.
+Solution:   Instead of saving the command buffer when making a call which may
+            cause recursiveness, save the buffer when actually being called
+            recursively.
+Files:	    src/ex_getln.c, src/proto/ex_getln.pro, src/getchar.c, src/main.c
+
+
+*** ../vim-8.1.0438/src/ex_getln.c	2018-09-25 22:27:31.958075001 +0200
+--- src/ex_getln.c	2018-09-30 17:09:47.106527162 +0200
+***************
+*** 44,56 ****
+  # endif
+  };
+  
+! /* The current cmdline_info.  It is initialized in getcmdline() and after that
+!  * used by other functions.  When invoking getcmdline() recursively it needs
+!  * to be saved with save_cmdline() and restored with restore_cmdline().
+!  * TODO: make it local to getcmdline() and pass it around. */
+  static struct cmdline_info ccline;
+  
+! static int	cmd_showtail;		/* Only show path tail in lists ? */
+  
+  #ifdef FEAT_EVAL
+  static int	new_cmdpos;	/* position set by set_cmdline_pos() */
+--- 44,55 ----
+  # endif
+  };
+  
+! // The current cmdline_info.  It is initialized in getcmdline() and after that
+! // used by other functions.  When invoking getcmdline() recursively it needs
+! // to be saved with save_cmdline() and restored with restore_cmdline().
+  static struct cmdline_info ccline;
+  
+! static int	cmd_showtail;	/* Only show path tail in lists ? */
+  
+  #ifdef FEAT_EVAL
+  static int	new_cmdpos;	/* position set by set_cmdline_pos() */
+***************
+*** 91,96 ****
+--- 90,96 ----
+  static int	cmd_fkmap = 0;	/* Farsi mapping during command line */
+  #endif
+  
++ static char_u	*getcmdline_int(int firstc, long count, int indent, int init_ccline);
+  static int	cmdline_charsize(int idx);
+  static void	set_cmdspos(void);
+  static void	set_cmdspos_cursor(void);
+***************
+*** 463,469 ****
+      int		skiplen, patlen;
+      int		found;  // do_search() result
+      pos_T	end_pos;
+-     struct cmdline_info	save_ccline;
+  #ifdef FEAT_RELTIME
+      proftime_T	tm;
+  #endif
+--- 463,468 ----
+***************
+*** 601,609 ****
+      if (p_ru && curwin->w_status_height > 0)
+  	curwin->w_redr_status = TRUE;
+  
+-     save_cmdline(&save_ccline);
+      update_screen(SOME_VALID);
+-     restore_cmdline(&save_ccline);
+      restore_last_search_pattern();
+  
+      // Leave it at the end to make CTRL-R CTRL-W work.  But not when beyond the
+--- 600,606 ----
+***************
+*** 800,807 ****
+      char_u *
+  getcmdline(
+      int		firstc,
+!     long	count UNUSED,	/* only used for incremental search */
+!     int		indent)		/* indent for inside conditionals */
+  {
+      int		c;
+      int		i;
+--- 797,814 ----
+      char_u *
+  getcmdline(
+      int		firstc,
+!     long	count,		// only used for incremental search
+!     int		indent)		// indent for inside conditionals
+! {
+!     return getcmdline_int(firstc, count, indent, TRUE);
+! }
+! 
+!     static char_u *
+! getcmdline_int(
+!     int		firstc,
+!     long	count UNUSED,	// only used for incremental search
+!     int		indent,		// indent for inside conditionals
+!     int		init_ccline)	// clear ccline first
+  {
+      int		c;
+      int		i;
+***************
+*** 832,845 ****
+  #endif
+      expand_T	xpc;
+      long	*b_im_ptr = NULL;
+- #if defined(FEAT_WILDMENU) || defined(FEAT_EVAL)
+-     /* Everything that may work recursively should save and restore the
+-      * current command line in save_ccline.  That includes update_screen(), a
+-      * custom status line may invoke ":normal". */
+      struct cmdline_info save_ccline;
+! #endif
+      int		cmdline_type;
+  
+  #ifdef FEAT_EVAL
+      if (firstc == -1)
+      {
+--- 839,858 ----
+  #endif
+      expand_T	xpc;
+      long	*b_im_ptr = NULL;
+      struct cmdline_info save_ccline;
+!     int		did_save_ccline = FALSE;
+      int		cmdline_type;
+  
++     if (ccline.cmdbuff != NULL)
++     {
++ 	// Being called recursively.  Since ccline is global, we need to save
++ 	// the current buffer and restore it when returning.
++ 	save_cmdline(&save_ccline);
++ 	did_save_ccline = TRUE;
++     }
++     if (init_ccline)
++ 	vim_memset(&ccline, 0, sizeof(struct cmdline_info));
++ 
+  #ifdef FEAT_EVAL
+      if (firstc == -1)
+      {
+***************
+*** 868,874 ****
+      /* alloc initial ccline.cmdbuff */
+      alloc_cmdbuff(exmode_active ? 250 : indent + 1);
+      if (ccline.cmdbuff == NULL)
+! 	return NULL;			    /* out of memory */
+      ccline.cmdlen = ccline.cmdpos = 0;
+      ccline.cmdbuff[0] = NUL;
+      sb_text_start_cmdline();
+--- 881,887 ----
+      /* alloc initial ccline.cmdbuff */
+      alloc_cmdbuff(exmode_active ? 250 : indent + 1);
+      if (ccline.cmdbuff == NULL)
+! 	goto theend;	// out of memory
+      ccline.cmdlen = ccline.cmdpos = 0;
+      ccline.cmdbuff[0] = NUL;
+      sb_text_start_cmdline();
+***************
+*** 1125,1133 ****
+  		    p_ls = save_p_ls;
+  		    p_wmh = save_p_wmh;
+  		    last_status(FALSE);
+- 		    save_cmdline(&save_ccline);
+  		    update_screen(VALID);	/* redraw the screen NOW */
+- 		    restore_cmdline(&save_ccline);
+  		    redrawcmd();
+  		    save_p_ls = -1;
+  		}
+--- 1138,1144 ----
+***************
+*** 1333,1351 ****
+  		else
+  		    new_cmdpos = ccline.cmdpos;
+  
+- 		save_cmdline(&save_ccline);
+  		c = get_expr_register();
+- 		restore_cmdline(&save_ccline);
+  		if (c == '=')
+  		{
+  		    /* Need to save and restore ccline.  And set "textlock"
+  		     * to avoid nasty things like going to another buffer when
+  		     * evaluating an expression. */
+- 		    save_cmdline(&save_ccline);
+  		    ++textlock;
+  		    p = get_expr_line();
+  		    --textlock;
+- 		    restore_cmdline(&save_ccline);
+  
+  		    if (p != NULL)
+  		    {
+--- 1344,1358 ----
+***************
+*** 1812,1822 ****
+  			c = ESC;
+  		    }
+  		    else
+- 		    {
+- 			save_cmdline(&save_ccline);
+  			c = get_expr_register();
+- 			restore_cmdline(&save_ccline);
+- 		    }
+  		}
+  #endif
+  		if (c != ESC)	    /* use ESC to cancel inserting register */
+--- 1819,1825 ----
+***************
+*** 2187,2193 ****
+  		    int		len;
+  		    int		old_firstc;
+  
+! 		    vim_free(ccline.cmdbuff);
+  		    xpc.xp_context = EXPAND_NOTHING;
+  		    if (hiscnt == hislen)
+  			p = lookfor;	/* back to the old one */
+--- 2190,2196 ----
+  		    int		len;
+  		    int		old_firstc;
+  
+! 		    VIM_CLEAR(ccline.cmdbuff);
+  		    xpc.xp_context = EXPAND_NOTHING;
+  		    if (hiscnt == hislen)
+  			p = lookfor;	/* back to the old one */
+***************
+*** 2486,2496 ****
+  #endif
+      sb_text_end_cmdline();
+  
+      {
+  	char_u *p = ccline.cmdbuff;
+  
+! 	/* Make ccline empty, getcmdline() may try to use it. */
+! 	ccline.cmdbuff = NULL;
+  	return p;
+      }
+  }
+--- 2489,2502 ----
+  #endif
+      sb_text_end_cmdline();
+  
++ theend:
+      {
+  	char_u *p = ccline.cmdbuff;
+  
+! 	if (did_save_ccline)
+! 	    restore_cmdline(&save_ccline);
+! 	else
+! 	    ccline.cmdbuff = NULL;
+  	return p;
+      }
+  }
+***************
+*** 2512,2521 ****
+  {
+      char_u		*s;
+      struct cmdline_info	save_ccline;
+      int			msg_col_save = msg_col;
+      int			msg_silent_save = msg_silent;
+  
+!     save_cmdline(&save_ccline);
+      ccline.cmdprompt = prompt;
+      ccline.cmdattr = attr;
+  # ifdef FEAT_EVAL
+--- 2518,2535 ----
+  {
+      char_u		*s;
+      struct cmdline_info	save_ccline;
++     int			did_save_ccline = FALSE;
+      int			msg_col_save = msg_col;
+      int			msg_silent_save = msg_silent;
+  
+!     if (ccline.cmdbuff != NULL)
+!     {
+! 	// Save the values of the current cmdline and restore them below.
+! 	save_cmdline(&save_ccline);
+! 	did_save_ccline = TRUE;
+!     }
+! 
+!     vim_memset(&ccline, 0, sizeof(struct cmdline_info));
+      ccline.cmdprompt = prompt;
+      ccline.cmdattr = attr;
+  # ifdef FEAT_EVAL
+***************
+*** 2524,2531 ****
+      ccline.input_fn = (firstc == '@');
+  # endif
+      msg_silent = 0;
+!     s = getcmdline(firstc, 1L, 0);
+!     restore_cmdline(&save_ccline);
+      msg_silent = msg_silent_save;
+      /* Restore msg_col, the prompt from input() may have changed it.
+       * But only if called recursively and the commandline is therefore being
+--- 2538,2548 ----
+      ccline.input_fn = (firstc == '@');
+  # endif
+      msg_silent = 0;
+!     s = getcmdline_int(firstc, 1L, 0, FALSE);
+! 
+!     if (did_save_ccline)
+! 	restore_cmdline(&save_ccline);
+! 
+      msg_silent = msg_silent_save;
+      /* Restore msg_col, the prompt from input() may have changed it.
+       * But only if called recursively and the commandline is therefore being
+***************
+*** 3121,3127 ****
+  /*
+   * Allocate a new command line buffer.
+   * Assigns the new buffer to ccline.cmdbuff and ccline.cmdbufflen.
+-  * Returns the new value of ccline.cmdbuff and ccline.cmdbufflen.
+   */
+      static void
+  alloc_cmdbuff(int len)
+--- 3138,3143 ----
+***************
+*** 3542,3550 ****
+      }
+      *ccp = prev_ccline;
+      prev_ccline = ccline;
+!     ccline.cmdbuff = NULL;
+!     ccline.cmdprompt = NULL;
+!     ccline.xpc = NULL;
+  }
+  
+  /*
+--- 3558,3564 ----
+      }
+      *ccp = prev_ccline;
+      prev_ccline = ccline;
+!     ccline.cmdbuff = NULL;  // signal that ccline is not in use
+  }
+  
+  /*
+***************
+*** 3557,3593 ****
+      prev_ccline = *ccp;
+  }
+  
+- #if defined(FEAT_EVAL) || defined(PROTO)
+- /*
+-  * Save the command line into allocated memory.  Returns a pointer to be
+-  * passed to restore_cmdline_alloc() later.
+-  * Returns NULL when failed.
+-  */
+-     char_u *
+- save_cmdline_alloc(void)
+- {
+-     struct cmdline_info *p;
+- 
+-     p = (struct cmdline_info *)alloc((unsigned)sizeof(struct cmdline_info));
+-     if (p != NULL)
+- 	save_cmdline(p);
+-     return (char_u *)p;
+- }
+- 
+- /*
+-  * Restore the command line from the return value of save_cmdline_alloc().
+-  */
+-     void
+- restore_cmdline_alloc(char_u *p)
+- {
+-     if (p != NULL)
+-     {
+- 	restore_cmdline((struct cmdline_info *)p);
+- 	vim_free(p);
+-     }
+- }
+- #endif
+- 
+  /*
+   * Paste a yank register into the command line.
+   * Used by CTRL-R command in command-line mode.
+--- 3571,3576 ----
+***************
+*** 3606,3612 ****
+      char_u		*arg;
+      char_u		*p;
+      int			allocated;
+-     struct cmdline_info	save_ccline;
+  
+      /* check for valid regname; also accept special characters for CTRL-R in
+       * the command line */
+--- 3589,3594 ----
+***************
+*** 3625,3637 ****
+      regname = may_get_selection(regname);
+  #endif
+  
+!     /* Need to save and restore ccline.  And set "textlock" to avoid nasty
+!      * things like going to another buffer when evaluating an expression. */
+!     save_cmdline(&save_ccline);
+      ++textlock;
+      i = get_spec_reg(regname, &arg, &allocated, TRUE);
+      --textlock;
+-     restore_cmdline(&save_ccline);
+  
+      if (i)
+      {
+--- 3607,3617 ----
+      regname = may_get_selection(regname);
+  #endif
+  
+!     // Need to  set "textlock" to avoid nasty things like going to another
+!     // buffer when evaluating an expression.
+      ++textlock;
+      i = get_spec_reg(regname, &arg, &allocated, TRUE);
+      --textlock;
+  
+      if (i)
+      {
+***************
+*** 5601,5607 ****
+      sctx_T	save_current_sctx = current_sctx;
+      char_u	*pat = NULL;
+      void	*ret;
+-     struct cmdline_info	    save_ccline;
+  
+      if (xp->xp_arg == NULL || xp->xp_arg[0] == '\0' || xp->xp_line == NULL)
+  	return NULL;
+--- 5581,5586 ----
+***************
+*** 5624,5638 ****
+      args[2].vval.v_number = xp->xp_col;
+      args[3].v_type = VAR_UNKNOWN;
+  
+-     /* Save the cmdline, we don't know what the function may do. */
+-     save_ccline = ccline;
+-     ccline.cmdbuff = NULL;
+-     ccline.cmdprompt = NULL;
+      current_sctx = xp->xp_script_ctx;
+  
+      ret = user_expand_func(xp->xp_arg, 3, args);
+  
+-     ccline = save_ccline;
+      current_sctx = save_current_sctx;
+      if (ccline.cmdbuff != NULL)
+  	ccline.cmdbuff[ccline.cmdlen] = keep;
+--- 5603,5612 ----
+***************
+*** 6481,6487 ****
+  
+  #if defined(FEAT_EVAL) || defined(FEAT_CMDWIN) || defined(PROTO)
+  /*
+!  * Get pointer to the command line info to use. cmdline_paste() may clear
+   * ccline and put the previous value in prev_ccline.
+   */
+      static struct cmdline_info *
+--- 6455,6461 ----
+  
+  #if defined(FEAT_EVAL) || defined(FEAT_CMDWIN) || defined(PROTO)
+  /*
+!  * Get pointer to the command line info to use. save_ccline() may clear
+   * ccline and put the previous value in prev_ccline.
+   */
+      static struct cmdline_info *
+***************
+*** 7072,7077 ****
+--- 7046,7057 ----
+      }
+  }
+  
++     void
++ cmdline_init(void)
++ {
++     vim_memset(&ccline, 0, sizeof(struct cmdline_info));
++ }
++ 
+  /*
+   * Write history to viminfo file in "fp".
+   * When "merge" is TRUE merge history lines with a previously read viminfo
+***************
+*** 7238,7244 ****
+      static int
+  open_cmdwin(void)
+  {
+-     struct cmdline_info	save_ccline;
+      bufref_T		old_curbuf;
+      win_T		*old_curwin = curwin;
+      bufref_T		bufref;
+--- 7218,7223 ----
+***************
+*** 7355,7363 ****
+      invalidate_botline();
+      redraw_later(SOME_VALID);
+  
+-     /* Save the command line info, can be used recursively. */
+-     save_cmdline(&save_ccline);
+- 
+      /* No Ex mode here! */
+      exmode_active = 0;
+  
+--- 7334,7339 ----
+***************
+*** 7394,7403 ****
+      KeyTyped = save_KeyTyped;
+  # endif
+  
+-     /* Restore the command line info. */
+-     restore_cmdline(&save_ccline);
+      cmdwin_type = 0;
+- 
+      exmode_active = save_exmode;
+  
+      /* Safety check: The old window or buffer was deleted: It's a bug when
+--- 7370,7376 ----
+*** ../vim-8.1.0438/src/proto/ex_getln.pro	2018-05-17 13:52:35.000000000 +0200
+--- src/proto/ex_getln.pro	2018-09-30 15:11:35.810356311 +0200
+***************
+*** 15,22 ****
+  void putcmdline(int c, int shift);
+  void unputcmdline(void);
+  int put_on_cmdline(char_u *str, int len, int redraw);
+- char_u *save_cmdline_alloc(void);
+- void restore_cmdline_alloc(char_u *p);
+  void cmdline_paste_str(char_u *s, int literally);
+  void redrawcmdline(void);
+  void redrawcmdline_ex(int do_compute_cmdrow);
+--- 15,20 ----
+***************
+*** 54,59 ****
+--- 52,58 ----
+  int read_viminfo_history(vir_T *virp, int writing);
+  void handle_viminfo_history(garray_T *values, int writing);
+  void finish_viminfo_history(vir_T *virp);
++ void cmdline_init(void);
+  void write_viminfo_history(FILE *fp, int merge);
+  void cmd_pchar(int c, int offset);
+  int cmd_gchar(int offset);
+*** ../vim-8.1.0438/src/getchar.c	2018-09-10 21:04:09.868392665 +0200
+--- src/getchar.c	2018-09-30 14:32:29.424816910 +0200
+***************
+*** 4666,4672 ****
+      char_u	*res;
+      char_u	*p;
+      char_u	*expr;
+-     char_u	*save_cmd;
+      pos_T	save_cursor;
+      int		save_msg_col;
+      int		save_msg_row;
+--- 4666,4671 ----
+***************
+*** 4678,4690 ****
+  	return NULL;
+      vim_unescape_csi(expr);
+  
+-     save_cmd = save_cmdline_alloc();
+-     if (save_cmd == NULL)
+-     {
+- 	vim_free(expr);
+- 	return NULL;
+-     }
+- 
+      /* Forbid changing text or using ":normal" to avoid most of the bad side
+       * effects.  Also restore the cursor position. */
+      ++textlock;
+--- 4677,4682 ----
+***************
+*** 4700,4706 ****
+      msg_col = save_msg_col;
+      msg_row = save_msg_row;
+  
+-     restore_cmdline_alloc(save_cmd);
+      vim_free(expr);
+  
+      if (p == NULL)
+--- 4692,4697 ----
+*** ../vim-8.1.0438/src/main.c	2018-09-16 14:10:28.300323360 +0200
+--- src/main.c	2018-09-30 15:10:50.358720630 +0200
+***************
+*** 929,934 ****
+--- 929,935 ----
+      void
+  common_init(mparm_T *paramp)
+  {
++     cmdline_init();
+  
+  #ifdef FEAT_MBYTE
+      (void)mb_init();	/* init mb_bytelen_tab[] to ones */
+*** ../vim-8.1.0438/src/version.c	2018-09-28 23:09:50.558463030 +0200
+--- src/version.c	2018-09-30 17:07:43.183446960 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     439,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+124. You begin conversations with, "Who is your internet service provider?"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

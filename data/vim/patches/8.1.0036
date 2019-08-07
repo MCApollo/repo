@@ -1,0 +1,145 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0036
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0036
+Problem:    Not restoring Insert mode if leaving a prompt buffer by using a
+            mouse click.
+Solution:   Set b_prompt_insert appropriately. Also correct cursor position
+            when moving cursor to last line.
+Files:	    src/buffer.c, src/edit.c, src/window.c
+
+
+*** ../vim-8.1.0035/src/buffer.c	2018-06-03 14:42:17.840505115 +0200
+--- src/buffer.c	2018-06-06 17:51:25.004337836 +0200
+***************
+*** 5733,5738 ****
+--- 5733,5742 ----
+  #endif
+  	if (buf->b_fname != NULL)
+  	    return buf->b_fname;
++ #ifdef FEAT_JOB_CHANNEL
++ 	if (bt_prompt(buf))
++ 	    return (char_u *)_("[Prompt]");
++ #endif
+  	return (char_u *)_("[Scratch]");
+      }
+  
+*** ../vim-8.1.0035/src/edit.c	2018-06-06 09:11:07.253357321 +0200
+--- src/edit.c	2018-06-06 17:51:25.004337836 +0200
+***************
+*** 1411,1421 ****
+  #ifdef FEAT_JOB_CHANNEL
+  	    if (bt_prompt(curbuf))
+  	    {
+- 		buf_T *buf = curbuf;
+- 
+  		invoke_prompt_callback();
+! 		if (curbuf != buf)
+! 		    // buffer changed, get out of Insert mode
+  		    goto doESCkey;
+  		break;
+  	    }
+--- 1411,1420 ----
+  #ifdef FEAT_JOB_CHANNEL
+  	    if (bt_prompt(curbuf))
+  	    {
+  		invoke_prompt_callback();
+! 		if (!bt_prompt(curbuf))
+! 		    // buffer changed to a non-prompt buffer, get out of
+! 		    // Insert mode
+  		    goto doESCkey;
+  		break;
+  	    }
+***************
+*** 1906,1911 ****
+--- 1905,1912 ----
+  	coladvance((colnr_T)MAXCOL);
+      if (cmdchar_todo == 'I' || curwin->w_cursor.col <= (int)STRLEN(prompt))
+  	curwin->w_cursor.col = STRLEN(prompt);
++     /* Make sure the cursor is in a valid position. */
++     check_cursor();
+  }
+  
+  /*
+***************
+*** 9467,9473 ****
+  
+      /* If deleted before the insertion point, adjust it */
+      if (curwin->w_cursor.lnum == Insstart_orig.lnum
+! 				       && curwin->w_cursor.col < Insstart_orig.col)
+  	Insstart_orig.col = curwin->w_cursor.col;
+  
+      /* vi behaviour: the cursor moves backward but the character that
+--- 9468,9474 ----
+  
+      /* If deleted before the insertion point, adjust it */
+      if (curwin->w_cursor.lnum == Insstart_orig.lnum
+! 				  && curwin->w_cursor.col < Insstart_orig.col)
+  	Insstart_orig.col = curwin->w_cursor.col;
+  
+      /* vi behaviour: the cursor moves backward but the character that
+***************
+*** 9517,9522 ****
+--- 9518,9528 ----
+  	     * previous one to stop insert there properly. */
+  	    curwin = old_curwin;
+  	    curbuf = curwin->w_buffer;
++ #ifdef FEAT_JOB_CHANNEL
++ 	    if (bt_prompt(curbuf))
++ 		// Restart Insert mode when re-entering the prompt buffer.
++ 		curbuf->b_prompt_insert = 'A';
++ #endif
+  	}
+  	start_arrow(curwin == old_curwin ? &tpos : NULL);
+  	if (curwin != new_curwin && win_valid(new_curwin))
+*** ../vim-8.1.0035/src/window.c	2018-06-06 09:11:07.257357317 +0200
+--- src/window.c	2018-06-06 17:51:25.012337813 +0200
+***************
+*** 2115,2126 ****
+--- 2115,2135 ----
+      // When leaving the window (or closing the window) was done from a
+      // callback we need to break out of the Insert mode loop.
+      if (State & INSERT)
++     {
+  	stop_insert_mode = TRUE;
++ 	if (bt_prompt(win->w_buffer) && win->w_buffer->b_prompt_insert == NUL)
++ 	    win->w_buffer->b_prompt_insert = 'A';
++     }
+  }
+  
+      static void
+  entering_window(win_T *win)
+  {
++     // When switching to a prompt buffer that was in Insert mode, don't stop
++     // Insert mode, it may have been set in leaving_window().
++     if (bt_prompt(win->w_buffer) && win->w_buffer->b_prompt_insert != NUL)
++ 	stop_insert_mode = FALSE;
++ 
+      // When entering the prompt window may restart Insert mode.
+      restart_edit = win->w_buffer->b_prompt_insert;
+  }
+*** ../vim-8.1.0035/src/version.c	2018-06-06 09:11:07.261357314 +0200
+--- src/version.c	2018-06-06 17:55:55.983628274 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     36,
+  /**/
+
+-- 
+How To Keep A Healthy Level Of Insanity:
+15. Five days in advance, tell your friends you can't attend their
+    party because you're not in the mood.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

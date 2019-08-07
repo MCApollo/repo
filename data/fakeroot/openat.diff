@@ -1,0 +1,52 @@
+>From d67f168080229bdfda9e07fc473fd699ed76a001 Mon Sep 17 00:00:00 2001
+From: Mikhail Gusarov <dottedmag@dottedmag.net>
+Date: Fri, 24 Oct 2014 17:36:15 +0200
+Subject: [PATCH 1/2] Implement openat(2) wrapper which handles optional
+ argument
+
+Unbreaks build on OS X 10.10
+---
+ libfakeroot.c | 16 ++++++++++++++++
+ wrapfunc.inp  |  2 +-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/libfakeroot.c b/libfakeroot.c
+index f867758..cd0be84 100644
+--- a/libfakeroot.c
++++ b/libfakeroot.c
+@@ -2426,3 +2426,19 @@ int sysinfo(int command, char *buf, long count)
+     }
+ }
+ #endif
++
++#ifdef HAVE_OPENAT
++int openat(int dir_fd, const char *pathname, int flags, ...)
++{
++    if (flags & O_CREAT)
++    {
++        va_list args;
++        mode_t mode;
++        va_start(args, flags);
++        mode = va_arg(args, int);
++        va_end(args);
++        return next_openat(dir_fd, pathname, flags, mode);
++    }
++    return next_openat(dir_fd, pathname, flags);
++}
++#endif
+diff --git a/wrapfunc.inp b/wrapfunc.inp
+index 5eff0cc..88bcc11 100644
+--- a/wrapfunc.inp
++++ b/wrapfunc.inp
+@@ -197,7 +197,7 @@ fchownat;int;(int dir_fd, const char *path, uid_t owner, gid_t group, int flags)
+ mkdirat;int;(int dir_fd, const char *pathname, mode_t mode);(dir_fd, pathname, mode)
+ #endif /* HAVE_MKDIRAT */
+ #ifdef HAVE_OPENAT
+-openat;int;(int dir_fd, const char *pathname, int flags);(dir_fd, pathname, flags)
++openat;int;(int dir_fd, const char *pathname, int flags, ...)
+ #endif /* HAVE_OPENAT */
+ #ifdef HAVE_RENAMEAT
+ renameat;int;(int olddir_fd, const char *oldpath, int newdir_fd, const char *newpath);(olddir_fd, oldpath, newdir_fd, newpath)
+-- 
+2.1.2
+

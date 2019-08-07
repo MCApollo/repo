@@ -1,0 +1,53 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0383
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0383
+Problem:    Missing source file rename.
+Solution:   Update the dependency.
+Files:	    src/Make_mvc.mak
+
+
+*** ../vim-8.1.0382/src/Make_mvc.mak	2018-09-13 17:23:05.169150892 +0200
+--- src/Make_mvc.mak	2018-09-13 18:04:21.243973088 +0200
+***************
+*** 1576,1583 ****
+  $(OUTDIR)/pen.obj: $(OUTDIR) libvterm/src/pen.c $(TERM_DEPS)
+  	$(CCCTERM) -Fo$@ libvterm/src/pen.c
+  
+! $(OUTDIR)/termscreen.obj: $(OUTDIR) libvterm/src/screen.c $(TERM_DEPS)
+! 	$(CCCTERM) -Fo$@ libvterm/src/screen.c
+  
+  $(OUTDIR)/state.obj: $(OUTDIR) libvterm/src/state.c $(TERM_DEPS)
+  	$(CCCTERM) -Fo$@ libvterm/src/state.c
+--- 1576,1583 ----
+  $(OUTDIR)/pen.obj: $(OUTDIR) libvterm/src/pen.c $(TERM_DEPS)
+  	$(CCCTERM) -Fo$@ libvterm/src/pen.c
+  
+! $(OUTDIR)/termscreen.obj: $(OUTDIR) libvterm/src/termscreen.c $(TERM_DEPS)
+! 	$(CCCTERM) -Fo$@ libvterm/src/termscreen.c
+  
+  $(OUTDIR)/state.obj: $(OUTDIR) libvterm/src/state.c $(TERM_DEPS)
+  	$(CCCTERM) -Fo$@ libvterm/src/state.c
+*** ../vim-8.1.0382/src/version.c	2018-09-13 18:01:27.637877198 +0200
+--- src/version.c	2018-09-13 18:05:04.691505179 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     383,
+  /**/
+
+-- 
+The future isn't what it used to be.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

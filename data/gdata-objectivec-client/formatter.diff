@@ -1,0 +1,22 @@
+diff -ru gdata-objectivec-client-129/Source/Networking/GDataHTTPFetcherLogging.m gdata-objectivec-client-129+iPhone/Source/Networking/GDataHTTPFetcherLogging.m
+--- gdata-objectivec-client-129/Source/Networking/GDataHTTPFetcherLogging.m	2008-05-06 00:11:33.000000000 +0000
++++ gdata-objectivec-client-129+iPhone/Source/Networking/GDataHTTPFetcherLogging.m	2008-05-07 17:32:26.000000000 +0000
+@@ -160,11 +160,13 @@
+   if (!gLoggingDateStamp) {    
+     // produce a string like 08-21_01-41-23PM
+     
+-    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+-    [formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+-    [formatter setDateFormat:@"M-dd_hh-mm-ssa"];
+-    
+-    gLoggingDateStamp = [[formatter stringFromDate:[NSDate date]] retain] ;    
++    CFLocaleRef locale = CFLocaleCopyCurrent();
++    CFDateFormatterRef formatter = CFDateFormatterCreate(NULL, locale, kCFDateFormatterNoStyle, kCFDateFormatterNoStyle);
++    CFRelease(locale);
++    
++    CFDateFormatterSetFormat(formatter, CFSTR("M-dd_hh-mm-ssa"));
++    gLoggingDateStamp = (NSString *) CFDateFormatterCreateStringWithDate(NULL, formatter, (CFDateRef) [NSDate date]);
++    CFRelease(formatter);
+   }
+   return gLoggingDateStamp;
+ }

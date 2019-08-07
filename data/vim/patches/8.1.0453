@@ -1,0 +1,126 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0453
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0453
+Problem:    MS-Windows: executable() is not reliable.
+Solution:   Use $PATHEXT properly. (Yasuhiro Matsumoto, closes #3412)
+Files:	    src/os_win32.c, src/testdir/test_functions.vim
+
+
+*** ../vim-8.1.0452/src/os_win32.c	2018-10-06 15:02:53.797052261 +0200
+--- src/os_win32.c	2018-10-06 15:18:33.140733117 +0200
+***************
+*** 3535,3555 ****
+  {
+      char_u	buf[_MAX_PATH];
+      int		len = (int)STRLEN(name);
+!     char_u	*p;
+  
+      if (len >= _MAX_PATH)	/* safety check */
+  	return FALSE;
+  
+!     /* If there already is an extension try using the name directly.  Also do
+!      * this with a Unix-shell like 'shell'. */
+!     if (vim_strchr(gettail(name), '.') != NULL
+! 			       || strstr((char *)gettail(p_sh), "sh") != NULL)
+  	if (executable_exists((char *)name, path, use_path))
+  	    return TRUE;
+  
+      /*
+       * Loop over all extensions in $PATHEXT.
+       */
+      vim_strncpy(buf, name, _MAX_PATH - 1);
+      p = mch_getenv("PATHEXT");
+      if (p == NULL)
+--- 3535,3578 ----
+  {
+      char_u	buf[_MAX_PATH];
+      int		len = (int)STRLEN(name);
+!     char_u	*p, *saved;
+  
+      if (len >= _MAX_PATH)	/* safety check */
+  	return FALSE;
+  
+!     /* Ty using the name directly when a Unix-shell like 'shell'. */
+!     if (strstr((char *)gettail(p_sh), "sh") != NULL)
+  	if (executable_exists((char *)name, path, use_path))
+  	    return TRUE;
+  
+      /*
+       * Loop over all extensions in $PATHEXT.
+       */
++     p = mch_getenv("PATHEXT");
++     if (p == NULL)
++ 	p = (char_u *)".com;.exe;.bat;.cmd";
++     saved = vim_strsave(p);
++     if (saved == NULL)
++ 	return FALSE;
++     p = saved;
++     while (*p)
++     {
++ 	char_u	*tmp = vim_strchr(p, ';');
++ 
++ 	if (tmp != NULL)
++ 	    *tmp = NUL;
++ 	if (_stricoll((char *)name + len - STRLEN(p), (char *)p) == 0
++ 			    && executable_exists((char *)name, path, use_path))
++ 	{
++ 	    vim_free(saved);
++ 	    return TRUE;
++ 	}
++ 	if (tmp == NULL)
++ 	    break;
++ 	p = tmp + 1;
++     }
++     vim_free(saved);
++ 
+      vim_strncpy(buf, name, _MAX_PATH - 1);
+      p = mch_getenv("PATHEXT");
+      if (p == NULL)
+*** ../vim-8.1.0452/src/testdir/test_functions.vim	2018-09-03 22:08:05.676736128 +0200
+--- src/testdir/test_functions.vim	2018-10-06 15:14:28.462908180 +0200
+***************
+*** 800,805 ****
+--- 800,818 ----
+    bw!
+  endfunc
+  
++ func Test_Executable()
++   if has('win32')
++     call assert_equal(1, executable('notepad'))
++     call assert_equal(1, executable('notepad.exe'))
++     call assert_equal(0, executable('notepad.exe.exe'))
++     call assert_equal(0, executable('shell32.dll'))
++     call assert_equal(0, executable('win.ini'))
++   elseif has('unix')
++     call assert_equal(1, executable('cat'))
++     call assert_equal(0, executable('dog'))
++   endif
++ endfunc
++ 
+  func Test_hostname()
+    let hostname_vim = hostname()
+    if has('unix')
+*** ../vim-8.1.0452/src/version.c	2018-10-06 15:02:53.797052261 +0200
+--- src/version.c	2018-10-06 15:15:48.630198494 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     453,
+  /**/
+
+-- 
+Send $25.00 for handy leaflet on how to make money by selling leaflets
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

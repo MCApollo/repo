@@ -1,0 +1,115 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0284
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0284
+Problem:    'cursorline' highlighting wrong with 'incsearch'.
+Solution:   Move the cursor back if the match is outside the range.
+Files:	    src/ex_getln.c, src/testdir/test_search.vim,
+            src/testdir/dumps/Test_incsearch_substitute_07.dump
+            src/testdir/dumps/Test_incsearch_substitute_08.dump
+
+
+*** ../vim-8.1.0283/src/ex_getln.c	2018-08-14 16:06:09.455696035 +0200
+--- src/ex_getln.c	2018-08-14 18:14:34.864316635 +0200
+***************
+*** 480,487 ****
+--- 480,490 ----
+  
+  	if (curwin->w_cursor.lnum < search_first_line
+  		|| curwin->w_cursor.lnum > search_last_line)
++ 	{
+  	    // match outside of address range
+  	    i = 0;
++ 	    curwin->w_cursor = is_state->search_start;
++ 	}
+  
+  	// if interrupted while searching, behave like it failed
+  	if (got_int)
+*** ../vim-8.1.0283/src/testdir/test_search.vim	2018-08-14 16:06:09.455696035 +0200
+--- src/testdir/test_search.vim	2018-08-14 18:10:01.346273292 +0200
+***************
+*** 839,844 ****
+--- 839,845 ----
+  	\ 'for n in range(1, 10)',
+  	\ '  call setline(n, "foo " . n)',
+  	\ 'endfor',
++ 	\ 'call setline(11, "bar 11")',
+  	\ '3',
+  	\ ], 'Xis_subst_script')
+    let buf = RunVimInTerminal('-S Xis_subst_script', {'rows': 9, 'cols': 70})
+***************
+*** 890,895 ****
+--- 891,910 ----
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_06', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
++   " Cursorline highlighting at match
++   call term_sendkeys(buf, ":set cursorline\<CR>")
++   call term_sendkeys(buf, 'G9G')
++   call term_sendkeys(buf, ':9,11s/bar')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_07', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
++   " Cursorline highlighting at cursor when no match
++   call term_sendkeys(buf, ':9,10s/bar')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_08', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
+    call StopVimInTerminal(buf)
+    call delete('Xis_subst_script')
+  endfunc
+*** ../vim-8.1.0283/src/testdir/dumps/Test_incsearch_substitute_07.dump	2018-08-14 18:16:06.747659260 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_07.dump	2018-08-14 18:12:01.497413817 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+0&#ffffff0|o@1| |4| @64
++ |f|o@1| |5| @64
++ |f|o@1| |6| @64
++ |f|o@1| |7| @64
++ |f|o@1| |8| @64
++ |f|o@1| |9| @64
++ |f|o@1| |1|0| @63
++ |b+9&&|a|r| +8&&|1@1| @63
++ |:+0&&|9|,|1@1|s|/|b|a|r> @59
+*** ../vim-8.1.0283/src/testdir/dumps/Test_incsearch_substitute_08.dump	2018-08-14 18:16:06.755659202 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_08.dump	2018-08-14 18:14:43.136257456 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+0&#ffffff0|o@1| |4| @64
++ |f|o@1| |5| @64
++ |f|o@1| |6| @64
++ |f|o@1| |7| @64
++ |f|o@1| |8| @64
++ |f+8&&|o@1| |9| @64
++ |f+0&&|o@1| |1|0| @63
++ |b|a|r| |1@1| @63
++ |:|9|,|1|0|s|/|b|a|r> @59
+*** ../vim-8.1.0283/src/version.c	2018-08-14 17:28:42.408167699 +0200
+--- src/version.c	2018-08-14 18:11:55.033460059 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     284,
+  /**/
+
+
+-- 
+If you only have a hammer, you tend to see every problem as a nail.
+If you only have MS-Windows, you tend to solve every problem by rebooting.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,32 @@
+diff -ur libpcap-1.9.0/Makefile.in libpcap-1.9.0+iPhone/Makefile.in
+--- libpcap-1.9.0/Makefile.in	2018-07-22 07:08:39.000000000 -1000
++++ libpcap-1.9.0+iPhone/Makefile.in	2019-04-08 14:13:56.000000000 -1000
+@@ -414,8 +414,8 @@
+ libpcap.dylib: $(OBJ)
+ 	rm -f libpcap*.dylib
+ 	VER=`cat $(srcdir)/VERSION`; \
+-	MAJOR_VER=A; \
+-	COMPAT_VER=1; \
++	MAJOR_VER=`sed 's/\([0-9][0-9]*\)\..*/\1/' $(srcdir)/VERSION`; \
++	COMPAT_VER=`sed 's/\([0-9][0-9]*\)\..*/\1/' $(srcdir)/VERSION`; \
+ 	CURRENT_VER=`sed 's/[^0-9.].*$$//' $(srcdir)/VERSION`; \
+ 	$(CC) -dynamiclib -undefined error $(LDFLAGS) \
+ 	    -o libpcap.$$VER.dylib $(OBJ) $(ADDLOBJS) $(LIBS) \
+@@ -626,7 +626,7 @@
+ 	[ -d $(DESTDIR)$(libdir) ] || \
+ 	    (mkdir -p $(DESTDIR)$(libdir); chmod 755 $(DESTDIR)$(libdir))
+ 	VER=`cat $(srcdir)/VERSION`; \
+-	MAJOR_VER=A; \
++	MAJOR_VER=`sed 's/\([0-9][0-9]*\)\..*/\1/' $(srcdir)/VERSION`; \
+ 	$(INSTALL_PROGRAM) libpcap.$$VER.dylib $(DESTDIR)$(libdir)/libpcap.$$VER.dylib; \
+ 	ln -sf libpcap.$$VER.dylib $(DESTDIR)$(libdir)/libpcap.$$MAJOR_VER.dylib; \
+ 	ln -sf libpcap.$$MAJOR_VER.dylib $(DESTDIR)$(libdir)/libpcap.dylib
+@@ -706,7 +706,7 @@
+ 	rm -f $(DESTDIR)$(libdir)/libpcap.so
+ uninstall-shared-dylib:
+ 	VER=`cat $(srcdir)/VERSION`; \
+-	MAJOR_VER=A; \
++	MAJOR_VER=`sed 's/\([0-9][0-9]*\)\..*/\1/' $(srcdir)/VERSION`; \
+ 	rm -f $(DESTDIR)$(libdir)/libpcap.$$VER.dylib; \
+ 	rm -f $(DESTDIR)$(libdir)/libpcap.$$MAJOR_VER.dylib; \
+ 	rm -f $(DESTDIR)$(libdir)/libpcap.dylib

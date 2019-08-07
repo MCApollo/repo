@@ -1,0 +1,222 @@
+Index: pyobjc/pyobjc-core/Modules/objc/libffi_support.m
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/libffi_support.m	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/libffi_support.m	(working copy)
+@@ -13,6 +13,7 @@
+  * FIXME: There's way to much duplicated code in here, please refactor me.
+  */
+ #include "pyobjc.h"
++#include "objc-runtime-info.h"
+ 
+ #import <Foundation/NSHost.h>
+ #import <CoreFoundation/CoreFoundation.h>
+@@ -22,37 +23,9 @@
+ 		        unsigned short*, unsigned short*);
+ #endif;
+ 
+-/*
+- * Define SMALL_STRUCT_LIMIT as the largest struct that will be returned
+- * in registers instead of with a hidden pointer argument.
+- */
+-
+ static const char gCharEncoding[] = { _C_CHR, 0 };
+ static const char gCFRangeEncoding[1024] = { 0 };
+ 
+-#if defined(__ppc__)
+-
+-#   define SMALL_STRUCT_LIMIT	4
+-
+-#elif defined(__ppc64__)
+-
+-#   define SMALL_STRUCT_LIMIT	8
+-
+-#elif defined(__i386__) 
+-
+-#   define SMALL_STRUCT_LIMIT 	8
+-
+-#elif defined(__x86_64__) 
+-
+-#   define SMALL_STRUCT_LIMIT	16
+-
+-#else
+-
+-#   error "Unsupported MACOSX platform"
+-
+-#endif
+-
+-
+ #ifndef FFI_CLOSURES
+ #    error "Need FFI_CLOSURES!"
+ #endif
+@@ -3527,24 +3500,8 @@
+ 			ffi64_stret_needs_ptr(signature_to_ffi_return_type(rettype), NULL, NULL)
+ 
+ #else /* !__ppc64__ */
+-			(resultSize > SMALL_STRUCT_LIMIT
+-#ifdef __i386__
+-			 /* darwin/x86 ABI is slightly odd ;-) */
+-			 || (resultSize != 1 
+-				&& resultSize != 2 
+-				&& resultSize != 4 
+-				&& resultSize != 8)
+-#endif
+-#ifdef __x86_64__
+-			 /* darwin/x86-64 ABI is slightly odd ;-) */
+-			 || (resultSize != 1 
+-				&& resultSize != 2 
+-				&& resultSize != 4 
+-				&& resultSize != 8
+-				&& resultSize != 16
+-				)
+-#endif
+-			)
++			(resultSize > OBJC_MAX_STRUCT_BY_VALUE ||
++                        struct_forward_array[resultSize] != 0)
+ #endif /* !__ppc64__ */
+ 			) {
+ 		
+Index: pyobjc/pyobjc-core/Modules/objc/class-builder.m
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/class-builder.m	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/class-builder.m	(working copy)
+@@ -1860,7 +1860,7 @@
+ 		/* Parent doesn't know the key, try to create in the 
+ 		 * python side, just like for plain python objects.
+ 		 */
+-		if (([[localException name] isEqual:@"NSUnknownKeyException"]
++		if (([[localException name] isEqual:@"NSUndefinedKeyException"]
+ 			) && [[self class] accessInstanceVariablesDirectly]) {
+ 
+ 			PyGILState_STATE state = PyGILState_Ensure();
+@@ -1972,7 +1972,7 @@
+ 		/* Parent doesn't know the key, try to create in the 
+ 		 * python side, just like for plain python objects.
+ 		 */
+-		if (([[localException name] isEqual:@"NSUnknownKeyException"]
++		if (([[localException name] isEqual:@"NSUndefinedKeyException"]
+ 			) && [[self class] accessInstanceVariablesDirectly]) {
+ 
+ 			PyGILState_STATE state = PyGILState_Ensure();
+Index: pyobjc/pyobjc-core/Modules/objc/objc-runtime-compat.h
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/objc-runtime-compat.h	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/objc-runtime-compat.h	(working copy)
+@@ -44,7 +44,7 @@
+ #define objc_superSetReceiver(super, val) (super).receiver = (val)
+ #define objc_superGetReceiver(super) ((super).receiver)
+ 
+-#ifdef __OBJC2__
++#if defined(__OBJC2__) || defined(__cplusplus)
+ 
+ #define objc_superSetClass(super, cls) (super).super_class = (cls)
+ #define objc_superGetClass(super) ((super).super_class)
+Index: pyobjc/pyobjc-core/Modules/objc/toll-free-bridging.m
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/toll-free-bridging.m	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/toll-free-bridging.m	(working copy)
+@@ -10,7 +10,7 @@
+ 
+ #import <Foundation/NSURL.h>
+ 
+-#ifndef __OBJC2__
++#if 0
+ #include "pymactoolbox.h"
+ #endif
+ 
+@@ -26,7 +26,7 @@
+ 
+ 	}
+ 
+-#ifndef __OBJC2__
++#if 0
+ 	int r;
+ 
+ 	/* Fall back to MacPython CFType support: */
+@@ -47,7 +47,7 @@
+ PyObject* 
+ PyObjC_IDToCFType(id argument)
+ {
+-#ifndef __OBJC2__
++#if 0
+ 	CFTypeRef typeRef = (CFTypeRef)argument;
+ 	CFTypeID typeID = CFGetTypeID(argument);
+ 
+Index: pyobjc/pyobjc-core/Modules/objc/objc-runtime-compat.m
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/objc-runtime-compat.m	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/objc-runtime-compat.m	(working copy)
+@@ -821,7 +821,7 @@
+ 	 */
+ 	PyObjC_class_addMethodList  = compat_class_addMethodList;
+ 	PyObjC_methodlist_magic     = compat_methodlist_magic;
+-	PyObjC_objc_disposeClassPair   = compat_objc_freeClassPair;
++	PyObjC_objc_disposeClassPair   = compat_objc_disposeClassPair;
+ 	PyObjC_preclass_addMethod   = compat_preclass_addMethod;
+ 	PyObjC_preclass_addIvar     = compat_preclass_addIvar;
+ 	PyObjC_preclass_addProtocol = compat_preclass_addProtocol;
+Index: pyobjc/pyobjc-core/Modules/objc/test/structargs.m
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/test/structargs.m	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/test/structargs.m	(working copy)
+@@ -3,7 +3,7 @@
+ #include "Python.h"
+ #include "pyobjc-api.h"
+ 
+-#import <Cocoa/Cocoa.h>
++#import <Foundation/Foundation.h>
+ 
+ @interface StructArgClass : NSObject 
+ {
+Index: pyobjc/pyobjc-core/Modules/objc/OC_PythonObject.m
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/OC_PythonObject.m	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/OC_PythonObject.m	(working copy)
+@@ -35,7 +35,7 @@
+ #import "OC_PythonUnicode.h"
+ #import "OC_PythonString.h"
+ 
+-extern NSString * const NSUnknownKeyException; /* Radar #3336042 */
++extern NSString * const NSUndefinedKeyException; /* Radar #3336042 */
+ 
+ PyObject *OC_PythonObject_DepythonifyTable = NULL;
+ PyObject *OC_PythonObject_PythonifyStructTable = NULL;
+@@ -938,7 +938,7 @@
+ - (void)unableToSetNilForKey: (NSString*) key;
+ {
+ 	[NSException 
+-		raise: NSUnknownKeyException 
++		raise: NSUndefinedKeyException 
+ 		format: @"cannot set Nil for key: %@", key];
+ }
+ 
+@@ -950,7 +950,7 @@
+ - (void)valueForUndefinedKey: (NSString*)key;
+ {
+ 	[NSException 
+-		raise: NSUnknownKeyException
++		raise: NSUndefinedKeyException
+ 		format: @"query for unknown key: %@", key];
+ }
+ 
+@@ -962,7 +962,7 @@
+ - (void)setValue: value forUndefinedKey: (NSString*) key;
+ {
+ 	[NSException 
+-		raise: NSUnknownKeyException 
++		raise: NSUndefinedKeyException 
+ 		format: @"setting unknown key: %@ to <%@>", key, value];
+ }
+ 
+Index: pyobjc/pyobjc-core/Modules/objc/objc_util.m
+===================================================================
+--- pyobjc/pyobjc-core/Modules/objc/objc_util.m	(revision 1946)
++++ pyobjc/pyobjc-core/Modules/objc/objc_util.m	(working copy)
+@@ -45,7 +45,7 @@
+ 		return PyExc_ValueError;
+ 	}  else if (strcmp(value, "NSMallocException") == 0) {
+ 		return PyExc_MemoryError;
+-	}  else if (strcmp(value, "NSUnknownKeyException") == 0) {
++	}  else if (strcmp(value, "NSUndefinedKeyException") == 0) {
+ 		return PyExc_KeyError;
+ 	}
+ 

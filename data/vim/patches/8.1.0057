@@ -1,0 +1,203 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0057
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0057
+Problem:    Popup menu displayed wrong when using autocmd.
+Solution:   Use aucmd_prepbuf().  Force updating status line if the popup menu
+            is going to be redrawn anyway. (Christian Brabandt, closes #3009)
+Files:	    src/edit.c, src/screen.c, src/proto/screen.pro
+
+
+*** ../vim-8.1.0056/src/edit.c	2018-06-12 22:05:10.652251583 +0200
+--- src/edit.c	2018-06-16 15:25:18.046301708 +0200
+***************
+*** 1704,1710 ****
+--- 1704,1715 ----
+  #endif
+  	    )
+      {
++ 	aco_save_T	aco;
++ 
++ 	// save and restore curwin and curbuf, in case the autocmd changes them
++ 	aucmd_prepbuf(&aco, curbuf);
+  	apply_autocmds(EVENT_TEXTCHANGEDI, NULL, NULL, FALSE, curbuf);
++ 	aucmd_restbuf(&aco);
+  	curbuf->b_last_changedtick = CHANGEDTICK(curbuf);
+      }
+  
+***************
+*** 1716,1722 ****
+--- 1721,1732 ----
+  	    && curbuf->b_last_changedtick_pum != CHANGEDTICK(curbuf)
+  	    && pum_visible())
+      {
++ 	aco_save_T	aco;
++ 
++ 	// save and restore curwin and curbuf, in case the autocmd changes them
++ 	aucmd_prepbuf(&aco, curbuf);
+  	apply_autocmds(EVENT_TEXTCHANGEDP, NULL, NULL, FALSE, curbuf);
++ 	aucmd_restbuf(&aco);
+  	curbuf->b_last_changedtick_pum = CHANGEDTICK(curbuf);
+      }
+  #endif
+*** ../vim-8.1.0056/src/screen.c	2018-05-22 20:35:13.566009271 +0200
+--- src/screen.c	2018-06-16 15:32:15.224125456 +0200
+***************
+*** 125,130 ****
+--- 125,131 ----
+  static schar_T	*current_ScreenLine;
+  
+  static void win_update(win_T *wp);
++ static void win_redr_status(win_T *wp, int ignore_pum);
+  static void win_draw_end(win_T *wp, int c1, int c2, int row, int endrow, hlf_T hl);
+  #ifdef FEAT_FOLDING
+  static void fold_line(win_T *wp, long fold_count, foldinfo_T *foldinfo, linenr_T lnum, int row);
+***************
+*** 774,780 ****
+  	if (wp->w_redr_status)
+  	{
+  	    cursor_off();
+! 	    win_redr_status(wp);
+  	}
+      }
+  #if defined(FEAT_SEARCH_EXTRA)
+--- 775,781 ----
+  	if (wp->w_redr_status)
+  	{
+  	    cursor_off();
+! 	    win_redr_status(wp, TRUE); // any popup menu will be redrawn below
+  	}
+      }
+  #if defined(FEAT_SEARCH_EXTRA)
+***************
+*** 1030,1036 ****
+  	if (wp->w_redr_type != 0)
+  	    win_update(wp);
+  	if (wp->w_redr_status)
+! 	    win_redr_status(wp);
+      }
+  
+      update_finish();
+--- 1031,1037 ----
+  	if (wp->w_redr_type != 0)
+  	    win_update(wp);
+  	if (wp->w_redr_status)
+! 	    win_redr_status(wp, FALSE);
+      }
+  
+      update_finish();
+***************
+*** 1074,1080 ****
+  	    || *p_stl != NUL || *wp->w_p_stl != NUL
+  # endif
+  	    )
+! 	win_redr_status(wp);
+  
+      update_finish();
+  }
+--- 1075,1081 ----
+  	    || *p_stl != NUL || *wp->w_p_stl != NUL
+  # endif
+  	    )
+! 	win_redr_status(wp, FALSE);
+  
+      update_finish();
+  }
+***************
+*** 6535,6541 ****
+  
+      FOR_ALL_WINDOWS(wp)
+  	if (wp->w_redr_status)
+! 	    win_redr_status(wp);
+      if (redraw_tabline)
+  	draw_tabline();
+  }
+--- 6536,6542 ----
+  
+      FOR_ALL_WINDOWS(wp)
+  	if (wp->w_redr_status)
+! 	    win_redr_status(wp, FALSE);
+      if (redraw_tabline)
+  	draw_tabline();
+  }
+***************
+*** 6864,6872 ****
+   * Redraw the status line of window wp.
+   *
+   * If inversion is possible we use it. Else '=' characters are used.
+   */
+!     void
+! win_redr_status(win_T *wp)
+  {
+      int		row;
+      char_u	*p;
+--- 6865,6875 ----
+   * Redraw the status line of window wp.
+   *
+   * If inversion is possible we use it. Else '=' characters are used.
++  * If "ignore_pum" is TRUE, also redraw statusline when the popup menu is
++  * displayed.
+   */
+!     static void
+! win_redr_status(win_T *wp, int ignore_pum)
+  {
+      int		row;
+      char_u	*p;
+***************
+*** 6890,6898 ****
+      }
+      else if (!redrawing()
+  #ifdef FEAT_INS_EXPAND
+! 	    /* don't update status line when popup menu is visible and may be
+! 	     * drawn over it */
+! 	    || pum_visible()
+  #endif
+  	    )
+      {
+--- 6893,6901 ----
+      }
+      else if (!redrawing()
+  #ifdef FEAT_INS_EXPAND
+! 	    // don't update status line when popup menu is visible and may be
+! 	    // drawn over it, unless it will be redrawn later
+! 	    || (!ignore_pum && pum_visible())
+  #endif
+  	    )
+      {
+*** ../vim-8.1.0056/src/proto/screen.pro	2018-05-17 13:52:50.000000000 +0200
+--- src/proto/screen.pro	2018-06-16 15:23:36.274904477 +0200
+***************
+*** 25,31 ****
+  void redraw_statuslines(void);
+  void win_redraw_last_status(frame_T *frp);
+  void win_redr_status_matches(expand_T *xp, int num_matches, char_u **matches, int match, int showtail);
+- void win_redr_status(win_T *wp);
+  int stl_connected(win_T *wp);
+  int get_keymap_str(win_T *wp, char_u *fmt, char_u *buf, int len);
+  void screen_putchar(int c, int row, int col, int attr);
+--- 25,30 ----
+*** ../vim-8.1.0056/src/version.c	2018-06-16 14:44:05.754081590 +0200
+--- src/version.c	2018-06-16 15:23:26.526962287 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     57,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+49. You never have to deal with busy signals when calling your ISP...because
+    you never log off.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

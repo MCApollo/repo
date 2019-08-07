@@ -1,0 +1,48 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0208
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0208 (after 8.1.0205)
+Problem:    File left behind after running individual test.
+Solution:   Delete the file.
+Files:      src/testdir/test_modeline.vim
+
+
+*** ../vim-8.1.0207/src/testdir/test_modeline.vim	2018-07-23 04:49:17.225024903 +0200
+--- src/testdir/test_modeline.vim	2018-07-24 04:43:26.033462800 +0200
+***************
+*** 5,8 ****
+--- 5,9 ----
+    call writefile(['vi:0', 'nothing'], 'Xmodeline')
+    call assert_fails('split Xmodeline', 'E518:')
+    bwipe!
++   call delete('Xmodeline')
+  endfunc
+*** ../vim-8.1.0207/src/version.c	2018-07-23 05:09:05.593235641 +0200
+--- src/version.c	2018-07-24 04:44:21.565053744 +0200
+***************
+*** 795,796 ****
+--- 795,798 ----
+  {   /* Add new patch number below this line */
++ /**/
++     208,
+  /**/
+
+-- 
+E  M  A  C  S
+s  e  l  o  h
+c  t  t  n  i
+a  a     t  f
+p        r  t
+e        o
+         l
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

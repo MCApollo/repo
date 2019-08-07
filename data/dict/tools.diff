@@ -1,0 +1,12 @@
+diff -r -u dictd-1.9.9/regex/Makefile dictd-1.9.9+iPhone/regex/Makefile
+--- dictd-1.9.9/regex/Makefile	2002-05-03 14:12:24.000000000 +0000
++++ dictd-1.9.9+iPhone/regex/Makefile	2008-01-01 23:48:15.000000000 +0000
+@@ -39,7 +39,7 @@
+ 
+ libregex.a:	$(OBJPRODN)
+ 	rm -f libregex.a
+-	ar crv libregex.a $(OBJPRODN)
++	$(AR) crv libregex.a $(OBJPRODN)
+ 
+ purge:
+ 	rm -f *.o

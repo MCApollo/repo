@@ -1,0 +1,111 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0502
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0502
+Problem:    Internal diff fails when diffing a context diff. (Hirohito Higashi)
+Solution:   Only use callback calls with one line. (closes #3581)
+Files:	    src/diff.c, src/testdir/dumps/Test_diff_of_diff_01.dump
+
+
+*** ../vim-8.1.0501/src/diff.c	2018-10-25 17:52:20.386489835 +0200
+--- src/diff.c	2018-10-31 22:50:08.320453518 +0100
+***************
+*** 3206,3226 ****
+  xdiff_out(void *priv, mmbuffer_t *mb, int nbuf)
+  {
+      diffout_T	*dout = (diffout_T *)priv;
+-     int		i;
+      char_u	*p;
+  
+!     for (i = 0; i < nbuf; i++)
+!     {
+! 	// We are only interested in the header lines, skip text lines.
+! 	if (STRNCMP(mb[i].ptr, "@@ ", 3)  != 0)
+! 	    continue;
+! 	if (ga_grow(&dout->dout_ga, 1) == FAIL)
+! 	    return -1;
+! 	p = vim_strnsave((char_u *)mb[i].ptr, mb[i].size);
+! 	if (p == NULL)
+! 	    return -1;
+! 	((char_u **)dout->dout_ga.ga_data)[dout->dout_ga.ga_len++] = p;
+!     }
+      return 0;
+  }
+  
+--- 3206,3228 ----
+  xdiff_out(void *priv, mmbuffer_t *mb, int nbuf)
+  {
+      diffout_T	*dout = (diffout_T *)priv;
+      char_u	*p;
+  
+!     // The header line always comes by itself, text lines in at least two
+!     // parts.  We drop the text part.
+!     if (nbuf > 1)
+! 	return 0;
+! 
+!     // sanity check
+!     if (STRNCMP(mb[0].ptr, "@@ ", 3)  != 0)
+! 	return 0;
+! 
+!     if (ga_grow(&dout->dout_ga, 1) == FAIL)
+! 	return -1;
+!     p = vim_strnsave((char_u *)mb[0].ptr, mb[0].size);
+!     if (p == NULL)
+! 	return -1;
+!     ((char_u **)dout->dout_ga.ga_data)[dout->dout_ga.ga_len++] = p;
+      return 0;
+  }
+  
+*** ../vim-8.1.0501/src/testdir/dumps/Test_diff_of_diff_01.dump	2018-10-31 22:56:45.057204778 +0100
+--- src/testdir/dumps/Test_diff_of_diff_01.dump	2018-10-31 22:50:13.168413846 +0100
+***************
+*** 0 ****
+--- 1,20 ----
++ | +0#0000e05#a8a8a8255@1|a+0#0000000#ffffff0@1| @32||+1&&| +0#0000e05#a8a8a8255@1>a+0#0000000#ffffff0@1| @32
++ | +0#0000e05#a8a8a8255@1|b+0#0000000#ffffff0@1| @32||+1&&| +0#0000e05#a8a8a8255@1|b+0#0000000#ffffff0@1| @32
++ | +0#0000e05#a8a8a8255@1|c+0#0000000#ffffff0@1| @32||+1&&| +0#0000e05#a8a8a8255@1|c+0#0000000#ffffff0@1| @32
++ | +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|@+0#0000000#5fd7ff255@1| |-|3|,|2| |+|5|,|7| |@@1| @19
++ | +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|d+0#0000000#5fd7ff255@1| @32
++ | +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|e+0#0000000#5fd7ff255@1| @32
++ | +0#0000e05#a8a8a8255@1|-+0#4040ff13#afffff255@34||+1#0000000#ffffff0| +0#0000e05#a8a8a8255@1|f+0#0000000#5fd7ff255@1| @32
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ | +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33||+1#0000000&| +0#0000e05#a8a8a8255@1|~+0#4040ff13#ffffff0| @33
++ |[+1#0000000&|N|o| |N|a|m|e|]| |[|+|]| @5|1|,|1| @11|A|l@1| |[+3&&|N|o| |N|a|m|e|]| |[|+|]| @5|1|,|1| @11|A|l@1
++ | +0&&@74
+*** ../vim-8.1.0501/src/version.c	2018-10-30 22:15:51.591158966 +0100
+--- src/version.c	2018-10-31 22:52:09.667460292 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     502,
+  /**/
+
+-- 
+DINGO:   You must spank her well and after you have spanked her you
+         may deal with her as you like and then ... spank me.
+AMAZING: And spank me!
+STUNNER: And me.
+LOVELY:  And me.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

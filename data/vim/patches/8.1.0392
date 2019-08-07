@@ -1,0 +1,282 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0392
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0392
+Problem:    Error while typing :/foo/s// with 'incsearch' enabled.
+Solution:   Do not give search errors when highlighting matches.
+Files:	    src/ex_docmd.c, src/proto/ex_docmd.pro, src/ex_getln.c,
+            src/testdir/test_search.vim
+
+
+*** ../vim-8.1.0391/src/ex_docmd.c	2018-09-10 21:04:09.868392665 +0200
+--- src/ex_docmd.c	2018-09-15 15:36:02.434389657 +0200
+***************
+*** 117,123 ****
+  #endif
+  
+  static int	check_more(int, int);
+! static linenr_T get_address(exarg_T *, char_u **, int addr_type, int skip, int to_other_file, int address_count);
+  static void	get_flags(exarg_T *eap);
+  #if !defined(FEAT_PERL) \
+  	|| !defined(FEAT_PYTHON) || !defined(FEAT_PYTHON3) \
+--- 117,123 ----
+  #endif
+  
+  static int	check_more(int, int);
+! static linenr_T get_address(exarg_T *, char_u **, int addr_type, int skip, int silent, int to_other_file, int address_count);
+  static void	get_flags(exarg_T *eap);
+  #if !defined(FEAT_PERL) \
+  	|| !defined(FEAT_PYTHON) || !defined(FEAT_PYTHON3) \
+***************
+*** 1853,1859 ****
+      }
+  
+      ea.cmd = cmd;
+!     if (parse_cmd_address(&ea, &errormsg) == FAIL)
+  	goto doend;
+  
+  /*
+--- 1853,1859 ----
+      }
+  
+      ea.cmd = cmd;
+!     if (parse_cmd_address(&ea, &errormsg, FALSE) == FAIL)
+  	goto doend;
+  
+  /*
+***************
+*** 2836,2842 ****
+  	    case 't':	if (checkforcmd(&p, "tab", 3))
+  			{
+  			    long tabnr = get_address(eap, &eap->cmd, ADDR_TABS,
+! 							    eap->skip, FALSE, 1);
+  			    if (tabnr == MAXLNUM)
+  				cmdmod.tab = tabpage_index(curtab) + 1;
+  			    else
+--- 2836,2842 ----
+  	    case 't':	if (checkforcmd(&p, "tab", 3))
+  			{
+  			    long tabnr = get_address(eap, &eap->cmd, ADDR_TABS,
+! 					       eap->skip, skip_only, FALSE, 1);
+  			    if (tabnr == MAXLNUM)
+  				cmdmod.tab = tabpage_index(curtab) + 1;
+  			    else
+***************
+*** 2911,2921 ****
+  
+  /*
+   * Parse the address range, if any, in "eap".
+!  * May set the last search pattern.
+   * Return FAIL and set "errormsg" or return OK.
+   */
+      int
+! parse_cmd_address(exarg_T *eap, char_u **errormsg)
+  {
+      int		address_count = 1;
+      linenr_T	lnum;
+--- 2911,2921 ----
+  
+  /*
+   * Parse the address range, if any, in "eap".
+!  * May set the last search pattern, unless "silent" is TRUE.
+   * Return FAIL and set "errormsg" or return OK.
+   */
+      int
+! parse_cmd_address(exarg_T *eap, char_u **errormsg, int silent)
+  {
+      int		address_count = 1;
+      linenr_T	lnum;
+***************
+*** 2955,2961 ****
+  #endif
+  	}
+  	eap->cmd = skipwhite(eap->cmd);
+! 	lnum = get_address(eap, &eap->cmd, eap->addr_type, eap->skip,
+  					eap->addr_count == 0, address_count++);
+  	if (eap->cmd == NULL)	// error detected
+  	    return FAIL;
+--- 2955,2961 ----
+  #endif
+  	}
+  	eap->cmd = skipwhite(eap->cmd);
+! 	lnum = get_address(eap, &eap->cmd, eap->addr_type, eap->skip, silent,
+  					eap->addr_count == 0, address_count++);
+  	if (eap->cmd == NULL)	// error detected
+  	    return FAIL;
+***************
+*** 4450,4459 ****
+  get_address(
+      exarg_T	*eap UNUSED,
+      char_u	**ptr,
+!     int		addr_type,  /* flag: one of ADDR_LINES, ... */
+!     int		skip,	    /* only skip the address, don't use it */
+!     int		to_other_file,  /* flag: may jump to other file */
+!     int		address_count UNUSED) /* 1 for first address, >1 after comma */
+  {
+      int		c;
+      int		i;
+--- 4450,4460 ----
+  get_address(
+      exarg_T	*eap UNUSED,
+      char_u	**ptr,
+!     int		addr_type,	// flag: one of ADDR_LINES, ...
+!     int		skip,		// only skip the address, don't use it
+!     int		silent,		// no errors or side effects
+!     int		to_other_file,  // flag: may jump to other file
+!     int		address_count UNUSED) // 1 for first address, >1 after comma
+  {
+      int		c;
+      int		i;
+***************
+*** 4599,4626 ****
+  		}
+  		else
+  		{
+! 		    pos = curwin->w_cursor; /* save curwin->w_cursor */
+! 		    /*
+! 		     * When '/' or '?' follows another address, start
+! 		     * from there.
+! 		     */
+  		    if (lnum != MAXLNUM)
+  			curwin->w_cursor.lnum = lnum;
+! 		    /*
+! 		     * Start a forward search at the end of the line (unless
+! 		     * before the first line).
+! 		     * Start a backward search at the start of the line.
+! 		     * This makes sure we never match in the current
+! 		     * line, and can match anywhere in the
+! 		     * next/previous line.
+! 		     */
+  		    if (c == '/' && curwin->w_cursor.lnum > 0)
+  			curwin->w_cursor.col = MAXCOL;
+  		    else
+  			curwin->w_cursor.col = 0;
+  		    searchcmdlen = 0;
+! 		    if (!do_search(NULL, c, cmd, 1L,
+! 					  SEARCH_HIS | SEARCH_MSG, NULL, NULL))
+  		    {
+  			curwin->w_cursor = pos;
+  			cmd = NULL;
+--- 4600,4627 ----
+  		}
+  		else
+  		{
+! 		    int flags;
+! 
+! 		    pos = curwin->w_cursor; // save curwin->w_cursor
+! 
+! 		    // When '/' or '?' follows another address, start from
+! 		    // there.
+  		    if (lnum != MAXLNUM)
+  			curwin->w_cursor.lnum = lnum;
+! 
+! 		    // Start a forward search at the end of the line (unless
+! 		    // before the first line).
+! 		    // Start a backward search at the start of the line.
+! 		    // This makes sure we never match in the current
+! 		    // line, and can match anywhere in the
+! 		    // next/previous line.
+  		    if (c == '/' && curwin->w_cursor.lnum > 0)
+  			curwin->w_cursor.col = MAXCOL;
+  		    else
+  			curwin->w_cursor.col = 0;
+  		    searchcmdlen = 0;
+! 		    flags = silent ? 0 : SEARCH_HIS | SEARCH_MSG;
+! 		    if (!do_search(NULL, c, cmd, 1L, flags, NULL, NULL))
+  		    {
+  			curwin->w_cursor = pos;
+  			cmd = NULL;
+***************
+*** 9529,9535 ****
+  {
+      long	n;
+  
+!     n = get_address(eap, &eap->arg, eap->addr_type, FALSE, FALSE, 1);
+      if (eap->arg == NULL)	    /* error detected */
+      {
+  	eap->nextcmd = NULL;
+--- 9530,9536 ----
+  {
+      long	n;
+  
+!     n = get_address(eap, &eap->arg, eap->addr_type, FALSE, FALSE, FALSE, 1);
+      if (eap->arg == NULL)	    /* error detected */
+      {
+  	eap->nextcmd = NULL;
+*** ../vim-8.1.0391/src/proto/ex_docmd.pro	2018-08-15 20:59:44.227025009 +0200
+--- src/proto/ex_docmd.pro	2018-09-15 15:34:59.291237418 +0200
+***************
+*** 5,11 ****
+  int getline_equal(char_u *(*fgetline)(int, void *, int), void *cookie, char_u *(*func)(int, void *, int));
+  void *getline_cookie(char_u *(*fgetline)(int, void *, int), void *cookie);
+  int parse_command_modifiers(exarg_T *eap, char_u **errormsg, int skip_only);
+! int parse_cmd_address(exarg_T *eap, char_u **errormsg);
+  int checkforcmd(char_u **pp, char *cmd, int len);
+  int modifier_len(char_u *cmd);
+  int cmd_exists(char_u *name);
+--- 5,11 ----
+  int getline_equal(char_u *(*fgetline)(int, void *, int), void *cookie, char_u *(*func)(int, void *, int));
+  void *getline_cookie(char_u *(*fgetline)(int, void *, int), void *cookie);
+  int parse_command_modifiers(exarg_T *eap, char_u **errormsg, int skip_only);
+! int parse_cmd_address(exarg_T *eap, char_u **errormsg, int silent);
+  int checkforcmd(char_u **pp, char *cmd, int len);
+  int modifier_len(char_u *cmd);
+  int cmd_exists(char_u *name);
+*** ../vim-8.1.0391/src/ex_getln.c	2018-09-10 21:04:09.868392665 +0200
+--- src/ex_getln.c	2018-09-15 15:41:01.610658110 +0200
+***************
+*** 388,394 ****
+      // parse the address range
+      save_cursor = curwin->w_cursor;
+      curwin->w_cursor = is_state->search_start;
+!     parse_cmd_address(&ea, &dummy);
+      if (ea.addr_count > 0)
+      {
+  	// Allow for reverse match.
+--- 388,394 ----
+      // parse the address range
+      save_cursor = curwin->w_cursor;
+      curwin->w_cursor = is_state->search_start;
+!     parse_cmd_address(&ea, &dummy, TRUE);
+      if (ea.addr_count > 0)
+      {
+  	// Allow for reverse match.
+*** ../vim-8.1.0391/src/testdir/test_search.vim	2018-09-09 15:54:11.232857907 +0200
+--- src/testdir/test_search.vim	2018-09-15 15:40:22.183128106 +0200
+***************
+*** 1055,1060 ****
+--- 1055,1064 ----
+    call feedkeys(":/foo/s//\<Esc>", 'ntx')
+    call assert_equal('bar', @/)
+  
++   " no error message if pattern not found
++   call feedkeys(":/xyz/s//\<Esc>", 'ntx')
++   call assert_equal('bar', @/)
++ 
+    bwipe!
+    call test_override("ALL", 0)
+    set noincsearch
+*** ../vim-8.1.0391/src/version.c	2018-09-15 15:08:48.348852704 +0200
+--- src/version.c	2018-09-15 15:40:58.334696955 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     392,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+58. You turn on your computer and turn off your wife.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

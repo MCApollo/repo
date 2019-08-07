@@ -1,0 +1,111 @@
+diff -ru flite-1.3-release/lang/cmulex/cmu_lex.c flite-1.3-release+iPhone/lang/cmulex/cmu_lex.c
+--- flite-1.3-release/lang/cmulex/cmu_lex.c	2004-12-31 16:07:07.000000000 +0000
++++ flite-1.3-release+iPhone/lang/cmulex/cmu_lex.c	2008-03-02 07:25:23.000000000 +0000
+@@ -42,6 +42,7 @@
+ 
+ extern const int cmu_lex_entry[];
+ extern const unsigned char cmu_lex_data[];
++extern const unsigned char cmu_lex_data_[];
+ extern const int cmu_lex_num_entries;
+ extern const int cmu_lex_num_bytes;
+ extern const char * const cmu_lex_phone_table[54];
+@@ -252,7 +253,9 @@
+ #ifdef CST_NO_STATIC_LEX
+     /* cmu_lex.data will be set elsewhere */
+ #else
+-    cmu_lex.data = cmu_lex_data;
++    cmu_lex.data = malloc(207610 + 209306);
++    memcpy(cmu_lex.data, cmu_lex_data, 207610);
++    memcpy(cmu_lex.data + 207610, cmu_lex_data_, 209306);
+ #endif
+     cmu_lex.num_bytes = cmu_lex_num_bytes;
+     cmu_lex.phone_table = (char **) cmu_lex_phone_table;
+diff -ru flite-1.3-release/lang/cmulex/Makefile flite-1.3-release+iPhone/lang/cmulex/Makefile
+--- flite-1.3-release/lang/cmulex/Makefile	2004-12-28 23:01:23.000000000 +0000
++++ flite-1.3-release+iPhone/lang/cmulex/Makefile	2008-03-02 06:38:37.000000000 +0000
+@@ -40,7 +40,8 @@
+ ALL_DIRS= 
+ H = cmu_lts_model.h cmulex.h
+ SRCS = cmu_lts_rules.c cmu_lts_model.c \
+-       cmu_lex.c cmu_lex_entries.c cmu_lex_data.c
++       cmu_lex_data-0.c cmu_lex_data-1.c \
++       cmu_lex.c cmu_lex_entries.c
+ LEX_DATA_INCLUDES = cmu_lex_data_raw.c cmu_lex_num_bytes.c \
+      cmu_lex_phones_huff_table.c cmu_lex_entries_huff_table.c
+ 
+diff -ru flite-1.3-release/lang/cmu_us_kal/cmu_us_kal.c flite-1.3-release+iPhone/lang/cmu_us_kal/cmu_us_kal.c
+--- flite-1.3-release/lang/cmu_us_kal/cmu_us_kal.c	2004-12-31 23:22:10.000000000 +0000
++++ flite-1.3-release+iPhone/lang/cmu_us_kal/cmu_us_kal.c	2008-03-02 07:30:53.000000000 +0000
+@@ -46,10 +46,24 @@
+ static cst_utterance *cmu_us_kal_postlex(cst_utterance *u);
+ extern cst_diphone_db cmu_us_kal_db;
+ 
++extern const unsigned char cmu_us_kal_res[];
++extern const unsigned char cmu_us_kal_res_1_[];
++extern const unsigned char cmu_us_kal_res_2_[];
++extern const unsigned char cmu_us_kal_res_3_[];
++extern const unsigned char cmu_us_kal_res_4_[];
++
+ cst_voice *cmu_us_kal_diphone = NULL;
+ 
+ cst_voice *register_cmu_us_kal(const char *voxdir)
+ {
++    unsigned char *residuals = malloc(307705 + 302489 + 304535 + 299252 + 301901);
++    memcpy(residuals, cmu_us_kal_res, 307705);
++    memcpy(residuals + 307705, cmu_us_kal_res_1_, 302489);
++    memcpy(residuals + 307705 + 302489, cmu_us_kal_res_2_, 304535);
++    memcpy(residuals + 307705 + 302489 + 304535, cmu_us_kal_res_3_, 299252);
++    memcpy(residuals + 307705 + 302489 + 304535 + 299252, cmu_us_kal_res_4_, 301901);
++    * (unsigned char **) &cmu_us_kal_db.sts->residuals = residuals;
++
+     cst_voice *v = new_voice();
+ 
+     /* Set up basic values for synthesizing with this voice */
+diff -ru flite-1.3-release/lang/cmu_us_kal/cmu_us_kal_diphone.c flite-1.3-release+iPhone/lang/cmu_us_kal/cmu_us_kal_diphone.c
+--- flite-1.3-release/lang/cmu_us_kal/cmu_us_kal_diphone.c	2005-01-05 23:20:58.000000000 +0000
++++ flite-1.3-release+iPhone/lang/cmu_us_kal/cmu_us_kal_diphone.c	2008-03-02 07:30:04.000000000 +0000
+@@ -5,7 +5,6 @@
+ #include "cst_diphone.h"
+ 
+ extern const unsigned short cmu_us_kal_lpc[];
+-extern const unsigned char cmu_us_kal_res[];
+ extern const unsigned int cmu_us_kal_resi[];
+ 
+ 
+@@ -15,7 +14,7 @@
+   0,0,0,
+ #else
+   cmu_us_kal_lpc,
+-  cmu_us_kal_res,
++  0,
+   cmu_us_kal_resi,
+ #endif
+   17614,
+diff -ru flite-1.3-release/lang/cmu_us_kal/Makefile flite-1.3-release+iPhone/lang/cmu_us_kal/Makefile
+--- flite-1.3-release/lang/cmu_us_kal/Makefile	2005-01-01 17:18:04.000000000 +0000
++++ flite-1.3-release+iPhone/lang/cmu_us_kal/Makefile	2008-03-02 07:09:08.000000000 +0000
+@@ -41,7 +41,11 @@
+ H = voxdefs.h
+ SRCS = cmu_us_kal_diphone.c cmu_us_kal.c \
+        cmu_us_kal_lpc.c \
+-       cmu_us_kal_res.c \
++       cmu_us_kal_res-0.c \
++       cmu_us_kal_res-1.c \
++       cmu_us_kal_res-2.c \
++       cmu_us_kal_res-3.c \
++       cmu_us_kal_res-4.c \
+        cmu_us_kal_residx.c
+ OBJS = $(SRCS:.c=.o)
+ SCM=
+diff -ru flite-1.3-release/lang/Makefile flite-1.3-release+iPhone/lang/Makefile
+--- flite-1.3-release/lang/Makefile	2005-01-18 16:27:34.000000000 +0000
++++ flite-1.3-release+iPhone/lang/Makefile	2008-03-02 07:13:18.000000000 +0000
+@@ -36,7 +36,7 @@
+ ###########################################################################
+ TOP=..
+ DIRNAME=lang
+-BUILD_DIRS = usenglish cmulex cmu_us_kal cmu_time_awb cmu_us_kal16
++BUILD_DIRS = usenglish cmulex cmu_us_kal cmu_time_awb
+ ALL_DIRS= $(BUILD_DIRS)
+ FILES = Makefile $(SCM) $(SRCS) 
+ 

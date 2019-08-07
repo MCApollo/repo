@@ -1,0 +1,80 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0463
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0463
+Problem:    "simalt ~x" in .vimrc blocks swap file prompt.
+Solution:   Flush buffers before prompting. (Yasuhiro Matsumoto,
+            closes #3518, closes #2192)
+Files:	    src/memline.c
+
+
+*** ../vim-8.1.0462/src/memline.c	2018-09-30 21:43:17.195693290 +0200
+--- src/memline.c	2018-10-07 20:43:37.409061819 +0200
+***************
+*** 4506,4524 ****
+  #endif
+  		    {
+  #ifdef FEAT_GUI
+! 			/* If we are supposed to start the GUI but it wasn't
+! 			 * completely started yet, start it now.  This makes
+! 			 * the messages displayed in the Vim window when
+! 			 * loading a session from the .gvimrc file. */
+  			if (gui.starting && !gui.in_use)
+  			    gui_start();
+  #endif
+! 			/* Show info about the existing swap file. */
+  			attention_message(buf, fname);
+  
+! 			/* We don't want a 'q' typed at the more-prompt
+! 			 * interrupt loading a file. */
+  			got_int = FALSE;
+  		    }
+  
+  #if defined(FEAT_GUI_DIALOG) || defined(FEAT_CON_DIALOG)
+--- 4506,4528 ----
+  #endif
+  		    {
+  #ifdef FEAT_GUI
+! 			// If we are supposed to start the GUI but it wasn't
+! 			// completely started yet, start it now.  This makes
+! 			// the messages displayed in the Vim window when
+! 			// loading a session from the .gvimrc file.
+  			if (gui.starting && !gui.in_use)
+  			    gui_start();
+  #endif
+! 			// Show info about the existing swap file.
+  			attention_message(buf, fname);
+  
+! 			// We don't want a 'q' typed at the more-prompt
+! 			// interrupt loading a file.
+  			got_int = FALSE;
++ 
++ 			// If vimrc has "simalt ~x" we don't want it to
++ 			// interfere with the prompt here.
++ 			flush_buffers(TRUE);
+  		    }
+  
+  #if defined(FEAT_GUI_DIALOG) || defined(FEAT_CON_DIALOG)
+*** ../vim-8.1.0462/src/version.c	2018-10-07 20:35:08.853975271 +0200
+--- src/version.c	2018-10-07 20:45:08.083893253 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     463,
+  /**/
+
+-- 
+        Very funny, Scotty.  Now beam down my clothes.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

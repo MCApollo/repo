@@ -1,0 +1,21 @@
+diff -r -u srelay-0.4.6/get-bind.c srelay-0.4.6+iPhone/get-bind.c
+--- srelay-0.4.6/get-bind.c	2003-04-10 02:53:17.000000000 +0000
++++ srelay-0.4.6+iPhone/get-bind.c	2007-12-27 12:39:11.000000000 +0000
+@@ -34,7 +34,7 @@
+ 
+ #include "srelay.h"
+ 
+-#if defined(FREEBSD) || defined(SOLARIS) 
++#if defined(FREEBSD) || defined(SOLARIS) || defined(__APPLE__)
+ #include <netinet/in.h>
+ #include <sys/ioctl.h>
+ #include <sys/sockio.h>
+@@ -54,7 +54,7 @@
+ static int get_ifconf(int, struct addrinfo *);
+ #endif /* defined(LINUX) */
+ 
+-#if defined(FREEBSD) || defined(SOLARIS) 
++#if defined(FREEBSD) || defined(SOLARIS) || defined(__APPLE__)
+ 
+ #ifndef RTAX_DST
+ #define RTAX_DST         0

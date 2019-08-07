@@ -1,0 +1,49 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0146
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0146
+Problem:    When $LANG is set the compiler test may fail.
+Solution:   Unset $LANG.
+Files:	    src/testdir/test_compiler.vim
+
+
+*** ../vim-8.1.0145/src/testdir/test_compiler.vim	Sat May 19 16:45:12 2018
+--- src/testdir/test_compiler.vim	Tue Jul  3 21:24:51 2018
+***************
+*** 5,10 ****
+--- 5,15 ----
+      return
+    endif
+  
++   " $LANG changes the output of Perl.
++   if $LANG != ''
++     unlet $LANG
++   endif
++ 
+    e Xfoo.pl
+    compiler perl
+    call assert_equal('perl', b:current_compiler)
+*** ../vim-8.1.0145/src/version.c	Tue Jul  3 19:15:56 2018
+--- src/version.c	Tue Jul  3 21:25:38 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     146,
+  /**/
+
+-- 
+If Microsoft would build a car...
+... You'd have to press the "Start" button to turn the engine off.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

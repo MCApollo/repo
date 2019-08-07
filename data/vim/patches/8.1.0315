@@ -1,0 +1,223 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0315
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0315
+Problem:    Helpgrep with language doesn't work properly. (Takuya Fujiwara)
+Solution:   Check for the language earlier. (Hirohito Higashi)
+Files:	    src/quickfix.c, src/testdir/test_quickfix.vim
+
+
+*** ../vim-8.1.0314/src/quickfix.c	2018-08-18 19:59:48.418322409 +0200
+--- src/quickfix.c	2018-08-21 21:47:55.412902244 +0200
+***************
+*** 5385,5391 ****
+      if (qf_restore_list(qi, save_qfid) == FAIL)
+  	goto theend;
+  
+!     /* Jump to first match. */
+      if (!qf_list_empty(qi, qi->qf_curlist))
+      {
+  	if ((flags & VGR_NOJUMP) == 0)
+--- 5385,5391 ----
+      if (qf_restore_list(qi, save_qfid) == FAIL)
+  	goto theend;
+  
+!     // Jump to first match.
+      if (!qf_list_empty(qi, qi->qf_curlist))
+      {
+  	if ((flags & VGR_NOJUMP) == 0)
+***************
+*** 6844,6859 ****
+  /*
+   * Search for a pattern in all the help files in the 'runtimepath'
+   * and add the matches to a quickfix list.
+!  * 'arg' is the language specifier.  If supplied, then only matches in the
+   * specified language are found.
+   */
+      static void
+! hgr_search_in_rtp(qf_info_T *qi, regmatch_T *p_regmatch, char_u *arg)
+  {
+      char_u	*p;
+- #ifdef FEAT_MULTI_LANG
+-     char_u	*lang;
+- #endif
+  
+  #ifdef FEAT_MBYTE
+      vimconv_T	vc;
+--- 6844,6856 ----
+  /*
+   * Search for a pattern in all the help files in the 'runtimepath'
+   * and add the matches to a quickfix list.
+!  * 'lang' is the language specifier.  If supplied, then only matches in the
+   * specified language are found.
+   */
+      static void
+! hgr_search_in_rtp(qf_info_T *qi, regmatch_T *p_regmatch, char_u *lang)
+  {
+      char_u	*p;
+  
+  #ifdef FEAT_MBYTE
+      vimconv_T	vc;
+***************
+*** 6865,6874 ****
+  	convert_setup(&vc, (char_u *)"utf-8", p_enc);
+  #endif
+  
+- #ifdef FEAT_MULTI_LANG
+-     /* Check for a specified language */
+-     lang = check_help_lang(arg);
+- #endif
+  
+      /* Go through all the directories in 'runtimepath' */
+      p = p_rtp;
+--- 6862,6867 ----
+***************
+*** 6903,6908 ****
+--- 6896,6902 ----
+      qf_info_T	*qi = &ql_info;
+      int		new_qi = FALSE;
+      char_u	*au_name =  NULL;
++     char_u	*lang = NULL;
+  
+      switch (eap->cmdidx)
+      {
+***************
+*** 6919,6925 ****
+  #endif
+      }
+  
+!     /* Make 'cpoptions' empty, the 'l' flag should not be used here. */
+      save_cpo = p_cpo;
+      p_cpo = empty_option;
+  
+--- 6913,6919 ----
+  #endif
+      }
+  
+!     // Make 'cpoptions' empty, the 'l' flag should not be used here.
+      save_cpo = p_cpo;
+      p_cpo = empty_option;
+  
+***************
+*** 6930,6943 ****
+  	    return;
+      }
+  
+      regmatch.regprog = vim_regcomp(eap->arg, RE_MAGIC + RE_STRING);
+      regmatch.rm_ic = FALSE;
+      if (regmatch.regprog != NULL)
+      {
+! 	/* create a new quickfix list */
+  	qf_new_list(qi, qf_cmdtitle(*eap->cmdlinep));
+  
+! 	hgr_search_in_rtp(qi, &regmatch, eap->arg);
+  
+  	vim_regfree(regmatch.regprog);
+  
+--- 6924,6941 ----
+  	    return;
+      }
+  
++ #ifdef FEAT_MULTI_LANG
++     // Check for a specified language
++     lang = check_help_lang(eap->arg);
++ #endif
+      regmatch.regprog = vim_regcomp(eap->arg, RE_MAGIC + RE_STRING);
+      regmatch.rm_ic = FALSE;
+      if (regmatch.regprog != NULL)
+      {
+! 	// create a new quickfix list
+  	qf_new_list(qi, qf_cmdtitle(*eap->cmdlinep));
+  
+! 	hgr_search_in_rtp(qi, &regmatch, lang);
+  
+  	vim_regfree(regmatch.regprog);
+  
+***************
+*** 6950,6956 ****
+      if (p_cpo == empty_option)
+  	p_cpo = save_cpo;
+      else
+! 	/* Darn, some plugin changed the value. */
+  	free_string_option(save_cpo);
+  
+      qf_list_changed(qi, qi->qf_curlist);
+--- 6948,6954 ----
+      if (p_cpo == empty_option)
+  	p_cpo = save_cpo;
+      else
+! 	// Darn, some plugin changed the value.
+  	free_string_option(save_cpo);
+  
+      qf_list_changed(qi, qi->qf_curlist);
+***************
+*** 6973,6980 ****
+  
+      if (eap->cmdidx == CMD_lhelpgrep)
+      {
+! 	/* If the help window is not opened or if it already points to the
+! 	 * correct location list, then free the new location list. */
+  	if (!bt_help(curwin->w_buffer) || curwin->w_llist == qi)
+  	{
+  	    if (new_qi)
+--- 6971,6978 ----
+  
+      if (eap->cmdidx == CMD_lhelpgrep)
+      {
+! 	// If the help window is not opened or if it already points to the
+! 	// correct location list, then free the new location list.
+  	if (!bt_help(curwin->w_buffer) || curwin->w_llist == qi)
+  	{
+  	    if (new_qi)
+*** ../vim-8.1.0314/src/testdir/test_quickfix.vim	2018-08-15 22:29:46.977604162 +0200
+--- src/testdir/test_quickfix.vim	2018-08-21 21:44:49.058013219 +0200
+***************
+*** 3091,3096 ****
+--- 3091,3110 ----
+    call Xqftick_tests('l')
+  endfunc
+  
++ " Test helpgrep with lang specifier
++ func Xtest_helpgrep_with_lang_specifier(cchar)
++   call s:setup_commands(a:cchar)
++   Xhelpgrep Vim@en
++   call assert_equal('help', &filetype)
++   call assert_notequal(0, g:Xgetlist({'nr' : '$'}).nr)
++   new | only
++ endfunc
++ 
++ func Test_helpgrep_with_lang_specifier()
++   call Xtest_helpgrep_with_lang_specifier('c')
++   call Xtest_helpgrep_with_lang_specifier('l')
++ endfunc
++ 
+  " The following test used to crash Vim.
+  " Open the location list window and close the regular window associated with
+  " the location list. When the garbage collection runs now, it incorrectly
+*** ../vim-8.1.0314/src/version.c	2018-08-21 21:09:02.598739663 +0200
+--- src/version.c	2018-08-21 21:50:24.460013769 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     315,
+  /**/
+
+-- 
+BLACK KNIGHT: None shall pass.
+ARTHUR:       I have no quarrel with you, brave Sir knight, but I must cross
+              this bridge.
+BLACK KNIGHT: Then you shall die.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

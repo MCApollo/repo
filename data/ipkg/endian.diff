@@ -1,0 +1,23 @@
+diff -ru ipkg-0.99.163/md5.c ipkg-0.99.163+iPhone/md5.c
+--- ipkg-0.99.163/md5.c	2006-02-06 08:13:04.000000000 +0000
++++ ipkg-0.99.163+iPhone/md5.c	2009-06-11 23:33:26.000000000 +0000
+@@ -50,7 +50,6 @@
+ #include <getopt.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <endian.h>
+ #include <sys/types.h>
+ #if defined HAVE_LIMITS_H
+ # include <limits.h>
+@@ -127,11 +126,7 @@
+ //----------------------------------------------------------------------------
+ 
+ /* Handle endian-ness */
+-#if __BYTE_ORDER == __LITTLE_ENDIAN
+ 	#define SWAP(n) (n)
+-#else
+-	#define SWAP(n) ((n << 24) | ((n&65280)<<8) | ((n&16711680)>>8) | (n>>24))
+-#endif
+ 
+ 
+ 

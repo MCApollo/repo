@@ -1,0 +1,28 @@
+Only in srelay-0.4.6+iPhone/: config.log
+diff -r -u srelay-0.4.6/configure.in srelay-0.4.6+iPhone/configure.in
+--- srelay-0.4.6/configure.in	2003-04-14 05:36:15.000000000 +0000
++++ srelay-0.4.6+iPhone/configure.in	2007-12-27 12:32:59.000000000 +0000
+@@ -143,22 +143,7 @@
+ 	elif test "$OS" = "SOLARIS"; then
+ 	    LDFLAGS="$LDFLAGS -lpthread"
+ 	fi
+-	AC_TRY_RUN(
+-[#include <pthread.h>
+-void
+-init_routine()
+-{
+-    return(0);
+-}
+-main()
+-{
+-    pthread_once_t once_control = PTHREAD_ONCE_INIT;
+-    pthread_once(&once_control, &init_routine);
+-    return(0);
+-}],
+-	AC_DEFINE(USE_THREAD) AC_MSG_RESULT([yes]),
+-	CFLAGS="$save_CFLAGS"; LDFLAGS="$save_LDFLAGS"; AC_MSG_RESULT([no])
+-	)
++	AC_DEFINE(USE_THREAD) AC_MSG_RESULT([yes])
+     fi
+ fi
+ 

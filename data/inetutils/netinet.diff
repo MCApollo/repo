@@ -1,0 +1,55 @@
+diff -ru inetutils-1.6/ping/ping_address.c inetutils-1.6+iPhone/ping/ping_address.c
+--- inetutils-1.6/ping/ping_address.c	2008-10-14 17:40:30.000000000 +0000
++++ inetutils-1.6+iPhone/ping/ping_address.c	2009-04-10 23:08:10.000000000 +0000
+@@ -30,6 +30,7 @@
+ 
+ /*#include <netinet/ip_icmp.h>  -- deliberately not including this */
+ #ifdef HAVE_NETINET_IP_VAR_H
++# include <netinet/in.h>
+ # include <netinet/ip_var.h>
+ #endif
+ 
+diff -ru inetutils-1.6/ping/ping.c inetutils-1.6+iPhone/ping/ping.c
+--- inetutils-1.6/ping/ping.c	2008-12-27 21:11:02.000000000 +0000
++++ inetutils-1.6+iPhone/ping/ping.c	2009-04-10 23:08:14.000000000 +0000
+@@ -32,6 +32,7 @@
+ 
+ /*#include <netinet/ip_icmp.h>  -- deliberately not including this */
+ #ifdef HAVE_NETINET_IP_VAR_H
++# include <netinet/in.h>
+ # include <netinet/ip_var.h>
+ #endif
+ 
+diff -ru inetutils-1.6/ping/ping_echo.c inetutils-1.6+iPhone/ping/ping_echo.c
+--- inetutils-1.6/ping/ping_echo.c	2008-12-27 16:21:00.000000000 +0000
++++ inetutils-1.6+iPhone/ping/ping_echo.c	2009-04-10 23:08:17.000000000 +0000
+@@ -29,6 +29,7 @@
+ 
+ /*#include <netinet/ip_icmp.h>  -- deliberately not including this */
+ #ifdef HAVE_NETINET_IP_VAR_H
++# include <netinet/in.h>
+ # include <netinet/ip_var.h>
+ #endif
+ 
+diff -ru inetutils-1.6/ping/ping_router.c inetutils-1.6+iPhone/ping/ping_router.c
+--- inetutils-1.6/ping/ping_router.c	2008-10-14 17:40:30.000000000 +0000
++++ inetutils-1.6+iPhone/ping/ping_router.c	2009-04-10 23:08:20.000000000 +0000
+@@ -29,6 +29,7 @@
+ 
+ /*#include <netinet/ip_icmp.h>  -- deliberately not including this */
+ #ifdef HAVE_NETINET_IP_VAR_H
++# include <netinet/in.h>
+ # include <netinet/ip_var.h>
+ #endif
+ 
+diff -ru inetutils-1.6/ping/ping_timestamp.c inetutils-1.6+iPhone/ping/ping_timestamp.c
+--- inetutils-1.6/ping/ping_timestamp.c	2008-10-14 17:40:30.000000000 +0000
++++ inetutils-1.6+iPhone/ping/ping_timestamp.c	2009-04-10 23:08:02.000000000 +0000
+@@ -29,6 +29,7 @@
+ 
+ /*#include <netinet/ip_icmp.h>  -- deliberately not including this */
+ #ifdef HAVE_NETINET_IP_VAR_H
++# include <netinet/in.h>
+ # include <netinet/ip_var.h>
+ #endif
+ 

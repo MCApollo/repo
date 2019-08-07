@@ -1,0 +1,157 @@
+diff --git a/ldrestart.cpp b/ldrestart.cpp
+index a6d6cb6..c9a3b33 100644
+--- a/ldrestart.cpp
++++ b/ldrestart.cpp
+@@ -34,6 +34,28 @@
+ #define FLAG_PLATFORMIZE (1 << 1)
+ #include <dlfcn.h>
+ 
++#include <os/log.h>
++
++const char *first[] = {
++    NULL
++};
++
++const char *last[] = {
++    "com.apple.assertiond",
++    "com.apple.backboardd",
++    NULL
++};
++
++const char *skip[] = {
++    "jailbreakd",
++    "com.apple.MobileFileIntegrity",
++    "com.openssh.sshd.",
++    "com.apple.SpringBoard",
++   // "com.apple.logd",
++    "com.apple.diagnosticd",
++    NULL
++};
++
+ void platformizeme() {
+ 	void* handle = dlopen("/usr/lib/libjailbreak.dylib", RTLD_LAZY);
+ 	if (!handle) return;
+@@ -51,6 +72,70 @@ void platformizeme() {
+ 	ptr(getpid(), FLAG_PLATFORMIZE);
+ }
+ 
++bool launch_stop(const char * job)
++{
++    launch_data_t resp;
++    launch_data_t msg;
++
++    msg = launch_data_alloc(LAUNCH_DATA_DICTIONARY);
++    if (msg == NULL) {
++        fprintf(stderr, "out of memory");
++        exit(-1);
++    }
++
++    launch_data_dict_insert(msg, launch_data_new_string(job),
++            LAUNCH_KEY_STOPJOB);
++
++    resp = launch_msg(msg);
++    launch_data_free(msg);
++
++    if (resp == NULL) {
++        return false;
++    }
++
++    switch (launch_data_get_type(resp)) {
++        case LAUNCH_DATA_ERRNO:
++            errno = launch_data_get_errno(resp);
++            launch_data_free(resp);
++            if (errno != 0) {
++                return false;
++            }
++
++            return true;
++
++        default:
++            launch_data_free(resp);
++            return false;
++    }
++}
++
++long long launch_pid(const char * job)
++{
++    launch_data_t msg = launch_data_alloc(LAUNCH_DATA_DICTIONARY);
++    if (msg == NULL) {
++        fprintf(stderr, "out of memory");
++        exit(-1);
++    }
++    launch_data_dict_insert(msg, launch_data_new_string(job), LAUNCH_KEY_GETJOB);
++
++    launch_data_t resp = launch_msg(msg);
++    launch_data_free(msg);
++
++    if (resp == NULL) {
++        return 0;
++    }
++    auto integer(launch_data_dict_lookup(resp, LAUNCH_JOBKEY_PID));
++    if (integer == NULL)
++       return 0;
++    if (launch_data_get_type(integer) != LAUNCH_DATA_INTEGER) {
++        launch_data_free(resp);
++        return 0;
++    }
++    long long pid = launch_data_get_integer(integer);
++    launch_data_free(resp);
++    return pid;
++}
++
+ void process(launch_data_t value, const char *name, void *baton) {
+     if (launch_data_get_type(value) != LAUNCH_DATA_DICTIONARY)
+         return;
+@@ -68,6 +153,19 @@ void process(launch_data_t value, const char *name, void *baton) {
+         return;
+     auto label(launch_data_get_string(string));
+ 
++    for (const char **skipped = first; *skipped != NULL; skipped++) {
++        if (strcmp(label, *skipped) == 0)
++            return;
++    }
++    for (const char **skipped = skip; *skipped != NULL; skipped++) {
++        if (strncmp(label, *skipped, strlen(*skipped)) == 0)
++            return;
++    }
++    for (const char **skipped = last; *skipped != NULL; skipped++) {
++        if (strcmp(label, *skipped) == 0)
++            return;
++    }
++
+     auto stop(launch_data_alloc(LAUNCH_DATA_DICTIONARY));
+     launch_data_dict_insert(stop, string, LAUNCH_KEY_STOPJOB);
+ 
+@@ -86,6 +184,23 @@ void process(launch_data_t value, const char *name, void *baton) {
+ 
+ int main(int argc, char *argv[]) {
+     platformizeme();
++    for (const char **service = first; *service != NULL; service++) {
++        launch_stop(*service);
++    }
++  //  long long origPid = launch_pid("com.apple.logd");
++  //  if (origPid > 0) {
++  //      launch_stop("com.apple.logd");
++  //      for (int tries=0; tries<10; tries++) {
++  //          long long newPid=launch_pid("com.apple.logd");
++  //          if (newPid > 0 && newPid != origPid)
++  //              break;
++  //          sleep(1);
++  //      }
++  //      // Ensure logd has finished restarting
++  //      os_log(OS_LOG_DEFAULT, "ldrestart: waiting for logd to be ready to process messages");
++  //  } else {
++  //      fprintf(stderr, "no logd running??\n");
++  //  }
+     auto request(launch_data_new_string(LAUNCH_KEY_GETJOBS));
+     auto response(launch_msg(request));
+     launch_data_free(request);
+@@ -96,5 +212,8 @@ int main(int argc, char *argv[]) {
+         return EX_SOFTWARE;
+ 
+     launch_data_dict_iterate(response, &process, NULL);
++    for (const char **service = last; *service != NULL; service++) {
++        launch_stop(*service);
++    }
+     return EX_OK;
+ }

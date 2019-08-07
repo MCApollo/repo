@@ -1,0 +1,18 @@
+diff -ur ncurses-6.1/ncurses/Makefile.in ncurses-6.1+iPhone/ncurses/Makefile.in
+--- ncurses-6.1/ncurses/Makefile.in	2018-01-15 09:28:45.000000000 -1000
++++ ncurses-6.1+iPhone/ncurses/Makefile.in	2018-08-03 13:09:39.000000000 -1000
+@@ -233,12 +233,12 @@
+ make_keys$(BUILD_EXEEXT) : \
+ 		$(tinfo)/make_keys.c \
+ 		names.c
+-	$(BUILD_CC) -o $@ $(BUILD_CPPFLAGS) $(BUILD_CCFLAGS) $(tinfo)/make_keys.c $(BUILD_LDFLAGS) $(BUILD_LIBS)
++	$(BUILD_CC) -o $@ $(BUILD_CPPFLAGS) $(BUILD_CCFLAGS) $(tinfo)/make_keys.c $(BUILD_LDFLAGS) $(BUILD_LIBS) $(CPPFLAGS)
+ 
+ make_hash$(BUILD_EXEEXT) : \
+ 		$(tinfo)/make_hash.c \
+ 		../include/hashsize.h
+-	$(BUILD_CC) -o $@ $(BUILD_CPPFLAGS) $(BUILD_CCFLAGS) $(tinfo)/make_hash.c $(BUILD_LDFLAGS) $(BUILD_LIBS)
++	$(BUILD_CC) -o $@ $(BUILD_CPPFLAGS) $(BUILD_CCFLAGS) $(tinfo)/make_hash.c $(BUILD_LDFLAGS) $(BUILD_LIBS) $(CPPFLAGS)
+ 
+ report_offsets$(BUILD_EXEEXT) : \
+ 		$(srcdir)/report_offsets.c

@@ -1,0 +1,42 @@
+diff -ur libffi-3.2.1/src/arm/ffi.c libffi-3.2.1+iPhone/src/arm/ffi.c
+--- libffi-3.2.1/src/arm/ffi.c	2014-11-08 02:47:24.000000000 -1000
++++ libffi-3.2.1+iPhone/src/arm/ffi.c	2019-03-30 22:46:09.000000000 -1000
+@@ -749,7 +749,7 @@
+   free (closure);
+ }
+ 
+-#else
++#endif
+ 
+ #define FFI_INIT_TRAMPOLINE(TRAMP,FUN,CTX)				\
+ ({ unsigned char *__tramp = (unsigned char*)(TRAMP);			\
+@@ -765,8 +765,6 @@
+                                                     mapping.  */        \
+  })
+ 
+-#endif
+-
+ /* the cif must already be prep'ed */
+ 
+ ffi_status
+@@ -788,13 +786,19 @@
+     return FFI_BAD_ABI;
+ 
+ #if FFI_EXEC_TRAMPOLINE_TABLE
++if (closure != codeloc) {
+   void **config = FFI_TRAMPOLINE_CODELOC_CONFIG(codeloc);
+   config[0] = closure;
+   config[1] = closure_func;
+-#else
++} else {
++#endif
++
+   FFI_INIT_TRAMPOLINE (&closure->tramp[0], \
+ 		       closure_func,  \
+ 		       codeloc);
++
++#if FFI_EXEC_TRAMPOLINE_TABLE
++}
+ #endif
+ 
+   closure->cif  = cif;

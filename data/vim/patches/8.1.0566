@@ -1,0 +1,70 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0566
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0566
+Problem:    SGR not enabled for mintty because $TERM is "xterm".
+Solution:   Detect mintty by the termresponse. (Ken Takata, closes #3667)
+Files:	    src/term.c
+
+
+*** ../vim-8.1.0565/src/term.c	2018-10-02 14:45:07.023652468 +0200
+--- src/term.c	2018-12-07 13:06:31.415916214 +0100
+***************
+*** 4698,4703 ****
+--- 4698,4709 ----
+  			int need_flush = FALSE;
+  # ifdef FEAT_MOUSE_SGR
+  			int is_iterm2 = FALSE;
++ 			int is_mintty = FALSE;
++ 
++ 			// mintty 2.9.5 sends 77;20905;0c.
++ 			// (77 is ASCII 'M' for mintty.)
++ 			if (STRNCMP(tp + extra - 3, "77;", 3) == 0)
++ 			    is_mintty = TRUE;
+  # endif
+  
+  			/* if xterm version >= 141 try to get termcap codes */
+***************
+*** 4751,4758 ****
+  			{
+  # ifdef FEAT_MOUSE_SGR
+  			    /* Xterm version 277 supports SGR.  Also support
+! 			     * Terminal.app and iTerm2. */
+! 			    if (version >= 277 || is_iterm2 || is_mac_terminal)
+  				set_option_value((char_u *)"ttym", 0L,
+  							  (char_u *)"sgr", 0);
+  			    else
+--- 4757,4765 ----
+  			{
+  # ifdef FEAT_MOUSE_SGR
+  			    /* Xterm version 277 supports SGR.  Also support
+! 			     * Terminal.app, iTerm2 and mintty. */
+! 			    if (version >= 277 || is_iterm2 || is_mac_terminal
+! 				    || is_mintty)
+  				set_option_value((char_u *)"ttym", 0L,
+  							  (char_u *)"sgr", 0);
+  			    else
+*** ../vim-8.1.0565/src/version.c	2018-12-05 19:46:03.170987995 +0100
+--- src/version.c	2018-12-07 13:12:38.017734126 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     566,
+  /**/
+
+-- 
+"The future's already arrived - it's just not evenly distributed yet."
+		-- William Gibson
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

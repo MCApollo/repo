@@ -1,0 +1,57 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0354
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0354 (after 8.1.0353)
+Problem:    Packadd test fails on MS-Windows.
+Solution:   Ignore difference between forward and backward slashes.
+Files:	    src/testdir/test_packadd.vim
+
+
+*** ../vim-8.1.0353/src/testdir/test_packadd.vim	2018-09-08 18:21:10.438503190 +0200
+--- src/testdir/test_packadd.vim	2018-09-08 19:07:32.684241713 +0200
+***************
+*** 53,61 ****
+    call assert_match('/testdir/Xdir/pack/mine/opt/mytest\($\|,\)', &rtp)
+  
+    let new_after = match(&rtp, '/testdir/Xdir/pack/mine/opt/mytest/after,')
+!   let old_after = match(&rtp, ',' . first_after_entry . '\>')
+    call assert_true(new_after > 0, 'rtp is ' . &rtp)
+!   call assert_true(old_after > 0, 'rtp is ' . &rtp)
+    call assert_true(new_after < old_after, 'rtp is ' . &rtp)
+  
+    " NOTE: '/.../opt/myte' forwardly matches with '/.../opt/mytest'
+--- 53,62 ----
+    call assert_match('/testdir/Xdir/pack/mine/opt/mytest\($\|,\)', &rtp)
+  
+    let new_after = match(&rtp, '/testdir/Xdir/pack/mine/opt/mytest/after,')
+!   let forwarded = substitute(first_after_entry, '\\', '[/\\\\]', 'g')
+!   let old_after = match(&rtp, ',' . forwarded . '\>')
+    call assert_true(new_after > 0, 'rtp is ' . &rtp)
+!   call assert_true(old_after > 0, 'match ' . forwarded . ' in ' . &rtp)
+    call assert_true(new_after < old_after, 'rtp is ' . &rtp)
+  
+    " NOTE: '/.../opt/myte' forwardly matches with '/.../opt/mytest'
+*** ../vim-8.1.0353/src/version.c	2018-09-08 18:21:10.438503190 +0200
+--- src/version.c	2018-09-08 18:31:17.896550895 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     354,
+  /**/
+
+-- 
+How To Keep A Healthy Level Of Insanity:
+16. Have your coworkers address you by your wrestling name, Rock Hard Kim.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,69 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0292
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0292
+Problem:    MS-Windows: the text "self-installing" confuses some users.
+Solution:   Remove the text from the uninstall entry. (closes #3337)
+Files:	    src/dosinst.c
+
+
+*** ../vim-8.1.0291/src/dosinst.c	2018-06-26 23:18:40.593167147 +0200
+--- src/dosinst.c	2018-08-18 18:39:00.554972683 +0200
+***************
+*** 1575,1592 ****
+      }
+  
+      printf("Creating an uninstall entry\n");
+  
+      /* For the NSIS installer use the generated uninstaller. */
+      if (interactive)
+-     {
+- 	sprintf(display_name, "Vim " VIM_VERSION_SHORT);
+  	sprintf(uninstall_string, "%s\\uninstal.exe", installdir);
+-     }
+      else
+-     {
+- 	sprintf(display_name, "Vim " VIM_VERSION_SHORT " (self-installing)");
+  	sprintf(uninstall_string, "%s\\uninstall-gui.exe", installdir);
+-     }
+  
+      lRet = register_uninstall(
+  	HKEY_LOCAL_MACHINE,
+--- 1575,1587 ----
+      }
+  
+      printf("Creating an uninstall entry\n");
++     sprintf(display_name, "Vim " VIM_VERSION_SHORT);
+  
+      /* For the NSIS installer use the generated uninstaller. */
+      if (interactive)
+  	sprintf(uninstall_string, "%s\\uninstal.exe", installdir);
+      else
+  	sprintf(uninstall_string, "%s\\uninstall-gui.exe", installdir);
+  
+      lRet = register_uninstall(
+  	HKEY_LOCAL_MACHINE,
+*** ../vim-8.1.0291/src/version.c	2018-08-18 16:10:57.086158061 +0200
+--- src/version.c	2018-08-18 18:40:09.909908817 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     292,
+  /**/
+
+-- 
+A year spent in artificial intelligence is enough to make one
+believe in God.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

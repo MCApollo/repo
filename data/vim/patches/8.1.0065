@@ -1,0 +1,90 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0065
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0065 (after 8.1.0062)
+Problem:    Balloon displayed at the wrong position.
+Solution:   Do not reposition the popup menu at the cursor position.
+Files:	    src/popupmnu.c
+
+
+*** ../vim-8.1.0064/src/popupmnu.c	2018-06-17 14:47:50.649309059 +0200
+--- src/popupmnu.c	2018-06-17 17:06:35.634554918 +0200
+***************
+*** 29,34 ****
+--- 29,35 ----
+  static int pum_row;			/* top row of pum */
+  static int pum_col;			/* left column of pum */
+  
++ static win_T *pum_window = NULL;
+  static int pum_win_row;
+  static int pum_win_height;
+  static int pum_win_col;
+***************
+*** 110,115 ****
+--- 111,117 ----
+  
+  	// Remember the essential parts of the window position and size, so we
+  	// can decide when to reposition the popup menu.
++ 	pum_window = curwin;
+  	pum_win_row = curwin->w_wrow + W_WINROW(curwin);
+  	pum_win_height = curwin->w_height;
+  	pum_win_col = curwin->w_wincol;
+***************
+*** 846,855 ****
+      if (!pum_visible())
+  	return;  // nothing to do
+  
+!     if (pum_win_row == curwin->w_wrow + W_WINROW(curwin)
+! 	    && pum_win_height == curwin->w_height
+! 	    && pum_win_col == curwin->w_wincol
+! 	    && pum_win_width == curwin->w_width)
+      {
+  	// window position didn't change, redraw in the same position
+  	pum_redraw();
+--- 848,858 ----
+      if (!pum_visible())
+  	return;  // nothing to do
+  
+!     if (pum_window != curwin
+! 	    || (pum_win_row == curwin->w_wrow + W_WINROW(curwin)
+! 		&& pum_win_height == curwin->w_height
+! 		&& pum_win_col == curwin->w_wincol
+! 		&& pum_win_width == curwin->w_width))
+      {
+  	// window position didn't change, redraw in the same position
+  	pum_redraw();
+***************
+*** 912,917 ****
+--- 915,923 ----
+      pum_width = Columns - pum_col;
+      if (pum_width > pum_base_width + 1)
+  	pum_width = pum_base_width + 1;
++ 
++     // Do not redraw at cursor position.
++     pum_window = NULL;
+  }
+  
+  # endif
+*** ../vim-8.1.0064/src/version.c	2018-06-17 16:23:29.341140642 +0200
+--- src/version.c	2018-06-17 17:09:52.429048636 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     65,
+  /**/
+
+-- 
+Time is money.  Especially if you make clocks.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

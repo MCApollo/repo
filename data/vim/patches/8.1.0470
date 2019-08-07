@@ -1,0 +1,384 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0470
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0470
+Problem:    Pointer ownership around fname_expand() is unclear.
+Solution:   Allow b_ffname and b_sfname to point to the same allocated memory,
+            only free one.  Update comments.
+Files:	    src/buffer.c, src/structs.h, src/fileio.c, src/ex_cmds.c
+
+
+*** ../vim-8.1.0469/src/buffer.c	2018-09-30 21:43:17.175693433 +0200
+--- src/buffer.c	2018-10-11 19:00:11.004662173 +0200
+***************
+*** 663,670 ****
+  	    workshop_file_closed_lineno((char *)buf->b_ffname,
+  			(int)buf->b_last_cursor.lnum);
+  #endif
+! 	vim_free(buf->b_ffname);
+! 	vim_free(buf->b_sfname);
+  	if (buf->b_prev == NULL)
+  	    firstbuf = buf->b_next;
+  	else
+--- 663,673 ----
+  	    workshop_file_closed_lineno((char *)buf->b_ffname,
+  			(int)buf->b_last_cursor.lnum);
+  #endif
+! 	if (buf->b_sfname != buf->b_ffname)
+! 	    VIM_CLEAR(buf->b_sfname);
+! 	else
+! 	    buf->b_sfname = NULL;
+! 	VIM_CLEAR(buf->b_ffname);
+  	if (buf->b_prev == NULL)
+  	    firstbuf = buf->b_next;
+  	else
+***************
+*** 1877,1887 ****
+   */
+      buf_T *
+  buflist_new(
+!     char_u	*ffname,	/* full path of fname or relative */
+!     char_u	*sfname,	/* short fname or NULL */
+!     linenr_T	lnum,		/* preferred cursor line */
+!     int		flags)		/* BLN_ defines */
+  {
+      buf_T	*buf;
+  #ifdef UNIX
+      stat_T	st;
+--- 1880,1892 ----
+   */
+      buf_T *
+  buflist_new(
+!     char_u	*ffname_arg,	// full path of fname or relative
+!     char_u	*sfname_arg,	// short fname or NULL
+!     linenr_T	lnum,		// preferred cursor line
+!     int		flags)		// BLN_ defines
+  {
++     char_u	*ffname = ffname_arg;
++     char_u	*sfname = sfname_arg;
+      buf_T	*buf;
+  #ifdef UNIX
+      stat_T	st;
+***************
+*** 1890,1896 ****
+      if (top_file_num == 1)
+  	hash_init(&buf_hashtab);
+  
+!     fname_expand(curbuf, &ffname, &sfname);	/* will allocate ffname */
+  
+      /*
+       * If file name already exists in the list, update the entry.
+--- 1895,1901 ----
+      if (top_file_num == 1)
+  	hash_init(&buf_hashtab);
+  
+!     fname_expand(curbuf, &ffname, &sfname);	// will allocate ffname
+  
+      /*
+       * If file name already exists in the list, update the entry.
+***************
+*** 1997,2004 ****
+      if ((ffname != NULL && (buf->b_ffname == NULL || buf->b_sfname == NULL))
+  	    || buf->b_wininfo == NULL)
+      {
+  	VIM_CLEAR(buf->b_ffname);
+- 	VIM_CLEAR(buf->b_sfname);
+  	if (buf != curbuf)
+  	    free_buffer(buf);
+  	return NULL;
+--- 2002,2012 ----
+      if ((ffname != NULL && (buf->b_ffname == NULL || buf->b_sfname == NULL))
+  	    || buf->b_wininfo == NULL)
+      {
++ 	if (buf->b_sfname != buf->b_ffname)
++ 	    VIM_CLEAR(buf->b_sfname);
++ 	else
++ 	    buf->b_sfname = NULL;
+  	VIM_CLEAR(buf->b_ffname);
+  	if (buf != curbuf)
+  	    free_buffer(buf);
+  	return NULL;
+***************
+*** 3103,3109 ****
+  }
+  
+  /*
+!  * Set the file name for "buf"' to 'ffname', short file name to 'sfname'.
+   * The file name with the full path is also remembered, for when :cd is used.
+   * Returns FAIL for failure (file name already in use by other buffer)
+   *	OK otherwise.
+--- 3111,3118 ----
+  }
+  
+  /*
+!  * Set the file name for "buf"' to "ffname_arg", short file name to
+!  * "sfname_arg".
+   * The file name with the full path is also remembered, for when :cd is used.
+   * Returns FAIL for failure (file name already in use by other buffer)
+   *	OK otherwise.
+***************
+*** 3111,3120 ****
+      int
+  setfname(
+      buf_T	*buf,
+!     char_u	*ffname,
+!     char_u	*sfname,
+      int		message)	/* give message when buffer already exists */
+  {
+      buf_T	*obuf = NULL;
+  #ifdef UNIX
+      stat_T	st;
+--- 3120,3131 ----
+      int
+  setfname(
+      buf_T	*buf,
+!     char_u	*ffname_arg,
+!     char_u	*sfname_arg,
+      int		message)	/* give message when buffer already exists */
+  {
++     char_u	*ffname = ffname_arg;
++     char_u	*sfname = sfname_arg;
+      buf_T	*obuf = NULL;
+  #ifdef UNIX
+      stat_T	st;
+***************
+*** 3123,3130 ****
+      if (ffname == NULL || *ffname == NUL)
+      {
+  	/* Removing the name. */
+  	VIM_CLEAR(buf->b_ffname);
+- 	VIM_CLEAR(buf->b_sfname);
+  #ifdef UNIX
+  	st.st_dev = (dev_T)-1;
+  #endif
+--- 3134,3144 ----
+      if (ffname == NULL || *ffname == NUL)
+      {
+  	/* Removing the name. */
++ 	if (buf->b_sfname != buf->b_ffname)
++ 	    VIM_CLEAR(buf->b_sfname);
++ 	else
++ 	    buf->b_sfname = NULL;
+  	VIM_CLEAR(buf->b_ffname);
+  #ifdef UNIX
+  	st.st_dev = (dev_T)-1;
+  #endif
+***************
+*** 3175,3182 ****
+  # endif
+  	    fname_case(sfname, 0);    /* set correct case for short file name */
+  #endif
+  	vim_free(buf->b_ffname);
+- 	vim_free(buf->b_sfname);
+  	buf->b_ffname = ffname;
+  	buf->b_sfname = sfname;
+      }
+--- 3189,3197 ----
+  # endif
+  	    fname_case(sfname, 0);    /* set correct case for short file name */
+  #endif
++ 	if (buf->b_sfname != buf->b_ffname)
++ 	    vim_free(buf->b_sfname);
+  	vim_free(buf->b_ffname);
+  	buf->b_ffname = ffname;
+  	buf->b_sfname = sfname;
+      }
+***************
+*** 3210,3216 ****
+      buf = buflist_findnr(fnum);
+      if (buf != NULL)
+      {
+! 	vim_free(buf->b_sfname);
+  	vim_free(buf->b_ffname);
+  	buf->b_ffname = vim_strsave(name);
+  	buf->b_sfname = NULL;
+--- 3225,3232 ----
+      buf = buflist_findnr(fnum);
+      if (buf != NULL)
+      {
+! 	if (buf->b_sfname != buf->b_ffname)
+! 	    vim_free(buf->b_sfname);
+  	vim_free(buf->b_ffname);
+  	buf->b_ffname = vim_strsave(name);
+  	buf->b_sfname = NULL;
+***************
+*** 4820,4827 ****
+  }
+  
+  /*
+!  * Make "ffname" a full file name, set "sfname" to "ffname" if not NULL.
+!  * "ffname" becomes a pointer to allocated memory (or NULL).
+   */
+      void
+  fname_expand(
+--- 4836,4847 ----
+  }
+  
+  /*
+!  * Make "*ffname" a full file name, set "*sfname" to "*ffname" if not NULL.
+!  * "*ffname" becomes a pointer to allocated memory (or NULL).
+!  * When resolving a link both "*sfname" and "*ffname" will point to the same
+!  * allocated memory.
+!  * The "*ffname" and "*sfname" pointer values on call will not be freed.
+!  * Note that the resulting "*ffname" pointer should be considered not allocaed.
+   */
+      void
+  fname_expand(
+***************
+*** 4829,4846 ****
+      char_u	**ffname,
+      char_u	**sfname)
+  {
+!     if (*ffname == NULL)	/* if no file name given, nothing to do */
+  	return;
+!     if (*sfname == NULL)	/* if no short file name given, use ffname */
+  	*sfname = *ffname;
+!     *ffname = fix_fname(*ffname);   /* expand to full path */
+  
+  #ifdef FEAT_SHORTCUT
+      if (!buf->b_p_bin)
+      {
+  	char_u  *rfname;
+  
+! 	/* If the file name is a shortcut file, use the file it links to. */
+  	rfname = mch_resolve_shortcut(*ffname);
+  	if (rfname != NULL)
+  	{
+--- 4849,4866 ----
+      char_u	**ffname,
+      char_u	**sfname)
+  {
+!     if (*ffname == NULL)	    // no file name given, nothing to do
+  	return;
+!     if (*sfname == NULL)	    // no short file name given, use ffname
+  	*sfname = *ffname;
+!     *ffname = fix_fname(*ffname);   // expand to full path
+  
+  #ifdef FEAT_SHORTCUT
+      if (!buf->b_p_bin)
+      {
+  	char_u  *rfname;
+  
+! 	// If the file name is a shortcut file, use the file it links to.
+  	rfname = mch_resolve_shortcut(*ffname);
+  	if (rfname != NULL)
+  	{
+*** ../vim-8.1.0469/src/structs.h	2018-10-02 18:25:41.420867587 +0200
+--- src/structs.h	2018-10-11 17:45:36.197140877 +0200
+***************
+*** 1972,1980 ****
+       * b_fname is the same as b_sfname, unless ":cd" has been done,
+       *		then it is the same as b_ffname (NULL for no name).
+       */
+!     char_u	*b_ffname;	/* full path file name */
+!     char_u	*b_sfname;	/* short file name */
+!     char_u	*b_fname;	/* current file name */
+  
+  #ifdef UNIX
+      int		b_dev_valid;	/* TRUE when b_dev has a valid number */
+--- 1972,1982 ----
+       * b_fname is the same as b_sfname, unless ":cd" has been done,
+       *		then it is the same as b_ffname (NULL for no name).
+       */
+!     char_u	*b_ffname;	// full path file name, allocated
+!     char_u	*b_sfname;	// short file name, allocated, may be equal to
+! 				// b_ffname
+!     char_u	*b_fname;	// current file name, points to b_ffname or
+! 				// b_sfname
+  
+  #ifdef UNIX
+      int		b_dev_valid;	/* TRUE when b_dev has a valid number */
+*** ../vim-8.1.0469/src/fileio.c	2018-09-30 21:43:17.187693348 +0200
+--- src/fileio.c	2018-10-11 18:50:41.084975167 +0200
+***************
+*** 6187,6193 ****
+  		|| buf->b_sfname == NULL
+  		|| mch_isFullName(buf->b_sfname)))
+      {
+! 	VIM_CLEAR(buf->b_sfname);
+  	p = shorten_fname(buf->b_ffname, dirname);
+  	if (p != NULL)
+  	{
+--- 6187,6194 ----
+  		|| buf->b_sfname == NULL
+  		|| mch_isFullName(buf->b_sfname)))
+      {
+! 	if (buf->b_sfname != buf->b_ffname)
+! 	    VIM_CLEAR(buf->b_sfname);
+  	p = shorten_fname(buf->b_ffname, dirname);
+  	if (p != NULL)
+  	{
+*** ../vim-8.1.0469/src/ex_cmds.c	2018-10-09 21:49:30.447622031 +0200
+--- src/ex_cmds.c	2018-10-11 19:01:12.524192986 +0200
+***************
+*** 3648,3655 ****
+  }
+  
+  /*
+!  * Try to abandon current file and edit a new or existing file.
+!  * "fnum" is the number of the file, if zero use ffname/sfname.
+   * "lnum" is the line number for the cursor in the new file (if non-zero).
+   *
+   * Return:
+--- 3648,3655 ----
+  }
+  
+  /*
+!  * Try to abandon the current file and edit a new or existing file.
+!  * "fnum" is the number of the file, if zero use "ffname_arg"/"sfname_arg".
+   * "lnum" is the line number for the cursor in the new file (if non-zero).
+   *
+   * Return:
+***************
+*** 3661,3672 ****
+      int
+  getfile(
+      int		fnum,
+!     char_u	*ffname,
+!     char_u	*sfname,
+      int		setpm,
+      linenr_T	lnum,
+      int		forceit)
+  {
+      int		other;
+      int		retval;
+      char_u	*free_me = NULL;
+--- 3661,3674 ----
+      int
+  getfile(
+      int		fnum,
+!     char_u	*ffname_arg,
+!     char_u	*sfname_arg,
+      int		setpm,
+      linenr_T	lnum,
+      int		forceit)
+  {
++     char_u	*ffname = ffname_arg;
++     char_u	*sfname = sfname_arg;
+      int		other;
+      int		retval;
+      char_u	*free_me = NULL;
+*** ../vim-8.1.0469/src/version.c	2018-10-11 17:39:09.173107491 +0200
+--- src/version.c	2018-10-11 18:57:27.585905972 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     470,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+189. You put your e-mail address in the upper left-hand corner of envelopes.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,48 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0070
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0070
+Problem:    Missing part of the changes for prompt_setinterrupt().
+Solution:   Add the missing changes.
+Files:	    src/structs.h
+
+
+*** ../vim-8.1.0069/src/structs.h	2018-06-06 09:11:07.257357317 +0200
+--- src/structs.h	2018-06-17 18:27:08.038723480 +0200
+***************
+*** 2360,2365 ****
+--- 2360,2367 ----
+      char_u	*b_prompt_text;	     // set by prompt_setprompt()
+      char_u	*b_prompt_callback;  // set by prompt_setcallback()
+      partial_T	*b_prompt_partial;   // set by prompt_setcallback()
++     char_u	*b_prompt_interrupt;   // set by prompt_setinterrupt()
++     partial_T	*b_prompt_int_partial; // set by prompt_setinterrupt()
+      int		b_prompt_insert;     // value for restart_edit when entering
+  				     // a prompt buffer window.
+  #endif
+*** ../vim-8.1.0069/src/version.c	2018-06-17 19:36:30.215317108 +0200
+--- src/version.c	2018-06-17 20:10:13.756190264 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     70,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+65. The last time you looked at the clock it was 11:30pm, and in what
+    seems like only a few seconds later, your sister runs past you to
+    catch her 7am school bus.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

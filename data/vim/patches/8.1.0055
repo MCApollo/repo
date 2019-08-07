@@ -1,0 +1,88 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0055
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0055 (after 8.1.0053)
+Problem:    Complete test has wrong order of arguments. Wrong type for
+            sentinel variable.
+Solution:   Swap arguments, use VAR_UNKNOWN. (Ozaki Kiichi)
+Files:	    src/mbyte.c, src/testdir/test_ins_complete.vim
+
+
+*** ../vim-8.1.0054/src/mbyte.c	2018-06-12 22:05:10.656251565 +0200
+--- src/mbyte.c	2018-06-13 21:22:38.711055156 +0200
+***************
+*** 4799,4805 ****
+  
+      argv[0].v_type = VAR_NUMBER;
+      argv[0].vval.v_number = active ? 1 : 0;
+!     argv[1].v_type = VAR_NUMBER;
+      (void)call_func_retnr(p_imaf, 1, argv, FALSE);
+  }
+  
+--- 4799,4805 ----
+  
+      argv[0].v_type = VAR_NUMBER;
+      argv[0].vval.v_number = active ? 1 : 0;
+!     argv[1].v_type = VAR_UNKNOWN;
+      (void)call_func_retnr(p_imaf, 1, argv, FALSE);
+  }
+  
+*** ../vim-8.1.0054/src/testdir/test_ins_complete.vim	2018-06-12 22:05:10.656251565 +0200
+--- src/testdir/test_ins_complete.vim	2018-06-13 21:22:38.711055156 +0200
+***************
+*** 126,140 ****
+  
+    set completefunc=CompleteFunc
+    call feedkeys("i\<C-X>\<C-U>\<Esc>", 'x')
+!   call assert_equal(s:args[0], [1, 1])
+!   call assert_equal(s:args[1][0], 0)
+    set completefunc=
+  
+    let s:args = []
+    set omnifunc=CompleteFunc
+    call feedkeys("i\<C-X>\<C-O>\<Esc>", 'x')
+!   call assert_equal(s:args[0], [1, 1])
+!   call assert_equal(s:args[1][0], 0)
+    set omnifunc=
+  
+    bwipe!
+--- 126,140 ----
+  
+    set completefunc=CompleteFunc
+    call feedkeys("i\<C-X>\<C-U>\<Esc>", 'x')
+!   call assert_equal([1, 1], s:args[0])
+!   call assert_equal(0, s:args[1][0])
+    set completefunc=
+  
+    let s:args = []
+    set omnifunc=CompleteFunc
+    call feedkeys("i\<C-X>\<C-O>\<Esc>", 'x')
+!   call assert_equal([1, 1], s:args[0])
+!   call assert_equal(0, s:args[1][0])
+    set omnifunc=
+  
+    bwipe!
+*** ../vim-8.1.0054/src/version.c	2018-06-13 20:49:47.444338292 +0200
+--- src/version.c	2018-06-13 21:25:28.718171776 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     55,
+  /**/
+
+-- 
+Everybody lies, but it doesn't matter since nobody listens.
+                                -- Lieberman's Law
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

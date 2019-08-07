@@ -1,0 +1,175 @@
+diff -ur Python-2.7.15/setup.py Python-2.7.15+iPhone/setup.py
+--- Python-2.7.15/setup.py	2018-04-29 12:47:33.000000000 -1000
++++ Python-2.7.15+iPhone/setup.py	2018-09-04 21:49:58.000000000 -1000
+@@ -18,6 +18,7 @@
+ from distutils.spawn import find_executable
+ 
+ cross_compiling = "_PYTHON_HOST_PLATFORM" in os.environ
++sysroot = os.environ['PKG_ROOT']
+ 
+ def get_platform():
+     # cross build
+@@ -49,9 +50,7 @@
+     """
+     cflags = sysconfig.get_config_var('CFLAGS')
+     m = re.search(r'-isysroot\s+(\S+)', cflags)
+-    if m is None:
+-        sysroot = '/'
+-    else:
++    if m is not None:
+         sysroot = m.group(1)
+     return sysroot
+ 
+@@ -80,6 +79,8 @@
+         # system, but with only header files and libraries.
+         sysroot = macosx_sdk_root()
+ 
++    sysroot = os.environ['PKG_ROOT']
++
+     # Check the standard locations
+     for dir in std_dirs:
+         f = os.path.join(dir, filename)
+@@ -110,6 +111,8 @@
+     if host_platform == 'darwin':
+         sysroot = macosx_sdk_root()
+ 
++    sysroot = os.environ['PKG_ROOT']
++
+     # Check whether the found file is in one of the standard directories
+     dirname = os.path.dirname(result)
+     for p in std_dirs:
+@@ -461,6 +464,7 @@
+         if cross_compiling:
+             self.add_gcc_paths()
+         self.add_multiarch_paths()
++        sysroot = os.environ['PKG_ROOT']
+ 
+         # Add paths specified in the environment variables LDFLAGS and
+         # CPPFLAGS for header and library files.
+@@ -497,7 +501,8 @@
+                         add_dir_to_list(dir_list, directory)
+ 
+         if os.path.normpath(sys.prefix) != '/usr' \
+-                and not sysconfig.get_config_var('PYTHONFRAMEWORK'):
++                and not sysconfig.get_config_var('PYTHONFRAMEWORK') \
++								and not cross_compiling:
+             # OSX note: Don't add LIBDIR and INCLUDEDIR to building a framework
+             # (PYTHONFRAMEWORK is set) to avoid # linking problems when
+             # building a framework with different architectures than
+@@ -519,12 +524,12 @@
+         lib_dirs = self.compiler.library_dirs[:]
+         if not cross_compiling:
+             for d in (
+-                '/usr/include',
++                sysroot + '/usr/include',
+                 ):
+                 add_dir_to_list(inc_dirs, d)
+             for d in (
+-                '/lib64', '/usr/lib64',
+-                '/lib', '/usr/lib',
++                sysroot + '/lib64', sysroot + '/usr/lib64',
++                sysroot + '/lib', sysroot + '/usr/lib',
+                 ):
+                 add_dir_to_list(lib_dirs, d)
+         exts = []
+@@ -808,21 +813,22 @@
+                                depends=['socketmodule.h'],
+                                libraries=math_libs) )
+         # Detect SSL support for the socket module (via _ssl)
++        sysroot = os.environ['PKG_ROOT']
+         search_for_ssl_incs_in = [
+-                              '/usr/local/ssl/include',
+-                              '/usr/contrib/ssl/include/'
++                              sysroot + '/usr/local/ssl/include',
++                              sysroot + '/usr/contrib/ssl/include/'
+                              ]
+         ssl_incs = find_file('openssl/ssl.h', inc_dirs,
+                              search_for_ssl_incs_in
+                              )
+         if ssl_incs is not None:
+             krb5_h = find_file('krb5.h', inc_dirs,
+-                               ['/usr/kerberos/include'])
++                               [sysroot + '/usr/kerberos/include'])
+             if krb5_h:
+                 ssl_incs += krb5_h
+         ssl_libs = find_library_file(self.compiler, 'ssl',lib_dirs,
+-                                     ['/usr/local/ssl/lib',
+-                                      '/usr/contrib/ssl/lib/'
++                                     [sysroot + '/usr/local/ssl/lib',
++                                      sysroot + '/usr/contrib/ssl/lib/'
+                                      ] )
+ 
+         if (ssl_incs is not None and
+@@ -944,16 +950,17 @@
+ 
+         # construct a list of paths to look for the header file in on
+         # top of the normal inc_dirs.
++        sysroot = os.environ['PKG_ROOT']
+         db_inc_paths = [
+-            '/usr/include/db4',
+-            '/usr/local/include/db4',
+-            '/opt/sfw/include/db4',
+-            '/usr/include/db3',
+-            '/usr/local/include/db3',
+-            '/opt/sfw/include/db3',
++            sysroot + '/usr/include/db4',
++            sysroot + '/usr/local/include/db4',
++            sysroot + '/opt/sfw/include/db4',
++            sysroot + '/usr/include/db3',
++            sysroot + '/usr/local/include/db3',
++            sysroot + '/opt/sfw/include/db3',
+             # Fink defaults (http://fink.sourceforge.net/)
+-            '/sw/include/db4',
+-            '/sw/include/db3',
++            sysroot + '/sw/include/db4',
++            sysroot + '/sw/include/db3',
+         ]
+         # 4.x minor number specific paths
+         for x in gen_db_minor_ver_nums(4):
+@@ -1133,8 +1140,7 @@
+         # Scan the default include directories before the SQLite specific
+         # ones. This allows one to override the copy of sqlite on OSX,
+         # where /usr/include contains an old version of sqlite.
+-        if host_platform == 'darwin':
+-            sysroot = macosx_sdk_root()
++        sysroot = os.environ['PKG_ROOT']
+ 
+         for d_ in inc_dirs + sqlite_inc_paths:
+             d = d_
+@@ -1231,7 +1237,6 @@
+ 
+         if host_platform == 'darwin':
+             if is_macosx_sdk_path(f):
+-                sysroot = macosx_sdk_root()
+                 f = os.path.join(sysroot, f[1:])
+ 
+         if os.path.exists(f) and not db_incs:
+@@ -1797,7 +1802,6 @@
+             join(os.getenv('HOME'), '/Library/Frameworks')
+         ]
+ 
+-        sysroot = macosx_sdk_root()
+ 
+         # Find the directory that contains the Tcl.framework and Tk.framework
+         # bundles.
+@@ -1843,6 +1847,7 @@
+         cflags = sysconfig.get_config_vars('CFLAGS')[0]
+         archs = re.findall('-arch\s+(\w+)', cflags)
+ 
++        sysroot = os.environ['PKG_ROOT']
+         if is_macosx_sdk_path(F):
+             fp = os.popen("file %s/Tk.framework/Tk | grep 'for architecture'"%(os.path.join(sysroot, F[1:]),))
+         else:
+@@ -2117,10 +2122,11 @@
+         if not '--with-system-ffi' in sysconfig.get_config_var("CONFIG_ARGS"):
+             return
+ 
++        sysroot = os.environ['PKG_ROOT']
+         if host_platform == 'darwin':
+             # OS X 10.5 comes with libffi.dylib; the include files are
+             # in /usr/include/ffi
+-            inc_dirs.append('/usr/include/ffi')
++            inc_dirs.append(sysroot + '/usr/include/ffi')
+ 
+         ffi_inc = [sysconfig.get_config_var("LIBFFI_INCLUDEDIR")]
+         if not ffi_inc or ffi_inc[0] == '':

@@ -1,0 +1,150 @@
+diff -ru raop_play-0.5.1/raop_play/aac_stream.c raop_play-0.5.1+iPhone/raop_play/aac_stream.c
+--- raop_play-0.5.1/raop_play/aac_stream.c	2005-12-16 14:17:00.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/aac_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -17,7 +17,7 @@
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+  *****************************************************************************/
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <sys/stat.h>
+diff -ru raop_play-0.5.1/raop_play/aexcl_lib.h raop_play-0.5.1+iPhone/raop_play/aexcl_lib.h
+--- raop_play-0.5.1/raop_play/aexcl_lib.h	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/aexcl_lib.h	2008-12-06 03:43:26.000000000 +0000
+@@ -1,5 +1,5 @@
+ #include <stdio.h>
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <sys/time.h>
+ #include <time.h>
+ #include <stdlib.h>
+diff -ru raop_play-0.5.1/raop_play/audio_stream.c raop_play-0.5.1+iPhone/raop_play/audio_stream.c
+--- raop_play-0.5.1/raop_play/audio_stream.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/audio_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -17,7 +17,7 @@
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+  *****************************************************************************/
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <stdlib.h>
+diff -ru raop_play-0.5.1/raop_play/flac_stream.c raop_play-0.5.1+iPhone/raop_play/flac_stream.c
+--- raop_play-0.5.1/raop_play/flac_stream.c	2005-12-16 14:17:02.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/flac_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -18,7 +18,7 @@
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+  *****************************************************************************/
+ #include <netinet/in.h>
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <sys/stat.h>
+diff -ru raop_play-0.5.1/raop_play/m4a_stream.c raop_play-0.5.1+iPhone/raop_play/m4a_stream.c
+--- raop_play-0.5.1/raop_play/m4a_stream.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/m4a_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -20,7 +20,7 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <unistd.h>
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <fcntl.h>
+diff -ru raop_play-0.5.1/raop_play/mp3_stream.c raop_play-0.5.1+iPhone/raop_play/mp3_stream.c
+--- raop_play-0.5.1/raop_play/mp3_stream.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/mp3_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -17,7 +17,7 @@
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+  *****************************************************************************/
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <sys/wait.h>
+diff -ru raop_play-0.5.1/raop_play/ogg_stream.c raop_play-0.5.1+iPhone/raop_play/ogg_stream.c
+--- raop_play-0.5.1/raop_play/ogg_stream.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/ogg_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -17,7 +17,7 @@
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+  *****************************************************************************/
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <stdio.h>
+ #include <unistd.h>
+ #include <sys/stat.h>
+diff -ru raop_play-0.5.1/raop_play/pcm_stream.c raop_play-0.5.1+iPhone/raop_play/pcm_stream.c
+--- raop_play-0.5.1/raop_play/pcm_stream.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/pcm_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -19,7 +19,7 @@
+  *****************************************************************************/
+ #include <unistd.h>
+ #include <fcntl.h>
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <stdio.h>
+ #include <sys/poll.h>
+ #define PCM_STREAM_C_
+diff -ru raop_play-0.5.1/raop_play/pls_stream.c raop_play-0.5.1+iPhone/raop_play/pls_stream.c
+--- raop_play-0.5.1/raop_play/pls_stream.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/pls_stream.c	2008-12-06 04:06:57.000000000 +0000
+@@ -17,7 +17,7 @@
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+  *****************************************************************************/
+-#include <asm/types.h>
++#include "linuxint.h"
+ #define _GNU_SOURCE
+ #include <stdio.h>
+ #include <unistd.h>
+diff -ru raop_play-0.5.1/raop_play/raop_client.c raop_play-0.5.1+iPhone/raop_play/raop_client.c
+--- raop_play-0.5.1/raop_play/raop_client.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/raop_client.c	2008-12-06 03:45:11.000000000 +0000
+@@ -24,7 +24,7 @@
+ #include <openssl/rsa.h>
+ #include <openssl/engine.h>
+ 
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include "aexcl_lib.h"
+ #include "rtsp_client.h"
+ #include "raop_client.h"
+diff -ru raop_play-0.5.1/raop_play/wav_stream.c raop_play-0.5.1+iPhone/raop_play/wav_stream.c
+--- raop_play-0.5.1/raop_play/wav_stream.c	2005-12-16 14:17:01.000000000 +0000
++++ raop_play-0.5.1+iPhone/raop_play/wav_stream.c	2008-12-06 03:43:26.000000000 +0000
+@@ -17,7 +17,7 @@
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111, USA.
+  *****************************************************************************/
+-#include <asm/types.h>
++#include "linuxint.h"
+ #include <stdio.h>
+ #define WAV_STREAM_C
+ #include "audio_stream.h"
+diff -ru raop_play-0.5.1/rendezvous/Client.c raop_play-0.5.1+iPhone/rendezvous/Client.c
+--- raop_play-0.5.1/rendezvous/Client.c	2005-12-16 14:17:02.000000000 +0000
++++ raop_play-0.5.1+iPhone/rendezvous/Client.c	2008-12-06 04:07:02.000000000 +0000
+@@ -83,5 +83,4 @@
+ #include <string.h>
+ #include <unistd.h>
+ #include <stdlib.h>
+-#include <asm/types.h>
+ 
+diff -ru raop_play-0.5.1/rendezvous/mDNS.c raop_play-0.5.1+iPhone/rendezvous/mDNS.c
+--- raop_play-0.5.1/rendezvous/mDNS.c	2005-12-16 14:17:02.000000000 +0000
++++ raop_play-0.5.1+iPhone/rendezvous/mDNS.c	2008-12-06 03:44:38.000000000 +0000
+@@ -1139,7 +1139,6 @@
+ 
+ #include <stdio.h>
+ #include <string.h>
+-#include <asm/types.h>
+ 
+ static const struct mDNSprintf_format
+ {

@@ -1,0 +1,122 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0184
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0184
+Problem:    Not easy to figure out the window layout.
+Solution:   Add "wincol" and "winrow" to what getwininfo() returns.
+Files:	    src/evalfunc.c, src/testdir/test_bufwintabinfo.vim,
+            runtime/doc/eval.txt
+
+
+*** ../vim-8.1.0183/src/evalfunc.c	Sun Jul  8 16:50:33 2018
+--- src/evalfunc.c	Sat Jul 14 21:17:08 2018
+***************
+*** 5648,5657 ****
+--- 5648,5659 ----
+      dict_add_number(dict, "winnr", winnr);
+      dict_add_number(dict, "winid", wp->w_id);
+      dict_add_number(dict, "height", wp->w_height);
++     dict_add_number(dict, "winrow", wp->w_winrow);
+  #ifdef FEAT_MENU
+      dict_add_number(dict, "winbar", wp->w_winbar_height);
+  #endif
+      dict_add_number(dict, "width", wp->w_width);
++     dict_add_number(dict, "wincol", wp->w_wincol);
+      dict_add_number(dict, "bufnr", wp->w_buffer->b_fnum);
+  
+  #ifdef FEAT_TERMINAL
+*** ../vim-8.1.0183/src/testdir/test_bufwintabinfo.vim	Sun Dec 10 21:02:56 2017
+--- src/testdir/test_bufwintabinfo.vim	Sat Jul 14 21:34:20 2018
+***************
+*** 46,62 ****
+      let w2_id = win_getid()
+      tabnew | let w3_id = win_getid()
+      new | let w4_id = win_getid()
+!     new | let w5_id = win_getid()
+      call setwinvar(0, 'signal', 'green')
+      tabfirst
+      let winlist = getwininfo()
+      call assert_equal(5, len(winlist))
+      call assert_equal(winbufnr(2), winlist[1].bufnr)
+      call assert_equal(winheight(2), winlist[1].height)
+      call assert_equal(1, winlist[2].winnr)
+      call assert_equal(2, winlist[3].tabnr)
+      call assert_equal('green', winlist[2].variables.signal)
+-     call assert_equal(winwidth(1), winlist[0].width)
+      call assert_equal(w4_id, winlist[3].winid)
+      let winfo = getwininfo(w5_id)[0]
+      call assert_equal(2, winfo.tabnr)
+--- 46,79 ----
+      let w2_id = win_getid()
+      tabnew | let w3_id = win_getid()
+      new | let w4_id = win_getid()
+!     vert new | let w5_id = win_getid()
+      call setwinvar(0, 'signal', 'green')
+      tabfirst
+      let winlist = getwininfo()
+      call assert_equal(5, len(winlist))
++     call assert_equal(winwidth(1), winlist[0].width)
++     call assert_equal(0, winlist[0].wincol)
++     call assert_equal(1, winlist[0].winrow)  " tabline adds one
++ 
+      call assert_equal(winbufnr(2), winlist[1].bufnr)
+      call assert_equal(winheight(2), winlist[1].height)
++     call assert_equal(0, winlist[1].wincol)
++     call assert_equal(winheight(1) + 2, winlist[1].winrow)
++ 
+      call assert_equal(1, winlist[2].winnr)
++     call assert_equal(1, winlist[2].winrow)
++     call assert_equal(0, winlist[2].wincol)
++ 
++     call assert_equal(winlist[2].width + 1, winlist[3].wincol)
++     call assert_equal(0, winlist[4].wincol)
++ 
++     call assert_equal(1, winlist[0].tabnr)
++     call assert_equal(1, winlist[1].tabnr)
++     call assert_equal(2, winlist[2].tabnr)
+      call assert_equal(2, winlist[3].tabnr)
++     call assert_equal(2, winlist[4].tabnr)
++ 
+      call assert_equal('green', winlist[2].variables.signal)
+      call assert_equal(w4_id, winlist[3].winid)
+      let winfo = getwininfo(w5_id)[0]
+      call assert_equal(2, winfo.tabnr)
+*** ../vim-8.1.0183/runtime/doc/eval.txt	Sat Jun 23 14:21:38 2018
+--- runtime/doc/eval.txt	Sat Jul 14 21:24:39 2018
+***************
+*** 4993,5000 ****
+--- 4994,5003 ----
+  			variables	a reference to the dictionary with
+  					window-local variables
+  			width		window width
++ 			wincol		leftmost screen column of the window
+  			winid		|window-ID|
+  			winnr		window number
++ 			winrow		topmost screen column of the window
+  
+  		To obtain all window-local variables use: >
+  			gettabwinvar({tabnr}, {winnr}, '&')
+*** ../vim-8.1.0183/src/version.c	Sat Jul 14 20:49:39 2018
+--- src/version.c	Sat Jul 14 21:17:54 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     184,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+246. You use up your free 1 Gbyte in two days.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

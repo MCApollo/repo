@@ -1,0 +1,67 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0576
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0576
+Problem:    Indent script tests pick up installed scripts.
+Solution:   Use current runtime indent scripts.
+Files:	    runtime/indent/Makefile
+
+
+*** ../vim-8.1.0575/runtime/indent/Makefile	2018-11-25 04:03:04.262574403 +0100
+--- runtime/indent/Makefile	2018-12-10 21:09:25.979779327 +0100
+***************
+*** 1,13 ****
+  # Portable Makefile for running indent tests.
+  
+  VIM = vim
+  
+  # Run the tests that didn't run yet or failed previously.
+  # If a test succeeds a testdir/*.out file will be written.
+  # If a test fails a testdir/*.fail file will be written.
+  test:
+! 	$(VIM) --clean --not-a-term -u testdir/runtest.vim
+  
+  
+  clean:
+! 	$(VIM) --clean --not-a-term -u testdir/cleantest.vim
+--- 1,14 ----
+  # Portable Makefile for running indent tests.
+  
+  VIM = vim
++ VIMRUNTIME = ..
+  
+  # Run the tests that didn't run yet or failed previously.
+  # If a test succeeds a testdir/*.out file will be written.
+  # If a test fails a testdir/*.fail file will be written.
+  test:
+! 	VIMRUNTIME=$(VIMRUNTIME) $(VIM) --clean --not-a-term -u testdir/runtest.vim
+  
+  
+  clean:
+! 	VIMRUNTIME=$(VIMRUNTIME) $(VIM) --clean --not-a-term -u testdir/cleantest.vim
+*** ../vim-8.1.0575/src/version.c	2018-12-09 15:52:57.091463593 +0100
+--- src/version.c	2018-12-10 21:36:12.085646506 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     576,
+  /**/
+
+-- 
+Our job was to build a computer information system for the branch banks.  We
+were the perfect people for the job: Dean had seen a computer once, and I had
+heard Dean talk about it.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

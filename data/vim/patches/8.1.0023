@@ -1,0 +1,57 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0023
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0023
+Problem:    gcc 8.1 warns for use of strncpy(). (John Marriott)
+Solution:   Use mch_memmove() instead of STRNCPY().
+Files:	    src/memline.c
+
+
+*** ../vim-8.1.0022/src/memline.c	2018-05-12 16:51:22.000000000 +0200
+--- src/memline.c	2018-05-26 17:30:46.805941698 +0200
+***************
+*** 344,350 ****
+      b0p->b0_magic_int = (int)B0_MAGIC_INT;
+      b0p->b0_magic_short = (short)B0_MAGIC_SHORT;
+      b0p->b0_magic_char = B0_MAGIC_CHAR;
+!     STRNCPY(b0p->b0_version, "VIM ", 4);
+      STRNCPY(b0p->b0_version + 4, Version, 6);
+      long_to_char((long)mfp->mf_page_size, b0p->b0_page_size);
+  
+--- 344,350 ----
+      b0p->b0_magic_int = (int)B0_MAGIC_INT;
+      b0p->b0_magic_short = (short)B0_MAGIC_SHORT;
+      b0p->b0_magic_char = B0_MAGIC_CHAR;
+!     mch_memmove(b0p->b0_version, "VIM ", 4);
+      STRNCPY(b0p->b0_version + 4, Version, 6);
+      long_to_char((long)mfp->mf_page_size, b0p->b0_page_size);
+  
+*** ../vim-8.1.0022/src/version.c	2018-05-23 21:53:48.356478969 +0200
+--- src/version.c	2018-05-26 17:32:05.633850332 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     23,
+  /**/
+
+-- 
+A salesperson says:            Translation:
+"backward compatible"          Old technology
+"Premium"                      Overpriced
+"Can't keep it on the shelf"   Unavailable
+"Stands alone"                 Piece of shit
+"Proprietary"                  Incompatible
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

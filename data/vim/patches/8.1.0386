@@ -1,0 +1,181 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0386
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0386
+Problem:    Cannot test with non-default option value.
+Solution:   Add test_option_not_set().
+Files:	    runtime/doc/eval.txt, src/option.c, src/proto/option.pro,
+            src/evalfunc.c
+
+
+*** ../vim-8.1.0385/runtime/doc/eval.txt	2018-09-10 21:04:09.860392752 +0200
+--- runtime/doc/eval.txt	2018-09-13 20:30:37.739701623 +0200
+***************
+*** 2466,2471 ****
+--- 2473,2479 ----
+  test_null_list()		List	null value for testing
+  test_null_partial()		Funcref	null value for testing
+  test_null_string()		String	null value for testing
++ test_option_not_set({name})    none	reset flag indicating option was set
+  test_override({expr}, {val})    none	test with Vim internal overrides
+  test_settime({expr})		none	set current time for testing
+  timer_info([{id}])		List	information about timers
+***************
+*** 8723,8728 ****
+--- 8738,8752 ----
+  test_null_string()					*test_null_string()*
+  		Return a String that is null. Only useful for testing.
+  
++ test_option_not_set({name})				*test_option_not_set()*
++ 		Reset the flag that indicates option {name} was set.  Thus it
++ 		looks like it still has the default value. Use like this: >
++ 			set ambiwidth=double
++ 			call test_option_not_set('ambiwidth')
++ <		Now the 'ambiwidth' option behaves like it was never changed,
++ 		even though the value is "double".
++ 		Only to be used for testing!
++ 
+  test_override({name}, {val})				*test_override()*
+  		Overrides certain parts of Vims internal processing to be able
+  		to run tests. Only to be used for testing Vim!
+--- 11734,11737 ----
+  Find more information in the file src/testdir/README.txt.
+  
+  
+!  vim:tw=78:ts=8:noet:ft=help:norl:
+*** ../vim-8.1.0385/src/option.c	2018-09-10 21:15:34.637000672 +0200
+--- src/option.c	2018-09-13 20:25:54.982495459 +0200
+***************
+*** 12480,12492 ****
+  /*
+   * Reset the flag indicating option "name" was set.
+   */
+!     void
+  reset_option_was_set(char_u *name)
+  {
+      int idx = findoption(name);
+  
+      if (idx >= 0)
+  	options[idx].flags &= ~P_WAS_SET;
+  }
+  
+  /*
+--- 12480,12496 ----
+  /*
+   * Reset the flag indicating option "name" was set.
+   */
+!     int
+  reset_option_was_set(char_u *name)
+  {
+      int idx = findoption(name);
+  
+      if (idx >= 0)
++     {
+  	options[idx].flags &= ~P_WAS_SET;
++ 	return OK;
++     }
++     return FAIL;
+  }
+  
+  /*
+*** ../vim-8.1.0385/src/proto/option.pro	2018-09-13 17:26:31.091401618 +0200
+--- src/proto/option.pro	2018-09-13 20:25:58.654459076 +0200
+***************
+*** 55,61 ****
+  void vimrc_found(char_u *fname, char_u *envname);
+  void change_compatible(int on);
+  int option_was_set(char_u *name);
+! void reset_option_was_set(char_u *name);
+  int can_bs(int what);
+  void save_file_ff(buf_T *buf);
+  int file_ff_differs(buf_T *buf, int ignore_empty);
+--- 55,61 ----
+  void vimrc_found(char_u *fname, char_u *envname);
+  void change_compatible(int on);
+  int option_was_set(char_u *name);
+! int reset_option_was_set(char_u *name);
+  int can_bs(int what);
+  void save_file_ff(buf_T *buf);
+  int file_ff_differs(buf_T *buf, int ignore_empty);
+*** ../vim-8.1.0385/src/evalfunc.c	2018-09-13 15:33:39.601712271 +0200
+--- src/evalfunc.c	2018-09-13 20:26:35.782091366 +0200
+***************
+*** 415,420 ****
+--- 415,421 ----
+  static void f_test_alloc_fail(typval_T *argvars, typval_T *rettv);
+  static void f_test_autochdir(typval_T *argvars, typval_T *rettv);
+  static void f_test_feedinput(typval_T *argvars, typval_T *rettv);
++ static void f_test_option_not_set(typval_T *argvars, typval_T *rettv);
+  static void f_test_override(typval_T *argvars, typval_T *rettv);
+  static void f_test_garbagecollect_now(typval_T *argvars, typval_T *rettv);
+  static void f_test_ignore_error(typval_T *argvars, typval_T *rettv);
+***************
+*** 922,927 ****
+--- 923,929 ----
+      {"test_null_list",	0, 0, f_test_null_list},
+      {"test_null_partial", 0, 0, f_test_null_partial},
+      {"test_null_string", 0, 0, f_test_null_string},
++     {"test_option_not_set", 1, 1, f_test_option_not_set},
+      {"test_override",    2, 2, f_test_override},
+      {"test_settime",	1, 1, f_test_settime},
+  #ifdef FEAT_TIMERS
+***************
+*** 13062,13068 ****
+  }
+  
+  /*
+!  * "test_disable({name}, {val})" function
+   */
+      static void
+  f_test_override(typval_T *argvars, typval_T *rettv UNUSED)
+--- 13064,13088 ----
+  }
+  
+  /*
+!  * "test_option_not_set({name})" function
+!  */
+!     static void
+! f_test_option_not_set(typval_T *argvars, typval_T *rettv UNUSED)
+! {
+!     char_u *name = (char_u *)"";
+! 
+!     if (argvars[0].v_type != VAR_STRING)
+! 	EMSG(_(e_invarg));
+!     else
+!     {
+! 	name = get_tv_string_chk(&argvars[0]);
+! 	if (reset_option_was_set(name) == FAIL)
+! 	    EMSG2(_(e_invarg2), name);
+!     }
+! }
+! 
+! /*
+!  * "test_override({name}, {val})" function
+   */
+      static void
+  f_test_override(typval_T *argvars, typval_T *rettv UNUSED)
+*** ../vim-8.1.0385/src/version.c	2018-09-13 19:04:45.437477554 +0200
+--- src/version.c	2018-09-13 20:29:01.432651600 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     386,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+43. You tell the kids they can't use the computer because "Daddy's got work to
+    do" and you don't even have a job.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

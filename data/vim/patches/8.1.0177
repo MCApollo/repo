@@ -1,0 +1,146 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0177
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0177
+Problem:    Defining function in sandbox is inconsistent, cannot use :function
+            but can define a lambda.
+Solution:   Allow defining a function in the sandbox, but also use the sandbox
+            when executing it. (closes #3182)
+Files:	    src/userfunc.c, src/ex_cmds.h
+
+
+*** ../vim-8.1.0176/src/userfunc.c	Sun Jul  8 17:18:58 2018
+--- src/userfunc.c	Tue Jul 10 19:30:35 2018
+***************
+*** 14,26 ****
+  #include "vim.h"
+  
+  #if defined(FEAT_EVAL) || defined(PROTO)
+! /* function flags */
+! #define FC_ABORT    0x01	/* abort function on error */
+! #define FC_RANGE    0x02	/* function accepts range */
+! #define FC_DICT	    0x04	/* Dict function, uses "self" */
+! #define FC_CLOSURE  0x08	/* closure, uses outer scope variables */
+! #define FC_DELETED  0x10	/* :delfunction used while uf_refcount > 0 */
+! #define FC_REMOVED  0x20	/* function redefined while uf_refcount > 0 */
+  
+  /* From user function to hashitem and back. */
+  #define UF2HIKEY(fp) ((fp)->uf_name)
+--- 14,27 ----
+  #include "vim.h"
+  
+  #if defined(FEAT_EVAL) || defined(PROTO)
+! // flags used in uf_flags
+! #define FC_ABORT    0x01	// abort function on error
+! #define FC_RANGE    0x02	// function accepts range
+! #define FC_DICT	    0x04	// Dict function, uses "self"
+! #define FC_CLOSURE  0x08	// closure, uses outer scope variables
+! #define FC_DELETED  0x10	// :delfunction used while uf_refcount > 0
+! #define FC_REMOVED  0x20	// function redefined while uf_refcount > 0
+! #define FC_SANDBOX  0x40	// function defined in the sandbox
+  
+  /* From user function to hashitem and back. */
+  #define UF2HIKEY(fp) ((fp)->uf_name)
+***************
+*** 296,301 ****
+--- 297,304 ----
+  	if (prof_def_func())
+  	    func_do_profile(fp);
+  #endif
++ 	if (sandbox)
++ 	    flags |= FC_SANDBOX;
+  	fp->uf_varargs = TRUE;
+  	fp->uf_flags = flags;
+  	fp->uf_calls = 0;
+***************
+*** 688,693 ****
+--- 691,697 ----
+      char_u	*save_sourcing_name;
+      linenr_T	save_sourcing_lnum;
+      scid_T	save_current_SID;
++     int		using_sandbox = FALSE;
+      funccall_T	*fc;
+      int		save_did_emsg;
+      static int	depth = 0;
+***************
+*** 854,859 ****
+--- 858,870 ----
+      save_sourcing_name = sourcing_name;
+      save_sourcing_lnum = sourcing_lnum;
+      sourcing_lnum = 1;
++ 
++     if (fp->uf_flags & FC_SANDBOX)
++     {
++ 	using_sandbox = TRUE;
++ 	++sandbox;
++     }
++ 
+      /* need space for function name + ("function " + 3) or "[number]" */
+      len = (save_sourcing_name == NULL ? 0 : STRLEN(save_sourcing_name))
+  						   + STRLEN(fp->uf_name) + 20;
+***************
+*** 1020,1025 ****
+--- 1031,1038 ----
+      if (do_profiling == PROF_YES)
+  	script_prof_restore(&wait_start);
+  #endif
++     if (using_sandbox)
++ 	--sandbox;
+  
+      if (p_verbose >= 12 && sourcing_name != NULL)
+      {
+***************
+*** 2429,2434 ****
+--- 2442,2449 ----
+  	func_do_profile(fp);
+  #endif
+      fp->uf_varargs = varargs;
++     if (sandbox)
++ 	flags |= FC_SANDBOX;
+      fp->uf_flags = flags;
+      fp->uf_calls = 0;
+      fp->uf_script_ID = current_SID;
+*** ../vim-8.1.0176/src/ex_cmds.h	Tue Apr  3 22:07:59 2018
+--- src/ex_cmds.h	Tue Jul 10 19:17:05 2018
+***************
+*** 584,590 ****
+  			EXTRA|NOTRLCOM|SBOXOK|CMDWIN,
+  			ADDR_LINES),
+  EX(CMD_function,	"function",	ex_function,
+! 			EXTRA|BANG|CMDWIN,
+  			ADDR_LINES),
+  EX(CMD_global,		"global",	ex_global,
+  			RANGE|WHOLEFOLD|BANG|EXTRA|DFLALL|SBOXOK|CMDWIN,
+--- 584,590 ----
+  			EXTRA|NOTRLCOM|SBOXOK|CMDWIN,
+  			ADDR_LINES),
+  EX(CMD_function,	"function",	ex_function,
+! 			EXTRA|BANG|SBOXOK|CMDWIN,
+  			ADDR_LINES),
+  EX(CMD_global,		"global",	ex_global,
+  			RANGE|WHOLEFOLD|BANG|EXTRA|DFLALL|SBOXOK|CMDWIN,
+*** ../vim-8.1.0176/src/version.c	Tue Jul 10 17:33:41 2018
+--- src/version.c	Tue Jul 10 19:38:37 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     177,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+224. You set up your own Web page. You set up a Web page for each
+     of your kids... and your pets.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

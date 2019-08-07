@@ -1,0 +1,142 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0250
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0250
+Problem:    MS-Windows using VTP: windows size change incorrect.
+Solution:   Call SetConsoleScreenBufferSize() first. (Nobuhiro Takasaki,
+            closes #3164)
+Files:	    src/os_win32.c
+
+
+*** ../vim-8.1.0249/src/os_win32.c	2018-06-19 19:59:15.244704285 +0200
+--- src/os_win32.c	2018-08-07 20:45:29.601418126 +0200
+***************
+*** 3967,3972 ****
+--- 3967,4014 ----
+  }
+  
+  /*
++  * Resize console buffer to 'COORD'
++  */
++     static void
++ ResizeConBuf(
++     HANDLE  hConsole,
++     COORD   coordScreen)
++ {
++     if (!SetConsoleScreenBufferSize(hConsole, coordScreen))
++     {
++ #ifdef MCH_WRITE_DUMP
++ 	if (fdDump)
++ 	{
++ 	    fprintf(fdDump, "SetConsoleScreenBufferSize failed: %lx\n",
++ 		    GetLastError());
++ 	    fflush(fdDump);
++ 	}
++ #endif
++     }
++ }
++ 
++ /*
++  * Resize console window size to 'srWindowRect'
++  */
++     static void
++ ResizeWindow(
++     HANDLE     hConsole,
++     SMALL_RECT srWindowRect)
++ {
++     if (!SetConsoleWindowInfo(hConsole, TRUE, &srWindowRect))
++     {
++ #ifdef MCH_WRITE_DUMP
++ 	if (fdDump)
++ 	{
++ 	    fprintf(fdDump, "SetConsoleWindowInfo failed: %lx\n",
++ 		    GetLastError());
++ 	    fflush(fdDump);
++ 	}
++ #endif
++     }
++ }
++ 
++ /*
+   * Set a console window to `xSize' * `ySize'
+   */
+      static void
+***************
+*** 4019,4050 ****
+  	}
+      }
+  
+!     if (!SetConsoleWindowInfo(g_hConOut, TRUE, &srWindowRect))
+!     {
+! #ifdef MCH_WRITE_DUMP
+! 	if (fdDump)
+! 	{
+! 	    fprintf(fdDump, "SetConsoleWindowInfo failed: %lx\n",
+! 		    GetLastError());
+! 	    fflush(fdDump);
+! 	}
+! #endif
+!     }
+! 
+!     /* define the new console buffer size */
+      coordScreen.X = xSize;
+      coordScreen.Y = ySize;
+  
+!     if (!SetConsoleScreenBufferSize(hConsole, coordScreen))
+      {
+! #ifdef MCH_WRITE_DUMP
+! 	if (fdDump)
+! 	{
+! 	    fprintf(fdDump, "SetConsoleScreenBufferSize failed: %lx\n",
+! 		    GetLastError());
+! 	    fflush(fdDump);
+! 	}
+! #endif
+      }
+  }
+  
+--- 4061,4080 ----
+  	}
+      }
+  
+!     // define the new console buffer size
+      coordScreen.X = xSize;
+      coordScreen.Y = ySize;
+  
+!     // In the new console call API in reverse order
+!     if (!vtp_working)
+      {
+! 	ResizeWindow(hConsole, srWindowRect);
+! 	ResizeConBuf(hConsole, coordScreen);
+!     }
+!     else
+!     {
+! 	ResizeConBuf(hConsole, coordScreen);
+! 	ResizeWindow(hConsole, srWindowRect);
+      }
+  }
+  
+*** ../vim-8.1.0249/src/version.c	2018-08-07 20:01:34.245746660 +0200
+--- src/version.c	2018-08-07 20:44:49.633662912 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     250,
+  /**/
+
+-- 
+Vi beats Emacs to death, and then again!
+			http://linuxtoday.com/stories/5764.html
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

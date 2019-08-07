@@ -1,0 +1,73 @@
+diff -ur vim81/src/globals.h vim81+iPhone/src/globals.h
+--- vim81/src/globals.h	2018-07-27 10:35:59.000000000 -1000
++++ vim81+iPhone/src/globals.h	2018-07-27 11:41:21.000000000 -1000
+@@ -1133,11 +1133,7 @@
+ 
+ /* These are in version.c, call init_longVersion() before use. */
+ extern char *Version;
+-#if defined(HAVE_DATE_TIME) && defined(VMS) && defined(VAXC)
+-extern char longVersion[];
+-#else
+-EXTERN char *longVersion;
+-#endif
++extern char *longVersion;
+ 
+ /*
+  * Some file names are stored in pathdef.c, which is generated from the
+diff -ur vim81/src/version.c vim81+iPhone/src/version.c
+--- vim81/src/version.c	2018-07-27 10:36:00.000000000 -1000
++++ vim81+iPhone/src/version.c	2018-07-27 11:39:59.000000000 -1000
+@@ -31,45 +31,6 @@
+ char		*Version = VIM_VERSION_SHORT;
+ static char	*mediumVersion = VIM_VERSION_MEDIUM;
+ 
+-#if defined(HAVE_DATE_TIME) || defined(PROTO)
+-# if (defined(VMS) && defined(VAXC)) || defined(PROTO)
+-char	longVersion[sizeof(VIM_VERSION_LONG_DATE) + sizeof(__DATE__)
+-						      + sizeof(__TIME__) + 3];
+-
+-    void
+-init_longVersion(void)
+-{
+-    /*
+-     * Construct the long version string.  Necessary because
+-     * VAX C can't catenate strings in the preprocessor.
+-     */
+-    strcpy(longVersion, VIM_VERSION_LONG_DATE);
+-    strcat(longVersion, __DATE__);
+-    strcat(longVersion, " ");
+-    strcat(longVersion, __TIME__);
+-    strcat(longVersion, ")");
+-}
+-
+-# else
+-    void
+-init_longVersion(void)
+-{
+-    char *date_time = __DATE__ " " __TIME__;
+-    char *msg = _("%s (%s, compiled %s)");
+-    size_t len = strlen(msg)
+-		+ strlen(VIM_VERSION_LONG_ONLY)
+-		+ strlen(VIM_VERSION_DATE_ONLY)
+-		+ strlen(date_time);
+-
+-    longVersion = (char *)alloc((unsigned)len);
+-    if (longVersion == NULL)
+-	longVersion = VIM_VERSION_LONG;
+-    else
+-	vim_snprintf(longVersion, len, msg,
+-		      VIM_VERSION_LONG_ONLY, VIM_VERSION_DATE_ONLY, date_time);
+-}
+-# endif
+-#else
+ char	*longVersion = VIM_VERSION_LONG;
+ 
+     void
+@@ -77,7 +38,6 @@
+ {
+     // nothing to do
+ }
+-#endif
+ 
+ static void list_features(void);
+ 

@@ -1,0 +1,82 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0044
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0044
+Problem:    If a test function exists Vim this may go unnoticed.
+Solution:   Check for a test funtion quitting Vim.  Fix tests that did exit
+            Vim.
+Files:	    src/testdir/runtest.vim, src/testdir/test_assert.vim
+
+
+*** ../vim-8.1.0043/src/testdir/runtest.vim	2018-04-10 18:56:35.000000000 +0200
+--- src/testdir/runtest.vim	2018-06-12 14:57:06.691409091 +0200
+***************
+*** 124,130 ****
+--- 124,133 ----
+      exe 'call ' . a:test
+    else
+      try
++       let s:test = a:test
++       au VimLeavePre * call EarlyExit(s:test)
+        exe 'call ' . a:test
++       au! VimLeavePre
+      catch /^\cskipped/
+        call add(s:messages, '    Skipped')
+        call add(s:skipped, 'SKIPPED ' . a:test . ': ' . substitute(v:exception, '^\S*\s\+', '',  ''))
+***************
+*** 174,179 ****
+--- 177,191 ----
+    endif
+  endfunc
+  
++ func EarlyExit(test)
++   " It's OK for the test we use to test the quit detection.
++   if a:test != 'Test_zz_quit_detected()'
++     call add(v:errors, 'Test caused Vim to exit: ' . a:test)
++   endif
++ 
++   call FinishTesting()
++ endfunc
++ 
+  " This function can be called by a test if it wants to abort testing.
+  func FinishTesting()
+    call AfterTheTest()
+*** ../vim-8.1.0043/src/testdir/test_assert.vim	2018-04-28 16:44:49.000000000 +0200
+--- src/testdir/test_assert.vim	2018-06-12 13:26:02.775142877 +0200
+***************
+*** 198,200 ****
+--- 198,206 ----
+    smile
+    sleep 300m
+  endfunc
++ 
++ " Must be last.
++ func Test_zz_quit_detected()
++   " Verify that if a test function ends Vim the test script detects this.
++   quit
++ endfunc
+*** ../vim-8.1.0043/src/version.c	2018-06-12 12:39:37.593152427 +0200
+--- src/version.c	2018-06-12 13:45:44.070675020 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     44,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+36. You miss more than five meals a week downloading the latest games from
+    Apogee.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

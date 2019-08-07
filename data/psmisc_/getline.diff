@@ -1,0 +1,32 @@
+diff -r -u psmisc-22.6/src/killall.c psmisc-22.6+iPhone/src/killall.c
+--- psmisc-22.6/src/killall.c	2007-06-03 10:58:09.000000000 +0000
++++ psmisc-22.6+iPhone/src/killall.c	2007-12-27 13:28:53.000000000 +0000
+@@ -64,9 +64,8 @@
+ {
+   int res;
+   size_t len;
+-  char *line;
++  char line[1024];
+ 
+-  line = NULL;
+   len = 0;
+ 
+   do {
+@@ -79,16 +78,14 @@
+ 
+     fflush (stdout);
+ 
+-    if (getline (&line, &len, stdin) < 0)
++    if (fgets(line, sizeof(line), stdin) == NULL)
+       return 0;
+     /* Check for default */
+     if (line[0] == '\n') {
+-      free(line);
+       return 0;
+     }
+     res = rpmatch(line);
+     if (res >= 0) {
+-      free(line);
+       return res;
+     }
+   } while(1);

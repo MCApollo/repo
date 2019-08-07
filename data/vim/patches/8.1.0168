@@ -1,0 +1,138 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0168
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0168
+Problem:    Output of :marks is too short with multi-byte chars. (Tony
+            Mechelynck)
+Solution:   Get more bytes from the text line.
+Files:	    src/mark.c, src/testdir/test_marks.vim
+
+
+*** ../vim-8.1.0167/src/mark.c	Tue Feb 13 13:31:39 2018
+--- src/mark.c	Sun Jul  8 17:51:23 2018
+***************
+*** 686,695 ****
+  
+      if (mp->lnum == 0 || mp->lnum > curbuf->b_ml.ml_line_count)
+  	return vim_strsave((char_u *)"-invalid-");
+!     s = vim_strnsave(skipwhite(ml_get(mp->lnum)), (int)Columns);
+      if (s == NULL)
+  	return NULL;
+!     /* Truncate the line to fit it in the window */
+      len = 0;
+      for (p = s; *p != NUL; MB_PTR_ADV(p))
+      {
+--- 686,696 ----
+  
+      if (mp->lnum == 0 || mp->lnum > curbuf->b_ml.ml_line_count)
+  	return vim_strsave((char_u *)"-invalid-");
+!     // Allow for up to 5 bytes per character.
+!     s = vim_strnsave(skipwhite(ml_get(mp->lnum)), (int)Columns * 5);
+      if (s == NULL)
+  	return NULL;
+!     // Truncate the line to fit it in the window.
+      len = 0;
+      for (p = s; *p != NUL; MB_PTR_ADV(p))
+      {
+*** ../vim-8.1.0167/src/testdir/test_marks.vim	Sun Oct  8 21:36:50 2017
+--- src/testdir/test_marks.vim	Sun Jul  8 17:50:33 2018
+***************
+*** 80,86 ****
+    w!
+  
+    b Xone
+!   let a=split(execute('marks'), "\n")
+    call assert_equal(9, len(a))
+    call assert_equal('mark line  col file/text', a[0])
+    call assert_equal(" '      2    0 bbb", a[1])
+--- 80,86 ----
+    w!
+  
+    b Xone
+!   let a = split(execute('marks'), "\n")
+    call assert_equal(9, len(a))
+    call assert_equal('mark line  col file/text', a[0])
+    call assert_equal(" '      2    0 bbb", a[1])
+***************
+*** 93,99 ****
+    call assert_equal(' .      2    0 bbb', a[8])
+  
+    b Xtwo
+!   let a=split(execute('marks'), "\n")
+    call assert_equal(9, len(a))
+    call assert_equal('mark line  col file/text', a[0])
+    call assert_equal(" '      1    0 ccc", a[1])
+--- 93,99 ----
+    call assert_equal(' .      2    0 bbb', a[8])
+  
+    b Xtwo
+!   let a = split(execute('marks'), "\n")
+    call assert_equal(9, len(a))
+    call assert_equal('mark line  col file/text', a[0])
+    call assert_equal(" '      1    0 ccc", a[1])
+***************
+*** 107,113 ****
+  
+    b Xone
+    delmarks aB
+!   let a=split(execute('marks aBcD'), "\n")
+    call assert_equal(2, len(a))
+    call assert_equal('mark line  col file/text', a[0])
+    call assert_equal(' D      2    0 Xtwo', a[1])
+--- 107,113 ----
+  
+    b Xone
+    delmarks aB
+!   let a = split(execute('marks aBcD'), "\n")
+    call assert_equal(2, len(a))
+    call assert_equal('mark line  col file/text', a[0])
+    call assert_equal(' D      2    0 Xtwo', a[1])
+***************
+*** 120,122 ****
+--- 120,141 ----
+    call delete('Xtwo')
+    %bwipe
+  endfunc
++ 
++ func Test_marks_cmd_multibyte()
++   if !has('multi_byte')
++     return
++   endif
++   new Xone
++   call setline(1, ['ááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááááá'])
++   norm! ma
++ 
++   let a = split(execute('marks a'), "\n")
++   call assert_equal(2, len(a))
++   let expected = ' a      1    0 '
++   while strwidth(expected) < &columns - 1
++     let expected .= 'á'
++   endwhile
++   call assert_equal(expected, a[1])
++ 
++   bwipe!
++ endfunc
+*** ../vim-8.1.0167/src/version.c	Sun Jul  8 17:18:58 2018
+--- src/version.c	Sun Jul  8 17:51:37 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     168,
+  /**/
+
+-- 
+Your mouse has moved.  Windows must be restarted for the change
+to take effect.  Reboot now?
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

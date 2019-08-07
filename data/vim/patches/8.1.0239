@@ -1,0 +1,88 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0239
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0239 (after 8.1.0236)
+Problem:    Now Ruby build fails on other systems.
+Solution:   Always define rb_intern. (Ken Takata, closes #3275)
+Files:	    src/if_ruby.c
+
+
+*** ../vim-8.1.0238/src/if_ruby.c	2018-08-03 22:03:13.178295933 +0200
+--- src/if_ruby.c	2018-08-04 17:21:11.448378660 +0200
+***************
+*** 253,264 ****
+  # define rb_hash_new			dll_rb_hash_new
+  # define rb_inspect			dll_rb_inspect
+  # define rb_int2inum			dll_rb_int2inum
+! # ifndef rb_intern
+! #  define rb_intern			dll_rb_intern
+! # endif
+! # ifdef RUBY_CONST_ID_CACHE
+! #  define rb_intern2			dll_rb_intern2
+! # endif
+  # if VIM_SIZEOF_INT < VIM_SIZEOF_LONG /* 64 bits only */
+  #  if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER <= 18
+  #   define rb_fix2int			dll_rb_fix2int
+--- 253,264 ----
+  # define rb_hash_new			dll_rb_hash_new
+  # define rb_inspect			dll_rb_inspect
+  # define rb_int2inum			dll_rb_int2inum
+! 
+! // ruby.h may redefine rb_intern to use RUBY_CONST_ID_CACHE(), but that won't
+! // work.  Not using the cache appears to be the best solution.
+! # undef rb_intern
+! # define rb_intern			dll_rb_intern
+! 
+  # if VIM_SIZEOF_INT < VIM_SIZEOF_LONG /* 64 bits only */
+  #  if defined(DYNAMIC_RUBY_VER) && DYNAMIC_RUBY_VER <= 18
+  #   define rb_fix2int			dll_rb_fix2int
+***************
+*** 394,402 ****
+  static VALUE (*dll_rb_inspect) (VALUE);
+  static VALUE (*dll_rb_int2inum) (long);
+  static ID (*dll_rb_intern) (const char*);
+- # ifdef RUBY_CONST_ID_CACHE
+- static ID (*dll_rb_intern2) (const char*, long);
+- # endif
+  # if VIM_SIZEOF_INT < VIM_SIZEOF_LONG /* 64 bits only */
+  static long (*dll_rb_fix2int) (VALUE);
+  static long (*dll_rb_num2int) (VALUE);
+--- 394,399 ----
+***************
+*** 597,605 ****
+      {"rb_inspect", (RUBY_PROC*)&dll_rb_inspect},
+      {"rb_int2inum", (RUBY_PROC*)&dll_rb_int2inum},
+      {"rb_intern", (RUBY_PROC*)&dll_rb_intern},
+- # ifdef RUBY_CONST_ID_CACHE
+-     {"rb_intern2", (RUBY_PROC*)&dll_rb_intern2},
+- # endif
+  # if VIM_SIZEOF_INT < VIM_SIZEOF_LONG /* 64 bits only */
+      {"rb_fix2int", (RUBY_PROC*)&dll_rb_fix2int},
+      {"rb_num2int", (RUBY_PROC*)&dll_rb_num2int},
+--- 594,599 ----
+*** ../vim-8.1.0238/src/version.c	2018-08-04 16:54:06.348012520 +0200
+--- src/version.c	2018-08-04 17:22:36.283738635 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     239,
+  /**/
+
+-- 
+FATHER:    You killed eight wedding guests in all!
+LAUNCELOT: Er, Well ... the thing is ... I thought your son was a lady.
+FATHER:    I can understand that.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

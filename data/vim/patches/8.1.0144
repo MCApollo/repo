@@ -1,0 +1,97 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0144
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0144
+Problem:    The :cd command does not have good test coverage.
+Solution:   Add more tests. (Dominique Pelle, closes #2972)
+Files:	    src/testdir/test_cd.vim
+
+
+*** ../vim-8.1.0143/src/testdir/test_cd.vim	2017-03-19 21:32:54.000000000 +0100
+--- src/testdir/test_cd.vim	2018-07-03 18:35:26.589670346 +0200
+***************
+*** 8,13 ****
+--- 8,67 ----
+  func Test_cd_up_and_down()
+    let path = getcwd()
+    cd ..
++   call assert_notequal(path, getcwd())
+    exe 'cd ' . path
+    call assert_equal(path, getcwd())
+  endfunc
++ 
++ func Test_cd_no_arg()
++   if has('unix')
++     " Test that cd without argument goes to $HOME directory on Unix systems.
++     let path = getcwd()
++     cd
++     call assert_equal($HOME, getcwd())
++     call assert_notequal(path, getcwd())
++     exe 'cd ' . path
++     call assert_equal(path, getcwd())
++   else
++     " Test that cd without argument echoes cwd on non-Unix systems.
++     call assert_match(getcwd(), execute('cd'))
++   endif
++ endfunc
++ 
++ func Test_cd_minus()
++   " Test the  :cd -  goes back to the previous directory.
++   let path = getcwd()
++   cd ..
++   let path_dotdot = getcwd()
++   call assert_notequal(path, path_dotdot)
++   cd -
++   call assert_equal(path, getcwd())
++   cd -
++   call assert_equal(path_dotdot, getcwd())
++   cd -
++   call assert_equal(path, getcwd())
++ endfunc
++ 
++ func Test_cd_with_cpo_chdir()
++   e Xfoo
++   call setline(1, 'foo')
++   let path = getcwd()
++   set cpo+=.
++ 
++   " :cd should fail when buffer is modified and 'cpo' contains dot.
++   call assert_fails('cd ..', 'E747:')
++   call assert_equal(path, getcwd())
++ 
++   " :cd with exclamation mark should succeed.
++   cd! ..
++   call assert_notequal(path, getcwd())
++ 
++   " :cd should succeed when buffer has been written.
++   w!
++   exe 'cd ' . path
++   call assert_equal(path, getcwd())
++ 
++   call delete('Xfoo')
++   set cpo&
++   bw!
++ endfunc
+*** ../vim-8.1.0143/src/version.c	2018-07-03 18:17:24.664083244 +0200
+--- src/version.c	2018-07-03 18:28:12.884213499 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     144,
+  /**/
+
+-- 
+I'm so disorganized my keyboard isn't even in alphabetical order!
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

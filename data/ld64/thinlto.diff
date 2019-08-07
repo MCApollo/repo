@@ -1,0 +1,34 @@
+diff -ur ld64-274.2/src/ld/parsers/lto_file.cpp ld64-274.2+iPhone/src/ld/parsers/lto_file.cpp
+--- ld64-274.2/src/ld/parsers/lto_file.cpp	2016-10-21 10:04:17.000000000 -1000
++++ ld64-274.2+iPhone/src/ld/parsers/lto_file.cpp	2018-09-05 11:48:40.000000000 -1000
+@@ -291,12 +291,14 @@
+ 								std::vector<const ld::Atom*>&		newAtoms,
+ 								std::vector<const char*>&			additionalUndefines);
+ 
++#if LTO_API_VERSION >= 18
+ 	static thinlto_code_gen_t init_thinlto_codegen(const std::vector<File*>&           files,
+ 												   const std::vector<const ld::Atom*>& allAtoms,
+ 												   ld::Internal&				       state,
+ 												   const OptimizeOptions&			   options,
+ 												   CStringToAtom&                      deadllvmAtoms,
+ 												   CStringToAtom&                      llvmAtoms);
++#endif
+ 
+ 	static std::vector<File*>		_s_files;
+ 	static bool						_s_llvmOptionsProcessed;
+@@ -1028,6 +1030,7 @@
+ 	return true;
+ }
+ 
++#if LTO_API_VERSION >= 18
+ // Create the ThinLTO codegenerator
+ thinlto_code_gen_t Parser::init_thinlto_codegen(const std::vector<File*>&           files,
+ 									            const std::vector<const ld::Atom*>& allAtoms,
+@@ -1178,6 +1181,7 @@
+ 
+ 	return thingenerator;
+ }
++#endif
+ 
+ // Full LTO processing
+ bool Parser::optimizeThinLTO(const std::vector<File*>&              files,

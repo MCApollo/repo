@@ -1,0 +1,21 @@
+diff -ru apt-0.6.46.4.1/apt-pkg/deb/dpkgpm.cc apt-0.6.46.4.1+iPhone/apt-pkg/deb/dpkgpm.cc
+--- apt-0.6.46.4.1/apt-pkg/deb/dpkgpm.cc	2006-12-04 16:33:53.000000000 +0000
++++ apt-0.6.46.4.1+iPhone/apt-pkg/deb/dpkgpm.cc	2008-06-22 09:41:01.000000000 +0000
+@@ -451,6 +451,8 @@
+ 	 case Item::Remove:
+ 	 Args[n++] = "--force-depends";
+ 	 Size += strlen(Args[n-1]);
++	 Args[n++] = "--force-remove-reinstreq";
++	 Size += strlen(Args[n-1]);
+ 	 Args[n++] = "--force-remove-essential";
+ 	 Size += strlen(Args[n-1]);
+ 	 Args[n++] = "--remove";
+@@ -460,6 +462,8 @@
+ 	 case Item::Purge:
+ 	 Args[n++] = "--force-depends";
+ 	 Size += strlen(Args[n-1]);
++	 Args[n++] = "--force-remove-reinstreq";
++	 Size += strlen(Args[n-1]);
+ 	 Args[n++] = "--force-remove-essential";
+ 	 Size += strlen(Args[n-1]);
+ 	 Args[n++] = "--purge";

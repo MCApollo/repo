@@ -1,0 +1,306 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0039
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0039
+Problem:    Cannot easily delete lines in another buffer.
+Solution:   Add deletebufline().
+Files:	    runtime/doc/eval.txt, src/evalfunc.c, src/testdir/test_bufline.vim
+
+
+*** ../vim-8.1.0038/runtime/doc/eval.txt	2018-06-06 21:03:57.776523905 +0200
+--- runtime/doc/eval.txt	2018-06-07 18:13:41.137548220 +0200
+***************
+*** 2110,2115 ****
+--- 2110,2117 ----
+  cursor({list})			Number	move cursor to position in {list}
+  deepcopy({expr} [, {noref}])	any	make a full copy of {expr}
+  delete({fname} [, {flags}])	Number	delete the file or directory {fname}
++ deletebufline({expr}, {first}[, {last}])
++ 				Number	delete lines from buffer {expr}
+  did_filetype()			Number	|TRUE| if FileType autocmd event used
+  diff_filler({lnum})		Number	diff filler lines about {lnum}
+  diff_hlID({lnum}, {col})	Number	diff highlighting at {lnum}/{col}
+***************
+*** 3517,3524 ****
+  		successful and -1 when the deletion failed or partly failed.
+  
+  		Use |remove()| to delete an item from a |List|.
+! 		To delete a line from the buffer use |:delete|.  Use |:exe|
+! 		when the line number is in a variable.
+  
+  							*did_filetype()*
+  did_filetype()	Returns |TRUE| when autocommands are being executed and the
+--- 3519,3537 ----
+  		successful and -1 when the deletion failed or partly failed.
+  
+  		Use |remove()| to delete an item from a |List|.
+! 		To delete a line from the buffer use |:delete| or
+! 		|deletebufline()|.
+! 
+! deletebufline({expr}, {first}[, {last}])		*deletebufline()*
+! 		Delete lines {first} to {last} (inclusive) from buffer {expr}.
+! 		If {last} is omitted then delete line {first} only.
+! 		On success 0 is returned, on failure 1 is returned.
+! 
+! 		For the use of {expr}, see |bufname()| above.
+! 
+! 		{first} and {last} are used like with |setline()|. Note that
+! 		when using |line()| this refers to the current buffer. Use "$"
+! 		to refer to the last line in buffer {expr}.
+  
+  							*did_filetype()*
+  did_filetype()	Returns |TRUE| when autocommands are being executed and the
+*** ../vim-8.1.0038/src/evalfunc.c	2018-06-06 21:03:57.780523901 +0200
+--- src/evalfunc.c	2018-06-07 18:06:46.657672665 +0200
+***************
+*** 125,130 ****
+--- 125,131 ----
+  static void f_cursor(typval_T *argsvars, typval_T *rettv);
+  static void f_deepcopy(typval_T *argvars, typval_T *rettv);
+  static void f_delete(typval_T *argvars, typval_T *rettv);
++ static void f_deletebufline(typval_T *argvars, typval_T *rettv);
+  static void f_did_filetype(typval_T *argvars, typval_T *rettv);
+  static void f_diff_filler(typval_T *argvars, typval_T *rettv);
+  static void f_diff_hlID(typval_T *argvars, typval_T *rettv);
+***************
+*** 577,582 ****
+--- 578,584 ----
+      {"cursor",		1, 3, f_cursor},
+      {"deepcopy",	1, 2, f_deepcopy},
+      {"delete",		1, 2, f_delete},
++     {"deletebufline",	2, 3, f_deletebufline},
+      {"did_filetype",	0, 0, f_did_filetype},
+      {"diff_filler",	1, 1, f_diff_filler},
+      {"diff_hlID",	2, 2, f_diff_hlID},
+***************
+*** 1210,1215 ****
+--- 1212,1235 ----
+  }
+  
+  /*
++  * If there is a window for "curbuf", make it the current window.
++  */
++     static void
++ find_win_for_curbuf(void)
++ {
++     wininfo_T *wip;
++ 
++     for (wip = curbuf->b_wininfo; wip != NULL; wip = wip->wi_next)
++     {
++ 	if (wip->wi_win != NULL)
++ 	{
++ 	    curwin = wip->wi_win;
++ 	    break;
++ 	}
++     }
++ }
++ 
++ /*
+   * Set line or list of lines in buffer "buf".
+   */
+      static void
+***************
+*** 1241,1259 ****
+  
+      if (!is_curbuf)
+      {
+- 	wininfo_T *wip;
+- 
+  	curbuf_save = curbuf;
+  	curwin_save = curwin;
+  	curbuf = buf;
+! 	for (wip = buf->b_wininfo; wip != NULL; wip = wip->wi_next)
+! 	{
+! 	    if (wip->wi_win != NULL)
+! 	    {
+! 		curwin = wip->wi_win;
+! 		break;
+! 	    }
+! 	}
+      }
+  
+      if (append)
+--- 1261,1270 ----
+  
+      if (!is_curbuf)
+      {
+  	curbuf_save = curbuf;
+  	curwin_save = curwin;
+  	curbuf = buf;
+! 	find_win_for_curbuf();
+      }
+  
+      if (append)
+***************
+*** 2808,2813 ****
+--- 2819,2911 ----
+  }
+  
+  /*
++  * "deletebufline()" function
++  */
++     static void
++ f_deletebufline(argvars, rettv)
++     typval_T	*argvars;
++     typval_T	*rettv;
++ {
++     buf_T	*buf;
++     linenr_T	first, last;
++     linenr_T	lnum;
++     long	count;
++     int		is_curbuf;
++     buf_T	*curbuf_save = NULL;
++     win_T	*curwin_save = NULL;
++     tabpage_T	*tp;
++     win_T	*wp;
++ 
++     buf = get_buf_tv(&argvars[0], FALSE);
++     if (buf == NULL)
++     {
++ 	rettv->vval.v_number = 1; /* FAIL */
++ 	return;
++     }
++     is_curbuf = buf == curbuf;
++ 
++     first = get_tv_lnum_buf(&argvars[1], buf);
++     if (argvars[2].v_type != VAR_UNKNOWN)
++ 	last = get_tv_lnum_buf(&argvars[2], buf);
++     else
++ 	last = first;
++ 
++     if (buf->b_ml.ml_mfp == NULL || first < 1
++ 			   || first > buf->b_ml.ml_line_count || last < first)
++     {
++ 	rettv->vval.v_number = 1;	/* FAIL */
++ 	return;
++     }
++ 
++     if (!is_curbuf)
++     {
++ 	curbuf_save = curbuf;
++ 	curwin_save = curwin;
++ 	curbuf = buf;
++ 	find_win_for_curbuf();
++     }
++     if (last > curbuf->b_ml.ml_line_count)
++ 	last = curbuf->b_ml.ml_line_count;
++     count = last - first + 1;
++ 
++     // When coming here from Insert mode, sync undo, so that this can be
++     // undone separately from what was previously inserted.
++     if (u_sync_once == 2)
++     {
++ 	u_sync_once = 1; // notify that u_sync() was called
++ 	u_sync(TRUE);
++     }
++ 
++     if (u_save(first - 1, last + 1) == FAIL)
++     {
++ 	rettv->vval.v_number = 1;	/* FAIL */
++ 	return;
++     }
++ 
++     for (lnum = first; lnum <= last; ++lnum)
++ 	ml_delete(first, TRUE);
++ 
++     FOR_ALL_TAB_WINDOWS(tp, wp)
++ 	if (wp->w_buffer == buf)
++ 	{
++ 	    if (wp->w_cursor.lnum > last)
++ 		wp->w_cursor.lnum -= count;
++ 	    else if (wp->w_cursor.lnum> first)
++ 		wp->w_cursor.lnum = first;
++ 	    if (wp->w_cursor.lnum > wp->w_buffer->b_ml.ml_line_count)
++ 		wp->w_cursor.lnum = wp->w_buffer->b_ml.ml_line_count;
++ 	}
++     check_cursor_col();
++     deleted_lines_mark(first, count);
++ 
++     if (!is_curbuf)
++     {
++ 	curbuf = curbuf_save;
++ 	curwin = curwin_save;
++     }
++ }
++ 
++ /*
+   * "did_filetype()" function
+   */
+      static void
+*** ../vim-8.1.0038/src/testdir/test_bufline.vim	2018-06-06 21:03:57.780523901 +0200
+--- src/testdir/test_bufline.vim	2018-06-07 18:06:46.657672665 +0200
+***************
+*** 1,4 ****
+! " Tests for setbufline(), getbufline(), appendbufline()
+  
+  source shared.vim
+  
+--- 1,4 ----
+! " Tests for setbufline(), getbufline(), appendbufline(), deletebufline()
+  
+  source shared.vim
+  
+***************
+*** 90,92 ****
+--- 90,114 ----
+    call assert_equal([], getbufline(b, 6))
+    exe "bwipe! " . b
+  endfunc
++ 
++ func Test_deletebufline()
++   new
++   let b = bufnr('%')
++   call setline(1, ['aaa', 'bbb', 'ccc'])
++   hide
++   call assert_equal(0, deletebufline(b, 2))
++   call assert_equal(['aaa', 'ccc'], getbufline(b, 1, 2))
++   call assert_equal(0, deletebufline(b, 2, 8))
++   call assert_equal(['aaa'], getbufline(b, 1, 2))
++   exe "bd!" b
++   call assert_equal(1, deletebufline(b, 1))
++ 
++   split Xtest
++   call setline(1, ['a', 'b', 'c'])
++   let b = bufnr('%')
++   wincmd w
++   call assert_equal(1, deletebufline(b, 4))
++   call assert_equal(0, deletebufline(b, 1))
++   call assert_equal(['b', 'c'], getbufline(b, 1, 2))
++   exe "bwipe! " . b
++ endfunc
+*** ../vim-8.1.0038/src/version.c	2018-06-07 15:18:36.826611722 +0200
+--- src/version.c	2018-06-07 18:07:51.517608846 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     39,
+  /**/
+
+-- 
+Now it is such a bizarrely improbable coincidence that anything as
+mind-bogglingly useful as the Babel fish could have evolved purely by chance
+that some thinkers have chosen to see it as a final and clinching proof of the
+NON-existence of God.
+The argument goes something like this: 'I refuse to prove that I exist,' says
+God, 'for proof denies faith, and without faith I am nothing.'
+'But,' says Man, 'the Babel fish is a dead giveaway, isn't it?  It could not
+have evolved by chance.  It proves you exist, and so therefore, by your own
+arguments, you don't.  QED.'
+'Oh dear,' says God, 'I hadn't thought of that,' and promptly vanishes in a
+puff of logic.
+'Oh, that was easy,' says Man, and for an encore goes on to prove that black
+is white and gets himself killed on the next pedestrian crossing.
+		-- Douglas Adams, "The Hitchhiker's Guide to the Galaxy"
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

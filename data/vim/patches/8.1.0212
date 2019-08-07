@@ -1,0 +1,253 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0212
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0212
+Problem:    Preferred cursor column not set in interfaces.
+Solution:   Set w_set_curswant when setting the cursor. (David Hotham,
+            closes #3060)
+Files:	    src/if_lua.c, src/if_mzsch.c, src/if_perl.xs, src/if_py_both.h,
+            src/if_ruby.c, src/if_tcl.c, src/testdir/test_lua.vim,
+            src/testdir/test_perl.vim, src/testdir/test_python2.vim,
+            src/testdir/test_python3.vim, src/testdir/test_ruby.vim,
+            src/testdir/test_tcl.vim
+
+
+*** ../vim-8.1.0211/src/if_lua.c	Sat Jul 14 20:49:39 2018
+--- src/if_lua.c	Wed Jul 25 21:55:11 2018
+***************
+*** 1377,1382 ****
+--- 1377,1383 ----
+  	luaV_checksandbox(L);
+  #endif
+  	w->w_cursor.col = v - 1;
++ 	w->w_set_curswant = TRUE;
+  	update_screen(VALID);
+      }
+      else if (strncmp(s, "width", 5) == 0)
+*** ../vim-8.1.0211/src/if_mzsch.c	Sun Oct  8 17:29:02 2017
+--- src/if_mzsch.c	Wed Jul 25 21:55:11 2018
+***************
+*** 2132,2137 ****
+--- 2132,2138 ----
+  
+      win->win->w_cursor.lnum = lnum;
+      win->win->w_cursor.col = col;
++     win->win->w_set_curswant = TRUE;
+      update_screen(VALID);
+  
+      raise_if_error();
+*** ../vim-8.1.0211/src/if_perl.xs	Sun Jul 22 07:31:04 2018
+--- src/if_perl.xs	Wed Jul 25 21:55:11 2018
+***************
+*** 1691,1696 ****
+--- 1691,1697 ----
+        col = (int) SvIV(ST(2));
+        win->w_cursor.lnum = lnum;
+        win->w_cursor.col = col;
++       win->w_set_curswant = TRUE;
+        check_cursor();		    /* put cursor on an existing line */
+        update_screen(NOT_VALID);
+      }
+*** ../vim-8.1.0211/src/if_py_both.h	Sun Jul 22 04:30:16 2018
+--- src/if_py_both.h	Wed Jul 25 21:55:11 2018
+***************
+*** 3985,3990 ****
+--- 3985,3991 ----
+  
+  	self->win->w_cursor.lnum = lnum;
+  	self->win->w_cursor.col = col;
++ 	self->win->w_set_curswant = TRUE;
+  #ifdef FEAT_VIRTUALEDIT
+  	self->win->w_cursor.coladd = 0;
+  #endif
+*** ../vim-8.1.0211/src/if_ruby.c	Tue Jul 24 05:41:25 2018
+--- src/if_ruby.c	Wed Jul 25 21:55:11 2018
+***************
+*** 1517,1522 ****
+--- 1517,1523 ----
+      col = RARRAY_PTR(pos)[1];
+      win->w_cursor.lnum = NUM2LONG(lnum);
+      win->w_cursor.col = NUM2UINT(col);
++     win->w_set_curswant = TRUE;
+      check_cursor();		    /* put cursor on an existing line */
+      update_screen(NOT_VALID);
+      return Qnil;
+*** ../vim-8.1.0211/src/if_tcl.c	Wed Jul  4 22:12:19 2018
+--- src/if_tcl.c	Wed Jul 25 21:55:11 2018
+***************
+*** 1091,1096 ****
+--- 1091,1097 ----
+  	    /* TODO: should check column */
+  	    win->w_cursor.lnum = val1;
+  	    win->w_cursor.col = col2vim(val2);
++ 	    win->w_set_curswant = TRUE;
+  	    flags |= FL_UPDATE_SCREEN;
+  	    break;
+  
+*** ../vim-8.1.0211/src/testdir/test_lua.vim	Sat Jul  7 23:07:35 2018
+--- src/testdir/test_lua.vim	Wed Jul 25 21:55:11 2018
+***************
+*** 555,557 ****
+--- 555,574 ----
+    call delete('Xlua_file')
+    bwipe!
+  endfunc
++ 
++ func Test_set_cursor()
++   " Check that setting the cursor position works.
++   new
++   call setline(1, ['first line', 'second line'])
++   normal gg
++   lua << EOF
++ w = vim.window()
++ w.line = 1
++ w.col = 5
++ EOF
++   call assert_equal([1, 5], [line('.'), col('.')])
++ 
++   " Check that movement after setting cursor position keeps current column.
++   normal j
++   call assert_equal([2, 5], [line('.'), col('.')])
++ endfunc
+*** ../vim-8.1.0211/src/testdir/test_perl.vim	Mon Jul 16 18:08:56 2018
+--- src/testdir/test_perl.vim	Wed Jul 25 21:55:11 2018
+***************
+*** 258,260 ****
+--- 258,273 ----
+  --perl
+    %bw!
+  endfunc
++ 
++ func Test_set_cursor()
++   " Check that setting the cursor position works.
++   new
++   call setline(1, ['first line', 'second line'])
++   normal gg
++   perldo $curwin->Cursor(1, 5)
++   call assert_equal([1, 6], [line('.'), col('.')])
++ 
++   " Check that movement after setting cursor position keeps current column.
++   normal j
++   call assert_equal([2, 6], [line('.'), col('.')])
++ endfunc
+*** ../vim-8.1.0211/src/testdir/test_python2.vim	Sun Jan 29 21:20:44 2017
+--- src/testdir/test_python2.vim	Wed Jul 25 21:55:11 2018
+***************
+*** 22,24 ****
+--- 22,38 ----
+    bwipe!
+    bwipe!
+  endfunc
++ 
++ func Test_set_cursor()
++   " Check that setting the cursor position works.
++   py import vim
++   new
++   call setline(1, ['first line', 'second line'])
++   normal gg
++   pydo vim.current.window.cursor = (1, 5)
++   call assert_equal([1, 6], [line('.'), col('.')])
++ 
++   " Check that movement after setting cursor position keeps current column.
++   normal j
++   call assert_equal([2, 6], [line('.'), col('.')])
++ endfunc
+*** ../vim-8.1.0211/src/testdir/test_python3.vim	Sun Jan 29 21:26:04 2017
+--- src/testdir/test_python3.vim	Wed Jul 25 21:55:11 2018
+***************
+*** 1,4 ****
+! " Test for python 2 commands.
+  " TODO: move tests from test88.in here.
+  
+  if !has('python3')
+--- 1,4 ----
+! " Test for python 3 commands.
+  " TODO: move tests from test88.in here.
+  
+  if !has('python3')
+***************
+*** 22,24 ****
+--- 22,38 ----
+    bwipe!
+    bwipe!
+  endfunc
++ 
++ func Test_set_cursor()
++   " Check that setting the cursor position works.
++   py3 import vim
++   new
++   call setline(1, ['first line', 'second line'])
++   normal gg
++   py3do vim.current.window.cursor = (1, 5)
++   call assert_equal([1, 6], [line('.'), col('.')])
++ 
++   " Check that movement after setting cursor position keeps current column.
++   normal j
++   call assert_equal([2, 6], [line('.'), col('.')])
++ endfunc
+*** ../vim-8.1.0211/src/testdir/test_ruby.vim	Wed Jan 31 20:11:21 2018
+--- src/testdir/test_ruby.vim	Wed Jul 25 21:55:11 2018
+***************
+*** 57,59 ****
+--- 57,72 ----
+    call assert_fails('rubyfile ' . tempfile)
+    call delete(tempfile)
+  endfunc
++ 
++ func Test_set_cursor()
++   " Check that setting the cursor position works.
++   new
++   call setline(1, ['first line', 'second line'])
++   normal gg
++   rubydo $curwin.cursor = [1, 5]
++   call assert_equal([1, 6], [line('.'), col('.')])
++ 
++   " Check that movement after setting cursor position keeps current column.
++   normal j
++   call assert_equal([2, 6], [line('.'), col('.')])
++ endfunc
+*** ../vim-8.1.0211/src/testdir/test_tcl.vim	Sat Jul  7 22:41:57 2018
+--- src/testdir/test_tcl.vim	Wed Jul 25 21:58:09 2018
+***************
+*** 665,667 ****
+--- 665,680 ----
+  
+    tcl unset bar
+  endfunc
++  
++ func Test_set_cursor()
++   " Check that setting the cursor position works.
++   new
++   call setline(1, ['first line', 'second line'])
++   normal gg
++   tcldo $::vim::current(window) cursor 1 5
++   call assert_equal([1, 5], [line('.'), col('.')])
++ 
++   " Check that movement after setting cursor position keeps current column.
++   normal j
++   call assert_equal([2, 5], [line('.'), col('.')])
++ endfunc
+*** ../vim-8.1.0211/src/version.c	Wed Jul 25 21:19:09 2018
+--- src/version.c	Wed Jul 25 21:59:58 2018
+***************
+*** 795,796 ****
+--- 795,798 ----
+  {   /* Add new patch number below this line */
++ /**/
++     212,
+  /**/
+
+-- 
+Yah, well, we had to carve our electrons out of driftwood we'd
+find.  In the winter.  Uphill.  Both ways.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

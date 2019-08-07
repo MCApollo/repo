@@ -1,0 +1,59 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0195
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0195
+Problem:    Terminal debugger commands don't always work. (Dominique Pelle)
+Solution:   Set 'cpo' to its default value when defining commands. (Christian
+            Brabandt)
+Files:      runtime/pack/dist/opt/termdebug/plugin/termdebug.vim
+
+
+*** ../vim-8.1.0194/runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-07-17 05:55:07.031195486 +0200
+--- runtime/pack/dist/opt/termdebug/plugin/termdebug.vim	2018-07-19 01:42:45.109411754 +0200
+***************
+*** 566,571 ****
+--- 566,574 ----
+  
+  " Install commands in the current window to control the debugger.
+  func s:InstallCommands()
++   let save_cpo = &cpo
++   set cpo&vim
++ 
+    command Break call s:SetBreakpoint()
+    command Clear call s:ClearBreakpoint()
+    command Step call s:SendCommand('-exec-step')
+***************
+*** 603,608 ****
+--- 606,613 ----
+        an 1.230 PopUp.Evaluate		:Evaluate<CR>
+      endif
+    endif
++ 
++   let &cpo = save_cpo
+  endfunc
+  
+  let s:winbar_winids = []
+*** ../vim-8.1.0194/src/version.c	2018-07-18 06:02:04.084736178 +0200
+--- src/version.c	2018-07-19 01:44:14.191196349 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     195,
+  /**/
+
+-- 
+God made the integers; all else is the work of Man.
+		-- Kronecker
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

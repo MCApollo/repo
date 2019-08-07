@@ -1,0 +1,37 @@
+diff -ru apt-0.7.20.2/apt-pkg/deb/debrecords.cc apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.cc
+--- apt-0.7.20.2/apt-pkg/deb/debrecords.cc	2009-02-07 15:09:35.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.cc	2009-04-19 03:41:21.000000000 +0000
+@@ -170,3 +170,11 @@
+    Section.GetSection(Start,Stop);
+ }
+ 									/*}}}*/
++// RecordParser::Find - Locate a tag					/*{{{*/
++// ---------------------------------------------------------------------
++/* */
++bool debRecordParser::Find(const char *Tag,const char *&Start, const char *&End)
++{
++   return Section.Find(Tag,Start,End);
++}
++									/*}}}*/
+diff -ru apt-0.7.20.2/apt-pkg/deb/debrecords.h apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.h
+--- apt-0.7.20.2/apt-pkg/deb/debrecords.h	2009-02-07 15:09:35.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.h	2009-04-19 03:46:48.000000000 +0000
+@@ -47,6 +47,7 @@
+    virtual string Homepage();
+ 
+    virtual void GetRec(const char *&Start,const char *&Stop);
++   virtual bool Find(const char *Tag,const char *&Start, const char *&End);
+    
+    debRecordParser(string FileName,pkgCache &Cache);
+ };
+diff -ru apt-0.7.20.2/apt-pkg/pkgrecords.h apt-0.7.20.2+iPhone/apt-pkg/pkgrecords.h
+--- apt-0.7.20.2/apt-pkg/pkgrecords.h	2009-04-18 23:19:45.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/pkgrecords.h	2009-04-19 03:39:04.000000000 +0000
+@@ -70,6 +70,7 @@
+    
+    // The record in binary form
+    virtual void GetRec(const char *&Start,const char *&Stop) {Start = Stop = 0;};
++   virtual bool Find(const char *Tag,const char *&Start, const char *&End) {Start = End = 0; return false;};
+    
+    virtual ~Parser() {};
+ };

@@ -1,0 +1,294 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0295
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0295
+Problem:    No 'incsearch' highlighting for :vimgrep and similar commands.
+Solution:   Parse the :vimgrep command and similar ones to locate the search
+            pattern. (Hirohito Higashi, closes #3344)
+Files:	    src/ex_getln.c, src/testdir/test_search.vim,
+            src/testdir/dumps/Test_incsearch_vimgrep_01.dump,
+            src/testdir/dumps/Test_incsearch_vimgrep_02.dump,
+            src/testdir/dumps/Test_incsearch_vimgrep_03.dump,
+            src/testdir/dumps/Test_incsearch_vimgrep_04.dump,
+            src/testdir/dumps/Test_incsearch_vimgrep_05.dump
+
+
+*** ../vim-8.1.0294/src/ex_getln.c	2018-08-18 16:10:57.086158061 +0200
+--- src/ex_getln.c	2018-08-18 20:54:23.233372360 +0200
+***************
+*** 307,355 ****
+  	    cmdmod = save_cmdmod;
+  
+  	    cmd = skip_range(ea.cmd, NULL);
+! 	    if (*cmd == 's' || *cmd == 'g' || *cmd == 'v')
+  	    {
+  		// Skip over "substitute" to find the pattern separator.
+  		for (p = cmd; ASCII_ISALPHA(*p); ++p)
+  		    ;
+! 		if (*skipwhite(p) != NUL
+! 			&& (STRNCMP(cmd, "substitute", p - cmd) == 0
+! 			    || STRNCMP(cmd, "smagic", p - cmd) == 0
+! 			    || STRNCMP(cmd, "snomagic", MAX(p - cmd, 3)) == 0
+! 			    || STRNCMP(cmd, "sort", p - cmd) == 0
+! 			    || STRNCMP(cmd, "global", p - cmd) == 0
+! 			    || STRNCMP(cmd, "vglobal", p - cmd) == 0))
+  		{
+! 		    if (*cmd == 's' && cmd[1] == 'm')
+! 			p_magic = TRUE;
+! 		    else if (*cmd == 's' && cmd[1] == 'n')
+! 			p_magic = FALSE;
+! 
+! 		    // Check for "global!/".
+! 		    if (*cmd == 'g' && *p == '!')
+  		    {
+! 			p++;
+! 			if (*skipwhite(p) == NUL)
+! 			    return FALSE;
+  		    }
+! 
+! 		    // For ":sort" skip over flags.
+! 		    if (cmd[0] == 's' && cmd[1] == 'o')
+  		    {
+! 			while (ASCII_ISALPHA(*(p = skipwhite(p))))
+! 			    ++p;
+! 			if (*p == NUL)
+! 			    return FALSE;
+  		    }
+  
+- 		    p = skipwhite(p);
+- 		    delim = *p++;
+- 		    end = skip_regexp(p, delim, p_magic, NULL);
+  		    if (end > p || *end == delim)
+  		    {
+  			pos_T	save_cursor = curwin->w_cursor;
+  
+! 			// found a non-empty pattern
+  			*skiplen = (int)(p - ccline.cmdbuff);
+  			*patlen = (int)(end - p);
+  
+--- 307,379 ----
+  	    cmdmod = save_cmdmod;
+  
+  	    cmd = skip_range(ea.cmd, NULL);
+! 	    if (*cmd == 's' || *cmd == 'g' || *cmd == 'v' || *cmd == 'l')
+  	    {
+  		// Skip over "substitute" to find the pattern separator.
+  		for (p = cmd; ASCII_ISALPHA(*p); ++p)
+  		    ;
+! 		if (*skipwhite(p) != NUL)
+  		{
+! 		    if (STRNCMP(cmd, "substitute", p - cmd) == 0
+! 			|| STRNCMP(cmd, "smagic", p - cmd) == 0
+! 			|| STRNCMP(cmd, "snomagic", MAX(p - cmd, 3)) == 0
+! 			|| STRNCMP(cmd, "sort", MAX(p - cmd, 3)) == 0
+! 			|| STRNCMP(cmd, "global", p - cmd) == 0
+! 			|| STRNCMP(cmd, "vglobal", p - cmd) == 0)
+  		    {
+! 			if (*cmd == 's' && cmd[1] == 'm')
+! 			    p_magic = TRUE;
+! 			else if (*cmd == 's' && cmd[1] == 'n')
+! 			    p_magic = FALSE;
+! 
+! 			// Check for "global!/".
+! 			if (*cmd == 'g' && *p == '!')
+! 			{
+! 			    p++;
+! 			    if (*skipwhite(p) == NUL)
+! 				return FALSE;
+! 			}
+! 
+! 			// For ":sort" skip over flags.
+! 			if (cmd[0] == 's' && cmd[1] == 'o')
+! 			{
+! 			    while (ASCII_ISALPHA(*(p = skipwhite(p))))
+! 				++p;
+! 			    if (*p == NUL)
+! 				return FALSE;
+! 			}
+! 
+! 			p = skipwhite(p);
+! 			delim = *p++;
+! 			end = skip_regexp(p, delim, p_magic, NULL);
+  		    }
+! 		    else if (STRNCMP(cmd, "vimgrep", MAX(p - cmd, 3)) == 0
+! 			|| STRNCMP(cmd, "vimgrepadd", MAX(p - cmd, 8)) == 0
+! 			|| STRNCMP(cmd, "lvimgrep", MAX(p - cmd, 2)) == 0
+! 			|| STRNCMP(cmd, "lvimgrepadd", MAX(p - cmd, 9)) == 0)
+! 		    {
+! 			// Check for "!/".
+! 			if (*p == '!')
+! 			{
+! 			    p++;
+! 			    if (*skipwhite(p) == NUL)
+! 				return FALSE;
+! 			}
+! 			p = skipwhite(p);
+! 			delim = (vim_isIDc(*p)) ? ' ' : *p++;
+! 			end = skip_regexp(p, delim, p_magic, NULL);
+! 		    }
+! 		    else
+  		    {
+! 			end = p;
+! 			delim = -1;
+  		    }
+  
+  		    if (end > p || *end == delim)
+  		    {
+  			pos_T	save_cursor = curwin->w_cursor;
+  
+! 			// found a non-empty pattern or //
+  			*skiplen = (int)(p - ccline.cmdbuff);
+  			*patlen = (int)(end - p);
+  
+*** ../vim-8.1.0294/src/testdir/test_search.vim	2018-08-18 16:10:57.086158061 +0200
+--- src/testdir/test_search.vim	2018-08-18 20:41:36.648615963 +0200
+***************
+*** 944,949 ****
+--- 944,996 ----
+    call delete('Xis_sort_script')
+  endfunc
+  
++ " Similar to Test_incsearch_substitute_dump() for :vimgrep famiry
++ func Test_incsearch_vimgrep_dump()
++   if !exists('+incsearch')
++     return
++   endif
++   if !CanRunVimInTerminal()
++     return
++   endif
++   call writefile([
++ 	\ 'set incsearch hlsearch scrolloff=0',
++ 	\ 'call setline(1, ["another one 2", "that one 3", "the one 1"])',
++ 	\ ], 'Xis_vimgrep_script')
++   let buf = RunVimInTerminal('-S Xis_vimgrep_script', {'rows': 9, 'cols': 70})
++   " Give Vim a chance to redraw to get rid of the spaces in line 2 caused by
++   " the 'ambiwidth' check.
++   sleep 100m
++ 
++   " Need to send one key at a time to force a redraw.
++   call term_sendkeys(buf, ':vimgrep on')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_01', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
++   call term_sendkeys(buf, ':vimg /on/ *.txt')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_02', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
++   call term_sendkeys(buf, ':vimgrepadd "\<on')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_03', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
++   call term_sendkeys(buf, ':lv "tha')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_04', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
++   call term_sendkeys(buf, ':lvimgrepa "the" **/*.txt')
++   sleep 100m
++   call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_05', {})
++   call term_sendkeys(buf, "\<Esc>")
++ 
++   call StopVimInTerminal(buf)
++   call delete('Xis_vimgrep_script')
++ endfunc
++ 
+  func Test_search_undefined_behaviour()
+    if !has("terminal")
+      return
+*** ../vim-8.1.0294/src/testdir/dumps/Test_incsearch_vimgrep_01.dump	2018-08-18 21:04:47.792014166 +0200
+--- src/testdir/dumps/Test_incsearch_vimgrep_01.dump	2018-08-18 20:41:36.648615963 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |a+0&#ffffff0|n|o|t|h|e|r| |o+1&&|n|e+0&&| |2| @56
++ |t|h|a|t| |o+0&#ffff4012|n|e+0&#ffffff0| |3| @59
++ |t|h|e| |o+0&#ffff4012|n|e+0&#ffffff0| |1| @60
++ |~+0#4040ff13&| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |:+0#0000000&|v|i|m|g|r|e|p| |o|n> @58
+*** ../vim-8.1.0294/src/testdir/dumps/Test_incsearch_vimgrep_02.dump	2018-08-18 21:04:47.796014105 +0200
+--- src/testdir/dumps/Test_incsearch_vimgrep_02.dump	2018-08-18 20:41:36.648615963 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |a+0&#ffffff0|n|o|t|h|e|r| |o+1&&|n|e+0&&| |2| @56
++ |t|h|a|t| |o+0&#ffff4012|n|e+0&#ffffff0| |3| @59
++ |t|h|e| |o+0&#ffff4012|n|e+0&#ffffff0| |1| @60
++ |~+0#4040ff13&| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |:+0#0000000&|v|i|m|g| |/|o|n|/| |*|.|t|x|t> @53
+*** ../vim-8.1.0294/src/testdir/dumps/Test_incsearch_vimgrep_03.dump	2018-08-18 21:04:47.804013985 +0200
+--- src/testdir/dumps/Test_incsearch_vimgrep_03.dump	2018-08-18 20:41:36.648615963 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |a+0&#ffffff0|n|o|t|h|e|r| |o+1&&|n|e+0&&| |2| @56
++ |t|h|a|t| |o+0&#ffff4012|n|e+0&#ffffff0| |3| @59
++ |t|h|e| |o+0&#ffff4012|n|e+0&#ffffff0| |1| @60
++ |~+0#4040ff13&| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |:+0#0000000&|v|i|m|g|r|e|p|a|d@1| |"|\|<|o|n> @52
+*** ../vim-8.1.0294/src/testdir/dumps/Test_incsearch_vimgrep_04.dump	2018-08-18 21:04:47.808013925 +0200
+--- src/testdir/dumps/Test_incsearch_vimgrep_04.dump	2018-08-18 20:41:36.648615963 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |a+0&#ffffff0|n|o|t|h|e|r| |o|n|e| |2| @56
++ |t+1&&|h|a|t+0&&| |o|n|e| |3| @59
++ |t|h|e| |o|n|e| |1| @60
++ |~+0#4040ff13&| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |:+0#0000000&|l|v| |"|t|h|a> @61
+*** ../vim-8.1.0294/src/testdir/dumps/Test_incsearch_vimgrep_05.dump	2018-08-18 21:04:47.816013804 +0200
+--- src/testdir/dumps/Test_incsearch_vimgrep_05.dump	2018-08-18 20:41:36.648615963 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |a+0&#ffffff0|n|o|t+1&&|h|e|r+0&&| |o|n|e| |2| @56
++ |t|h|a|t| |o|n|e| |3| @59
++ |t+0&#ffff4012|h|e| +0&#ffffff0|o|n|e| |1| @60
++ |~+0#4040ff13&| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |~| @68
++ |:+0#0000000&|l|v|i|m|g|r|e|p|a| |"|t|h|e|"| |*@1|/|*|.|t|x|t> @44
+*** ../vim-8.1.0294/src/version.c	2018-08-18 20:20:23.335417254 +0200
+--- src/version.c	2018-08-18 21:01:32.666945603 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     295,
+  /**/
+
+-- 
+Wi n0t trei a h0liday in Sweden thi yer?
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

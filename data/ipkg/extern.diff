@@ -1,0 +1,24 @@
+diff -ru ipkg-0.99.163/ipkg.h.in ipkg-0.99.163+iPhone/ipkg.h.in
+--- ipkg-0.99.163/ipkg.h.in	2006-05-30 08:31:16.000000000 +0000
++++ ipkg-0.99.163+iPhone/ipkg.h.in	2009-06-11 23:34:10.000000000 +0000
+@@ -62,7 +62,7 @@
+     struct errlist * next;
+ } ;
+ 
+-struct errlist* error_list;
++extern struct errlist* error_list;
+ 
+ 
+ #endif
+diff -ru ipkg-0.99.163/ipkg_utils.c ipkg-0.99.163+iPhone/ipkg_utils.c
+--- ipkg-0.99.163/ipkg_utils.c	2006-02-06 08:13:02.000000000 +0000
++++ ipkg-0.99.163+iPhone/ipkg_utils.c	2009-06-11 23:35:31.000000000 +0000
+@@ -18,6 +18,8 @@
+ #include "pkg.h"
+ #include "pkg_hash.h"
+ 
++struct errlist* error_list;
++
+ void print_pkg_status(pkg_t * pkg, FILE * file);
+ 
+ int get_available_blocks(char * filesystem)

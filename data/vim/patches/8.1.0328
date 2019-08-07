@@ -1,0 +1,167 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0328
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0328
+Problem:    inputlist() doesn't work with a timer. (Dominique Pelle)
+Solution:   Don't redraw when cmdline_row is zero. (Hirohito Higashi,
+            closes #3239)
+Files:	    src/misc1.c, src/screen.c
+
+
+*** ../vim-8.1.0327/src/misc1.c	2018-08-21 15:12:10.839801647 +0200
+--- src/misc1.c	2018-08-26 21:18:04.834809910 +0200
+***************
+*** 3747,3764 ****
+      else
+  	MSG_PUTS(_("Type number and <Enter> (empty cancels): "));
+  
+!     /* Set the state such that text can be selected/copied/pasted and we still
+!      * get mouse events. */
+      save_cmdline_row = cmdline_row;
+      cmdline_row = 0;
+      save_State = State;
+!     State = ASKMORE;	/* prevents a screen update when using a timer */
+  #ifdef FEAT_MOUSE
+!     /* May show different mouse shape. */
+      setmouse();
+  #endif
+  
+- 
+      i = get_number(TRUE, mouse_used);
+      if (KeyTyped)
+      {
+--- 3747,3764 ----
+      else
+  	MSG_PUTS(_("Type number and <Enter> (empty cancels): "));
+  
+!     // Set the state such that text can be selected/copied/pasted and we still
+!     // get mouse events. redraw_after_callback() will not redraw if cmdline_row
+!     // is zero.
+      save_cmdline_row = cmdline_row;
+      cmdline_row = 0;
+      save_State = State;
+!     State = CMDLINE;
+  #ifdef FEAT_MOUSE
+!     // May show different mouse shape.
+      setmouse();
+  #endif
+  
+      i = get_number(TRUE, mouse_used);
+      if (KeyTyped)
+      {
+***************
+*** 3773,3779 ****
+  	cmdline_row = save_cmdline_row;
+      State = save_State;
+  #ifdef FEAT_MOUSE
+!     /* May need to restore mouse shape. */
+      setmouse();
+  #endif
+  
+--- 3773,3779 ----
+  	cmdline_row = save_cmdline_row;
+      State = save_State;
+  #ifdef FEAT_MOUSE
+!     // May need to restore mouse shape.
+      setmouse();
+  #endif
+  
+*** ../vim-8.1.0327/src/screen.c	2018-08-11 16:40:39.068311966 +0200
+--- src/screen.c	2018-08-26 21:19:58.221890668 +0200
+***************
+*** 447,478 ****
+      ++redrawing_for_callback;
+  
+      if (State == HITRETURN || State == ASKMORE)
+! 	; /* do nothing */
+      else if (State & CMDLINE)
+      {
+! 	/* Redrawing only works when the screen didn't scroll. Don't clear
+! 	 * wildmenu entries. */
+! 	if (msg_scrolled == 0
+  #ifdef FEAT_WILDMENU
+! 		&& wild_menu_showing == 0
+  #endif
+! 		&& call_update_screen)
+! 	    update_screen(0);
+! 	/* Redraw in the same position, so that the user can continue
+! 	 * editing the command. */
+! 	redrawcmdline_ex(FALSE);
+      }
+      else if (State & (NORMAL | INSERT | TERMINAL))
+      {
+! 	/* keep the command line if possible */
+  	update_screen(VALID_NO_UPDATE);
+  	setcursor();
+      }
+      cursor_on();
+  #ifdef FEAT_GUI
+      if (gui.in_use && !gui_mch_is_blink_off())
+! 	/* Don't update the cursor when it is blinking and off to avoid
+! 	 * flicker. */
+  	out_flush_cursor(FALSE, FALSE);
+      else
+  #endif
+--- 447,483 ----
+      ++redrawing_for_callback;
+  
+      if (State == HITRETURN || State == ASKMORE)
+! 	; // do nothing
+      else if (State & CMDLINE)
+      {
+! 	// Don't redraw when in prompt_for_number().
+! 	if (cmdline_row > 0)
+! 	{
+! 	    // Redrawing only works when the screen didn't scroll. Don't clear
+! 	    // wildmenu entries.
+! 	    if (msg_scrolled == 0
+  #ifdef FEAT_WILDMENU
+! 		    && wild_menu_showing == 0
+  #endif
+! 		    && call_update_screen)
+! 		update_screen(0);
+! 
+! 	    // Redraw in the same position, so that the user can continue
+! 	    // editing the command.
+! 	    redrawcmdline_ex(FALSE);
+! 	}
+      }
+      else if (State & (NORMAL | INSERT | TERMINAL))
+      {
+! 	// keep the command line if possible
+  	update_screen(VALID_NO_UPDATE);
+  	setcursor();
+      }
+      cursor_on();
+  #ifdef FEAT_GUI
+      if (gui.in_use && !gui_mch_is_blink_off())
+! 	// Don't update the cursor when it is blinking and off to avoid
+! 	// flicker.
+  	out_flush_cursor(FALSE, FALSE);
+      else
+  #endif
+*** ../vim-8.1.0327/src/version.c	2018-08-24 22:07:54.094796047 +0200
+--- src/version.c	2018-08-26 21:16:30.423572538 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     328,
+  /**/
+
+-- 
+The budget process was invented by an alien race of sadistic beings who
+resemble large cats.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

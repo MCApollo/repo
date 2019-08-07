@@ -1,0 +1,105 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0024
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0024
+Problem:    % command not testded on #ifdef and comment.
+Solution:   Add tests. (Dominique Pelle, closes #2956)
+Files:	    src/testdir/test_goto.vim
+
+
+*** ../vim-8.1.0023/src/testdir/test_goto.vim	2017-04-20 18:35:04.000000000 +0200
+--- src/testdir/test_goto.vim	2018-05-26 18:36:54.076751185 +0200
+***************
+*** 309,311 ****
+--- 309,373 ----
+    \ ]
+    call XTest_goto_decl('1gd', lines, 11, 11)
+  endfunc
++ 
++ func Test_motion_if_elif_else_endif()
++   new
++   a
++ /* Test pressing % on #if, #else #elsif and #endif,
++  * with nested #if
++  */
++ #if FOO
++ /* ... */
++ #  if BAR
++ /* ... */
++ #  endif
++ #elif BAR
++ /* ... */
++ #else
++ /* ... */
++ #endif
++ .
++   /#if FOO
++   norm %
++   call assert_equal([9, 1], getpos('.')[1:2])
++   norm %
++   call assert_equal([11, 1], getpos('.')[1:2])
++   norm %
++   call assert_equal([13, 1], getpos('.')[1:2])
++   norm %
++   call assert_equal([4, 1], getpos('.')[1:2])
++   /#  if BAR
++   norm $%
++   call assert_equal([8, 1], getpos('.')[1:2])
++   norm $%
++   call assert_equal([6, 1], getpos('.')[1:2])
++ 
++   bw!
++ endfunc
++ 
++ func Test_motion_c_comment()
++   new
++   a
++ /*
++  * Test pressing % on beginning/end
++  * of C comments.
++  */
++ /* Another comment */
++ .
++   norm gg0%
++   call assert_equal([4, 3], getpos('.')[1:2])
++   norm %
++   call assert_equal([1, 1], getpos('.')[1:2])
++   norm gg0l%
++   call assert_equal([4, 3], getpos('.')[1:2])
++   norm h%
++   call assert_equal([1, 1], getpos('.')[1:2])
++ 
++   norm G^
++   norm %
++   call assert_equal([5, 21], getpos('.')[1:2])
++   norm %
++   call assert_equal([5, 1], getpos('.')[1:2])
++ 
++   bw!
++ endfunc
+*** ../vim-8.1.0023/src/version.c	2018-05-26 17:35:19.717625256 +0200
+--- src/version.c	2018-05-26 18:37:48.024690943 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     24,
+  /**/
+
+-- 
+The fastest way to get an engineer to solve a problem is to declare that the
+problem is unsolvable.  No engineer can walk away from an unsolvable problem
+until it's solved.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

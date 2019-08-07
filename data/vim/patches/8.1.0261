@@ -1,0 +1,177 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0261
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0261
+Problem:    Coverity complains about a negative array index.
+Solution:   When qf_id2nr() cannot find the list then don't set qf_curlist.
+Files:	    src/quickfix.c
+
+
+*** ../vim-8.1.0260/src/quickfix.c	2018-08-09 21:19:15.774436077 +0200
+--- src/quickfix.c	2018-08-09 21:49:36.929501416 +0200
+***************
+*** 2011,2023 ****
+  {
+      qf_info_T *qi;
+  
+!     qi = (qf_info_T *)alloc((unsigned)sizeof(qf_info_T));
+      if (qi != NULL)
+-     {
+- 	vim_memset(qi, 0, (size_t)(sizeof(qf_info_T)));
+  	qi->qf_refcount++;
+-     }
+- 
+      return qi;
+  }
+  
+--- 2011,2019 ----
+  {
+      qf_info_T *qi;
+  
+!     qi = (qf_info_T *)alloc_clear((unsigned)sizeof(qf_info_T));
+      if (qi != NULL)
+  	qi->qf_refcount++;
+      return qi;
+  }
+  
+***************
+*** 4339,4352 ****
+  }
+  
+  /*
+   * Jump to the first entry if there is one.
+   */
+      static void
+  qf_jump_first(qf_info_T *qi, int_u save_qfid, int forceit)
+  {
+!     // If autocommands changed the current list, then restore it
+!     if (qi->qf_lists[qi->qf_curlist].qf_id != save_qfid)
+! 	qi->qf_curlist = qf_id2nr(qi, save_qfid);
+  
+      // Autocommands might have cleared the list, check for it
+      if (!qf_list_empty(qi, qi->qf_curlist))
+--- 4335,4365 ----
+  }
+  
+  /*
++  * If the current list is not "save_qfid" and we can find the list with that ID
++  * then make it the current list.
++  * This is used when autocommands may have changed the current list.
++  */
++     static void
++ qf_restore_list(qf_info_T *qi, int_u save_qfid)
++ {
++     int curlist;
++ 
++     if (qi->qf_lists[qi->qf_curlist].qf_id != save_qfid)
++     {
++ 	curlist = qf_id2nr(qi, save_qfid);
++ 	if (curlist >= 0)
++ 	    qi->qf_curlist = curlist;
++ 	// else: what if the list can't be found?
++     }
++ }
++ 
++ /*
+   * Jump to the first entry if there is one.
+   */
+      static void
+  qf_jump_first(qf_info_T *qi, int_u save_qfid, int forceit)
+  {
+!     qf_restore_list(qi, save_qfid);
+  
+      // Autocommands might have cleared the list, check for it
+      if (!qf_list_empty(qi, qi->qf_curlist))
+***************
+*** 5012,5021 ****
+  	}
+      }
+  
+!     if (qi->qf_lists[qi->qf_curlist].qf_id != qfid)
+! 	/* Autocommands changed the quickfix list.  Find the one we were
+! 	 * using and restore it. */
+! 	qi->qf_curlist = qf_id2nr(qi, qfid);
+  
+      return TRUE;
+  }
+--- 5025,5031 ----
+  	}
+      }
+  
+!     qf_restore_list(qi, qfid);
+  
+      return TRUE;
+  }
+***************
+*** 5361,5369 ****
+      if (!qflist_valid(wp, save_qfid))
+  	goto theend;
+  
+!     // If autocommands changed the current list, then restore it
+!     if (qi->qf_lists[qi->qf_curlist].qf_id != save_qfid)
+! 	qi->qf_curlist = qf_id2nr(qi, save_qfid);
+  
+      /* Jump to first match. */
+      if (!qf_list_empty(qi, qi->qf_curlist))
+--- 5371,5377 ----
+      if (!qflist_valid(wp, save_qfid))
+  	goto theend;
+  
+!     qf_restore_list(qi, save_qfid);
+  
+      /* Jump to first match. */
+      if (!qf_list_empty(qi, qi->qf_curlist))
+***************
+*** 5684,5695 ****
+  	if (l == NULL)
+  	    return FAIL;
+  
+! 	qi = (qf_info_T *)alloc((unsigned)sizeof(qf_info_T));
+  	if (qi != NULL)
+  	{
+- 	    vim_memset(qi, 0, (size_t)(sizeof(qf_info_T)));
+- 	    qi->qf_refcount++;
+- 
+  	    if (qf_init_ext(qi, 0, NULL, NULL, &di->di_tv, errorformat,
+  			TRUE, (linenr_T)0, (linenr_T)0, NULL, NULL) > 0)
+  	    {
+--- 5692,5700 ----
+  	if (l == NULL)
+  	    return FAIL;
+  
+! 	qi = ll_new_list();
+  	if (qi != NULL)
+  	{
+  	    if (qf_init_ext(qi, 0, NULL, NULL, &di->di_tv, errorformat,
+  			TRUE, (linenr_T)0, (linenr_T)0, NULL, NULL) > 0)
+  	    {
+*** ../vim-8.1.0260/src/version.c	2018-08-09 21:33:34.800134541 +0200
+--- src/version.c	2018-08-09 21:50:45.609022776 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     261,
+  /**/
+
+-- 
+MONK: ... and the Lord spake, saying, "First shalt thou take out the Holy Pin,
+      then shalt thou count to three, no more, no less.  Three shalt be the
+      number thou shalt count, and the number of the counting shalt be three.
+      Four shalt thou not count, neither count thou two, excepting that thou
+      then proceed to three.  Five is right out.  Once the number three, being
+      the third number, be reached, then lobbest thou thy Holy Hand Grenade of
+      Antioch towards thou foe, who being naughty in my sight, shall snuff it.
+                 "Monty Python and the Holy Grail" PYTHON (MONTY) PICTURES LTD
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

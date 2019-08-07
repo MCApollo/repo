@@ -1,0 +1,142 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0223
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0223
+Problem:    Completing shell command finds sub-directories in $PATH.
+Solution:   Remove EW_DIR when completing an item in $PATH. (Jason Franklin)
+Files:	    src/ex_getln.c, src/tetdir/test_cmdline.vim
+
+
+*** ../vim-8.1.0222/src/ex_getln.c	2018-06-12 22:05:10.656251565 +0200
+--- src/ex_getln.c	2018-07-28 19:01:02.150240882 +0200
+***************
+*** 5193,5208 ****
+      hash_init(&found_ht);
+      for (s = path; ; s = e)
+      {
+- 	if (*s == NUL)
+- 	{
+- 	    if (did_curdir)
+- 		break;
+- 	    /* Find directories in the current directory, path is empty. */
+- 	    did_curdir = TRUE;
+- 	}
+- 	else if (*s == '.')
+- 	    did_curdir = TRUE;
+- 
+  #if defined(MSWIN)
+  	e = vim_strchr(s, ';');
+  #else
+--- 5193,5198 ----
+***************
+*** 5211,5216 ****
+--- 5201,5223 ----
+  	if (e == NULL)
+  	    e = s + STRLEN(s);
+  
++ 	if (*s == NUL)
++ 	{
++ 	    if (did_curdir)
++ 		break;
++ 	    // Find directories in the current directory, path is empty.
++ 	    did_curdir = TRUE;
++ 	    flags |= EW_DIR;
++ 	}
++ 	else if (STRNCMP(s, ".", (int)(e - s)) == 0)
++ 	{
++ 	    did_curdir = TRUE;
++ 	    flags |= EW_DIR;
++ 	}
++ 	else
++ 	    // Do not match directories inside a $PATH item.
++ 	    flags &= ~EW_DIR;
++ 
+  	l = e - s;
+  	if (l > MAXPATHL - 5)
+  	    break;
+***************
+*** 5266,5273 ****
+  
+  
+  # if defined(FEAT_USR_CMDS) && defined(FEAT_EVAL)
+- static void * call_user_expand_func(void *(*user_expand_func)(char_u *, int, typval_T *, int), expand_T	*xp, int *num_file, char_u ***file);
+- 
+  /*
+   * Call "user_expand_func()" to invoke a user defined Vim script function and
+   * return the result (either a string or a List).
+--- 5273,5278 ----
+*** ../vim-8.1.0222/src/testdir/test_cmdline.vim	2018-06-23 14:55:00.146628803 +0200
+--- src/testdir/test_cmdline.vim	2018-07-28 19:11:04.354676084 +0200
+***************
+*** 231,237 ****
+    call assert_equal([], l)
+  
+    let l = getcompletion('.', 'shellcmd')
+!   call assert_equal(['./', '../'], l[0:1])
+    call assert_equal(-1, match(l[2:], '^\.\.\?/$'))
+    let root = has('win32') ? 'C:\\' : '/'
+    let l = getcompletion(root, 'shellcmd')
+--- 231,237 ----
+    call assert_equal([], l)
+  
+    let l = getcompletion('.', 'shellcmd')
+!   call assert_equal(['./', '../'], filter(l, 'v:val =~ "\\./"'))
+    call assert_equal(-1, match(l[2:], '^\.\.\?/$'))
+    let root = has('win32') ? 'C:\\' : '/'
+    let l = getcompletion(root, 'shellcmd')
+***************
+*** 290,295 ****
+--- 290,318 ----
+    call assert_fails('call getcompletion("", "burp")', 'E475:')
+  endfunc
+  
++ func Test_shellcmd_completion()
++   let save_path = $PATH
++ 
++   call mkdir('Xpathdir/Xpathsubdir', 'p')
++   call writefile([''], 'Xpathdir/Xfile.exe')
++   call setfperm('Xpathdir/Xfile.exe', 'rwx------')
++ 
++   " Set PATH to example directory without trailing slash.
++   let $PATH = getcwd() . '/Xpathdir'
++ 
++   " Test for the ":!<TAB>" case.  Previously, this would include subdirs of
++   " dirs in the PATH, even though they won't be executed.  We check that only
++   " subdirs of the PWD and executables from the PATH are included in the
++   " suggestions.
++   let actual = getcompletion('X', 'shellcmd')
++   let expected = map(filter(glob('*', 0, 1), 'isdirectory(v:val) && v:val[0] == "X"'), 'v:val . "/"')
++   call insert(expected, 'Xfile.exe')
++   call assert_equal(expected, actual)
++ 
++   call delete('Xpathdir', 'rf')
++   let $PATH = save_path
++ endfunc
++ 
+  func Test_expand_star_star()
+    call mkdir('a/b', 'p')
+    call writefile(['asdfasdf'], 'a/b/fileXname')
+*** ../vim-8.1.0222/src/version.c	2018-07-28 18:16:44.285662961 +0200
+--- src/version.c	2018-07-28 19:09:36.547197615 +0200
+***************
+*** 800,801 ****
+--- 800,803 ----
+  {   /* Add new patch number below this line */
++ /**/
++     223,
+  /**/
+
+-- 
+Futility Factor: No experiment is ever a complete failure - it can always
+serve as a negative example.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

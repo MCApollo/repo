@@ -1,0 +1,160 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0180
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0180
+Problem:    Static analysis errors in Lua interface. (Coverity)
+Solution:   Check for NULL pointers.
+Files:	    src/if_lua.c
+
+
+*** ../vim-8.1.0179/src/if_lua.c	Sat Jul  7 23:07:35 2018
+--- src/if_lua.c	Fri Jul 13 22:05:37 2018
+***************
+*** 958,964 ****
+      typval_T v;
+      if (d->dv_lock)
+  	luaL_error(L, "dict is locked");
+!     if (key != NULL && *key == NUL)
+  	luaL_error(L, "empty key");
+      if (!lua_isnil(L, 3)) { /* read value? */
+  	luaV_checktypval(L, 3, &v, "setting dict item");
+--- 958,966 ----
+      typval_T v;
+      if (d->dv_lock)
+  	luaL_error(L, "dict is locked");
+!     if (key == NULL)
+! 	return 0;
+!     if (*key == NUL)
+  	luaL_error(L, "empty key");
+      if (!lua_isnil(L, 3)) { /* read value? */
+  	luaV_checktypval(L, 3, &v, "setting dict item");
+***************
+*** 968,980 ****
+      di = dict_find(d, key, -1);
+      if (di == NULL) /* non-existing key? */
+      {
+! 	if (lua_isnil(L, 3)) return 0;
+  	di = dictitem_alloc(key);
+! 	if (di == NULL) return 0;
+  	if (dict_add(d, di) == FAIL)
+  	{
+! 		vim_free(di);
+! 		return 0;
+  	}
+      }
+      else
+--- 970,984 ----
+      di = dict_find(d, key, -1);
+      if (di == NULL) /* non-existing key? */
+      {
+! 	if (lua_isnil(L, 3))
+! 	    return 0;
+  	di = dictitem_alloc(key);
+! 	if (di == NULL)
+! 	    return 0;
+  	if (dict_add(d, di) == FAIL)
+  	{
+! 	    vim_free(di);
+! 	    return 0;
+  	}
+      }
+      else
+***************
+*** 1066,1080 ****
+  
+      f->args.vval.v_list = list_alloc();
+      rettv.v_type = VAR_UNKNOWN; /* as in clear_tv */
+!     for (i = 0; i < n; i++) {
+! 	luaV_checktypval(L, i + 2, &v, "calling funcref");
+! 	list_append_tv(f->args.vval.v_list, &v);
+!     }
+!     status = func_call(f->tv.vval.v_string, &f->args, NULL, f->self, &rettv);
+!     if (status == OK)
+! 	luaV_pushtypval(L, &rettv);
+!     clear_tv(&f->args);
+!     clear_tv(&rettv);
+      if (status != OK)
+  	luaL_error(L, "cannot call funcref");
+      return 1;
+--- 1070,1090 ----
+  
+      f->args.vval.v_list = list_alloc();
+      rettv.v_type = VAR_UNKNOWN; /* as in clear_tv */
+!     if (f->args.vval.v_list == NULL)
+! 	status = FAIL;
+!     else
+!     {
+! 	for (i = 0; i < n; i++) {
+! 	    luaV_checktypval(L, i + 2, &v, "calling funcref");
+! 	    list_append_tv(f->args.vval.v_list, &v);
+! 	}
+! 	status = func_call(f->tv.vval.v_string, &f->args,
+! 							NULL, f->self, &rettv);
+! 	if (status == OK)
+! 	    luaV_pushtypval(L, &rettv);
+! 	clear_tv(&f->args);
+! 	clear_tv(&rettv);
+!     }
+      if (status != OK)
+  	luaL_error(L, "cannot call funcref");
+      return 1;
+***************
+*** 1560,1572 ****
+  		char_u *key;
+  		dictitem_T *di;
+  		typval_T v;
+  		lua_pushvalue(L, -2); /* dup key in case it's a number */
+  		key = (char_u *) lua_tostring(L, -1);
+! 		if (key != NULL && *key == NUL)
+  		    luaL_error(L, "table has empty key");
+  		luaV_checktypval(L, -2, &v, "vim.dict"); /* value */
+  		di = dictitem_alloc(key);
+! 		if (di == NULL || dict_add(d, di) == FAIL) {
+  		    vim_free(di);
+  		    lua_pushnil(L);
+  		    return 1;
+--- 1570,1589 ----
+  		char_u *key;
+  		dictitem_T *di;
+  		typval_T v;
++ 
+  		lua_pushvalue(L, -2); /* dup key in case it's a number */
+  		key = (char_u *) lua_tostring(L, -1);
+! 		if (key == NULL)
+! 		{
+! 		    lua_pushnil(L);
+! 		    return 1;
+! 		}
+! 		if (*key == NUL)
+  		    luaL_error(L, "table has empty key");
+  		luaV_checktypval(L, -2, &v, "vim.dict"); /* value */
+  		di = dictitem_alloc(key);
+! 		if (di == NULL || dict_add(d, di) == FAIL)
+! 		{
+  		    vim_free(di);
+  		    lua_pushnil(L);
+  		    return 1;
+*** ../vim-8.1.0179/src/version.c	Fri Jul 13 16:31:11 2018
+--- src/version.c	Fri Jul 13 22:05:56 2018
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     180,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+240. You think Webster's Dictionary is a directory of WEB sites.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

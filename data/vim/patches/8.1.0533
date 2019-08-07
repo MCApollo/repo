@@ -1,0 +1,52 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0533
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0533
+Problem:    Screendump tests can be flaky.
+Solution:   Add VerifyScreenDump to the pattern of flaky tests.
+Files:	    src/testdir/runtest.vim
+
+
+*** ../vim-8.1.0532/src/testdir/runtest.vim	2018-11-16 18:22:42.336615956 +0100
+--- src/testdir/runtest.vim	2018-11-16 18:48:32.643133486 +0100
+***************
+*** 330,336 ****
+        \ ]
+  
+  " Pattern indicating a common flaky test failure.
+! let s:flaky_errors_re = 'StopVimInTerminal'
+  
+  " Locate Test_ functions and execute them.
+  redir @q
+--- 330,336 ----
+        \ ]
+  
+  " Pattern indicating a common flaky test failure.
+! let s:flaky_errors_re = 'StopVimInTerminal\|VerifyScreenDump'
+  
+  " Locate Test_ functions and execute them.
+  redir @q
+*** ../vim-8.1.0532/src/version.c	2018-11-16 18:45:57.864041240 +0100
+--- src/version.c	2018-11-16 18:49:30.498790078 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     533,
+  /**/
+
+-- 
+When I look deep into your eyes, I see JPEG artifacts.
+I can tell by the pixels that we're wrong for each other.  (xkcd)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

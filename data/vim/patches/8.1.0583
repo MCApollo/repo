@@ -1,0 +1,639 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0583
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0583
+Problem:    Using illogical name for get_dict_number()/get_dict_string().
+Solution:   Rename to start with dict_.
+Files:	    src/dict.c, src/proto/dict.pro, src/edit.c, src/eval.c,
+            src/evalfunc.c, src/quickfix.c, src/tag.c, src/terminal.c,
+            src/textprop.c
+
+
+*** ../vim-8.1.0582/src/dict.c	2018-11-11 15:20:32.432704446 +0100
+--- src/dict.c	2018-12-14 15:33:01.734097359 +0100
+***************
+*** 487,493 ****
+   * Returns NULL if the entry doesn't exist or out of memory.
+   */
+      char_u *
+! get_dict_string(dict_T *d, char_u *key, int save)
+  {
+      dictitem_T	*di;
+      char_u	*s;
+--- 487,493 ----
+   * Returns NULL if the entry doesn't exist or out of memory.
+   */
+      char_u *
+! dict_get_string(dict_T *d, char_u *key, int save)
+  {
+      dictitem_T	*di;
+      char_u	*s;
+***************
+*** 506,512 ****
+   * Returns 0 if the entry doesn't exist.
+   */
+      varnumber_T
+! get_dict_number(dict_T *d, char_u *key)
+  {
+      dictitem_T	*di;
+  
+--- 506,512 ----
+   * Returns 0 if the entry doesn't exist.
+   */
+      varnumber_T
+! dict_get_number(dict_T *d, char_u *key)
+  {
+      dictitem_T	*di;
+  
+***************
+*** 583,589 ****
+   * Return OK or FAIL.  Returns NOTDONE for {expr}.
+   */
+      int
+! get_dict_tv(char_u **arg, typval_T *rettv, int evaluate)
+  {
+      dict_T	*d = NULL;
+      typval_T	tvkey;
+--- 583,589 ----
+   * Return OK or FAIL.  Returns NOTDONE for {expr}.
+   */
+      int
+! dict_get_tv(char_u **arg, typval_T *rettv, int evaluate)
+  {
+      dict_T	*d = NULL;
+      typval_T	tvkey;
+*** ../vim-8.1.0582/src/proto/dict.pro	2018-11-11 15:20:32.436704418 +0100
+--- src/proto/dict.pro	2018-12-14 15:33:24.053920604 +0100
+***************
+*** 19,28 ****
+  int dict_add_dict(dict_T *d, char *key, dict_T *dict);
+  long dict_len(dict_T *d);
+  dictitem_T *dict_find(dict_T *d, char_u *key, int len);
+! char_u *get_dict_string(dict_T *d, char_u *key, int save);
+! varnumber_T get_dict_number(dict_T *d, char_u *key);
+  char_u *dict2string(typval_T *tv, int copyID, int restore_copyID);
+! int get_dict_tv(char_u **arg, typval_T *rettv, int evaluate);
+  void dict_extend(dict_T *d1, dict_T *d2, char_u *action);
+  dictitem_T *dict_lookup(hashitem_T *hi);
+  int dict_equal(dict_T *d1, dict_T *d2, int ic, int recursive);
+--- 19,28 ----
+  int dict_add_dict(dict_T *d, char *key, dict_T *dict);
+  long dict_len(dict_T *d);
+  dictitem_T *dict_find(dict_T *d, char_u *key, int len);
+! char_u *dict_get_string(dict_T *d, char_u *key, int save);
+! varnumber_T dict_get_number(dict_T *d, char_u *key);
+  char_u *dict2string(typval_T *tv, int copyID, int restore_copyID);
+! int dict_get_tv(char_u **arg, typval_T *rettv, int evaluate);
+  void dict_extend(dict_T *d1, dict_T *d2, char_u *action);
+  dictitem_T *dict_lookup(hashitem_T *hi);
+  int dict_equal(dict_T *d1, dict_T *d2, int ic, int recursive);
+*** ../vim-8.1.0582/src/edit.c	2018-12-13 22:17:52.873941502 +0100
+--- src/edit.c	2018-12-14 15:35:23.996987382 +0100
+***************
+*** 4343,4365 ****
+  
+      if (tv->v_type == VAR_DICT && tv->vval.v_dict != NULL)
+      {
+! 	word = get_dict_string(tv->vval.v_dict, (char_u *)"word", FALSE);
+! 	cptext[CPT_ABBR] = get_dict_string(tv->vval.v_dict,
+  						     (char_u *)"abbr", FALSE);
+! 	cptext[CPT_MENU] = get_dict_string(tv->vval.v_dict,
+  						     (char_u *)"menu", FALSE);
+! 	cptext[CPT_KIND] = get_dict_string(tv->vval.v_dict,
+  						     (char_u *)"kind", FALSE);
+! 	cptext[CPT_INFO] = get_dict_string(tv->vval.v_dict,
+  						     (char_u *)"info", FALSE);
+! 	cptext[CPT_USER_DATA] = get_dict_string(tv->vval.v_dict,
+  						 (char_u *)"user_data", FALSE);
+! 	if (get_dict_string(tv->vval.v_dict, (char_u *)"icase", FALSE) != NULL)
+! 	    icase = get_dict_number(tv->vval.v_dict, (char_u *)"icase");
+! 	if (get_dict_string(tv->vval.v_dict, (char_u *)"dup", FALSE) != NULL)
+! 	    adup = get_dict_number(tv->vval.v_dict, (char_u *)"dup");
+! 	if (get_dict_string(tv->vval.v_dict, (char_u *)"empty", FALSE) != NULL)
+! 	    aempty = get_dict_number(tv->vval.v_dict, (char_u *)"empty");
+      }
+      else
+      {
+--- 4343,4365 ----
+  
+      if (tv->v_type == VAR_DICT && tv->vval.v_dict != NULL)
+      {
+! 	word = dict_get_string(tv->vval.v_dict, (char_u *)"word", FALSE);
+! 	cptext[CPT_ABBR] = dict_get_string(tv->vval.v_dict,
+  						     (char_u *)"abbr", FALSE);
+! 	cptext[CPT_MENU] = dict_get_string(tv->vval.v_dict,
+  						     (char_u *)"menu", FALSE);
+! 	cptext[CPT_KIND] = dict_get_string(tv->vval.v_dict,
+  						     (char_u *)"kind", FALSE);
+! 	cptext[CPT_INFO] = dict_get_string(tv->vval.v_dict,
+  						     (char_u *)"info", FALSE);
+! 	cptext[CPT_USER_DATA] = dict_get_string(tv->vval.v_dict,
+  						 (char_u *)"user_data", FALSE);
+! 	if (dict_get_string(tv->vval.v_dict, (char_u *)"icase", FALSE) != NULL)
+! 	    icase = dict_get_number(tv->vval.v_dict, (char_u *)"icase");
+! 	if (dict_get_string(tv->vval.v_dict, (char_u *)"dup", FALSE) != NULL)
+! 	    adup = dict_get_number(tv->vval.v_dict, (char_u *)"dup");
+! 	if (dict_get_string(tv->vval.v_dict, (char_u *)"empty", FALSE) != NULL)
+! 	    aempty = dict_get_number(tv->vval.v_dict, (char_u *)"empty");
+      }
+      else
+      {
+*** ../vim-8.1.0582/src/eval.c	2018-12-05 18:43:24.485493144 +0100
+--- src/eval.c	2018-12-14 15:33:09.746033785 +0100
+***************
+*** 4063,4069 ****
+       */
+      case '{':	ret = get_lambda_tv(arg, rettv, evaluate);
+  		if (ret == NOTDONE)
+! 		    ret = get_dict_tv(arg, rettv, evaluate);
+  		break;
+  
+      /*
+--- 4063,4069 ----
+       */
+      case '{':	ret = get_lambda_tv(arg, rettv, evaluate);
+  		if (ret == NOTDONE)
+! 		    ret = dict_get_tv(arg, rettv, evaluate);
+  		break;
+  
+      /*
+*** ../vim-8.1.0582/src/evalfunc.c	2018-12-13 22:17:52.873941502 +0100
+--- src/evalfunc.c	2018-12-14 15:32:00.942584406 +0100
+***************
+*** 8072,8078 ****
+      }
+  
+      if (dict_find(tv->vval.v_dict, (char_u *)"conceal", -1) != NULL)
+! 	*conceal_char = get_dict_string(tv->vval.v_dict,
+  						   (char_u *)"conceal", FALSE);
+  
+      if ((di = dict_find(tv->vval.v_dict, (char_u *)"window", -1)) != NULL)
+--- 8072,8078 ----
+      }
+  
+      if (dict_find(tv->vval.v_dict, (char_u *)"conceal", -1) != NULL)
+! 	*conceal_char = dict_get_string(tv->vval.v_dict,
+  						   (char_u *)"conceal", FALSE);
+  
+      if ((di = dict_find(tv->vval.v_dict, (char_u *)"window", -1)) != NULL)
+***************
+*** 10668,10674 ****
+  
+      if ((d = argvars[0].vval.v_dict) != NULL)
+      {
+! 	csearch = get_dict_string(d, (char_u *)"char", FALSE);
+  	if (csearch != NULL)
+  	{
+  #ifdef FEAT_MBYTE
+--- 10668,10674 ----
+  
+      if ((d = argvars[0].vval.v_dict) != NULL)
+      {
+! 	csearch = dict_get_string(d, (char_u *)"char", FALSE);
+  	if (csearch != NULL)
+  	{
+  #ifdef FEAT_MBYTE
+***************
+*** 10922,10937 ****
+  		}
+  	    }
+  
+! 	    group = get_dict_string(d, (char_u *)"group", TRUE);
+! 	    priority = (int)get_dict_number(d, (char_u *)"priority");
+! 	    id = (int)get_dict_number(d, (char_u *)"id");
+  	    conceal = dict_find(d, (char_u *)"conceal", -1) != NULL
+! 			      ? get_dict_string(d, (char_u *)"conceal", TRUE)
+  			      : NULL;
+  	    if (i == 0)
+  	    {
+  		match_add(curwin, group,
+! 		    get_dict_string(d, (char_u *)"pattern", FALSE),
+  		    priority, id, NULL, conceal);
+  	    }
+  	    else
+--- 10922,10937 ----
+  		}
+  	    }
+  
+! 	    group = dict_get_string(d, (char_u *)"group", TRUE);
+! 	    priority = (int)dict_get_number(d, (char_u *)"priority");
+! 	    id = (int)dict_get_number(d, (char_u *)"id");
+  	    conceal = dict_find(d, (char_u *)"conceal", -1) != NULL
+! 			      ? dict_get_string(d, (char_u *)"conceal", TRUE)
+  			      : NULL;
+  	    if (i == 0)
+  	    {
+  		match_add(curwin, group,
+! 		    dict_get_string(d, (char_u *)"pattern", FALSE),
+  		    priority, id, NULL, conceal);
+  	    }
+  	    else
+***************
+*** 13529,13535 ****
+  	    return;
+  	}
+  	if (dict_find(dict, (char_u *)"repeat", -1) != NULL)
+! 	    repeat = get_dict_number(dict, (char_u *)"repeat");
+      }
+  
+      callback = get_callback(&argvars[1], &partial);
+--- 13529,13535 ----
+  	    return;
+  	}
+  	if (dict_find(dict, (char_u *)"repeat", -1) != NULL)
+! 	    repeat = dict_get_number(dict, (char_u *)"repeat");
+      }
+  
+      callback = get_callback(&argvars[1], &partial);
+***************
+*** 14080,14108 ****
+      else
+      {
+  	if (dict_find(dict, (char_u *)"lnum", -1) != NULL)
+! 	    curwin->w_cursor.lnum = (linenr_T)get_dict_number(dict, (char_u *)"lnum");
+  	if (dict_find(dict, (char_u *)"col", -1) != NULL)
+! 	    curwin->w_cursor.col = (colnr_T)get_dict_number(dict, (char_u *)"col");
+  #ifdef FEAT_VIRTUALEDIT
+  	if (dict_find(dict, (char_u *)"coladd", -1) != NULL)
+! 	    curwin->w_cursor.coladd = (colnr_T)get_dict_number(dict, (char_u *)"coladd");
+  #endif
+  	if (dict_find(dict, (char_u *)"curswant", -1) != NULL)
+  	{
+! 	    curwin->w_curswant = (colnr_T)get_dict_number(dict, (char_u *)"curswant");
+  	    curwin->w_set_curswant = FALSE;
+  	}
+  
+  	if (dict_find(dict, (char_u *)"topline", -1) != NULL)
+! 	    set_topline(curwin, (linenr_T)get_dict_number(dict, (char_u *)"topline"));
+  #ifdef FEAT_DIFF
+  	if (dict_find(dict, (char_u *)"topfill", -1) != NULL)
+! 	    curwin->w_topfill = (int)get_dict_number(dict, (char_u *)"topfill");
+  #endif
+  	if (dict_find(dict, (char_u *)"leftcol", -1) != NULL)
+! 	    curwin->w_leftcol = (colnr_T)get_dict_number(dict, (char_u *)"leftcol");
+  	if (dict_find(dict, (char_u *)"skipcol", -1) != NULL)
+! 	    curwin->w_skipcol = (colnr_T)get_dict_number(dict, (char_u *)"skipcol");
+  
+  	check_cursor();
+  	win_new_height(curwin, curwin->w_height);
+--- 14080,14108 ----
+      else
+      {
+  	if (dict_find(dict, (char_u *)"lnum", -1) != NULL)
+! 	    curwin->w_cursor.lnum = (linenr_T)dict_get_number(dict, (char_u *)"lnum");
+  	if (dict_find(dict, (char_u *)"col", -1) != NULL)
+! 	    curwin->w_cursor.col = (colnr_T)dict_get_number(dict, (char_u *)"col");
+  #ifdef FEAT_VIRTUALEDIT
+  	if (dict_find(dict, (char_u *)"coladd", -1) != NULL)
+! 	    curwin->w_cursor.coladd = (colnr_T)dict_get_number(dict, (char_u *)"coladd");
+  #endif
+  	if (dict_find(dict, (char_u *)"curswant", -1) != NULL)
+  	{
+! 	    curwin->w_curswant = (colnr_T)dict_get_number(dict, (char_u *)"curswant");
+  	    curwin->w_set_curswant = FALSE;
+  	}
+  
+  	if (dict_find(dict, (char_u *)"topline", -1) != NULL)
+! 	    set_topline(curwin, (linenr_T)dict_get_number(dict, (char_u *)"topline"));
+  #ifdef FEAT_DIFF
+  	if (dict_find(dict, (char_u *)"topfill", -1) != NULL)
+! 	    curwin->w_topfill = (int)dict_get_number(dict, (char_u *)"topfill");
+  #endif
+  	if (dict_find(dict, (char_u *)"leftcol", -1) != NULL)
+! 	    curwin->w_leftcol = (colnr_T)dict_get_number(dict, (char_u *)"leftcol");
+  	if (dict_find(dict, (char_u *)"skipcol", -1) != NULL)
+! 	    curwin->w_skipcol = (colnr_T)dict_get_number(dict, (char_u *)"skipcol");
+  
+  	check_cursor();
+  	win_new_height(curwin, curwin->w_height);
+*** ../vim-8.1.0582/src/quickfix.c	2018-11-16 18:45:57.864041240 +0100
+--- src/quickfix.c	2018-12-14 15:32:09.382516272 +0100
+***************
+*** 6258,6273 ****
+      if (first_entry)
+  	did_bufnr_emsg = FALSE;
+  
+!     filename = get_dict_string(d, (char_u *)"filename", TRUE);
+!     module = get_dict_string(d, (char_u *)"module", TRUE);
+!     bufnum = (int)get_dict_number(d, (char_u *)"bufnr");
+!     lnum = (int)get_dict_number(d, (char_u *)"lnum");
+!     col = (int)get_dict_number(d, (char_u *)"col");
+!     vcol = (int)get_dict_number(d, (char_u *)"vcol");
+!     nr = (int)get_dict_number(d, (char_u *)"nr");
+!     type = get_dict_string(d, (char_u *)"type", TRUE);
+!     pattern = get_dict_string(d, (char_u *)"pattern", TRUE);
+!     text = get_dict_string(d, (char_u *)"text", TRUE);
+      if (text == NULL)
+  	text = vim_strsave((char_u *)"");
+  
+--- 6258,6273 ----
+      if (first_entry)
+  	did_bufnr_emsg = FALSE;
+  
+!     filename = dict_get_string(d, (char_u *)"filename", TRUE);
+!     module = dict_get_string(d, (char_u *)"module", TRUE);
+!     bufnum = (int)dict_get_number(d, (char_u *)"bufnr");
+!     lnum = (int)dict_get_number(d, (char_u *)"lnum");
+!     col = (int)dict_get_number(d, (char_u *)"col");
+!     vcol = (int)dict_get_number(d, (char_u *)"vcol");
+!     nr = (int)dict_get_number(d, (char_u *)"nr");
+!     type = dict_get_string(d, (char_u *)"type", TRUE);
+!     pattern = dict_get_string(d, (char_u *)"pattern", TRUE);
+!     text = dict_get_string(d, (char_u *)"text", TRUE);
+      if (text == NULL)
+  	text = vim_strsave((char_u *)"");
+  
+***************
+*** 6290,6296 ****
+  
+      // If the 'valid' field is present it overrules the detected value.
+      if ((dict_find(d, (char_u *)"valid", -1)) != NULL)
+! 	valid = (int)get_dict_number(d, (char_u *)"valid");
+  
+      status =  qf_add_entry(qi,
+  			qf_idx,
+--- 6290,6296 ----
+  
+      // If the 'valid' field is present it overrules the detected value.
+      if ((dict_find(d, (char_u *)"valid", -1)) != NULL)
+! 	valid = (int)dict_get_number(d, (char_u *)"valid");
+  
+      status =  qf_add_entry(qi,
+  			qf_idx,
+***************
+*** 6456,6462 ****
+  	return FAIL;
+  
+      vim_free(qfl->qf_title);
+!     qfl->qf_title = get_dict_string(what, (char_u *)"title", TRUE);
+      if (qf_idx == qi->qf_curlist)
+  	qf_update_win_titlevar(qi);
+  
+--- 6456,6462 ----
+  	return FAIL;
+  
+      vim_free(qfl->qf_title);
+!     qfl->qf_title = dict_get_string(what, (char_u *)"title", TRUE);
+      if (qf_idx == qi->qf_curlist)
+  	qf_update_win_titlevar(qi);
+  
+*** ../vim-8.1.0582/src/tag.c	2018-11-11 15:20:32.436704418 +0100
+--- src/tag.c	2018-12-14 15:32:15.522466806 +0100
+***************
+*** 4160,4173 ****
+  	if (list2fpos(&di->di_tv, &mark, &fnum, NULL) != OK)
+  	    continue;
+  	if ((tagname =
+! 		get_dict_string(itemdict, (char_u *)"tagname", TRUE)) == NULL)
+  	    continue;
+  
+  	if (mark.col > 0)
+  	    mark.col--;
+  	tagstack_push_item(wp, tagname,
+! 		(int)get_dict_number(itemdict, (char_u *)"bufnr"),
+! 		(int)get_dict_number(itemdict, (char_u *)"matchnr") - 1,
+  		mark, fnum);
+      }
+  }
+--- 4160,4173 ----
+  	if (list2fpos(&di->di_tv, &mark, &fnum, NULL) != OK)
+  	    continue;
+  	if ((tagname =
+! 		dict_get_string(itemdict, (char_u *)"tagname", TRUE)) == NULL)
+  	    continue;
+  
+  	if (mark.col > 0)
+  	    mark.col--;
+  	tagstack_push_item(wp, tagname,
+! 		(int)dict_get_number(itemdict, (char_u *)"bufnr"),
+! 		(int)dict_get_number(itemdict, (char_u *)"matchnr") - 1,
+  		mark, fnum);
+      }
+  }
+*** ../vim-8.1.0582/src/terminal.c	2018-11-11 22:18:17.214948188 +0100
+--- src/terminal.c	2018-12-14 15:32:21.230420914 +0100
+***************
+*** 3523,3531 ****
+  	dict_T *dict = opt_item->li_tv.vval.v_dict;
+  	char_u *p;
+  
+! 	p = get_dict_string(dict, (char_u *)"ff", FALSE);
+  	if (p == NULL)
+! 	    p = get_dict_string(dict, (char_u *)"fileformat", FALSE);
+  	if (p != NULL)
+  	{
+  	    if (check_ff_value(p) == FAIL)
+--- 3523,3531 ----
+  	dict_T *dict = opt_item->li_tv.vval.v_dict;
+  	char_u *p;
+  
+! 	p = dict_get_string(dict, (char_u *)"ff", FALSE);
+  	if (p == NULL)
+! 	    p = dict_get_string(dict, (char_u *)"fileformat", FALSE);
+  	if (p != NULL)
+  	{
+  	    if (check_ff_value(p) == FAIL)
+***************
+*** 3533,3541 ****
+  	    else
+  		ea.force_ff = *p;
+  	}
+! 	p = get_dict_string(dict, (char_u *)"enc", FALSE);
+  	if (p == NULL)
+! 	    p = get_dict_string(dict, (char_u *)"encoding", FALSE);
+  	if (p != NULL)
+  	{
+  	    ea.cmd = alloc((int)STRLEN(p) + 12);
+--- 3533,3541 ----
+  	    else
+  		ea.force_ff = *p;
+  	}
+! 	p = dict_get_string(dict, (char_u *)"enc", FALSE);
+  	if (p == NULL)
+! 	    p = dict_get_string(dict, (char_u *)"encoding", FALSE);
+  	if (p != NULL)
+  	{
+  	    ea.cmd = alloc((int)STRLEN(p) + 12);
+***************
+*** 3547,3553 ****
+  	    }
+  	}
+  
+! 	p = get_dict_string(dict, (char_u *)"bad", FALSE);
+  	if (p != NULL)
+  	    get_bad_opt(p, &ea);
+  
+--- 3547,3553 ----
+  	    }
+  	}
+  
+! 	p = dict_get_string(dict, (char_u *)"bad", FALSE);
+  	if (p != NULL)
+  	    get_bad_opt(p, &ea);
+  
+***************
+*** 3915,3922 ****
+  	d = argvars[2].vval.v_dict;
+  	if (d != NULL)
+  	{
+! 	    max_height = get_dict_number(d, (char_u *)"rows");
+! 	    max_width = get_dict_number(d, (char_u *)"columns");
+  	}
+      }
+  
+--- 3915,3922 ----
+  	d = argvars[2].vval.v_dict;
+  	if (d != NULL)
+  	{
+! 	    max_height = dict_get_number(d, (char_u *)"rows");
+! 	    max_width = dict_get_number(d, (char_u *)"columns");
+  	}
+      }
+  
+*** ../vim-8.1.0582/src/textprop.c	2018-12-14 12:18:07.764091572 +0100
+--- src/textprop.c	2018-12-14 15:32:29.026358345 +0100
+***************
+*** 173,179 ****
+  	EMSG(_("E965: missing property type name"));
+  	return;
+      }
+!     type_name = get_dict_string(dict, (char_u *)"type", FALSE);
+  
+      if (dict_find(dict, (char_u *)"end_lnum", -1) != NULL)
+      {
+--- 173,179 ----
+  	EMSG(_("E965: missing property type name"));
+  	return;
+      }
+!     type_name = dict_get_string(dict, (char_u *)"type", FALSE);
+  
+      if (dict_find(dict, (char_u *)"end_lnum", -1) != NULL)
+      {
+***************
+*** 183,192 ****
+      }
+  
+      if (dict_find(dict, (char_u *)"length", -1) != NULL)
+! 	length = get_dict_number(dict, (char_u *)"length");
+      else if (dict_find(dict, (char_u *)"end_col", -1) != NULL)
+      {
+! 	length = get_dict_number(dict, (char_u *)"end_col") - col;
+  	if (length <= 0)
+  	{
+  	    EMSG2(_(e_invargval), "end_col");
+--- 183,192 ----
+      }
+  
+      if (dict_find(dict, (char_u *)"length", -1) != NULL)
+! 	length = dict_get_number(dict, (char_u *)"length");
+      else if (dict_find(dict, (char_u *)"end_col", -1) != NULL)
+      {
+! 	length = dict_get_number(dict, (char_u *)"end_col") - col;
+  	if (length <= 0)
+  	{
+  	    EMSG2(_(e_invargval), "end_col");
+***************
+*** 195,201 ****
+      }
+  
+      if (dict_find(dict, (char_u *)"id", -1) != NULL)
+! 	id = get_dict_number(dict, (char_u *)"id");
+  
+      if (get_bufnr_from_arg(&argvars[2], &buf) == FAIL)
+  	return;
+--- 195,201 ----
+      }
+  
+      if (dict_find(dict, (char_u *)"id", -1) != NULL)
+! 	id = dict_get_number(dict, (char_u *)"id");
+  
+      if (get_bufnr_from_arg(&argvars[2], &buf) == FAIL)
+  	return;
+***************
+*** 265,271 ****
+  
+  /*
+   * Return TRUE if any text properties are defined globally or for buffer
+!  * 'buf".
+   */
+      int
+  has_any_text_properties(buf_T *buf)
+--- 265,271 ----
+  
+  /*
+   * Return TRUE if any text properties are defined globally or for buffer
+!  * "buf".
+   */
+      int
+  has_any_text_properties(buf_T *buf)
+***************
+*** 498,510 ****
+  
+      di = dict_find(dict, (char_u*)"all", -1);
+      if (di != NULL)
+! 	do_all = get_dict_number(dict, (char_u *)"all");
+  
+      if (dict_find(dict, (char_u *)"id", -1) != NULL)
+! 	id = get_dict_number(dict, (char_u *)"id");
+      if (dict_find(dict, (char_u *)"type", -1))
+      {
+! 	char_u	    *name = get_dict_string(dict, (char_u *)"type", FALSE);
+  	proptype_T  *type = lookup_prop_type(name, buf);
+  
+  	if (type == NULL)
+--- 498,510 ----
+  
+      di = dict_find(dict, (char_u*)"all", -1);
+      if (di != NULL)
+! 	do_all = dict_get_number(dict, (char_u *)"all");
+  
+      if (dict_find(dict, (char_u *)"id", -1) != NULL)
+! 	id = dict_get_number(dict, (char_u *)"id");
+      if (dict_find(dict, (char_u *)"type", -1))
+      {
+! 	char_u	    *name = dict_get_string(dict, (char_u *)"type", FALSE);
+  	proptype_T  *type = lookup_prop_type(name, buf);
+  
+  	if (type == NULL)
+***************
+*** 642,648 ****
+  	    char_u	*highlight;
+  	    int		hl_id = 0;
+  
+! 	    highlight = get_dict_string(dict, (char_u *)"highlight", FALSE);
+  	    if (highlight != NULL && *highlight != NUL)
+  		hl_id = syn_name2id(highlight);
+  	    if (hl_id <= 0)
+--- 642,648 ----
+  	    char_u	*highlight;
+  	    int		hl_id = 0;
+  
+! 	    highlight = dict_get_string(dict, (char_u *)"highlight", FALSE);
+  	    if (highlight != NULL && *highlight != NUL)
+  		hl_id = syn_name2id(highlight);
+  	    if (hl_id <= 0)
+*** ../vim-8.1.0582/src/version.c	2018-12-14 12:18:07.768091544 +0100
+--- src/version.c	2018-12-14 15:36:12.504617009 +0100
+***************
+*** 801,802 ****
+--- 801,804 ----
+  {   /* Add new patch number below this line */
++ /**/
++     583,
+  /**/
+
+-- 
+The average life of an organization chart is six months.  You can safely
+ignore any order from your boss that would take six months to complete.
+				(Scott Adams - The Dilbert principle)
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

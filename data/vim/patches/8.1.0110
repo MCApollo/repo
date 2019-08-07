@@ -1,0 +1,84 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0110
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0110
+Problem:    File name not displayed with ":file" when 'F' is in 'shortmess'.
+Solution:   Always display the file name when there is no argument (Christian
+            Brabandt, closes #3070)
+Files:	    src/ex_cmds.c, src/testdir/test_options.vim
+
+
+*** ../vim-8.1.0109/src/ex_cmds.c	2018-06-23 19:22:45.606486311 +0200
+--- src/ex_cmds.c	2018-06-24 16:53:22.557962803 +0200
+***************
+*** 3094,3104 ****
+      {
+  	if (rename_buffer(eap->arg) == FAIL)
+  	    return;
+      }
+!     /* print full file name if :cd used */
+!     if (!shortmess(SHM_FILEINFO))
+  	fileinfo(FALSE, FALSE, eap->forceit);
+-     redraw_tabline = TRUE;
+  }
+  
+  /*
+--- 3094,3105 ----
+      {
+  	if (rename_buffer(eap->arg) == FAIL)
+  	    return;
++ 	redraw_tabline = TRUE;
+      }
+! 
+!     // print file name if no argument or 'F' is not in 'shortmess'
+!     if (*eap->arg == NUL || !shortmess(SHM_FILEINFO))
+  	fileinfo(FALSE, FALSE, eap->forceit);
+  }
+  
+  /*
+*** ../vim-8.1.0109/src/testdir/test_options.vim	2018-05-13 17:56:20.000000000 +0200
+--- src/testdir/test_options.vim	2018-06-24 16:36:00.704103065 +0200
+***************
+*** 400,402 ****
+--- 400,416 ----
+      call assert_equal(4,&numberwidth)
+      bw!
+  endfunc
++ 
++ func Test_shortmess_F()
++   new
++   call assert_match('\[No Name\]', execute('file'))
++   set shortmess+=F
++   call assert_match('\[No Name\]', execute('file'))
++   call assert_match('^\s*$', execute('file foo'))
++   call assert_match('foo', execute('file'))
++   set shortmess-=F
++   call assert_match('bar', execute('file bar'))
++   call assert_match('bar', execute('file'))
++   set shortmess&
++   bwipe
++ endfunc
+*** ../vim-8.1.0109/src/version.c	2018-06-24 15:56:20.602363176 +0200
+--- src/version.c	2018-06-24 16:32:41.109320897 +0200
+***************
+*** 791,792 ****
+--- 791,794 ----
+  {   /* Add new patch number below this line */
++ /**/
++     110,
+  /**/
+
+
+-- 
+To be rich is not the end, but only a change of worries.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

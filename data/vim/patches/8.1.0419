@@ -1,0 +1,55 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0419
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0419
+Problem:    Cygwin: running cproto fails with -O2.
+Solution:   Strip -O2 for cproto. (Ken Takata, closes #3465)
+Files:	    src/Makefile
+
+
+*** ../vim-8.1.0418/src/Makefile	2018-09-15 15:08:48.348852704 +0200
+--- src/Makefile	2018-09-21 13:55:37.399172113 +0200
+***************
+*** 2028,2035 ****
+  # them as a list of individual flags.
+  # The -E"gcc -E" argument must be separate to avoid problems with shell
+  # quoting.
+  CPROTO = cproto $(PROTO_FLAGS) -DPROTO \
+! 	 `echo '$(LINT_CFLAGS)' | sed -e 's/ -[a-z-]\+//g'`
+  
+  ### Would be nice if this would work for "normal" make.
+  ### Currently it only works for (Free)BSD make.
+--- 2028,2036 ----
+  # them as a list of individual flags.
+  # The -E"gcc -E" argument must be separate to avoid problems with shell
+  # quoting.
++ # Strip -O2, it may cause cproto to write stderr to the file "2".
+  CPROTO = cproto $(PROTO_FLAGS) -DPROTO \
+! 	 `echo '$(LINT_CFLAGS)' | sed -e 's/ -[a-z-]\+//g' -e 's/ -O[^ ]\+//g'`
+  
+  ### Would be nice if this would work for "normal" make.
+  ### Currently it only works for (Free)BSD make.
+*** ../vim-8.1.0418/src/version.c	2018-09-21 13:44:04.307661575 +0200
+--- src/version.c	2018-09-21 13:53:52.263969338 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     419,
+  /**/
+
+-- 
+From "know your smileys":
+ 2B|^2B	  Message from Shakespeare
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

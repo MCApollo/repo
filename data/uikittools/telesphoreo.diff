@@ -1,0 +1,76 @@
+diff --git a/makefile b/makefile
+index 6764f73..055bbf8 100644
+--- a/makefile
++++ b/makefile
+@@ -1,4 +1,6 @@
+ uikittools = uiduid uicache uiopen gssc sbdidlaunch sbreload cfversion iomfsetgamma ldrestart ecidecid
++CC = $(PKG_TARG)-gcc
++CPP = $(PKG_TARG)-g++
+ 
+ all: $(uikittools)
+ 
+@@ -9,11 +11,9 @@ clean:
+ 
+ private := -F/System/Library/PrivateFrameworks
+ 
+-flags := -Os -Werror
++flags := -Os -Werror -Wno-deprecated-declarations
+ flags += -framework CoreFoundation
+ flags += -framework Foundation
+-flags += -miphoneos-version-min=2.0
+-flags += -arch armv6
+ 
+ ldrestart := -std=c++11
+ gssc := -lobjc
+@@ -28,31 +28,29 @@ uicache: csstore.cpp
+ extrainst_: csstore.cpp
+ 
+ %: %.m
+-	cycc -- -o $@ -x c $^ $(flags) $($@)
++	$(CC) -o $@ $^ $(flags) $($@)
+-	ldid -S$(wildcard $@.xml) $@
++	@if [ ! -z "$(wildcard $@.xml)" ]; then \
++		ldid -S$(wildcard $@.xml) $@; \
++	fi
+ 
+ %: %.mm
+-	cycc -- -o $@ $^ $(flags) $($@)
+-	ldid -S$(wildcard $@.xml) $@
++	$(CPP) -o $@ $^ $(flags) $($@)
++	@if [ ! -z "$(wildcard $@.xml)" ]; then \
++		ldid -S$(wildcard $@.xml) $@; \
++	fi
+ 
+ %: %.cpp
+-	cycc -- -o $@ $^ $(flags) $($@)
+-	ldid -S$(wildcard $@.xml) $@
++	$(CPP) -o $@ $^ $(flags) $($@)
++	@if [ ! -z "$(wildcard $@.xml)" ]; then \
++		ldid -S$(wildcard $@.xml) $@; \
++	fi
+ 
+ %: %.c
+-	cycc -- -o $@ -x c $^ $(flags) $($@)
+-	ldid -S$(wildcard $@.xml) $@
+-
+-package: all extrainst_
+-	sudo rm -rf _
+-	mkdir -p _/usr/bin
+-	cp -a $(filter-out %.dylib,$(uikittools)) _/usr/bin
+-	mkdir -p _/DEBIAN
+-	./control.sh _ >_/DEBIAN/control
+-	cp -a extrainst_ _/DEBIAN/
+-	mkdir -p debs
+-	ln -sf debs/uikittools_$$(./version.sh)_iphoneos-arm.deb uikittools.deb
+-	sudo chown -R 0 _
+-	sudo chgrp -R 0 _
+-	dpkg-deb -b _ uikittools.deb
+-	readlink uikittools.deb
++	$(CC) -o $@ -x c $^ $(flags) $($@)
++	@if [ ! -z "$(wildcard $@.xml)" ]; then \
++		ldid -S$(wildcard $@.xml) $@; \
++	fi
++
++install: all
++	mkdir -p $(DESTDIR)/usr/bin
++	cp -a $(filter-out %.dylib,$(uikittools)) $(DESTDIR)/usr/bin

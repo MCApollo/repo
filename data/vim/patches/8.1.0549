@@ -1,0 +1,111 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0549
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0549
+Problem:    Netbeans test depends on README.txt contents.
+Solution:   Use a generated file instead.
+Files:	    src/testdir/test_netbeans.vim, src/testdir/test_netbeans.py
+
+
+*** ../vim-8.1.0548/src/testdir/test_netbeans.vim	2017-11-02 17:59:12.000000000 +0100
+--- src/testdir/test_netbeans.vim	2018-11-26 21:14:37.366788783 +0100
+***************
+*** 20,32 ****
+  func Nb_basic(port)
+    call delete("Xnetbeans")
+    call writefile([], "Xnetbeans")
+    exe 'nbstart :localhost:' . a:port . ':bunny'
+    call assert_true(has("netbeans_enabled"))
+  
+    call WaitFor('len(readfile("Xnetbeans")) > 2')
+!   split +$ README.txt
+  
+!   " Opening README.txt will result in a setDot command
+    call WaitFor('len(readfile("Xnetbeans")) > 4')
+    call WaitFor('getcurpos()[1] == 3')
+    let pos = getcurpos()
+--- 20,33 ----
+  func Nb_basic(port)
+    call delete("Xnetbeans")
+    call writefile([], "Xnetbeans")
++   call writefile(repeat(['abcdefghijklmnopqrstuvwxyz'], 5), "XREADME.txt")
+    exe 'nbstart :localhost:' . a:port . ':bunny'
+    call assert_true(has("netbeans_enabled"))
+  
+    call WaitFor('len(readfile("Xnetbeans")) > 2')
+!   split +$ XREADME.txt
+  
+!   " Opening XREADME.txt will result in a setDot command
+    call WaitFor('len(readfile("Xnetbeans")) > 4')
+    call WaitFor('getcurpos()[1] == 3')
+    let pos = getcurpos()
+***************
+*** 41,51 ****
+    call assert_equal('AUTH bunny', lines[0])
+    call assert_equal('0:version=0 "2.5"', lines[1])
+    call assert_equal('0:startupDone=0', lines[2])
+!   call assert_equal('0:fileOpened=0 "README.txt" T F', substitute(lines[3], '".*/', '"', ''))
+  
+    call assert_equal('0:disconnect=1', lines[6])
+  
+    call delete("Xnetbeans")
+  endfunc
+  
+  func Test_nb_basic()
+--- 42,53 ----
+    call assert_equal('AUTH bunny', lines[0])
+    call assert_equal('0:version=0 "2.5"', lines[1])
+    call assert_equal('0:startupDone=0', lines[2])
+!   call assert_equal('0:fileOpened=0 "XREADME.txt" T F', substitute(lines[3], '".*/', '"', ''))
+  
+    call assert_equal('0:disconnect=1', lines[6])
+  
+    call delete("Xnetbeans")
++   call delete("XREADME.txt")
+  endfunc
+  
+  func Test_nb_basic()
+*** ../vim-8.1.0548/src/testdir/test_netbeans.py	2016-09-14 22:22:03.000000000 +0200
+--- src/testdir/test_netbeans.py	2018-11-26 21:12:12.531537664 +0100
+***************
+*** 42,48 ****
+                  myfile.write(received)
+  
+              response = ''
+!             if received.find('README.txt') > 0:
+                  name = received.split('"')[1]
+                  response = '5:putBufferNumber!33 "' + name + '"\n'
+                  response += '5:setDot!1 3/19\n'
+--- 42,48 ----
+                  myfile.write(received)
+  
+              response = ''
+!             if received.find('XREADME.txt') > 0:
+                  name = received.split('"')[1]
+                  response = '5:putBufferNumber!33 "' + name + '"\n'
+                  response += '5:setDot!1 3/19\n'
+*** ../vim-8.1.0548/src/version.c	2018-11-26 21:19:08.045334122 +0100
+--- src/version.c	2018-11-26 21:20:25.064910721 +0100
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     549,
+  /**/
+
+-- 
+The Law, in its majestic equality, forbids the rich, as well as the
+poor, to sleep under the bridges, to beg in the streets, and to steal
+bread.                       -- Anatole France
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

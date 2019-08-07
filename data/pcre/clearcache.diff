@@ -1,0 +1,19 @@
+diff -ru pcre-8.30/sljit/sljitConfigInternal.h pcre-8.30+iPhone/sljit/sljitConfigInternal.h
+--- pcre-8.30/sljit/sljitConfigInternal.h	2012-01-15 11:28:29.000000000 +0000
++++ pcre-8.30+iPhone/sljit/sljitConfigInternal.h	2012-05-02 00:29:17.000000000 +0000
+@@ -207,9 +207,15 @@
+ 
+ #else
+ 
++#ifdef __APPLE__
++/* Apple does not believe in __clear_cache */
++#define SLJIT_CACHE_FLUSH(from, to) \
++	sys_icache_invalidate((char*)(from), (char*)(to) - (char*)(from))
++#else
+ /* Calls __ARM_NR_cacheflush on ARM-Linux. */
+ #define SLJIT_CACHE_FLUSH(from, to) \
+ 	__clear_cache((char*)(from), (char*)(to))
++#endif
+ 
+ #endif
+ 

@@ -1,0 +1,43 @@
+diff -ur dpkg-1.18.25/lib/dpkg/parse.c dpkg-1.18.25+iPhone/lib/dpkg/parse.c
+--- dpkg-1.18.25/lib/dpkg/parse.c	2018-06-25 16:48:17.000000000 -1000
++++ dpkg-1.18.25+iPhone/lib/dpkg/parse.c	2018-09-14 10:11:08.000000000 -1000
+@@ -622,8 +622,6 @@
+ 
+   /* Loop per field. */
+   for (;;) {
+-    bool blank_line;
+-
+     /* Scan field name. */
+     fs->fieldstart = ps->dataptr - 1;
+     while (!parse_at_eof(ps) && !c_isspace(c) && c != ':' && c != MSDOS_EOF_CHAR)
+@@ -667,20 +665,10 @@
+       parse_error(ps, _("MSDOS end of file (^Z) in value of field '%.*s' (missing newline?)"),
+                   fs->fieldlen, fs->fieldstart);
+ 
+-    blank_line = false;
+-
+     /* Scan field value. */
+     fs->valuestart = ps->dataptr - 1;
+     for (;;) {
+       if (c == '\n' || c == MSDOS_EOF_CHAR) {
+-        if (blank_line) {
+-          if (ps->flags & pdb_lax_stanza_parser)
+-            parse_warn(ps, _("blank line in value of field '%.*s'"),
+-                       fs->fieldlen, fs->fieldstart);
+-          else
+-            parse_error(ps, _("blank line in value of field '%.*s'"),
+-                        fs->fieldlen, fs->fieldstart);
+-        }
+         ps->lno++;
+ 
+         if (parse_at_eof(ps))
+@@ -692,9 +680,6 @@
+           break;
+ 
+         parse_ungetc(c, ps);
+-        blank_line = true;
+-      } else if (blank_line && !c_isspace(c)) {
+-        blank_line = false;
+       }
+ 
+       if (parse_at_eof(ps))

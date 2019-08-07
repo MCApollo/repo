@@ -1,0 +1,14 @@
+export PKG_ar="xcrun -sdk iphoneos ar"
+export PKG_dsymutil="xcrun -sdk iphoneos dsymutil"
+export PKG_gcc="xcrun -sdk iphoneos gcc"
+export PKG_nmedit="xcrun -sdk iphoneos nmedit"
+export PKG_otool="xcrun -sdk iphoneos otool"
+export PKG_strip="xcrun -sdk iphoneos strip"
+export PKG_codesign_allocate="xcrun -sdk iphoneos codesign_allocate"
+export PKG_gpp="xcrun -sdk iphoneos g++"
+export PKG_nm="xcrun -sdk iphoneos nm"
+export PKG_objdump="xcrun -sdk iphoneos objdump"
+export PKG_ranlib="xcrun -sdk iphoneos ranlib"
+export PKG_MCPU=""
+export MACOSX_DEPLOYMENT_TARGET=10.13
+export IPHONEOS_DEPLOYMENT_TARGET=11.0

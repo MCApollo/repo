@@ -1,0 +1,97 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0072
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0072
+Problem:    Use of 'termwinkey' is inconsistent.
+Solution:   Change the documentation and the behavior. (Ken Takata)
+Files:	    src/terminal.c, runtime/doc/terminal.txt
+
+
+*** ../vim-8.1.0071/src/terminal.c	2018-06-12 20:25:47.887923393 +0200
+--- src/terminal.c	2018-06-17 22:02:22.045425925 +0200
+***************
+*** 2107,2113 ****
+--- 2107,2117 ----
+      in_terminal_loop = curbuf->b_term;
+  
+      if (*curwin->w_p_twk != NUL)
++     {
+  	termwinkey = string_to_key(curwin->w_p_twk, TRUE);
++ 	if (termwinkey == Ctrl_W)
++ 	    termwinkey = 0;
++     }
+      position_cursor(curwin, &curbuf->b_term->tl_cursor_pos);
+      may_set_cursor_props(curbuf->b_term);
+  
+***************
+*** 2203,2214 ****
+  		/* "CTRL-W CTRL-C" or 'termwinkey' CTRL-C: end the job */
+  		mch_signal_job(curbuf->b_term->tl_job, (char_u *)"kill");
+  	    }
+! 	    else if (termwinkey == 0 && c == '.')
+  	    {
+  		/* "CTRL-W .": send CTRL-W to the job */
+! 		c = Ctrl_W;
+  	    }
+! 	    else if (termwinkey == 0 && c == Ctrl_BSL)
+  	    {
+  		/* "CTRL-W CTRL-\": send CTRL-\ to the job */
+  		c = Ctrl_BSL;
+--- 2207,2219 ----
+  		/* "CTRL-W CTRL-C" or 'termwinkey' CTRL-C: end the job */
+  		mch_signal_job(curbuf->b_term->tl_job, (char_u *)"kill");
+  	    }
+! 	    else if (c == '.')
+  	    {
+  		/* "CTRL-W .": send CTRL-W to the job */
+! 		/* "'termwinkey' .": send 'termwinkey' to the job */
+! 		c = termwinkey == 0 ? Ctrl_W : termwinkey;
+  	    }
+! 	    else if (c == Ctrl_BSL)
+  	    {
+  		/* "CTRL-W CTRL-\": send CTRL-\ to the job */
+  		c = Ctrl_BSL;
+*** ../vim-8.1.0071/runtime/doc/terminal.txt	2018-06-17 21:34:08.277873656 +0200
+--- runtime/doc/terminal.txt	2018-06-17 22:03:58.916917371 +0200
+***************
+*** 87,93 ****
+  	'termwinkey' CTRL-W    move focus to the next window
+  	'termwinkey' :	       enter an Ex command
+  	'termwinkey' 'termwinkey' send 'termwinkey' to the job in the terminal
+! 	'termwinkey' .	       send a CTRL-W to the job in the terminal
+  	'termwinkey' N	       go to terminal Normal mode, see below
+  	'termwinkey' CTRL-N    same as CTRL-W N
+  	'termwinkey' CTRL-C    same as |t_CTRL-W_CTRL-C|
+--- 87,94 ----
+  	'termwinkey' CTRL-W    move focus to the next window
+  	'termwinkey' :	       enter an Ex command
+  	'termwinkey' 'termwinkey' send 'termwinkey' to the job in the terminal
+! 	'termwinkey' .	       send 'termwinkey' to the job in the terminal
+! 	'termwinkey' CTRL-\    send a CTRL-\ to the job in the terminal
+  	'termwinkey' N	       go to terminal Normal mode, see below
+  	'termwinkey' CTRL-N    same as CTRL-W N
+  	'termwinkey' CTRL-C    same as |t_CTRL-W_CTRL-C|
+*** ../vim-8.1.0071/src/version.c	2018-06-17 21:34:08.277873656 +0200
+--- src/version.c	2018-06-17 22:18:19.319512827 +0200
+***************
+*** 763,764 ****
+--- 763,766 ----
+  {   /* Add new patch number below this line */
++ /**/
++     72,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+68. Your cat always puts viruses on your dogs homepage
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

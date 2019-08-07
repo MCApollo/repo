@@ -1,0 +1,69 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0404
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0404
+Problem:    Accessing invalid memory with long argument name.
+Solution:   Use item_count instead of checking for a terminating NULL.
+            (Dominique Pelle, closes #3444)
+Files:	    src/testdir/test_arglist.vim, src/version.c
+
+
+*** ../vim-8.1.0403/src/testdir/test_arglist.vim	2018-08-31 23:06:18.735841246 +0200
+--- src/testdir/test_arglist.vim	2018-09-18 21:48:47.705268287 +0200
+***************
+*** 411,413 ****
+--- 411,420 ----
+    call assert_equal('notexist Xx\ x runtest.vim', expand('##'))
+    call delete('Xx x')
+  endfunc
++ 
++ func Test_large_arg()
++   " Argument longer or equal to the number of columns used to cause
++   " access to invalid memory.
++   exe 'argadd ' .repeat('x', &columns)
++   args
++ endfunc
+*** ../vim-8.1.0403/src/version.c	2018-09-18 21:41:43.716652306 +0200
+--- src/version.c	2018-09-18 21:50:15.188571404 +0200
+***************
+*** 1725,1731 ****
+      if (Columns < width)
+      {
+  	/* Not enough screen columns - show one per line */
+! 	for (i = 0; items[i] != NULL; ++i)
+  	{
+  	    version_msg_wrap(items[i], i == current);
+  	    if (msg_col > 0)
+--- 1727,1733 ----
+      if (Columns < width)
+      {
+  	/* Not enough screen columns - show one per line */
+! 	for (i = 0; i < item_count; ++i)
+  	{
+  	    version_msg_wrap(items[i], i == current);
+  	    if (msg_col > 0)
+*** ../vim-8.1.0403/src/version.c	2018-09-18 21:41:43.716652306 +0200
+--- src/version.c	2018-09-18 21:50:15.188571404 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     404,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+91. It's Saturday afternoon in the middle of May and you
+    are on computer.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

@@ -1,0 +1,12 @@
+diff -ru bootstrap_cmds-60/migcom.tproj/mig_machine.h bootstrap_cmds-60+iPhone/migcom.tproj/mig_machine.h
+--- bootstrap_cmds-60/migcom.tproj/mig_machine.h	2000-01-11 00:36:17.000000000 +0000
++++ bootstrap_cmds-60+iPhone/migcom.tproj/mig_machine.h	2007-12-30 06:00:47.000000000 +0000
+@@ -4,6 +4,8 @@
+ #include "i386/mig_machine.h"
+ #elif defined(__ppc__)
+ #include "ppc/mig_machine.h"
++#elif defined(__arm__) || defined(__arm64__)
++#include "arm/mig_machine.h"
+ #else
+ #error Architecture not supported
+ #endif

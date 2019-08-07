@@ -1,0 +1,12 @@
+diff -ur bash/execute_cmd.c bash/execute_cmd.c
+--- bash/execute_cmd.c	2018-01-29 10:13:20.000000000 -1000
++++ bash/execute_cmd.c	2018-03-19 17:04:07.000000000 -1000
+@@ -5474,7 +5474,7 @@
+ 
+   /* If we get to this point, then start checking out the file.
+      Maybe it is something we can hack ourselves. */
+-  if (i != ENOEXEC)
++  if (i != ENOEXEC && i != EPERM) // EPERM is the error on iOS11 when it can't execute a shebang
+     {
+       /* make sure this is set correctly for file_error/report_error */
+       last_command_exit_value = (i == ENOENT) ?  EX_NOTFOUND : EX_NOEXEC; /* XXX Posix.2 says that exit status is 126 */

@@ -1,0 +1,197 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0213
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0213
+Problem:    CTRL-W CR does not work properly in a quickfix window.
+Solution:   Split the window if needed. (Jason Franklin)
+Files:	    src/normal.c, src/proto/quickfix.pro, src/quickfix.c,
+            src/testdir/test_quickfix.vim, src/window.c
+
+
+*** ../vim-8.1.0212/src/normal.c	Tue Jun 12 22:05:10 2018
+--- src/normal.c	Wed Jul 25 22:14:24 2018
+***************
+*** 6202,6219 ****
+  	cap->arg = FORWARD;
+  	nv_page(cap);
+      }
+-     else
+  #if defined(FEAT_QUICKFIX)
+!     /* In a quickfix window a <CR> jumps to the error under the cursor. */
+!     if (bt_quickfix(curbuf) && cap->cmdchar == CAR)
+!     {
+! 	if (curwin->w_llist_ref == NULL)
+! 	    do_cmdline_cmd((char_u *)".cc");	/* quickfix window */
+! 	else
+! 	    do_cmdline_cmd((char_u *)".ll");	/* location list window */
+!     }
+!     else
+  #endif
+      {
+  #ifdef FEAT_CMDWIN
+  	/* In the cmdline window a <CR> executes the command. */
+--- 6202,6213 ----
+  	cap->arg = FORWARD;
+  	nv_page(cap);
+      }
+  #if defined(FEAT_QUICKFIX)
+!     /* Quickfix window only: view the result under the cursor. */
+!     else if (bt_quickfix(curbuf) && cap->cmdchar == CAR)
+! 	qf_view_result(FALSE);
+  #endif
++     else
+      {
+  #ifdef FEAT_CMDWIN
+  	/* In the cmdline window a <CR> executes the command. */
+*** ../vim-8.1.0212/src/proto/quickfix.pro	Thu May 17 13:52:49 2018
+--- src/proto/quickfix.pro	Wed Jul 25 22:14:24 2018
+***************
+*** 7,12 ****
+--- 7,13 ----
+  void qf_age(exarg_T *eap);
+  void qf_history(exarg_T *eap);
+  void qf_mark_adjust(win_T *wp, linenr_T line1, linenr_T line2, long amount, long amount_after);
++ void qf_view_result(int split);
+  void ex_cwindow(exarg_T *eap);
+  void ex_cclose(exarg_T *eap);
+  void ex_copen(exarg_T *eap);
+*** ../vim-8.1.0212/src/quickfix.c	Sun Jul  8 18:20:18 2018
+--- src/quickfix.c	Wed Jul 25 22:35:13 2018
+***************
+*** 3490,3495 ****
+--- 3490,3531 ----
+  }
+  
+  /*
++  * When "split" is FALSE: Open the entry/result under the cursor.
++  * When "split" is TRUE: Open the entry/result under the cursor in a new window.
++  */
++     void
++ qf_view_result(int split)
++ {
++     qf_info_T   *qi = &ql_info;
++ 
++     if (!bt_quickfix(curbuf))
++ 	return;
++ 
++     if (IS_LL_WINDOW(curwin))
++ 	qi = GET_LOC_LIST(curwin);
++ 
++     if (qi == NULL || qi->qf_lists[qi->qf_curlist].qf_count == 0)
++     {
++ 	EMSG(_(e_quickfix));
++ 	return;
++     }
++ 
++     if (split)
++     {
++ 	char_u      cmd[32];
++ 
++ 	vim_snprintf((char *)cmd, sizeof(cmd), "split +%ld%s",
++ 		(long)curwin->w_cursor.lnum,
++ 		IS_LL_WINDOW(curwin) ? "ll" : "cc");
++ 	if (do_cmdline_cmd(cmd) == OK)
++ 	    do_cmdline_cmd((char_u *) "clearjumps");
++ 	return;
++     }
++ 
++     do_cmdline_cmd((char_u *)(IS_LL_WINDOW(curwin) ? ".ll" : ".cc"));
++ }
++ 
++ /*
+   * ":cwindow": open the quickfix window if we have errors to display,
+   *	       close it if not.
+   * ":lwindow": open the location list window if we have locations to display,
+*** ../vim-8.1.0212/src/testdir/test_quickfix.vim	Sun Jul  8 16:01:04 2018
+--- src/testdir/test_quickfix.vim	Wed Jul 25 22:14:24 2018
+***************
+*** 3504,3506 ****
+--- 3504,3524 ----
+    call assert_equal([' 1 abc:pat1:  '],
+  			\ split(execute('filter /pat1/ clist'), "\n"))
+  endfunc
++ 
++ " Tests for the "CTRL-W <CR>" command.
++ func Xview_result_split_tests(cchar)
++   call s:setup_commands(a:cchar)
++ 
++   " Test that "CTRL-W <CR>" in a qf/ll window fails with empty list.
++   call g:Xsetlist([])
++   Xopen
++   let l:win_count = winnr('$')
++   call assert_fails('execute "normal! \<C-W>\<CR>"', 'E42')
++   call assert_equal(l:win_count, winnr('$'))
++   Xclose
++ endfunc
++ 
++ func Test_view_result_split()
++   call Xview_result_split_tests('c')
++   call Xview_result_split_tests('l')
++ endfunc
+*** ../vim-8.1.0212/src/window.c	Sun Jun 17 16:23:29 2018
+--- src/window.c	Wed Jul 25 22:14:24 2018
+***************
+*** 520,542 ****
+  		break;
+  #endif
+  
+      case K_KENTER:
+      case CAR:
+- #if defined(FEAT_QUICKFIX)
+- 		/*
+- 		 * In a quickfix window a <CR> jumps to the error under the
+- 		 * cursor in a new window.
+- 		 */
+  		if (bt_quickfix(curbuf))
+! 		{
+! 		    sprintf((char *)cbuf, "split +%ld%s",
+! 				(long)curwin->w_cursor.lnum,
+! 				(curwin->w_llist_ref == NULL) ? "cc" : "ll");
+! 		    do_cmdline_cmd(cbuf);
+! 		}
+! #endif
+  		break;
+! 
+  
+  /* CTRL-W g  extended commands */
+      case 'g':
+--- 520,533 ----
+  		break;
+  #endif
+  
++ /* Quickfix window only: view the result under the cursor in a new split. */
++ #if defined(FEAT_QUICKFIX)
+      case K_KENTER:
+      case CAR:
+  		if (bt_quickfix(curbuf))
+! 		    qf_view_result(TRUE);
+  		break;
+! #endif
+  
+  /* CTRL-W g  extended commands */
+      case 'g':
+*** ../vim-8.1.0212/src/version.c	Wed Jul 25 22:02:32 2018
+--- src/version.c	Wed Jul 25 22:23:40 2018
+***************
+*** 795,796 ****
+--- 795,798 ----
+  {   /* Add new patch number below this line */
++ /**/
++     213,
+  /**/
+
+-- 
+You got to work at a mill?  Lucky!  I got sent back to work in the
+acid-mines for my daily crust of stale bread... which not even the
+birds would eat.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

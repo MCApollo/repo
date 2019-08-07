@@ -1,0 +1,270 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0399
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0399
+Problem:    'hlsearch' highlight remains in other window after cancelling
+            command.
+Solution:   Redraw all windows. Also remove unnecessary delays. (closes #3437)
+Files:	    src/ex_getln.c, src/testdir/test_search.vim,
+            src/testdir/dumps/Test_incsearch_substitute_11.dump,
+            src/testdir/dumps/Test_incsearch_substitute_12.dump,
+            src/testdir/dumps/Test_incsearch_substitute_13.dump
+
+
+*** ../vim-8.1.0398/src/ex_getln.c	2018-09-15 15:42:36.501547749 +0200
+--- src/ex_getln.c	2018-09-16 17:05:34.778903616 +0200
+***************
+*** 445,454 ****
+  	p_magic = is_state->magic_save;
+  
+  	validate_cursor();	/* needed for TAB */
+  	if (call_update_screen)
+  	    update_screen(SOME_VALID);
+- 	else
+- 	    redraw_all_later(SOME_VALID);
+      }
+  }
+  
+--- 445,453 ----
+  	p_magic = is_state->magic_save;
+  
+  	validate_cursor();	/* needed for TAB */
++ 	redraw_all_later(SOME_VALID);
+  	if (call_update_screen)
+  	    update_screen(SOME_VALID);
+      }
+  }
+  
+***************
+*** 589,596 ****
+      {
+  	next_char = ccline.cmdbuff[skiplen + patlen];
+  	ccline.cmdbuff[skiplen + patlen] = NUL;
+! 	if (empty_pattern(ccline.cmdbuff))
+  	    set_no_hlsearch(TRUE);
+  	ccline.cmdbuff[skiplen + patlen] = next_char;
+      }
+  
+--- 588,598 ----
+      {
+  	next_char = ccline.cmdbuff[skiplen + patlen];
+  	ccline.cmdbuff[skiplen + patlen] = NUL;
+! 	if (empty_pattern(ccline.cmdbuff) && !no_hlsearch)
+! 	{
+! 	    redraw_all_later(SOME_VALID);
+  	    set_no_hlsearch(TRUE);
++ 	}
+  	ccline.cmdbuff[skiplen + patlen] = next_char;
+      }
+  
+*** ../vim-8.1.0398/src/testdir/test_search.vim	2018-09-15 15:42:36.501547749 +0200
+--- src/testdir/test_search.vim	2018-09-16 16:55:11.543875312 +0200
+***************
+*** 834,846 ****
+  
+    " Need to send one key at a time to force a redraw.
+    call term_sendkeys(buf, '/fo')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_search_01', {})
+    call term_sendkeys(buf, "\<Esc>")
+    sleep 100m
+  
+    call term_sendkeys(buf, '/\v')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_search_02', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+--- 834,844 ----
+***************
+*** 899,905 ****
+    call term_sendkeys(buf, 'o')
+    sleep 100m
+    call term_sendkeys(buf, 'o')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_01', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+--- 897,902 ----
+***************
+*** 907,936 ****
+    call term_sendkeys(buf, "/foo\<CR>")
+    sleep 100m
+    call term_sendkeys(buf, ':.,.+2s//')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_02', {})
+  
+    " Deleting last slash should remove the match.
+    call term_sendkeys(buf, "\<BS>")
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_03', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    " Reverse range is accepted
+    call term_sendkeys(buf, ':5,2s/foo')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_04', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    " White space after the command is skipped
+    call term_sendkeys(buf, ':2,3sub  /fo')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_05', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    " Command modifiers are skipped
+    call term_sendkeys(buf, ':above below browse botr confirm keepmar keepalt keeppat keepjum filter xxx hide lockm leftabove noau noswap rightbel sandbox silent silent! $tab top unsil vert verbose 4,5s/fo.')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_06', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+--- 904,928 ----
+***************
+*** 938,950 ****
+    call term_sendkeys(buf, ":set cursorline\<CR>")
+    call term_sendkeys(buf, 'G9G')
+    call term_sendkeys(buf, ':9,11s/bar')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_07', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    " Cursorline highlighting at cursor when no match
+    call term_sendkeys(buf, ':9,10s/bar')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_08', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+--- 930,940 ----
+***************
+*** 952,958 ****
+    call term_sendkeys(buf, '3G4G')
+    call term_sendkeys(buf, ":nohlsearch\<CR>")
+    call term_sendkeys(buf, ':6,7s/\v')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_09', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+--- 942,947 ----
+***************
+*** 965,970 ****
+--- 954,968 ----
+    call term_sendkeys(buf, "\<Esc>")
+    call VerifyScreenDump(buf, 'Test_incsearch_substitute_10', {})
+  
++   call term_sendkeys(buf, ":split\<CR>")
++   call term_sendkeys(buf, ":let @/ = 'xyz'\<CR>")
++   call term_sendkeys(buf, ":%s/.")
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_11', {})
++   call term_sendkeys(buf, "\<BS>")
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_12', {})
++   call term_sendkeys(buf, "\<Esc>")
++   call VerifyScreenDump(buf, 'Test_incsearch_substitute_13', {})
++ 
+    call StopVimInTerminal(buf)
+    call delete('Xis_subst_script')
+  endfunc
+***************
+*** 988,994 ****
+  
+    " Need to send one key at a time to force a redraw.
+    call term_sendkeys(buf, ':sort ni u /on')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_sort_01', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+--- 986,991 ----
+***************
+*** 1015,1041 ****
+  
+    " Need to send one key at a time to force a redraw.
+    call term_sendkeys(buf, ':vimgrep on')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_01', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    call term_sendkeys(buf, ':vimg /on/ *.txt')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_02', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    call term_sendkeys(buf, ':vimgrepadd "\<on')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_03', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    call term_sendkeys(buf, ':lv "tha')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_04', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+    call term_sendkeys(buf, ':lvimgrepa "the" **/*.txt')
+-   sleep 100m
+    call VerifyScreenDump(buf, 'Test_incsearch_vimgrep_05', {})
+    call term_sendkeys(buf, "\<Esc>")
+  
+--- 1012,1033 ----
+*** ../vim-8.1.0398/src/testdir/dumps/Test_incsearch_substitute_11.dump	2018-09-16 17:07:07.942125313 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_11.dump	2018-09-16 16:51:19.114021175 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+1&#ffffff0|o+0&#ffff4012@1| |1| +0&#ffffff0@64
++ |f+0&#ffff4012|o@1| |2| +0&#ffffff0@64
++ |f+0&#ffff4012|o@1| |3| +0&#ffffff0@64
++ |[+3&&|N|o| |N|a|m|e|]| |[|+|]| @38|1|,|1| @11|T|o|p
++ |f+0&#ffff4012|o@1| |1| +0&#ffffff0@64
++ |f+0&#ffff4012|o@1| |2| +0&#ffffff0@64
++ |f+0&#ffff4012|o@1| |3| +0&#ffffff0@64
++ |[+1&&|N|o| |N|a|m|e|]| |[|+|]| @38|2|,|1| @11|T|o|p
++ |:+0&&|%|s|/|.> @64
+*** ../vim-8.1.0398/src/testdir/dumps/Test_incsearch_substitute_12.dump	2018-09-16 17:07:07.946125279 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_12.dump	2018-09-16 17:02:35.668361451 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+0&#ffffff0|o@1| |1| @64
++ |f|o@1| |2| @64
++ |f|o@1| |3| @64
++ |[+3&&|N|o| |N|a|m|e|]| |[|+|]| @38|1|,|1| @11|T|o|p
++ |f+0&&|o@1| |1| @64
++ |f|o@1| |2| @64
++ |f|o@1| |3| @64
++ |[+1&&|N|o| |N|a|m|e|]| |[|+|]| @38|2|,|1| @11|T|o|p
++ |:+0&&|%|s|/> @65
+*** ../vim-8.1.0398/src/testdir/dumps/Test_incsearch_substitute_13.dump	2018-09-16 17:07:07.950125246 +0200
+--- src/testdir/dumps/Test_incsearch_substitute_13.dump	2018-09-16 16:56:55.698917689 +0200
+***************
+*** 0 ****
+--- 1,9 ----
++ |f+0&#ffffff0|o@1| |1| @64
++ >f|o@1| |2| @64
++ |f|o@1| |3| @64
++ |[+3&&|N|o| |N|a|m|e|]| |[|+|]| @38|2|,|1| @11|T|o|p
++ |f+0&&|o@1| |1| @64
++ |f|o@1| |2| @64
++ |f|o@1| |3| @64
++ |[+1&&|N|o| |N|a|m|e|]| |[|+|]| @38|2|,|1| @11|T|o|p
++ | +0&&@69
+*** ../vim-8.1.0398/src/version.c	2018-09-16 16:28:08.358268312 +0200
+--- src/version.c	2018-09-16 17:06:16.446556974 +0200
+***************
+*** 796,797 ****
+--- 796,799 ----
+  {   /* Add new patch number below this line */
++ /**/
++     399,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+73. You give your dog used motherboards instead of bones
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

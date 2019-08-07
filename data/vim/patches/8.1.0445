@@ -1,0 +1,317 @@
+To: vim_dev@googlegroups.com
+Subject: Patch 8.1.0445
+Fcc: outbox
+From: Bram Moolenaar <Bram@moolenaar.net>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+------------
+
+Patch 8.1.0445
+Problem:    Setting 'term' does not store location for termcap options.
+Solution:   Set the script context for termcap options that are changed when
+            'term' is set.
+Files:	    src/option.c, src/proto/option.pro, src/term.c,
+            src/testdir/test_options.vim
+
+
+*** ../vim-8.1.0444/src/option.c	2018-09-30 21:43:17.199693265 +0200
+--- src/option.c	2018-10-02 14:12:11.856267373 +0200
+***************
+*** 1755,1766 ****
+      {"langmap",     "lmap", P_STRING|P_VI_DEF|P_ONECOMMA|P_NODUP|P_SECURE,
+  #ifdef FEAT_LANGMAP
+  			    (char_u *)&p_langmap, PV_NONE,
+! 			    {(char_u *)"",	/* unmatched } */
+  #else
+  			    (char_u *)NULL, PV_NONE,
+! 			    {(char_u *)NULL,
+  #endif
+! 				(char_u *)0L} SCTX_INIT},
+      {"langmenu",    "lm",   P_STRING|P_VI_DEF|P_NFNAME,
+  #if defined(FEAT_MENU) && defined(FEAT_MULTI_LANG)
+  			    (char_u *)&p_lm, PV_NONE,
+--- 1755,1766 ----
+      {"langmap",     "lmap", P_STRING|P_VI_DEF|P_ONECOMMA|P_NODUP|P_SECURE,
+  #ifdef FEAT_LANGMAP
+  			    (char_u *)&p_langmap, PV_NONE,
+! 			    {(char_u *)"", (char_u *)0L}
+  #else
+  			    (char_u *)NULL, PV_NONE,
+! 			    {(char_u *)NULL, (char_u *)0L}
+  #endif
+! 			    SCTX_INIT},
+      {"langmenu",    "lm",   P_STRING|P_VI_DEF|P_NFNAME,
+  #if defined(FEAT_MENU) && defined(FEAT_MULTI_LANG)
+  			    (char_u *)&p_lm, PV_NONE,
+***************
+*** 5790,5809 ****
+  }
+  
+  /*
+!  * Mark a terminal option as allocated, found by a pointer into term_strings[].
+   */
+!     void
+! set_term_option_alloced(char_u **p)
+  {
+!     int		opt_idx;
+  
+      for (opt_idx = 1; options[opt_idx].fullname != NULL; opt_idx++)
+  	if (options[opt_idx].var == (char_u *)p)
+! 	{
+! 	    options[opt_idx].flags |= P_ALLOCED;
+! 	    return;
+! 	}
+!     return; /* cannot happen: didn't find it! */
+  }
+  
+  #if defined(FEAT_EVAL) || defined(PROTO)
+--- 5790,5821 ----
+  }
+  
+  /*
+!  * Return the option index found by a pointer into term_strings[].
+!  * Return -1 if not found.
+   */
+!     int
+! get_term_opt_idx(char_u **p)
+  {
+!     int opt_idx;
+  
+      for (opt_idx = 1; options[opt_idx].fullname != NULL; opt_idx++)
+  	if (options[opt_idx].var == (char_u *)p)
+! 	    return opt_idx;
+!     return -1; // cannot happen: didn't find it!
+! }
+! 
+! /*
+!  * Mark a terminal option as allocated, found by a pointer into term_strings[].
+!  * Return the option index or -1 if not found.
+!  */
+!     int
+! set_term_option_alloced(char_u **p)
+! {
+!     int		opt_idx = get_term_opt_idx(p);
+! 
+!     if (opt_idx >= 0)
+! 	options[opt_idx].flags |= P_ALLOCED;
+!     return opt_idx;
+  }
+  
+  #if defined(FEAT_EVAL) || defined(PROTO)
+***************
+*** 8237,8242 ****
+--- 8249,8280 ----
+  	    curwin->w_p_script_ctx[indir & PV_MASK] = new_script_ctx;
+      }
+  }
++ 
++ /*
++  * Set the script_ctx for a termcap option.
++  * "name" must be the two character code, e.g. "RV".
++  * When "name" is NULL use "opt_idx".
++  */
++     void
++ set_term_option_sctx_idx(char *name, int opt_idx)
++ {
++     char_u  buf[5];
++     int	    idx;
++ 
++     if (name == NULL)
++ 	idx = opt_idx;
++     else
++     {
++ 	buf[0] = 't';
++ 	buf[1] = '_';
++ 	buf[2] = name[0];
++ 	buf[3] = name[1];
++ 	buf[4] = 0;
++ 	idx = findoption(buf);
++     }
++     if (idx >= 0)
++ 	set_option_sctx_idx(idx, OPT_GLOBAL, current_sctx);
++ }
+  #endif
+  
+  /*
+***************
+*** 10445,10451 ****
+  {
+      struct vimoption   *p;
+  
+!     for (p = &options[0]; p->fullname != NULL; p++)
+  	if (istermoption(p))
+  	{
+  	    if (p->flags & P_ALLOCED)
+--- 10483,10489 ----
+  {
+      struct vimoption   *p;
+  
+!     for (p = options; p->fullname != NULL; p++)
+  	if (istermoption(p))
+  	{
+  	    if (p->flags & P_ALLOCED)
+***************
+*** 10455,10460 ****
+--- 10493,10502 ----
+  	    *(char_u **)(p->var) = empty_option;
+  	    p->def_val[VI_DEFAULT] = empty_option;
+  	    p->flags &= ~(P_ALLOCED|P_DEF_ALLOCED);
++ #ifdef FEAT_EVAL
++ 	    // remember where the option was cleared
++ 	    set_option_sctx_idx((int)(p - options), OPT_GLOBAL, current_sctx);
++ #endif
+  	}
+      clear_termcodes();
+  }
+*** ../vim-8.1.0444/src/proto/option.pro	2018-09-13 20:31:47.103018229 +0200
+--- src/proto/option.pro	2018-10-02 14:12:15.040243605 +0200
+***************
+*** 17,27 ****
+  void check_buf_options(buf_T *buf);
+  void free_string_option(char_u *p);
+  void clear_string_option(char_u **pp);
+! void set_term_option_alloced(char_u **p);
+  int was_set_insecurely(char_u *opt, int opt_flags);
+  void set_string_option_direct(char_u *name, int opt_idx, char_u *val, int opt_flags, int set_sid);
+  char_u *check_colorcolumn(win_T *wp);
+  char_u *check_stl_option(char_u *s);
+  int get_option_value(char_u *name, long *numval, char_u **stringval, int opt_flags);
+  int get_option_value_strict(char_u *name, long *numval, char_u **stringval, int opt_type, void *from);
+  char_u *option_iter_next(void **option, int opt_type);
+--- 17,29 ----
+  void check_buf_options(buf_T *buf);
+  void free_string_option(char_u *p);
+  void clear_string_option(char_u **pp);
+! int get_term_opt_idx(char_u **p);
+! int set_term_option_alloced(char_u **p);
+  int was_set_insecurely(char_u *opt, int opt_flags);
+  void set_string_option_direct(char_u *name, int opt_idx, char_u *val, int opt_flags, int set_sid);
+  char_u *check_colorcolumn(win_T *wp);
+  char_u *check_stl_option(char_u *s);
++ void set_term_option_sctx_idx(char *name, int opt_idx);
+  int get_option_value(char_u *name, long *numval, char_u **stringval, int opt_flags);
+  int get_option_value_strict(char_u *name, long *numval, char_u **stringval, int opt_type, void *from);
+  char_u *option_iter_next(void **option, int opt_type);
+*** ../vim-8.1.0444/src/term.c	2018-09-30 21:43:17.207693209 +0200
+--- src/term.c	2018-10-02 14:44:51.335763377 +0200
+***************
+*** 1471,1476 ****
+--- 1471,1479 ----
+  	    if (term_strings[p->bt_entry] == NULL
+  				 || term_strings[p->bt_entry] == empty_option)
+  	    {
++ #ifdef FEAT_EVAL
++ 		int opt_idx = -1;
++ #endif
+  		/* 8bit terminal: use CSI instead of <Esc>[ */
+  		if (term_8bit && term_7to8bit((char_u *)p->bt_string) != 0)
+  		{
+***************
+*** 1486,1496 ****
+  				STRMOVE(t + 1, t + 2);
+  			    }
+  			term_strings[p->bt_entry] = s;
+! 			set_term_option_alloced(&term_strings[p->bt_entry]);
+  		    }
+  		}
+  		else
+  		    term_strings[p->bt_entry] = (char_u *)p->bt_string;
+  	    }
+  	}
+  	else
+--- 1489,1511 ----
+  				STRMOVE(t + 1, t + 2);
+  			    }
+  			term_strings[p->bt_entry] = s;
+! #ifdef FEAT_EVAL
+! 			opt_idx =
+! #endif
+! 				  set_term_option_alloced(
+! 						   &term_strings[p->bt_entry]);
+  		    }
+  		}
+  		else
++ 		{
+  		    term_strings[p->bt_entry] = (char_u *)p->bt_string;
++ #ifdef FEAT_EVAL
++ 		    opt_idx = get_term_opt_idx(&term_strings[p->bt_entry]);
++ #endif
++ 		}
++ #ifdef FEAT_EVAL
++ 		set_term_option_sctx_idx(NULL, opt_idx);
++ #endif
+  	    }
+  	}
+  	else
+***************
+*** 1616,1622 ****
+--- 1631,1642 ----
+      {
+  	if (TERM_STR(string_names[i].dest) == NULL
+  			     || TERM_STR(string_names[i].dest) == empty_option)
++ 	{
+  	    TERM_STR(string_names[i].dest) = TGETSTR(string_names[i].name, &tp);
++ #ifdef FEAT_EVAL
++ 	    set_term_option_sctx_idx(string_names[i].name, -1);
++ #endif
++ 	}
+      }
+  
+      /* tgetflag() returns 1 if the flag is present, 0 if not and
+***************
+*** 1658,1664 ****
+--- 1678,1689 ----
+       * Get number of colors (if not done already).
+       */
+      if (TERM_STR(KS_CCO) == NULL || TERM_STR(KS_CCO) == empty_option)
++     {
+  	set_color_count(tgetnum("Co"));
++ #ifdef FEAT_EVAL
++ 	set_term_option_sctx_idx("Co", -1);
++ #endif
++     }
+  
+  # ifndef hpux
+      BC = (char *)TGETSTR("bc", &tp);
+*** ../vim-8.1.0444/src/testdir/test_options.vim	2018-08-23 22:20:31.449852029 +0200
+--- src/testdir/test_options.vim	2018-10-02 14:42:18.764840113 +0200
+***************
+*** 270,275 ****
+--- 270,287 ----
+    call assert_fails('set t_foo=', 'E846:')
+  endfunc
+  
++ " Must be executed before other tests that set 'term'.
++ func Test_000_term_option_verbose()
++   let verb_cm = execute('verbose set t_cm')
++   call assert_notmatch('Last set from', verb_cm)
++ 
++   let term_save = &term
++   set term=ansi
++   let verb_cm = execute('verbose set t_cm')
++   call assert_match('Last set from.*test_options.vim', verb_cm)
++   let &term = term_save
++ endfunc
++ 
+  func Test_set_ttytype()
+    if !has('gui_running') && has('unix')
+      " Setting 'ttytype' used to cause a double-free when exiting vim and
+*** ../vim-8.1.0444/src/version.c	2018-10-02 14:15:08.991376909 +0200
+--- src/version.c	2018-10-02 14:42:46.984641236 +0200
+***************
+*** 794,795 ****
+--- 794,797 ----
+  {   /* Add new patch number below this line */
++ /**/
++     445,
+  /**/
+
+-- 
+hundred-and-one symptoms of being an internet addict:
+132. You come back and check this list every half-hour.
+
+ /// Bram Moolenaar -- Bram@Moolenaar.net -- http://www.Moolenaar.net   \\\
+///        sponsor Vim, vote for features -- http://www.Vim.org/sponsor/ \\\
+\\\  an exciting new programming language -- http://www.Zimbu.org        ///
+ \\\            help me help AIDS victims -- http://ICCF-Holland.org    ///

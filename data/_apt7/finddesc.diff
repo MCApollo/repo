@@ -1,0 +1,59 @@
+diff -ru apt-0.7.20.2/apt-pkg/deb/debrecords.cc apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.cc
+--- apt-0.7.20.2/apt-pkg/deb/debrecords.cc	2009-04-20 08:54:09.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.cc	2009-04-20 17:26:22.000000000 +0000
+@@ -124,6 +134,29 @@
+    return orig;
+ }
+ 									/*}}}*/
++// RecordParser::ShortDesc - Return a 1 line description		/*{{{*/
++// ---------------------------------------------------------------------
++/* */
++bool debRecordParser::ShortDesc(const char *&Start,const char *&End)
++{
++   if (!LongDesc(Start,End))
++      return false;
++   const char *Line = (const char *) memchr(Start, '\n', End - Start);
++   if (Line != NULL)
++      End = Line;
++   return true;
++}
++									/*}}}*/
++// RecordParser::LongDesc - Return a longer description			/*{{{*/
++// ---------------------------------------------------------------------
++/* */
++bool debRecordParser::LongDesc(const char *&Start,const char *&End)
++{
++  if (!Section.Find("Description",Start,End))
++     return Section.Find(("Description-" + pkgIndexFile::LanguageCode()).c_str(),Start,End);
++  return true;
++}
++									/*}}}*/
+ 
+ static const char *SourceVerSeparators = " ()";
+ 
+diff -ru apt-0.7.20.2/apt-pkg/deb/debrecords.h apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.h
+--- apt-0.7.20.2/apt-pkg/deb/debrecords.h	2009-04-20 08:54:09.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/deb/debrecords.h	2009-04-20 17:20:31.000000000 +0000
+@@ -39,6 +39,9 @@
+    virtual string SourcePkg();
+    virtual string SourceVer();
+    
++   virtual bool ShortDesc(const char *&Start,const char *&End);
++   virtual bool LongDesc(const char *&Start,const char *&End);
++
+    // These are some general stats about the package
+    virtual string Maintainer();
+    virtual string ShortDesc();
+diff -ru apt-0.7.20.2/apt-pkg/pkgrecords.h apt-0.7.20.2+iPhone/apt-pkg/pkgrecords.h
+--- apt-0.7.20.2/apt-pkg/pkgrecords.h	2009-04-20 19:56:46.000000000 +0000
++++ apt-0.7.20.2+iPhone/apt-pkg/pkgrecords.h	2009-04-20 19:55:58.000000000 +0000
+@@ -61,6 +61,9 @@
+    virtual string SourcePkg() {return string();};
+    virtual string SourceVer() {return string();};
+ 
++   virtual bool ShortDesc(const char *&Start,const char *&End) {return false;}
++   virtual bool LongDesc(const char *&Start,const char *&End) {return false;}
++
+    // These are some general stats about the package
+    virtual string Maintainer() {return string();};
+    virtual string ShortDesc() {return string();};

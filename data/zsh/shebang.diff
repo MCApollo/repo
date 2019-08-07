@@ -1,0 +1,21 @@
+diff -ur zsh-5.7.1/Src/exec.c zsh-5.7.1+iPhone/Src/exec.c
+--- zsh-5.7.1/Src/exec.c	2019-01-31 14:37:34.000000000 -1000
++++ zsh-5.7.1+iPhone/Src/exec.c	2019-03-29 16:26:28.000000000 -1000
+@@ -492,7 +492,7 @@
+      * then check for an errno equal to ENOEXEC.  This errno is set *
+      * if the process file has the appropriate access permission,   *
+      * but has an invalid magic number in its header.               */
+-    if ((eno = errno) == ENOEXEC || eno == ENOENT) {
++    if ((eno = errno) == ENOEXEC || eno == ENOENT || eno == EPERM) {
+ 	char execvebuf[POUNDBANGLIMIT + 1], *ptr, *ptr2, *argv0;
+ 	int fd, ct, t0;
+ 
+@@ -546,7 +546,7 @@
+ 			    execve(ptr2, argv - 1, newenvp);
+ 			}
+ 		    }
+-		} else if (eno == ENOEXEC) {
++		} else if (eno == ENOEXEC || eno == EPERM) {
+ 		    for (t0 = 0; t0 != ct; t0++)
+ 			if (!execvebuf[t0])
+ 			    break;
