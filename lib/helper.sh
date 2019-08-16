@@ -1,13 +1,15 @@
 #!/bin/bash
 
-source "${PKG_BASE}/architect.sh"
+source "${PKG_BASE}/lib/architect.sh"
+
+export CODESIGN_ALLOCATE=$(which codesign_allocate)
 
 export FAKEROOT="fakeroot -i \"${PKG_BASE}/.fakeroot\" -s \"${PKG_BASE}/.fakeroot\""
 
 export PKG_ROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk
 export PKG_CCPF=$("${PKG_TARG}-gcc" -v 2>&1 | grep -- --prefix | sed -e 's/.*--prefix=\([^ ]*\).*/\1/')
 
-source "${PKG_BASE}/folders.sh"
+source "${PKG_BASE}/lib/folders.sh"
 
 if [[ ${PKG_NAME} != @(-|:*) ]]; then
     export PKG_MORE=$(PKG_MORE_ "${PKG_NAME}")
