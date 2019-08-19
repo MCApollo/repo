@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 shopt -s extglob nullglob
 
@@ -7,7 +7,7 @@ export PKG_BASE=$(realpath "$(dirname "$0")")
 export PATH=${PKG_BASE}/util:$PATH
 shift
 
-source "${PKG_BASE}/helper.sh"
+source "${PKG_BASE}/lib/helper.sh"
 export PKG_TAPF=$(cat "${PKG_BASE}/arch/${PKG_ARCH}/${PKG_CFTARG}/prefix")
 
 PKG_PATH=

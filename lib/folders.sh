@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function PKG_DATA_() {
     echo "${PKG_BASE}/data/$1"

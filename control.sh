@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 shopt -s extglob nullglob
 
 export PKG_NAME=$1
 shift
 
 export PKG_BASE=$(realpath "$(dirname "$0")")
-. "${PKG_BASE}/helper.sh"
+. "${PKG_BASE}/lib/helper.sh"
 
 if [[ -n $2 ]]; then
     PKG_VRSN=$2
@@ -94,7 +94,7 @@ else
 fi
 
 if [[ ! -e ${PKG_DATA}/_metadata/depends_ ]]; then
-    . "${PKG_BASE}/autodeps.sh"
+    . "${PKG_BASE}/lib/autodeps.sh"
     unset comma
     for dep in "${PKG_DEPS[@]}"; do
         if [[ ${dep} == _* ]]; then

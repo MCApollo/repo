@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 shopt -s extglob nullglob
 
-if [[ $# == 0 ]]; then
-    echo "usage: $0 <package>"
+if (( ! $# )); then
+    echo "usage: ${0##*/} <package>"
     exit
 fi
 
@@ -11,7 +11,7 @@ export PKG_MAKE=$0
 export PKG_NAME=${1%_}
 
 export PKG_BASE=$(realpath "$(dirname "$0")")
-source "${PKG_BASE}/helper.sh"
+source "${PKG_BASE}/lib/helper.sh"
 
 ./make.sh "${PKG_NAME}"
 

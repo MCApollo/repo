@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash bash
 
 source "${PKG_BASE}/lib/architect.sh"
 

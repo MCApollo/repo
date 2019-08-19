@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 export PATH=${PKG_BASE}/util:$PATH
 declare -a PKG_DPKG_DEPS
 declare -a PKG_MISSING_DEPS

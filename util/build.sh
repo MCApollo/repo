@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 set -e
 shopt -s extglob
 #for package in coreutils berkeleydb bzip2 apt adv-cmds libutil gettext gawk tar network-cmds shell-cmds odcctools readline modmyifone darwintools sed pcre gnupg grep inetutils saurik gzip dpkg iphonesurge unzip libarmfp nano base bash system-cmds libresolv zip ncurses less; do

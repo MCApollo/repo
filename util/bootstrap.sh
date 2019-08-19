@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 shopt -s extglob nullglob
 
 export PKG_BASE=$(realpath "$(dirname "$0")")
-source "${PKG_BASE}/architect.sh"
+source "${PKG_BASE}/lib/architect.sh"
 
 export PKG_BOOT=${PKG_BASE}/Packager
 
@@ -49,7 +49,7 @@ for PKG_NAME in "${PKG_REQS[@]}"; do
 
     cd "${PKG_BASE}"
     #./package.sh "${PKG_NAME}"
-    source "${PKG_BASE}/helper.sh"
+    source "${PKG_BASE}/lib/helper.sh"
 
     echo "merging ${PKG_NAME} ${PKG_VRSN}-${PKG_RVSN}..."
     merge "${PKG_BASE}/debs/${PKG_CFTARG}/${PKG_NAME}_${PKG_VRSN}-${PKG_RVSN}_${PKG_ARCH}.deb" "${PKG_NAME}"
