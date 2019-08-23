@@ -1,5 +1,0 @@
-pkg:setup
-autoconf
-pkg:configure ac_cv_libnet_endianess=lil ac_libnet_have_packet_socket=no ac_cv_libnet_linux_procfs=no ac_cv_lbl_unaligned_fail=no
-make
-pkg:install

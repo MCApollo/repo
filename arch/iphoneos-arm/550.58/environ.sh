@@ -1,3 +1,0 @@
-export PKG_MCPU="-mthumb -Wl,-segalign,4000"
-export MACOSX_DEPLOYMENT_TARGET=10.5
-export IPHONEOS_DEPLOYMENT_TARGET=4.3

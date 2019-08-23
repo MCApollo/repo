@@ -1,1 +1,0 @@
-alias less='less -R'

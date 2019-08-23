@@ -1,0 +1,17 @@
+
+_BREW_ROOT=$(dirname $(realpath ${0}))
+
+function grab(){
+	${_BREW_ROOT}/beer.sh grab "$@"
+}
+
+function create_directories() {
+	${_BREW_ROOT}/beer.sh directory "$@"
+}
+
+function download_db() {
+	${_BREW_ROOT}/beer.sh download "$@"
+}
+
+export PKG_CFTARG='1561.00'
+export PKG_ARCH='iphoneos-arm'

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [[ $1 == abort-install || $1 == abort-upgrade ]]; then
-    bin=/usr/sbin/rtadvd
-    if [[ -e "${bin}".sbin ]]; then
-        mv -f -v "${bin}"{.sbin,} || exit 1
-    fi
-fi
