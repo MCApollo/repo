@@ -1,0 +1,118 @@
+.TH aamath 1 "March 1, 2005" "Version 0.3" "USER COMMANDS"
+.SH NAME
+aamath \- renders mathematical expressions as ASCII art
+.SH SYNOPSIS
+.BR "aamath " [
+.BR "\-q " |
+.BR "\-r " "] ["
+.IR "expression " "... ]"
+\
+.SH DESCRIPTION
+.PP
+.I aamath
+is a program that accepts math expressions in infix notation and
+outputs them as ASCII art renderings. Expressions can either be entered as
+command line arguments, or supplied on standard input.
+\
+.SH OPTIONS
+.TP
+.B \-q
+Quiet mode.
+.TP
+.B \-r
+More compact radicals.
+\
+.SH EXPRESSIONS
+The simplest types of expression in
+.I aamath
+are constants and variables. The following are recognized as constants:
+.TP
+.B number
+A number, optionally in scientific notation, optionally followed by ellipsis. Precision is limited only by available memory, since 
+numbers are represented internally as strings.
+.TP
+.B inf
+Infinity.
+.TP
+.B nabla
+The nabla operator.
+.TP
+.B ...
+Ellipsis.
+.PP
+A variable is represented by an alphabetic character, optionally followed by a sequence of alphanumeric characters. A variable may have a subscript: these are represented by an underline character
+.RB ( _ )
+followed by an expression. If followed by a backslash character
+(\fB\\\fP),
+the variable name will be rendered with an over score. Variables names may also be followed by one or more primes (apostrophes).
+\
+.PP
+Functions are represented by the function name, which follows the same syntax of variable names (including optional subscripts, over score, and primes), followed by comma-separated function arguments between parentheses. Trigonometric functions are rendered differently if they are raised to a power: the exponent will appear between the function name and the argument.
+\
+.PP
+Matrices are represented by a sequence of expressions between square brackets; commas separate elements of the same row, and semicolons separate rows.
+\
+.PP
+Other than the standard arithmetic and logical operators, which obey the usual precedence rules,
+.I aamath
+also accepts the following operations:
+.TP
+.IB expr1 " ^ " expr1
+.I expr1
+raised to
+.IR expr2 .
+.TP
+.BI "~(" expr )
+Complex conjugate of the expression.
+.TP
+.IB expr !
+Factorial of the expression.
+.PP
+The following special functions are also recognized:
+.TP
+.BI sqrt( expr )
+Square root of the expression.
+.TP
+.BI root( expr ", " ord )
+Root of order 
+.I ord
+of the expression.
+.TP
+.BI lim( expr ", " var " -> " lim )
+Limit of
+.I expr
+with
+.I var
+tending to
+.IR lim .
+.TP
+\fBint(\fP\fIexpr\fP\fB, \fP\fIvar \fP[\fB=\fP \fIfrom\fP \fB..\fP \fIto\fP\
+]\fB)\fP
+Integral of
+.I expr
+with respect to
+.IR var ,
+optionally with with limits
+.I from
+and
+.IR to .
+.TP
+\fBsum(\fP\fIexpr\fP\fB, \fP\fIvar \fP[\fB=\fP \fIfrom\fP \fB..\fP \fIto\fP\
+]\fB)\fP
+Sum of
+.I expr
+for values of
+.I var
+in the interval. The interval is optional.
+.TP
+\fBprod(\fP\fIexpr\fP\fB, \fP\fIvar \fP[\fB=\fP \fIfrom\fP \fB..\fP \fIto\fP\
+]\fB)\fP
+Product of
+.I expr
+for values of
+.I var
+in the interval. The interval is optional.
+.SH BUGS
+It needs a better man page.
+.SH AUTHOR
+Mauro Persano (mauro_persano (at) yahoo.com), with help from bicoherent.

@@ -1,0 +1,33 @@
+CXX		= gpp
+LD		= gpp
+CXXFILES	= parser.cc lexer.cc expr.cc canvas.cc aamath.cc
+OBJS		= $(CXXFILES:.cc=.o) 
+TARGET		= aamath.exe
+CFLAGS		= -Wall -O2 -g
+LFLAGS		= -g
+LIBS		=
+CMD		= c:\windows\system32\cmd /c
+
+$(TARGET): $(OBJS)
+	$(LD) $(LFLAGS) $(OBJS) -o $@ $(LIBS)
+
+parser.cc parser.h: parser.y
+	bison -d -b parser -o parser.cc $<
+	$(CMD) del parser.h
+	$(CMD) ren parser.hh parser.h
+
+lexer.cc: lexer.l parser.h
+	flex lexer.l
+	$(CMD) del lexer.cc
+	$(CMD) ren lexyy.c lexer.cc
+
+.cc.o:
+	$(CXX) $(CFLAGS) -c $<
+
+clean:
+	$(CMD) del *.o
+	$(CMD) del lexer.cc
+	$(CMD) del parser.h
+	$(CMD) del parser.cc
+	$(CMD) del lexyy.c
+	$(CMD) del $(TARGET)
