@@ -26,10 +26,8 @@ mkdir -p "${PKG_MORE}" "${PKG_DEST}" "${PKG_WORK}"
 # Export all build functions.
 . "${PKG_BASE}/lib/pkg.sh"
 
-( # Execute package's make.sh in a subshell.
 cd "${PKG_WORK}"
 "${PKG_BASE}/exec.sh" "${PKG_NAME}" . "${PKG_DATA}/make.sh"
-)
 
 # Clean up
 for x in    \

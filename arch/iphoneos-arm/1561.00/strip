@@ -21,13 +21,13 @@ find "${PKG_DEST}" -type f \( -perm -0100 -o -name '*.dylib' -o -name '*.so' \) 
         continue; fi
     if grep $'\xfa\xde\x0c\x01' "${bin}" &>/dev/null; then
         continue; fi
-    if "${PKG_BASE}/util/ldid" -e "${bin}" >/dev/null 2>&1; then
+    if ldid -e "${bin}" >/dev/null 2>&1; then
         continue; fi
 
     perms=$(stat -f %p "${bin}" | sed -e s/^1//)
     chmod 755 "${bin}"
 		
-    echo "${PKG_BASE}/util/ldid" -S"${ENTITLEMENT}" "${bin}"
-    "${PKG_BASE}/util/ldid" -S"${ENTITLEMENT}" "${bin}"
+    echo "ldid" -S"${ENTITLEMENT}" "${bin}"
+    ldid -S"${ENTITLEMENT}" "${bin}"
     chmod "${perms}" "${bin}"
 done

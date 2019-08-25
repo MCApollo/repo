@@ -47,7 +47,7 @@ while [[ $# -ne 0 ]]; do case "$1" in
 esac; shift; done
 
 if [[ ${dbpf+@} ]]; then
-    source "${PKG_BASE}/folders.sh"
+    source "${PKG_BASE}/lib/folders.sh"
 fi
 
 outs=
