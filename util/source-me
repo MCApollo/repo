@@ -18,3 +18,14 @@ export PKG_ARCH='iphoneos-arm'
 
 export COPYFILE_DISABLE
 export COPY_EXTENDED_ATTRIBUTES_DISABLE
+
+function commit_formula(){
+	local x=$(realpath .)
+	if [[ $(basename $(dirname ${x})) == "data" ]]; then
+		git add ${x}
+		git commit -m "data: ${x##*/}"
+	else
+		echo "Error."
+		return 1
+	fi
+}

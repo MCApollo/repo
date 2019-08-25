@@ -4,12 +4,13 @@ function pkg:patch() {
     pkg:libtool_ libtool
     pkg:libtool_ ltmain.sh
 
-    for diff in "${PKG_DATA}"/*.diff; do
-        if [[ ${diff} =~ .*/_[^/]*.diff$ ]]; then
+    for diff in "${PKG_DATA}"/*.diff "${PKG_DATA}"/*.patch ; do
+        if [[ ${diff} =~ .*/_[^/]*.diff$ || ${diff} =~ .*/_[^/]*.patch$ ]]; then
             continue;
         fi
 
         args=$(cat ${diff%.diff}.args 2>/dev/null || true)
+	[[ -z ${args} ]] && args=$(cat ${diff%.patch}.args 2>/dev/null || true)
         echo "patching with ${diff}..."
         patch ${args:=-p1} <"${diff}"
     done
