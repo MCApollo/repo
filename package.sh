@@ -71,7 +71,7 @@ else
         echo "${PKG_HASH}" >"${PKG_STAT}/dest-md5"
         echo "${PKG_RVSN}" >"${PKG_STAT}/dest-ver"
         if [[ -e "${PKG_BASE}"/upload.sh ]]; then
-            "${PKG_BASE}"/upload.sh debs "${PKG_PACK}"
+            "${PKG_BASE}"/upload.sh "${PKG_PACK}"
         fi
     fi
 fi
