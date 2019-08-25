@@ -1,0 +1,11 @@
+--- a/glib/meson.build	2019-03-04 14:06:14.000000000 -0600
++++ b/glib/meson.build	2019-03-18 04:18:02.299006192 -0500
+@@ -230,7 +230,7 @@
+   platform_deps = []
+ endif
+ 
+-if host_system == 'darwin'
++if host_system == 'darwin' and glib_have_cocoa
+   glib_sources += files('gosxutils.m')
+ endif
+ 
