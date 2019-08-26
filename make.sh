@@ -15,6 +15,28 @@ declare -rx PKG_MAKE=$0 \
 . "${PKG_BASE}/lib/helper.sh"
 export PKG_TAPF=$(cat "${PKG_BASE}/arch/${PKG_ARCH}/${PKG_CFTARG}/prefix")
 
+for DEP_NAME in "${PKG_DEPS[@]}"; do
+    "${PKG_MAKE}" "${DEP_NAME}"
+done
+
+export PKG_HASH=$({
+    "${PKG_BASE}"/util/catdir.sh "${PKG_DATA}" -L \( -name '.svn' -o -name '_*' \) -prune -o
+
+    for DEP_NAME in "${PKG_DEPS[@]}"; do
+        "${PKG_BASE}"/util/catdir.sh "$(PKG_DEST_ "${DEP_NAME}")"
+        DEP_MORE="$(PKG_MORE_ "${DEP_NAME}")"
+        if [[ -d ${DEP_MORE} ]]; then
+            "${PKG_BASE}"/util/catdir.sh "${DEP_MORE}"
+        fi
+    done
+} | md5sum | cut -d ' ' -f 1)
+
+echo "hashed data ${PKG_NAME} to: ${PKG_HASH}"
+
+if [[ -e "${PKG_STAT}/data-md5" && ${PKG_HASH} == $(cat "${PKG_STAT}/data-md5") ]]; then
+    echo "skipping re-build of ${PKG_NAME}"
+    exit
+fi
 
 # Clean up
 mkdir -p "${PKG_STAT}"
