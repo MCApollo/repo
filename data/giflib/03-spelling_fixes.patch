@@ -1,0 +1,38 @@
+Description: Spelling fixes
+Author: Thibaut GRIDEL <tgridel@free.fr>, Andreas Metzler <ametzler@debian.org>
+Origin: vendor
+Last-Update: 2017-08-01
+
+--- a/util/gifbg.c
++++ b/util/gifbg.c
+@@ -159,7 +159,7 @@ int main(int argc, char **argv)
+ 	    break;
+     }
+     if (Direction == DIR_NONE)
+-	GIF_EXIT("Direction requested (-d option) is wierd!");
++	GIF_EXIT("Direction requested (-d option) is weird!");
+ 
+     /* We are going to handle only TOP, TOP_RIGHT, RIGHT, BOT_RIGHT  so flip */
+     /* the complement cases (TOP <-> BOT for example) by flipping the	     */
+--- a/doc/gifecho.xml
++++ b/doc/gifecho.xml
+@@ -63,7 +63,7 @@ Enables printout of running scan lines.
+ <varlistentry>
+ <term>-f foreground</term>
+ <listitem>
+-<para> Select foreground index (background is always 0).  By default it is one and therefore the image result is bicolored. if FG is set to n then color map will be created with 2^k entries where 2^k &gt; n for minimum k, assuming k &lt;= 8.  This color map will be all zeros except this forground index. This option is useful if this text image should be integrated into other image colormap using their colors.</para>
++<para> Select foreground index (background is always 0).  By default it is one and therefore the image result is bicolored. if FG is set to n then color map will be created with 2^k entries where 2^k &gt; n for minimum k, assuming k &lt;= 8.  This color map will be all zeros except this foreground index. This option is useful if this text image should be integrated into other image colormap using their colors.</para>
+ </listitem>
+ </varlistentry>
+ 
+--- a/util/giffix.c
++++ b/util/giffix.c
+@@ -201,7 +201,7 @@ int main(int argc, char **argv)
+ ******************************************************************************/
+ static void QuitGifError(GifFileType *GifFileIn, GifFileType *GifFileOut)
+ {
+-    fprintf(stderr, "\nFollowing unrecoverable error occured:");
++    fprintf(stderr, "\nFollowing unrecoverable error occurred:");
+     if (GifFileIn != NULL) {
+ 	PrintGifError(GifFileIn->Error);
+ 	EGifCloseFile(GifFileIn, NULL);
