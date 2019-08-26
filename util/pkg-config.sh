@@ -6,6 +6,8 @@
 declare -a args
 declare -a pkgs
 unset dbpf
+export PKG_TAPF=$(cat "${PKG_BASE}/arch/${PKG_ARCH}/${PKG_CFTARG}/prefix")
+
 
 while [[ $# -ne 0 ]]; do case "$1" in
     (--version)
@@ -62,7 +64,7 @@ for pkg in "${pkgs[@]}"; do
             DEP_DEST=$(PKG_DEST_ "${DEP_NAME}")
 
             find "${DEP_DEST}" -name "${pkgspec}.pc" -printf "${DEP_DEST}\n"
-        done | head -n 1) && args_=(--define-variable=prefix="${dest}/usr" "${args_[@]}")
+        done | head -n 1) && args_=(--define-variable=prefix="${dest}/${PKG_TAPF}" "${args_[@]}")
     fi
 
     echo @@@ pkg-config "${args_[@]}" "${pkg}" 1>&2
