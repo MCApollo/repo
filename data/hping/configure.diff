@@ -1,0 +1,43 @@
+diff -ur hping3-20051105/configure hping3-20051105+iPhone/configure
+--- hping3-20051105/configure	2004-06-04 06:39:10.000000000 +0000
++++ hping3-20051105+iPhone/configure	2019-05-13 19:59:05.550325991 +0000
+@@ -22,7 +22,7 @@
+ if [ "$INSTALL_MANPATH" = "" ]; then
+ 	INSTALL_MANPATH="/usr/local/man"
+ fi
+-BYTEORDER=`./byteorder -m`
++BYTEORDER=__LITTLE_ENDIAN_BITFIELD
+ 
+ echo create byteorder.h...
+ cat > byteorder.h <<EOF
+@@ -38,7 +38,7 @@
+ #endif /* __BYTEORDER_H */
+ EOF
+ 
+-CONFIGOSTYPE=`uname -s | tr [a-z] [A-Z]`
++# CONFIGOSTYPE=`uname -s | tr [a-z] [A-Z]`
+ if [ ! "$CONFIGOSTYPE" ]; then
+ 	CONFIGOSTYPE=UNKNOWN
+ fi
+@@ -61,21 +61,6 @@
+ #
+ # TCL detection
+ #
+-for TCLPATH_TRY in "/usr/bin/" "/usr/local/bin/" "/bin/"
+-do
+-	for TCLVER_TRY in "8.4" "8.3" "8.2" "8.1" "8.0"
+-	do
+-		if [ -z $TCLSH ]
+-		then
+-			TCLSH_TRY=${TCLPATH_TRY}tclsh${TCLVER_TRY}
+-			if [ -f $TCLSH_TRY ]
+-			then
+-				TCLSH=$TCLSH_TRY
+-				echo "===> Found Tclsh in: $TCLSH"
+-			fi
+-		fi
+-	done
+-done
+ if [ -f $TCLSH ]
+ then
+ 	TCL_VER=`echo puts \\$tcl_version | $TCLSH -`

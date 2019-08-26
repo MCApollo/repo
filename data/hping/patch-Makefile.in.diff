@@ -1,0 +1,45 @@
+diff -ur hping3-20051105/Makefile.in hping3-20051105+iPhone/Makefile.in
+--- hping3-20051105/Makefile.in	2004-04-09 23:38:56.000000000 +0000
++++ hping3-20051105+iPhone/Makefile.in	2019-05-13 20:02:36.242406634 +0000
+@@ -14,7 +14,8 @@
+ #uncomment the following if you need libpcap based build under linux
+ #(not raccomanded)
+ COMPILE_TIME=
+-INSTALL_MANPATH=@MANPATH@
++INSTALL_PATH=
++INSTALL_MANPATH=
+ @PCAP@
+ 
+ ARSOBJ = ars.o apd.o split.o rapd.o
+@@ -52,7 +53,6 @@
+ hping3: byteorder.h $(OBJ)
+ 	$(CC) -o hping3 $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@
+ 	@echo
+-	./hping3 -v
+ 	@echo "use \`make strip' to strip hping3 binary"
+ 	@echo "use \`make install' to install hping3"
+ 
+@@ -60,7 +60,7 @@
+ 	$(CC) -static -o hping3-static $(CCOPT) $(DEBUG) $(OBJ) -L/usr/local/lib $(PCAP) @SOLARISLIB@ @TCL_LIB@ -ldl
+ 
+ byteorder.h:
+-	./configure
++	true
+ 
+ .c.o:
+ 	$(CC) -c $(CCOPT) $(DEBUG) $(COMPILE_TIME) $<
+@@ -72,10 +72,10 @@
+ 	rm -rf hping3 *.o byteorder byteorder.h systype.h Makefile libars.a .depend
+ 
+ install: hping3
+-	cp -f hping3 /usr/sbin/
+-	chmod 755 /usr/sbin/hping3
+-	ln -s /usr/sbin/hping3 /usr/sbin/hping
+-	ln -s /usr/sbin/hping3 /usr/sbin/hping2
++	cp -f hping3 ${INSTALL_PATH}/sbin/
++	chmod 755 ${INSTALL_PATH}/sbin/hping3
++	ln -s ${INSTALL_PATH}/sbin/hping3 ${INSTALL_PATH}/sbin/hping
++	ln -s ${INSTALL_PATH}/sbin/hping3 ${INSTALL_PATH}/sbin/hping2
+ 	@if [ -d ${INSTALL_MANPATH}/man8 ]; then \
+ 		cp ./docs/hping3.8 ${INSTALL_MANPATH}/man8; \
+ 		chmod 644 ${INSTALL_MANPATH}/man8/hping3.8; \
