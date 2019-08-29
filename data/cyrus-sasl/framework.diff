@@ -1,0 +1,16 @@
+diff -Naur cyrus-sasl-2.1.27/lib/Makefile.in cyrus-sasl-2.1.27+iPhone/lib/Makefile.in
+--- cyrus-sasl-2.1.27/lib/Makefile.in	2018-10-09 07:58:14.000000000 -0700
++++ cyrus-sasl-2.1.27+iPhone/lib/Makefile.in	2019-08-29 07:11:30.000000000 -0700
+@@ -853,11 +853,7 @@
+ 
+ .PRECIOUS: Makefile
+ 
+-@MACOSX_TRUE@install-exec-hook:
+-@MACOSX_TRUE@	$(mkinstalldirs) $(framedir)/Versions/A
+-@MACOSX_TRUE@	ln -fs $(libdir)/libsasl2.dylib $(framedir)/Versions/A/SASL2
+-@MACOSX_TRUE@	cd $(framedir) ; ln -fs Versions/A/SASL2 .
+-@MACOSX_FALSE@install-exec-hook:
++install-exec-hook:
+ 
+ libsasl2.a: libsasl2.la $(SASL_STATIC_OBJS)
+ 	@echo adding static plugins and dependencies
