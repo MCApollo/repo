@@ -1,0 +1,24 @@
+diff -urN openssl-1.1.1b/Configurations/20-elucubratus.conf openssl-1.1.1b+iPhone/Configurations/20-elucubratus.conf
+--- openssl-1.1.1b/Configurations/20-elucubratus.conf	1969-12-31 14:00:00.000000000 -1000
++++ openssl-1.1.1b+iPhone/Configurations/20-elucubratus.conf	2019-05-21 15:33:25.000000000 -1000
+@@ -0,0 +1,20 @@
++#### iPhoneOS/iOS
++#
++# It takes recent enough XCode to use following two targets. It shouldn't
++# be a problem by now, but if they don't work, original targets below
++# that depend on manual definition of environment variables should still
++# work...
++#
++my %targets = (
++    "aarch64-apple-darwin17" => {
++        inherit_from     => [ "darwin-common", asm("aarch64_asm") ],
++        CC               => "aarch64-apple-darwin17-gcc",
++        cflags           => add("-O2 -fomit-frame-pointer -fno-common"),
++        bn_ops           => "SIXTY_FOUR_BIT_LONG RC4_CHAR",
++        perlasm_scheme   => "ios64",
++        sys_id           => "iphoneos",
++    },
++);
++#   +"arm-apple-darwin11","arm-apple-darwin11-gcc:-O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:iOS:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
++#        +"armv7k-apple-darwin11","armv7k-apple-darwin11-gcc:-O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:iOS:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib",
++#        +"aarch64-apple-darwin17","aarch64-apple-darwin17-gcc:-O3 -fomit-frame-pointer -fno-common::-D_REENTRANT:iOS:-Wl,-search_paths_first%:BN_LLONG RC4_CHAR RC4_CHUNK DES_UNROLL BF_PTR:${no_asm}:dlfcn:darwin-shared:-fPIC -fno-common:-dynamiclib:.\$(SHLIB_MAJOR).\$(SHLIB_MINOR).dylib", "iphoneos-arm"
