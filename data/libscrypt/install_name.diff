@@ -1,0 +1,12 @@
+diff -Naur libscrypt-1.21/Makefile libscrypt-1.21+iPhone/Makefile
+--- libscrypt-1.21/Makefile	2015-07-09 03:59:57.000000000 -0700
++++ libscrypt-1.21+iPhone/Makefile	2019-08-30 22:48:43.000000000 -0700
+@@ -49,7 +49,7 @@
+ install-osx: libscrypt.so.0
+ 	$(MAKE_DIR) $(DESTDIR) $(DESTDIR)$(PREFIX) $(DESTDIR)$(LIBDIR) $(DESTDIR)$(INCLUDEDIR)
+ 	$(INSTALL_DATA) -pm 0755 libscrypt.so.0 $(DESTDIR)$(LIBDIR)/libscrypt.0.dylib
+-	cd $(DESTDIR)$(LIBDIR) && install_name_tool -id $(DESTDIR)$(LIBDIR)/libscrypt.0.dylib $(DESTDIR)$(LIBDIR)/libscrypt.0.dylib
++	cd $(DESTDIR)$(LIBDIR) && install_name_tool -id $(LIBDIR)/libscrypt.0.dylib $(DESTDIR)$(LIBDIR)/libscrypt.0.dylib
+ 	cd $(DESTDIR)$(LIBDIR) && ln -s -f libscrypt.0.dylib $(DESTDIR)$(LIBDIR)/libscrypt.dylib
+ 	$(INSTALL_DATA) -pm 0644 libscrypt.h  $(DESTDIR)$(INCLUDEDIR)
+ 
