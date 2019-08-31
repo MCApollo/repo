@@ -1,5 +1,6 @@
 pkg:setup
 sed -i "s|/usr/local|${PKG_TAPF}|" src/luaconf.h
+sed -i "s|@LUA_PREFIX@|${PKG_TAPF}|" src/Makefile
 pkg:make PLAT=macosx PREFIX=${PKG_TAPF} AR=${PKG_TARG}-ar RANLIB=${PKG_TAPF}-ranlib
 pkg:install PLAT=macosx PREFIX=${PKG_TAPF} AR=${PKG_TARG}-ar RANLIB=${PKG_TAPF}-ranlib
 
