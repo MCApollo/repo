@@ -1,0 +1,1395 @@
+diff -Naur openjdk-11/make/Bundles.gmk openjdk-11+iPhone/make/Bundles.gmk
+--- openjdk-11/make/Bundles.gmk	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/Bundles.gmk	2019-09-12 19:42:45.000000000 -0700
+@@ -167,7 +167,7 @@
+ 
+   # Create special filter rules when dealing with unzipped .dSYM directories on
+   # macosx
+-  ifeq ($(OPENJDK_TARGET_OS), macosx)
++  ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+     ifeq ($(ZIP_EXTERNAL_DEBUG_SYMBOLS), false)
+       JDK_SYMBOLS_EXCLUDE_PATTERN := $(addprefix %, \
+           $(call containing, .dSYM/, $(patsubst $(JDK_IMAGE_DIR)/%, %, $(ALL_JDK_FILES))))
+diff -Naur openjdk-11/make/CompileJavaModules.gmk openjdk-11+iPhone/make/CompileJavaModules.gmk
+--- openjdk-11/make/CompileJavaModules.gmk	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/CompileJavaModules.gmk	2019-09-12 19:44:59.000000000 -0700
+@@ -58,7 +58,7 @@
+       #
+ endif
+ 
+-ifeq ($(filter $(OPENJDK_TARGET_OS), solaris macosx aix), )
++ifeq ($(filter $(OPENJDK_TARGET_OS), solaris macosx aix ios), )
+   #
+   # only solaris, macosx and aix
+   #
+@@ -124,7 +124,7 @@
+     .template \
+     #
+ 
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq ($(filter $(OPENJDK_TARGET_OS), macosx ios), )
+   # exclude all X11 on Mac.
+   java.desktop_EXCLUDES += \
+       sun/awt/X11 \
+@@ -195,7 +195,7 @@
+ endif
+ 
+ # Used on windows and macosx
+-ifeq ($(filter $(OPENJDK_TARGET_OS), windows macosx), )
++ifeq ($(filter $(OPENJDK_TARGET_OS), windows macosx ios), )
+   java.desktop_EXCLUDE_FILES += sun/awt/AWTCharset.java
+ endif
+ 
+@@ -382,6 +382,10 @@
+   jdk.sctp_EXCLUDE_FILES += $(SCTP_IMPL_CLASSES)
+ endif
+ 
++ifeq ($(OPENJDK_TARGET_OS), ios)
++  jdk.sctp_EXCLUDE_FILES += $(SCTP_IMPL_CLASSES)
++endif
++
+ ################################################################################
+ 
+ jdk.jconsole_COPY += .gif .png
+diff -Naur openjdk-11/make/Images.gmk openjdk-11+iPhone/make/Images.gmk
+--- openjdk-11/make/Images.gmk	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/Images.gmk	2019-09-12 19:45:57.000000000 -0700
+@@ -166,7 +166,7 @@
+       MAN_SRC_DIR = $(MAN_SRC_BASEDIR)/solaris/doc
+       MAN1_SUBDIR = sun/man/man1
+     endif
+-    ifeq ($(OPENJDK_TARGET_OS), macosx)
++    ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+       MAN_SRC_DIR = $(MAN_SRC_BASEDIR)/bsd/doc
+       MAN1_SUBDIR = man
+     endif
+@@ -197,7 +197,7 @@
+ 	$(install-file)
+     endif
+ 
+-    ifneq ($(findstring $(OPENJDK_TARGET_OS), linux macosx), )
++    ifneq ($(findstring $(OPENJDK_TARGET_OS), linux macosx ios), )
+       $(JRE_IMAGE_DIR)/man/ja:
+ 	$(call LogInfo, Creating $(patsubst $(OUTPUTDIR)/%,%,$@))
+ 	$(CD) $(@D) && $(RM) ja && $(LN) -s ja_JP.UTF-8 ja
+@@ -219,7 +219,7 @@
+           $(addprefix $(JDK_IMAGE_DIR)/man/ja_JP.PCK/man1/, $(JDK_MAN_PAGES))
+     endif
+ 
+-    ifneq ($(findstring $(OPENJDK_TARGET_OS), linux macosx), )
++    ifneq ($(findstring $(OPENJDK_TARGET_OS), linux macosx ios), )
+       JRE_MAN_PAGE_LIST = $(addprefix $(JRE_IMAGE_DIR)/man/man1/, $(JRE_MAN_PAGES)) \
+           $(addprefix $(JRE_IMAGE_DIR)/man/ja_JP.UTF-8/man1/, $(JRE_MAN_PAGES)) \
+           $(JRE_IMAGE_DIR)/man/ja
+@@ -255,7 +255,7 @@
+       )
+ 
+   ifeq ($(ZIP_EXTERNAL_DEBUG_SYMBOLS), true)
+-    ifeq ($(OPENJDK_TARGET_OS), macosx)
++    ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+       DEMO_FILES := $(call not-containing, .dSYM, $(DEMO_FILES))
+     else
+       DEMO_FILES := $(filter-out %.debuginfo %.pdb %.map, $(DEMO_FILES))
+@@ -322,7 +322,7 @@
+   DEBUGINFO_SUFFIXES := .debuginfo .pdb .map
+   # On Macosx, if debug symbols have not been zipped, find all files inside *.dSYM
+   # dirs.
+-  ifeq ($(OPENJDK_TARGET_OS), macosx)
++  ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+     $(eval $(call FillCacheFind, \
+         $(SUPPORT_OUTPUTDIR)/modules_cmds $(SUPPORT_OUTPUTDIR)/modules_libs))
+     FindDebuginfoFiles = \
+diff -Naur openjdk-11/make/autoconf/flags-cflags.m4 openjdk-11+iPhone/make/autoconf/flags-cflags.m4
+--- openjdk-11/make/autoconf/flags-cflags.m4	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/autoconf/flags-cflags.m4	2019-09-12 18:03:10.000000000 -0700
+@@ -560,17 +560,6 @@
+ 
+   # Set some additional per-OS defines.
+ 
+-  # Additional macosx handling
+-  if test "x$OPENJDK_TARGET_OS" = xmacosx; then
+-    OS_CFLAGS="-DMAC_OS_X_VERSION_MIN_REQUIRED=$MACOSX_VERSION_MIN_NODOTS \
+-        -mmacosx-version-min=$MACOSX_VERSION_MIN"
+-
+-    if test -n "$MACOSX_VERSION_MAX"; then
+-        OS_CFLAGS="$OS_CFLAGS \
+-            -DMAC_OS_X_VERSION_MAX_ALLOWED=$MACOSX_VERSION_MAX_NODOTS"
+-    fi
+-  fi
+-
+   # Where does this really belong??
+   if test "x$TOOLCHAIN_TYPE" = xgcc || test "x$TOOLCHAIN_TYPE" = xclang; then
+     PICFLAG="-fPIC"
+diff -Naur openjdk-11/make/autoconf/flags-ldflags.m4 openjdk-11+iPhone/make/autoconf/flags-ldflags.m4
+--- openjdk-11/make/autoconf/flags-ldflags.m4	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/autoconf/flags-ldflags.m4	2019-09-12 18:03:10.000000000 -0700
+@@ -109,7 +109,6 @@
+       # Assume clang or gcc.
+       # FIXME: We should really generalize SET_SHARED_LIBRARY_ORIGIN instead.
+       OS_LDFLAGS_JVM_ONLY="-Wl,-rpath,@loader_path/. -Wl,-rpath,@loader_path/.."
+-      OS_LDFLAGS_JDK_ONLY="-mmacosx-version-min=$MACOSX_VERSION_MIN"
+     fi
+   fi
+ 
+diff -Naur openjdk-11/make/autoconf/flags-other.m4 openjdk-11+iPhone/make/autoconf/flags-other.m4
+--- openjdk-11/make/autoconf/flags-other.m4	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/autoconf/flags-other.m4	2019-09-12 18:03:10.000000000 -0700
+@@ -32,7 +32,7 @@
+ [
+   # FIXME: figure out if we should select AR flags depending on OS or toolchain.
+   if test "x$OPENJDK_TARGET_OS" = xmacosx; then
+-    ARFLAGS="-r -mmacosx-version-min=$MACOSX_VERSION_MIN"
++    ARFLAGS="-r"
+   elif test "x$OPENJDK_TARGET_OS" = xaix; then
+     ARFLAGS="-X64"
+   elif test "x$OPENJDK_TARGET_OS" = xwindows; then
+diff -Naur openjdk-11/make/common/JdkNativeCompilation.gmk openjdk-11+iPhone/make/common/JdkNativeCompilation.gmk
+--- openjdk-11/make/common/JdkNativeCompilation.gmk	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/common/JdkNativeCompilation.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -34,12 +34,20 @@
+ 
+ # Hook to include the corresponding custom file, if present.
+ $(eval $(call IncludeCustomExtension, common/JdkNativeCompilation.gmk))
+-
++ifeq ($(OPENJDK_TARGET_OS), ios)
++  FindSrcDirsForLib = \
++    $(call uniq, $(wildcard \
++        $(TOPDIR)/src/$(strip $1)/$(OPENJDK_TARGET_OS)/native/lib$(strip $2) \
++        $(TOPDIR)/src/$(strip $1)/$(OPENJDK_TARGET_OS_TYPE)/native/lib$(strip $2) \
++        $(TOPDIR)/src/$(strip $1)/macosx/native/lib$(strip $2) \
++        $(TOPDIR)/src/$(strip $1)/share/native/lib$(strip $2)))
++else
+ FindSrcDirsForLib += \
+   $(call uniq, $(wildcard \
+       $(TOPDIR)/src/$(strip $1)/$(OPENJDK_TARGET_OS)/native/lib$(strip $2) \
+       $(TOPDIR)/src/$(strip $1)/$(OPENJDK_TARGET_OS_TYPE)/native/lib$(strip $2) \
+       $(TOPDIR)/src/$(strip $1)/share/native/lib$(strip $2)))
++endif
+ 
+ FindSrcDirsForComponent += \
+   $(call uniq, $(wildcard \
+diff -Naur openjdk-11/make/common/Modules.gmk openjdk-11+iPhone/make/common/Modules.gmk
+--- openjdk-11/make/common/Modules.gmk	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/common/Modules.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -238,6 +238,9 @@
+ TOP_SRC_DIRS += \
+     $(TOPDIR)/src \
+     #
++ifeq ($(OPENJDK_TARGET_OS), ios)
++  SRC_SUBDIRS += macosx/classes
++endif
+ 
+ SRC_SUBDIRS += $(OPENJDK_TARGET_OS)/classes
+ ifneq ($(OPENJDK_TARGET_OS), $(OPENJDK_TARGET_OS_TYPE))
+diff -Naur openjdk-11/make/common/NativeCompilation.gmk openjdk-11+iPhone/make/common/NativeCompilation.gmk
+--- openjdk-11/make/common/NativeCompilation.gmk	2019-09-02 12:46:04.000000000 -0700
++++ openjdk-11+iPhone/make/common/NativeCompilation.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -55,7 +55,7 @@
+     $(ECHO) "Getting symbols from nm"; \
+     $(NM) -m $$($1_TARGET) | $(GREP)  "__TEXT" | \
+         $(EGREP) -v "non-external|private extern|__TEXT,__eh_frame" | \
+-        $(SED) -e  's/.* //' > $$(@D)/$$(basename $$(@F)).symbols; \
++        $(SED) -e  's/.* //' > $$(@D)/$$(basename $$(@F)).symbols || true; \
+   fi
+ endef
+ 
+@@ -815,7 +815,7 @@
+               $(CD) $$($1_OUTPUT_DIR) && \
+                   $$($1_OBJCOPY) --add-gnu-debuglink=$$($1_DEBUGINFO_FILES) $$($1_TARGET)
+ 
+-        else ifeq ($(OPENJDK_TARGET_OS), macosx)
++        else ifneq ($(findstring $(OPENJDK_TARGET_OS), ios macosx), )
+           $1_DEBUGINFO_FILES := \
+               $$($1_OUTPUT_DIR)/$$($1_BASENAME).dSYM/Contents/Info.plist \
+               $$($1_OUTPUT_DIR)/$$($1_BASENAME).dSYM/Contents/Resources/DWARF/$$($1_BASENAME)
+diff -Naur openjdk-11/make/gensrc/Gensrc-java.desktop.gmk openjdk-11+iPhone/make/gensrc/Gensrc-java.desktop.gmk
+--- openjdk-11/make/gensrc/Gensrc-java.desktop.gmk	2019-09-02 12:46:06.000000000 -0700
++++ openjdk-11+iPhone/make/gensrc/Gensrc-java.desktop.gmk	2019-09-12 21:01:25.000000000 -0700
+@@ -66,7 +66,7 @@
+       #
+ endif
+ 
+-ifeq ($(filter $(OPENJDK_TARGET_OS), windows macosx), )
++ifeq ($(filter $(OPENJDK_TARGET_OS), windows macosx ios), )
+   PROP_SRC_DIRS += $(TOPDIR)/src/java.desktop/share/classes/com/sun/java/swing/plaf/gtk/resources
+ endif
+ 
+diff -Naur openjdk-11/make/gensrc/Gensrc-jdk.hotspot.agent.gmk openjdk-11+iPhone/make/gensrc/Gensrc-jdk.hotspot.agent.gmk
+--- openjdk-11/make/gensrc/Gensrc-jdk.hotspot.agent.gmk	2019-09-02 12:46:06.000000000 -0700
++++ openjdk-11+iPhone/make/gensrc/Gensrc-jdk.hotspot.agent.gmk	2019-09-12 19:49:31.000000000 -0700
+@@ -42,7 +42,7 @@
+ 
+ ################################################################################
+ 
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   MIG_OUTPUT_DIR := $(SUPPORT_OUTPUTDIR)/gensrc/jdk.hotspot.agent
+   MACH_EXC_HEADER := $(MIG_OUTPUT_DIR)/mach_exc.h
+   MACH_EXC_USER := $(MIG_OUTPUT_DIR)/mach_excUser.c
+diff -Naur openjdk-11/make/hotspot/gensrc/GensrcAdlc.gmk openjdk-11+iPhone/make/hotspot/gensrc/GensrcAdlc.gmk
+--- openjdk-11/make/hotspot/gensrc/GensrcAdlc.gmk	2019-09-02 12:46:06.000000000 -0700
++++ openjdk-11+iPhone/make/hotspot/gensrc/GensrcAdlc.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -93,7 +93,7 @@
+     ADLCFLAGS += -DSOLARIS=1 -DSPARC_WORKS=1
+   else ifeq ($(OPENJDK_TARGET_OS), aix)
+     ADLCFLAGS += -DAIX=1
+-  else ifeq ($(OPENJDK_TARGET_OS), macosx)
++  else ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+     ADLCFLAGS += -D_ALLBSD_SOURCE=1 -D_GNU_SOURCE=1
+   endif
+ 
+diff -Naur openjdk-11/make/hotspot/gensrc/GensrcJfr.gmk openjdk-11+iPhone/make/hotspot/gensrc/GensrcJfr.gmk
+--- openjdk-11/make/hotspot/gensrc/GensrcJfr.gmk	2019-09-02 12:46:06.000000000 -0700
++++ openjdk-11+iPhone/make/hotspot/gensrc/GensrcJfr.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -41,6 +41,7 @@
+     SETUP := GENERATE_JFRBYTECODE, \
+     SRC := $(JFR_TOOLS_SRCDIR), \
+     BIN := $(JFR_TOOLS_OUTPUTDIR), \
++    INCLUDES := build/tools/jfr, \
+ ))
+ 
+ TARGETS += $(BUILD_JFR_TOOLS)
+diff -Naur openjdk-11/make/hotspot/lib/CompileJvm.gmk openjdk-11+iPhone/make/hotspot/lib/CompileJvm.gmk
+--- openjdk-11/make/hotspot/lib/CompileJvm.gmk	2019-09-02 12:46:06.000000000 -0700
++++ openjdk-11+iPhone/make/hotspot/lib/CompileJvm.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -155,7 +155,7 @@
+     EXCLUDE_FILES := $(JVM_EXCLUDE_FILES), \
+     EXCLUDE_PATTERNS := $(JVM_EXCLUDE_PATTERNS), \
+     EXTRA_OBJECT_FILES := $(DTRACE_EXTRA_OBJECT_FILES), \
+-    CFLAGS := $(JVM_CFLAGS), \
++    CFLAGS := $(JVM_CFLAGS) -I$(TOPDIR)/src/hotspot/cpu/$(HOTSPOT_TARGET_CPU_ARCH), \
+     vm_version.cpp_CXXFLAGS := $(CFLAGS_VM_VERSION), \
+     arguments.cpp_CXXFLAGS := $(CFLAGS_VM_VERSION), \
+     DISABLED_WARNINGS_clang := tautological-compare, \
+diff -Naur openjdk-11/make/hotspot/lib/JvmMapfile.gmk openjdk-11+iPhone/make/hotspot/lib/JvmMapfile.gmk
+--- openjdk-11/make/hotspot/lib/JvmMapfile.gmk	2019-09-02 12:46:06.000000000 -0700
++++ openjdk-11+iPhone/make/hotspot/lib/JvmMapfile.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -90,7 +90,7 @@
+         if ($$3 ~ /$(FILTER_SYMBOLS_PATTERN)/) print $$3; \
+       }'
+ 
+-else ifeq ($(OPENJDK_TARGET_OS), macosx)
++else ifneq (, $(filter $(OPENJDK_TARGET_OS), ios macosx))
+   # nm on macosx prints out "warning: nm: no name list" to stderr for
+   # files without symbols. Hide this, even at the expense of hiding real errors.
+   DUMP_SYMBOLS_CMD := $(NM) -Uj *.o 2> /dev/null
+@@ -153,7 +153,7 @@
+ ################################################################################
+ # Finally convert the symbol list into a platform-specific mapfile
+ 
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq (, $(filter $(OPENJDK_TARGET_OS), ios macosx))
+   # On macosx, we need to add a leading underscore
+   define create-mapfile-work
+ 	  $(AWK) '{ if ($$0 ~ ".") { print "  _" $$0 } }'  < $^ > $@.tmp
+diff -Naur openjdk-11/make/hotspot/lib/JvmOverrideFiles.gmk openjdk-11+iPhone/make/hotspot/lib/JvmOverrideFiles.gmk
+--- openjdk-11/make/hotspot/lib/JvmOverrideFiles.gmk	2019-09-02 12:46:06.000000000 -0700
++++ openjdk-11+iPhone/make/hotspot/lib/JvmOverrideFiles.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -118,7 +118,7 @@
+   # Workaround for jvmciCompilerToVM.cpp long compilation time
+   BUILD_LIBJVM_jvmciCompilerToVMInit.cpp_OPTIMIZATION := NONE
+ 
+-else ifeq ($(OPENJDK_TARGET_OS), macosx)
++else ifeq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   # The copied fdlibm routines in these files must not be optimized
+   BUILD_LIBJVM_sharedRuntimeTrans.cpp_CXXFLAGS := $(CXX_O_FLAG_NONE)
+   BUILD_LIBJVM_sharedRuntimeTrig.cpp_CXXFLAGS := $(CXX_O_FLAG_NONE)
+diff -Naur openjdk-11/make/launcher/Launcher-java.base.gmk openjdk-11+iPhone/make/launcher/Launcher-java.base.gmk
+--- openjdk-11/make/launcher/Launcher-java.base.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/launcher/Launcher-java.base.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -90,7 +90,7 @@
+ 
+ ################################################################################
+ 
+-ifneq ($(findstring $(OPENJDK_TARGET_OS), macosx solaris aix), )
++ifneq ($(findstring $(OPENJDK_TARGET_OS), macosx ios solaris aix), )
+   $(eval $(call SetupJdkExecutable, BUILD_JSPAWNHELPER, \
+       NAME := jspawnhelper, \
+       SRC := $(TOPDIR)/src/$(MODULE)/unix/native/jspawnhelper, \
+diff -Naur openjdk-11/make/launcher/Launcher-jdk.pack.gmk openjdk-11+iPhone/make/launcher/Launcher-jdk.pack.gmk
+--- openjdk-11/make/launcher/Launcher-jdk.pack.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/launcher/Launcher-jdk.pack.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -22,7 +22,6 @@
+ # or visit www.oracle.com if you need additional information or have any
+ # questions.
+ #
+-
+ include LauncherCommon.gmk
+ 
+ $(eval $(call SetupBuildLauncher, pack200, \
+@@ -45,7 +44,7 @@
+   CXXFLAGS_JDKEXE += -fvisibility=hidden
+   LDFLAGS_JDKEXE += -Wl,--exclude-libs,ALL
+ else ifeq ($(TOOLCHAIN_TYPE), clang)
+-  ifneq ($(OPENJDK_TARGET_OS), macosx)
++  ifeq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+     CXXFLAGS_JDKEXE += -fvisibility=hidden
+   endif
+ else ifeq ($(TOOLCHAIN_TYPE), solstudio)
+@@ -90,6 +89,7 @@
+     CFLAGS_linux := -fPIC, \
+     CFLAGS_solaris := -KPIC, \
+     CFLAGS_macosx := -fPIC, \
++    CFLAGS_ios := -fPIC, \
+     LDFLAGS := $(UNPACKEXE_ZIPOBJS) \
+         $(LDFLAGS_JDKEXE) $(LDFLAGS_CXX_JDK) \
+         $(call SET_SHARED_LIBRARY_ORIGIN), \
+diff -Naur openjdk-11/make/launcher/LauncherCommon.gmk openjdk-11+iPhone/make/launcher/LauncherCommon.gmk
+--- openjdk-11/make/launcher/LauncherCommon.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/launcher/LauncherCommon.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -25,7 +25,7 @@
+ 
+ include JdkNativeCompilation.gmk
+ 
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   ORIGIN_ARG := $(call SET_EXECUTABLE_ORIGIN)
+ else
+   ifeq ($(OPENJDK_TARGET_OS), windows)
+@@ -51,7 +51,7 @@
+   LAUNCHER_CFLAGS += -fvisibility=hidden
+   LDFLAGS_JDKEXE += -Wl,--exclude-libs,ALL
+ else ifeq ($(TOOLCHAIN_TYPE), clang)
+-  ifneq ($(OPENJDK_TARGET_OS), macosx)
++  ifeq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+     LAUNCHER_CFLAGS += -fvisibility=hidden
+   endif
+ else ifeq ($(TOOLCHAIN_TYPE), solstudio)
+@@ -130,7 +130,7 @@
+   endif
+ 
+   $1_LIBS :=
+-  ifeq ($(OPENJDK_TARGET_OS), macosx)
++  ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+     ifeq ($$($1_MACOSX_SIGNED), true)
+       $1_PLIST_FILE := Info-privileged.plist
+         $1_CODESIGN := true
+@@ -152,13 +152,15 @@
+           -framework CoreFoundation \
+           -framework Foundation \
+           -framework SystemConfiguration \
+-          -lstdc++ -liconv
++          -lstdc++ -liconv -lffi
+     else
+       $1_LIBS += $(SUPPORT_OUTPUTDIR)/native/java.base/libjli_static.a
+     endif
++  ifeq ($(OPENJDK_TARGET_OS), macosx)
+     $1_LIBS += -framework Cocoa -framework Security \
+         -framework ApplicationServices
+   endif
++  endif
+ 
+   ifeq ($(OPENJDK_TARGET_OS), aix)
+     $1_LDFLAGS += -L$(SUPPORT_OUTPUTDIR)/native/java.base
+@@ -190,6 +192,7 @@
+       CFLAGS_linux := -fPIC, \
+       CFLAGS_solaris := -KPIC -DHAVE_GETHRTIME, \
+       CFLAGS_windows := $$($1_CFLAGS_windows), \
++      CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjli, \
+       LDFLAGS := $$(LDFLAGS_JDKEXE) \
+           $$(ORIGIN_ARG) \
+           $$($1_LDFLAGS), \
+@@ -215,7 +218,7 @@
+   $1 += $$(BUILD_LAUNCHER_$1)
+   TARGETS += $$($1)
+ 
+-  ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx aix))
++  ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx aix ios))
+     $$(BUILD_LAUNCHER_$1): $(SUPPORT_OUTPUTDIR)/native/java.base/libjli_static.a
+   endif
+ 
+diff -Naur openjdk-11/make/lib/Awt2dLibraries.gmk openjdk-11+iPhone/make/lib/Awt2dLibraries.gmk
+--- openjdk-11/make/lib/Awt2dLibraries.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Awt2dLibraries.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -139,11 +139,11 @@
+       #
+ endif
+ 
+-ifneq ($(filter $(OPENJDK_TARGET_OS), solaris linux macosx aix), )
++ifneq ($(filter $(OPENJDK_TARGET_OS), solaris linux macosx aix ios), )
+   LIBAWT_EXFILES += awt_Font.c CUPSfuncs.c fontpath.c X11Color.c
+ endif
+ 
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   LIBAWT_EXFILES += initIDs.c awt/image/cvutils/img_colors.c
+ endif
+ 
+@@ -232,6 +232,7 @@
+     ASFLAGS := $(LIBAWT_ASFLAGS), \
+     LDFLAGS := $(LDFLAGS_JDKLIB) $(call SET_SHARED_LIBRARY_ORIGIN), \
+     LDFLAGS_macosx := -L$(INSTALL_LIBRARIES_HERE), \
++    LDFLAGS_ios := -L$(INSTALL_LIBRARIES_HERE), \
+     LDFLAGS_windows := -delayload:user32.dll -delayload:gdi32.dll \
+         -delayload:shell32.dll -delayload:winmm.dll \
+         -delayload:winspool.drv -delayload:imm32.dll \
+@@ -376,7 +377,7 @@
+     INCLUDE_FILES := $(BUILD_LIBLCMS_INCLUDE_FILES), \
+     OPTIMIZATION := HIGHEST, \
+     CFLAGS := $(LCMS_CFLAGS_JDKLIB) \
+-        $(LCMS_CFLAGS), \
++        $(LCMS_CFLAGS) -I$(SUPPORT_OUTPUTDIR)/headers/java.desktop, \
+     CFLAGS_solaris := -xc99=no_lib, \
+     CFLAGS_windows := -DCMS_IS_WINDOWS_, \
+     EXTRA_HEADER_DIRS := \
+@@ -425,7 +426,7 @@
+     NAME := javajpeg, \
+     INCLUDE_FILES := $(BUILD_LIBJAVAJPEG_INCLUDE_FILES), \
+     OPTIMIZATION := HIGHEST, \
+-    CFLAGS := $(CFLAGS_JDKLIB), \
++    CFLAGS := $(CFLAGS_JDKLIB) -I$(SUPPORT_OUTPUTDIR)/headers/java.desktop, \
+     HEADERS_FROM_SRC := $(LIBJPEG_HEADERS_FROM_SRC), \
+     DISABLED_WARNINGS_gcc := clobbered implicit-fallthrough shift-negative-value, \
+     LDFLAGS := $(LDFLAGS_JDKLIB) \
+diff -Naur openjdk-11/make/lib/CoreLibraries.gmk openjdk-11+iPhone/make/lib/CoreLibraries.gmk
+--- openjdk-11/make/lib/CoreLibraries.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/CoreLibraries.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -54,7 +54,7 @@
+ LIBFDLIBM_SRC := $(TOPDIR)/src/java.base/share/native/libfdlibm
+ LIBFDLIBM_CFLAGS := -I$(LIBFDLIBM_SRC)
+ 
+-ifneq ($(OPENJDK_TARGET_OS), macosx)
++ifeq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   $(eval $(call SetupNativeCompilation, BUILD_LIBFDLIBM, \
+       NAME := fdlibm, \
+       TYPE := STATIC_LIBRARY, \
+@@ -106,6 +106,7 @@
+     NAME := verify, \
+     OPTIMIZATION := $(LIBVERIFY_OPTIMIZATION), \
+     CFLAGS := $(CFLAGS_JDKLIB), \
++    CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjli, \
+     DISABLED_WARNINGS_gcc := implicit-fallthrough, \
+     DISABLED_WARNINGS_microsoft := 4244 4267, \
+     LDFLAGS := $(LDFLAGS_JDKLIB) \
+@@ -120,7 +121,7 @@
+ 
+ LIBJAVA_CFLAGS := -DARCHPROPNAME='"$(OPENJDK_TARGET_CPU_OSARCH)"'
+ 
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   BUILD_LIBJAVA_java_props_md.c_CFLAGS := -x objective-c
+   BUILD_LIBJAVA_java_props_macosx.c_CFLAGS := -x objective-c
+ endif
+@@ -130,6 +131,7 @@
+     OPTIMIZATION := HIGH, \
+     CFLAGS := $(CFLAGS_JDKLIB) \
+         $(LIBJAVA_CFLAGS), \
++    CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjava, \
+     System.c_CFLAGS := $(VERSION_CFLAGS), \
+     jdk_util.c_CFLAGS := $(VERSION_CFLAGS), \
+     EXTRA_HEADER_DIRS := libfdlibm, \
+@@ -137,8 +139,9 @@
+     DISABLED_WARNINGS_gcc := unused-result, \
+     DISABLED_WARNINGS_solstudio := E_STATEMENT_NOT_REACHED, \
+     LDFLAGS := $(LDFLAGS_JDKLIB) \
+-        $(call SET_SHARED_LIBRARY_ORIGIN), \
++        $(ca ll SET_SHARED_LIBRARY_ORIGIN), \
+     LDFLAGS_macosx := -L$(SUPPORT_OUTPUTDIR)/native/$(MODULE)/, \
++    LDFLAGS_ios := -L$(SUPPORT_OUTPUTDIR)/native/$(MODULE)/, \
+     LDFLAGS_windows := -delayload:shell32.dll, \
+     LIBS_unix := -ljvm -lverify, \
+     LIBS_linux := $(LIBDL) $(BUILD_LIBFDLIBM), \
+@@ -148,6 +151,10 @@
+         -framework CoreFoundation \
+         -framework Foundation \
+         -framework Security -framework SystemConfiguration, \
++    LIBS_ios := -lfdlibm \
++        -framework CoreFoundation \
++        -framework Foundation \
++        -framework Security, \
+     LIBS_windows := jvm.lib $(BUILD_LIBFDLIBM) $(WIN_VERIFY_LIB) \
+         shell32.lib delayimp.lib \
+         advapi32.lib version.lib, \
+@@ -200,6 +207,7 @@
+         $(call SET_SHARED_LIBRARY_ORIGIN), \
+     LIBS_unix := -ljvm -ldl $(LIBCXX), \
+     LIBS_macosx := -lc++, \
++    LIBS_ios := -lc++, \
+     LIBS_windows := jvm.lib, \
+ ))
+ 
+@@ -226,12 +234,18 @@
+ endif
+ LIBJLI_EXCLUDE_FILES += $(notdir $(LIBJLI_EXCLUDE_ERGO))
+ 
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   LIBJLI_EXCLUDE_FILES += java_md_solinux.c ergo.c ergo_i586.c
+ 
+   BUILD_LIBJLI_java_md_macosx.c_CFLAGS := -x objective-c
+   BUILD_LIBJLI_STATIC_java_md_macosx.c_CFLAGS := -x objective-c
+ 
++  # MCApollo: TODO: 
++  # Find out why java_md_macosx isn't linked into jli_static.
++  ifeq ($(OPENJDK_TARGET_OS), ios)
++    LIBJLI_STATIC_EXTRA_FILES += $(TOPDIR)/src/java.base/macosx/native/libjli/java_md_macosx.c
++  endif
++
+   LIBJLI_CFLAGS += -DPACKAGE_PATH=\"$(PACKAGE_PATH)\"
+ endif
+ 
+@@ -270,6 +284,7 @@
+     EXTRA_FILES := $(LIBJLI_EXTRA_FILES), \
+     OPTIMIZATION := HIGH, \
+     CFLAGS := $(LIBJLI_CFLAGS_JDKLIB) $(LIBJLI_CFLAGS), \
++    CFLAGS_ios := -I$(TOPDIR)/src/java.base/macosx/native/libjli, \
+     DISABLED_WARNINGS_solstudio := \
+         E_ASM_DISABLES_OPTIMIZATION \
+         E_STATEMENT_NOT_REACHED, \
+@@ -282,6 +297,7 @@
+     LIBS_solaris := $(LIBDL), \
+     LIBS_aix := $(LIBDL),\
+     LIBS_macosx := -framework Cocoa -framework Security -framework ApplicationServices, \
++    LIBS_ios := -framework Foundation -framework CoreFoundation -framework Security, \
+     LIBS_windows := advapi32.lib comctl32.lib user32.lib, \
+ ))
+ 
+@@ -309,7 +325,7 @@
+ 
+   TARGETS += $(BUILD_LIBJLI_STATIC)
+ 
+-else ifeq ($(OPENJDK_TARGET_OS), macosx)
++else ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   #
+   # On macosx they do partial (incremental) linking of libjli_static.a
+   # code it here...rather than add support to NativeCompilation
+@@ -319,9 +335,9 @@
+       OUTPUT_DIR := $(SUPPORT_OUTPUTDIR)/native/$(MODULE), \
+       SRC := $(LIBJLI_SRC_DIRS), \
+       EXCLUDE_FILES := $(LIBJLI_EXCLUDE_FILES), \
+-      EXTRA_FILES := $(LIBJLI_EXTRA_FILES), \
++      EXTRA_FILES := $(LIBJLI_EXTRA_FILES) $(LIBJLI_STATIC_EXTRA_FILES), \
+       OPTIMIZATION := HIGH, \
+-      CFLAGS := $(LIBJLI_CFLAGS_JDKLIB) $(LIBJLI_CFLAGS) \
++      CFLAGS := -I$(TOPDIR)/src/java.base/macosx/native/libjli $(LIBJLI_CFLAGS_JDKLIB) $(LIBJLI_CFLAGS) \
+           $(addprefix -I, $(LIBJLI_SRC_DIRS)), \
+       LDFLAGS := -nostdlib $(ARFLAGS), \
+       OBJECT_DIR := $(SUPPORT_OUTPUTDIR)/native/$(MODULE)/libjli_static, \
+diff -Naur openjdk-11/make/lib/Lib-java.base.gmk openjdk-11+iPhone/make/lib/Lib-java.base.gmk
+--- openjdk-11/make/lib/Lib-java.base.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-java.base.gmk	2019-09-12 23:07:49.000000000 -0700
+@@ -57,6 +57,7 @@
+     LIBS_windows := ws2_32.lib jvm.lib secur32.lib iphlpapi.lib winhttp.lib \
+         delayimp.lib $(WIN_JAVA_LIB) advapi32.lib, \
+     LIBS_macosx := -framework CoreFoundation -framework CoreServices, \
++    LIBS_ios := -framework CoreFoundation -framework CoreServices, \
+ ))
+ 
+ $(BUILD_LIBNET): $(BUILD_LIBJAVA)
+@@ -65,6 +66,15 @@
+ 
+ ################################################################################
+ # Create the nio library
++ifeq ($(OPENJDK_TARGET_OS), ios)
++   # MCApollo: Note:
++   # Setting BUILD_LIBNIO_SRC won't compile the unix/libnio files.
++   # Causing undefined errors, so append them also.
++   BUILD_LIBNIO_SRC += $(TOPDIR)/src/java.base/macosx/native/libnio/ch \
++       $(TOPDIR)/src/java.base/macosx/native/libnio/fs \
++       $(TOPDIR)/src/java.base/unix/native/libnio/ch \
++       $(TOPDIR)/src/java.base/unix/native/libnio/fs
++ endif
+ 
+ $(eval $(call SetupJdkLibrary, BUILD_LIBNIO, \
+     NAME := nio, \
+@@ -84,6 +94,8 @@
+     LIBS_aix := $(LIBDL), \
+     LIBS_macosx := \
+         -framework CoreFoundation -framework CoreServices, \
++    LIBS_ios := \
++        -framework CoreFoundation -framework CoreServices, \
+     LIBS_windows := jvm.lib ws2_32.lib $(WIN_JAVA_LIB) \
+         $(SUPPORT_OUTPUTDIR)/native/$(MODULE)/libnet/net.lib \
+         advapi32.lib, \
+diff -Naur openjdk-11/make/lib/Lib-java.desktop.gmk openjdk-11+iPhone/make/lib/Lib-java.desktop.gmk
+--- openjdk-11/make/lib/Lib-java.desktop.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-java.desktop.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -34,7 +34,9 @@
+ ################################################################################
+ # Create the AWT/2D libraries
+ 
+-include Awt2dLibraries.gmk
++ifneq ($(OPENJDK_TARGET_OS), ios)
++  include Awt2dLibraries.gmk
++endif
+ 
+ ################################################################################
+ # Create the libjsound library
+@@ -78,7 +80,9 @@
+ 
+   $(BUILD_LIBJSOUND): $(call FindLib, java.base, java)
+ 
++ifneq ($(OPENJDK_TARGET_OS), ios)
+   TARGETS += $(BUILD_LIBJSOUND)
++endif
+ 
+ endif
+ 
+diff -Naur openjdk-11/make/lib/Lib-java.instrument.gmk openjdk-11+iPhone/make/lib/Lib-java.instrument.gmk
+--- openjdk-11/make/lib/Lib-java.instrument.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-java.instrument.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -56,6 +56,7 @@
+     LDFLAGS_solaris := $(call SET_SHARED_LIBRARY_ORIGIN,/jli) \
+         -L$(call FindLibDirForModule, java.base)/jli, \
+     LDFLAGS_macosx := -Wl$(COMMA)-all_load, \
++    LDFLAGS_ios := -Wl$(COMMA)-all_load, \
+     LDFLAGS_aix := -L$(SUPPORT_OUTPUTDIR)/native/java.base, \
+     LIBS := $(JDKLIB_LIBS), \
+     LIBS_unix := -ljava -ljvm $(LIBZ_LIBS), \
+@@ -65,11 +66,13 @@
+     LIBS_macosx := -liconv -framework Cocoa -framework Security \
+         -framework ApplicationServices \
+         $(call FindStaticLib, java.base, jli_static), \
++    LIBS_ios := -liconv -framework Security -framework CoreFoundation \
++        $(call FindStaticLib, java.base, jli_static), \
+     LIBS_windows := jvm.lib $(WIN_JAVA_LIB) advapi32.lib \
+         $(call FindStaticLib, java.base, jli_static), \
+ ))
+ 
+-ifneq ($(filter $(OPENJDK_TARGET_OS), macosx windows aix), )
++ifneq ($(filter $(OPENJDK_TARGET_OS), ios macosx windows aix), )
+   $(BUILD_LIBINSTRUMENT): $(call FindStaticLib, java.base, jli_static)
+ else
+   $(BUILD_LIBINSTRUMENT): $(call FindLib, java.base, jli, /jli)
+diff -Naur openjdk-11/make/lib/Lib-java.prefs.gmk openjdk-11+iPhone/make/lib/Lib-java.prefs.gmk
+--- openjdk-11/make/lib/Lib-java.prefs.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-java.prefs.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -28,7 +28,7 @@
+ ################################################################################
+ 
+ # libprefs on macosx do not use the unix code
+-ifeq ($(OPENJDK_TARGET_OS), macosx)
++ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   LIBPREFS_EXCLUDE_SRC_PATTERNS := unix
+ endif
+ 
+@@ -44,6 +44,7 @@
+     LIBS_solaris := -ljava, \
+     LIBS_aix := -ljava, \
+     LIBS_macosx := -framework CoreFoundation -framework Foundation, \
++    LIBS_ios := -framework CoreFoundation -framework Foundation, \
+     LIBS_windows := advapi32.lib jvm.lib $(WIN_JAVA_LIB), \
+ ))
+ 
+diff -Naur openjdk-11/make/lib/Lib-jdk.crypto.ec.gmk openjdk-11+iPhone/make/lib/Lib-jdk.crypto.ec.gmk
+--- openjdk-11/make/lib/Lib-jdk.crypto.ec.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-jdk.crypto.ec.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -49,6 +49,7 @@
+       DISABLED_WARNINGS_microsoft := 4101 4244 4146 4018, \
+       LDFLAGS := $(LDFLAGS_JDKLIB) $(LDFLAGS_CXX_JDK), \
+       LDFLAGS_macosx := $(call SET_SHARED_LIBRARY_ORIGIN), \
++      LDFLAGS_ios := $(call SET_SHARED_LIBRARY_ORIGIN), \
+       LIBS := $(LIBCXX), \
+   ))
+ 
+diff -Naur openjdk-11/make/lib/Lib-jdk.hotspot.agent.gmk openjdk-11+iPhone/make/lib/Lib-jdk.hotspot.agent.gmk
+--- openjdk-11/make/lib/Lib-jdk.hotspot.agent.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-jdk.hotspot.agent.gmk	2019-09-12 19:54:03.000000000 -0700
+@@ -35,7 +35,7 @@
+ else ifeq ($(OPENJDK_TARGET_OS), solaris)
+   SA_LDFLAGS := -mt
+ 
+-else ifeq ($(OPENJDK_TARGET_OS), macosx)
++else ifneq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+   SA_CFLAGS := -Damd64 -D_GNU_SOURCE -mno-omit-leaf-frame-pointer \
+       -mstack-alignment=16 -fPIC
+   LIBSA_EXTRA_SRC := $(SUPPORT_OUTPUTDIR)/gensrc/jdk.hotspot.agent
+diff -Naur openjdk-11/make/lib/Lib-jdk.jdwp.agent.gmk openjdk-11+iPhone/make/lib/Lib-jdk.jdwp.agent.gmk
+--- openjdk-11/make/lib/Lib-jdk.jdwp.agent.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-jdk.jdwp.agent.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -63,6 +63,7 @@
+     LIBS_linux := $(LIBDL), \
+     LIBS_solaris := $(LIBDL), \
+     LIBS_macosx := -liconv, \
++    LIBS_ios := -liconv, \
+     LIBS_aix := -liconv, \
+ ))
+ 
+diff -Naur openjdk-11/make/lib/Lib-jdk.management.gmk openjdk-11+iPhone/make/lib/Lib-jdk.management.gmk
+--- openjdk-11/make/lib/Lib-jdk.management.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-jdk.management.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -64,4 +64,3 @@
+ 
+ # Include custom extension post hook
+ $(eval $(call IncludeCustomExtension, lib/Lib-jdk.management-post.gmk))
+-
+diff -Naur openjdk-11/make/lib/Lib-jdk.net.gmk openjdk-11+iPhone/make/lib/Lib-jdk.net.gmk
+--- openjdk-11/make/lib/Lib-jdk.net.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-jdk.net.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -27,7 +27,7 @@
+ 
+ ################################################################################
+ 
+-ifneq ($(filter $(OPENJDK_TARGET_OS), solaris linux macosx), )
++ifneq ($(filter $(OPENJDK_TARGET_OS), solaris linux macosx ios), )
+ 
+   $(eval $(call SetupJdkLibrary, BUILD_LIBEXTNET, \
+       NAME := extnet, \
+diff -Naur openjdk-11/make/lib/Lib-jdk.sctp.gmk openjdk-11+iPhone/make/lib/Lib-jdk.sctp.gmk
+--- openjdk-11/make/lib/Lib-jdk.sctp.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/Lib-jdk.sctp.gmk	2019-09-12 19:55:24.000000000 -0700
+@@ -29,7 +29,7 @@
+ 
+ ifeq ($(OPENJDK_TARGET_OS_TYPE), unix)
+ 
+-  ifeq ($(filter $(OPENJDK_TARGET_OS), macosx aix), )
++  ifeq ($(filter $(OPENJDK_TARGET_OS), macosx aix ios), )
+     $(eval $(call SetupJdkLibrary, BUILD_LIBSCTP, \
+         NAME := sctp, \
+         OPTIMIZATION := LOW, \
+diff -Naur openjdk-11/make/lib/LibCommon.gmk openjdk-11+iPhone/make/lib/LibCommon.gmk
+--- openjdk-11/make/lib/LibCommon.gmk	2019-09-02 12:46:07.000000000 -0700
++++ openjdk-11+iPhone/make/lib/LibCommon.gmk	2019-09-12 18:03:10.000000000 -0700
+@@ -46,7 +46,7 @@
+   LDFLAGS_JDKLIB += -Wl,--exclude-libs,ALL
+   EXPORT_ALL_SYMBOLS := -fvisibility=default
+ else ifeq ($(TOOLCHAIN_TYPE), clang)
+-  ifneq ($(OPENJDK_TARGET_OS), macosx)
++  ifeq (,$(filter $(OPENJDK_TARGET_OS), macosx ios))
+     CFLAGS_JDKLIB += -fvisibility=hidden
+     CXXFLAGS_JDKLIB += -fvisibility=hidden
+     EXPORT_ALL_SYMBOLS := -fvisibility=default
+diff -Naur openjdk-11/src/hotspot/cpu/zero/cppInterpreter_zero.cpp openjdk-11+iPhone/src/hotspot/cpu/zero/cppInterpreter_zero.cpp
+--- openjdk-11/src/hotspot/cpu/zero/cppInterpreter_zero.cpp	2019-09-02 12:46:09.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/cpu/zero/cppInterpreter_zero.cpp	2019-09-12 18:03:10.000000000 -0700
+@@ -367,7 +367,7 @@
+   ThreadStateTransition::transition_from_java(thread, _thread_in_native);
+ 
+   // Make the call
+-  intptr_t result[4 - LogBytesPerWord];
++  intptr_t result[4 - LogBytesPerWord] __attribute__((__aligned__(__alignof__(double))));
+   ffi_call(handler->cif(), (void (*)()) function, result, arguments);
+ 
+   // Change the thread state back to _thread_in_Java.
+diff -Naur openjdk-11/src/hotspot/cpu/zero/stack_zero.cpp openjdk-11+iPhone/src/hotspot/cpu/zero/stack_zero.cpp
+--- openjdk-11/src/hotspot/cpu/zero/stack_zero.cpp	2019-09-02 12:46:09.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/cpu/zero/stack_zero.cpp	2019-09-12 18:03:10.000000000 -0700
+@@ -31,6 +31,7 @@
+ #include "stack_zero.inline.hpp"
+ #include "runtime/frame.inline.hpp"
+ #include "utilities/align.hpp"
++#include "runtime/thread.inline.hpp" // -> thread_state() is undefined?
+ 
+ // Inlined causes circular inclusion with thread.hpp
+ ZeroStack::ZeroStack()
+diff -Naur openjdk-11/src/hotspot/os/bsd/os_bsd.cpp openjdk-11+iPhone/src/hotspot/os/bsd/os_bsd.cpp
+--- openjdk-11/src/hotspot/os/bsd/os_bsd.cpp	2019-09-02 12:46:09.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/os/bsd/os_bsd.cpp	2019-09-12 19:37:55.000000000 -0700
+@@ -111,9 +111,11 @@
+ 
+ #ifdef __APPLE__
+   #include <mach/mach.h> // semaphore_* API
++//#if ! TARGET_OS_IPHONE
+   #include <mach-o/dyld.h>
+   #include <sys/proc_info.h>
+   #include <objc/objc-auto.h>
++//#endif
+ #endif
+ 
+ #ifndef MAP_ANONYMOUS
+@@ -1532,7 +1534,7 @@
+   }
+ 
+   dlclose(handle);
+-#elif defined(__APPLE__)
++#elif defined(__APPLE__) // && ! TARGET_OS_IPHONE
+   for (uint32_t i = 1; i < _dyld_image_count(); i++) {
+     // Value for top_address is returned as 0 since we don't have any information about module size
+     if (callback(_dyld_get_image_name(i), (address)_dyld_get_image_header(i), (address)0, param)) {
+@@ -3256,7 +3258,7 @@
+   Bsd::clock_init();
+   initial_time_count = javaTimeNanos();
+ 
+-#ifdef __APPLE__
++#if defined(__APPLE__) && ! TARGET_OS_IPHONE
+   // XXXDARWIN
+   // Work around the unaligned VM callbacks in hotspot's
+   // sharedRuntime. The callbacks don't use SSE2 instructions, and work on
+diff -Naur openjdk-11/src/hotspot/os/bsd/os_perf_bsd.cpp openjdk-11+iPhone/src/hotspot/os/bsd/os_perf_bsd.cpp
+--- openjdk-11/src/hotspot/os/bsd/os_perf_bsd.cpp	2019-09-02 12:46:09.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/os/bsd/os_perf_bsd.cpp	2019-09-12 18:03:10.000000000 -0700
+@@ -26,7 +26,7 @@
+ #include "memory/resourceArea.hpp"
+ #include "runtime/os.hpp"
+ #include "runtime/os_perf.hpp"
+-#include "vm_version_ext_x86.hpp"
++#include CPU_HEADER(vm_version_ext)
+ 
+ #ifdef __APPLE__
+   #import <libproc.h>
+diff -Naur openjdk-11/src/hotspot/os_cpu/bsd_zero/atomic_bsd_zero.hpp openjdk-11+iPhone/src/hotspot/os_cpu/bsd_zero/atomic_bsd_zero.hpp
+--- openjdk-11/src/hotspot/os_cpu/bsd_zero/atomic_bsd_zero.hpp	2019-09-02 12:46:09.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/os_cpu/bsd_zero/atomic_bsd_zero.hpp	2019-09-12 18:03:10.000000000 -0700
+@@ -28,6 +28,12 @@
+ 
+ #include "runtime/os.hpp"
+ 
++#if __clang__
++#define FULL_MEM_BARRIER  __sync_synchronize()
++#define READ_MEM_BARRIER  __atomic_thread_fence(__ATOMIC_ACQUIRE);
++#define WRITE_MEM_BARRIER __atomic_thread_fence(__ATOMIC_RELEASE);
++#endif
++
+ // Implementation of class atomic
+ 
+ #ifdef M68K
+@@ -180,7 +186,13 @@
+ #ifdef M68K
+   return add_using_helper<int>(m68k_add_and_fetch, add_value, dest);
+ #else
+-  return __sync_add_and_fetch(dest, add_value);
++  #if __clang__
++    D res = __atomic_add_fetch(dest, add_value, __ATOMIC_RELEASE);
++    FULL_MEM_BARRIER;
++    return res;
++  #else
++    return __sync_add_and_fetch(dest, add_value);
++  #endif
+ #endif // M68K
+ #endif // ARM
+ }
+@@ -192,7 +204,13 @@
+   STATIC_ASSERT(8 == sizeof(I));
+   STATIC_ASSERT(8 == sizeof(D));
+ 
+-  return __sync_add_and_fetch(dest, add_value);
++  #if __clang__
++    D res = __atomic_add_fetch(dest, add_value, __ATOMIC_RELEASE);
++    FULL_MEM_BARRIER;
++    return res;
++  #else
++    return __sync_add_and_fetch(dest, add_value);
++  #endif
+ }
+ 
+ template<>
+diff -Naur openjdk-11/src/hotspot/share/adlc/formsopt.cpp openjdk-11+iPhone/src/hotspot/share/adlc/formsopt.cpp
+--- openjdk-11/src/hotspot/share/adlc/formsopt.cpp	2019-09-02 12:46:10.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/share/adlc/formsopt.cpp	2019-09-12 18:03:10.000000000 -0700
+@@ -439,6 +439,7 @@
+   _return_value = NULL;
+   _c_return_value = NULL;
+   _interpreter_frame_pointer_reg = NULL;
++  _cisc_spilling_operand_name = NULL;
+ }
+ 
+ FrameForm::~FrameForm() {
+diff -Naur openjdk-11/src/hotspot/share/runtime/thread.inline.hpp openjdk-11+iPhone/src/hotspot/share/runtime/thread.inline.hpp
+--- openjdk-11/src/hotspot/share/runtime/thread.inline.hpp	2019-09-02 12:46:13.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/share/runtime/thread.inline.hpp	2019-09-12 18:03:10.000000000 -0700
+@@ -120,7 +120,7 @@
+   set_has_async_exception();
+ }
+ 
+-#if defined(PPC64) || defined (AARCH64)
++#if defined(PPC64) || defined (AARCH64) || defined(__APPLE__) || defined(ZERO)
+ inline JavaThreadState JavaThread::thread_state() const    {
+   return (JavaThreadState) OrderAccess::load_acquire((volatile jint*)&_thread_state);
+ }
+diff -Naur openjdk-11/src/hotspot/share/utilities/debug.hpp openjdk-11+iPhone/src/hotspot/share/utilities/debug.hpp
+--- openjdk-11/src/hotspot/share/utilities/debug.hpp	2019-09-02 12:46:14.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/share/utilities/debug.hpp	2019-09-12 18:03:10.000000000 -0700
+@@ -196,6 +196,7 @@
+ // use of an array type.
+ 
+ template<bool x> struct STATIC_ASSERT_FAILURE;
++template<> struct STATIC_ASSERT_FAILURE<false> { enum { value = 0 }; };
+ template<> struct STATIC_ASSERT_FAILURE<true> { enum { value = 1 }; };
+ 
+ #define STATIC_ASSERT(Cond) \
+diff -Naur openjdk-11/src/hotspot/share/utilities/globalDefinitions_gcc.hpp openjdk-11+iPhone/src/hotspot/share/utilities/globalDefinitions_gcc.hpp
+--- openjdk-11/src/hotspot/share/utilities/globalDefinitions_gcc.hpp	2019-09-02 12:46:13.000000000 -0700
++++ openjdk-11+iPhone/src/hotspot/share/utilities/globalDefinitions_gcc.hpp	2019-09-12 18:07:05.000000000 -0700
+@@ -1,3 +1,4 @@
++
+ /*
+  * Copyright (c) 1998, 2018, Oracle and/or its affiliates. All rights reserved.
+  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+@@ -218,8 +219,19 @@
+ 
+ // Checking for finiteness
+ 
++#ifdef __APPLE__
++#include <TargetConditionals.h>
++#else
++#define TARGET_OS_IPHONE 0
++#endif
++
++#if TARGET_OS_IPHONE
++inline int g_isfinite(jfloat  f)                 { return isfinite(f); }
++inline int g_isfinite(jdouble f)                 { return isfinite(f); }
++#else
+ inline int g_isfinite(jfloat  f)                 { return finite(f); }
+ inline int g_isfinite(jdouble f)                 { return finite(f); }
++#endif
+ 
+ 
+ // Wide characters
+diff -Naur openjdk-11/src/java.base/macosx/native/libjava/java_props_macosx.c openjdk-11+iPhone/src/java.base/macosx/native/libjava/java_props_macosx.c
+--- openjdk-11/src/java.base/macosx/native/libjava/java_props_macosx.c	2019-09-02 12:46:14.000000000 -0700
++++ openjdk-11+iPhone/src/java.base/macosx/native/libjava/java_props_macosx.c	2019-09-12 18:03:10.000000000 -0700
+@@ -28,7 +28,6 @@
+ #include <arpa/inet.h>
+ #include <objc/objc-runtime.h>
+ 
+-#include <Security/AuthSession.h>
+ #include <CoreFoundation/CoreFoundation.h>
+ #include <SystemConfiguration/SystemConfiguration.h>
+ #include <Foundation/Foundation.h>
+@@ -219,15 +218,6 @@
+         // if "true" then tell the caller we're in an Aqua session without actually checking
+         return 1;
+     }
+-    // Is the WindowServer available?
+-    SecuritySessionId session_id;
+-    SessionAttributeBits session_info;
+-    OSStatus status = SessionGetInfo(callerSecuritySession, &session_id, &session_info);
+-    if (status == noErr) {
+-        if (session_info & sessionHasGraphicAccess) {
+-            return 1;
+-        }
+-    }
+     return 0;
+ }
+ 
+@@ -244,37 +234,7 @@
+     sprops->os_name = strdup("Mac OS X");
+ 
+     char* osVersionCStr = NULL;
+-    // Mac OS 10.9 includes the [NSProcessInfo operatingSystemVersion] function,
+-    // but it's not in the 10.9 SDK.  So, call it via objc_msgSend_stret.
+-    if ([[NSProcessInfo processInfo] respondsToSelector:@selector(operatingSystemVersion)]) {
+-        OSVerStruct (*procInfoFn)(id rec, SEL sel) = (OSVerStruct(*)(id, SEL))objc_msgSend_stret;
+-        OSVerStruct osVer = procInfoFn([NSProcessInfo processInfo],
+-                                       @selector(operatingSystemVersion));
+-        NSString *nsVerStr;
+-        if (osVer.patchVersion == 0) { // Omit trailing ".0"
+-            nsVerStr = [NSString stringWithFormat:@"%ld.%ld",
+-                    (long)osVer.majorVersion, (long)osVer.minorVersion];
+-        } else {
+-            nsVerStr = [NSString stringWithFormat:@"%ld.%ld.%ld",
+-                    (long)osVer.majorVersion, (long)osVer.minorVersion, (long)osVer.patchVersion];
+-        }
+-        // Copy out the char*
+-        osVersionCStr = strdup([nsVerStr UTF8String]);
+-    }
+-    // Fallback if running on pre-10.9 Mac OS
+-    if (osVersionCStr == NULL) {
+-        NSDictionary *version = [NSDictionary dictionaryWithContentsOfFile :
+-                                 @"/System/Library/CoreServices/SystemVersion.plist"];
+-        if (version != NULL) {
+-            NSString *nsVerStr = [version objectForKey : @"ProductVersion"];
+-            if (nsVerStr != NULL) {
+-                osVersionCStr = strdup([nsVerStr UTF8String]);
+-            }
+-        }
+-    }
+-    if (osVersionCStr == NULL) {
+-        osVersionCStr = strdup("Unknown");
+-    }
++    osVersionCStr = strdup("10.14");
+     sprops->os_version = osVersionCStr;
+ }
+ 
+@@ -409,79 +369,5 @@
+  * Method for fetching proxy info and storing it in the property list.
+  */
+ void setProxyProperties(java_props_t *sProps) {
+-    if (sProps == NULL) return;
+-
+-    char buf[16];    /* Used for %d of an int - 16 is plenty */
+-    CFStringRef
+-    cf_httpHost = NULL,
+-    cf_httpsHost = NULL,
+-    cf_ftpHost = NULL,
+-    cf_socksHost = NULL,
+-    cf_gopherHost = NULL;
+-    int
+-    httpPort = 80, // Default proxy port values
+-    httpsPort = 443,
+-    ftpPort = 21,
+-    socksPort = 1080,
+-    gopherPort = 70;
+-
+-    CFDictionaryRef dict = SCDynamicStoreCopyProxies(NULL);
+-    if (dict == NULL) return;
+-
+-    /* Read the proxy exceptions list */
+-    CFArrayRef cf_list = CFDictionaryGetValue(dict, kSCPropNetProxiesExceptionsList);
+-
+-    CFMutableStringRef cf_exceptionList = NULL;
+-    if (cf_list != NULL) {
+-        CFIndex len = CFArrayGetCount(cf_list), idx;
+-
+-        cf_exceptionList = CFStringCreateMutable(NULL, 0);
+-        for (idx = (CFIndex)0; idx < len; idx++) {
+-            CFStringRef cf_ehost;
+-            if ((cf_ehost = CFArrayGetValueAtIndex(cf_list, idx))) {
+-                /* Convert this exception from Mac OS X syntax to Java syntax.
+-                 See Radar #3441134 for details. This may generate a string
+-                 with multiple Java exceptions separated by '|'. */
+-                char *c_exception = createConvertedException(cf_ehost);
+-                if (c_exception) {
+-                    /* Append the host to the list of exclusions. */
+-                    if (CFStringGetLength(cf_exceptionList) > 0) {
+-                        CFStringAppendCString(cf_exceptionList, "|", kCFStringEncodingMacRoman);
+-                    }
+-                    CFStringAppendCString(cf_exceptionList, c_exception, kCFStringEncodingMacRoman);
+-                    free(c_exception);
+-                }
+-            }
+-        }
+-    }
+-
+-    if (cf_exceptionList != NULL) {
+-        if (CFStringGetLength(cf_exceptionList) > 0) {
+-            sProps->exceptionList = createUTF8CString(cf_exceptionList);
+-        }
+-        CFRelease(cf_exceptionList);
+-    }
+-
+-#define CHECK_PROXY(protocol, PROTOCOL)                                     \
+-    sProps->protocol##ProxyEnabled =                                        \
+-    getProxyInfoForProtocol(dict, kSCPropNetProxies##PROTOCOL##Enable,      \
+-    kSCPropNetProxies##PROTOCOL##Proxy,         \
+-    kSCPropNetProxies##PROTOCOL##Port,          \
+-    &cf_##protocol##Host, &protocol##Port);     \
+-    if (sProps->protocol##ProxyEnabled) {                                   \
+-        sProps->protocol##Host = createUTF8CString(cf_##protocol##Host);    \
+-        snprintf(buf, sizeof(buf), "%d", protocol##Port);                   \
+-        sProps->protocol##Port = malloc(strlen(buf) + 1);                   \
+-        strcpy(sProps->protocol##Port, buf);                                \
+-    }
+-
+-    CHECK_PROXY(http, HTTP);
+-    CHECK_PROXY(https, HTTPS);
+-    CHECK_PROXY(ftp, FTP);
+-    CHECK_PROXY(socks, SOCKS);
+-    CHECK_PROXY(gopher, Gopher);
+-
+-#undef CHECK_PROXY
+-
+-    CFRelease(dict);
++    return;
+ }
+diff -Naur openjdk-11/src/java.base/macosx/native/libjli/java_md_macosx.c openjdk-11+iPhone/src/java.base/macosx/native/libjli/java_md_macosx.c
+--- openjdk-11/src/java.base/macosx/native/libjli/java_md_macosx.c	2019-09-02 12:46:13.000000000 -0700
++++ openjdk-11+iPhone/src/java.base/macosx/native/libjli/java_md_macosx.c	2019-09-12 18:03:10.000000000 -0700
+@@ -39,10 +39,24 @@
+ 
+ #include "manifest_info.h"
+ 
++#ifdef __APPLE__
++#include <TargetConditionals.h>
++
++#if ! TARGET_OS_IPHONE
+ /* Support Cocoa event loop on the main thread */
+ #include <Cocoa/Cocoa.h>
+ #include <objc/objc-runtime.h>
+ #include <objc/objc-auto.h>
++#else
++#import <Foundation/Foundation.h>
++#include <objc/objc-runtime.h>
++#include <objc/objc-auto.h>
++#include <objc/objc-auto.h>
++#endif
++#else
++#define TARGET_OS_IPHONE 0
++#endif
++
+ 
+ #include <errno.h>
+ #include <spawn.h>
+@@ -210,6 +224,8 @@
+         preferredJVM = "client";
+ #elif defined(__x86_64__)
+         preferredJVM = "server";
++#elif defined(__aarch64__) || defined(__arm64__)
++	preferredJVM = "server";
+ #else
+ #error "Unknown architecture - needs definition"
+ #endif
+@@ -270,7 +286,7 @@
+     sPreferredJVMType = strdup(prefJVM);
+ }
+ 
+-static BOOL awtLoaded = NO;
++static jboolean awtLoaded = 0;
+ static pthread_mutex_t awtLoaded_mutex = PTHREAD_MUTEX_INITIALIZER;
+ static pthread_cond_t  awtLoaded_cv = PTHREAD_COND_INITIALIZER;
+ 
+@@ -278,7 +294,7 @@
+ JLI_NotifyAWTLoaded()
+ {
+     pthread_mutex_lock(&awtLoaded_mutex);
+-    awtLoaded = YES;
++    awtLoaded = 1;
+     pthread_cond_signal(&awtLoaded_cv);
+     pthread_mutex_unlock(&awtLoaded_mutex);
+ }
+@@ -307,6 +323,7 @@
+     exit(main_fptr(args->argc, args->argv));
+ }
+ 
++//#if ! TARGET_OS_IPHONE
+ static void dummyTimer(CFRunLoopTimerRef timer, void *info) {}
+ 
+ static void ParkEventLoop() {
+@@ -321,6 +338,7 @@
+         result = CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.0e20, false);
+     } while (result != kCFRunLoopRunFinished);
+ }
++//#endif
+ 
+ /*
+  * Mac OS X mandates that the GUI event loop run on very first thread of
+@@ -351,7 +369,9 @@
+         exit(1);
+     }
+ 
++//#if ! TARGET_OS_IPHONE
+     ParkEventLoop();
++//#endif
+ }
+ 
+ void
+@@ -885,6 +905,7 @@
+ JVMInit(InvocationFunctions* ifn, jlong threadStackSize,
+                  int argc, char **argv,
+                  int mode, char *what, int ret) {
++// #if ! TARGET_OS_IPHONE
+     if (sameThread) {
+         JLI_TraceLauncher("In same thread\n");
+         // need to block this thread against the main thread
+@@ -915,6 +936,9 @@
+     } else {
+         return ContinueInNewThread(ifn, threadStackSize, argc, argv, mode, what, ret);
+     }
++//#else
++//    return ContinueInNewThread(ifn, threadStackSize, argc, argv, mode, what, ret);
++//#endif
+ }
+ 
+ /*
+diff -Naur openjdk-11/src/java.base/macosx/native/libnet/DefaultProxySelector.c openjdk-11+iPhone/src/java.base/macosx/native/libnet/DefaultProxySelector.c
+--- openjdk-11/src/java.base/macosx/native/libnet/DefaultProxySelector.c	2019-09-02 12:46:14.000000000 -0700
++++ openjdk-11+iPhone/src/java.base/macosx/native/libnet/DefaultProxySelector.c	2019-09-12 18:03:10.000000000 -0700
+@@ -68,76 +68,7 @@
+  */
+ static CFArrayRef createExpandedProxiesArray(CFArrayRef proxies, CFURLRef url) {
+ 
+-    CFIndex count;
+-    CFIndex index;
+-    CFMutableArrayRef expandedProxiesArray;
+-
+-    expandedProxiesArray = CFArrayCreateMutable(NULL, 0, &kCFTypeArrayCallBacks);
+-    if (expandedProxiesArray == NULL)
+-        return NULL;
+-
+-    /* Iterate over the array of proxies */
+-    count = CFArrayGetCount(proxies);
+-    for (index = 0; index < count ; index++) {
+-        CFDictionaryRef currentProxy;
+-        CFStringRef     proxyType;
+-
+-        currentProxy = (CFDictionaryRef) CFArrayGetValueAtIndex(proxies, index);
+-        if(currentProxy == NULL) {
+-            CFRelease(expandedProxiesArray);
+-            return NULL;
+-        }
+-        proxyType = (CFStringRef) CFDictionaryGetValue(currentProxy, kCFProxyTypeKey);
+-        if (proxyType == NULL) {
+-            CFRelease(expandedProxiesArray);
+-            return NULL;
+-        }
+-
+-        if (!CFEqual(proxyType, kCFProxyTypeAutoConfigurationURL)) {
+-            /* Non-PAC entry, just copy it to the new array */
+-            CFArrayAppendValue(expandedProxiesArray, currentProxy);
+-        } else {
+-            /* PAC-based URL, execute its script append its results */
+-            CFRunLoopSourceRef      runLoop;
+-            CFURLRef                scriptURL;
+-            CFTypeRef               result = NULL;
+-            CFStreamClientContext   context = { 0, &result, NULL, NULL, NULL };
+-            CFTimeInterval timeout = 5;
+-
+-            scriptURL = CFDictionaryGetValue(currentProxy, kCFProxyAutoConfigurationURLKey);
+-
+-            runLoop = CFNetworkExecuteProxyAutoConfigurationURL(scriptURL, url, proxyUrlCallback,
+-                                                                &context);
+-            if (runLoop != NULL) {
+-                /*
+-                 * Despite the fact that CFNetworkExecuteProxyAutoConfigurationURL has
+-                 * neither a "Create" nor a "Copy" in the name, we are required to
+-                 * release the return CFRunLoopSourceRef <rdar://problem/5533931>.
+-                 */
+-                CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoop, kResolveProxyRunLoopMode);
+-                CFRunLoopRunInMode(kResolveProxyRunLoopMode, timeout, false);
+-                CFRunLoopRemoveSource(CFRunLoopGetCurrent(), runLoop, kResolveProxyRunLoopMode);
+-
+-                /*
+-                 * Once the runloop returns, there will be either an error result or
+-                 * a proxies array result. Do the appropriate thing with that result.
+-                 */
+-                if (result != NULL) {
+-                    if (CFGetTypeID(result) == CFArrayGetTypeID()) {
+-                        /*
+-                         * Append the new array from the PAC list - it contains
+-                         * only non-PAC entries.
+-                         */
+-                        CFArrayAppendArray(expandedProxiesArray, result,
+-                                           CFRangeMake(0, CFArrayGetCount(result)));
+-                    }
+-                    CFRelease(result);
+-                }
+-                CFRelease(runLoop);
+-            }
+-        }
+-    }
+-    return expandedProxiesArray;
++    return NULL;
+ }
+ 
+ 
+@@ -166,119 +97,5 @@
+                                                        jstring proto,
+                                                        jstring host)
+ {
+-    CFDictionaryRef proxyDicRef = NULL;
+-    CFURLRef        urlRef = NULL;
+-    bool proxyFound = false;
+-    jobjectArray proxyArray = NULL;
+-    const char *cproto;
+-    const char *chost;
+-
+-    /* Get system proxy settings */
+-    proxyDicRef = CFNetworkCopySystemProxySettings();
+-    if (proxyDicRef == NULL) {
+-        return NULL;
+-    }
+-
+-    /* Create CFURLRef from proto and host */
+-    cproto = (*env)->GetStringUTFChars(env, proto, NULL);
+-    if (cproto != NULL) {
+-        chost  = (*env)->GetStringUTFChars(env, host, NULL);
+-        if (chost != NULL) {
+-            char* uri = NULL;
+-            size_t protoLen = 0;
+-            size_t hostLen = 0;
+-
+-            protoLen = strlen(cproto);
+-            hostLen = strlen(chost);
+-
+-            /* Construct the uri, cproto + "://" + chost */
+-            uri = malloc(protoLen + hostLen + 4);
+-            if (uri != NULL) {
+-                memcpy(uri, cproto, protoLen);
+-                memcpy(uri + protoLen, "://", 3);
+-                memcpy(uri + protoLen + 3, chost, hostLen + 1);
+-
+-                urlRef = CFURLCreateWithBytes(NULL, (const UInt8 *) uri, strlen(uri),
+-                                              kCFStringEncodingUTF8, NULL);
+-                free(uri);
+-            }
+-            (*env)->ReleaseStringUTFChars(env, host, chost);
+-        }
+-        (*env)->ReleaseStringUTFChars(env, proto, cproto);
+-    }
+-    if (urlRef != NULL) {
+-        CFArrayRef urlProxyArrayRef = CFNetworkCopyProxiesForURL(urlRef, proxyDicRef);
+-        if (urlProxyArrayRef != NULL) {
+-            CFIndex count;
+-            CFIndex index;
+-
+-            CFArrayRef expandedProxyArray = createExpandedProxiesArray(urlProxyArrayRef, urlRef);
+-            CFRelease(urlProxyArrayRef);
+-
+-            if (expandedProxyArray == NULL) {
+-                CFRelease(urlRef);
+-                CFRelease(proxyDicRef);
+-                return NULL;
+-            }
+-
+-            count = CFArrayGetCount(expandedProxyArray);
+-
+-            proxyArray = (*env)->NewObjectArray(env, count, proxy_class, NULL);
+-            if (proxyArray != NULL || (*env)->ExceptionCheck(env)) {
+-                /* Iterate over the expanded array of proxies */
+-                for (index = 0; index < count ; index++) {
+-                    CFDictionaryRef currentProxy;
+-                    CFStringRef proxyType;
+-                    jobject proxy = NULL;
+-
+-                    currentProxy = (CFDictionaryRef) CFArrayGetValueAtIndex(expandedProxyArray,
+-                                                                            index);
+-                    proxyType = (CFStringRef) CFDictionaryGetValue(currentProxy, kCFProxyTypeKey);
+-                    if (CFEqual(proxyType, kCFProxyTypeNone)) {
+-                        /* This entry states no proxy, therefore just add a NO_PROXY object. */
+-                        proxy = (*env)->GetStaticObjectField(env, proxy_class, pr_no_proxyID);
+-                    } else {
+-                        /*
+-                         * Create a proxy object for this entry.
+-                         * Differentiate between SOCKS and HTTP type.
+-                         */
+-                        jfieldID typeID = ptype_httpID;
+-                        if (CFEqual(proxyType, kCFProxyTypeSOCKS)) {
+-                            typeID = ptype_socksID;
+-                        }
+-                        CFNumberRef portNumberRef = (CFNumberRef)CFDictionaryGetValue(currentProxy,
+-                                                    (const void*)kCFProxyPortNumberKey);
+-                        if (portNumberRef  != NULL) {
+-                            int port = 0;
+-                            if (CFNumberGetValue(portNumberRef, kCFNumberSInt32Type, &port)) {
+-                                CFStringRef hostNameRef = (CFStringRef)CFDictionaryGetValue(
+-                                              currentProxy, (const void*)kCFProxyHostNameKey);
+-                                if (hostNameRef != NULL) {
+-                                    char hostNameBuffer[BUFFER_SIZE];
+-                                    if (CFStringGetCString(hostNameRef, hostNameBuffer,
+-                                                           BUFFER_SIZE, kCFStringEncodingUTF8)) {
+-                                        proxy = createProxy(env, typeID, &hostNameBuffer[0], port);
+-                                    }
+-                                }
+-                            }
+-                        }
+-                    }
+-                    if (proxy == NULL || (*env)->ExceptionCheck(env)) {
+-                        proxyArray = NULL;
+-                        break;
+-                    }
+-                    (*env)->SetObjectArrayElement(env, proxyArray, index, proxy);
+-                    if ((*env)->ExceptionCheck(env)) {
+-                        proxyArray = NULL;
+-                        break;
+-                    }
+-                }
+-            }
+-            CFRelease(expandedProxyArray);
+-        }
+-        CFRelease(urlRef);
+-    }
+-    CFRelease(proxyDicRef);
+-
+-    return proxyArray;
++    return NULL;
+ }
+diff -Naur openjdk-11/src/java.desktop/share/classes/java/awt/Toolkit.java openjdk-11+iPhone/src/java.desktop/share/classes/java/awt/Toolkit.java
+--- openjdk-11/src/java.desktop/share/classes/java/awt/Toolkit.java	2019-09-02 12:46:22.000000000 -0700
++++ openjdk-11+iPhone/src/java.desktop/share/classes/java/awt/Toolkit.java	2019-09-13 00:34:03.000000000 -0700
+@@ -1392,8 +1392,14 @@
+             java.security.AccessController.doPrivileged(
+                 new java.security.PrivilegedAction<Void>() {
+                     public Void run() {
+-                        System.loadLibrary("awt");
+-                        return null;
++                        try {
++                            System.loadLibrary("awt");
++                            return null;
++                        } catch (UnsatisfiedLinkError e) {
++                            System.err.println("libAWT and friends are not compiled in as it requires a GUI to show.");
++                            System.err.println("Contact the Cydia maintainer of this package if this is a issue.");
++                            throw e;
++                        }
+                     }
+                 });
+             loaded = true;
