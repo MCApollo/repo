@@ -1,0 +1,16 @@
+diff -ur Python-3.7.3/Modules/posixmodule.c Python-3.7.3+iPhone/Modules/posixmodule.c
+--- Python-3.7.3/Modules/posixmodule.c	2019-03-25 10:21:05.000000000 -1000
++++ Python-3.7.3+iPhone/Modules/posixmodule.c	2019-05-06 14:01:00.000000000 -1000
+@@ -5910,11 +5910,10 @@
+ #else
+ #ifdef HAVE_LIBUTIL_H
+ #include <libutil.h>
+-#else
++#endif /* HAVE_LIBUTIL_H */
+ #ifdef HAVE_UTIL_H
+ #include <util.h>
+ #endif /* HAVE_UTIL_H */
+-#endif /* HAVE_LIBUTIL_H */
+ #endif /* HAVE_PTY_H */
+ #ifdef HAVE_STROPTS_H
+ #include <stropts.h>

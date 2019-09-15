@@ -1,0 +1,28 @@
+diff -ur Python-3.7.3/setup.py Python-3.7.3+iPhone/setup.py
+--- Python-3.7.3/setup.py	2019-03-25 10:21:05.000000000 -1000
++++ Python-3.7.3+iPhone/setup.py	2019-05-07 14:47:15.000000000 -1000
+@@ -98,7 +98,7 @@
+     cflags = sysconfig.get_config_var('CFLAGS')
+     m = re.search(r'-isysroot\s+(\S+)', cflags)
+     if m is None:
+-        sysroot = '/'
++        sysroot = os.environ['PKG_ROOT'] or '/'
+     else:
+         sysroot = m.group(1)
+     return sysroot
+@@ -611,11 +611,10 @@
+             # Add the sysroot paths. 'sysroot' is a compiler option used to
+             # set the logical path of the standard system headers and
+             # libraries.
+-            lib_dirs = (self.compiler.library_dirs +
+-                        sysroot_paths(('LDFLAGS', 'CC'), system_lib_dirs))
+-            inc_dirs = (self.compiler.include_dirs +
+-                        sysroot_paths(('CPPFLAGS', 'CFLAGS', 'CC'),
+-                                      system_include_dirs))
++            lib_dirs = ([os.getenv('PKG_ROOT') + '/usr/lib'] +
++                        os.getenv('LIBRARY_PATH').split(':'))
++            inc_dirs = ([os.getenv('PKG_ROOT') + '/usr/include'] +
++                        os.getenv('CPATH').split(':'))
+         exts = []
+         missing = []
+ 
