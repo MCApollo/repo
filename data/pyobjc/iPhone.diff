@@ -1,0 +1,183 @@
+diff -Naur pyobjc/pyobjc-core/Modules/objc/OC_PythonObject.m pyobjc+iPhone/pyobjc-core/Modules/objc/OC_PythonObject.m
+--- pyobjc/pyobjc-core/Modules/objc/OC_PythonObject.m	2019-04-02 22:32:16.000000000 -0700
++++ pyobjc+iPhone/pyobjc-core/Modules/objc/OC_PythonObject.m	2019-09-15 05:17:51.000000000 -0700
+@@ -28,7 +28,7 @@
+ #import "OC_PythonUnicode.h"
+ #import "OC_PythonString.h"
+ 
+-extern NSString * const NSUnknownKeyException; /* Radar #3336042 */
++extern NSString * const NSUndefinedKeyException;; /* Radar #3336042 */
+ 
+ @implementation OC_PythonObject
+ +(id <NSObject>)objectWithPythonObject:(PyObject *) obj
+@@ -911,7 +911,7 @@
+ -(void)unableToSetNilForKey: (NSString*) key
+ {
+     [NSException
+-         raise:NSUnknownKeyException
++         raise:NSUndefinedKeyException
+         format:@"cannot set Nil for key: %@", key];
+ }
+ 
+@@ -923,7 +923,7 @@
+ -(void)valueForUndefinedKey:(NSString*)key
+ {
+     [NSException
+-         raise:NSUnknownKeyException
++         raise:NSUndefinedKeyException
+         format:@"query for unknown key: %@", key];
+ }
+ 
+@@ -935,7 +935,7 @@
+ -(void)setValue:value forUndefinedKey:(NSString*) key
+ {
+     [NSException
+-         raise:NSUnknownKeyException
++         raise:NSUndefinedKeyException
+         format:@"setting unknown key: %@ to <%@>", key, value];
+ }
+ 
+diff -Naur pyobjc/pyobjc-core/Modules/objc/helpers-foundation-nsdecimal.m pyobjc+iPhone/pyobjc-core/Modules/objc/helpers-foundation-nsdecimal.m
+--- pyobjc/pyobjc-core/Modules/objc/helpers-foundation-nsdecimal.m	2019-04-02 22:32:16.000000000 -0700
++++ pyobjc+iPhone/pyobjc-core/Modules/objc/helpers-foundation-nsdecimal.m	2019-09-15 03:33:29.000000000 -0700
+@@ -923,7 +923,7 @@
+         objc_superSetReceiver(super, PyObjCObject_GetObject(self));
+         objc_superSetClass(super, PyObjCSelector_GetClass(method));
+ 
+-#if defined(__i386__)
++#if defined(__i386__) || defined(__arm64__)
+         /* The call below doesn't work on i386, I'm not sure why.
+          * Because nobody will every subclass NSDecimalNumber this is not
+          * really a problem.
+diff -Naur pyobjc/pyobjc-core/Modules/objc/libffi_support.m pyobjc+iPhone/pyobjc-core/Modules/objc/libffi_support.m
+--- pyobjc/pyobjc-core/Modules/objc/libffi_support.m	2019-04-02 22:32:16.000000000 -0700
++++ pyobjc+iPhone/pyobjc-core/Modules/objc/libffi_support.m	2019-09-15 04:31:53.000000000 -0700
+@@ -14,7 +14,7 @@
+  */
+ #include "pyobjc.h"
+ 
+-#import <Foundation/NSHost.h>
++#import "NSHost.h"
+ #import <CoreFoundation/CoreFoundation.h>
+ 
+ #ifdef __ppc64__
+@@ -44,6 +44,10 @@
+ 
+ #   define SMALL_STRUCT_LIMIT    16
+ 
++#elif defined(__arm64__)
++
++#   define SMALL_STRUCT_LIMIT    8
++
+ #else
+ 
+ #   error "Unsupported MACOSX platform"
+@@ -4145,7 +4149,10 @@
+                 msgResult, values);
+ 
+         } else {
+-
++#if defined(__arm64__)
++            PyErr_Format(PyExc_RuntimeError,
++               "objc_msgSendSuper_stret and objc_msgSendSuper are unavailable on arm64");
++#else
+             if (unlikely(useStret)) {
+                 ffi_call(&cif, FFI_FN(objc_msgSendSuper_stret),
+                     msgResult, values);
+@@ -4154,6 +4161,7 @@
+                     msgResult, values);
+ 
+             }
++#endif
+         }
+ 
+     PyObjC_HANDLER
+diff -Naur pyobjc/pyobjc-core/Modules/objc/module.m pyobjc+iPhone/pyobjc-core/Modules/objc/module.m
+--- pyobjc/pyobjc-core/Modules/objc/module.m	2019-04-02 22:32:16.000000000 -0700
++++ pyobjc+iPhone/pyobjc-core/Modules/objc/module.m	2019-09-15 05:21:49.000000000 -0700
+@@ -2354,12 +2354,6 @@
+     if (PyType_Ready(&PyObjC_VarList_Type) < 0) {
+         PyObjC_INITERROR();
+     }
+-    if (PyType_Ready(&PyObjC_FSRefType) < 0) {
+-        PyObjC_INITERROR();
+-    }
+-    if (PyType_Ready(&PyObjC_FSSpecType) < 0) {
+-        PyObjC_INITERROR();
+-    }
+     if (PyType_Ready(&PyObjCPythonMethod_Type) < 0) {
+         PyObjC_INITERROR();
+     }
+@@ -2447,12 +2441,6 @@
+     if (PyDict_SetItemString(d, "selector", (PyObject*)&PyObjCSelector_Type) < 0) {
+         PyObjC_INITERROR();
+     }
+-    if (PyDict_SetItemString(d, "FSRef", (PyObject*)&PyObjC_FSRefType) < 0) {
+-        PyObjC_INITERROR();
+-    }
+-    if (PyDict_SetItemString(d, "FSSpec", (PyObject*)&PyObjC_FSSpecType) < 0) {
+-        PyObjC_INITERROR();
+-    }
+     if (PyDict_SetItemString(d, "ivar", (PyObject*)&PyObjCInstanceVariable_Type) < 0) {
+         PyObjC_INITERROR();
+     }
+@@ -2565,9 +2553,6 @@
+     if (PyModule_AddObject(m, "_C_CGFloat", PyBytes_FromString(@encode(CGFloat))) < 0) {
+         PyObjC_INITERROR();
+     }
+-    if (PyModule_AddObject(m, "_C_FSRef", PyBytes_FromString(@encode(FSRef))) < 0) {
+-        PyObjC_INITERROR();
+-    }
+     if (PyModule_AddIntConstant(m, "_size_sockaddr_ip4", sizeof(struct sockaddr_in)) < 0) {
+         PyObjC_INITERROR();
+     }
+diff -Naur pyobjc/pyobjc-core/Modules/objc/objc_support.m pyobjc+iPhone/pyobjc-core/Modules/objc/objc_support.m
+--- pyobjc/pyobjc-core/Modules/objc/objc_support.m	2019-04-02 22:32:16.000000000 -0700
++++ pyobjc+iPhone/pyobjc-core/Modules/objc/objc_support.m	2019-09-15 04:52:09.000000000 -0700
+@@ -1200,13 +1200,6 @@
+         return PyObjC_SockAddrToPython(datum);
+     }
+ 
+-    if (IS_FSREF(type)) {
+-        return PyObjC_decode_fsref(datum);
+-    }
+-
+-    if (IS_FSSPEC(type)) {
+-        return PyObjC_decode_fsspec(datum);
+-    }
+     if (IS_DECIMAL(type)) {
+         return pythonify_nsdecimal(datum);
+     }
+@@ -1616,20 +1609,6 @@
+     }
+ 
+ 
+-    if (IS_FSREF(types)) {
+-        if (PyObjC_encode_fsref(arg, datum) == 0) {
+-            return 0;
+-        }
+-        PyErr_Clear();
+-    }
+-
+-    if (IS_FSSPEC(types)) {
+-        if (PyObjC_encode_fsspec(arg, datum) == 0) {
+-            return 0;
+-        }
+-        PyErr_Clear();
+-    }
+-
+     if (IS_DECIMAL(types)) {
+         return depythonify_nsdecimal(arg, datum);
+     }
+diff -Naur pyobjc/pyobjc-core/Modules/objc/objc_util.m pyobjc+iPhone/pyobjc-core/Modules/objc/objc_util.m
+--- pyobjc/pyobjc-core/Modules/objc/objc_util.m	2019-04-02 22:32:16.000000000 -0700
++++ pyobjc+iPhone/pyobjc-core/Modules/objc/objc_util.m	2019-09-15 05:18:53.000000000 -0700
+@@ -53,7 +53,7 @@
+     } else if (strcmp(value, "NSMallocException") == 0) {
+         return PyExc_MemoryError;
+ 
+-    } else if (strcmp(value, "NSUnknownKeyException") == 0) {
++    } else if (strcmp(value, "NSUndefinedKeyException") == 0) {
+         return PyExc_KeyError;
+     }
+ 
