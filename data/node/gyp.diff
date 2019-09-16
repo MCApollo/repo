@@ -1,0 +1,76 @@
+diff -ur node-v12.2.0/tools/gyp/pylib/gyp/generator/make.py node-v12.2.0+iPhone/tools/gyp/pylib/gyp/generator/make.py
+--- node-v12.2.0/tools/gyp/pylib/gyp/generator/make.py	2019-05-07 14:52:16.000000000 +0000
++++ node-v12.2.0+iPhone/tools/gyp/pylib/gyp/generator/make.py	2019-05-23 02:23:10.400738717 +0000
+@@ -173,8 +173,25 @@
+ """
+ 
+ LINK_COMMANDS_MAC = """\
+-quiet_cmd_alink = LIBTOOL-STATIC $@
+-cmd_alink = rm -f $@ && ./gyp-mac-tool filter-libtool libtool $(GYP_LIBTOOLFLAGS) -static -o $@ $(filter %.o,$^)
++quiet_cmd_alink = AR($(TOOLSET)) $@
++cmd_alink = rm -f $@ && $(AR.$(TOOLSET)) crs $@ $(filter %.o,$^)
++
++quiet_cmd_alink_thin = AR($(TOOLSET)) $@
++cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crsT $@ $(filter %.o,$^)
++
++quiet_cmd_solink = SOLINK($(TOOLSET)) $@
++cmd_solink = $(LINK.$(TOOLSET)) -shared $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o "$@" $(LD_INPUTS) $(LIBS)
++
++quiet_cmd_solink_module = SOLINK_MODULE($(TOOLSET)) $@
++cmd_solink_module = $(LINK.$(TOOLSET)) -bundle $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o $@ $(filter-out FORCE_DO_CMD, $^) $(LIBS)
++"""
++
++LINK_COMMANDS_IOS = """\
++quiet_cmd_alink = AR($(TOOLSET)) $@
++cmd_alink = rm -f $@ && $(AR.$(TOOLSET)) crs $@ $(filter %.o,$^)
++
++quiet_cmd_alink_thin = AR($(TOOLSET)) $@
++cmd_alink_thin = rm -f $@ && $(AR.$(TOOLSET)) crs $@ $(filter %.o,$^)
+ 
+ quiet_cmd_link = LINK($(TOOLSET)) $@
+ cmd_link = $(LINK.$(TOOLSET)) $(GYP_LDFLAGS) $(LDFLAGS.$(TOOLSET)) -o "$@" $(LD_INPUTS) $(LIBS)
+@@ -2033,41 +2049,9 @@
+       'srcdir': srcdir,
+       'copy_archive_args': copy_archive_arguments,
+     }
+-  if flavor == 'mac':
+-    flock_command = './gyp-mac-tool flock'
+-    header_params.update({
+-        'flock': flock_command,
+-        'flock_index': 2,
+-        'link_commands': LINK_COMMANDS_MAC,
+-        'extra_commands': SHARED_HEADER_MAC_COMMANDS,
+-    })
+-  elif flavor == 'android':
+-    header_params.update({
+-        'link_commands': LINK_COMMANDS_ANDROID,
+-    })
+-  elif flavor == 'solaris':
+-    header_params.update({
+-        'flock': './gyp-flock-tool flock',
+-        'flock_index': 2,
+-    })
+-  elif flavor == 'freebsd':
+-    # Note: OpenBSD has sysutils/flock. lockf seems to be FreeBSD specific.
+-    header_params.update({
+-        'flock': 'lockf',
+-    })
+-  elif flavor == 'openbsd':
+-    copy_archive_arguments = '-pPRf'
+-    header_params.update({
+-        'copy_archive_args': copy_archive_arguments,
+-    })
+-  elif flavor == 'aix':
+-    copy_archive_arguments = '-pPRf'
+-    header_params.update({
+-        'copy_archive_args': copy_archive_arguments,
+-        'link_commands': LINK_COMMANDS_AIX,
+-        'flock': './gyp-flock-tool flock',
+-        'flock_index': 2,
+-    })
++  header_params.update({
++      'link_commands': LINK_COMMANDS_IOS,
++  })
+ 
+   header_params.update({
+     'CC.target':   GetEnvironFallback(('CC_target', 'CC'), '$(CC)'),

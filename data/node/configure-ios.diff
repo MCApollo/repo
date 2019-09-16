@@ -1,0 +1,363 @@
+diff -ur node-v12.3.1/common.gypi node-v12.3.1+iPhone/common.gypi
+--- node-v12.3.1/common.gypi	2019-05-22 12:21:51.000000000 +0000
++++ node-v12.3.1+iPhone/common.gypi	2019-05-25 00:16:01.809813352 +0000
+@@ -95,7 +95,7 @@
+         'os_posix': 1,
+         'v8_postmortem_support%': 1,
+       }],
+-      ['OS == "mac"', {
++      ['OS == "mac" or OS=="ios"', {
+         'obj_dir%': '<(PRODUCT_DIR)/obj.target',
+         'v8_base': '<(PRODUCT_DIR)/libv8_base.a',
+       }],
+@@ -104,7 +104,7 @@
+       }, {
+         'openssl_product': '<(STATIC_LIB_PREFIX)openssl<(STATIC_LIB_SUFFIX)',
+       }],
+-      ['OS=="mac"', {
++      ['OS=="mac" or OS=="ios"', {
+         'clang%': 1,
+       }],
+     ],
+@@ -172,7 +172,7 @@
+             # pull in V8's postmortem metadata
+             'ldflags': [ '-Wl,-z,allextract' ]
+           }],
+-          ['OS!="mac" and OS!="win"', {
++          ['OS!="mac" and OS!="ios" and OS!="win"', {
+             'cflags': [ '-fno-omit-frame-pointer' ],
+           }],
+           ['OS=="linux"', {
+@@ -293,7 +293,7 @@
+       [ 'target_arch=="arm64"', {
+         'msvs_configuration_platform': 'arm64',
+       }],
+-      ['asan == 1 and OS != "mac"', {
++      ['asan == 1 and (OS != "mac" or OS != "ios")', {
+         'cflags+': [
+           '-fno-omit-frame-pointer',
+           '-fsanitize=address',
+@@ -302,7 +302,7 @@
+         'cflags!': [ '-fomit-frame-pointer' ],
+         'ldflags': [ '-fsanitize=address' ],
+       }],
+-      ['asan == 1 and OS == "mac"', {
++      ['asan == 1 and (OS == "mac" or OS == "ios")', {
+         'xcode_settings': {
+           'OTHER_CFLAGS+': [
+             '-fno-omit-frame-pointer',
+@@ -425,6 +425,21 @@
+           }],
+         ],
+       }],
++      ['OS=="ios"', {
++        'defines': [
++          '__IPHONEOS__',
++          'TARGET_OS_IPHONE',
++          'V8_TARGET_OS_IPHONE',
++          '_DARWIN_USE_64_BIT_INODE',
++          '__AARCH64EL__',
++          '_M_ARM64',
++        ],
++        'cflags': [
++          '-fno-exceptions',
++          '-fno-rtti',
++          '-fno-strict-aliasing'
++        ],
++      }],
+       ['OS=="mac"', {
+         'defines': ['_DARWIN_USE_64_BIT_INODE=1'],
+         'xcode_settings': {
+@@ -436,7 +451,6 @@
+           'GCC_ENABLE_CPP_RTTI': 'NO',              # -fno-rtti
+           'GCC_ENABLE_PASCAL_STRINGS': 'NO',        # No -mpascal-strings
+           'PREBINDING': 'NO',                       # No -Wl,-prebind
+-          'MACOSX_DEPLOYMENT_TARGET': '10.10',      # -mmacosx-version-min=10.10
+           'USE_HEADERMAP': 'NO',
+           'OTHER_CFLAGS': [
+             '-fno-strict-aliasing',
+@@ -465,6 +479,9 @@
+           ['target_arch=="x64"', {
+             'xcode_settings': {'ARCHS': ['x86_64']},
+           }],
++          [ 'target_arch=="arm64"', {
++            'xcode_settings': {'ARCHS': ['arm64']},
++          }],
+           ['clang==1', {
+             'xcode_settings': {
+               'GCC_VERSION': 'com.apple.compilers.llvm.clang.1_0',
+diff -ur node-v12.3.1/configure.py node-v12.3.1+iPhone/configure.py
+--- node-v12.3.1/configure.py	2019-05-22 12:21:51.000000000 +0000
++++ node-v12.3.1+iPhone/configure.py	2019-05-25 00:16:01.809813352 +0000
+@@ -44,7 +44,7 @@
+ parser = optparse.OptionParser()
+ 
+ valid_os = ('win', 'mac', 'solaris', 'freebsd', 'openbsd', 'linux',
+-            'android', 'aix', 'cloudabi')
++            'ios', 'android', 'aix', 'cloudabi')
+ valid_arch = ('arm', 'arm64', 'ia32', 'ppc',
+               'ppc64', 'x32','x64', 'x86', 'x86_64', 's390', 's390x')
+ valid_arm_float_abi = ('soft', 'softfp', 'hard')
+@@ -908,6 +908,8 @@
+ def configure_node(o):
+   if options.dest_os == 'android':
+     o['variables']['OS'] = 'android'
++  if options.dest_os == 'ios':
++    o['variables']['OS'] = 'ios'
+   o['variables']['node_prefix'] = options.prefix
+   o['variables']['node_install_npm'] = b(not options.without_npm)
+   o['variables']['node_report'] = b(not options.without_report)
+@@ -1069,12 +1071,7 @@
+   o['variables']['node_shared'] = b(options.shared)
+   node_module_version = getmoduleversion.get_version()
+ 
+-  if sys.platform == 'darwin':
+-    shlib_suffix = '%s.dylib'
+-  elif sys.platform.startswith('aix'):
+-    shlib_suffix = '%s.a'
+-  else:
+-    shlib_suffix = 'so.%s'
++  shlib_suffix = '%s.dylib'
+ 
+   shlib_suffix %= node_module_version
+   o['variables']['node_module_version'] = int(node_module_version)
+diff -ur node-v12.3.1/deps/brotli/brotli.gyp node-v12.3.1+iPhone/deps/brotli/brotli.gyp
+--- node-v12.3.1/deps/brotli/brotli.gyp	2019-05-22 12:21:51.000000000 +0000
++++ node-v12.3.1+iPhone/deps/brotli/brotli.gyp	2019-05-25 00:16:01.809813352 +0000
+@@ -15,7 +15,7 @@
+             'OS_FREEBSD'
+           ]
+         }],
+-        ['OS=="mac"', {
++        ['OS=="mac" or OS=="ios"', {
+           'defines': [
+             'OS_MACOSX'
+           ]
+diff -ur node-v12.3.1/deps/cares/cares.gyp node-v12.3.1+iPhone/deps/cares/cares.gyp
+--- node-v12.3.1/deps/cares/cares.gyp	2019-05-22 12:21:51.000000000 +0000
++++ node-v12.3.1+iPhone/deps/cares/cares.gyp	2019-05-25 00:16:01.813813354 +0000
+@@ -145,7 +145,7 @@
+           'include_dirs': [ 'config/linux' ],
+           'sources': [ 'config/linux/ares_config.h' ]
+         }],
+-        [ 'OS=="mac"', {
++        [ 'OS=="mac" or OS=="ios"', {
+           'include_dirs': [ 'config/darwin' ],
+           'sources': [ 'config/darwin/ares_config.h' ]
+         }],
+diff -ur node-v12.3.1/deps/npm/node_modules/node-gyp/addon.gypi node-v12.3.1+iPhone/deps/npm/node_modules/node-gyp/addon.gypi
+--- node-v12.3.1/deps/npm/node_modules/node-gyp/addon.gypi	2019-05-22 12:21:51.000000000 +0000
++++ node-v12.3.1+iPhone/deps/npm/node_modules/node-gyp/addon.gypi	2019-05-25 00:16:01.813813354 +0000
+@@ -79,7 +79,7 @@
+     ],
+ 
+     'conditions': [
+-      [ 'OS=="mac"', {
++      [ 'OS=="mac" or OS=="ios"', {
+         'defines': [
+           '_DARWIN_USE_64_BIT_INODE=1'
+         ],
+diff -ur node-v12.3.1/deps/npm/node_modules/node-gyp/gyp/tools/emacs/testdata/media.gyp node-v12.3.1+iPhone/deps/npm/node_modules/node-gyp/gyp/tools/emacs/testdata/media.gyp
+--- node-v12.3.1/deps/npm/node_modules/node-gyp/gyp/tools/emacs/testdata/media.gyp	2019-05-22 12:21:51.000000000 +0000
++++ node-v12.3.1+iPhone/deps/npm/node_modules/node-gyp/gyp/tools/emacs/testdata/media.gyp	2019-05-25 00:16:01.813813354 +0000
+@@ -545,12 +545,12 @@
+             'base/simd/scale_yuv_to_rgb_sse2_x64.asm',
+           ],
+         }],
+-        [ 'os_posix == 1 and OS != "mac" and OS != "android"', {
++        [ 'os_posix == 1 and OS != "mac" and OS != "ios" and OS != "android"', {
+           'cflags': [
+             '-msse2',
+           ],
+         }],
+-        [ 'OS == "mac"', {
++        [ 'OS == "mac" or OS == "ios"', {
+           'configurations': {
+             'Debug': {
+               'xcode_settings': {
+@@ -572,7 +572,7 @@
+             ],
+           },
+         }],
+-        [ 'OS=="mac"', {
++        [ 'OS=="mac" or OS=="ios"', {
+           'variables': {
+             'yasm_flags': [
+               '-DPREFIX',
+@@ -582,7 +582,7 @@
+             ],
+           },
+         }],
+-        [ 'os_posix==1 and OS!="mac"', {
++        [ 'os_posix==1 and OS!="mac" and OS!="ios"', {
+           'variables': {
+             'conditions': [
+               [ 'target_arch=="ia32"', {
+@@ -710,7 +710,7 @@
+         'webm/webm_parser_unittest.cc',
+       ],
+       'conditions': [
+-        ['os_posix==1 and OS!="mac"', {
++        ['os_posix==1 and OS!="mac" and OS!="ios"', {
+           'conditions': [
+             ['linux_use_tcmalloc==1', {
+               'dependencies': [
+@@ -930,7 +930,7 @@
+         },
+       ],
+     }],
+-    ['os_posix == 1 and OS != "mac" and OS != "android"', {
++    ['os_posix == 1 and OS != "mac" and OS != "ios" and OS != "android"', {
+       'targets': [
+         {
+           'target_name': 'player_x11',
+@@ -1064,7 +1064,7 @@
+             'filters/pipeline_integration_test_base.cc',
+           ],
+           'conditions': [
+-            ['os_posix==1 and OS!="mac"', {
++            ['os_posix==1 and OS!="mac" and OS!="ios"', {
+               'conditions': [
+                 ['linux_use_tcmalloc==1', {
+                   'dependencies': [
+diff -ur node-v12.3.1/deps/uv/common.gypi node-v12.3.1+iPhone/deps/uv/common.gypi
+--- node-v12.3.1/deps/uv/common.gypi	2019-05-22 12:21:52.000000000 +0000
++++ node-v12.3.1+iPhone/deps/uv/common.gypi	2019-05-25 00:16:01.813813354 +0000
+@@ -168,6 +168,13 @@
+           }],
+         ],
+       }],
++      ['OS=="ios"', {
++        'cflags': [
++          '-fno-exceptions',
++          '-fno-rtti',
++          '-fno-threadsafe-statics'
++        ],
++      }],
+       ['OS=="mac"', {
+         'xcode_settings': {
+           'ALWAYS_SEARCH_USER_PATHS': 'NO',
+diff -ur node-v12.3.1/deps/uv/uv.gyp node-v12.3.1+iPhone/deps/uv/uv.gyp
+--- node-v12.3.1/deps/uv/uv.gyp	2019-05-22 12:21:52.000000000 +0000
++++ node-v12.3.1+iPhone/deps/uv/uv.gyp	2019-05-25 00:16:01.813813354 +0000
+@@ -198,7 +198,7 @@
+                 }],
+               ],
+             }],
+-            ['uv_library=="shared_library" and OS!="mac" and OS!="zos"', {
++            ['uv_library=="shared_library" and OS!="mac" and OS!="ios" and OS!="zos"', {
+               # This will cause gyp to set soname
+               # Must correspond with UV_VERSION_MAJOR
+               # in include/uv/version.h
+diff -ur node-v12.3.1/node.gyp node-v12.3.1+iPhone/node.gyp
+--- node-v12.3.1/node.gyp	2019-05-22 12:21:54.000000000 +0000
++++ node-v12.3.1+iPhone/node.gyp	2019-05-25 12:01:52.868864501 +0000
+@@ -351,9 +351,8 @@
+           'conditions': [
+             ['OS!="aix"', {
+               'ldflags': [
+-                '-Wl,--whole-archive,<(obj_dir)/<(STATIC_LIB_PREFIX)'
++                '-Wl,-force_load,<(obj_dir)/<(STATIC_LIB_PREFIX)'
+                     '<(node_core_target_name)<(STATIC_LIB_SUFFIX)',
+-                '-Wl,--no-whole-archive',
+               ],
+             }],
+             [ 'OS=="win"', {
+@@ -414,7 +413,7 @@
+             },
+           },
+          }],
+-        ['want_separate_host_toolset==0', {
++        ['want_separate_host_toolset==1', {
+           'dependencies': [
+             'mkcodecache',
+           ],
+@@ -760,7 +759,7 @@
+                 '<(SHARED_INTERMEDIATE_DIR)/node_dtrace_provider.o'
+               ],
+             }],
+-            [ 'OS!="mac" and OS!="linux"', {
++            [ 'OS!="mac" and OS!="ios" and OS!="linux"', {
+               'sources': [
+                 'src/node_dtrace_ustack.cc',
+                 'src/node_dtrace_provider.cc',
+@@ -939,7 +938,7 @@
+       'target_name': 'node_dtrace_provider',
+       'type': 'none',
+       'conditions': [
+-        [ 'node_use_dtrace=="true" and OS!="mac" and OS!="linux"', {
++        [ 'node_use_dtrace=="true" and OS!="mac" and OS!="ios" and OS!="linux"', {
+           'actions': [
+             {
+               'action_name': 'node_dtrace_provider_o',
+@@ -974,7 +973,7 @@
+       'target_name': 'node_dtrace_ustack',
+       'type': 'none',
+       'conditions': [
+-        [ 'node_use_dtrace=="true" and OS!="mac" and OS!="linux"', {
++        [ 'node_use_dtrace=="true" and OS!="mac" and OS!="ios" and OS!="linux"', {
+           'actions': [
+             {
+               'action_name': 'node_dtrace_ustack_constants',
+diff -ur node-v12.3.1/node.gypi node-v12.3.1+iPhone/node.gypi
+--- node-v12.3.1/node.gypi	2019-05-22 12:21:54.000000000 +0000
++++ node-v12.3.1+iPhone/node.gypi	2019-05-25 12:03:43.012932500 +0000
+@@ -143,9 +143,8 @@
+           'conditions': [
+             ['OS!="aix" and node_shared=="false"', {
+               'ldflags': [
+-                '-Wl,--whole-archive,'
++                '-Wl,-force_load,'
+                 '<(obj_dir)/deps/zlib/<(STATIC_LIB_PREFIX)zlib<(STATIC_LIB_SUFFIX)',
+-                '-Wl,--no-whole-archive',
+               ],
+             }],
+           ],
+@@ -184,9 +183,8 @@
+           'conditions': [
+             ['OS!="aix" and node_shared=="false"', {
+               'ldflags': [
+-                '-Wl,--whole-archive,'
++                '-Wl,-force_load,'
+                 '<(obj_dir)/deps/uv/<(STATIC_LIB_PREFIX)uv<(STATIC_LIB_SUFFIX)',
+-                '-Wl,--no-whole-archive',
+               ],
+             }],
+           ],
+@@ -202,7 +200,7 @@
+       'dependencies': [ 'deps/brotli/brotli.gyp:brotli' ],
+     }],
+ 
+-    [ 'OS=="mac"', {
++    [ 'OS=="mac" or OS=="ios"', {
+       # linking Corefoundation is needed since certain OSX debugging tools
+       # like Instruments require it for some features
+       'libraries': [ '-framework CoreFoundation' ],
+diff -ur node-v12.3.1/tools/v8_gypfiles/d8.gyp node-v12.3.1+iPhone/tools/v8_gypfiles/d8.gyp
+--- node-v12.3.1/tools/v8_gypfiles/d8.gyp	2019-05-22 12:21:55.000000000 +0000
++++ node-v12.3.1+iPhone/tools/v8_gypfiles/d8.gyp	2019-05-25 00:16:01.817813355 +0000
+@@ -43,7 +43,7 @@
+             'd8_js2c#host',
+           ],
+         }],
+-        ['(OS=="linux" or OS=="mac" or OS=="freebsd" or OS=="netbsd" \
++        ['(OS=="linux" or OS=="mac" or OS=="ios" or OS=="freebsd" or OS=="netbsd" \
+            or OS=="openbsd" or OS=="solaris" or OS=="android" \
+            or OS=="qnx" or OS=="aix")', {
+              'sources': [ '../src/d8-posix.cc', ]
+diff -ur node-v12.3.1/tools/v8_gypfiles/v8.gyp node-v12.3.1+iPhone/tools/v8_gypfiles/v8.gyp
+--- node-v12.3.1/tools/v8_gypfiles/v8.gyp	2019-05-22 12:21:55.000000000 +0000
++++ node-v12.3.1+iPhone/tools/v8_gypfiles/v8.gyp	2019-05-25 00:16:01.817813355 +0000
+@@ -128,6 +128,12 @@
+                 'OTHER_LDFLAGS': ['-dynamiclib', '-all_load']
+               },
+             }],
++            ['OS=="ios"', {
++              'ldflags': [
++                '-dynamiclib',
++                '-all_load'
++              ],
++            }],
+             ['soname_version!=""', {
+               'product_extension': 'so.<(soname_version)',
+             }],

@@ -1,0 +1,77 @@
+diff -ur node-v12.3.1/src/node_main.cc node-v12.3.1+JIT/src/node_main.cc
+--- node-v12.3.1/src/node_main.cc	2019-05-22 02:21:54.000000000 -1000
++++ node-v12.3.1+JIT/src/node_main.cc	2019-06-18 11:15:25.000000000 -1000
+@@ -21,6 +21,12 @@
+ 
+ #include "node.h"
+ #include <cstdio>
++#include <sys/types.h>
++#include <sys/ptrace.h>
++#include <sys/wait.h>
++#include <unistd.h>
++#include <errno.h>
++#include <string.h>
+ 
+ #ifdef _WIN32
+ #include <windows.h>
+@@ -93,6 +99,50 @@
+ }  // namespace per_process
+ }  // namespace node
+ 
++#define CS_OPS_STATUS 0
++#define CS_DEBUGGED   0x10000000
++extern "C" int csops(pid_t pid, unsigned int  ops, void * useraddr, size_t usersize);
++bool get_debugged() {
++  int flags;
++  int rv = csops(getpid(), CS_OPS_STATUS, &flags, sizeof(flags));
++  if (rv==0 && flags&CS_DEBUGGED) return true;
++
++  pid_t pid = fork();
++  if (pid) {
++    int st,rv,i=0;
++    do {
++      usleep(500);
++      rv = waitpid(pid, &st, 0);
++    } while (rv<0 && i++<10);
++    if (rv<0) fprintf(stderr, "Unable to wait for child?\n");
++  } else if (pid == 0) {
++    pid_t ppid = getppid();
++    int rv = ptrace(PT_ATTACHEXC, ppid, 0, 0);
++    if (rv) {
++      perror("Unable to attach to process");
++      exit(1);
++    }
++    for (int i=0; i<100; i++) {
++      usleep(1000);
++      errno = 0;
++      rv = ptrace(PT_DETACH, ppid, 0, 0);
++      if (rv==0) break;
++    }
++    if (rv) {
++      perror("Unable to detach from process");
++      exit(1);
++    }
++    exit(0);
++  } else {
++    perror("Unable to fork");
++  }
++
++  rv = csops(getpid(), CS_OPS_STATUS, &flags, sizeof(flags));
++  if (rv==0 && flags&CS_DEBUGGED) return true;
++
++  return false;
++}
++
+ int main(int argc, char* argv[]) {
+ #if defined(__POSIX__) && defined(NODE_SHARED_MODE)
+   // In node::PlatformInit(), we squash all signal handlers for non-shared lib
+@@ -119,6 +168,9 @@
+     }
+   }
+ #endif
++  if (!get_debugged()) {
++      fprintf(stderr, "Unable to obtain CS_DEBUGGED -  I will probably die now.\n");
++  }
+   // Disable stdio buffering, it interacts poorly with printf()
+   // calls elsewhere in the program (e.g., any logging from V8.)
+   setvbuf(stdout, nullptr, _IONBF, 0);

@@ -1,0 +1,26 @@
+diff -Naur node-v12.3.1/deps/v8/src/objects/bigint.cc node-v12.3.1+iPhone/deps/v8/src/objects/bigint.cc
+--- node-v12.3.1/deps/v8/src/objects/bigint.cc	2019-05-22 05:21:53.000000000 -0700
++++ node-v12.3.1+iPhone/deps/v8/src/objects/bigint.cc	2019-09-16 08:29:40.000000000 -0700
+@@ -819,7 +819,7 @@
+     STATIC_ASSERT(sizeof(digit_t) >= sizeof(value));
+     return (x->length() == 1) && (x->sign() == (value < 0)) &&
+            (x->digit(0) ==
+-            static_cast<digit_t>(std::abs(static_cast<int64_t>(value))));
++            static_cast<digit_t>(std::fabs(static_cast<int64_t>(value))));
+   }
+   DCHECK(y->IsHeapNumber());
+   double value = Handle<HeapNumber>::cast(y)->value();
+@@ -843,7 +843,7 @@
+     STATIC_ASSERT(sizeof(digit_t) >= sizeof(y_value));
+     if (x->length() > 1) return AbsoluteGreater(x_sign);
+ 
+-    digit_t abs_value = std::abs(static_cast<int64_t>(y_value));
++    digit_t abs_value = std::fabs(static_cast<int64_t>(y_value));
+     digit_t x_digit = x->digit(0);
+     if (x_digit > abs_value) return AbsoluteGreater(x_sign);
+     if (x_digit < abs_value) return AbsoluteLess(x_sign);
+diff -Naur node-v12.3.1/log node-v12.3.1+iPhone/log
+--- node-v12.3.1/log	1969-12-31 16:00:00.000000000 -0800
++++ node-v12.3.1+iPhone/log	2019-09-16 08:29:56.000000000 -0700
+@@ -0,0 +1 @@
++zsh: no such file or directory: ../../make.sh

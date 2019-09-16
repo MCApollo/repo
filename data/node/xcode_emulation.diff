@@ -1,0 +1,77 @@
+diff -ur node-chakracore-node-v10.13.0/tools/gyp/pylib/gyp/xcode_emulation.py node-chakracore-node-v10.13.0+iPhone/tools/gyp/pylib/gyp/xcode_emulation.py
+--- node-chakracore-node-v10.13.0/tools/gyp/pylib/gyp/xcode_emulation.py	2018-11-17 00:31:08.000000000 +0000
++++ node-chakracore-node-v10.13.0+iPhone/tools/gyp/pylib/gyp/xcode_emulation.py	2019-05-16 21:41:49.953754405 +0000
+@@ -500,9 +500,10 @@
+       pass
+ 
+   def _SdkRoot(self, configname):
+-    if configname is None:
+-      configname = self.configname
+-    return self.GetPerConfigSetting('SDKROOT', configname, default='')
++    return ''
++#    if configname is None:
++#      configname = self.configname
++#    return self.GetPerConfigSetting('SDKROOT', configname, default='')
+ 
+   def _XcodePlatformPath(self, configname=None):
+     sdk_root = self._SdkRoot(configname)
+@@ -527,16 +528,17 @@
+     return XcodeSettings._sdk_path_cache[sdk_root]
+ 
+   def _AppendPlatformVersionMinFlags(self, lst):
+-    self._Appendf(lst, 'MACOSX_DEPLOYMENT_TARGET', '-mmacosx-version-min=%s')
+-    if 'IPHONEOS_DEPLOYMENT_TARGET' in self._Settings():
+-      # TODO: Implement this better?
+-      sdk_path_basename = os.path.basename(self._SdkPath())
+-      if sdk_path_basename.lower().startswith('iphonesimulator'):
+-        self._Appendf(lst, 'IPHONEOS_DEPLOYMENT_TARGET',
+-                      '-mios-simulator-version-min=%s')
+-      else:
+-        self._Appendf(lst, 'IPHONEOS_DEPLOYMENT_TARGET',
+-                      '-miphoneos-version-min=%s')
++     True
++#    self._Appendf(lst, 'MACOSX_DEPLOYMENT_TARGET', '-mmacosx-version-min=%s')
++#    if 'IPHONEOS_DEPLOYMENT_TARGET' in self._Settings():
++#      # TODO: Implement this better?
++#      sdk_path_basename = os.path.basename(self._SdkPath())
++#      if sdk_path_basename.lower().startswith('iphonesimulator'):
++#        self._Appendf(lst, 'IPHONEOS_DEPLOYMENT_TARGET',
++#                      '-mios-simulator-version-min=%s')
++#      else:
++#        self._Appendf(lst, 'IPHONEOS_DEPLOYMENT_TARGET',
++#                      '-miphoneos-version-min=%s')
+ 
+   def GetCflags(self, configname, arch=None):
+     """Returns flags that need to be added to .c, .cc, .m, and .mm
+@@ -548,8 +550,8 @@
+     cflags = []
+ 
+     sdk_root = self._SdkPath()
+-    if 'SDKROOT' in self._Settings() and sdk_root:
+-      cflags.append('-isysroot %s' % sdk_root)
++#    if 'SDKROOT' in self._Settings() and sdk_root:
++#      cflags.append('-isysroot %s' % sdk_root)
+ 
+     if self.header_map_path:
+       cflags.append('-I%s' % self.header_map_path)
+@@ -873,8 +875,8 @@
+ 
+     self._AppendPlatformVersionMinFlags(ldflags)
+ 
+-    if 'SDKROOT' in self._Settings() and self._SdkPath():
+-      ldflags.append('-isysroot ' + self._SdkPath())
++#    if 'SDKROOT' in self._Settings() and self._SdkPath():
++#      ldflags.append('-isysroot ' + self._SdkPath())
+ 
+     for library_path in self._Settings().get('LIBRARY_SEARCH_PATHS', []):
+       ldflags.append('-L' + gyp_to_build_path(library_path))
+@@ -1407,7 +1409,8 @@
+     if version:
+       version = re.match(r'(\d+\.\d+\.?\d*)', version).groups()[0]
+     else:
+-      raise GypError("No Xcode or CLT version detected!")
++      version = '10.6'
++#      raise GypError("No Xcode or CLT version detected!")
+     # The CLT has no build information, so we return an empty string.
+     version_list = [version, '']
+   version = version_list[0]

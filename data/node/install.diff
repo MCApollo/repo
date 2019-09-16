@@ -1,0 +1,26 @@
+diff -ur node-v12.3.1/tools/install.py node-v12.3.1+iPhone/tools/install.py
+--- node-v12.3.1/tools/install.py	2019-05-22 12:21:55.000000000 +0000
++++ node-v12.3.1+iPhone/tools/install.py	2019-05-28 00:22:25.356341629 +0000
+@@ -134,8 +134,8 @@
+       output_file = 'lib' + output_file + '.' + variables.get('shlib_suffix')
+       # GYP will output to lib.target except on OS X, this is hardcoded
+       # in its source - see the _InstallableTargetInstallPath function.
+-      if sys.platform != 'darwin':
+-        output_prefix += 'lib.target/'
++#      if sys.platform != 'darwin':
++      output_prefix += 'lib.target/'
+ 
+   if 'false' == variables.get('node_shared'):
+     action([output_prefix + output_file], 'bin/' + output_file)
+@@ -151,10 +151,7 @@
+   action(['deps/v8/tools/gdbinit'], 'share/doc/node/')
+   action(['deps/v8/tools/lldb_commands.py'], 'share/doc/node/')
+ 
+-  if 'freebsd' in sys.platform or 'openbsd' in sys.platform:
+-    action(['doc/node.1'], 'man/man1/')
+-  else:
+-    action(['doc/node.1'], 'share/man/man1/')
++  action(['doc/node.1'], 'share/man/man1/')
+ 
+   if 'true' == variables.get('node_install_npm'): npm_files(action)
+ 

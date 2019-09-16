@@ -1,0 +1,167 @@
+diff -ur node-v12.3.1/deps/v8/src/arm64/cpu-arm64.cc node-v12.3.1+iPhone/deps/v8/src/arm64/cpu-arm64.cc
+--- node-v12.3.1/deps/v8/src/arm64/cpu-arm64.cc	2019-05-22 12:21:52.000000000 +0000
++++ node-v12.3.1+iPhone/deps/v8/src/arm64/cpu-arm64.cc	2019-05-24 19:37:47.406732128 +0000
+@@ -15,7 +15,7 @@
+ class CacheLineSizes {
+  public:
+   CacheLineSizes() {
+-#if !defined(V8_HOST_ARCH_ARM64) || defined(V8_OS_WIN)
++#if !defined(V8_HOST_ARCH_ARM64) || defined(V8_OS_WIN) || defined(V8_OS_IPHONEOS) || defined(__IPHONEOS__)
+     cache_type_register_ = 0;
+ #else
+     // Copy the content of the cache type register to a core register.
+diff -ur node-v12.3.1/deps/v8/src/base/platform/platform-posix.cc node-v12.3.1+iPhone/deps/v8/src/base/platform/platform-posix.cc
+--- node-v12.3.1/deps/v8/src/base/platform/platform-posix.cc	2019-05-22 12:21:52.000000000 +0000
++++ node-v12.3.1+iPhone/deps/v8/src/base/platform/platform-posix.cc	2019-05-24 19:40:15.582804009 +0000
+@@ -240,6 +240,8 @@
+   // 42 bits of virtual addressing. Truncate to 40 bits to allow kernel chance
+   // to fulfill request.
+   raw_addr &= uint64_t{0xFFFFFF0000};
++#elif V8_TARGET_ARCH_ARM64
++  raw_addr = raw_addr >> 14 << 14;
+ #else
+   raw_addr &= 0x3FFFF000;
+ 
+diff -ur node-v12.3.1/tools/v8_gypfiles/toolchain.gypi node-v12.3.1+iPhone/tools/v8_gypfiles/toolchain.gypi
+--- node-v12.3.1/tools/v8_gypfiles/toolchain.gypi	2019-05-22 12:21:55.000000000 +0000
++++ node-v12.3.1+iPhone/tools/v8_gypfiles/toolchain.gypi	2019-05-24 19:35:58.206678803 +0000
+@@ -84,7 +84,9 @@
+     # The setting is ignored if want_separate_host_toolset is 0.
+     'v8_toolset_for_shell%': 'target',
+ 
+-    'host_os%': '<(OS)',
++    # 'host_os%': '<(OS)',
++    'host_os%': "<!(uname -s | sed -e 's/Linux/linux/;s/Darwin/mac/')",
++
+     'werror%': '-Werror',
+     # For a shared library build, results in "libv8-<(soname_version).so".
+     'soname_version%': '',
+@@ -371,7 +373,7 @@
+                   [ 'clang==1', {
+                     'cflags': ['-integrated-as'],
+                   }],
+-                  ['OS!="mac"', {
++                  ['OS!="mac" or OS!="ios"', {
+                     'defines': ['_MIPS_TARGET_HW',],
+                   }, {
+                     'defines': ['_MIPS_TARGET_SIMULATOR',],
+@@ -384,7 +386,7 @@
+           }],  #'_toolset=="target"
+           ['_toolset=="host"', {
+             'conditions': [
+-              ['v8_target_arch==target_arch and OS!="mac"', {
++              ['v8_target_arch==target_arch and OS!="mac" or OS!="ios"', {
+                 'defines': ['_MIPS_TARGET_HW',],
+               }, {
+                 'defines': ['_MIPS_TARGET_SIMULATOR',],
+@@ -1025,7 +1027,7 @@
+         },
+       }],
+       ['(OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="solaris" \
+-         or OS=="netbsd" or OS=="mac" or OS=="android" or OS=="qnx") and \
++         or OS=="netbsd" or OS=="mac" or OS=="ios" or OS=="android" or OS=="qnx") and \
+         v8_target_arch=="ia32"', {
+         'cflags': [
+           '-msse2',
+@@ -1034,7 +1036,7 @@
+         ],
+       }],
+       ['(OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="solaris" \
+-         or OS=="netbsd" or OS=="mac" or OS=="android" or OS=="qnx") and \
++         or OS=="netbsd" or OS=="mac" or OS=="ios" or OS=="android" or OS=="qnx") and \
+         (v8_target_arch=="arm" or v8_target_arch=="ia32" or \
+          v8_target_arch=="mips" or v8_target_arch=="mipsel" or \
+          v8_target_arch=="ppc" or v8_target_arch=="s390")', {
+@@ -1235,7 +1237,7 @@
+                   '-ffunction-sections',
+                 ],
+               }],
+-              ['OS=="mac"', {
++              ['OS=="mac" or OS=="ios"', {
+                 'xcode_settings': {
+                   'GCC_OPTIMIZATION_LEVEL': '0',  # -O0
+                 },
+@@ -1296,7 +1298,7 @@
+                    }],
+                 ],
+               }],
+-              ['OS=="mac"', {
++              ['OS=="mac" or OS=="ios"', {
+                 'xcode_settings': {
+                   'GCC_OPTIMIZATION_LEVEL': '3',  # -O3
+                   'GCC_STRICT_ALIASING': 'YES',
+@@ -1356,7 +1358,7 @@
+               '-O2',
+             ],
+           }],
+-          ['OS=="mac"', {
++          ['OS=="mac" or OS=="ios"', {
+             'xcode_settings': {
+               'GCC_OPTIMIZATION_LEVEL': '3',  # -O3
+ 
+diff -ur node-v12.3.1/tools/v8_gypfiles/v8.gyp node-v12.3.1+iPhone/tools/v8_gypfiles/v8.gyp
+--- node-v12.3.1/tools/v8_gypfiles/v8.gyp	2019-05-22 12:21:55.000000000 +0000
++++ node-v12.3.1+iPhone/tools/v8_gypfiles/v8.gyp	2019-05-24 19:45:01.650941667 +0000
+@@ -123,6 +123,12 @@
+             ],
+           },
+           'conditions': [
++            ['OS=="ios"', {
++              'ldflags': [
++                '-dynamiclib',
++                '-all_load'
++              ],
++            }],
+             ['OS=="mac"', {
+               'xcode_settings': {
+                 'OTHER_LDFLAGS': ['-dynamiclib', '-all_load']
+@@ -2221,7 +2227,7 @@
+         }],
+       ],
+       'conditions': [
+-        ['OS=="linux"', {
++        ['OS=="linux" or (host_os=="linux" and _toolset=="host")', {
+             'link_settings': {
+               'libraries': [
+                 '-ldl',
+@@ -2296,15 +2302,37 @@
+             '<(V8_ROOT)/src/base/platform/platform-fuchsia.cc',
+           ]},
+         ],
+-        ['OS=="mac"', {
++        ['OS=="mac" or OS=="ios"', {
+           'sources': [
+             '<(V8_ROOT)/src/base/debug/stack_trace_posix.cc',
+-            '<(V8_ROOT)/src/base/platform/platform-macos.cc',
+             '<(V8_ROOT)/src/base/platform/platform-posix.cc',
+             '<(V8_ROOT)/src/base/platform/platform-posix.h',
+             '<(V8_ROOT)/src/base/platform/platform-posix-time.cc',
+             '<(V8_ROOT)/src/base/platform/platform-posix-time.h',
+-          ]},
++          ],
++          'conditions': [
++            ['(host_os=="mac" and _toolset=="host") or _toolset=="target"', {
++              'sources': [
++                '<(V8_ROOT)/src/base/platform/platform-macos.cc',
++              ]
++            }, {
++              'sources': [
++                '<(V8_ROOT)/src/base/platform/platform-linux.cc',
++              ]
++            }]
++          ],
++          'link_settings': {
++            'target_conditions': [
++              ['_toolset=="host" and host_os!="mac"', {
++                'libraries': [
++                  '-ldl',
++                  '-lpthread',
++                  '-lrt'
++                ]
++              }]
++            ]
++          },
++         },
+         ],
+         ['OS=="win"', {
+           'defines': [
