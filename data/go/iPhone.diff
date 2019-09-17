@@ -1,0 +1,190 @@
+diff -Naur go/src/cmd/go/internal/envcmd/env.go go+iPhone/src/cmd/go/internal/envcmd/env.go
+--- go/src/cmd/go/internal/envcmd/env.go	2019-09-03 10:07:47.000000000 -0700
++++ go+iPhone/src/cmd/go/internal/envcmd/env.go	2019-09-13 14:22:54.000000000 -0700
+@@ -99,10 +99,16 @@
+ 	}
+ 
+ 	cc := cfg.DefaultCC(cfg.Goos, cfg.Goarch)
++	if runtime.GOARCH == "arm64" {
++		cc = "clang"
++	}
+ 	if env := strings.Fields(cfg.Getenv("CC")); len(env) > 0 {
+ 		cc = env[0]
+ 	}
+ 	cxx := cfg.DefaultCXX(cfg.Goos, cfg.Goarch)
++	if runtime.GOARCH == "arm64" {
++		cxx = "clang++"
++	}
+ 	if env := strings.Fields(cfg.Getenv("CXX")); len(env) > 0 {
+ 		cxx = env[0]
+ 	}
+diff -Naur go/src/cmd/go/internal/work/buildid.go go+iPhone/src/cmd/go/internal/work/buildid.go
+--- go/src/cmd/go/internal/work/buildid.go	2019-09-03 10:07:47.000000000 -0700
++++ go+iPhone/src/cmd/go/internal/work/buildid.go	2019-09-13 11:11:38.000000000 -0700
+@@ -678,6 +678,15 @@
+ 		if err := w.Close(); err != nil {
+ 			return err
+ 		}
++
++	// MCApollo: Rehash/sign binary (again) because it has changed.
++	// Hacky workaround for iOS codesigning.
++		if strings.Contains(target, "a.out") {
++			cmd := exec.Command("ldid", "-S@ENT_FILE@", target) // --> target string
++			if err := cmd.Run(); err != nil && (cfg.BuildX || cfg.BuildN) { // Just fail peacefully, the user can just sign this themself.
++				b.Showcmd("", "ldid -S %s # internal", target)
++			}
++		}
+ 	}
+ 
+ 	// Cache package builds, but not binaries (link steps).
+diff -Naur go/src/cmd/go/internal/work/exec.go go+iPhone/src/cmd/go/internal/work/exec.go
+--- go/src/cmd/go/internal/work/exec.go	2019-09-03 10:07:47.000000000 -0700
++++ go+iPhone/src/cmd/go/internal/work/exec.go	2019-09-13 12:08:49.000000000 -0700
+@@ -2245,11 +2245,17 @@
+ 
+ // ccExe returns the CC compiler setting without all the extra flags we add implicitly.
+ func (b *Builder) ccExe() []string {
++	if runtime.GOARCH == "arm64" {
++		return []string{"clang"}
++	}
+ 	return b.compilerExe(origCC, cfg.DefaultCC(cfg.Goos, cfg.Goarch))
+ }
+ 
+ // cxxExe returns the CXX compiler setting without all the extra flags we add implicitly.
+ func (b *Builder) cxxExe() []string {
++	if runtime.GOARCH == "arm64" {
++		return []string{"clang++"}
++	}
+ 	return b.compilerExe(origCXX, cfg.DefaultCXX(cfg.Goos, cfg.Goarch))
+ }
+ 
+diff -Naur go/src/cmd/go/internal/work/gc.go go+iPhone/src/cmd/go/internal/work/gc.go
+--- go/src/cmd/go/internal/work/gc.go	2019-09-03 10:07:47.000000000 -0700
++++ go+iPhone/src/cmd/go/internal/work/gc.go	2019-09-13 15:09:30.000000000 -0700
+@@ -522,9 +522,17 @@
+ 	// Else, use the CC environment variable and defaultCC as fallback.
+ 	var compiler []string
+ 	if cxx {
+-		compiler = envList("CXX", cfg.DefaultCXX(cfg.Goos, cfg.Goarch))
++		if runtime.GOOS == "arm64" {
++			compiler = []string{"clang++"}
++		} else {
++			compiler = envList("CXX", cfg.DefaultCXX(cfg.Goos, cfg.Goarch))
++		}
+ 	} else {
+-		compiler = envList("CC", cfg.DefaultCC(cfg.Goos, cfg.Goarch))
++		if runtime.GOOS == "arm64" {
++			compiler = []string{"clang++"}
++		} else {
++			compiler = envList("CC", cfg.DefaultCC(cfg.Goos, cfg.Goarch))
++		}
+ 	}
+ 	ldflags = append(ldflags, "-buildmode="+ldBuildmode)
+ 	if root.buildID != "" {
+diff -Naur go/src/cmd/go/internal/work/security.go go+iPhone/src/cmd/go/internal/work/security.go
+--- go/src/cmd/go/internal/work/security.go	2019-09-03 10:07:47.000000000 -0700
++++ go+iPhone/src/cmd/go/internal/work/security.go	2019-09-13 11:11:38.000000000 -0700
+@@ -43,6 +43,7 @@
+ 
+ var validCompilerFlags = []*lazyregexp.Regexp{
+ 	re(`-D([A-Za-z_].*)`),
++	re(`-L([^@\-].*)`),
+ 	re(`-F([^@\-].*)`),
+ 	re(`-I([^@\-].*)`),
+ 	re(`-O`),
+diff -Naur go/src/cmd/link/internal/ld/main.go go+iPhone/src/cmd/link/internal/ld/main.go
+--- go/src/cmd/link/internal/ld/main.go	2019-09-03 10:07:47.000000000 -0700
++++ go+iPhone/src/cmd/link/internal/ld/main.go	2019-09-13 11:11:38.000000000 -0700
+@@ -38,6 +38,7 @@
+ 	"flag"
+ 	"log"
+ 	"os"
++	"os/exec"
+ 	"runtime"
+ 	"runtime/pprof"
+ 	"strings"
+@@ -281,6 +282,16 @@
+ 
+ 	ctxt.Bso.Flush()
+ 
++	// MCApollo: A dirty hack for iDevice native compiling
++	// without requring the device to disable codesign enforcement
++	if nerrors == 0 && ctxt.HeadType == objabi.Hdarwin {
++		Outfile := *flagOutfile
++		cmd := exec.Command("ldid", "-S@ENT_FILE@", Outfile)
++		if err := cmd.Run(); err != nil && ctxt.Debugvlog != 0 {
++			ctxt.Logf("ldid failed to signed outfile\n")
++		}
++	}
++
+ 	errorexit()
+ }
+ 
+diff -Naur go/src/runtime/cgo/gcc_darwin_arm64.c go+iPhone/src/runtime/cgo/gcc_darwin_arm64.c
+--- go/src/runtime/cgo/gcc_darwin_arm64.c	2019-09-03 10:07:47.000000000 -0700
++++ go+iPhone/src/runtime/cgo/gcc_darwin_arm64.c	2019-09-13 11:11:38.000000000 -0700
+@@ -93,58 +93,6 @@
+ 	return nil;
+ }
+ 
+-// init_working_dir sets the current working directory to the app root.
+-// By default darwin/arm processes start in "/".
+-static void
+-init_working_dir()
+-{
+-	CFBundleRef bundle = CFBundleGetMainBundle();
+-	if (bundle == NULL) {
+-		fprintf(stderr, "runtime/cgo: no main bundle\n");
+-		return;
+-	}
+-	CFURLRef url_ref = CFBundleCopyResourceURL(bundle, CFSTR("Info"), CFSTR("plist"), NULL);
+-	if (url_ref == NULL) {
+-		// No Info.plist found. It can happen on Corellium virtual devices.
+-		return;
+-	}
+-	CFStringRef url_str_ref = CFURLGetString(url_ref);
+-	char buf[MAXPATHLEN];
+-	Boolean res = CFStringGetCString(url_str_ref, buf, sizeof(buf), kCFStringEncodingUTF8);
+-	CFRelease(url_ref);
+-	if (!res) {
+-		fprintf(stderr, "runtime/cgo: cannot get URL string\n");
+-		return;
+-	}
+-
+-	// url is of the form "file:///path/to/Info.plist".
+-	// strip it down to the working directory "/path/to".
+-	int url_len = strlen(buf);
+-	if (url_len < sizeof("file://")+sizeof("/Info.plist")) {
+-		fprintf(stderr, "runtime/cgo: bad URL: %s\n", buf);
+-		return;
+-	}
+-	buf[url_len-sizeof("/Info.plist")+1] = 0;
+-	char *dir = &buf[0] + sizeof("file://")-1;
+-
+-	if (chdir(dir) != 0) {
+-		fprintf(stderr, "runtime/cgo: chdir(%s) failed\n", dir);
+-	}
+-
+-	// The test harness in go_darwin_arm_exec passes the relative working directory
+-	// in the GoExecWrapperWorkingDirectory property of the app bundle.
+-	CFStringRef wd_ref = CFBundleGetValueForInfoDictionaryKey(bundle, CFSTR("GoExecWrapperWorkingDirectory"));
+-	if (wd_ref != NULL) {
+-		if (!CFStringGetCString(wd_ref, buf, sizeof(buf), kCFStringEncodingUTF8)) {
+-			fprintf(stderr, "runtime/cgo: cannot get GoExecWrapperWorkingDirectory string\n");
+-			return;
+-		}
+-		if (chdir(buf) != 0) {
+-			fprintf(stderr, "runtime/cgo: chdir(%s) failed\n", buf);
+-		}
+-	}
+-}
+-
+ void
+ x_cgo_init(G *g, void (*setg)(void*), void **tlsg, void **tlsbase)
+ {
+@@ -164,5 +112,4 @@
+ 	darwin_arm_init_mach_exception_handler();
+ 	darwin_arm_init_thread_exception_port();
+ 
+-	init_working_dir();
+ }
