@@ -1,0 +1,13 @@
+diff --git a/src/idevice.c b/src/idevice.c
+index f2de6a3449b8e1ce48d466af261d93c3472e9ebf..1dcdae2ba0efdf12fc74b6913c1798e135c691de 100644
+--- a/src/idevice.c
++++ b/src/idevice.c
+@@ -703,7 +703,7 @@ LIBIMOBILEDEVICE_API idevice_error_t idevice_connection_enable_ssl(idevice_conne
+ 	}
+ 	BIO_set_fd(ssl_bio, (int)(long)connection->data, BIO_NOCLOSE);
+ 
+-	SSL_CTX *ssl_ctx = SSL_CTX_new(SSLv3_method());
++	SSL_CTX *ssl_ctx = SSL_CTX_new(TLSv1_method());
+ 	if (ssl_ctx == NULL) {
+ 		debug_info("ERROR: Could not create SSL context.");
+ 		BIO_free(ssl_bio);
