@@ -1,0 +1,15 @@
+diff -Naur masscan-1.0.5/src/smack1.c masscan-1.0.5+iPhone/src/smack1.c
+--- masscan-1.0.5/src/smack1.c	2018-03-08 03:45:23.000000000 -0800
++++ masscan-1.0.5+iPhone/src/smack1.c	2019-10-09 09:02:46.000000000 -0700
+@@ -116,7 +116,11 @@
+ #if defined(_MSC_VER)
+ #include <intrin.h>
+ #elif defined(__llvm__)
++# if defined(__arm64__) || defined(__aarch64__)
++static __inline__ unsigned long long __rdtsc(void) { return 0; }
++# else
+ #include <x86intrin.h>
++# endif
+ #elif defined(__GNUC__)
+ static __inline__ unsigned long long __rdtsc(void)
+ {
