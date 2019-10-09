@@ -1,0 +1,13 @@
+pkg:setup
+./bootstrap.sh --without-libraries=python,mpi --prefix=${PKG_TAPF} --with-icu="$(PKG_DEST_ icu4u)/${PKG_TAPF}" --libdir=${PKG_TAPF}/lib
+echo "using darwin : : ${PKG_TARG}-clang++ :  <archiver>${PKG_TARG}-libtool <target-os>darwin ;" >> user-config.jam
+
+./b2 headers
+./b2 -j4 --layout=tagged-1.66 --user-config=user-config.jam --build-dir=build --stage-dir=build/stage --prefix=${PKG_TAPF} --toolset=darwin link=shared,static threading=multi,single --layout=tagged install
+
+# Fix install_name
+cd "${PKG_DEST}/${PKG_TAPF}"/lib
+for lib in *.dylib; do
+	${PKG_TARG}-install_name_tool -id "${PKG_DEST}/${PKG_TAPF}/${dylib}" "${PKG_TAPF}/${dylib}"
+done
+
