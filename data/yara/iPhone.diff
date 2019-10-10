@@ -1,0 +1,20 @@
+diff -Naur yara-3.10.0/configure.ac yara-3.10.0+iPhone/configure.ac
+--- yara-3.10.0/configure.ac	2019-05-02 01:06:12.000000000 -0700
++++ yara-3.10.0+iPhone/configure.ac	2019-10-09 17:18:00.000000000 -0700
+@@ -33,13 +33,12 @@
+ esac
+ 
+ case $host_os in
+-    darwin*) CFLAGS="$CFLAGS -I/opt/local/include"
++    darwin*) CFLAGS="$CFLAGS"
+              # Starting with Mac OS X 10.11 (El Capitan) the OpenSSL headers
+              # are in /usr/local/opt/openssl/include
+-             CFLAGS="$CFLAGS -DUSE_MACH_PROC -I/usr/local/opt/openssl/include"
+-             LDFLAGS="$LDFLAGS -L/usr/local/opt/openssl/lib"
++             CFLAGS="$CFLAGS -DUSE_NO_PROC"
+              posix=true
+-             proc_interface=mach
++             proc_interface=none
+              jemalloc_prefix=je_ ;;
+     mingw*|cygwin*) CFLAGS="$CFLAGS -DUSE_WINDOWS_PROC"
+             proc_interface=windows
