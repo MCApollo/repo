@@ -1,0 +1,132 @@
+diff -Naur libusb-1.0.23/libusb/os/darwin_usb.c libusb-1.0.23+iPhone/libusb/os/darwin_usb.c
+--- libusb-1.0.23/libusb/os/darwin_usb.c	2019-08-09 09:39:49.000000000 -0700
++++ libusb-1.0.23+iPhone/libusb/os/darwin_usb.c	2019-10-09 17:59:31.000000000 -0700
+@@ -43,11 +43,11 @@
+ #define OBJC_SILENCE_GC_DEPRECATIONS 1
+ 
+ #include <AvailabilityMacros.h>
+-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060 && MAC_OS_X_VERSION_MIN_REQUIRED < 101200
++#if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1060 && MAC_OS_X_VERSION_MIN_REQUIRED < 101200) || defined(__arm64__)
+   #include <objc/objc-auto.h>
+ #endif
+ 
+-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 101200
++#if MAC_OS_X_VERSION_MIN_REQUIRED >= 101200 || defined(__arm64__)
+ /* Apple deprecated the darwin atomics in 10.12 in favor of C11 atomics */
+ #include <stdatomic.h>
+ #define libusb_darwin_atomic_fetch_add(x, y) atomic_fetch_add(x, y)
+@@ -65,7 +65,7 @@
+ #endif
+ 
+ /* On 10.12 and later, use newly available clock_*() functions */
+-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 101200
++#if MAC_OS_X_VERSION_MIN_REQUIRED >= 101200 || defined(__arm64__)
+ #define OSX_USE_CLOCK_GETTIME 1
+ #else
+ #define OSX_USE_CLOCK_GETTIME 0
+@@ -458,13 +458,13 @@
+   struct libusb_context *ctx = (struct libusb_context *)arg0;
+   CFRunLoopRef runloop;
+ 
+-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060
++#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060 || defined(__arm64__)
+   /* Set this thread's name, so it can be seen in the debugger
+      and crash reports. */
+   pthread_setname_np ("org.libusb.device-hotplug");
+ #endif
+ 
+-#if MAC_OS_X_VERSION_MIN_REQUIRED >= 1060 && MAC_OS_X_VERSION_MIN_REQUIRED < 101200
++#if (MAC_OS_X_VERSION_MIN_REQUIRED >= 1060 && MAC_OS_X_VERSION_MIN_REQUIRED < 101200) || defined(__arm64__)
+   /* Tell the Objective-C garbage collector about this thread.
+      This is required because, unlike NSThreads, pthreads are
+      not automatically registered. Although we don't use
+@@ -830,8 +830,8 @@
+     }
+ 
+     if (kIOReturnSuccess != ret && is_open && try_unsuspend) {
+-      /* device may be suspended. unsuspend it and try again */
+-#if DeviceVersion >= 320
++      /* device may be suspended. unsuspend it and try again */ 
++#if DeviceVersion >= 320 || defined(__arm64__)
+       UInt32 info = 0;
+ 
+       /* IOUSBFamily 320+ provides a way to detect device suspension but earlier versions do not */
+@@ -1099,10 +1099,10 @@
+     case kUSBDeviceSpeedLow: dev->speed = LIBUSB_SPEED_LOW; break;
+     case kUSBDeviceSpeedFull: dev->speed = LIBUSB_SPEED_FULL; break;
+     case kUSBDeviceSpeedHigh: dev->speed = LIBUSB_SPEED_HIGH; break;
+-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= 1070 || defined(__arm64__)
+     case kUSBDeviceSpeedSuper: dev->speed = LIBUSB_SPEED_SUPER; break;
+ #endif
+-#if MAC_OS_X_VERSION_MAX_ALLOWED >= 101200
++#if MAC_OS_X_VERSION_MAX_ALLOWED >= 101200 || defined(__arm64__)
+     case kUSBDeviceSpeedSuperPlus: dev->speed = LIBUSB_SPEED_SUPER_PLUS; break;
+ #endif
+     default:
+@@ -1800,7 +1800,7 @@
+   return darwin_to_libusb (ret);
+ }
+ 
+-#if InterfaceVersion >= 550
++#if InterfaceVersion >= 550 || defined(__arm64__)
+ static int submit_stream_transfer(struct usbi_transfer *itransfer) {
+   struct libusb_transfer *transfer = USBI_TRANSFER_TO_LIBUSB_TRANSFER(itransfer);
+   struct darwin_interface *cInterface;
+@@ -1981,7 +1981,7 @@
+   case LIBUSB_TRANSFER_TYPE_ISOCHRONOUS:
+     return submit_iso_transfer(itransfer);
+   case LIBUSB_TRANSFER_TYPE_BULK_STREAM:
+-#if InterfaceVersion >= 550
++#if InterfaceVersion >= 550 || defined(__arm64__)
+     return submit_stream_transfer(itransfer);
+ #else
+     usbi_err (TRANSFER_CTX(transfer), "IOUSBFamily version does not support bulk stream transfers");
+@@ -2027,7 +2027,7 @@
+   usbi_warn (ITRANSFER_CTX (itransfer), "aborting all transactions on interface %d pipe %d", iface, pipeRef);
+ 
+   /* abort transactions */
+-#if InterfaceVersion >= 550
++#if InterfaceVersion >= 550 || defined(__arm64__)
+   if (LIBUSB_TRANSFER_TYPE_BULK_STREAM == transfer->type)
+     (*(cInterface->interface))->AbortStreamsPipe (cInterface->interface, pipeRef, itransfer->stream_id);
+   else
+@@ -2188,7 +2188,7 @@
+ #endif
+ }
+ 
+-#if InterfaceVersion >= 550
++#if InterfaceVersion >= 550 || defined(__arm64__)
+ static int darwin_alloc_streams (struct libusb_device_handle *dev_handle, uint32_t num_streams, unsigned char *endpoints,
+                                  int num_endpoints) {
+   struct darwin_interface *cInterface;
+@@ -2269,7 +2269,7 @@
+         .clear_halt = darwin_clear_halt,
+         .reset_device = darwin_reset_device,
+ 
+-#if InterfaceVersion >= 550
++#if InterfaceVersion >= 550 || defined(__arm64__)
+         .alloc_streams = darwin_alloc_streams,
+         .free_streams = darwin_free_streams,
+ #endif
+diff -Naur libusb-1.0.23/libusb/os/darwin_usb.h libusb-1.0.23+iPhone/libusb/os/darwin_usb.h
+--- libusb-1.0.23/libusb/os/darwin_usb.h	2019-08-09 09:39:49.000000000 -0700
++++ libusb-1.0.23+iPhone/libusb/os/darwin_usb.h	2019-10-09 17:52:26.000000000 -0700
+@@ -54,7 +54,7 @@
+ #define InterfaceVersion 650
+ 
+ /* New in OS 10.8.2 but can't test deployment target to that granularity, so round up. */
+-#elif defined (kIOUSBInterfaceInterfaceID550) && (MAC_OS_X_VERSION_MIN_REQUIRED >= 1090)
++#elif defined (kIOUSBInterfaceInterfaceID550) && ((MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || defined(__arm64__))
+ 
+ #define usb_interface_t IOUSBInterfaceInterface550
+ #define InterfaceInterfaceID kIOUSBInterfaceInterfaceID550
+@@ -97,7 +97,7 @@
+ /* IOUSBDeviceInterface */
+ 
+ /* New in OS 10.9.0. */
+-#if defined (kIOUSBDeviceInterfaceID650) && (MAC_OS_X_VERSION_MIN_REQUIRED >= 1090)
++#if defined (kIOUSBDeviceInterfaceID650) && ((MAC_OS_X_VERSION_MIN_REQUIRED >= 1090) || defined(__arm64__))
+ 
+ #define usb_device_t    IOUSBDeviceInterface650
+ #define DeviceInterfaceID kIOUSBDeviceInterfaceID650
