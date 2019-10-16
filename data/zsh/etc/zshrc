@@ -1,0 +1,32 @@
+# etc/zsh/zshrc: system-wide .zshrc file for zsh(1).
+#
+# This file is sourced only for interactive shells. It
+# should contain commands to set up aliases, functions,
+# options, key bindings, etc.
+#
+# Global Order: zshenv, zprofile, zshrc, zlogin
+
+READNULLCMD=${PAGER:-/usr/bin/pager}
+
+zstyle ':completion:*:sudo:*' command-path /opt/local/sbin \
+                                           /opt/local/bin  \
+                                           /usr/local/sbin \
+                                           /usr/local/bin  \
+                                           /usr/sbin       \
+                                           /usr/bin        \
+                                           /sbin           \
+                                           /bin            \
+                                           /usr/X11R6/bin
+
+(( ${+aliases[run-help]} )) && unalias run-help
+autoload -Uz run-help
+
+# If you don't want compinit called here, place the line
+# skip_global_compinit=1
+# in your $ZDOTDIR/.zshenv or $ZDOTDIR/.zprofile
+if [[ -z "$skip_global_compinit" ]]; then
+  autoload -U compinit
+  compinit
+fi
+
+PS1="%m > "
