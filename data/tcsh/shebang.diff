@@ -1,0 +1,11 @@
+--- a/sh.exec.c	1473698034.000000000
++++ b/sh.exec.c	1552587620.231349153
+@@ -400,7 +400,7 @@
+     blkfree((Char **) t);
+     switch (errno) {
+ 
+-    case ENOEXEC:
++    case ENOEXEC || EPERM:
+ #ifdef WINNT_NATIVE
+ 		nt_feed_to_cmd(f,t);
+ #endif /* WINNT_NATIVE */
