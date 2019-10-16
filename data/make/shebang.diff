@@ -1,0 +1,11 @@
+diff -ur make-4.2.1/job.c make-4.2.1+iPhone/job.c
+--- make-4.2.1/job.c	2016-05-21 10:22:32.000000000 -1000
++++ make-4.2.1+iPhone/job.c	2019-04-09 23:49:32.000000000 -1000
+@@ -2278,6 +2278,7 @@
+                  program, makelevel, argv[0]);
+       break;
+     case ENOEXEC:
++    case EPERM:
+       {
+         /* The file is not executable.  Try it as a shell script.  */
+         const char *shell;
