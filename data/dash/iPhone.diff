@@ -1,0 +1,12 @@
+diff -Naur dash-0.5.10.2/src/exec.c dash-0.5.10.2+iPhone/src/exec.c
+--- dash-0.5.10.2/src/exec.c	2018-05-17 04:10:58.000000000 -0700
++++ dash-0.5.10.2+iPhone/src/exec.c	2019-10-16 07:27:57.000000000 -0700
+@@ -161,7 +161,7 @@
+ #else
+ 	execve(cmd, argv, envp);
+ #endif
+-	if (cmd != path_bshell && errno == ENOEXEC) {
++	if (cmd != path_bshell && (errno == ENOEXEC || errno == EPERM)) {
+ 		*argv-- = cmd;
+ 		*argv = cmd = path_bshell;
+ 		goto repeat;
