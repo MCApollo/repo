@@ -1,0 +1,27 @@
+diff -ur cmake-3.14.2/Source/CPack/cmCPackDragNDropGenerator.cxx cmake-3.14.2+iPhone/Source/CPack/cmCPackDragNDropGenerator.cxx
+--- cmake-3.14.2/Source/CPack/cmCPackDragNDropGenerator.cxx	2019-04-12 02:10:08.000000000 -1000
++++ cmake-3.14.2+iPhone/Source/CPack/cmCPackDragNDropGenerator.cxx	2019-05-08 11:42:41.000000000 -1000
+@@ -22,6 +22,7 @@
+ // to the old Script Manager RegionCode values needed for the 'LPic' data
+ // structure used for generating multi-lingual SLAs.
+ #  include <CoreServices/CoreServices.h>
++#  include <CoreFoundation/CFPriv.h>
+ #endif
+ 
+ static const char* SLAHeader =
+@@ -575,10 +576,12 @@
+                            kCFStringEncodingMacRoman);
+         LangCode lang = 0;
+         RegionCode region = 0;
++        ScriptCode script = 0;
++        CFStringEncoding encoding = 0;
+ #ifdef HAVE_CoreServices
+-        OSStatus err =
+-          LocaleStringToLangAndRegionCodes(iso_language_cstr, &lang, &region);
+-        if (err != noErr)
++        Boolean ok =
++          CFLocaleGetLanguageRegionEncodingForLocaleIdentifier(iso_language, &lang, &region, &script, &encoding);
++        if (!ok)
+ #endif
+         {
+           cmCPackLogger(cmCPackLog::LOG_ERROR,
