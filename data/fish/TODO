@@ -1,0 +1,19 @@
+FIXME: EPERM error?
+src/exec.cpp -> safe_launch_process
+
+get_interpreter returns '/bin/foo bar'
+use 'strtok()' -> returns NULL if no space.
+
+interpreter = get_interpreter(...)
+if (interpreter != NULL && EPERM == i) {
+	char sbarg = strtok(...)
+	char argv2[sizeof(argv)]
+	argv2[0] = interpreter
+	argv2[1] = sbarg
+	// Somehow shift to the argv2 right one, but keep argv correct.
+	for (i = 1; i < sizeof argv2; i++) {
+		argv2[i] = argv[i - 1];
+		if (argv2[i] == NULL) break;
+	}
+	execve(...)
+}

@@ -1,0 +1,20 @@
+diff -Naur fish-3.0.2/src/exec.cpp fish-3.0.2+iPhone/src/exec.cpp
+--- fish-3.0.2/src/exec.cpp	2019-02-19 05:39:17.000000000 -0800
++++ fish-3.0.2+iPhone/src/exec.cpp	2019-10-15 17:51:07.000000000 -0700
+@@ -169,10 +169,12 @@
+     execve(actual_cmd, argv, envv);
+     err = errno;
+ 
+-    // Something went wrong with execve, check for a ":", and run /bin/sh if encountered. This is a
+-    // weird predecessor to the shebang that is still sometimes used since it is supported on
+-    // Windows. OK to not use CLO_EXEC here because this is called after fork and the file is
+-    // immediately closed.
++    char interpreter_buff[128] = {}, *interpreter;
++    interpreter = get_interpreter(actual_cmd, interpreter_buff, sizeof interpreter_buff);
++    if (interpreter != NULL){
++        printf("%s", interpreter);
++    }
++
+     int fd = open(actual_cmd, O_RDONLY);
+     if (fd >= 0) {
+         char begin[1] = {0};
