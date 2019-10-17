@@ -1,0 +1,52 @@
+diff --git a/src/configure b/src/configure
+index 7900ee8c32f5a6cd9a09d312d8ce1d81f4b57d73..978d2f7cf22d7742b3382553dc863949f47a6d14 100755
+--- a/src/configure
++++ b/src/configure
+@@ -10889,7 +10889,8 @@ CFLAGS="$CFLAGS $SIMD_FLAGS -O0"
+ 
+   case $host_os in #(
+   darwin*) :
+-    CC="$CC_BACKUP -mavx"
++    CC="$CC_BACKUP"
++    CFLAGS="-mavx"
+     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether OS X 'as' needs -q option" >&5
+ $as_echo_n "checking whether OS X 'as' needs -q option... " >&6; }
+     cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+@@ -10937,9 +10938,11 @@ rm -f core conftest.err conftest.$ac_objext \
+     if test x$OSX_AS_CLANG != x; then :
+   CC_BACKUP="$CC_BACKUP $OSX_AS_CLANG"
+       AS="$AS $OSX_AS_CLANG"
++      CFLAGS="$CFLAGS_BACKUP"
+ 
+ fi
+     CC="$CC_BACKUP"
++    CFLAGS="$CFLAGS_BACKUP"
+    ;; #(
+   *) :
+      ;;
+diff --git a/src/m4/jtr_x86_logic.m4 b/src/m4/jtr_x86_logic.m4
+index 3a099eacbef98d716aa6d7d1f75c2b1a5dfdc6b0..8f63ab6dbd892e0ac3f6056d58c28cd2c5328ac0 100644
+--- a/src/m4/jtr_x86_logic.m4
++++ b/src/m4/jtr_x86_logic.m4
+@@ -45,7 +45,8 @@ dnl ======================================================================
+ CFLAGS="$CFLAGS $SIMD_FLAGS -O0"
+ 
+   AS_CASE([$host_os], [darwin*],
+-    [CC="$CC_BACKUP -mavx"
++    [CC="$CC_BACKUP"
++    CFLAGS="-mavx"
+     AC_MSG_CHECKING([whether OS X 'as' needs -q option])
+     AC_LINK_IFELSE(
+       [
+@@ -73,8 +74,10 @@ CFLAGS="$CFLAGS $SIMD_FLAGS -O0"
+     AS_IF([test x$OSX_AS_CLANG != x],
+       [CC_BACKUP="$CC_BACKUP $OSX_AS_CLANG"]
+       [AS="$AS $OSX_AS_CLANG"]
++      [CFLAGS="$CFLAGS_BACKUP"]
+     )
+-    [CC="$CC_BACKUP"]]
++    [CC="$CC_BACKUP"]
++    [CFLAGS="$CFLAGS_BACKUP"]]
+   )
+ 
+ if test "x$simd" != xno; then

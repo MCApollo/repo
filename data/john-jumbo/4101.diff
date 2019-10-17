@@ -1,0 +1,110 @@
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 618b2e4b6658d5362f1afd02083d085af8bca58a..5bc068a8c0045f729c9be0a5252457efd0277663 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -682,13 +682,13 @@ ed25519-donna/ed25519-donna.a:
+ 	$(LD) $(LDFLAGS) @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ uaf2john.o uaf_encode.o @OPENMP_CFLAGS@ -o $@
+ 
+ ../run/keepass2john@EXE_EXT@: keepass2john.c jumbo.c base64_convert.c misc.c common.c memory.c
+-	$(CC) -DAC_BUILT -Wall -O2 @CPPFLAGS@ @CFLAGS@  @CFLAGS_EXTRA@ @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ keepass2john.c jumbo.c base64_convert.c -D_JOHN_MISC_NO_LOG misc.c common.c memory.c  $(LDFLAGS) @OPENMP_CFLAGS@ -lcrypto -o $@
++	$(CC) -DAC_BUILT -Wall -O2 @CPPFLAGS@ @CFLAGS@ @OPENSSL_CFLAGS@ @CFLAGS_EXTRA@ @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ keepass2john.c jumbo.c base64_convert.c -D_JOHN_MISC_NO_LOG misc.c common.c memory.c  $(LDFLAGS) @OPENMP_CFLAGS@ @OPENSSL_LIBS@ -o $@
+ 
+ ../run/dmg2john@EXE_EXT@: dmg2john.o jumbo.o
+ 	$(LD) $(LDFLAGS) @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ dmg2john.o jumbo.o @OPENMP_CFLAGS@ -o $@
+ 
+ ../run/bitlocker2john@EXE_EXT@: bitlocker2john.c jumbo.c base64_convert.c misc.c common.o memory.c
+-	$(CC) -DAC_BUILT -Wall -O2 @CPPFLAGS@ @CFLAGS@  @CFLAGS_EXTRA@ @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ bitlocker2john.c jumbo.c base64_convert.c -D_JOHN_MISC_NO_LOG misc.c common.c memory.c  $(LDFLAGS) @OPENMP_CFLAGS@ -lcrypto -o $@
++	$(CC) -DAC_BUILT -Wall -O2 @CPPFLAGS@ @CFLAGS@ @OPENSSL_CFLAGS@ @CFLAGS_EXTRA@ @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ bitlocker2john.c jumbo.c base64_convert.c -D_JOHN_MISC_NO_LOG misc.c common.c memory.c  $(LDFLAGS) @OPENMP_CFLAGS@ @OPENSSL_LIBS@ -o $@
+ 
+ ../run/racf2john@EXE_EXT@: racf2john.o jumbo.o
+ 	$(LD) $(LDFLAGS) @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ racf2john.o jumbo.o @OPENMP_CFLAGS@ -o $@
+diff --git a/src/configure b/src/configure
+index df4db3021fdcf00ef09d42d6c9f47e2b1c86d4c4..f1248245d9e561e61a3ec276434a527a07891cd2 100755
+--- a/src/configure
++++ b/src/configure
+@@ -5222,11 +5222,15 @@ fi
+ if test -d /opt/local/include; then
+    ADD_CFLAGS="$ADD_CFLAGS -I/opt/local/include"
+ fi
+-if test -d /usr/local/opt/openssl/lib; then
+-   ADD_LDFLAGS="$ADD_LDFLAGS -L/usr/local/opt/openssl/lib"
++if test -z "OPENSSL_LIBS"; then
++  if test -d /usr/local/opt/openssl/lib; then
++     ADD_LDFLAGS="$ADD_LDFLAGS -L/usr/local/opt/openssl/lib"
++  fi
+ fi
+-if test -d /usr/local/opt/openssl/include; then
+-   ADD_CFLAGS="$ADD_CFLAGS -I/usr/local/opt/openssl/include"
++if test -z "OPENSSL_CFLAGS"; then
++  if test -d /usr/local/opt/openssl/include; then
++     ADD_CFLAGS="$ADD_CFLAGS -I/usr/local/opt/openssl/include"
++  fi
+ fi
+ 
+    for i in $ADD_CFLAGS; do
+@@ -12271,7 +12275,7 @@ $as_echo_n "checking supplied paths for OpenSSL... " >&6; }
+    done
+ 
+       if test "x$cross_compiling" = "xyes" -a "x$OPENSSL_LIBS" = "x"; then
+-        OPENSSL_LIBS="-lssl -lcrypto"
++        OPENSSL_LIBS="${OPENSSL_LIBS} -lssl -lcrypto"
+       fi
+       LIBS_ORIG="$LIBS"
+       LIBS="$LIBS $OPENSSL_LIBS"
+@@ -12429,7 +12433,7 @@ $as_echo "#define HAVE_LIBSSL 1" >>confdefs.h
+ 
+ $as_echo "#define HAVE_LIBCRYPTO 1" >>confdefs.h
+ 
+-         OPENSSL_LIBS="-lssl -lcrypto"
++         OPENSSL_LIBS="${OPENSSL_LIBS} -lssl -lcrypto"
+ else
+   { { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+ $as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+diff --git a/src/configure.ac b/src/configure.ac
+index b4496165dcb3111933431a0d4a5388ac4563e87e..4d5610c1c3fd0957c83c4d65aa14f454013f5c89 100644
+--- a/src/configure.ac
++++ b/src/configure.ac
+@@ -602,7 +602,7 @@ else
+       [AC_MSG_CHECKING([supplied paths for OpenSSL])]
+       [JTR_LIST_ADD(CFLAGS, [$OPENSSL_CFLAGS])]
+       [if test "x$cross_compiling" = "xyes" -a "x$OPENSSL_LIBS" = "x"; then
+-        OPENSSL_LIBS="-lssl -lcrypto"
++        OPENSSL_LIBS="${OPENSSL_LIBS} -lssl -lcrypto"
+       fi]
+       LIBS_ORIG="$LIBS"
+       LIBS="$LIBS $OPENSSL_LIBS"
+@@ -615,7 +615,7 @@ else
+       [AC_CHECK_LIB([crypto],[MD5_Update],
+          [AC_DEFINE(HAVE_LIBSSL,1,[Define to 1 if you have the `ssl' library (-lssl).])]
+          [AC_DEFINE(HAVE_LIBCRYPTO,1,[Define to 1 if you have the `crypto' library (-lcrypto).])]
+-         [OPENSSL_LIBS="-lssl -lcrypto"],
++         [OPENSSL_LIBS="${OPENSSL_LIBS} -lssl -lcrypto"],
+          [AC_MSG_FAILURE(JtR requires libssl/libcrypto being installed,1)])],
+          [AC_MSG_FAILURE(JtR requires libssl being installed,1)]
+       )
+diff --git a/src/m4/jtr_utility_macros.m4 b/src/m4/jtr_utility_macros.m4
+index 07de834f7682b8850f1d49ee2d50094b42d0b189..74c7917e7d5b5d1436c7331be35fe0a4c40642de 100644
+--- a/src/m4/jtr_utility_macros.m4
++++ b/src/m4/jtr_utility_macros.m4
+@@ -119,12 +119,16 @@ fi
+ if test -d /opt/local/include; then
+    ADD_CFLAGS="$ADD_CFLAGS -I/opt/local/include"
+ fi
+-dnl macOS Homebrew paths.
+-if test -d /usr/local/opt/openssl/lib; then
+-   ADD_LDFLAGS="$ADD_LDFLAGS -L/usr/local/opt/openssl/lib"
++dnl macOS Homebrew paths if now defined by OPENSSL_LIBS and OPENSSL_CFLAGS.
++if test -z "OPENSSL_LIBS"; then
++  if test -d /usr/local/opt/openssl/lib; then
++     ADD_LDFLAGS="$ADD_LDFLAGS -L/usr/local/opt/openssl/lib"
++  fi
+ fi
+-if test -d /usr/local/opt/openssl/include; then
+-   ADD_CFLAGS="$ADD_CFLAGS -I/usr/local/opt/openssl/include"
++if test -z "OPENSSL_CFLAGS"; then
++  if test -d /usr/local/opt/openssl/include; then
++     ADD_CFLAGS="$ADD_CFLAGS -I/usr/local/opt/openssl/include"
++  fi
+ fi
+ JTR_LIST_ADD(CPPFLAGS, [$ADD_CFLAGS]) # no typo here
+ jtr_list_add_result=""
