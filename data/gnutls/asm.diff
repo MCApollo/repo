@@ -1,0 +1,6340 @@
+diff --git a/lib/accelerated/aarch64/macosx/aes-aarch64.s b/lib/accelerated/aarch64/macosx/aes-aarch64.s
+new file mode 100644
+index 0000000000000000000000000000000000000000..f017bcd95d9dab8c9485d4234ec015cef4b2cd42
+--- /dev/null
++++ b/lib/accelerated/aarch64/macosx/aes-aarch64.s
+@@ -0,0 +1,791 @@
++# Copyright (c) 2011-2016, Andy Polyakov <appro@openssl.org>
++# All rights reserved.
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++# 
++#     * Redistributions of source code must retain copyright notices,
++#      this list of conditions and the following disclaimer.
++#
++#     * Redistributions in binary form must reproduce the above
++#      copyright notice, this list of conditions and the following
++#      disclaimer in the documentation and/or other materials
++#      provided with the distribution.
++#
++#     * Neither the name of the Andy Polyakov nor the names of its
++#      copyright holder and contributors may be used to endorse or
++#      promote products derived from this software without specific
++#      prior written permission.
++#
++# ALTERNATIVELY, provided that this notice is retained in full, this
++# product may be distributed under the terms of the GNU General Public
++# License (GPL), in which case the provisions of the GPL apply INSTEAD OF
++# those given above.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS
++# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++#
++# *** This file is auto-generated ***
++#
++# 1 "lib/accelerated/aarch64/macosx/aes-aarch64.s.tmp.S"
++# 1 "<built-in>"
++# 1 "<command-line>"
++# 1 "/usr/aarch64-linux-gnu/include/stdc-predef.h" 1 3
++# 1 "<command-line>" 2
++# 1 "lib/accelerated/aarch64/macosx/aes-aarch64.s.tmp.S"
++# 1 "lib/accelerated/aarch64/aarch64-common.h" 1
++# 2 "lib/accelerated/aarch64/macosx/aes-aarch64.s.tmp.S" 2
++
++
++.text
++
++.align 5
++Lrcon:
++.long 0x01,0x01,0x01,0x01
++.long 0x0c0f0e0d,0x0c0f0e0d,0x0c0f0e0d,0x0c0f0e0d
++.long 0x1b,0x1b,0x1b,0x1b
++
++.globl _aes_v8_set_encrypt_key
++
++.align 5
++_aes_v8_set_encrypt_key:
++Lenc_key:
++ stp x29,x30,[sp,#-16]!
++ add x29,sp,#0
++ mov x3,#-1
++ cmp x0,#0
++ b.eq Lenc_key_abort
++ cmp x2,#0
++ b.eq Lenc_key_abort
++ mov x3,#-2
++ cmp w1,#128
++ b.lt Lenc_key_abort
++ cmp w1,#256
++ b.gt Lenc_key_abort
++ tst w1,#0x3f
++ b.ne Lenc_key_abort
++
++ adr x3,Lrcon
++ cmp w1,#192
++
++ eor v0.16b,v0.16b,v0.16b
++ ld1 {v3.16b},[x0],#16
++ mov w1,#8
++ ld1 {v1.4s,v2.4s},[x3],#32
++
++ b.lt Loop128
++ b.eq L192
++ b L256
++
++.align 4
++Loop128:
++ tbl v6.16b,{v3.16b},v2.16b
++ ext v5.16b,v0.16b,v3.16b,#12
++ st1 {v3.4s},[x2],#16
++ aese v6.16b,v0.16b
++ subs w1,w1,#1
++
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v6.16b,v6.16b,v1.16b
++ eor v3.16b,v3.16b,v5.16b
++ shl v1.16b,v1.16b,#1
++ eor v3.16b,v3.16b,v6.16b
++ b.ne Loop128
++
++ ld1 {v1.4s},[x3]
++
++ tbl v6.16b,{v3.16b},v2.16b
++ ext v5.16b,v0.16b,v3.16b,#12
++ st1 {v3.4s},[x2],#16
++ aese v6.16b,v0.16b
++
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v6.16b,v6.16b,v1.16b
++ eor v3.16b,v3.16b,v5.16b
++ shl v1.16b,v1.16b,#1
++ eor v3.16b,v3.16b,v6.16b
++
++ tbl v6.16b,{v3.16b},v2.16b
++ ext v5.16b,v0.16b,v3.16b,#12
++ st1 {v3.4s},[x2],#16
++ aese v6.16b,v0.16b
++
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v6.16b,v6.16b,v1.16b
++ eor v3.16b,v3.16b,v5.16b
++ eor v3.16b,v3.16b,v6.16b
++ st1 {v3.4s},[x2]
++ add x2,x2,#0x50
++
++ mov w12,#10
++ b Ldone
++
++.align 4
++L192:
++ ld1 {v4.8b},[x0],#8
++ movi v6.16b,#8
++ st1 {v3.4s},[x2],#16
++ sub v2.16b,v2.16b,v6.16b
++
++Loop192:
++ tbl v6.16b,{v4.16b},v2.16b
++ ext v5.16b,v0.16b,v3.16b,#12
++ st1 {v4.8b},[x2],#8
++ aese v6.16b,v0.16b
++ subs w1,w1,#1
++
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v3.16b,v3.16b,v5.16b
++
++ dup v5.4s,v3.s[3]
++ eor v5.16b,v5.16b,v4.16b
++ eor v6.16b,v6.16b,v1.16b
++ ext v4.16b,v0.16b,v4.16b,#12
++ shl v1.16b,v1.16b,#1
++ eor v4.16b,v4.16b,v5.16b
++ eor v3.16b,v3.16b,v6.16b
++ eor v4.16b,v4.16b,v6.16b
++ st1 {v3.4s},[x2],#16
++ b.ne Loop192
++
++ mov w12,#12
++ add x2,x2,#0x20
++ b Ldone
++
++.align 4
++L256:
++ ld1 {v4.16b},[x0]
++ mov w1,#7
++ mov w12,#14
++ st1 {v3.4s},[x2],#16
++
++Loop256:
++ tbl v6.16b,{v4.16b},v2.16b
++ ext v5.16b,v0.16b,v3.16b,#12
++ st1 {v4.4s},[x2],#16
++ aese v6.16b,v0.16b
++ subs w1,w1,#1
++
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v3.16b,v3.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v6.16b,v6.16b,v1.16b
++ eor v3.16b,v3.16b,v5.16b
++ shl v1.16b,v1.16b,#1
++ eor v3.16b,v3.16b,v6.16b
++ st1 {v3.4s},[x2],#16
++ b.eq Ldone
++
++ dup v6.4s,v3.s[3]
++ ext v5.16b,v0.16b,v4.16b,#12
++ aese v6.16b,v0.16b
++
++ eor v4.16b,v4.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v4.16b,v4.16b,v5.16b
++ ext v5.16b,v0.16b,v5.16b,#12
++ eor v4.16b,v4.16b,v5.16b
++
++ eor v4.16b,v4.16b,v6.16b
++ b Loop256
++
++Ldone:
++ str w12,[x2]
++ mov x3,#0
++
++Lenc_key_abort:
++ mov x0,x3
++ ldr x29,[sp],#16
++ ret
++
++
++.globl _aes_v8_set_decrypt_key
++
++.align 5
++_aes_v8_set_decrypt_key:
++ stp x29,x30,[sp,#-16]!
++ add x29,sp,#0
++ bl Lenc_key
++
++ cmp x0,#0
++ b.ne Ldec_key_abort
++
++ sub x2,x2,#240
++ mov x4,#-16
++ add x0,x2,x12,lsl#4
++
++ ld1 {v0.4s},[x2]
++ ld1 {v1.4s},[x0]
++ st1 {v0.4s},[x0],x4
++ st1 {v1.4s},[x2],#16
++
++Loop_imc:
++ ld1 {v0.4s},[x2]
++ ld1 {v1.4s},[x0]
++ aesimc v0.16b,v0.16b
++ aesimc v1.16b,v1.16b
++ st1 {v0.4s},[x0],x4
++ st1 {v1.4s},[x2],#16
++ cmp x0,x2
++ b.hi Loop_imc
++
++ ld1 {v0.4s},[x2]
++ aesimc v0.16b,v0.16b
++ st1 {v0.4s},[x0]
++
++ eor x0,x0,x0
++Ldec_key_abort:
++ ldp x29,x30,[sp],#16
++ ret
++
++.globl _aes_v8_encrypt
++
++.align 5
++_aes_v8_encrypt:
++ ldr w3,[x2,#240]
++ ld1 {v0.4s},[x2],#16
++ ld1 {v2.16b},[x0]
++ sub w3,w3,#2
++ ld1 {v1.4s},[x2],#16
++
++Loop_enc:
++ aese v2.16b,v0.16b
++ aesmc v2.16b,v2.16b
++ ld1 {v0.4s},[x2],#16
++ subs w3,w3,#2
++ aese v2.16b,v1.16b
++ aesmc v2.16b,v2.16b
++ ld1 {v1.4s},[x2],#16
++ b.gt Loop_enc
++
++ aese v2.16b,v0.16b
++ aesmc v2.16b,v2.16b
++ ld1 {v0.4s},[x2]
++ aese v2.16b,v1.16b
++ eor v2.16b,v2.16b,v0.16b
++
++ st1 {v2.16b},[x1]
++ ret
++
++.globl _aes_v8_decrypt
++
++.align 5
++_aes_v8_decrypt:
++ ldr w3,[x2,#240]
++ ld1 {v0.4s},[x2],#16
++ ld1 {v2.16b},[x0]
++ sub w3,w3,#2
++ ld1 {v1.4s},[x2],#16
++
++Loop_dec:
++ aesd v2.16b,v0.16b
++ aesimc v2.16b,v2.16b
++ ld1 {v0.4s},[x2],#16
++ subs w3,w3,#2
++ aesd v2.16b,v1.16b
++ aesimc v2.16b,v2.16b
++ ld1 {v1.4s},[x2],#16
++ b.gt Loop_dec
++
++ aesd v2.16b,v0.16b
++ aesimc v2.16b,v2.16b
++ ld1 {v0.4s},[x2]
++ aesd v2.16b,v1.16b
++ eor v2.16b,v2.16b,v0.16b
++
++ st1 {v2.16b},[x1]
++ ret
++
++.globl _aes_v8_cbc_encrypt
++
++.align 5
++_aes_v8_cbc_encrypt:
++ stp x29,x30,[sp,#-16]!
++ add x29,sp,#0
++ subs x2,x2,#16
++ mov x8,#16
++ b.lo Lcbc_abort
++ csel x8,xzr,x8,eq
++
++ cmp w5,#0
++ ldr w5,[x3,#240]
++ and x2,x2,#-16
++ ld1 {v6.16b},[x4]
++ ld1 {v0.16b},[x0],x8
++
++ ld1 {v16.4s,v17.4s},[x3]
++ sub w5,w5,#6
++ add x7,x3,x5,lsl#4
++ sub w5,w5,#2
++ ld1 {v18.4s,v19.4s},[x7],#32
++ ld1 {v20.4s,v21.4s},[x7],#32
++ ld1 {v22.4s,v23.4s},[x7],#32
++ ld1 {v7.4s},[x7]
++
++ add x7,x3,#32
++ mov w6,w5
++ b.eq Lcbc_dec
++
++ cmp w5,#2
++ eor v0.16b,v0.16b,v6.16b
++ eor v5.16b,v16.16b,v7.16b
++ b.eq Lcbc_enc128
++
++ ld1 {v2.4s,v3.4s},[x7]
++ add x7,x3,#16
++ add x6,x3,#16*4
++ add x12,x3,#16*5
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ add x14,x3,#16*6
++ add x3,x3,#16*7
++ b Lenter_cbc_enc
++
++.align 4
++Loop_cbc_enc:
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ st1 {v6.16b},[x1],#16
++Lenter_cbc_enc:
++ aese v0.16b,v17.16b
++ aesmc v0.16b,v0.16b
++ aese v0.16b,v2.16b
++ aesmc v0.16b,v0.16b
++ ld1 {v16.4s},[x6]
++ cmp w5,#4
++ aese v0.16b,v3.16b
++ aesmc v0.16b,v0.16b
++ ld1 {v17.4s},[x12]
++ b.eq Lcbc_enc192
++
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ ld1 {v16.4s},[x14]
++ aese v0.16b,v17.16b
++ aesmc v0.16b,v0.16b
++ ld1 {v17.4s},[x3]
++ nop
++
++Lcbc_enc192:
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ subs x2,x2,#16
++ aese v0.16b,v17.16b
++ aesmc v0.16b,v0.16b
++ csel x8,xzr,x8,eq
++ aese v0.16b,v18.16b
++ aesmc v0.16b,v0.16b
++ aese v0.16b,v19.16b
++ aesmc v0.16b,v0.16b
++ ld1 {v16.16b},[x0],x8
++ aese v0.16b,v20.16b
++ aesmc v0.16b,v0.16b
++ eor v16.16b,v16.16b,v5.16b
++ aese v0.16b,v21.16b
++ aesmc v0.16b,v0.16b
++ ld1 {v17.4s},[x7]
++ aese v0.16b,v22.16b
++ aesmc v0.16b,v0.16b
++ aese v0.16b,v23.16b
++ eor v6.16b,v0.16b,v7.16b
++ b.hs Loop_cbc_enc
++
++ st1 {v6.16b},[x1],#16
++ b Lcbc_done
++
++.align 5
++Lcbc_enc128:
++ ld1 {v2.4s,v3.4s},[x7]
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ b Lenter_cbc_enc128
++Loop_cbc_enc128:
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ st1 {v6.16b},[x1],#16
++Lenter_cbc_enc128:
++ aese v0.16b,v17.16b
++ aesmc v0.16b,v0.16b
++ subs x2,x2,#16
++ aese v0.16b,v2.16b
++ aesmc v0.16b,v0.16b
++ csel x8,xzr,x8,eq
++ aese v0.16b,v3.16b
++ aesmc v0.16b,v0.16b
++ aese v0.16b,v18.16b
++ aesmc v0.16b,v0.16b
++ aese v0.16b,v19.16b
++ aesmc v0.16b,v0.16b
++ ld1 {v16.16b},[x0],x8
++ aese v0.16b,v20.16b
++ aesmc v0.16b,v0.16b
++ aese v0.16b,v21.16b
++ aesmc v0.16b,v0.16b
++ aese v0.16b,v22.16b
++ aesmc v0.16b,v0.16b
++ eor v16.16b,v16.16b,v5.16b
++ aese v0.16b,v23.16b
++ eor v6.16b,v0.16b,v7.16b
++ b.hs Loop_cbc_enc128
++
++ st1 {v6.16b},[x1],#16
++ b Lcbc_done
++.align 5
++Lcbc_dec:
++ ld1 {v18.16b},[x0],#16
++ subs x2,x2,#32
++ add w6,w5,#2
++ orr v3.16b,v0.16b,v0.16b
++ orr v1.16b,v0.16b,v0.16b
++ orr v19.16b,v18.16b,v18.16b
++ b.lo Lcbc_dec_tail
++
++ orr v1.16b,v18.16b,v18.16b
++ ld1 {v18.16b},[x0],#16
++ orr v2.16b,v0.16b,v0.16b
++ orr v3.16b,v1.16b,v1.16b
++ orr v19.16b,v18.16b,v18.16b
++
++Loop3x_cbc_dec:
++ aesd v0.16b,v16.16b
++ aesimc v0.16b,v0.16b
++ aesd v1.16b,v16.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v16.16b
++ aesimc v18.16b,v18.16b
++ ld1 {v16.4s},[x7],#16
++ subs w6,w6,#2
++ aesd v0.16b,v17.16b
++ aesimc v0.16b,v0.16b
++ aesd v1.16b,v17.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v17.16b
++ aesimc v18.16b,v18.16b
++ ld1 {v17.4s},[x7],#16
++ b.gt Loop3x_cbc_dec
++
++ aesd v0.16b,v16.16b
++ aesimc v0.16b,v0.16b
++ aesd v1.16b,v16.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v16.16b
++ aesimc v18.16b,v18.16b
++ eor v4.16b,v6.16b,v7.16b
++ subs x2,x2,#0x30
++ eor v5.16b,v2.16b,v7.16b
++ csel x6,x2,x6,lo
++ aesd v0.16b,v17.16b
++ aesimc v0.16b,v0.16b
++ aesd v1.16b,v17.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v17.16b
++ aesimc v18.16b,v18.16b
++ eor v17.16b,v3.16b,v7.16b
++ add x0,x0,x6
++
++
++ orr v6.16b,v19.16b,v19.16b
++ mov x7,x3
++ aesd v0.16b,v20.16b
++ aesimc v0.16b,v0.16b
++ aesd v1.16b,v20.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v20.16b
++ aesimc v18.16b,v18.16b
++ ld1 {v2.16b},[x0],#16
++ aesd v0.16b,v21.16b
++ aesimc v0.16b,v0.16b
++ aesd v1.16b,v21.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v21.16b
++ aesimc v18.16b,v18.16b
++ ld1 {v3.16b},[x0],#16
++ aesd v0.16b,v22.16b
++ aesimc v0.16b,v0.16b
++ aesd v1.16b,v22.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v22.16b
++ aesimc v18.16b,v18.16b
++ ld1 {v19.16b},[x0],#16
++ aesd v0.16b,v23.16b
++ aesd v1.16b,v23.16b
++ aesd v18.16b,v23.16b
++ ld1 {v16.4s},[x7],#16
++ add w6,w5,#2
++ eor v4.16b,v4.16b,v0.16b
++ eor v5.16b,v5.16b,v1.16b
++ eor v18.16b,v18.16b,v17.16b
++ ld1 {v17.4s},[x7],#16
++ st1 {v4.16b},[x1],#16
++ orr v0.16b,v2.16b,v2.16b
++ st1 {v5.16b},[x1],#16
++ orr v1.16b,v3.16b,v3.16b
++ st1 {v18.16b},[x1],#16
++ orr v18.16b,v19.16b,v19.16b
++ b.hs Loop3x_cbc_dec
++
++ cmn x2,#0x30
++ b.eq Lcbc_done
++ nop
++
++Lcbc_dec_tail:
++ aesd v1.16b,v16.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v16.16b
++ aesimc v18.16b,v18.16b
++ ld1 {v16.4s},[x7],#16
++ subs w6,w6,#2
++ aesd v1.16b,v17.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v17.16b
++ aesimc v18.16b,v18.16b
++ ld1 {v17.4s},[x7],#16
++ b.gt Lcbc_dec_tail
++
++ aesd v1.16b,v16.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v16.16b
++ aesimc v18.16b,v18.16b
++ aesd v1.16b,v17.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v17.16b
++ aesimc v18.16b,v18.16b
++ aesd v1.16b,v20.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v20.16b
++ aesimc v18.16b,v18.16b
++ cmn x2,#0x20
++ aesd v1.16b,v21.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v21.16b
++ aesimc v18.16b,v18.16b
++ eor v5.16b,v6.16b,v7.16b
++ aesd v1.16b,v22.16b
++ aesimc v1.16b,v1.16b
++ aesd v18.16b,v22.16b
++ aesimc v18.16b,v18.16b
++ eor v17.16b,v3.16b,v7.16b
++ aesd v1.16b,v23.16b
++ aesd v18.16b,v23.16b
++ b.eq Lcbc_dec_one
++ eor v5.16b,v5.16b,v1.16b
++ eor v17.16b,v17.16b,v18.16b
++ orr v6.16b,v19.16b,v19.16b
++ st1 {v5.16b},[x1],#16
++ st1 {v17.16b},[x1],#16
++ b Lcbc_done
++
++Lcbc_dec_one:
++ eor v5.16b,v5.16b,v18.16b
++ orr v6.16b,v19.16b,v19.16b
++ st1 {v5.16b},[x1],#16
++
++Lcbc_done:
++ st1 {v6.16b},[x4]
++Lcbc_abort:
++ ldr x29,[sp],#16
++ ret
++
++.globl _aes_v8_ctr32_encrypt_blocks
++
++.align 5
++_aes_v8_ctr32_encrypt_blocks:
++ stp x29,x30,[sp,#-16]!
++ add x29,sp,#0
++ ldr w5,[x3,#240]
++
++ ldr w8, [x4, #12]
++ ld1 {v0.4s},[x4]
++
++ ld1 {v16.4s,v17.4s},[x3]
++ sub w5,w5,#4
++ mov x12,#16
++ cmp x2,#2
++ add x7,x3,x5,lsl#4
++ sub w5,w5,#2
++ ld1 {v20.4s,v21.4s},[x7],#32
++ ld1 {v22.4s,v23.4s},[x7],#32
++ ld1 {v7.4s},[x7]
++ add x7,x3,#32
++ mov w6,w5
++ csel x12,xzr,x12,lo
++
++ rev w8, w8
++
++ orr v1.16b,v0.16b,v0.16b
++ add w10, w8, #1
++ orr v18.16b,v0.16b,v0.16b
++ add w8, w8, #2
++ orr v6.16b,v0.16b,v0.16b
++ rev w10, w10
++ mov v1.s[3],w10
++ b.ls Lctr32_tail
++ rev w12, w8
++ sub x2,x2,#3
++ mov v18.s[3],w12
++ b Loop3x_ctr32
++
++.align 4
++Loop3x_ctr32:
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v16.16b
++ aesmc v1.16b,v1.16b
++ aese v18.16b,v16.16b
++ aesmc v18.16b,v18.16b
++ ld1 {v16.4s},[x7],#16
++ subs w6,w6,#2
++ aese v0.16b,v17.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v17.16b
++ aesmc v1.16b,v1.16b
++ aese v18.16b,v17.16b
++ aesmc v18.16b,v18.16b
++ ld1 {v17.4s},[x7],#16
++ b.gt Loop3x_ctr32
++
++ aese v0.16b,v16.16b
++ aesmc v4.16b,v0.16b
++ aese v1.16b,v16.16b
++ aesmc v5.16b,v1.16b
++ ld1 {v2.16b},[x0],#16
++ orr v0.16b,v6.16b,v6.16b
++ aese v18.16b,v16.16b
++ aesmc v18.16b,v18.16b
++ ld1 {v3.16b},[x0],#16
++ orr v1.16b,v6.16b,v6.16b
++ aese v4.16b,v17.16b
++ aesmc v4.16b,v4.16b
++ aese v5.16b,v17.16b
++ aesmc v5.16b,v5.16b
++ ld1 {v19.16b},[x0],#16
++ mov x7,x3
++ aese v18.16b,v17.16b
++ aesmc v17.16b,v18.16b
++ orr v18.16b,v6.16b,v6.16b
++ add w9,w8,#1
++ aese v4.16b,v20.16b
++ aesmc v4.16b,v4.16b
++ aese v5.16b,v20.16b
++ aesmc v5.16b,v5.16b
++ eor v2.16b,v2.16b,v7.16b
++ add w10,w8,#2
++ aese v17.16b,v20.16b
++ aesmc v17.16b,v17.16b
++ eor v3.16b,v3.16b,v7.16b
++ add w8,w8,#3
++ aese v4.16b,v21.16b
++ aesmc v4.16b,v4.16b
++ aese v5.16b,v21.16b
++ aesmc v5.16b,v5.16b
++ eor v19.16b,v19.16b,v7.16b
++ rev w9,w9
++ aese v17.16b,v21.16b
++ aesmc v17.16b,v17.16b
++ mov v0.s[3], w9
++ rev w10,w10
++ aese v4.16b,v22.16b
++ aesmc v4.16b,v4.16b
++ aese v5.16b,v22.16b
++ aesmc v5.16b,v5.16b
++ mov v1.s[3], w10
++ rev w12,w8
++ aese v17.16b,v22.16b
++ aesmc v17.16b,v17.16b
++ mov v18.s[3], w12
++ subs x2,x2,#3
++ aese v4.16b,v23.16b
++ aese v5.16b,v23.16b
++ aese v17.16b,v23.16b
++
++ eor v2.16b,v2.16b,v4.16b
++ ld1 {v16.4s},[x7],#16
++ st1 {v2.16b},[x1],#16
++ eor v3.16b,v3.16b,v5.16b
++ mov w6,w5
++ st1 {v3.16b},[x1],#16
++ eor v19.16b,v19.16b,v17.16b
++ ld1 {v17.4s},[x7],#16
++ st1 {v19.16b},[x1],#16
++ b.hs Loop3x_ctr32
++
++ adds x2,x2,#3
++ b.eq Lctr32_done
++ cmp x2,#1
++ mov x12,#16
++ csel x12,xzr,x12,eq
++
++Lctr32_tail:
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v16.16b
++ aesmc v1.16b,v1.16b
++ ld1 {v16.4s},[x7],#16
++ subs w6,w6,#2
++ aese v0.16b,v17.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v17.16b
++ aesmc v1.16b,v1.16b
++ ld1 {v17.4s},[x7],#16
++ b.gt Lctr32_tail
++
++ aese v0.16b,v16.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v16.16b
++ aesmc v1.16b,v1.16b
++ aese v0.16b,v17.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v17.16b
++ aesmc v1.16b,v1.16b
++ ld1 {v2.16b},[x0],x12
++ aese v0.16b,v20.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v20.16b
++ aesmc v1.16b,v1.16b
++ ld1 {v3.16b},[x0]
++ aese v0.16b,v21.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v21.16b
++ aesmc v1.16b,v1.16b
++ eor v2.16b,v2.16b,v7.16b
++ aese v0.16b,v22.16b
++ aesmc v0.16b,v0.16b
++ aese v1.16b,v22.16b
++ aesmc v1.16b,v1.16b
++ eor v3.16b,v3.16b,v7.16b
++ aese v0.16b,v23.16b
++ aese v1.16b,v23.16b
++
++ cmp x2,#1
++ eor v2.16b,v2.16b,v0.16b
++ eor v3.16b,v3.16b,v1.16b
++ st1 {v2.16b},[x1],#16
++ b.eq Lctr32_done
++ st1 {v3.16b},[x1]
++
++Lctr32_done:
++ ldr x29,[sp],#16
++ ret
+diff --git a/lib/accelerated/aarch64/macosx/ghash-aarch64.s b/lib/accelerated/aarch64/macosx/ghash-aarch64.s
+new file mode 100644
+index 0000000000000000000000000000000000000000..f49a8dbb70c948bd9d84089a5112489d853f13ee
+--- /dev/null
++++ b/lib/accelerated/aarch64/macosx/ghash-aarch64.s
+@@ -0,0 +1,589 @@
++# Copyright (c) 2011-2016, Andy Polyakov <appro@openssl.org>
++# All rights reserved.
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++# 
++#     * Redistributions of source code must retain copyright notices,
++#      this list of conditions and the following disclaimer.
++#
++#     * Redistributions in binary form must reproduce the above
++#      copyright notice, this list of conditions and the following
++#      disclaimer in the documentation and/or other materials
++#      provided with the distribution.
++#
++#     * Neither the name of the Andy Polyakov nor the names of its
++#      copyright holder and contributors may be used to endorse or
++#      promote products derived from this software without specific
++#      prior written permission.
++#
++# ALTERNATIVELY, provided that this notice is retained in full, this
++# product may be distributed under the terms of the GNU General Public
++# License (GPL), in which case the provisions of the GPL apply INSTEAD OF
++# those given above.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS
++# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++#
++# *** This file is auto-generated ***
++#
++# 1 "lib/accelerated/aarch64/macosx/ghash-aarch64.s.tmp.S"
++# 1 "<built-in>"
++# 1 "<command-line>"
++# 1 "/usr/aarch64-linux-gnu/include/stdc-predef.h" 1 3
++# 1 "<command-line>" 2
++# 1 "lib/accelerated/aarch64/macosx/ghash-aarch64.s.tmp.S"
++# 1 "lib/accelerated/aarch64/aarch64-common.h" 1
++# 2 "lib/accelerated/aarch64/macosx/ghash-aarch64.s.tmp.S" 2
++
++.text
++
++.globl _gcm_init_v8
++
++.align 4
++_gcm_init_v8:
++ ld1 {v17.2d},[x1]
++ movi v19.16b,#0xe1
++ shl v19.2d,v19.2d,#57
++ ext v3.16b,v17.16b,v17.16b,#8
++ ushr v18.2d,v19.2d,#63
++ dup v17.4s,v17.s[1]
++ ext v16.16b,v18.16b,v19.16b,#8
++ ushr v18.2d,v3.2d,#63
++ sshr v17.4s,v17.4s,#31
++ and v18.16b,v18.16b,v16.16b
++ shl v3.2d,v3.2d,#1
++ ext v18.16b,v18.16b,v18.16b,#8
++ and v16.16b,v16.16b,v17.16b
++ orr v3.16b,v3.16b,v18.16b
++ eor v20.16b,v3.16b,v16.16b
++ st1 {v20.2d},[x0],#16
++
++
++ ext v16.16b,v20.16b,v20.16b,#8
++ pmull v0.1q,v20.1d,v20.1d
++ eor v16.16b,v16.16b,v20.16b
++ pmull2 v2.1q,v20.2d,v20.2d
++ pmull v1.1q,v16.1d,v16.1d
++
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ eor v1.16b,v1.16b,v18.16b
++ pmull v18.1q,v0.1d,v19.1d
++
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ eor v0.16b,v1.16b,v18.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ eor v22.16b,v0.16b,v18.16b
++
++ ext v17.16b,v22.16b,v22.16b,#8
++ eor v17.16b,v17.16b,v22.16b
++ ext v21.16b,v16.16b,v17.16b,#8
++ st1 {v21.2d,v22.2d},[x0],#32
++
++ pmull v0.1q,v20.1d, v22.1d
++ pmull v5.1q,v22.1d,v22.1d
++ pmull2 v2.1q,v20.2d, v22.2d
++ pmull2 v7.1q,v22.2d,v22.2d
++ pmull v1.1q,v16.1d,v17.1d
++ pmull v6.1q,v17.1d,v17.1d
++
++ ext v16.16b,v0.16b,v2.16b,#8
++ ext v17.16b,v5.16b,v7.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v16.16b
++ eor v4.16b,v5.16b,v7.16b
++ eor v6.16b,v6.16b,v17.16b
++ eor v1.16b,v1.16b,v18.16b
++ pmull v18.1q,v0.1d,v19.1d
++ eor v6.16b,v6.16b,v4.16b
++ pmull v4.1q,v5.1d,v19.1d
++
++ ins v2.d[0],v1.d[1]
++ ins v7.d[0],v6.d[1]
++ ins v1.d[1],v0.d[0]
++ ins v6.d[1],v5.d[0]
++ eor v0.16b,v1.16b,v18.16b
++ eor v5.16b,v6.16b,v4.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ ext v4.16b,v5.16b,v5.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ pmull v5.1q,v5.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ eor v4.16b,v4.16b,v7.16b
++ eor v20.16b, v0.16b,v18.16b
++ eor v22.16b,v5.16b,v4.16b
++
++ ext v16.16b,v20.16b, v20.16b,#8
++ ext v17.16b,v22.16b,v22.16b,#8
++ eor v16.16b,v16.16b,v20.16b
++ eor v17.16b,v17.16b,v22.16b
++ ext v21.16b,v16.16b,v17.16b,#8
++ st1 {v20.2d,v21.2d,v22.2d},[x0]
++ ret
++
++.globl _gcm_gmult_v8
++
++.align 4
++_gcm_gmult_v8:
++ ld1 {v17.2d},[x0]
++ movi v19.16b,#0xe1
++ ld1 {v20.2d,v21.2d},[x1]
++ shl v19.2d,v19.2d,#57
++
++ rev64 v17.16b,v17.16b
++
++ ext v3.16b,v17.16b,v17.16b,#8
++
++ pmull v0.1q,v20.1d,v3.1d
++ eor v17.16b,v17.16b,v3.16b
++ pmull2 v2.1q,v20.2d,v3.2d
++ pmull v1.1q,v21.1d,v17.1d
++
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ eor v1.16b,v1.16b,v18.16b
++ pmull v18.1q,v0.1d,v19.1d
++
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ eor v0.16b,v1.16b,v18.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ eor v0.16b,v0.16b,v18.16b
++
++
++ rev64 v0.16b,v0.16b
++
++ ext v0.16b,v0.16b,v0.16b,#8
++ st1 {v0.2d},[x0]
++
++ ret
++
++.globl _gcm_ghash_v8
++
++.align 4
++_gcm_ghash_v8:
++ cmp x3,#64
++ b.hs Lgcm_ghash_v8_4x
++ ld1 {v0.2d},[x0]
++
++
++
++
++
++ subs x3,x3,#32
++ mov x12,#16
++# 158 "lib/accelerated/aarch64/macosx/ghash-aarch64.s.tmp.S"
++ ld1 {v20.2d,v21.2d},[x1],#32
++ movi v19.16b,#0xe1
++ ld1 {v22.2d},[x1]
++ csel x12,xzr,x12,eq
++ ext v0.16b,v0.16b,v0.16b,#8
++ ld1 {v16.2d},[x2],#16
++ shl v19.2d,v19.2d,#57
++
++ rev64 v16.16b,v16.16b
++ rev64 v0.16b,v0.16b
++
++ ext v3.16b,v16.16b,v16.16b,#8
++ b.lo Lodd_tail_v8
++ ld1 {v17.2d},[x2],x12
++
++ rev64 v17.16b,v17.16b
++
++ ext v7.16b,v17.16b,v17.16b,#8
++ eor v3.16b,v3.16b,v0.16b
++ pmull v4.1q,v20.1d,v7.1d
++ eor v17.16b,v17.16b,v7.16b
++ pmull2 v6.1q,v20.2d,v7.2d
++ b Loop_mod2x_v8
++
++.align 4
++Loop_mod2x_v8:
++ ext v18.16b,v3.16b,v3.16b,#8
++ subs x3,x3,#32
++ pmull v0.1q,v22.1d,v3.1d
++ csel x12,xzr,x12,lo
++
++ pmull v5.1q,v21.1d,v17.1d
++ eor v18.16b,v18.16b,v3.16b
++ pmull2 v2.1q,v22.2d,v3.2d
++ eor v0.16b,v0.16b,v4.16b
++ pmull2 v1.1q,v21.2d,v18.2d
++ ld1 {v16.2d},[x2],x12
++
++ eor v2.16b,v2.16b,v6.16b
++ csel x12,xzr,x12,eq
++ eor v1.16b,v1.16b,v5.16b
++
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ ld1 {v17.2d},[x2],x12
++
++ rev64 v16.16b,v16.16b
++
++ eor v1.16b,v1.16b,v18.16b
++ pmull v18.1q,v0.1d,v19.1d
++
++
++ rev64 v17.16b,v17.16b
++
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ ext v7.16b,v17.16b,v17.16b,#8
++ ext v3.16b,v16.16b,v16.16b,#8
++ eor v0.16b,v1.16b,v18.16b
++ pmull v4.1q,v20.1d,v7.1d
++ eor v3.16b,v3.16b,v2.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v3.16b,v3.16b,v18.16b
++ eor v17.16b,v17.16b,v7.16b
++ eor v3.16b,v3.16b,v0.16b
++ pmull2 v6.1q,v20.2d,v7.2d
++ b.hs Loop_mod2x_v8
++
++ eor v2.16b,v2.16b,v18.16b
++ ext v3.16b,v16.16b,v16.16b,#8
++ adds x3,x3,#32
++ eor v0.16b,v0.16b,v2.16b
++ b.eq Ldone_v8
++Lodd_tail_v8:
++ ext v18.16b,v0.16b,v0.16b,#8
++ eor v3.16b,v3.16b,v0.16b
++ eor v17.16b,v16.16b,v18.16b
++
++ pmull v0.1q,v20.1d,v3.1d
++ eor v17.16b,v17.16b,v3.16b
++ pmull2 v2.1q,v20.2d,v3.2d
++ pmull v1.1q,v21.1d,v17.1d
++
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ eor v1.16b,v1.16b,v18.16b
++ pmull v18.1q,v0.1d,v19.1d
++
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ eor v0.16b,v1.16b,v18.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ eor v0.16b,v0.16b,v18.16b
++
++Ldone_v8:
++
++ rev64 v0.16b,v0.16b
++
++ ext v0.16b,v0.16b,v0.16b,#8
++ st1 {v0.2d},[x0]
++
++ ret
++
++
++.align 4
++gcm_ghash_v8_4x:
++Lgcm_ghash_v8_4x:
++ ld1 {v0.2d},[x0]
++ ld1 {v20.2d,v21.2d,v22.2d},[x1],#48
++ movi v19.16b,#0xe1
++ ld1 {v26.2d,v27.2d,v28.2d},[x1]
++ shl v19.2d,v19.2d,#57
++
++ ld1 {v4.2d,v5.2d,v6.2d,v7.2d},[x2],#64
++
++ rev64 v0.16b,v0.16b
++ rev64 v5.16b,v5.16b
++ rev64 v6.16b,v6.16b
++ rev64 v7.16b,v7.16b
++ rev64 v4.16b,v4.16b
++
++ ext v25.16b,v7.16b,v7.16b,#8
++ ext v24.16b,v6.16b,v6.16b,#8
++ ext v23.16b,v5.16b,v5.16b,#8
++
++ pmull v29.1q,v20.1d,v25.1d
++ eor v7.16b,v7.16b,v25.16b
++ pmull2 v31.1q,v20.2d,v25.2d
++ pmull v30.1q,v21.1d,v7.1d
++
++ pmull v16.1q,v22.1d,v24.1d
++ eor v6.16b,v6.16b,v24.16b
++ pmull2 v24.1q,v22.2d,v24.2d
++ pmull2 v6.1q,v21.2d,v6.2d
++
++ eor v29.16b,v29.16b,v16.16b
++ eor v31.16b,v31.16b,v24.16b
++ eor v30.16b,v30.16b,v6.16b
++
++ pmull v7.1q,v26.1d,v23.1d
++ eor v5.16b,v5.16b,v23.16b
++ pmull2 v23.1q,v26.2d,v23.2d
++ pmull v5.1q,v27.1d,v5.1d
++
++ eor v29.16b,v29.16b,v7.16b
++ eor v31.16b,v31.16b,v23.16b
++ eor v30.16b,v30.16b,v5.16b
++
++ subs x3,x3,#128
++ b.lo Ltail4x
++
++ b Loop4x
++
++.align 4
++Loop4x:
++ eor v16.16b,v4.16b,v0.16b
++ ld1 {v4.2d,v5.2d,v6.2d,v7.2d},[x2],#64
++ ext v3.16b,v16.16b,v16.16b,#8
++
++ rev64 v5.16b,v5.16b
++ rev64 v6.16b,v6.16b
++ rev64 v7.16b,v7.16b
++ rev64 v4.16b,v4.16b
++
++
++ pmull v0.1q,v28.1d,v3.1d
++ eor v16.16b,v16.16b,v3.16b
++ pmull2 v2.1q,v28.2d,v3.2d
++ ext v25.16b,v7.16b,v7.16b,#8
++ pmull2 v1.1q,v27.2d,v16.2d
++
++ eor v0.16b,v0.16b,v29.16b
++ eor v2.16b,v2.16b,v31.16b
++ ext v24.16b,v6.16b,v6.16b,#8
++ eor v1.16b,v1.16b,v30.16b
++ ext v23.16b,v5.16b,v5.16b,#8
++
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ pmull v29.1q,v20.1d,v25.1d
++ eor v7.16b,v7.16b,v25.16b
++ eor v1.16b,v1.16b,v17.16b
++ pmull2 v31.1q,v20.2d,v25.2d
++ eor v1.16b,v1.16b,v18.16b
++ pmull v30.1q,v21.1d,v7.1d
++
++ pmull v18.1q,v0.1d,v19.1d
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ pmull v16.1q,v22.1d,v24.1d
++ eor v6.16b,v6.16b,v24.16b
++ pmull2 v24.1q,v22.2d,v24.2d
++ eor v0.16b,v1.16b,v18.16b
++ pmull2 v6.1q,v21.2d,v6.2d
++
++ eor v29.16b,v29.16b,v16.16b
++ eor v31.16b,v31.16b,v24.16b
++ eor v30.16b,v30.16b,v6.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ pmull v7.1q,v26.1d,v23.1d
++ eor v5.16b,v5.16b,v23.16b
++ eor v18.16b,v18.16b,v2.16b
++ pmull2 v23.1q,v26.2d,v23.2d
++ pmull v5.1q,v27.1d,v5.1d
++
++ eor v0.16b,v0.16b,v18.16b
++ eor v29.16b,v29.16b,v7.16b
++ eor v31.16b,v31.16b,v23.16b
++ ext v0.16b,v0.16b,v0.16b,#8
++ eor v30.16b,v30.16b,v5.16b
++
++ subs x3,x3,#64
++ b.hs Loop4x
++
++Ltail4x:
++ eor v16.16b,v4.16b,v0.16b
++ ext v3.16b,v16.16b,v16.16b,#8
++
++ pmull v0.1q,v28.1d,v3.1d
++ eor v16.16b,v16.16b,v3.16b
++ pmull2 v2.1q,v28.2d,v3.2d
++ pmull2 v1.1q,v27.2d,v16.2d
++
++ eor v0.16b,v0.16b,v29.16b
++ eor v2.16b,v2.16b,v31.16b
++ eor v1.16b,v1.16b,v30.16b
++
++ adds x3,x3,#64
++ b.eq Ldone4x
++
++ cmp x3,#32
++ b.lo Lone
++ b.eq Ltwo
++Lthree:
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ ld1 {v4.2d,v5.2d,v6.2d},[x2]
++ eor v1.16b,v1.16b,v18.16b
++
++ rev64 v5.16b,v5.16b
++ rev64 v6.16b,v6.16b
++ rev64 v4.16b,v4.16b
++
++
++ pmull v18.1q,v0.1d,v19.1d
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ ext v24.16b,v6.16b,v6.16b,#8
++ ext v23.16b,v5.16b,v5.16b,#8
++ eor v0.16b,v1.16b,v18.16b
++
++ pmull v29.1q,v20.1d,v24.1d
++ eor v6.16b,v6.16b,v24.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ pmull2 v31.1q,v20.2d,v24.2d
++ pmull v30.1q,v21.1d,v6.1d
++ eor v0.16b,v0.16b,v18.16b
++ pmull v7.1q,v22.1d,v23.1d
++ eor v5.16b,v5.16b,v23.16b
++ ext v0.16b,v0.16b,v0.16b,#8
++
++ pmull2 v23.1q,v22.2d,v23.2d
++ eor v16.16b,v4.16b,v0.16b
++ pmull2 v5.1q,v21.2d,v5.2d
++ ext v3.16b,v16.16b,v16.16b,#8
++
++ eor v29.16b,v29.16b,v7.16b
++ eor v31.16b,v31.16b,v23.16b
++ eor v30.16b,v30.16b,v5.16b
++
++ pmull v0.1q,v26.1d,v3.1d
++ eor v16.16b,v16.16b,v3.16b
++ pmull2 v2.1q,v26.2d,v3.2d
++ pmull v1.1q,v27.1d,v16.1d
++
++ eor v0.16b,v0.16b,v29.16b
++ eor v2.16b,v2.16b,v31.16b
++ eor v1.16b,v1.16b,v30.16b
++ b Ldone4x
++
++.align 4
++Ltwo:
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ ld1 {v4.2d,v5.2d},[x2]
++ eor v1.16b,v1.16b,v18.16b
++
++ rev64 v5.16b,v5.16b
++ rev64 v4.16b,v4.16b
++
++
++ pmull v18.1q,v0.1d,v19.1d
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ ext v23.16b,v5.16b,v5.16b,#8
++ eor v0.16b,v1.16b,v18.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ eor v0.16b,v0.16b,v18.16b
++ ext v0.16b,v0.16b,v0.16b,#8
++
++ pmull v29.1q,v20.1d,v23.1d
++ eor v5.16b,v5.16b,v23.16b
++
++ eor v16.16b,v4.16b,v0.16b
++ ext v3.16b,v16.16b,v16.16b,#8
++
++ pmull2 v31.1q,v20.2d,v23.2d
++ pmull v30.1q,v21.1d,v5.1d
++
++ pmull v0.1q,v22.1d,v3.1d
++ eor v16.16b,v16.16b,v3.16b
++ pmull2 v2.1q,v22.2d,v3.2d
++ pmull2 v1.1q,v21.2d,v16.2d
++
++ eor v0.16b,v0.16b,v29.16b
++ eor v2.16b,v2.16b,v31.16b
++ eor v1.16b,v1.16b,v30.16b
++ b Ldone4x
++
++.align 4
++Lone:
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ ld1 {v4.2d},[x2]
++ eor v1.16b,v1.16b,v18.16b
++
++ rev64 v4.16b,v4.16b
++
++
++ pmull v18.1q,v0.1d,v19.1d
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ eor v0.16b,v1.16b,v18.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ eor v0.16b,v0.16b,v18.16b
++ ext v0.16b,v0.16b,v0.16b,#8
++
++ eor v16.16b,v4.16b,v0.16b
++ ext v3.16b,v16.16b,v16.16b,#8
++
++ pmull v0.1q,v20.1d,v3.1d
++ eor v16.16b,v16.16b,v3.16b
++ pmull2 v2.1q,v20.2d,v3.2d
++ pmull v1.1q,v21.1d,v16.1d
++
++Ldone4x:
++ ext v17.16b,v0.16b,v2.16b,#8
++ eor v18.16b,v0.16b,v2.16b
++ eor v1.16b,v1.16b,v17.16b
++ eor v1.16b,v1.16b,v18.16b
++
++ pmull v18.1q,v0.1d,v19.1d
++ ins v2.d[0],v1.d[1]
++ ins v1.d[1],v0.d[0]
++ eor v0.16b,v1.16b,v18.16b
++
++ ext v18.16b,v0.16b,v0.16b,#8
++ pmull v0.1q,v0.1d,v19.1d
++ eor v18.16b,v18.16b,v2.16b
++ eor v0.16b,v0.16b,v18.16b
++ ext v0.16b,v0.16b,v0.16b,#8
++
++
++ rev64 v0.16b,v0.16b
++
++ st1 {v0.2d},[x0]
++
++ ret
++
++.byte 71,72,65,83,72,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
++.align 2
++.align 2
+diff --git a/lib/accelerated/aarch64/macosx/sha1-armv8.s b/lib/accelerated/aarch64/macosx/sha1-armv8.s
+new file mode 100644
+index 0000000000000000000000000000000000000000..221dc11731caa41d68d667d0bf0b0e9709be03f7
+--- /dev/null
++++ b/lib/accelerated/aarch64/macosx/sha1-armv8.s
+@@ -0,0 +1,1267 @@
++# Copyright (c) 2011-2016, Andy Polyakov <appro@openssl.org>
++# All rights reserved.
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++# 
++#     * Redistributions of source code must retain copyright notices,
++#      this list of conditions and the following disclaimer.
++#
++#     * Redistributions in binary form must reproduce the above
++#      copyright notice, this list of conditions and the following
++#      disclaimer in the documentation and/or other materials
++#      provided with the distribution.
++#
++#     * Neither the name of the Andy Polyakov nor the names of its
++#      copyright holder and contributors may be used to endorse or
++#      promote products derived from this software without specific
++#      prior written permission.
++#
++# ALTERNATIVELY, provided that this notice is retained in full, this
++# product may be distributed under the terms of the GNU General Public
++# License (GPL), in which case the provisions of the GPL apply INSTEAD OF
++# those given above.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS
++# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++#
++# *** This file is auto-generated ***
++#
++# 1 "lib/accelerated/aarch64/macosx/sha1-armv8.s.tmp.S"
++# 1 "<built-in>"
++# 1 "<command-line>"
++# 1 "/usr/aarch64-linux-gnu/include/stdc-predef.h" 1 3
++# 1 "<command-line>" 2
++# 1 "lib/accelerated/aarch64/macosx/sha1-armv8.s.tmp.S"
++# 1 "lib/accelerated/aarch64/aarch64-common.h" 1
++# 2 "lib/accelerated/aarch64/macosx/sha1-armv8.s.tmp.S" 2
++
++.text
++
++
++.globl _sha1_block_data_order
++
++.align 6
++_sha1_block_data_order:
++
++
++
++ ldr x16,L_gnutls_arm_cpuid_s
++
++ adr x17,L_gnutls_arm_cpuid_s
++ add x16,x16,x17
++ ldr w16,[x16]
++ tst w16,#(1<<3)
++ b.ne Lv8_entry
++
++ stp x29,x30,[sp,#-96]!
++ add x29,sp,#0
++ stp x19,x20,[sp,#16]
++ stp x21,x22,[sp,#32]
++ stp x23,x24,[sp,#48]
++ stp x25,x26,[sp,#64]
++ stp x27,x28,[sp,#80]
++
++ ldp w20,w21,[x0]
++ ldp w22,w23,[x0,#8]
++ ldr w24,[x0,#16]
++
++Loop:
++ ldr x3,[x1],#64
++ movz w28,#0x7999
++ sub x2,x2,#1
++ movk w28,#0x5a82,lsl#16
++
++
++
++ rev32 x3,x3
++
++ add w24,w24,w28
++ add w24,w24,w3
++ lsr x4,x3,#32
++ ldr x5,[x1,#-56]
++ bic w25,w23,w21
++ and w26,w22,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ orr w25,w25,w26
++ add w24,w24,w27
++ ror w21,w21,#2
++ add w23,w23,w4
++ add w24,w24,w25
++
++
++
++ rev32 x5,x5
++
++ bic w25,w22,w20
++ and w26,w21,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ orr w25,w25,w26
++ add w23,w23,w27
++ ror w20,w20,#2
++ add w22,w22,w5
++ add w23,w23,w25
++ lsr x6,x5,#32
++ ldr x7,[x1,#-48]
++ bic w25,w21,w24
++ and w26,w20,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ orr w25,w25,w26
++ add w22,w22,w27
++ ror w24,w24,#2
++ add w21,w21,w6
++ add w22,w22,w25
++
++
++
++ rev32 x7,x7
++
++ bic w25,w20,w23
++ and w26,w24,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ orr w25,w25,w26
++ add w21,w21,w27
++ ror w23,w23,#2
++ add w20,w20,w7
++ add w21,w21,w25
++ lsr x8,x7,#32
++ ldr x9,[x1,#-40]
++ bic w25,w24,w22
++ and w26,w23,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ orr w25,w25,w26
++ add w20,w20,w27
++ ror w22,w22,#2
++ add w24,w24,w8
++ add w20,w20,w25
++
++
++
++ rev32 x9,x9
++
++ bic w25,w23,w21
++ and w26,w22,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ orr w25,w25,w26
++ add w24,w24,w27
++ ror w21,w21,#2
++ add w23,w23,w9
++ add w24,w24,w25
++ lsr x10,x9,#32
++ ldr x11,[x1,#-32]
++ bic w25,w22,w20
++ and w26,w21,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ orr w25,w25,w26
++ add w23,w23,w27
++ ror w20,w20,#2
++ add w22,w22,w10
++ add w23,w23,w25
++
++
++
++ rev32 x11,x11
++
++ bic w25,w21,w24
++ and w26,w20,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ orr w25,w25,w26
++ add w22,w22,w27
++ ror w24,w24,#2
++ add w21,w21,w11
++ add w22,w22,w25
++ lsr x12,x11,#32
++ ldr x13,[x1,#-24]
++ bic w25,w20,w23
++ and w26,w24,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ orr w25,w25,w26
++ add w21,w21,w27
++ ror w23,w23,#2
++ add w20,w20,w12
++ add w21,w21,w25
++
++
++
++ rev32 x13,x13
++
++ bic w25,w24,w22
++ and w26,w23,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ orr w25,w25,w26
++ add w20,w20,w27
++ ror w22,w22,#2
++ add w24,w24,w13
++ add w20,w20,w25
++ lsr x14,x13,#32
++ ldr x15,[x1,#-16]
++ bic w25,w23,w21
++ and w26,w22,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ orr w25,w25,w26
++ add w24,w24,w27
++ ror w21,w21,#2
++ add w23,w23,w14
++ add w24,w24,w25
++
++
++
++ rev32 x15,x15
++
++ bic w25,w22,w20
++ and w26,w21,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ orr w25,w25,w26
++ add w23,w23,w27
++ ror w20,w20,#2
++ add w22,w22,w15
++ add w23,w23,w25
++ lsr x16,x15,#32
++ ldr x17,[x1,#-8]
++ bic w25,w21,w24
++ and w26,w20,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ orr w25,w25,w26
++ add w22,w22,w27
++ ror w24,w24,#2
++ add w21,w21,w16
++ add w22,w22,w25
++
++
++
++ rev32 x17,x17
++
++ bic w25,w20,w23
++ and w26,w24,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ orr w25,w25,w26
++ add w21,w21,w27
++ ror w23,w23,#2
++ add w20,w20,w17
++ add w21,w21,w25
++ lsr x19,x17,#32
++ eor w3,w3,w5
++ bic w25,w24,w22
++ and w26,w23,w22
++ ror w27,w21,#27
++ eor w3,w3,w11
++ add w24,w24,w28
++ orr w25,w25,w26
++ add w20,w20,w27
++ eor w3,w3,w16
++ ror w22,w22,#2
++ add w24,w24,w19
++ add w20,w20,w25
++ ror w3,w3,#31
++ eor w4,w4,w6
++ bic w25,w23,w21
++ and w26,w22,w21
++ ror w27,w20,#27
++ eor w4,w4,w12
++ add w23,w23,w28
++ orr w25,w25,w26
++ add w24,w24,w27
++ eor w4,w4,w17
++ ror w21,w21,#2
++ add w23,w23,w3
++ add w24,w24,w25
++ ror w4,w4,#31
++ eor w5,w5,w7
++ bic w25,w22,w20
++ and w26,w21,w20
++ ror w27,w24,#27
++ eor w5,w5,w13
++ add w22,w22,w28
++ orr w25,w25,w26
++ add w23,w23,w27
++ eor w5,w5,w19
++ ror w20,w20,#2
++ add w22,w22,w4
++ add w23,w23,w25
++ ror w5,w5,#31
++ eor w6,w6,w8
++ bic w25,w21,w24
++ and w26,w20,w24
++ ror w27,w23,#27
++ eor w6,w6,w14
++ add w21,w21,w28
++ orr w25,w25,w26
++ add w22,w22,w27
++ eor w6,w6,w3
++ ror w24,w24,#2
++ add w21,w21,w5
++ add w22,w22,w25
++ ror w6,w6,#31
++ eor w7,w7,w9
++ bic w25,w20,w23
++ and w26,w24,w23
++ ror w27,w22,#27
++ eor w7,w7,w15
++ add w20,w20,w28
++ orr w25,w25,w26
++ add w21,w21,w27
++ eor w7,w7,w4
++ ror w23,w23,#2
++ add w20,w20,w6
++ add w21,w21,w25
++ ror w7,w7,#31
++ movz w28,#0xeba1
++ movk w28,#0x6ed9,lsl#16
++ eor w8,w8,w10
++ bic w25,w24,w22
++ and w26,w23,w22
++ ror w27,w21,#27
++ eor w8,w8,w16
++ add w24,w24,w28
++ orr w25,w25,w26
++ add w20,w20,w27
++ eor w8,w8,w5
++ ror w22,w22,#2
++ add w24,w24,w7
++ add w20,w20,w25
++ ror w8,w8,#31
++ eor w9,w9,w11
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w9,w9,w17
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w9,w9,w6
++ add w23,w23,w8
++ add w24,w24,w25
++ ror w9,w9,#31
++ eor w10,w10,w12
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w10,w10,w19
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w10,w10,w7
++ add w22,w22,w9
++ add w23,w23,w25
++ ror w10,w10,#31
++ eor w11,w11,w13
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w11,w11,w3
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w11,w11,w8
++ add w21,w21,w10
++ add w22,w22,w25
++ ror w11,w11,#31
++ eor w12,w12,w14
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w12,w12,w4
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ eor w12,w12,w9
++ add w20,w20,w11
++ add w21,w21,w25
++ ror w12,w12,#31
++ eor w13,w13,w15
++ eor w25,w24,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ eor w13,w13,w5
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ eor w13,w13,w10
++ add w24,w24,w12
++ add w20,w20,w25
++ ror w13,w13,#31
++ eor w14,w14,w16
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w14,w14,w6
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w14,w14,w11
++ add w23,w23,w13
++ add w24,w24,w25
++ ror w14,w14,#31
++ eor w15,w15,w17
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w15,w15,w7
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w15,w15,w12
++ add w22,w22,w14
++ add w23,w23,w25
++ ror w15,w15,#31
++ eor w16,w16,w19
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w16,w16,w8
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w16,w16,w13
++ add w21,w21,w15
++ add w22,w22,w25
++ ror w16,w16,#31
++ eor w17,w17,w3
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w17,w17,w9
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ eor w17,w17,w14
++ add w20,w20,w16
++ add w21,w21,w25
++ ror w17,w17,#31
++ eor w19,w19,w4
++ eor w25,w24,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ eor w19,w19,w10
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ eor w19,w19,w15
++ add w24,w24,w17
++ add w20,w20,w25
++ ror w19,w19,#31
++ eor w3,w3,w5
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w3,w3,w11
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w3,w3,w16
++ add w23,w23,w19
++ add w24,w24,w25
++ ror w3,w3,#31
++ eor w4,w4,w6
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w4,w4,w12
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w4,w4,w17
++ add w22,w22,w3
++ add w23,w23,w25
++ ror w4,w4,#31
++ eor w5,w5,w7
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w5,w5,w13
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w5,w5,w19
++ add w21,w21,w4
++ add w22,w22,w25
++ ror w5,w5,#31
++ eor w6,w6,w8
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w6,w6,w14
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ eor w6,w6,w3
++ add w20,w20,w5
++ add w21,w21,w25
++ ror w6,w6,#31
++ eor w7,w7,w9
++ eor w25,w24,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ eor w7,w7,w15
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ eor w7,w7,w4
++ add w24,w24,w6
++ add w20,w20,w25
++ ror w7,w7,#31
++ eor w8,w8,w10
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w8,w8,w16
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w8,w8,w5
++ add w23,w23,w7
++ add w24,w24,w25
++ ror w8,w8,#31
++ eor w9,w9,w11
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w9,w9,w17
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w9,w9,w6
++ add w22,w22,w8
++ add w23,w23,w25
++ ror w9,w9,#31
++ eor w10,w10,w12
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w10,w10,w19
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w10,w10,w7
++ add w21,w21,w9
++ add w22,w22,w25
++ ror w10,w10,#31
++ eor w11,w11,w13
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w11,w11,w3
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ eor w11,w11,w8
++ add w20,w20,w10
++ add w21,w21,w25
++ ror w11,w11,#31
++ movz w28,#0xbcdc
++ movk w28,#0x8f1b,lsl#16
++ eor w12,w12,w14
++ eor w25,w24,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ eor w12,w12,w4
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ eor w12,w12,w9
++ add w24,w24,w11
++ add w20,w20,w25
++ ror w12,w12,#31
++ orr w25,w21,w22
++ and w26,w21,w22
++ eor w13,w13,w15
++ ror w27,w20,#27
++ and w25,w25,w23
++ add w23,w23,w28
++ eor w13,w13,w5
++ add w24,w24,w27
++ orr w25,w25,w26
++ ror w21,w21,#2
++ eor w13,w13,w10
++ add w23,w23,w12
++ add w24,w24,w25
++ ror w13,w13,#31
++ orr w25,w20,w21
++ and w26,w20,w21
++ eor w14,w14,w16
++ ror w27,w24,#27
++ and w25,w25,w22
++ add w22,w22,w28
++ eor w14,w14,w6
++ add w23,w23,w27
++ orr w25,w25,w26
++ ror w20,w20,#2
++ eor w14,w14,w11
++ add w22,w22,w13
++ add w23,w23,w25
++ ror w14,w14,#31
++ orr w25,w24,w20
++ and w26,w24,w20
++ eor w15,w15,w17
++ ror w27,w23,#27
++ and w25,w25,w21
++ add w21,w21,w28
++ eor w15,w15,w7
++ add w22,w22,w27
++ orr w25,w25,w26
++ ror w24,w24,#2
++ eor w15,w15,w12
++ add w21,w21,w14
++ add w22,w22,w25
++ ror w15,w15,#31
++ orr w25,w23,w24
++ and w26,w23,w24
++ eor w16,w16,w19
++ ror w27,w22,#27
++ and w25,w25,w20
++ add w20,w20,w28
++ eor w16,w16,w8
++ add w21,w21,w27
++ orr w25,w25,w26
++ ror w23,w23,#2
++ eor w16,w16,w13
++ add w20,w20,w15
++ add w21,w21,w25
++ ror w16,w16,#31
++ orr w25,w22,w23
++ and w26,w22,w23
++ eor w17,w17,w3
++ ror w27,w21,#27
++ and w25,w25,w24
++ add w24,w24,w28
++ eor w17,w17,w9
++ add w20,w20,w27
++ orr w25,w25,w26
++ ror w22,w22,#2
++ eor w17,w17,w14
++ add w24,w24,w16
++ add w20,w20,w25
++ ror w17,w17,#31
++ orr w25,w21,w22
++ and w26,w21,w22
++ eor w19,w19,w4
++ ror w27,w20,#27
++ and w25,w25,w23
++ add w23,w23,w28
++ eor w19,w19,w10
++ add w24,w24,w27
++ orr w25,w25,w26
++ ror w21,w21,#2
++ eor w19,w19,w15
++ add w23,w23,w17
++ add w24,w24,w25
++ ror w19,w19,#31
++ orr w25,w20,w21
++ and w26,w20,w21
++ eor w3,w3,w5
++ ror w27,w24,#27
++ and w25,w25,w22
++ add w22,w22,w28
++ eor w3,w3,w11
++ add w23,w23,w27
++ orr w25,w25,w26
++ ror w20,w20,#2
++ eor w3,w3,w16
++ add w22,w22,w19
++ add w23,w23,w25
++ ror w3,w3,#31
++ orr w25,w24,w20
++ and w26,w24,w20
++ eor w4,w4,w6
++ ror w27,w23,#27
++ and w25,w25,w21
++ add w21,w21,w28
++ eor w4,w4,w12
++ add w22,w22,w27
++ orr w25,w25,w26
++ ror w24,w24,#2
++ eor w4,w4,w17
++ add w21,w21,w3
++ add w22,w22,w25
++ ror w4,w4,#31
++ orr w25,w23,w24
++ and w26,w23,w24
++ eor w5,w5,w7
++ ror w27,w22,#27
++ and w25,w25,w20
++ add w20,w20,w28
++ eor w5,w5,w13
++ add w21,w21,w27
++ orr w25,w25,w26
++ ror w23,w23,#2
++ eor w5,w5,w19
++ add w20,w20,w4
++ add w21,w21,w25
++ ror w5,w5,#31
++ orr w25,w22,w23
++ and w26,w22,w23
++ eor w6,w6,w8
++ ror w27,w21,#27
++ and w25,w25,w24
++ add w24,w24,w28
++ eor w6,w6,w14
++ add w20,w20,w27
++ orr w25,w25,w26
++ ror w22,w22,#2
++ eor w6,w6,w3
++ add w24,w24,w5
++ add w20,w20,w25
++ ror w6,w6,#31
++ orr w25,w21,w22
++ and w26,w21,w22
++ eor w7,w7,w9
++ ror w27,w20,#27
++ and w25,w25,w23
++ add w23,w23,w28
++ eor w7,w7,w15
++ add w24,w24,w27
++ orr w25,w25,w26
++ ror w21,w21,#2
++ eor w7,w7,w4
++ add w23,w23,w6
++ add w24,w24,w25
++ ror w7,w7,#31
++ orr w25,w20,w21
++ and w26,w20,w21
++ eor w8,w8,w10
++ ror w27,w24,#27
++ and w25,w25,w22
++ add w22,w22,w28
++ eor w8,w8,w16
++ add w23,w23,w27
++ orr w25,w25,w26
++ ror w20,w20,#2
++ eor w8,w8,w5
++ add w22,w22,w7
++ add w23,w23,w25
++ ror w8,w8,#31
++ orr w25,w24,w20
++ and w26,w24,w20
++ eor w9,w9,w11
++ ror w27,w23,#27
++ and w25,w25,w21
++ add w21,w21,w28
++ eor w9,w9,w17
++ add w22,w22,w27
++ orr w25,w25,w26
++ ror w24,w24,#2
++ eor w9,w9,w6
++ add w21,w21,w8
++ add w22,w22,w25
++ ror w9,w9,#31
++ orr w25,w23,w24
++ and w26,w23,w24
++ eor w10,w10,w12
++ ror w27,w22,#27
++ and w25,w25,w20
++ add w20,w20,w28
++ eor w10,w10,w19
++ add w21,w21,w27
++ orr w25,w25,w26
++ ror w23,w23,#2
++ eor w10,w10,w7
++ add w20,w20,w9
++ add w21,w21,w25
++ ror w10,w10,#31
++ orr w25,w22,w23
++ and w26,w22,w23
++ eor w11,w11,w13
++ ror w27,w21,#27
++ and w25,w25,w24
++ add w24,w24,w28
++ eor w11,w11,w3
++ add w20,w20,w27
++ orr w25,w25,w26
++ ror w22,w22,#2
++ eor w11,w11,w8
++ add w24,w24,w10
++ add w20,w20,w25
++ ror w11,w11,#31
++ orr w25,w21,w22
++ and w26,w21,w22
++ eor w12,w12,w14
++ ror w27,w20,#27
++ and w25,w25,w23
++ add w23,w23,w28
++ eor w12,w12,w4
++ add w24,w24,w27
++ orr w25,w25,w26
++ ror w21,w21,#2
++ eor w12,w12,w9
++ add w23,w23,w11
++ add w24,w24,w25
++ ror w12,w12,#31
++ orr w25,w20,w21
++ and w26,w20,w21
++ eor w13,w13,w15
++ ror w27,w24,#27
++ and w25,w25,w22
++ add w22,w22,w28
++ eor w13,w13,w5
++ add w23,w23,w27
++ orr w25,w25,w26
++ ror w20,w20,#2
++ eor w13,w13,w10
++ add w22,w22,w12
++ add w23,w23,w25
++ ror w13,w13,#31
++ orr w25,w24,w20
++ and w26,w24,w20
++ eor w14,w14,w16
++ ror w27,w23,#27
++ and w25,w25,w21
++ add w21,w21,w28
++ eor w14,w14,w6
++ add w22,w22,w27
++ orr w25,w25,w26
++ ror w24,w24,#2
++ eor w14,w14,w11
++ add w21,w21,w13
++ add w22,w22,w25
++ ror w14,w14,#31
++ orr w25,w23,w24
++ and w26,w23,w24
++ eor w15,w15,w17
++ ror w27,w22,#27
++ and w25,w25,w20
++ add w20,w20,w28
++ eor w15,w15,w7
++ add w21,w21,w27
++ orr w25,w25,w26
++ ror w23,w23,#2
++ eor w15,w15,w12
++ add w20,w20,w14
++ add w21,w21,w25
++ ror w15,w15,#31
++ movz w28,#0xc1d6
++ movk w28,#0xca62,lsl#16
++ orr w25,w22,w23
++ and w26,w22,w23
++ eor w16,w16,w19
++ ror w27,w21,#27
++ and w25,w25,w24
++ add w24,w24,w28
++ eor w16,w16,w8
++ add w20,w20,w27
++ orr w25,w25,w26
++ ror w22,w22,#2
++ eor w16,w16,w13
++ add w24,w24,w15
++ add w20,w20,w25
++ ror w16,w16,#31
++ eor w17,w17,w3
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w17,w17,w9
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w17,w17,w14
++ add w23,w23,w16
++ add w24,w24,w25
++ ror w17,w17,#31
++ eor w19,w19,w4
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w19,w19,w10
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w19,w19,w15
++ add w22,w22,w17
++ add w23,w23,w25
++ ror w19,w19,#31
++ eor w3,w3,w5
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w3,w3,w11
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w3,w3,w16
++ add w21,w21,w19
++ add w22,w22,w25
++ ror w3,w3,#31
++ eor w4,w4,w6
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w4,w4,w12
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ eor w4,w4,w17
++ add w20,w20,w3
++ add w21,w21,w25
++ ror w4,w4,#31
++ eor w5,w5,w7
++ eor w25,w24,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ eor w5,w5,w13
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ eor w5,w5,w19
++ add w24,w24,w4
++ add w20,w20,w25
++ ror w5,w5,#31
++ eor w6,w6,w8
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w6,w6,w14
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w6,w6,w3
++ add w23,w23,w5
++ add w24,w24,w25
++ ror w6,w6,#31
++ eor w7,w7,w9
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w7,w7,w15
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w7,w7,w4
++ add w22,w22,w6
++ add w23,w23,w25
++ ror w7,w7,#31
++ eor w8,w8,w10
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w8,w8,w16
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w8,w8,w5
++ add w21,w21,w7
++ add w22,w22,w25
++ ror w8,w8,#31
++ eor w9,w9,w11
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w9,w9,w17
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ eor w9,w9,w6
++ add w20,w20,w8
++ add w21,w21,w25
++ ror w9,w9,#31
++ eor w10,w10,w12
++ eor w25,w24,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ eor w10,w10,w19
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ eor w10,w10,w7
++ add w24,w24,w9
++ add w20,w20,w25
++ ror w10,w10,#31
++ eor w11,w11,w13
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w11,w11,w3
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w11,w11,w8
++ add w23,w23,w10
++ add w24,w24,w25
++ ror w11,w11,#31
++ eor w12,w12,w14
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w12,w12,w4
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w12,w12,w9
++ add w22,w22,w11
++ add w23,w23,w25
++ ror w12,w12,#31
++ eor w13,w13,w15
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w13,w13,w5
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w13,w13,w10
++ add w21,w21,w12
++ add w22,w22,w25
++ ror w13,w13,#31
++ eor w14,w14,w16
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w14,w14,w6
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ eor w14,w14,w11
++ add w20,w20,w13
++ add w21,w21,w25
++ ror w14,w14,#31
++ eor w15,w15,w17
++ eor w25,w24,w22
++ ror w27,w21,#27
++ add w24,w24,w28
++ eor w15,w15,w7
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ eor w15,w15,w12
++ add w24,w24,w14
++ add w20,w20,w25
++ ror w15,w15,#31
++ eor w16,w16,w19
++ eor w25,w23,w21
++ ror w27,w20,#27
++ add w23,w23,w28
++ eor w16,w16,w8
++ eor w25,w25,w22
++ add w24,w24,w27
++ ror w21,w21,#2
++ eor w16,w16,w13
++ add w23,w23,w15
++ add w24,w24,w25
++ ror w16,w16,#31
++ eor w17,w17,w3
++ eor w25,w22,w20
++ ror w27,w24,#27
++ add w22,w22,w28
++ eor w17,w17,w9
++ eor w25,w25,w21
++ add w23,w23,w27
++ ror w20,w20,#2
++ eor w17,w17,w14
++ add w22,w22,w16
++ add w23,w23,w25
++ ror w17,w17,#31
++ eor w19,w19,w4
++ eor w25,w21,w24
++ ror w27,w23,#27
++ add w21,w21,w28
++ eor w19,w19,w10
++ eor w25,w25,w20
++ add w22,w22,w27
++ ror w24,w24,#2
++ eor w19,w19,w15
++ add w21,w21,w17
++ add w22,w22,w25
++ ror w19,w19,#31
++ ldp w4,w5,[x0]
++ eor w25,w20,w23
++ ror w27,w22,#27
++ add w20,w20,w28
++ eor w25,w25,w24
++ add w21,w21,w27
++ ror w23,w23,#2
++ add w20,w20,w19
++ add w21,w21,w25
++ ldp w6,w7,[x0,#8]
++ eor w25,w24,w22
++ ror w27,w21,#27
++ eor w25,w25,w23
++ add w20,w20,w27
++ ror w22,w22,#2
++ ldr w8,[x0,#16]
++ add w20,w20,w25
++ add w21,w21,w5
++ add w22,w22,w6
++ add w20,w20,w4
++ add w23,w23,w7
++ add w24,w24,w8
++ stp w20,w21,[x0]
++ stp w22,w23,[x0,#8]
++ str w24,[x0,#16]
++ cbnz x2,Loop
++
++ ldp x19,x20,[sp,#16]
++ ldp x21,x22,[sp,#32]
++ ldp x23,x24,[sp,#48]
++ ldp x25,x26,[sp,#64]
++ ldp x27,x28,[sp,#80]
++ ldr x29,[sp],#96
++ ret
++
++
++.align 6
++sha1_block_armv8:
++Lv8_entry:
++ stp x29,x30,[sp,#-16]!
++ add x29,sp,#0
++
++ adr x4,Lconst
++ eor v1.16b,v1.16b,v1.16b
++ ld1 {v0.4s},[x0],#16
++ ld1 {v1.s}[0],[x0]
++ sub x0,x0,#16
++ ld1 {v16.4s,v17.4s,v18.4s,v19.4s},[x4]
++
++Loop_hw:
++ ld1 {v4.16b,v5.16b,v6.16b,v7.16b},[x1],#64
++ sub x2,x2,#1
++ rev32 v4.16b,v4.16b
++ rev32 v5.16b,v5.16b
++
++ add v20.4s,v16.4s,v4.4s
++ rev32 v6.16b,v6.16b
++ orr v22.16b,v0.16b,v0.16b
++
++ add v21.4s,v16.4s,v5.4s
++ rev32 v7.16b,v7.16b
++.long 0x5e280803
++.long 0x5e140020
++ add v20.4s,v16.4s,v6.4s
++.long 0x5e0630a4
++.long 0x5e280802
++.long 0x5e150060
++ add v21.4s,v16.4s,v7.4s
++.long 0x5e2818e4
++.long 0x5e0730c5
++.long 0x5e280803
++.long 0x5e140040
++ add v20.4s,v16.4s,v4.4s
++.long 0x5e281885
++.long 0x5e0430e6
++.long 0x5e280802
++.long 0x5e150060
++ add v21.4s,v17.4s,v5.4s
++.long 0x5e2818a6
++.long 0x5e053087
++.long 0x5e280803
++.long 0x5e140040
++ add v20.4s,v17.4s,v6.4s
++.long 0x5e2818c7
++.long 0x5e0630a4
++.long 0x5e280802
++.long 0x5e151060
++ add v21.4s,v17.4s,v7.4s
++.long 0x5e2818e4
++.long 0x5e0730c5
++.long 0x5e280803
++.long 0x5e141040
++ add v20.4s,v17.4s,v4.4s
++.long 0x5e281885
++.long 0x5e0430e6
++.long 0x5e280802
++.long 0x5e151060
++ add v21.4s,v17.4s,v5.4s
++.long 0x5e2818a6
++.long 0x5e053087
++.long 0x5e280803
++.long 0x5e141040
++ add v20.4s,v18.4s,v6.4s
++.long 0x5e2818c7
++.long 0x5e0630a4
++.long 0x5e280802
++.long 0x5e151060
++ add v21.4s,v18.4s,v7.4s
++.long 0x5e2818e4
++.long 0x5e0730c5
++.long 0x5e280803
++.long 0x5e142040
++ add v20.4s,v18.4s,v4.4s
++.long 0x5e281885
++.long 0x5e0430e6
++.long 0x5e280802
++.long 0x5e152060
++ add v21.4s,v18.4s,v5.4s
++.long 0x5e2818a6
++.long 0x5e053087
++.long 0x5e280803
++.long 0x5e142040
++ add v20.4s,v18.4s,v6.4s
++.long 0x5e2818c7
++.long 0x5e0630a4
++.long 0x5e280802
++.long 0x5e152060
++ add v21.4s,v19.4s,v7.4s
++.long 0x5e2818e4
++.long 0x5e0730c5
++.long 0x5e280803
++.long 0x5e142040
++ add v20.4s,v19.4s,v4.4s
++.long 0x5e281885
++.long 0x5e0430e6
++.long 0x5e280802
++.long 0x5e151060
++ add v21.4s,v19.4s,v5.4s
++.long 0x5e2818a6
++.long 0x5e053087
++.long 0x5e280803
++.long 0x5e141040
++ add v20.4s,v19.4s,v6.4s
++.long 0x5e2818c7
++.long 0x5e280802
++.long 0x5e151060
++ add v21.4s,v19.4s,v7.4s
++
++.long 0x5e280803
++.long 0x5e141040
++
++.long 0x5e280802
++.long 0x5e151060
++
++ add v1.4s,v1.4s,v2.4s
++ add v0.4s,v0.4s,v22.4s
++
++ cbnz x2,Loop_hw
++
++ st1 {v0.4s},[x0],#16
++ st1 {v1.s}[0],[x0]
++
++ ldr x29,[sp],#16
++ ret
++
++.align 6
++Lconst:
++.long 0x5a827999,0x5a827999,0x5a827999,0x5a827999
++.long 0x6ed9eba1,0x6ed9eba1,0x6ed9eba1,0x6ed9eba1
++.long 0x8f1bbcdc,0x8f1bbcdc,0x8f1bbcdc,0x8f1bbcdc
++.long 0xca62c1d6,0xca62c1d6,0xca62c1d6,0xca62c1d6
++L_gnutls_arm_cpuid_s:
++
++
++
++.quad __gnutls_arm_cpuid_s-.
++
++.byte 83,72,65,49,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
++.align 2
++.align 2
++.comm __gnutls_arm_cpuid_s,4,4
+diff --git a/lib/accelerated/aarch64/macosx/sha256-armv8.s b/lib/accelerated/aarch64/macosx/sha256-armv8.s
+new file mode 100644
+index 0000000000000000000000000000000000000000..b48f6ca42a914ac0ef7a1e9486ba642747ed4610
+--- /dev/null
++++ b/lib/accelerated/aarch64/macosx/sha256-armv8.s
+@@ -0,0 +1,2054 @@
++# Copyright (c) 2011-2016, Andy Polyakov <appro@openssl.org>
++# All rights reserved.
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++# 
++#     * Redistributions of source code must retain copyright notices,
++#      this list of conditions and the following disclaimer.
++#
++#     * Redistributions in binary form must reproduce the above
++#      copyright notice, this list of conditions and the following
++#      disclaimer in the documentation and/or other materials
++#      provided with the distribution.
++#
++#     * Neither the name of the Andy Polyakov nor the names of its
++#      copyright holder and contributors may be used to endorse or
++#      promote products derived from this software without specific
++#      prior written permission.
++#
++# ALTERNATIVELY, provided that this notice is retained in full, this
++# product may be distributed under the terms of the GNU General Public
++# License (GPL), in which case the provisions of the GPL apply INSTEAD OF
++# those given above.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS
++# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++#
++# *** This file is auto-generated ***
++#
++# 1 "lib/accelerated/aarch64/macosx/sha256-armv8.s.tmp.S"
++# 1 "<built-in>"
++# 1 "<command-line>"
++# 1 "/usr/aarch64-linux-gnu/include/stdc-predef.h" 1 3
++# 1 "<command-line>" 2
++# 1 "lib/accelerated/aarch64/macosx/sha256-armv8.s.tmp.S"
++# 56 "lib/accelerated/aarch64/macosx/sha256-armv8.s.tmp.S"
++# 1 "lib/accelerated/aarch64/aarch64-common.h" 1
++# 57 "lib/accelerated/aarch64/macosx/sha256-armv8.s.tmp.S" 2
++
++
++.text
++
++
++.globl _sha256_block_data_order
++
++.align 6
++_sha256_block_data_order:
++
++
++
++
++ ldr x16,L_gnutls_arm_cpuid_s
++
++ adr x17,L_gnutls_arm_cpuid_s
++ add x16,x16,x17
++ ldr w16,[x16]
++ tst w16,#(1<<4)
++ b.ne Lv8_entry
++ tst w16,#(1<<0)
++ b.ne Lneon_entry
++
++ stp x29,x30,[sp,#-128]!
++ add x29,sp,#0
++
++ stp x19,x20,[sp,#16]
++ stp x21,x22,[sp,#32]
++ stp x23,x24,[sp,#48]
++ stp x25,x26,[sp,#64]
++ stp x27,x28,[sp,#80]
++ sub sp,sp,#4*4
++
++ ldp w20,w21,[x0]
++ ldp w22,w23,[x0,#2*4]
++ ldp w24,w25,[x0,#4*4]
++ add x2,x1,x2,lsl#6
++ ldp w26,w27,[x0,#6*4]
++ adr x30,LK256
++ stp x0,x2,[x29,#96]
++
++Loop:
++ ldp w3,w4,[x1],#2*4
++ ldr w19,[x30],#4
++ eor w28,w21,w22
++ str x1,[x29,#112]
++
++ rev w3,w3
++
++ ror w16,w24,#6
++ add w27,w27,w19
++ eor w6,w24,w24,ror#14
++ and w17,w25,w24
++ bic w19,w26,w24
++ add w27,w27,w3
++ orr w17,w17,w19
++ eor w19,w20,w21
++ eor w16,w16,w6,ror#11
++ ror w6,w20,#2
++ add w27,w27,w17
++ eor w17,w20,w20,ror#9
++ add w27,w27,w16
++ and w28,w28,w19
++ add w23,w23,w27
++ eor w28,w28,w21
++ eor w17,w6,w17,ror#13
++ add w27,w27,w28
++ ldr w28,[x30],#4
++
++
++ rev w4,w4
++
++ ldp w5,w6,[x1],#2*4
++ add w27,w27,w17
++ ror w16,w23,#6
++ add w26,w26,w28
++ eor w7,w23,w23,ror#14
++ and w17,w24,w23
++ bic w28,w25,w23
++ add w26,w26,w4
++ orr w17,w17,w28
++ eor w28,w27,w20
++ eor w16,w16,w7,ror#11
++ ror w7,w27,#2
++ add w26,w26,w17
++ eor w17,w27,w27,ror#9
++ add w26,w26,w16
++ and w19,w19,w28
++ add w22,w22,w26
++ eor w19,w19,w20
++ eor w17,w7,w17,ror#13
++ add w26,w26,w19
++ ldr w19,[x30],#4
++
++
++ rev w5,w5
++
++ add w26,w26,w17
++ ror w16,w22,#6
++ add w25,w25,w19
++ eor w8,w22,w22,ror#14
++ and w17,w23,w22
++ bic w19,w24,w22
++ add w25,w25,w5
++ orr w17,w17,w19
++ eor w19,w26,w27
++ eor w16,w16,w8,ror#11
++ ror w8,w26,#2
++ add w25,w25,w17
++ eor w17,w26,w26,ror#9
++ add w25,w25,w16
++ and w28,w28,w19
++ add w21,w21,w25
++ eor w28,w28,w27
++ eor w17,w8,w17,ror#13
++ add w25,w25,w28
++ ldr w28,[x30],#4
++
++
++ rev w6,w6
++
++ ldp w7,w8,[x1],#2*4
++ add w25,w25,w17
++ ror w16,w21,#6
++ add w24,w24,w28
++ eor w9,w21,w21,ror#14
++ and w17,w22,w21
++ bic w28,w23,w21
++ add w24,w24,w6
++ orr w17,w17,w28
++ eor w28,w25,w26
++ eor w16,w16,w9,ror#11
++ ror w9,w25,#2
++ add w24,w24,w17
++ eor w17,w25,w25,ror#9
++ add w24,w24,w16
++ and w19,w19,w28
++ add w20,w20,w24
++ eor w19,w19,w26
++ eor w17,w9,w17,ror#13
++ add w24,w24,w19
++ ldr w19,[x30],#4
++
++
++ rev w7,w7
++
++ add w24,w24,w17
++ ror w16,w20,#6
++ add w23,w23,w19
++ eor w10,w20,w20,ror#14
++ and w17,w21,w20
++ bic w19,w22,w20
++ add w23,w23,w7
++ orr w17,w17,w19
++ eor w19,w24,w25
++ eor w16,w16,w10,ror#11
++ ror w10,w24,#2
++ add w23,w23,w17
++ eor w17,w24,w24,ror#9
++ add w23,w23,w16
++ and w28,w28,w19
++ add w27,w27,w23
++ eor w28,w28,w25
++ eor w17,w10,w17,ror#13
++ add w23,w23,w28
++ ldr w28,[x30],#4
++
++
++ rev w8,w8
++
++ ldp w9,w10,[x1],#2*4
++ add w23,w23,w17
++ ror w16,w27,#6
++ add w22,w22,w28
++ eor w11,w27,w27,ror#14
++ and w17,w20,w27
++ bic w28,w21,w27
++ add w22,w22,w8
++ orr w17,w17,w28
++ eor w28,w23,w24
++ eor w16,w16,w11,ror#11
++ ror w11,w23,#2
++ add w22,w22,w17
++ eor w17,w23,w23,ror#9
++ add w22,w22,w16
++ and w19,w19,w28
++ add w26,w26,w22
++ eor w19,w19,w24
++ eor w17,w11,w17,ror#13
++ add w22,w22,w19
++ ldr w19,[x30],#4
++
++
++ rev w9,w9
++
++ add w22,w22,w17
++ ror w16,w26,#6
++ add w21,w21,w19
++ eor w12,w26,w26,ror#14
++ and w17,w27,w26
++ bic w19,w20,w26
++ add w21,w21,w9
++ orr w17,w17,w19
++ eor w19,w22,w23
++ eor w16,w16,w12,ror#11
++ ror w12,w22,#2
++ add w21,w21,w17
++ eor w17,w22,w22,ror#9
++ add w21,w21,w16
++ and w28,w28,w19
++ add w25,w25,w21
++ eor w28,w28,w23
++ eor w17,w12,w17,ror#13
++ add w21,w21,w28
++ ldr w28,[x30],#4
++
++
++ rev w10,w10
++
++ ldp w11,w12,[x1],#2*4
++ add w21,w21,w17
++ ror w16,w25,#6
++ add w20,w20,w28
++ eor w13,w25,w25,ror#14
++ and w17,w26,w25
++ bic w28,w27,w25
++ add w20,w20,w10
++ orr w17,w17,w28
++ eor w28,w21,w22
++ eor w16,w16,w13,ror#11
++ ror w13,w21,#2
++ add w20,w20,w17
++ eor w17,w21,w21,ror#9
++ add w20,w20,w16
++ and w19,w19,w28
++ add w24,w24,w20
++ eor w19,w19,w22
++ eor w17,w13,w17,ror#13
++ add w20,w20,w19
++ ldr w19,[x30],#4
++
++
++ rev w11,w11
++
++ add w20,w20,w17
++ ror w16,w24,#6
++ add w27,w27,w19
++ eor w14,w24,w24,ror#14
++ and w17,w25,w24
++ bic w19,w26,w24
++ add w27,w27,w11
++ orr w17,w17,w19
++ eor w19,w20,w21
++ eor w16,w16,w14,ror#11
++ ror w14,w20,#2
++ add w27,w27,w17
++ eor w17,w20,w20,ror#9
++ add w27,w27,w16
++ and w28,w28,w19
++ add w23,w23,w27
++ eor w28,w28,w21
++ eor w17,w14,w17,ror#13
++ add w27,w27,w28
++ ldr w28,[x30],#4
++
++
++ rev w12,w12
++
++ ldp w13,w14,[x1],#2*4
++ add w27,w27,w17
++ ror w16,w23,#6
++ add w26,w26,w28
++ eor w15,w23,w23,ror#14
++ and w17,w24,w23
++ bic w28,w25,w23
++ add w26,w26,w12
++ orr w17,w17,w28
++ eor w28,w27,w20
++ eor w16,w16,w15,ror#11
++ ror w15,w27,#2
++ add w26,w26,w17
++ eor w17,w27,w27,ror#9
++ add w26,w26,w16
++ and w19,w19,w28
++ add w22,w22,w26
++ eor w19,w19,w20
++ eor w17,w15,w17,ror#13
++ add w26,w26,w19
++ ldr w19,[x30],#4
++
++
++ rev w13,w13
++
++ add w26,w26,w17
++ ror w16,w22,#6
++ add w25,w25,w19
++ eor w0,w22,w22,ror#14
++ and w17,w23,w22
++ bic w19,w24,w22
++ add w25,w25,w13
++ orr w17,w17,w19
++ eor w19,w26,w27
++ eor w16,w16,w0,ror#11
++ ror w0,w26,#2
++ add w25,w25,w17
++ eor w17,w26,w26,ror#9
++ add w25,w25,w16
++ and w28,w28,w19
++ add w21,w21,w25
++ eor w28,w28,w27
++ eor w17,w0,w17,ror#13
++ add w25,w25,w28
++ ldr w28,[x30],#4
++
++
++ rev w14,w14
++
++ ldp w15,w0,[x1],#2*4
++ add w25,w25,w17
++ str w6,[sp,#12]
++ ror w16,w21,#6
++ add w24,w24,w28
++ eor w6,w21,w21,ror#14
++ and w17,w22,w21
++ bic w28,w23,w21
++ add w24,w24,w14
++ orr w17,w17,w28
++ eor w28,w25,w26
++ eor w16,w16,w6,ror#11
++ ror w6,w25,#2
++ add w24,w24,w17
++ eor w17,w25,w25,ror#9
++ add w24,w24,w16
++ and w19,w19,w28
++ add w20,w20,w24
++ eor w19,w19,w26
++ eor w17,w6,w17,ror#13
++ add w24,w24,w19
++ ldr w19,[x30],#4
++
++
++ rev w15,w15
++
++ add w24,w24,w17
++ str w7,[sp,#0]
++ ror w16,w20,#6
++ add w23,w23,w19
++ eor w7,w20,w20,ror#14
++ and w17,w21,w20
++ bic w19,w22,w20
++ add w23,w23,w15
++ orr w17,w17,w19
++ eor w19,w24,w25
++ eor w16,w16,w7,ror#11
++ ror w7,w24,#2
++ add w23,w23,w17
++ eor w17,w24,w24,ror#9
++ add w23,w23,w16
++ and w28,w28,w19
++ add w27,w27,w23
++ eor w28,w28,w25
++ eor w17,w7,w17,ror#13
++ add w23,w23,w28
++ ldr w28,[x30],#4
++
++
++ rev w0,w0
++
++ ldp w1,w2,[x1]
++ add w23,w23,w17
++ str w8,[sp,#4]
++ ror w16,w27,#6
++ add w22,w22,w28
++ eor w8,w27,w27,ror#14
++ and w17,w20,w27
++ bic w28,w21,w27
++ add w22,w22,w0
++ orr w17,w17,w28
++ eor w28,w23,w24
++ eor w16,w16,w8,ror#11
++ ror w8,w23,#2
++ add w22,w22,w17
++ eor w17,w23,w23,ror#9
++ add w22,w22,w16
++ and w19,w19,w28
++ add w26,w26,w22
++ eor w19,w19,w24
++ eor w17,w8,w17,ror#13
++ add w22,w22,w19
++ ldr w19,[x30],#4
++
++
++ rev w1,w1
++
++ ldr w6,[sp,#12]
++ add w22,w22,w17
++ str w9,[sp,#8]
++ ror w16,w26,#6
++ add w21,w21,w19
++ eor w9,w26,w26,ror#14
++ and w17,w27,w26
++ bic w19,w20,w26
++ add w21,w21,w1
++ orr w17,w17,w19
++ eor w19,w22,w23
++ eor w16,w16,w9,ror#11
++ ror w9,w22,#2
++ add w21,w21,w17
++ eor w17,w22,w22,ror#9
++ add w21,w21,w16
++ and w28,w28,w19
++ add w25,w25,w21
++ eor w28,w28,w23
++ eor w17,w9,w17,ror#13
++ add w21,w21,w28
++ ldr w28,[x30],#4
++
++
++ rev w2,w2
++
++ ldr w7,[sp,#0]
++ add w21,w21,w17
++ str w10,[sp,#12]
++ ror w16,w25,#6
++ add w20,w20,w28
++ ror w9,w4,#7
++ and w17,w26,w25
++ ror w8,w1,#17
++ bic w28,w27,w25
++ ror w10,w21,#2
++ add w20,w20,w2
++ eor w16,w16,w25,ror#11
++ eor w9,w9,w4,ror#18
++ orr w17,w17,w28
++ eor w28,w21,w22
++ eor w16,w16,w25,ror#25
++ eor w10,w10,w21,ror#13
++ add w20,w20,w17
++ and w19,w19,w28
++ eor w8,w8,w1,ror#19
++ eor w9,w9,w4,lsr#3
++ add w20,w20,w16
++ eor w19,w19,w22
++ eor w17,w10,w21,ror#22
++ eor w8,w8,w1,lsr#10
++ add w3,w3,w12
++ add w24,w24,w20
++ add w20,w20,w19
++ ldr w19,[x30],#4
++ add w3,w3,w9
++ add w20,w20,w17
++ add w3,w3,w8
++Loop_16_xx:
++ ldr w8,[sp,#4]
++ str w11,[sp,#0]
++ ror w16,w24,#6
++ add w27,w27,w19
++ ror w10,w5,#7
++ and w17,w25,w24
++ ror w9,w2,#17
++ bic w19,w26,w24
++ ror w11,w20,#2
++ add w27,w27,w3
++ eor w16,w16,w24,ror#11
++ eor w10,w10,w5,ror#18
++ orr w17,w17,w19
++ eor w19,w20,w21
++ eor w16,w16,w24,ror#25
++ eor w11,w11,w20,ror#13
++ add w27,w27,w17
++ and w28,w28,w19
++ eor w9,w9,w2,ror#19
++ eor w10,w10,w5,lsr#3
++ add w27,w27,w16
++ eor w28,w28,w21
++ eor w17,w11,w20,ror#22
++ eor w9,w9,w2,lsr#10
++ add w4,w4,w13
++ add w23,w23,w27
++ add w27,w27,w28
++ ldr w28,[x30],#4
++ add w4,w4,w10
++ add w27,w27,w17
++ add w4,w4,w9
++ ldr w9,[sp,#8]
++ str w12,[sp,#4]
++ ror w16,w23,#6
++ add w26,w26,w28
++ ror w11,w6,#7
++ and w17,w24,w23
++ ror w10,w3,#17
++ bic w28,w25,w23
++ ror w12,w27,#2
++ add w26,w26,w4
++ eor w16,w16,w23,ror#11
++ eor w11,w11,w6,ror#18
++ orr w17,w17,w28
++ eor w28,w27,w20
++ eor w16,w16,w23,ror#25
++ eor w12,w12,w27,ror#13
++ add w26,w26,w17
++ and w19,w19,w28
++ eor w10,w10,w3,ror#19
++ eor w11,w11,w6,lsr#3
++ add w26,w26,w16
++ eor w19,w19,w20
++ eor w17,w12,w27,ror#22
++ eor w10,w10,w3,lsr#10
++ add w5,w5,w14
++ add w22,w22,w26
++ add w26,w26,w19
++ ldr w19,[x30],#4
++ add w5,w5,w11
++ add w26,w26,w17
++ add w5,w5,w10
++ ldr w10,[sp,#12]
++ str w13,[sp,#8]
++ ror w16,w22,#6
++ add w25,w25,w19
++ ror w12,w7,#7
++ and w17,w23,w22
++ ror w11,w4,#17
++ bic w19,w24,w22
++ ror w13,w26,#2
++ add w25,w25,w5
++ eor w16,w16,w22,ror#11
++ eor w12,w12,w7,ror#18
++ orr w17,w17,w19
++ eor w19,w26,w27
++ eor w16,w16,w22,ror#25
++ eor w13,w13,w26,ror#13
++ add w25,w25,w17
++ and w28,w28,w19
++ eor w11,w11,w4,ror#19
++ eor w12,w12,w7,lsr#3
++ add w25,w25,w16
++ eor w28,w28,w27
++ eor w17,w13,w26,ror#22
++ eor w11,w11,w4,lsr#10
++ add w6,w6,w15
++ add w21,w21,w25
++ add w25,w25,w28
++ ldr w28,[x30],#4
++ add w6,w6,w12
++ add w25,w25,w17
++ add w6,w6,w11
++ ldr w11,[sp,#0]
++ str w14,[sp,#12]
++ ror w16,w21,#6
++ add w24,w24,w28
++ ror w13,w8,#7
++ and w17,w22,w21
++ ror w12,w5,#17
++ bic w28,w23,w21
++ ror w14,w25,#2
++ add w24,w24,w6
++ eor w16,w16,w21,ror#11
++ eor w13,w13,w8,ror#18
++ orr w17,w17,w28
++ eor w28,w25,w26
++ eor w16,w16,w21,ror#25
++ eor w14,w14,w25,ror#13
++ add w24,w24,w17
++ and w19,w19,w28
++ eor w12,w12,w5,ror#19
++ eor w13,w13,w8,lsr#3
++ add w24,w24,w16
++ eor w19,w19,w26
++ eor w17,w14,w25,ror#22
++ eor w12,w12,w5,lsr#10
++ add w7,w7,w0
++ add w20,w20,w24
++ add w24,w24,w19
++ ldr w19,[x30],#4
++ add w7,w7,w13
++ add w24,w24,w17
++ add w7,w7,w12
++ ldr w12,[sp,#4]
++ str w15,[sp,#0]
++ ror w16,w20,#6
++ add w23,w23,w19
++ ror w14,w9,#7
++ and w17,w21,w20
++ ror w13,w6,#17
++ bic w19,w22,w20
++ ror w15,w24,#2
++ add w23,w23,w7
++ eor w16,w16,w20,ror#11
++ eor w14,w14,w9,ror#18
++ orr w17,w17,w19
++ eor w19,w24,w25
++ eor w16,w16,w20,ror#25
++ eor w15,w15,w24,ror#13
++ add w23,w23,w17
++ and w28,w28,w19
++ eor w13,w13,w6,ror#19
++ eor w14,w14,w9,lsr#3
++ add w23,w23,w16
++ eor w28,w28,w25
++ eor w17,w15,w24,ror#22
++ eor w13,w13,w6,lsr#10
++ add w8,w8,w1
++ add w27,w27,w23
++ add w23,w23,w28
++ ldr w28,[x30],#4
++ add w8,w8,w14
++ add w23,w23,w17
++ add w8,w8,w13
++ ldr w13,[sp,#8]
++ str w0,[sp,#4]
++ ror w16,w27,#6
++ add w22,w22,w28
++ ror w15,w10,#7
++ and w17,w20,w27
++ ror w14,w7,#17
++ bic w28,w21,w27
++ ror w0,w23,#2
++ add w22,w22,w8
++ eor w16,w16,w27,ror#11
++ eor w15,w15,w10,ror#18
++ orr w17,w17,w28
++ eor w28,w23,w24
++ eor w16,w16,w27,ror#25
++ eor w0,w0,w23,ror#13
++ add w22,w22,w17
++ and w19,w19,w28
++ eor w14,w14,w7,ror#19
++ eor w15,w15,w10,lsr#3
++ add w22,w22,w16
++ eor w19,w19,w24
++ eor w17,w0,w23,ror#22
++ eor w14,w14,w7,lsr#10
++ add w9,w9,w2
++ add w26,w26,w22
++ add w22,w22,w19
++ ldr w19,[x30],#4
++ add w9,w9,w15
++ add w22,w22,w17
++ add w9,w9,w14
++ ldr w14,[sp,#12]
++ str w1,[sp,#8]
++ ror w16,w26,#6
++ add w21,w21,w19
++ ror w0,w11,#7
++ and w17,w27,w26
++ ror w15,w8,#17
++ bic w19,w20,w26
++ ror w1,w22,#2
++ add w21,w21,w9
++ eor w16,w16,w26,ror#11
++ eor w0,w0,w11,ror#18
++ orr w17,w17,w19
++ eor w19,w22,w23
++ eor w16,w16,w26,ror#25
++ eor w1,w1,w22,ror#13
++ add w21,w21,w17
++ and w28,w28,w19
++ eor w15,w15,w8,ror#19
++ eor w0,w0,w11,lsr#3
++ add w21,w21,w16
++ eor w28,w28,w23
++ eor w17,w1,w22,ror#22
++ eor w15,w15,w8,lsr#10
++ add w10,w10,w3
++ add w25,w25,w21
++ add w21,w21,w28
++ ldr w28,[x30],#4
++ add w10,w10,w0
++ add w21,w21,w17
++ add w10,w10,w15
++ ldr w15,[sp,#0]
++ str w2,[sp,#12]
++ ror w16,w25,#6
++ add w20,w20,w28
++ ror w1,w12,#7
++ and w17,w26,w25
++ ror w0,w9,#17
++ bic w28,w27,w25
++ ror w2,w21,#2
++ add w20,w20,w10
++ eor w16,w16,w25,ror#11
++ eor w1,w1,w12,ror#18
++ orr w17,w17,w28
++ eor w28,w21,w22
++ eor w16,w16,w25,ror#25
++ eor w2,w2,w21,ror#13
++ add w20,w20,w17
++ and w19,w19,w28
++ eor w0,w0,w9,ror#19
++ eor w1,w1,w12,lsr#3
++ add w20,w20,w16
++ eor w19,w19,w22
++ eor w17,w2,w21,ror#22
++ eor w0,w0,w9,lsr#10
++ add w11,w11,w4
++ add w24,w24,w20
++ add w20,w20,w19
++ ldr w19,[x30],#4
++ add w11,w11,w1
++ add w20,w20,w17
++ add w11,w11,w0
++ ldr w0,[sp,#4]
++ str w3,[sp,#0]
++ ror w16,w24,#6
++ add w27,w27,w19
++ ror w2,w13,#7
++ and w17,w25,w24
++ ror w1,w10,#17
++ bic w19,w26,w24
++ ror w3,w20,#2
++ add w27,w27,w11
++ eor w16,w16,w24,ror#11
++ eor w2,w2,w13,ror#18
++ orr w17,w17,w19
++ eor w19,w20,w21
++ eor w16,w16,w24,ror#25
++ eor w3,w3,w20,ror#13
++ add w27,w27,w17
++ and w28,w28,w19
++ eor w1,w1,w10,ror#19
++ eor w2,w2,w13,lsr#3
++ add w27,w27,w16
++ eor w28,w28,w21
++ eor w17,w3,w20,ror#22
++ eor w1,w1,w10,lsr#10
++ add w12,w12,w5
++ add w23,w23,w27
++ add w27,w27,w28
++ ldr w28,[x30],#4
++ add w12,w12,w2
++ add w27,w27,w17
++ add w12,w12,w1
++ ldr w1,[sp,#8]
++ str w4,[sp,#4]
++ ror w16,w23,#6
++ add w26,w26,w28
++ ror w3,w14,#7
++ and w17,w24,w23
++ ror w2,w11,#17
++ bic w28,w25,w23
++ ror w4,w27,#2
++ add w26,w26,w12
++ eor w16,w16,w23,ror#11
++ eor w3,w3,w14,ror#18
++ orr w17,w17,w28
++ eor w28,w27,w20
++ eor w16,w16,w23,ror#25
++ eor w4,w4,w27,ror#13
++ add w26,w26,w17
++ and w19,w19,w28
++ eor w2,w2,w11,ror#19
++ eor w3,w3,w14,lsr#3
++ add w26,w26,w16
++ eor w19,w19,w20
++ eor w17,w4,w27,ror#22
++ eor w2,w2,w11,lsr#10
++ add w13,w13,w6
++ add w22,w22,w26
++ add w26,w26,w19
++ ldr w19,[x30],#4
++ add w13,w13,w3
++ add w26,w26,w17
++ add w13,w13,w2
++ ldr w2,[sp,#12]
++ str w5,[sp,#8]
++ ror w16,w22,#6
++ add w25,w25,w19
++ ror w4,w15,#7
++ and w17,w23,w22
++ ror w3,w12,#17
++ bic w19,w24,w22
++ ror w5,w26,#2
++ add w25,w25,w13
++ eor w16,w16,w22,ror#11
++ eor w4,w4,w15,ror#18
++ orr w17,w17,w19
++ eor w19,w26,w27
++ eor w16,w16,w22,ror#25
++ eor w5,w5,w26,ror#13
++ add w25,w25,w17
++ and w28,w28,w19
++ eor w3,w3,w12,ror#19
++ eor w4,w4,w15,lsr#3
++ add w25,w25,w16
++ eor w28,w28,w27
++ eor w17,w5,w26,ror#22
++ eor w3,w3,w12,lsr#10
++ add w14,w14,w7
++ add w21,w21,w25
++ add w25,w25,w28
++ ldr w28,[x30],#4
++ add w14,w14,w4
++ add w25,w25,w17
++ add w14,w14,w3
++ ldr w3,[sp,#0]
++ str w6,[sp,#12]
++ ror w16,w21,#6
++ add w24,w24,w28
++ ror w5,w0,#7
++ and w17,w22,w21
++ ror w4,w13,#17
++ bic w28,w23,w21
++ ror w6,w25,#2
++ add w24,w24,w14
++ eor w16,w16,w21,ror#11
++ eor w5,w5,w0,ror#18
++ orr w17,w17,w28
++ eor w28,w25,w26
++ eor w16,w16,w21,ror#25
++ eor w6,w6,w25,ror#13
++ add w24,w24,w17
++ and w19,w19,w28
++ eor w4,w4,w13,ror#19
++ eor w5,w5,w0,lsr#3
++ add w24,w24,w16
++ eor w19,w19,w26
++ eor w17,w6,w25,ror#22
++ eor w4,w4,w13,lsr#10
++ add w15,w15,w8
++ add w20,w20,w24
++ add w24,w24,w19
++ ldr w19,[x30],#4
++ add w15,w15,w5
++ add w24,w24,w17
++ add w15,w15,w4
++ ldr w4,[sp,#4]
++ str w7,[sp,#0]
++ ror w16,w20,#6
++ add w23,w23,w19
++ ror w6,w1,#7
++ and w17,w21,w20
++ ror w5,w14,#17
++ bic w19,w22,w20
++ ror w7,w24,#2
++ add w23,w23,w15
++ eor w16,w16,w20,ror#11
++ eor w6,w6,w1,ror#18
++ orr w17,w17,w19
++ eor w19,w24,w25
++ eor w16,w16,w20,ror#25
++ eor w7,w7,w24,ror#13
++ add w23,w23,w17
++ and w28,w28,w19
++ eor w5,w5,w14,ror#19
++ eor w6,w6,w1,lsr#3
++ add w23,w23,w16
++ eor w28,w28,w25
++ eor w17,w7,w24,ror#22
++ eor w5,w5,w14,lsr#10
++ add w0,w0,w9
++ add w27,w27,w23
++ add w23,w23,w28
++ ldr w28,[x30],#4
++ add w0,w0,w6
++ add w23,w23,w17
++ add w0,w0,w5
++ ldr w5,[sp,#8]
++ str w8,[sp,#4]
++ ror w16,w27,#6
++ add w22,w22,w28
++ ror w7,w2,#7
++ and w17,w20,w27
++ ror w6,w15,#17
++ bic w28,w21,w27
++ ror w8,w23,#2
++ add w22,w22,w0
++ eor w16,w16,w27,ror#11
++ eor w7,w7,w2,ror#18
++ orr w17,w17,w28
++ eor w28,w23,w24
++ eor w16,w16,w27,ror#25
++ eor w8,w8,w23,ror#13
++ add w22,w22,w17
++ and w19,w19,w28
++ eor w6,w6,w15,ror#19
++ eor w7,w7,w2,lsr#3
++ add w22,w22,w16
++ eor w19,w19,w24
++ eor w17,w8,w23,ror#22
++ eor w6,w6,w15,lsr#10
++ add w1,w1,w10
++ add w26,w26,w22
++ add w22,w22,w19
++ ldr w19,[x30],#4
++ add w1,w1,w7
++ add w22,w22,w17
++ add w1,w1,w6
++ ldr w6,[sp,#12]
++ str w9,[sp,#8]
++ ror w16,w26,#6
++ add w21,w21,w19
++ ror w8,w3,#7
++ and w17,w27,w26
++ ror w7,w0,#17
++ bic w19,w20,w26
++ ror w9,w22,#2
++ add w21,w21,w1
++ eor w16,w16,w26,ror#11
++ eor w8,w8,w3,ror#18
++ orr w17,w17,w19
++ eor w19,w22,w23
++ eor w16,w16,w26,ror#25
++ eor w9,w9,w22,ror#13
++ add w21,w21,w17
++ and w28,w28,w19
++ eor w7,w7,w0,ror#19
++ eor w8,w8,w3,lsr#3
++ add w21,w21,w16
++ eor w28,w28,w23
++ eor w17,w9,w22,ror#22
++ eor w7,w7,w0,lsr#10
++ add w2,w2,w11
++ add w25,w25,w21
++ add w21,w21,w28
++ ldr w28,[x30],#4
++ add w2,w2,w8
++ add w21,w21,w17
++ add w2,w2,w7
++ ldr w7,[sp,#0]
++ str w10,[sp,#12]
++ ror w16,w25,#6
++ add w20,w20,w28
++ ror w9,w4,#7
++ and w17,w26,w25
++ ror w8,w1,#17
++ bic w28,w27,w25
++ ror w10,w21,#2
++ add w20,w20,w2
++ eor w16,w16,w25,ror#11
++ eor w9,w9,w4,ror#18
++ orr w17,w17,w28
++ eor w28,w21,w22
++ eor w16,w16,w25,ror#25
++ eor w10,w10,w21,ror#13
++ add w20,w20,w17
++ and w19,w19,w28
++ eor w8,w8,w1,ror#19
++ eor w9,w9,w4,lsr#3
++ add w20,w20,w16
++ eor w19,w19,w22
++ eor w17,w10,w21,ror#22
++ eor w8,w8,w1,lsr#10
++ add w3,w3,w12
++ add w24,w24,w20
++ add w20,w20,w19
++ ldr w19,[x30],#4
++ add w3,w3,w9
++ add w20,w20,w17
++ add w3,w3,w8
++ cbnz w19,Loop_16_xx
++
++ ldp x0,x2,[x29,#96]
++ ldr x1,[x29,#112]
++ sub x30,x30,#260
++
++ ldp w3,w4,[x0]
++ ldp w5,w6,[x0,#2*4]
++ add x1,x1,#14*4
++ ldp w7,w8,[x0,#4*4]
++ add w20,w20,w3
++ ldp w9,w10,[x0,#6*4]
++ add w21,w21,w4
++ add w22,w22,w5
++ add w23,w23,w6
++ stp w20,w21,[x0]
++ add w24,w24,w7
++ add w25,w25,w8
++ stp w22,w23,[x0,#2*4]
++ add w26,w26,w9
++ add w27,w27,w10
++ cmp x1,x2
++ stp w24,w25,[x0,#4*4]
++ stp w26,w27,[x0,#6*4]
++ b.ne Loop
++
++ ldp x19,x20,[x29,#16]
++ add sp,sp,#4*4
++ ldp x21,x22,[x29,#32]
++ ldp x23,x24,[x29,#48]
++ ldp x25,x26,[x29,#64]
++ ldp x27,x28,[x29,#80]
++ ldp x29,x30,[sp],#128
++ ret
++
++
++.align 6
++
++LK256:
++.long 0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5
++.long 0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5
++.long 0xd807aa98,0x12835b01,0x243185be,0x550c7dc3
++.long 0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174
++.long 0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc
++.long 0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da
++.long 0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7
++.long 0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967
++.long 0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13
++.long 0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85
++.long 0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3
++.long 0xd192e819,0xd6990624,0xf40e3585,0x106aa070
++.long 0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5
++.long 0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3
++.long 0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208
++.long 0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
++.long 0
++
++
++.align 3
++L_gnutls_arm_cpuid_s:
++
++
++
++.quad __gnutls_arm_cpuid_s-.
++
++
++.byte 83,72,65,50,53,54,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
++.align 2
++.align 2
++
++
++.align 6
++sha256_block_armv8:
++Lv8_entry:
++ stp x29,x30,[sp,#-16]!
++ add x29,sp,#0
++
++ ld1 {v0.4s,v1.4s},[x0]
++ adr x3,LK256
++
++Loop_hw:
++ ld1 {v4.16b,v5.16b,v6.16b,v7.16b},[x1],#64
++ sub x2,x2,#1
++ ld1 {v16.4s},[x3],#16
++ rev32 v4.16b,v4.16b
++ rev32 v5.16b,v5.16b
++ rev32 v6.16b,v6.16b
++ rev32 v7.16b,v7.16b
++ orr v18.16b,v0.16b,v0.16b
++ orr v19.16b,v1.16b,v1.16b
++ ld1 {v17.4s},[x3],#16
++ add v16.4s,v16.4s,v4.4s
++.long 0x5e2828a4
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++.long 0x5e0760c4
++ ld1 {v16.4s},[x3],#16
++ add v17.4s,v17.4s,v5.4s
++.long 0x5e2828c5
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++.long 0x5e0460e5
++ ld1 {v17.4s},[x3],#16
++ add v16.4s,v16.4s,v6.4s
++.long 0x5e2828e6
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++.long 0x5e056086
++ ld1 {v16.4s},[x3],#16
++ add v17.4s,v17.4s,v7.4s
++.long 0x5e282887
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++.long 0x5e0660a7
++ ld1 {v17.4s},[x3],#16
++ add v16.4s,v16.4s,v4.4s
++.long 0x5e2828a4
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++.long 0x5e0760c4
++ ld1 {v16.4s},[x3],#16
++ add v17.4s,v17.4s,v5.4s
++.long 0x5e2828c5
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++.long 0x5e0460e5
++ ld1 {v17.4s},[x3],#16
++ add v16.4s,v16.4s,v6.4s
++.long 0x5e2828e6
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++.long 0x5e056086
++ ld1 {v16.4s},[x3],#16
++ add v17.4s,v17.4s,v7.4s
++.long 0x5e282887
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++.long 0x5e0660a7
++ ld1 {v17.4s},[x3],#16
++ add v16.4s,v16.4s,v4.4s
++.long 0x5e2828a4
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++.long 0x5e0760c4
++ ld1 {v16.4s},[x3],#16
++ add v17.4s,v17.4s,v5.4s
++.long 0x5e2828c5
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++.long 0x5e0460e5
++ ld1 {v17.4s},[x3],#16
++ add v16.4s,v16.4s,v6.4s
++.long 0x5e2828e6
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++.long 0x5e056086
++ ld1 {v16.4s},[x3],#16
++ add v17.4s,v17.4s,v7.4s
++.long 0x5e282887
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++.long 0x5e0660a7
++ ld1 {v17.4s},[x3],#16
++ add v16.4s,v16.4s,v4.4s
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++
++ ld1 {v16.4s},[x3],#16
++ add v17.4s,v17.4s,v5.4s
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++
++ ld1 {v17.4s},[x3]
++ add v16.4s,v16.4s,v6.4s
++ sub x3,x3,#64*4-16
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e104020
++.long 0x5e105041
++
++ add v17.4s,v17.4s,v7.4s
++ orr v2.16b,v0.16b,v0.16b
++.long 0x5e114020
++.long 0x5e115041
++
++ add v0.4s,v0.4s,v18.4s
++ add v1.4s,v1.4s,v19.4s
++
++ cbnz x2,Loop_hw
++
++ st1 {v0.4s,v1.4s},[x0]
++
++ ldr x29,[sp],#16
++ ret
++
++
++
++
++
++
++.align 4
++_sha256_block_neon:
++Lneon_entry:
++ stp x29, x30, [sp, #-16]!
++ mov x29, sp
++ sub sp,sp,#16*4
++
++ adr x16,LK256
++ add x2,x1,x2,lsl#6
++
++ ld1 {v0.16b},[x1], #16
++ ld1 {v1.16b},[x1], #16
++ ld1 {v2.16b},[x1], #16
++ ld1 {v3.16b},[x1], #16
++ ld1 {v4.4s},[x16], #16
++ ld1 {v5.4s},[x16], #16
++ ld1 {v6.4s},[x16], #16
++ ld1 {v7.4s},[x16], #16
++ rev32 v0.16b,v0.16b
++ rev32 v1.16b,v1.16b
++ rev32 v2.16b,v2.16b
++ rev32 v3.16b,v3.16b
++ mov x17,sp
++ add v4.4s,v4.4s,v0.4s
++ add v5.4s,v5.4s,v1.4s
++ add v6.4s,v6.4s,v2.4s
++ st1 {v4.4s,v5.4s},[x17], #32
++ add v7.4s,v7.4s,v3.4s
++ st1 {v6.4s,v7.4s},[x17]
++ sub x17,x17,#32
++
++ ldp w3,w4,[x0]
++ ldp w5,w6,[x0,#8]
++ ldp w7,w8,[x0,#16]
++ ldp w9,w10,[x0,#24]
++ ldr w12,[sp,#0]
++ mov w13,wzr
++ eor w14,w4,w5
++ mov w15,wzr
++ b L_00_48
++
++.align 4
++L_00_48:
++ ext v4.16b,v0.16b,v1.16b,#4
++ add w10,w10,w12
++ add w3,w3,w15
++ and w12,w8,w7
++ bic w15,w9,w7
++ ext v7.16b,v2.16b,v3.16b,#4
++ eor w11,w7,w7,ror#5
++ add w3,w3,w13
++ mov d19,v3.d[1]
++ orr w12,w12,w15
++ eor w11,w11,w7,ror#19
++ ushr v6.4s,v4.4s,#7
++ eor w15,w3,w3,ror#11
++ ushr v5.4s,v4.4s,#3
++ add w10,w10,w12
++ add v0.4s,v0.4s,v7.4s
++ ror w11,w11,#6
++ sli v6.4s,v4.4s,#25
++ eor w13,w3,w4
++ eor w15,w15,w3,ror#20
++ ushr v7.4s,v4.4s,#18
++ add w10,w10,w11
++ ldr w12,[sp,#4]
++ and w14,w14,w13
++ eor v5.16b,v5.16b,v6.16b
++ ror w15,w15,#2
++ add w6,w6,w10
++ sli v7.4s,v4.4s,#14
++ eor w14,w14,w4
++ ushr v16.4s,v19.4s,#17
++ add w9,w9,w12
++ add w10,w10,w15
++ and w12,w7,w6
++ eor v5.16b,v5.16b,v7.16b
++ bic w15,w8,w6
++ eor w11,w6,w6,ror#5
++ sli v16.4s,v19.4s,#15
++ add w10,w10,w14
++ orr w12,w12,w15
++ ushr v17.4s,v19.4s,#10
++ eor w11,w11,w6,ror#19
++ eor w15,w10,w10,ror#11
++ ushr v7.4s,v19.4s,#19
++ add w9,w9,w12
++ ror w11,w11,#6
++ add v0.4s,v0.4s,v5.4s
++ eor w14,w10,w3
++ eor w15,w15,w10,ror#20
++ sli v7.4s,v19.4s,#13
++ add w9,w9,w11
++ ldr w12,[sp,#8]
++ and w13,w13,w14
++ eor v17.16b,v17.16b,v16.16b
++ ror w15,w15,#2
++ add w5,w5,w9
++ eor w13,w13,w3
++ eor v17.16b,v17.16b,v7.16b
++ add w8,w8,w12
++ add w9,w9,w15
++ and w12,w6,w5
++ add v0.4s,v0.4s,v17.4s
++ bic w15,w7,w5
++ eor w11,w5,w5,ror#5
++ add w9,w9,w13
++ ushr v18.4s,v0.4s,#17
++ orr w12,w12,w15
++ ushr v19.4s,v0.4s,#10
++ eor w11,w11,w5,ror#19
++ eor w15,w9,w9,ror#11
++ sli v18.4s,v0.4s,#15
++ add w8,w8,w12
++ ushr v17.4s,v0.4s,#19
++ ror w11,w11,#6
++ eor w13,w9,w10
++ eor v19.16b,v19.16b,v18.16b
++ eor w15,w15,w9,ror#20
++ add w8,w8,w11
++ sli v17.4s,v0.4s,#13
++ ldr w12,[sp,#12]
++ and w14,w14,w13
++ ror w15,w15,#2
++ ld1 {v4.4s},[x16], #16
++ add w4,w4,w8
++ eor v19.16b,v19.16b,v17.16b
++ eor w14,w14,w10
++ eor v17.16b,v17.16b,v17.16b
++ add w7,w7,w12
++ add w8,w8,w15
++ and w12,w5,w4
++ mov v17.d[1],v19.d[0]
++ bic w15,w6,w4
++ eor w11,w4,w4,ror#5
++ add w8,w8,w14
++ add v0.4s,v0.4s,v17.4s
++ orr w12,w12,w15
++ eor w11,w11,w4,ror#19
++ eor w15,w8,w8,ror#11
++ add v4.4s,v4.4s,v0.4s
++ add w7,w7,w12
++ ror w11,w11,#6
++ eor w14,w8,w9
++ eor w15,w15,w8,ror#20
++ add w7,w7,w11
++ ldr w12,[sp,#16]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w3,w3,w7
++ eor w13,w13,w9
++ st1 {v4.4s},[x17], #16
++ ext v4.16b,v1.16b,v2.16b,#4
++ add w6,w6,w12
++ add w7,w7,w15
++ and w12,w4,w3
++ bic w15,w5,w3
++ ext v7.16b,v3.16b,v0.16b,#4
++ eor w11,w3,w3,ror#5
++ add w7,w7,w13
++ mov d19,v0.d[1]
++ orr w12,w12,w15
++ eor w11,w11,w3,ror#19
++ ushr v6.4s,v4.4s,#7
++ eor w15,w7,w7,ror#11
++ ushr v5.4s,v4.4s,#3
++ add w6,w6,w12
++ add v1.4s,v1.4s,v7.4s
++ ror w11,w11,#6
++ sli v6.4s,v4.4s,#25
++ eor w13,w7,w8
++ eor w15,w15,w7,ror#20
++ ushr v7.4s,v4.4s,#18
++ add w6,w6,w11
++ ldr w12,[sp,#20]
++ and w14,w14,w13
++ eor v5.16b,v5.16b,v6.16b
++ ror w15,w15,#2
++ add w10,w10,w6
++ sli v7.4s,v4.4s,#14
++ eor w14,w14,w8
++ ushr v16.4s,v19.4s,#17
++ add w5,w5,w12
++ add w6,w6,w15
++ and w12,w3,w10
++ eor v5.16b,v5.16b,v7.16b
++ bic w15,w4,w10
++ eor w11,w10,w10,ror#5
++ sli v16.4s,v19.4s,#15
++ add w6,w6,w14
++ orr w12,w12,w15
++ ushr v17.4s,v19.4s,#10
++ eor w11,w11,w10,ror#19
++ eor w15,w6,w6,ror#11
++ ushr v7.4s,v19.4s,#19
++ add w5,w5,w12
++ ror w11,w11,#6
++ add v1.4s,v1.4s,v5.4s
++ eor w14,w6,w7
++ eor w15,w15,w6,ror#20
++ sli v7.4s,v19.4s,#13
++ add w5,w5,w11
++ ldr w12,[sp,#24]
++ and w13,w13,w14
++ eor v17.16b,v17.16b,v16.16b
++ ror w15,w15,#2
++ add w9,w9,w5
++ eor w13,w13,w7
++ eor v17.16b,v17.16b,v7.16b
++ add w4,w4,w12
++ add w5,w5,w15
++ and w12,w10,w9
++ add v1.4s,v1.4s,v17.4s
++ bic w15,w3,w9
++ eor w11,w9,w9,ror#5
++ add w5,w5,w13
++ ushr v18.4s,v1.4s,#17
++ orr w12,w12,w15
++ ushr v19.4s,v1.4s,#10
++ eor w11,w11,w9,ror#19
++ eor w15,w5,w5,ror#11
++ sli v18.4s,v1.4s,#15
++ add w4,w4,w12
++ ushr v17.4s,v1.4s,#19
++ ror w11,w11,#6
++ eor w13,w5,w6
++ eor v19.16b,v19.16b,v18.16b
++ eor w15,w15,w5,ror#20
++ add w4,w4,w11
++ sli v17.4s,v1.4s,#13
++ ldr w12,[sp,#28]
++ and w14,w14,w13
++ ror w15,w15,#2
++ ld1 {v4.4s},[x16], #16
++ add w8,w8,w4
++ eor v19.16b,v19.16b,v17.16b
++ eor w14,w14,w6
++ eor v17.16b,v17.16b,v17.16b
++ add w3,w3,w12
++ add w4,w4,w15
++ and w12,w9,w8
++ mov v17.d[1],v19.d[0]
++ bic w15,w10,w8
++ eor w11,w8,w8,ror#5
++ add w4,w4,w14
++ add v1.4s,v1.4s,v17.4s
++ orr w12,w12,w15
++ eor w11,w11,w8,ror#19
++ eor w15,w4,w4,ror#11
++ add v4.4s,v4.4s,v1.4s
++ add w3,w3,w12
++ ror w11,w11,#6
++ eor w14,w4,w5
++ eor w15,w15,w4,ror#20
++ add w3,w3,w11
++ ldr w12,[sp,#32]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w7,w7,w3
++ eor w13,w13,w5
++ st1 {v4.4s},[x17], #16
++ ext v4.16b,v2.16b,v3.16b,#4
++ add w10,w10,w12
++ add w3,w3,w15
++ and w12,w8,w7
++ bic w15,w9,w7
++ ext v7.16b,v0.16b,v1.16b,#4
++ eor w11,w7,w7,ror#5
++ add w3,w3,w13
++ mov d19,v1.d[1]
++ orr w12,w12,w15
++ eor w11,w11,w7,ror#19
++ ushr v6.4s,v4.4s,#7
++ eor w15,w3,w3,ror#11
++ ushr v5.4s,v4.4s,#3
++ add w10,w10,w12
++ add v2.4s,v2.4s,v7.4s
++ ror w11,w11,#6
++ sli v6.4s,v4.4s,#25
++ eor w13,w3,w4
++ eor w15,w15,w3,ror#20
++ ushr v7.4s,v4.4s,#18
++ add w10,w10,w11
++ ldr w12,[sp,#36]
++ and w14,w14,w13
++ eor v5.16b,v5.16b,v6.16b
++ ror w15,w15,#2
++ add w6,w6,w10
++ sli v7.4s,v4.4s,#14
++ eor w14,w14,w4
++ ushr v16.4s,v19.4s,#17
++ add w9,w9,w12
++ add w10,w10,w15
++ and w12,w7,w6
++ eor v5.16b,v5.16b,v7.16b
++ bic w15,w8,w6
++ eor w11,w6,w6,ror#5
++ sli v16.4s,v19.4s,#15
++ add w10,w10,w14
++ orr w12,w12,w15
++ ushr v17.4s,v19.4s,#10
++ eor w11,w11,w6,ror#19
++ eor w15,w10,w10,ror#11
++ ushr v7.4s,v19.4s,#19
++ add w9,w9,w12
++ ror w11,w11,#6
++ add v2.4s,v2.4s,v5.4s
++ eor w14,w10,w3
++ eor w15,w15,w10,ror#20
++ sli v7.4s,v19.4s,#13
++ add w9,w9,w11
++ ldr w12,[sp,#40]
++ and w13,w13,w14
++ eor v17.16b,v17.16b,v16.16b
++ ror w15,w15,#2
++ add w5,w5,w9
++ eor w13,w13,w3
++ eor v17.16b,v17.16b,v7.16b
++ add w8,w8,w12
++ add w9,w9,w15
++ and w12,w6,w5
++ add v2.4s,v2.4s,v17.4s
++ bic w15,w7,w5
++ eor w11,w5,w5,ror#5
++ add w9,w9,w13
++ ushr v18.4s,v2.4s,#17
++ orr w12,w12,w15
++ ushr v19.4s,v2.4s,#10
++ eor w11,w11,w5,ror#19
++ eor w15,w9,w9,ror#11
++ sli v18.4s,v2.4s,#15
++ add w8,w8,w12
++ ushr v17.4s,v2.4s,#19
++ ror w11,w11,#6
++ eor w13,w9,w10
++ eor v19.16b,v19.16b,v18.16b
++ eor w15,w15,w9,ror#20
++ add w8,w8,w11
++ sli v17.4s,v2.4s,#13
++ ldr w12,[sp,#44]
++ and w14,w14,w13
++ ror w15,w15,#2
++ ld1 {v4.4s},[x16], #16
++ add w4,w4,w8
++ eor v19.16b,v19.16b,v17.16b
++ eor w14,w14,w10
++ eor v17.16b,v17.16b,v17.16b
++ add w7,w7,w12
++ add w8,w8,w15
++ and w12,w5,w4
++ mov v17.d[1],v19.d[0]
++ bic w15,w6,w4
++ eor w11,w4,w4,ror#5
++ add w8,w8,w14
++ add v2.4s,v2.4s,v17.4s
++ orr w12,w12,w15
++ eor w11,w11,w4,ror#19
++ eor w15,w8,w8,ror#11
++ add v4.4s,v4.4s,v2.4s
++ add w7,w7,w12
++ ror w11,w11,#6
++ eor w14,w8,w9
++ eor w15,w15,w8,ror#20
++ add w7,w7,w11
++ ldr w12,[sp,#48]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w3,w3,w7
++ eor w13,w13,w9
++ st1 {v4.4s},[x17], #16
++ ext v4.16b,v3.16b,v0.16b,#4
++ add w6,w6,w12
++ add w7,w7,w15
++ and w12,w4,w3
++ bic w15,w5,w3
++ ext v7.16b,v1.16b,v2.16b,#4
++ eor w11,w3,w3,ror#5
++ add w7,w7,w13
++ mov d19,v2.d[1]
++ orr w12,w12,w15
++ eor w11,w11,w3,ror#19
++ ushr v6.4s,v4.4s,#7
++ eor w15,w7,w7,ror#11
++ ushr v5.4s,v4.4s,#3
++ add w6,w6,w12
++ add v3.4s,v3.4s,v7.4s
++ ror w11,w11,#6
++ sli v6.4s,v4.4s,#25
++ eor w13,w7,w8
++ eor w15,w15,w7,ror#20
++ ushr v7.4s,v4.4s,#18
++ add w6,w6,w11
++ ldr w12,[sp,#52]
++ and w14,w14,w13
++ eor v5.16b,v5.16b,v6.16b
++ ror w15,w15,#2
++ add w10,w10,w6
++ sli v7.4s,v4.4s,#14
++ eor w14,w14,w8
++ ushr v16.4s,v19.4s,#17
++ add w5,w5,w12
++ add w6,w6,w15
++ and w12,w3,w10
++ eor v5.16b,v5.16b,v7.16b
++ bic w15,w4,w10
++ eor w11,w10,w10,ror#5
++ sli v16.4s,v19.4s,#15
++ add w6,w6,w14
++ orr w12,w12,w15
++ ushr v17.4s,v19.4s,#10
++ eor w11,w11,w10,ror#19
++ eor w15,w6,w6,ror#11
++ ushr v7.4s,v19.4s,#19
++ add w5,w5,w12
++ ror w11,w11,#6
++ add v3.4s,v3.4s,v5.4s
++ eor w14,w6,w7
++ eor w15,w15,w6,ror#20
++ sli v7.4s,v19.4s,#13
++ add w5,w5,w11
++ ldr w12,[sp,#56]
++ and w13,w13,w14
++ eor v17.16b,v17.16b,v16.16b
++ ror w15,w15,#2
++ add w9,w9,w5
++ eor w13,w13,w7
++ eor v17.16b,v17.16b,v7.16b
++ add w4,w4,w12
++ add w5,w5,w15
++ and w12,w10,w9
++ add v3.4s,v3.4s,v17.4s
++ bic w15,w3,w9
++ eor w11,w9,w9,ror#5
++ add w5,w5,w13
++ ushr v18.4s,v3.4s,#17
++ orr w12,w12,w15
++ ushr v19.4s,v3.4s,#10
++ eor w11,w11,w9,ror#19
++ eor w15,w5,w5,ror#11
++ sli v18.4s,v3.4s,#15
++ add w4,w4,w12
++ ushr v17.4s,v3.4s,#19
++ ror w11,w11,#6
++ eor w13,w5,w6
++ eor v19.16b,v19.16b,v18.16b
++ eor w15,w15,w5,ror#20
++ add w4,w4,w11
++ sli v17.4s,v3.4s,#13
++ ldr w12,[sp,#60]
++ and w14,w14,w13
++ ror w15,w15,#2
++ ld1 {v4.4s},[x16], #16
++ add w8,w8,w4
++ eor v19.16b,v19.16b,v17.16b
++ eor w14,w14,w6
++ eor v17.16b,v17.16b,v17.16b
++ add w3,w3,w12
++ add w4,w4,w15
++ and w12,w9,w8
++ mov v17.d[1],v19.d[0]
++ bic w15,w10,w8
++ eor w11,w8,w8,ror#5
++ add w4,w4,w14
++ add v3.4s,v3.4s,v17.4s
++ orr w12,w12,w15
++ eor w11,w11,w8,ror#19
++ eor w15,w4,w4,ror#11
++ add v4.4s,v4.4s,v3.4s
++ add w3,w3,w12
++ ror w11,w11,#6
++ eor w14,w4,w5
++ eor w15,w15,w4,ror#20
++ add w3,w3,w11
++ ldr w12,[x16]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w7,w7,w3
++ eor w13,w13,w5
++ st1 {v4.4s},[x17], #16
++ cmp w12,#0
++ ldr w12,[sp,#0]
++ sub x17,x17,#64
++ bne L_00_48
++
++ sub x16,x16,#256
++ cmp x1,x2
++ mov x17, #64
++ csel x17, x17, xzr, eq
++ sub x1,x1,x17
++ mov x17,sp
++ add w10,w10,w12
++ add w3,w3,w15
++ and w12,w8,w7
++ ld1 {v0.16b},[x1],#16
++ bic w15,w9,w7
++ eor w11,w7,w7,ror#5
++ ld1 {v4.4s},[x16],#16
++ add w3,w3,w13
++ orr w12,w12,w15
++ eor w11,w11,w7,ror#19
++ eor w15,w3,w3,ror#11
++ rev32 v0.16b,v0.16b
++ add w10,w10,w12
++ ror w11,w11,#6
++ eor w13,w3,w4
++ eor w15,w15,w3,ror#20
++ add v4.4s,v4.4s,v0.4s
++ add w10,w10,w11
++ ldr w12,[sp,#4]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w6,w6,w10
++ eor w14,w14,w4
++ add w9,w9,w12
++ add w10,w10,w15
++ and w12,w7,w6
++ bic w15,w8,w6
++ eor w11,w6,w6,ror#5
++ add w10,w10,w14
++ orr w12,w12,w15
++ eor w11,w11,w6,ror#19
++ eor w15,w10,w10,ror#11
++ add w9,w9,w12
++ ror w11,w11,#6
++ eor w14,w10,w3
++ eor w15,w15,w10,ror#20
++ add w9,w9,w11
++ ldr w12,[sp,#8]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w5,w5,w9
++ eor w13,w13,w3
++ add w8,w8,w12
++ add w9,w9,w15
++ and w12,w6,w5
++ bic w15,w7,w5
++ eor w11,w5,w5,ror#5
++ add w9,w9,w13
++ orr w12,w12,w15
++ eor w11,w11,w5,ror#19
++ eor w15,w9,w9,ror#11
++ add w8,w8,w12
++ ror w11,w11,#6
++ eor w13,w9,w10
++ eor w15,w15,w9,ror#20
++ add w8,w8,w11
++ ldr w12,[sp,#12]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w4,w4,w8
++ eor w14,w14,w10
++ add w7,w7,w12
++ add w8,w8,w15
++ and w12,w5,w4
++ bic w15,w6,w4
++ eor w11,w4,w4,ror#5
++ add w8,w8,w14
++ orr w12,w12,w15
++ eor w11,w11,w4,ror#19
++ eor w15,w8,w8,ror#11
++ add w7,w7,w12
++ ror w11,w11,#6
++ eor w14,w8,w9
++ eor w15,w15,w8,ror#20
++ add w7,w7,w11
++ ldr w12,[sp,#16]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w3,w3,w7
++ eor w13,w13,w9
++ st1 {v4.4s},[x17], #16
++ add w6,w6,w12
++ add w7,w7,w15
++ and w12,w4,w3
++ ld1 {v1.16b},[x1],#16
++ bic w15,w5,w3
++ eor w11,w3,w3,ror#5
++ ld1 {v4.4s},[x16],#16
++ add w7,w7,w13
++ orr w12,w12,w15
++ eor w11,w11,w3,ror#19
++ eor w15,w7,w7,ror#11
++ rev32 v1.16b,v1.16b
++ add w6,w6,w12
++ ror w11,w11,#6
++ eor w13,w7,w8
++ eor w15,w15,w7,ror#20
++ add v4.4s,v4.4s,v1.4s
++ add w6,w6,w11
++ ldr w12,[sp,#20]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w10,w10,w6
++ eor w14,w14,w8
++ add w5,w5,w12
++ add w6,w6,w15
++ and w12,w3,w10
++ bic w15,w4,w10
++ eor w11,w10,w10,ror#5
++ add w6,w6,w14
++ orr w12,w12,w15
++ eor w11,w11,w10,ror#19
++ eor w15,w6,w6,ror#11
++ add w5,w5,w12
++ ror w11,w11,#6
++ eor w14,w6,w7
++ eor w15,w15,w6,ror#20
++ add w5,w5,w11
++ ldr w12,[sp,#24]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w9,w9,w5
++ eor w13,w13,w7
++ add w4,w4,w12
++ add w5,w5,w15
++ and w12,w10,w9
++ bic w15,w3,w9
++ eor w11,w9,w9,ror#5
++ add w5,w5,w13
++ orr w12,w12,w15
++ eor w11,w11,w9,ror#19
++ eor w15,w5,w5,ror#11
++ add w4,w4,w12
++ ror w11,w11,#6
++ eor w13,w5,w6
++ eor w15,w15,w5,ror#20
++ add w4,w4,w11
++ ldr w12,[sp,#28]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w8,w8,w4
++ eor w14,w14,w6
++ add w3,w3,w12
++ add w4,w4,w15
++ and w12,w9,w8
++ bic w15,w10,w8
++ eor w11,w8,w8,ror#5
++ add w4,w4,w14
++ orr w12,w12,w15
++ eor w11,w11,w8,ror#19
++ eor w15,w4,w4,ror#11
++ add w3,w3,w12
++ ror w11,w11,#6
++ eor w14,w4,w5
++ eor w15,w15,w4,ror#20
++ add w3,w3,w11
++ ldr w12,[sp,#32]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w7,w7,w3
++ eor w13,w13,w5
++ st1 {v4.4s},[x17], #16
++ add w10,w10,w12
++ add w3,w3,w15
++ and w12,w8,w7
++ ld1 {v2.16b},[x1],#16
++ bic w15,w9,w7
++ eor w11,w7,w7,ror#5
++ ld1 {v4.4s},[x16],#16
++ add w3,w3,w13
++ orr w12,w12,w15
++ eor w11,w11,w7,ror#19
++ eor w15,w3,w3,ror#11
++ rev32 v2.16b,v2.16b
++ add w10,w10,w12
++ ror w11,w11,#6
++ eor w13,w3,w4
++ eor w15,w15,w3,ror#20
++ add v4.4s,v4.4s,v2.4s
++ add w10,w10,w11
++ ldr w12,[sp,#36]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w6,w6,w10
++ eor w14,w14,w4
++ add w9,w9,w12
++ add w10,w10,w15
++ and w12,w7,w6
++ bic w15,w8,w6
++ eor w11,w6,w6,ror#5
++ add w10,w10,w14
++ orr w12,w12,w15
++ eor w11,w11,w6,ror#19
++ eor w15,w10,w10,ror#11
++ add w9,w9,w12
++ ror w11,w11,#6
++ eor w14,w10,w3
++ eor w15,w15,w10,ror#20
++ add w9,w9,w11
++ ldr w12,[sp,#40]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w5,w5,w9
++ eor w13,w13,w3
++ add w8,w8,w12
++ add w9,w9,w15
++ and w12,w6,w5
++ bic w15,w7,w5
++ eor w11,w5,w5,ror#5
++ add w9,w9,w13
++ orr w12,w12,w15
++ eor w11,w11,w5,ror#19
++ eor w15,w9,w9,ror#11
++ add w8,w8,w12
++ ror w11,w11,#6
++ eor w13,w9,w10
++ eor w15,w15,w9,ror#20
++ add w8,w8,w11
++ ldr w12,[sp,#44]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w4,w4,w8
++ eor w14,w14,w10
++ add w7,w7,w12
++ add w8,w8,w15
++ and w12,w5,w4
++ bic w15,w6,w4
++ eor w11,w4,w4,ror#5
++ add w8,w8,w14
++ orr w12,w12,w15
++ eor w11,w11,w4,ror#19
++ eor w15,w8,w8,ror#11
++ add w7,w7,w12
++ ror w11,w11,#6
++ eor w14,w8,w9
++ eor w15,w15,w8,ror#20
++ add w7,w7,w11
++ ldr w12,[sp,#48]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w3,w3,w7
++ eor w13,w13,w9
++ st1 {v4.4s},[x17], #16
++ add w6,w6,w12
++ add w7,w7,w15
++ and w12,w4,w3
++ ld1 {v3.16b},[x1],#16
++ bic w15,w5,w3
++ eor w11,w3,w3,ror#5
++ ld1 {v4.4s},[x16],#16
++ add w7,w7,w13
++ orr w12,w12,w15
++ eor w11,w11,w3,ror#19
++ eor w15,w7,w7,ror#11
++ rev32 v3.16b,v3.16b
++ add w6,w6,w12
++ ror w11,w11,#6
++ eor w13,w7,w8
++ eor w15,w15,w7,ror#20
++ add v4.4s,v4.4s,v3.4s
++ add w6,w6,w11
++ ldr w12,[sp,#52]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w10,w10,w6
++ eor w14,w14,w8
++ add w5,w5,w12
++ add w6,w6,w15
++ and w12,w3,w10
++ bic w15,w4,w10
++ eor w11,w10,w10,ror#5
++ add w6,w6,w14
++ orr w12,w12,w15
++ eor w11,w11,w10,ror#19
++ eor w15,w6,w6,ror#11
++ add w5,w5,w12
++ ror w11,w11,#6
++ eor w14,w6,w7
++ eor w15,w15,w6,ror#20
++ add w5,w5,w11
++ ldr w12,[sp,#56]
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w9,w9,w5
++ eor w13,w13,w7
++ add w4,w4,w12
++ add w5,w5,w15
++ and w12,w10,w9
++ bic w15,w3,w9
++ eor w11,w9,w9,ror#5
++ add w5,w5,w13
++ orr w12,w12,w15
++ eor w11,w11,w9,ror#19
++ eor w15,w5,w5,ror#11
++ add w4,w4,w12
++ ror w11,w11,#6
++ eor w13,w5,w6
++ eor w15,w15,w5,ror#20
++ add w4,w4,w11
++ ldr w12,[sp,#60]
++ and w14,w14,w13
++ ror w15,w15,#2
++ add w8,w8,w4
++ eor w14,w14,w6
++ add w3,w3,w12
++ add w4,w4,w15
++ and w12,w9,w8
++ bic w15,w10,w8
++ eor w11,w8,w8,ror#5
++ add w4,w4,w14
++ orr w12,w12,w15
++ eor w11,w11,w8,ror#19
++ eor w15,w4,w4,ror#11
++ add w3,w3,w12
++ ror w11,w11,#6
++ eor w14,w4,w5
++ eor w15,w15,w4,ror#20
++ add w3,w3,w11
++ and w13,w13,w14
++ ror w15,w15,#2
++ add w7,w7,w3
++ eor w13,w13,w5
++ st1 {v4.4s},[x17], #16
++ add w3,w3,w15
++ ldp w11,w12,[x0,#0]
++ add w3,w3,w13
++ ldp w13,w14,[x0,#8]
++ add w3,w3,w11
++ add w4,w4,w12
++ ldp w11,w12,[x0,#16]
++ add w5,w5,w13
++ add w6,w6,w14
++ ldp w13,w14,[x0,#24]
++ add w7,w7,w11
++ add w8,w8,w12
++ ldr w12,[sp,#0]
++ stp w3,w4,[x0,#0]
++ add w9,w9,w13
++ mov w13,wzr
++ stp w5,w6,[x0,#8]
++ add w10,w10,w14
++ stp w7,w8,[x0,#16]
++ eor w14,w4,w5
++ stp w9,w10,[x0,#24]
++ mov w15,wzr
++ mov x17,sp
++ b.ne L_00_48
++
++ ldr x29,[x29]
++ add sp,sp,#16*4+16
++ ret
++
++
++.comm __gnutls_arm_cpuid_s,4,4
+diff --git a/lib/accelerated/aarch64/macosx/sha512-armv8.s b/lib/accelerated/aarch64/macosx/sha512-armv8.s
+new file mode 100644
+index 0000000000000000000000000000000000000000..798619bc9a15b7a870f5a45b6440f6b54446521b
+--- /dev/null
++++ b/lib/accelerated/aarch64/macosx/sha512-armv8.s
+@@ -0,0 +1,1609 @@
++# Copyright (c) 2011-2016, Andy Polyakov <appro@openssl.org>
++# All rights reserved.
++#
++# Redistribution and use in source and binary forms, with or without
++# modification, are permitted provided that the following conditions
++# are met:
++# 
++#     * Redistributions of source code must retain copyright notices,
++#      this list of conditions and the following disclaimer.
++#
++#     * Redistributions in binary form must reproduce the above
++#      copyright notice, this list of conditions and the following
++#      disclaimer in the documentation and/or other materials
++#      provided with the distribution.
++#
++#     * Neither the name of the Andy Polyakov nor the names of its
++#      copyright holder and contributors may be used to endorse or
++#      promote products derived from this software without specific
++#      prior written permission.
++#
++# ALTERNATIVELY, provided that this notice is retained in full, this
++# product may be distributed under the terms of the GNU General Public
++# License (GPL), in which case the provisions of the GPL apply INSTEAD OF
++# those given above.
++#
++# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS
++# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
++# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
++# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
++# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
++# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
++# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
++# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
++# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
++# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
++# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
++#
++# *** This file is auto-generated ***
++#
++# 1 "lib/accelerated/aarch64/macosx/sha512-armv8.s.tmp.S"
++# 1 "<built-in>"
++# 1 "<command-line>"
++# 1 "/usr/aarch64-linux-gnu/include/stdc-predef.h" 1 3
++# 1 "<command-line>" 2
++# 1 "lib/accelerated/aarch64/macosx/sha512-armv8.s.tmp.S"
++# 56 "lib/accelerated/aarch64/macosx/sha512-armv8.s.tmp.S"
++# 1 "lib/accelerated/aarch64/aarch64-common.h" 1
++# 57 "lib/accelerated/aarch64/macosx/sha512-armv8.s.tmp.S" 2
++
++
++.text
++
++
++.globl _sha512_block_data_order
++
++.align 6
++_sha512_block_data_order:
++
++
++
++
++ ldr x16,L_gnutls_arm_cpuid_s
++
++ adr x17,L_gnutls_arm_cpuid_s
++ add x16,x16,x17
++ ldr w16,[x16]
++ tst w16,#(1<<6)
++ b.ne Lv8_entry
++
++ stp x29,x30,[sp,#-128]!
++ add x29,sp,#0
++
++ stp x19,x20,[sp,#16]
++ stp x21,x22,[sp,#32]
++ stp x23,x24,[sp,#48]
++ stp x25,x26,[sp,#64]
++ stp x27,x28,[sp,#80]
++ sub sp,sp,#4*8
++
++ ldp x20,x21,[x0]
++ ldp x22,x23,[x0,#2*8]
++ ldp x24,x25,[x0,#4*8]
++ add x2,x1,x2,lsl#7
++ ldp x26,x27,[x0,#6*8]
++ adr x30,LK512
++ stp x0,x2,[x29,#96]
++
++Loop:
++ ldp x3,x4,[x1],#2*8
++ ldr x19,[x30],#8
++ eor x28,x21,x22
++ str x1,[x29,#112]
++
++ rev x3,x3
++
++ ror x16,x24,#14
++ add x27,x27,x19
++ eor x6,x24,x24,ror#23
++ and x17,x25,x24
++ bic x19,x26,x24
++ add x27,x27,x3
++ orr x17,x17,x19
++ eor x19,x20,x21
++ eor x16,x16,x6,ror#18
++ ror x6,x20,#28
++ add x27,x27,x17
++ eor x17,x20,x20,ror#5
++ add x27,x27,x16
++ and x28,x28,x19
++ add x23,x23,x27
++ eor x28,x28,x21
++ eor x17,x6,x17,ror#34
++ add x27,x27,x28
++ ldr x28,[x30],#8
++
++
++ rev x4,x4
++
++ ldp x5,x6,[x1],#2*8
++ add x27,x27,x17
++ ror x16,x23,#14
++ add x26,x26,x28
++ eor x7,x23,x23,ror#23
++ and x17,x24,x23
++ bic x28,x25,x23
++ add x26,x26,x4
++ orr x17,x17,x28
++ eor x28,x27,x20
++ eor x16,x16,x7,ror#18
++ ror x7,x27,#28
++ add x26,x26,x17
++ eor x17,x27,x27,ror#5
++ add x26,x26,x16
++ and x19,x19,x28
++ add x22,x22,x26
++ eor x19,x19,x20
++ eor x17,x7,x17,ror#34
++ add x26,x26,x19
++ ldr x19,[x30],#8
++
++
++ rev x5,x5
++
++ add x26,x26,x17
++ ror x16,x22,#14
++ add x25,x25,x19
++ eor x8,x22,x22,ror#23
++ and x17,x23,x22
++ bic x19,x24,x22
++ add x25,x25,x5
++ orr x17,x17,x19
++ eor x19,x26,x27
++ eor x16,x16,x8,ror#18
++ ror x8,x26,#28
++ add x25,x25,x17
++ eor x17,x26,x26,ror#5
++ add x25,x25,x16
++ and x28,x28,x19
++ add x21,x21,x25
++ eor x28,x28,x27
++ eor x17,x8,x17,ror#34
++ add x25,x25,x28
++ ldr x28,[x30],#8
++
++
++ rev x6,x6
++
++ ldp x7,x8,[x1],#2*8
++ add x25,x25,x17
++ ror x16,x21,#14
++ add x24,x24,x28
++ eor x9,x21,x21,ror#23
++ and x17,x22,x21
++ bic x28,x23,x21
++ add x24,x24,x6
++ orr x17,x17,x28
++ eor x28,x25,x26
++ eor x16,x16,x9,ror#18
++ ror x9,x25,#28
++ add x24,x24,x17
++ eor x17,x25,x25,ror#5
++ add x24,x24,x16
++ and x19,x19,x28
++ add x20,x20,x24
++ eor x19,x19,x26
++ eor x17,x9,x17,ror#34
++ add x24,x24,x19
++ ldr x19,[x30],#8
++
++
++ rev x7,x7
++
++ add x24,x24,x17
++ ror x16,x20,#14
++ add x23,x23,x19
++ eor x10,x20,x20,ror#23
++ and x17,x21,x20
++ bic x19,x22,x20
++ add x23,x23,x7
++ orr x17,x17,x19
++ eor x19,x24,x25
++ eor x16,x16,x10,ror#18
++ ror x10,x24,#28
++ add x23,x23,x17
++ eor x17,x24,x24,ror#5
++ add x23,x23,x16
++ and x28,x28,x19
++ add x27,x27,x23
++ eor x28,x28,x25
++ eor x17,x10,x17,ror#34
++ add x23,x23,x28
++ ldr x28,[x30],#8
++
++
++ rev x8,x8
++
++ ldp x9,x10,[x1],#2*8
++ add x23,x23,x17
++ ror x16,x27,#14
++ add x22,x22,x28
++ eor x11,x27,x27,ror#23
++ and x17,x20,x27
++ bic x28,x21,x27
++ add x22,x22,x8
++ orr x17,x17,x28
++ eor x28,x23,x24
++ eor x16,x16,x11,ror#18
++ ror x11,x23,#28
++ add x22,x22,x17
++ eor x17,x23,x23,ror#5
++ add x22,x22,x16
++ and x19,x19,x28
++ add x26,x26,x22
++ eor x19,x19,x24
++ eor x17,x11,x17,ror#34
++ add x22,x22,x19
++ ldr x19,[x30],#8
++
++
++ rev x9,x9
++
++ add x22,x22,x17
++ ror x16,x26,#14
++ add x21,x21,x19
++ eor x12,x26,x26,ror#23
++ and x17,x27,x26
++ bic x19,x20,x26
++ add x21,x21,x9
++ orr x17,x17,x19
++ eor x19,x22,x23
++ eor x16,x16,x12,ror#18
++ ror x12,x22,#28
++ add x21,x21,x17
++ eor x17,x22,x22,ror#5
++ add x21,x21,x16
++ and x28,x28,x19
++ add x25,x25,x21
++ eor x28,x28,x23
++ eor x17,x12,x17,ror#34
++ add x21,x21,x28
++ ldr x28,[x30],#8
++
++
++ rev x10,x10
++
++ ldp x11,x12,[x1],#2*8
++ add x21,x21,x17
++ ror x16,x25,#14
++ add x20,x20,x28
++ eor x13,x25,x25,ror#23
++ and x17,x26,x25
++ bic x28,x27,x25
++ add x20,x20,x10
++ orr x17,x17,x28
++ eor x28,x21,x22
++ eor x16,x16,x13,ror#18
++ ror x13,x21,#28
++ add x20,x20,x17
++ eor x17,x21,x21,ror#5
++ add x20,x20,x16
++ and x19,x19,x28
++ add x24,x24,x20
++ eor x19,x19,x22
++ eor x17,x13,x17,ror#34
++ add x20,x20,x19
++ ldr x19,[x30],#8
++
++
++ rev x11,x11
++
++ add x20,x20,x17
++ ror x16,x24,#14
++ add x27,x27,x19
++ eor x14,x24,x24,ror#23
++ and x17,x25,x24
++ bic x19,x26,x24
++ add x27,x27,x11
++ orr x17,x17,x19
++ eor x19,x20,x21
++ eor x16,x16,x14,ror#18
++ ror x14,x20,#28
++ add x27,x27,x17
++ eor x17,x20,x20,ror#5
++ add x27,x27,x16
++ and x28,x28,x19
++ add x23,x23,x27
++ eor x28,x28,x21
++ eor x17,x14,x17,ror#34
++ add x27,x27,x28
++ ldr x28,[x30],#8
++
++
++ rev x12,x12
++
++ ldp x13,x14,[x1],#2*8
++ add x27,x27,x17
++ ror x16,x23,#14
++ add x26,x26,x28
++ eor x15,x23,x23,ror#23
++ and x17,x24,x23
++ bic x28,x25,x23
++ add x26,x26,x12
++ orr x17,x17,x28
++ eor x28,x27,x20
++ eor x16,x16,x15,ror#18
++ ror x15,x27,#28
++ add x26,x26,x17
++ eor x17,x27,x27,ror#5
++ add x26,x26,x16
++ and x19,x19,x28
++ add x22,x22,x26
++ eor x19,x19,x20
++ eor x17,x15,x17,ror#34
++ add x26,x26,x19
++ ldr x19,[x30],#8
++
++
++ rev x13,x13
++
++ add x26,x26,x17
++ ror x16,x22,#14
++ add x25,x25,x19
++ eor x0,x22,x22,ror#23
++ and x17,x23,x22
++ bic x19,x24,x22
++ add x25,x25,x13
++ orr x17,x17,x19
++ eor x19,x26,x27
++ eor x16,x16,x0,ror#18
++ ror x0,x26,#28
++ add x25,x25,x17
++ eor x17,x26,x26,ror#5
++ add x25,x25,x16
++ and x28,x28,x19
++ add x21,x21,x25
++ eor x28,x28,x27
++ eor x17,x0,x17,ror#34
++ add x25,x25,x28
++ ldr x28,[x30],#8
++
++
++ rev x14,x14
++
++ ldp x15,x0,[x1],#2*8
++ add x25,x25,x17
++ str x6,[sp,#24]
++ ror x16,x21,#14
++ add x24,x24,x28
++ eor x6,x21,x21,ror#23
++ and x17,x22,x21
++ bic x28,x23,x21
++ add x24,x24,x14
++ orr x17,x17,x28
++ eor x28,x25,x26
++ eor x16,x16,x6,ror#18
++ ror x6,x25,#28
++ add x24,x24,x17
++ eor x17,x25,x25,ror#5
++ add x24,x24,x16
++ and x19,x19,x28
++ add x20,x20,x24
++ eor x19,x19,x26
++ eor x17,x6,x17,ror#34
++ add x24,x24,x19
++ ldr x19,[x30],#8
++
++
++ rev x15,x15
++
++ add x24,x24,x17
++ str x7,[sp,#0]
++ ror x16,x20,#14
++ add x23,x23,x19
++ eor x7,x20,x20,ror#23
++ and x17,x21,x20
++ bic x19,x22,x20
++ add x23,x23,x15
++ orr x17,x17,x19
++ eor x19,x24,x25
++ eor x16,x16,x7,ror#18
++ ror x7,x24,#28
++ add x23,x23,x17
++ eor x17,x24,x24,ror#5
++ add x23,x23,x16
++ and x28,x28,x19
++ add x27,x27,x23
++ eor x28,x28,x25
++ eor x17,x7,x17,ror#34
++ add x23,x23,x28
++ ldr x28,[x30],#8
++
++
++ rev x0,x0
++
++ ldp x1,x2,[x1]
++ add x23,x23,x17
++ str x8,[sp,#8]
++ ror x16,x27,#14
++ add x22,x22,x28
++ eor x8,x27,x27,ror#23
++ and x17,x20,x27
++ bic x28,x21,x27
++ add x22,x22,x0
++ orr x17,x17,x28
++ eor x28,x23,x24
++ eor x16,x16,x8,ror#18
++ ror x8,x23,#28
++ add x22,x22,x17
++ eor x17,x23,x23,ror#5
++ add x22,x22,x16
++ and x19,x19,x28
++ add x26,x26,x22
++ eor x19,x19,x24
++ eor x17,x8,x17,ror#34
++ add x22,x22,x19
++ ldr x19,[x30],#8
++
++
++ rev x1,x1
++
++ ldr x6,[sp,#24]
++ add x22,x22,x17
++ str x9,[sp,#16]
++ ror x16,x26,#14
++ add x21,x21,x19
++ eor x9,x26,x26,ror#23
++ and x17,x27,x26
++ bic x19,x20,x26
++ add x21,x21,x1
++ orr x17,x17,x19
++ eor x19,x22,x23
++ eor x16,x16,x9,ror#18
++ ror x9,x22,#28
++ add x21,x21,x17
++ eor x17,x22,x22,ror#5
++ add x21,x21,x16
++ and x28,x28,x19
++ add x25,x25,x21
++ eor x28,x28,x23
++ eor x17,x9,x17,ror#34
++ add x21,x21,x28
++ ldr x28,[x30],#8
++
++
++ rev x2,x2
++
++ ldr x7,[sp,#0]
++ add x21,x21,x17
++ str x10,[sp,#24]
++ ror x16,x25,#14
++ add x20,x20,x28
++ ror x9,x4,#1
++ and x17,x26,x25
++ ror x8,x1,#19
++ bic x28,x27,x25
++ ror x10,x21,#28
++ add x20,x20,x2
++ eor x16,x16,x25,ror#18
++ eor x9,x9,x4,ror#8
++ orr x17,x17,x28
++ eor x28,x21,x22
++ eor x16,x16,x25,ror#41
++ eor x10,x10,x21,ror#34
++ add x20,x20,x17
++ and x19,x19,x28
++ eor x8,x8,x1,ror#61
++ eor x9,x9,x4,lsr#7
++ add x20,x20,x16
++ eor x19,x19,x22
++ eor x17,x10,x21,ror#39
++ eor x8,x8,x1,lsr#6
++ add x3,x3,x12
++ add x24,x24,x20
++ add x20,x20,x19
++ ldr x19,[x30],#8
++ add x3,x3,x9
++ add x20,x20,x17
++ add x3,x3,x8
++Loop_16_xx:
++ ldr x8,[sp,#8]
++ str x11,[sp,#0]
++ ror x16,x24,#14
++ add x27,x27,x19
++ ror x10,x5,#1
++ and x17,x25,x24
++ ror x9,x2,#19
++ bic x19,x26,x24
++ ror x11,x20,#28
++ add x27,x27,x3
++ eor x16,x16,x24,ror#18
++ eor x10,x10,x5,ror#8
++ orr x17,x17,x19
++ eor x19,x20,x21
++ eor x16,x16,x24,ror#41
++ eor x11,x11,x20,ror#34
++ add x27,x27,x17
++ and x28,x28,x19
++ eor x9,x9,x2,ror#61
++ eor x10,x10,x5,lsr#7
++ add x27,x27,x16
++ eor x28,x28,x21
++ eor x17,x11,x20,ror#39
++ eor x9,x9,x2,lsr#6
++ add x4,x4,x13
++ add x23,x23,x27
++ add x27,x27,x28
++ ldr x28,[x30],#8
++ add x4,x4,x10
++ add x27,x27,x17
++ add x4,x4,x9
++ ldr x9,[sp,#16]
++ str x12,[sp,#8]
++ ror x16,x23,#14
++ add x26,x26,x28
++ ror x11,x6,#1
++ and x17,x24,x23
++ ror x10,x3,#19
++ bic x28,x25,x23
++ ror x12,x27,#28
++ add x26,x26,x4
++ eor x16,x16,x23,ror#18
++ eor x11,x11,x6,ror#8
++ orr x17,x17,x28
++ eor x28,x27,x20
++ eor x16,x16,x23,ror#41
++ eor x12,x12,x27,ror#34
++ add x26,x26,x17
++ and x19,x19,x28
++ eor x10,x10,x3,ror#61
++ eor x11,x11,x6,lsr#7
++ add x26,x26,x16
++ eor x19,x19,x20
++ eor x17,x12,x27,ror#39
++ eor x10,x10,x3,lsr#6
++ add x5,x5,x14
++ add x22,x22,x26
++ add x26,x26,x19
++ ldr x19,[x30],#8
++ add x5,x5,x11
++ add x26,x26,x17
++ add x5,x5,x10
++ ldr x10,[sp,#24]
++ str x13,[sp,#16]
++ ror x16,x22,#14
++ add x25,x25,x19
++ ror x12,x7,#1
++ and x17,x23,x22
++ ror x11,x4,#19
++ bic x19,x24,x22
++ ror x13,x26,#28
++ add x25,x25,x5
++ eor x16,x16,x22,ror#18
++ eor x12,x12,x7,ror#8
++ orr x17,x17,x19
++ eor x19,x26,x27
++ eor x16,x16,x22,ror#41
++ eor x13,x13,x26,ror#34
++ add x25,x25,x17
++ and x28,x28,x19
++ eor x11,x11,x4,ror#61
++ eor x12,x12,x7,lsr#7
++ add x25,x25,x16
++ eor x28,x28,x27
++ eor x17,x13,x26,ror#39
++ eor x11,x11,x4,lsr#6
++ add x6,x6,x15
++ add x21,x21,x25
++ add x25,x25,x28
++ ldr x28,[x30],#8
++ add x6,x6,x12
++ add x25,x25,x17
++ add x6,x6,x11
++ ldr x11,[sp,#0]
++ str x14,[sp,#24]
++ ror x16,x21,#14
++ add x24,x24,x28
++ ror x13,x8,#1
++ and x17,x22,x21
++ ror x12,x5,#19
++ bic x28,x23,x21
++ ror x14,x25,#28
++ add x24,x24,x6
++ eor x16,x16,x21,ror#18
++ eor x13,x13,x8,ror#8
++ orr x17,x17,x28
++ eor x28,x25,x26
++ eor x16,x16,x21,ror#41
++ eor x14,x14,x25,ror#34
++ add x24,x24,x17
++ and x19,x19,x28
++ eor x12,x12,x5,ror#61
++ eor x13,x13,x8,lsr#7
++ add x24,x24,x16
++ eor x19,x19,x26
++ eor x17,x14,x25,ror#39
++ eor x12,x12,x5,lsr#6
++ add x7,x7,x0
++ add x20,x20,x24
++ add x24,x24,x19
++ ldr x19,[x30],#8
++ add x7,x7,x13
++ add x24,x24,x17
++ add x7,x7,x12
++ ldr x12,[sp,#8]
++ str x15,[sp,#0]
++ ror x16,x20,#14
++ add x23,x23,x19
++ ror x14,x9,#1
++ and x17,x21,x20
++ ror x13,x6,#19
++ bic x19,x22,x20
++ ror x15,x24,#28
++ add x23,x23,x7
++ eor x16,x16,x20,ror#18
++ eor x14,x14,x9,ror#8
++ orr x17,x17,x19
++ eor x19,x24,x25
++ eor x16,x16,x20,ror#41
++ eor x15,x15,x24,ror#34
++ add x23,x23,x17
++ and x28,x28,x19
++ eor x13,x13,x6,ror#61
++ eor x14,x14,x9,lsr#7
++ add x23,x23,x16
++ eor x28,x28,x25
++ eor x17,x15,x24,ror#39
++ eor x13,x13,x6,lsr#6
++ add x8,x8,x1
++ add x27,x27,x23
++ add x23,x23,x28
++ ldr x28,[x30],#8
++ add x8,x8,x14
++ add x23,x23,x17
++ add x8,x8,x13
++ ldr x13,[sp,#16]
++ str x0,[sp,#8]
++ ror x16,x27,#14
++ add x22,x22,x28
++ ror x15,x10,#1
++ and x17,x20,x27
++ ror x14,x7,#19
++ bic x28,x21,x27
++ ror x0,x23,#28
++ add x22,x22,x8
++ eor x16,x16,x27,ror#18
++ eor x15,x15,x10,ror#8
++ orr x17,x17,x28
++ eor x28,x23,x24
++ eor x16,x16,x27,ror#41
++ eor x0,x0,x23,ror#34
++ add x22,x22,x17
++ and x19,x19,x28
++ eor x14,x14,x7,ror#61
++ eor x15,x15,x10,lsr#7
++ add x22,x22,x16
++ eor x19,x19,x24
++ eor x17,x0,x23,ror#39
++ eor x14,x14,x7,lsr#6
++ add x9,x9,x2
++ add x26,x26,x22
++ add x22,x22,x19
++ ldr x19,[x30],#8
++ add x9,x9,x15
++ add x22,x22,x17
++ add x9,x9,x14
++ ldr x14,[sp,#24]
++ str x1,[sp,#16]
++ ror x16,x26,#14
++ add x21,x21,x19
++ ror x0,x11,#1
++ and x17,x27,x26
++ ror x15,x8,#19
++ bic x19,x20,x26
++ ror x1,x22,#28
++ add x21,x21,x9
++ eor x16,x16,x26,ror#18
++ eor x0,x0,x11,ror#8
++ orr x17,x17,x19
++ eor x19,x22,x23
++ eor x16,x16,x26,ror#41
++ eor x1,x1,x22,ror#34
++ add x21,x21,x17
++ and x28,x28,x19
++ eor x15,x15,x8,ror#61
++ eor x0,x0,x11,lsr#7
++ add x21,x21,x16
++ eor x28,x28,x23
++ eor x17,x1,x22,ror#39
++ eor x15,x15,x8,lsr#6
++ add x10,x10,x3
++ add x25,x25,x21
++ add x21,x21,x28
++ ldr x28,[x30],#8
++ add x10,x10,x0
++ add x21,x21,x17
++ add x10,x10,x15
++ ldr x15,[sp,#0]
++ str x2,[sp,#24]
++ ror x16,x25,#14
++ add x20,x20,x28
++ ror x1,x12,#1
++ and x17,x26,x25
++ ror x0,x9,#19
++ bic x28,x27,x25
++ ror x2,x21,#28
++ add x20,x20,x10
++ eor x16,x16,x25,ror#18
++ eor x1,x1,x12,ror#8
++ orr x17,x17,x28
++ eor x28,x21,x22
++ eor x16,x16,x25,ror#41
++ eor x2,x2,x21,ror#34
++ add x20,x20,x17
++ and x19,x19,x28
++ eor x0,x0,x9,ror#61
++ eor x1,x1,x12,lsr#7
++ add x20,x20,x16
++ eor x19,x19,x22
++ eor x17,x2,x21,ror#39
++ eor x0,x0,x9,lsr#6
++ add x11,x11,x4
++ add x24,x24,x20
++ add x20,x20,x19
++ ldr x19,[x30],#8
++ add x11,x11,x1
++ add x20,x20,x17
++ add x11,x11,x0
++ ldr x0,[sp,#8]
++ str x3,[sp,#0]
++ ror x16,x24,#14
++ add x27,x27,x19
++ ror x2,x13,#1
++ and x17,x25,x24
++ ror x1,x10,#19
++ bic x19,x26,x24
++ ror x3,x20,#28
++ add x27,x27,x11
++ eor x16,x16,x24,ror#18
++ eor x2,x2,x13,ror#8
++ orr x17,x17,x19
++ eor x19,x20,x21
++ eor x16,x16,x24,ror#41
++ eor x3,x3,x20,ror#34
++ add x27,x27,x17
++ and x28,x28,x19
++ eor x1,x1,x10,ror#61
++ eor x2,x2,x13,lsr#7
++ add x27,x27,x16
++ eor x28,x28,x21
++ eor x17,x3,x20,ror#39
++ eor x1,x1,x10,lsr#6
++ add x12,x12,x5
++ add x23,x23,x27
++ add x27,x27,x28
++ ldr x28,[x30],#8
++ add x12,x12,x2
++ add x27,x27,x17
++ add x12,x12,x1
++ ldr x1,[sp,#16]
++ str x4,[sp,#8]
++ ror x16,x23,#14
++ add x26,x26,x28
++ ror x3,x14,#1
++ and x17,x24,x23
++ ror x2,x11,#19
++ bic x28,x25,x23
++ ror x4,x27,#28
++ add x26,x26,x12
++ eor x16,x16,x23,ror#18
++ eor x3,x3,x14,ror#8
++ orr x17,x17,x28
++ eor x28,x27,x20
++ eor x16,x16,x23,ror#41
++ eor x4,x4,x27,ror#34
++ add x26,x26,x17
++ and x19,x19,x28
++ eor x2,x2,x11,ror#61
++ eor x3,x3,x14,lsr#7
++ add x26,x26,x16
++ eor x19,x19,x20
++ eor x17,x4,x27,ror#39
++ eor x2,x2,x11,lsr#6
++ add x13,x13,x6
++ add x22,x22,x26
++ add x26,x26,x19
++ ldr x19,[x30],#8
++ add x13,x13,x3
++ add x26,x26,x17
++ add x13,x13,x2
++ ldr x2,[sp,#24]
++ str x5,[sp,#16]
++ ror x16,x22,#14
++ add x25,x25,x19
++ ror x4,x15,#1
++ and x17,x23,x22
++ ror x3,x12,#19
++ bic x19,x24,x22
++ ror x5,x26,#28
++ add x25,x25,x13
++ eor x16,x16,x22,ror#18
++ eor x4,x4,x15,ror#8
++ orr x17,x17,x19
++ eor x19,x26,x27
++ eor x16,x16,x22,ror#41
++ eor x5,x5,x26,ror#34
++ add x25,x25,x17
++ and x28,x28,x19
++ eor x3,x3,x12,ror#61
++ eor x4,x4,x15,lsr#7
++ add x25,x25,x16
++ eor x28,x28,x27
++ eor x17,x5,x26,ror#39
++ eor x3,x3,x12,lsr#6
++ add x14,x14,x7
++ add x21,x21,x25
++ add x25,x25,x28
++ ldr x28,[x30],#8
++ add x14,x14,x4
++ add x25,x25,x17
++ add x14,x14,x3
++ ldr x3,[sp,#0]
++ str x6,[sp,#24]
++ ror x16,x21,#14
++ add x24,x24,x28
++ ror x5,x0,#1
++ and x17,x22,x21
++ ror x4,x13,#19
++ bic x28,x23,x21
++ ror x6,x25,#28
++ add x24,x24,x14
++ eor x16,x16,x21,ror#18
++ eor x5,x5,x0,ror#8
++ orr x17,x17,x28
++ eor x28,x25,x26
++ eor x16,x16,x21,ror#41
++ eor x6,x6,x25,ror#34
++ add x24,x24,x17
++ and x19,x19,x28
++ eor x4,x4,x13,ror#61
++ eor x5,x5,x0,lsr#7
++ add x24,x24,x16
++ eor x19,x19,x26
++ eor x17,x6,x25,ror#39
++ eor x4,x4,x13,lsr#6
++ add x15,x15,x8
++ add x20,x20,x24
++ add x24,x24,x19
++ ldr x19,[x30],#8
++ add x15,x15,x5
++ add x24,x24,x17
++ add x15,x15,x4
++ ldr x4,[sp,#8]
++ str x7,[sp,#0]
++ ror x16,x20,#14
++ add x23,x23,x19
++ ror x6,x1,#1
++ and x17,x21,x20
++ ror x5,x14,#19
++ bic x19,x22,x20
++ ror x7,x24,#28
++ add x23,x23,x15
++ eor x16,x16,x20,ror#18
++ eor x6,x6,x1,ror#8
++ orr x17,x17,x19
++ eor x19,x24,x25
++ eor x16,x16,x20,ror#41
++ eor x7,x7,x24,ror#34
++ add x23,x23,x17
++ and x28,x28,x19
++ eor x5,x5,x14,ror#61
++ eor x6,x6,x1,lsr#7
++ add x23,x23,x16
++ eor x28,x28,x25
++ eor x17,x7,x24,ror#39
++ eor x5,x5,x14,lsr#6
++ add x0,x0,x9
++ add x27,x27,x23
++ add x23,x23,x28
++ ldr x28,[x30],#8
++ add x0,x0,x6
++ add x23,x23,x17
++ add x0,x0,x5
++ ldr x5,[sp,#16]
++ str x8,[sp,#8]
++ ror x16,x27,#14
++ add x22,x22,x28
++ ror x7,x2,#1
++ and x17,x20,x27
++ ror x6,x15,#19
++ bic x28,x21,x27
++ ror x8,x23,#28
++ add x22,x22,x0
++ eor x16,x16,x27,ror#18
++ eor x7,x7,x2,ror#8
++ orr x17,x17,x28
++ eor x28,x23,x24
++ eor x16,x16,x27,ror#41
++ eor x8,x8,x23,ror#34
++ add x22,x22,x17
++ and x19,x19,x28
++ eor x6,x6,x15,ror#61
++ eor x7,x7,x2,lsr#7
++ add x22,x22,x16
++ eor x19,x19,x24
++ eor x17,x8,x23,ror#39
++ eor x6,x6,x15,lsr#6
++ add x1,x1,x10
++ add x26,x26,x22
++ add x22,x22,x19
++ ldr x19,[x30],#8
++ add x1,x1,x7
++ add x22,x22,x17
++ add x1,x1,x6
++ ldr x6,[sp,#24]
++ str x9,[sp,#16]
++ ror x16,x26,#14
++ add x21,x21,x19
++ ror x8,x3,#1
++ and x17,x27,x26
++ ror x7,x0,#19
++ bic x19,x20,x26
++ ror x9,x22,#28
++ add x21,x21,x1
++ eor x16,x16,x26,ror#18
++ eor x8,x8,x3,ror#8
++ orr x17,x17,x19
++ eor x19,x22,x23
++ eor x16,x16,x26,ror#41
++ eor x9,x9,x22,ror#34
++ add x21,x21,x17
++ and x28,x28,x19
++ eor x7,x7,x0,ror#61
++ eor x8,x8,x3,lsr#7
++ add x21,x21,x16
++ eor x28,x28,x23
++ eor x17,x9,x22,ror#39
++ eor x7,x7,x0,lsr#6
++ add x2,x2,x11
++ add x25,x25,x21
++ add x21,x21,x28
++ ldr x28,[x30],#8
++ add x2,x2,x8
++ add x21,x21,x17
++ add x2,x2,x7
++ ldr x7,[sp,#0]
++ str x10,[sp,#24]
++ ror x16,x25,#14
++ add x20,x20,x28
++ ror x9,x4,#1
++ and x17,x26,x25
++ ror x8,x1,#19
++ bic x28,x27,x25
++ ror x10,x21,#28
++ add x20,x20,x2
++ eor x16,x16,x25,ror#18
++ eor x9,x9,x4,ror#8
++ orr x17,x17,x28
++ eor x28,x21,x22
++ eor x16,x16,x25,ror#41
++ eor x10,x10,x21,ror#34
++ add x20,x20,x17
++ and x19,x19,x28
++ eor x8,x8,x1,ror#61
++ eor x9,x9,x4,lsr#7
++ add x20,x20,x16
++ eor x19,x19,x22
++ eor x17,x10,x21,ror#39
++ eor x8,x8,x1,lsr#6
++ add x3,x3,x12
++ add x24,x24,x20
++ add x20,x20,x19
++ ldr x19,[x30],#8
++ add x3,x3,x9
++ add x20,x20,x17
++ add x3,x3,x8
++ cbnz x19,Loop_16_xx
++
++ ldp x0,x2,[x29,#96]
++ ldr x1,[x29,#112]
++ sub x30,x30,#648
++
++ ldp x3,x4,[x0]
++ ldp x5,x6,[x0,#2*8]
++ add x1,x1,#14*8
++ ldp x7,x8,[x0,#4*8]
++ add x20,x20,x3
++ ldp x9,x10,[x0,#6*8]
++ add x21,x21,x4
++ add x22,x22,x5
++ add x23,x23,x6
++ stp x20,x21,[x0]
++ add x24,x24,x7
++ add x25,x25,x8
++ stp x22,x23,[x0,#2*8]
++ add x26,x26,x9
++ add x27,x27,x10
++ cmp x1,x2
++ stp x24,x25,[x0,#4*8]
++ stp x26,x27,[x0,#6*8]
++ b.ne Loop
++
++ ldp x19,x20,[x29,#16]
++ add sp,sp,#4*8
++ ldp x21,x22,[x29,#32]
++ ldp x23,x24,[x29,#48]
++ ldp x25,x26,[x29,#64]
++ ldp x27,x28,[x29,#80]
++ ldp x29,x30,[sp],#128
++ ret
++
++
++.align 6
++
++LK512:
++.quad 0x428a2f98d728ae22,0x7137449123ef65cd
++.quad 0xb5c0fbcfec4d3b2f,0xe9b5dba58189dbbc
++.quad 0x3956c25bf348b538,0x59f111f1b605d019
++.quad 0x923f82a4af194f9b,0xab1c5ed5da6d8118
++.quad 0xd807aa98a3030242,0x12835b0145706fbe
++.quad 0x243185be4ee4b28c,0x550c7dc3d5ffb4e2
++.quad 0x72be5d74f27b896f,0x80deb1fe3b1696b1
++.quad 0x9bdc06a725c71235,0xc19bf174cf692694
++.quad 0xe49b69c19ef14ad2,0xefbe4786384f25e3
++.quad 0x0fc19dc68b8cd5b5,0x240ca1cc77ac9c65
++.quad 0x2de92c6f592b0275,0x4a7484aa6ea6e483
++.quad 0x5cb0a9dcbd41fbd4,0x76f988da831153b5
++.quad 0x983e5152ee66dfab,0xa831c66d2db43210
++.quad 0xb00327c898fb213f,0xbf597fc7beef0ee4
++.quad 0xc6e00bf33da88fc2,0xd5a79147930aa725
++.quad 0x06ca6351e003826f,0x142929670a0e6e70
++.quad 0x27b70a8546d22ffc,0x2e1b21385c26c926
++.quad 0x4d2c6dfc5ac42aed,0x53380d139d95b3df
++.quad 0x650a73548baf63de,0x766a0abb3c77b2a8
++.quad 0x81c2c92e47edaee6,0x92722c851482353b
++.quad 0xa2bfe8a14cf10364,0xa81a664bbc423001
++.quad 0xc24b8b70d0f89791,0xc76c51a30654be30
++.quad 0xd192e819d6ef5218,0xd69906245565a910
++.quad 0xf40e35855771202a,0x106aa07032bbd1b8
++.quad 0x19a4c116b8d2d0c8,0x1e376c085141ab53
++.quad 0x2748774cdf8eeb99,0x34b0bcb5e19b48a8
++.quad 0x391c0cb3c5c95a63,0x4ed8aa4ae3418acb
++.quad 0x5b9cca4f7763e373,0x682e6ff3d6b2b8a3
++.quad 0x748f82ee5defb2fc,0x78a5636f43172f60
++.quad 0x84c87814a1f0ab72,0x8cc702081a6439ec
++.quad 0x90befffa23631e28,0xa4506cebde82bde9
++.quad 0xbef9a3f7b2c67915,0xc67178f2e372532b
++.quad 0xca273eceea26619c,0xd186b8c721c0c207
++.quad 0xeada7dd6cde0eb1e,0xf57d4f7fee6ed178
++.quad 0x06f067aa72176fba,0x0a637dc5a2c898a6
++.quad 0x113f9804bef90dae,0x1b710b35131c471b
++.quad 0x28db77f523047d84,0x32caab7b40c72493
++.quad 0x3c9ebe0a15c9bebc,0x431d67c49c100d4c
++.quad 0x4cc5d4becb3e42b6,0x597f299cfc657e2a
++.quad 0x5fcb6fab3ad6faec,0x6c44198c4a475817
++.quad 0
++
++
++.align 3
++L_gnutls_arm_cpuid_s:
++
++
++
++.quad __gnutls_arm_cpuid_s-.
++
++
++.byte 83,72,65,53,49,50,32,98,108,111,99,107,32,116,114,97,110,115,102,111,114,109,32,102,111,114,32,65,82,77,118,56,44,32,67,82,89,80,84,79,71,65,77,83,32,98,121,32,60,97,112,112,114,111,64,111,112,101,110,115,115,108,46,111,114,103,62,0
++.align 2
++.align 2
++
++
++.align 6
++sha512_block_armv8:
++Lv8_entry:
++ stp x29,x30,[sp,#-16]!
++ add x29,sp,#0
++
++ ld1 {v16.16b,v17.16b,v18.16b,v19.16b},[x1],#64
++ ld1 {v20.16b,v21.16b,v22.16b,v23.16b},[x1],#64
++
++ ld1 {v0.2d,v1.2d,v2.2d,v3.2d},[x0]
++ adr x3,LK512
++
++ rev64 v16.16b,v16.16b
++ rev64 v17.16b,v17.16b
++ rev64 v18.16b,v18.16b
++ rev64 v19.16b,v19.16b
++ rev64 v20.16b,v20.16b
++ rev64 v21.16b,v21.16b
++ rev64 v22.16b,v22.16b
++ rev64 v23.16b,v23.16b
++ b Loop_hw
++
++.align 4
++Loop_hw:
++ ld1 {v24.2d},[x3],#16
++ subs x2,x2,#1
++ sub x4,x1,#128
++ orr v26.16b,v0.16b,v0.16b
++ orr v27.16b,v1.16b,v1.16b
++ orr v28.16b,v2.16b,v2.16b
++ orr v29.16b,v3.16b,v3.16b
++ csel x1,x1,x4,ne
++ add v24.2d,v24.2d,v16.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v24.2d
++.long 0xcec08230
++ ext v7.16b,v20.16b,v21.16b,#8
++.long 0xce6680a3
++.long 0xce678af0
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ add v25.2d,v25.2d,v17.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v25.2d
++.long 0xcec08251
++ ext v7.16b,v21.16b,v22.16b,#8
++.long 0xce6680a2
++.long 0xce678a11
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ add v24.2d,v24.2d,v18.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v24.2d
++.long 0xcec08272
++ ext v7.16b,v22.16b,v23.16b,#8
++.long 0xce6680a4
++.long 0xce678a32
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ add v25.2d,v25.2d,v19.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v25.2d
++.long 0xcec08293
++ ext v7.16b,v23.16b,v16.16b,#8
++.long 0xce6680a1
++.long 0xce678a53
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ add v24.2d,v24.2d,v20.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v24.2d
++.long 0xcec082b4
++ ext v7.16b,v16.16b,v17.16b,#8
++.long 0xce6680a0
++.long 0xce678a74
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ add v25.2d,v25.2d,v21.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v25.2d
++.long 0xcec082d5
++ ext v7.16b,v17.16b,v18.16b,#8
++.long 0xce6680a3
++.long 0xce678a95
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ add v24.2d,v24.2d,v22.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v24.2d
++.long 0xcec082f6
++ ext v7.16b,v18.16b,v19.16b,#8
++.long 0xce6680a2
++.long 0xce678ab6
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ add v25.2d,v25.2d,v23.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v25.2d
++.long 0xcec08217
++ ext v7.16b,v19.16b,v20.16b,#8
++.long 0xce6680a4
++.long 0xce678ad7
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ add v24.2d,v24.2d,v16.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v24.2d
++.long 0xcec08230
++ ext v7.16b,v20.16b,v21.16b,#8
++.long 0xce6680a1
++.long 0xce678af0
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ add v25.2d,v25.2d,v17.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v25.2d
++.long 0xcec08251
++ ext v7.16b,v21.16b,v22.16b,#8
++.long 0xce6680a0
++.long 0xce678a11
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ add v24.2d,v24.2d,v18.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v24.2d
++.long 0xcec08272
++ ext v7.16b,v22.16b,v23.16b,#8
++.long 0xce6680a3
++.long 0xce678a32
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ add v25.2d,v25.2d,v19.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v25.2d
++.long 0xcec08293
++ ext v7.16b,v23.16b,v16.16b,#8
++.long 0xce6680a2
++.long 0xce678a53
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ add v24.2d,v24.2d,v20.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v24.2d
++.long 0xcec082b4
++ ext v7.16b,v16.16b,v17.16b,#8
++.long 0xce6680a4
++.long 0xce678a74
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ add v25.2d,v25.2d,v21.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v25.2d
++.long 0xcec082d5
++ ext v7.16b,v17.16b,v18.16b,#8
++.long 0xce6680a1
++.long 0xce678a95
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ add v24.2d,v24.2d,v22.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v24.2d
++.long 0xcec082f6
++ ext v7.16b,v18.16b,v19.16b,#8
++.long 0xce6680a0
++.long 0xce678ab6
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ add v25.2d,v25.2d,v23.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v25.2d
++.long 0xcec08217
++ ext v7.16b,v19.16b,v20.16b,#8
++.long 0xce6680a3
++.long 0xce678ad7
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ add v24.2d,v24.2d,v16.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v24.2d
++.long 0xcec08230
++ ext v7.16b,v20.16b,v21.16b,#8
++.long 0xce6680a2
++.long 0xce678af0
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ add v25.2d,v25.2d,v17.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v25.2d
++.long 0xcec08251
++ ext v7.16b,v21.16b,v22.16b,#8
++.long 0xce6680a4
++.long 0xce678a11
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ add v24.2d,v24.2d,v18.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v24.2d
++.long 0xcec08272
++ ext v7.16b,v22.16b,v23.16b,#8
++.long 0xce6680a1
++.long 0xce678a32
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ add v25.2d,v25.2d,v19.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v25.2d
++.long 0xcec08293
++ ext v7.16b,v23.16b,v16.16b,#8
++.long 0xce6680a0
++.long 0xce678a53
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ add v24.2d,v24.2d,v20.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v24.2d
++.long 0xcec082b4
++ ext v7.16b,v16.16b,v17.16b,#8
++.long 0xce6680a3
++.long 0xce678a74
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ add v25.2d,v25.2d,v21.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v25.2d
++.long 0xcec082d5
++ ext v7.16b,v17.16b,v18.16b,#8
++.long 0xce6680a2
++.long 0xce678a95
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ add v24.2d,v24.2d,v22.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v24.2d
++.long 0xcec082f6
++ ext v7.16b,v18.16b,v19.16b,#8
++.long 0xce6680a4
++.long 0xce678ab6
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ add v25.2d,v25.2d,v23.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v25.2d
++.long 0xcec08217
++ ext v7.16b,v19.16b,v20.16b,#8
++.long 0xce6680a1
++.long 0xce678ad7
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ add v24.2d,v24.2d,v16.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v24.2d
++.long 0xcec08230
++ ext v7.16b,v20.16b,v21.16b,#8
++.long 0xce6680a0
++.long 0xce678af0
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ add v25.2d,v25.2d,v17.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v25.2d
++.long 0xcec08251
++ ext v7.16b,v21.16b,v22.16b,#8
++.long 0xce6680a3
++.long 0xce678a11
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ add v24.2d,v24.2d,v18.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v24.2d
++.long 0xcec08272
++ ext v7.16b,v22.16b,v23.16b,#8
++.long 0xce6680a2
++.long 0xce678a32
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ add v25.2d,v25.2d,v19.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v25.2d
++.long 0xcec08293
++ ext v7.16b,v23.16b,v16.16b,#8
++.long 0xce6680a4
++.long 0xce678a53
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ add v24.2d,v24.2d,v20.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v24.2d
++.long 0xcec082b4
++ ext v7.16b,v16.16b,v17.16b,#8
++.long 0xce6680a1
++.long 0xce678a74
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ add v25.2d,v25.2d,v21.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v25.2d
++.long 0xcec082d5
++ ext v7.16b,v17.16b,v18.16b,#8
++.long 0xce6680a0
++.long 0xce678a95
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ add v24.2d,v24.2d,v22.2d
++ ld1 {v25.2d},[x3],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v24.2d
++.long 0xcec082f6
++ ext v7.16b,v18.16b,v19.16b,#8
++.long 0xce6680a3
++.long 0xce678ab6
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ add v25.2d,v25.2d,v23.2d
++ ld1 {v24.2d},[x3],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v25.2d
++.long 0xcec08217
++ ext v7.16b,v19.16b,v20.16b,#8
++.long 0xce6680a2
++.long 0xce678ad7
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ ld1 {v25.2d},[x3],#16
++ add v24.2d,v24.2d,v16.2d
++ ld1 {v16.16b},[x1],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v24.2d
++.long 0xce6680a4
++ rev64 v16.16b,v16.16b
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ ld1 {v24.2d},[x3],#16
++ add v25.2d,v25.2d,v17.2d
++ ld1 {v17.16b},[x1],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v25.2d
++.long 0xce6680a1
++ rev64 v17.16b,v17.16b
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ ld1 {v25.2d},[x3],#16
++ add v24.2d,v24.2d,v18.2d
++ ld1 {v18.16b},[x1],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v24.2d
++.long 0xce6680a0
++ rev64 v18.16b,v18.16b
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ ld1 {v24.2d},[x3],#16
++ add v25.2d,v25.2d,v19.2d
++ ld1 {v19.16b},[x1],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v2.16b,v3.16b,#8
++ ext v6.16b,v1.16b,v2.16b,#8
++ add v3.2d,v3.2d,v25.2d
++.long 0xce6680a3
++ rev64 v19.16b,v19.16b
++ add v4.2d,v1.2d,v3.2d
++.long 0xce608423
++ ld1 {v25.2d},[x3],#16
++ add v24.2d,v24.2d,v20.2d
++ ld1 {v20.16b},[x1],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v4.16b,v2.16b,#8
++ ext v6.16b,v0.16b,v4.16b,#8
++ add v2.2d,v2.2d,v24.2d
++.long 0xce6680a2
++ rev64 v20.16b,v20.16b
++ add v1.2d,v0.2d,v2.2d
++.long 0xce638402
++ ld1 {v24.2d},[x3],#16
++ add v25.2d,v25.2d,v21.2d
++ ld1 {v21.16b},[x1],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v1.16b,v4.16b,#8
++ ext v6.16b,v3.16b,v1.16b,#8
++ add v4.2d,v4.2d,v25.2d
++.long 0xce6680a4
++ rev64 v21.16b,v21.16b
++ add v0.2d,v3.2d,v4.2d
++.long 0xce628464
++ ld1 {v25.2d},[x3],#16
++ add v24.2d,v24.2d,v22.2d
++ ld1 {v22.16b},[x1],#16
++ ext v24.16b,v24.16b,v24.16b,#8
++ ext v5.16b,v0.16b,v1.16b,#8
++ ext v6.16b,v2.16b,v0.16b,#8
++ add v1.2d,v1.2d,v24.2d
++.long 0xce6680a1
++ rev64 v22.16b,v22.16b
++ add v3.2d,v2.2d,v1.2d
++.long 0xce648441
++ sub x3,x3,#80*8
++ add v25.2d,v25.2d,v23.2d
++ ld1 {v23.16b},[x1],#16
++ ext v25.16b,v25.16b,v25.16b,#8
++ ext v5.16b,v3.16b,v0.16b,#8
++ ext v6.16b,v4.16b,v3.16b,#8
++ add v0.2d,v0.2d,v25.2d
++.long 0xce6680a0
++ rev64 v23.16b,v23.16b
++ add v2.2d,v4.2d,v0.2d
++.long 0xce618480
++ add v0.2d,v0.2d,v26.2d
++ add v1.2d,v1.2d,v27.2d
++ add v2.2d,v2.2d,v28.2d
++ add v3.2d,v3.2d,v29.2d
++
++ cbnz x2,Loop_hw
++
++ st1 {v0.2d,v1.2d,v2.2d,v3.2d},[x0]
++
++ ldr x29,[sp],#16
++ ret
++
++
++
++.comm __gnutls_arm_cpuid_s,4,4

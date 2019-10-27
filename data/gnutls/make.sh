@@ -1,12 +1,8 @@
+# Taken from elucubratus.
 pkg:setup
-keychains = %w[
-/System/Library/Keychains/SystemRootCertificates.keychain
-]
-
-certs_list = `security find-certificate -a -p #{keychains.join( )}`
-certs = certs_list.scan(/-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/m)
-
-valid_certs = certs.select do |cert|
-IO.popen(openssl x509 -inform pem -checkend 0 -noout w) do |openssl_io|
-openssl_io.write(cert)
-openssl_io.close_write
+autoreconf -f -i
+pkg:configure --with-included-libtasn1 --without-libiconv-prefix --without-libintl-prefix --without-libseccomp-prefix \
+	--without-libcrypto-prefix --without-librt-prefix --without-libpthread-prefix --without-libnsl-prefix \
+	--without-libunistring-prefix --without-libdl-prefix --without-libz-prefix P11_KIT_LIBS="-lp11-kit"
+make -j8 V=1
+pkg:install V=1
