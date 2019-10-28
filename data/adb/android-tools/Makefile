@@ -15,7 +15,8 @@ CFLAGS += \
     -Wextra \
     -Werror=implicit-function-declaration \
     -Werror=implicit-int \
-    -Wno-unused-parameter
+    -Wno-unused-parameter \
+    -miphoneos-version-min=12.0
 CXX = aarch64-apple-darwin17-clang++ 
 CXXFLAGS ?= -g -Os
 CXXFLAGS += \
@@ -24,7 +25,8 @@ CXXFLAGS += \
     -Wextra \
     -Werror=implicit-function-declaration \
     -Werror=implicit-int \
-    -Wno-unused-parameter
+    -Wno-unused-parameter \
+    -miphoneos-version-min=12.0
 LDFLAGS :=
 AR=aarch64-apple-darwin17-ar
 PREFIX = /usr
