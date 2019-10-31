@@ -1,0 +1,22 @@
+diff -Naur ruby-2.6.5/configure ruby-2.6.5+iPhone/configure
+--- ruby-2.6.5/configure	2019-10-01 04:01:03.000000000 -0700
++++ ruby-2.6.5+iPhone/configure	2019-10-31 07:49:32.000000000 -0700
+@@ -6129,18 +6129,6 @@
+ 
+ fi
+ 
+-case "$target_os" in #(
+-  darwin*) :
+-
+-if libtool 2>&1 | grep no_warning_for_no_symbols > /dev/null; then
+-  ac_cv_prog_ac_ct_RANLIB=:
+-  ac_cv_prog_ac_ct_AR='libtool -static'
+-  rb_cv_arflags='-no_warning_for_no_symbols -o'
+-fi
+- ;; #(
+-  *) :
+-     ;;
+-esac
+ if test -n "$ac_tool_prefix"; then
+   for ac_prog in ${gcc_prefix}ranlib${gcc_suffix} ranlib
+   do

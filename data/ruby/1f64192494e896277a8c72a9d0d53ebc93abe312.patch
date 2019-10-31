@@ -1,0 +1,52 @@
+From 1f64192494e896277a8c72a9d0d53ebc93abe312 Mon Sep 17 00:00:00 2001
+From: naruse <naruse@b2dd03c8-39d4-4d8f-98ff-823fe69b080e>
+Date: Thu, 31 Jan 2019 12:58:33 +0000
+Subject: [PATCH] Use _NSGetMachExecuteHeader() instead of _mh_execute_header
+
+_mh_execute_header is not accessible from a dylib unless libruby.dylib is
+built with -undefined dynamic_lookup. And using -undefined
+dynamic_lookup is not good style.
+
+Reported by Jeremy Huddleston Sequoia <jeremyhu@apple.com>
+Reviewed-by: Jeremy Huddleston Sequoia <jeremyhu@apple.com>
+
+git-svn-id: svn+ssh://ci.ruby-lang.org/ruby/trunk@66971 b2dd03c8-39d4-4d8f-98ff-823fe69b080e
+---
+ addr2line.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/addr2line.c b/addr2line.c
+index 6ad792eeb5ce..54ee3eb1b93c 100644
+--- a/addr2line.c
++++ b/addr2line.c
+@@ -64,8 +64,8 @@ void *alloca();
+ #endif
+ 
+ #ifdef HAVE_MACH_O_LOADER_H
++# include <crt_externs.h>
+ # include <mach-o/fat.h>
+-# include <mach-o/ldsyms.h>
+ # include <mach-o/loader.h>
+ # include <mach-o/nlist.h>
+ # include <mach-o/stab.h>
+@@ -1895,6 +1895,7 @@ fill_lines(int num_traces, void **traces, int check_debuglink,
+         p = file;
+     }
+     else if (header->magic == FAT_CIGAM) {
++        struct LP(mach_header) *mhp = _NSGetMachExecuteHeader();
+         struct fat_header *fat = (struct fat_header *)file;
+         char *q = file + sizeof(*fat);
+         uint32_t nfat_arch = __builtin_bswap32(fat->nfat_arch);
+@@ -1904,9 +1905,9 @@ fill_lines(int num_traces, void **traces, int check_debuglink,
+             cpu_type_t cputype = __builtin_bswap32(arch->cputype);
+             cpu_subtype_t cpusubtype = __builtin_bswap32(arch->cpusubtype);
+             uint32_t offset = __builtin_bswap32(arch->offset);
+-            /* fprintf(stderr,"%d: fat %d %x/%x %x/%x\n",__LINE__, i, _mh_execute_header.cputype,_mh_execute_header.cpusubtype, cputype,cpusubtype); */
+-            if (_mh_execute_header.cputype == cputype &&
+-                    (_mh_execute_header.cpusubtype & ~CPU_SUBTYPE_MASK) == cpusubtype) {
++            /* fprintf(stderr,"%d: fat %d %x/%x %x/%x\n",__LINE__, i, mhp->cputype,mhp->cpusubtype, cputype,cpusubtype); */
++            if (mhp->cputype == cputype &&
++                    (mhp->cpusubtype & ~CPU_SUBTYPE_MASK) == cpusubtype) {
+                 p = file + offset;
+                 file = p;
+                 header = (struct LP(mach_header) *)p;
