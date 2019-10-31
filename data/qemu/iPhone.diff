@@ -1,0 +1,100 @@
+diff -Naur qemu-4.1.0/configure qemu-4.1.0+iPhone/configure
+--- qemu-4.1.0/configure	2019-08-15 12:01:42.000000000 -0700
++++ qemu-4.1.0+iPhone/configure	2019-10-29 10:10:15.000000000 -0700
+@@ -861,12 +861,19 @@
+   if [ "$cpu" = "x86_64" ] ; then
+     QEMU_CFLAGS="-arch x86_64 $QEMU_CFLAGS"
+     LDFLAGS="-arch x86_64 $LDFLAGS"
++    cocoa="yes"
++    audio_drv_list="coreaudio try-sdl"
++    audio_possible_drivers="coreaudio sdl"
++    LDFLAGS="-framework CoreFoundation -framework IOKit $LDFLAGS"
++    libs_softmmu="-framework Cocoa -framework IOKit $libs_softmmu"
++  else
++    cocoa="no"
++    pkg_config="${PKG_BASE}/util/pkg-config.sh"
++    audio_drv_list="try-sdl"
++    audio_possible_drivers="sdl"
++    LDFLAGS="-framework CoreFoundation -framework IOKit $LDFLAGS"
++    libs_softmmu="-framework IOKit $libs_softmmu"
+   fi
+-  cocoa="yes"
+-  audio_drv_list="coreaudio try-sdl"
+-  audio_possible_drivers="coreaudio sdl"
+-  LDFLAGS="-framework CoreFoundation -framework IOKit $LDFLAGS"
+-  libs_softmmu="-F/System/Library/Frameworks -framework Cocoa -framework IOKit $libs_softmmu"
+   # Disable attempts to use ObjectiveC features in os/object.h since they
+   # won't work when we're compiling with gcc as a C compiler.
+   QEMU_CFLAGS="-DOS_OBJECT_USE_OBJC=0 $QEMU_CFLAGS"
+@@ -3503,23 +3510,8 @@
+   iconv_prefix_list="/usr/local:/usr"
+   iconv_lib_list=":-liconv"
+   IFS=:
+-  for iconv_prefix in $iconv_prefix_list; do
+-    IFS=:
+-    iconv_cflags="-I$iconv_prefix/include"
+-    iconv_ldflags="-L$iconv_prefix/lib"
+-    for iconv_link in $iconv_lib_list; do
+-      unset IFS
+-      iconv_lib="$iconv_ldflags $iconv_link"
+-      echo "looking at iconv in '$iconv_cflags' '$iconv_lib'" >> config.log
+-      if compile_prog "$iconv_cflags" "$iconv_lib" ; then
+-        iconv_found=yes
+-        break
+-      fi
+-    done
+-    if test "$iconv_found" = yes ; then
+-      break
+-    fi
+-  done
++  iconv_found=yes
++  iconv_lib="-liconv"
+   if test "$iconv_found" = "yes" ; then
+     iconv=yes
+   else
+@@ -5217,7 +5209,7 @@
+ # specific one.
+ 
+ ucontext_works=no
+-if test "$darwin" != "yes"; then
++if :; then
+   cat > $TMPC << EOF
+ #include <ucontext.h>
+ #ifdef __stub_makecontext
+diff -Naur qemu-4.1.0/include/qemu/osdep.h qemu-4.1.0+iPhone/include/qemu/osdep.h
+--- qemu-4.1.0/include/qemu/osdep.h	2019-08-15 12:01:42.000000000 -0700
++++ qemu-4.1.0+iPhone/include/qemu/osdep.h	2019-10-29 15:27:51.000000000 -0700
+@@ -122,6 +122,12 @@
+ #include <sys/signal.h>
+ #endif
+ 
++#ifdef __APPLE__
++#define sigjmp_buf jmp_buf
++#define sigsetjmp(env, savemask) setjmp(env)
++#define siglongjmp(env, val) longjmp(env, val)
++#endif
++
+ #ifndef _WIN32
+ #include <sys/wait.h>
+ #else
+diff -Naur qemu-4.1.0/tcg/aarch64/tcg-target.h qemu-4.1.0+iPhone/tcg/aarch64/tcg-target.h
+--- qemu-4.1.0/tcg/aarch64/tcg-target.h	2019-08-15 12:01:43.000000000 -0700
++++ qemu-4.1.0+iPhone/tcg/aarch64/tcg-target.h	2019-10-29 11:00:14.000000000 -0700
+@@ -13,6 +13,8 @@
+ #ifndef AARCH64_TCG_TARGET_H
+ #define AARCH64_TCG_TARGET_H
+ 
++#include <libkern/OSCacheControl.h>
++
+ #define TCG_TARGET_INSN_UNIT_SIZE  4
+ #define TCG_TARGET_TLB_DISPLACEMENT_BITS 24
+ #undef TCG_TARGET_STACK_GROWSUP
+@@ -148,7 +150,7 @@
+ 
+ static inline void flush_icache_range(uintptr_t start, uintptr_t stop)
+ {
+-    __builtin___clear_cache((char *)start, (char *)stop);
++    sys_icache_invalidate(start, (char *)stop-(char *)start);
+ }
+ 
+ void tb_target_set_jmp_target(uintptr_t, uintptr_t, uintptr_t);

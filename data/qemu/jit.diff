@@ -1,0 +1,75 @@
+diff -Naur qemu-4.0.1/vl.c qemu-4.0.1+iPhone/vl.c
+--- qemu-4.0.1/vl.c	2019-10-17 13:17:44.000000000 -0700
++++ qemu-4.0.1+iPhone/vl.c	2019-10-30 15:14:44.000000000 -0700
+@@ -44,6 +44,59 @@
+ #endif
+ #endif /* CONFIG_SDL */
+ 
++#ifdef __APPLE__
++#include <sys/types.h>
++#include <sys/ptrace.h>
++#include <sys/wait.h>
++#include <unistd.h>
++#include <errno.h>
++#include <string.h>
++
++#define CS_OPS_STATUS 0
++#define CS_DEBUGGED   0x10000000
++int csops(pid_t pid, unsigned int  ops, void * useraddr, size_t usersize);
++bool get_debugged() {
++  int flags;
++  int rv = csops(getpid(), CS_OPS_STATUS, &flags, sizeof(flags));
++  if (rv==0 && flags&CS_DEBUGGED) return true;
++
++  pid_t pid = fork();
++  if (pid) {
++    int st,rv,i=0;
++    do {
++      usleep(500);
++      rv = waitpid(pid, &st, 0);
++    } while (rv<0 && i++<10);
++    if (rv<0) fprintf(stderr, "Unable to wait for child?\n");
++  } else if (pid == 0) {
++    pid_t ppid = getppid();
++    int rv = ptrace(PT_ATTACHEXC, ppid, 0, 0);
++    if (rv) {
++      perror("Unable to attach to process");
++      exit(1);
++    }
++    for (int i=0; i<100; i++) {
++      usleep(1000);
++      errno = 0;
++      rv = ptrace(PT_DETACH, ppid, 0, 0);
++      if (rv==0) break;
++    }
++    if (rv) {
++      perror("Unable to detach from process");
++      exit(1);
++    }
++    exit(0);
++  } else {
++    perror("Unable to fork");
++  }
++
++  rv = csops(getpid(), CS_OPS_STATUS, &flags, sizeof(flags));
++  if (rv==0 && flags&CS_DEBUGGED) return true;
++
++  return false;
++}
++#endif
++
+ #ifdef CONFIG_COCOA
+ #undef main
+ #define main qemu_main
+@@ -2987,6 +3040,11 @@
+ 
+ int main(int argc, char **argv, char **envp)
+ {
++#ifdef __APPLE__
++    if (!get_debugged()) {
++        fprintf(stderr, "Unable to obtain CS_DEBUGGED.");
++    }
++#endif
+     int i;
+     int snapshot, linux_boot;
+     const char *initrd_filename;
