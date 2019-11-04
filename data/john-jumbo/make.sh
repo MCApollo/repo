@@ -6,4 +6,4 @@ popd
 
 pkg: mkdir -p ${PKG_TAPF}/{bin,share/john}
 cp -r run/* ${PKG_DEST}/${PKG_TAPF}/share/john/
-pkg: ln -rs ${PKG_TAPF}/share/john ${PKG_TAPF}/bin/
+pkg: ln -rs ${PKG_TAPF}/share/john/john ${PKG_TAPF}/bin/
