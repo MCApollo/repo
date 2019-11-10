@@ -1,0 +1,98 @@
+diff -Naur x265_3.2.1/source/common/pixel.cpp x265_3.2.1+iPhone/source/common/pixel.cpp
+--- x265_3.2.1/source/common/pixel.cpp	2019-10-29 04:55:05.000000000 -0700
++++ x265_3.2.1+iPhone/source/common/pixel.cpp	2019-11-10 15:18:40.000000000 -0800
+@@ -44,7 +44,7 @@
+     for (int y = 0; y < ly; y++)
+     {
+         for (int x = 0; x < lx; x++)
+-            sum += abs(pix1[x] - pix2[x]);
++            sum += std::abs(pix1[x] - pix2[x]);
+ 
+         pix1 += stride_pix1;
+         pix2 += stride_pix2;
+@@ -61,7 +61,7 @@
+     for (int y = 0; y < ly; y++)
+     {
+         for (int x = 0; x < lx; x++)
+-            sum += abs(pix1[x] - pix2[x]);
++            sum += std::abs(pix1[x] - pix2[x]);
+ 
+         pix1 += stride_pix1;
+         pix2 += stride_pix2;
+@@ -80,9 +80,9 @@
+     {
+         for (int x = 0; x < lx; x++)
+         {
+-            res[0] += abs(pix1[x] - pix2[x]);
+-            res[1] += abs(pix1[x] - pix3[x]);
+-            res[2] += abs(pix1[x] - pix4[x]);
++            res[0] += std::abs(pix1[x] - pix2[x]);
++            res[1] += std::abs(pix1[x] - pix3[x]);
++            res[2] += std::abs(pix1[x] - pix4[x]);
+         }
+ 
+         pix1 += FENC_STRIDE;
+@@ -103,10 +103,10 @@
+     {
+         for (int x = 0; x < lx; x++)
+         {
+-            res[0] += abs(pix1[x] - pix2[x]);
+-            res[1] += abs(pix1[x] - pix3[x]);
+-            res[2] += abs(pix1[x] - pix4[x]);
+-            res[3] += abs(pix1[x] - pix5[x]);
++            res[0] += std::abs(pix1[x] - pix2[x]);
++            res[1] += std::abs(pix1[x] - pix3[x]);
++            res[2] += std::abs(pix1[x] - pix4[x]);
++            res[3] += std::abs(pix1[x] - pix5[x]);
+         }
+ 
+         pix1 += FENC_STRIDE;
+@@ -123,10 +123,10 @@
+     int nmv = 0;
+     for (int16_t i = 0; i < width; i++, sums++)
+     {
+-        int ads = abs(encDC[0] - long(sums[0]))
+-            + abs(encDC[1] - long(sums[lx >> 1]))
+-            + abs(encDC[2] - long(sums[delta]))
+-            + abs(encDC[3] - long(sums[delta + (lx >> 1)]))
++        int ads = std::fabsl(encDC[0] - long(sums[0]))
++            + std::fabsl(encDC[1] - long(sums[lx >> 1]))
++            + std::fabsl(encDC[2] - long(sums[delta]))
++            + std::fabsl(encDC[3] - long(sums[delta + (lx >> 1)]))
+             + costMvX[i];
+         if (ads < thresh)
+             mvs[nmv++] = i;
+@@ -140,8 +140,8 @@
+     int nmv = 0;
+     for (int16_t i = 0; i < width; i++, sums++)
+     {
+-        int ads = abs(encDC[0] - long(sums[0]))
+-            + abs(encDC[1] - long(sums[delta]))
++        int ads = std::fabsl(encDC[0] - long(sums[0]))
++            + std::fabsl(encDC[1] - long(sums[delta]))
+             + costMvX[i];
+         if (ads < thresh)
+             mvs[nmv++] = i;
+@@ -155,7 +155,7 @@
+     int nmv = 0;
+     for (int16_t i = 0; i < width; i++, sums++)
+     {
+-        int ads = abs(encDC[0] - long(sums[0]))
++        int ads = std::fabsl(encDC[0] - long(sums[0]))
+             + costMvX[i];
+         if (ads < thresh)
+             mvs[nmv++] = i;
+diff -Naur x265_3.2.1/source/encoder/analysis.cpp x265_3.2.1+iPhone/source/encoder/analysis.cpp
+--- x265_3.2.1/source/encoder/analysis.cpp	2019-10-29 04:55:05.000000000 -0700
++++ x265_3.2.1+iPhone/source/encoder/analysis.cpp	2019-11-10 15:11:01.000000000 -0800
+@@ -2678,8 +2678,8 @@
+             {
+                 offset = (depth * X265_REFINE_INTER_LEVELS) + i;
+                 /* Calculate distance values */
+-                diffRefine[i] = abs((int64_t)(trainData.cuVariance - m_frame->m_classifyVariance[offset]));
+-                diffRefineRd[i] = abs((int64_t)(cuCost - m_frame->m_classifyRd[offset]));
++                diffRefine[i] = std::fabsl((int64_t)(trainData.cuVariance - m_frame->m_classifyVariance[offset]));
++                diffRefineRd[i] = std::fabsl((int64_t)(cuCost - m_frame->m_classifyRd[offset]));
+ 
+                 /* Calculate prior probability - ranges between 0 and 1 */
+                 if (trainingCount)
