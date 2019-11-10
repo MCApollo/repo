@@ -1,0 +1,29 @@
+diff -Naur rubberband-1.8.2/Makefile.osx rubberband-1.8.2+iPhone/Makefile.osx
+--- rubberband-1.8.2/Makefile.osx	2018-05-15 10:43:39.000000000 -0700
++++ rubberband-1.8.2+iPhone/Makefile.osx	2019-11-09 17:43:02.000000000 -0800
+@@ -2,10 +2,10 @@
+ PREFIX		:= /usr/local
+ CXX		:= clang++ -stdlib=libc++
+ CC		:= clang
+-ARCHFLAGS	:= -arch x86_64 -mmacosx-version-min=10.7
+-OPTFLAGS	:= -DNDEBUG -ffast-math -mfpmath=sse -msse -msse2 -O3 -ftree-vectorize
++ARCHFLAGS	:= 
++OPTFLAGS	:= -ffast-math -freciprocal-math -O3 -ftree-vectorize
+ 
+-CXXFLAGS	:= $(ARCHFLAGS) $(OPTFLAGS) -I. -Isrc -Irubberband -I/usr/local/include -DUSE_PTHREADS -DMALLOC_IS_ALIGNED -DHAVE_VDSP -DUSE_SPEEX -DNO_THREAD_CHECKS -DNO_TIMING
++CXXFLAGS	:= $(ARCHFLAGS) $(OPTFLAGS) -I. -Isrc -Irubberband -DMALLOC_IS_ALIGNED -DHAVE_VDSP -DUSE_SPEEX -DUSE_POMMIER_MATHFUN -DNO_THREADING -DNO_THREAD_CHECKS -DNO_TIMING -DNO_TIMING_COMPLETE_NOOP -DNDEBUG
+ 
+ CFLAGS		:= $(ARCHFLAGS) $(OPTFLAGS)
+ LDFLAGS		:= $(ARCHFLAGS) -lpthread $(LDFLAGS)
+diff -Naur rubberband-1.8.2/main/main.cpp rubberband-1.8.2+iPhone/main/main.cpp
+--- rubberband-1.8.2/main/main.cpp	2018-05-15 10:43:39.000000000 -0700
++++ rubberband-1.8.2+iPhone/main/main.cpp	2019-11-09 17:37:13.000000000 -0800
+@@ -621,7 +621,7 @@
+ 
+     if (!quiet) {
+ 
+-        cerr << "in: " << countIn << ", out: " << countOut << ", ratio: " << float(countOut)/float(countIn) << ", ideal output: " << lrint(countIn * ratio) << ", error: " << abs(lrint(countIn * ratio) - int(countOut)) << endl;
++        cerr << "in: " << countIn << ", out: " << countOut << ", ratio: " << float(countOut)/float(countIn) << ", ideal output: " << lrint(countIn * ratio) << ", error: " << std::fabs(lrint(countIn * ratio) - int(countOut)) << endl;
+ 
+ #ifdef _WIN32
+         RubberBand::
