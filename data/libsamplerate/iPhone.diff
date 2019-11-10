@@ -1,0 +1,38 @@
+--- libsamplerate-0.1.9/examples/audio_out.c	2016-09-13 03:20:20.000000000 -0700
++++ libsamplerate-0.1.9+iPhone/examples/audio_out.c	2019-11-09 17:13:08.000000000 -0800
+@@ -430,7 +430,7 @@
+ **	Mac OS X functions for playing a sound.
+ */
+ 
+-#if (defined (__MACH__) && defined (__APPLE__)) /* MacOSX */
++#if 0 // (defined (__MACH__) && defined (__APPLE__)) /* MacOSX */
+ 
+ #include <Carbon.h>
+ #include <CoreAudio/AudioHardware.h>
+@@ -979,7 +979,7 @@
+ 			return alsa_open (channels, samplerate) ;
+ 	#endif
+ 		return opensoundsys_open (channels, samplerate) ;
+-#elif (defined (__MACH__) && defined (__APPLE__))
++#elif 0 // (defined (__MACH__) && defined (__APPLE__))
+ 	return macosx_open (channels, samplerate) ;
+ #elif (defined (sun) && defined (unix))
+ 	return solaris_open (channels, samplerate) ;
+@@ -1021,7 +1021,7 @@
+ 			alsa_play (callback, audio_out, callback_data) ;
+ 	#endif
+ 		opensoundsys_play (callback, audio_out, callback_data) ;
+-#elif (defined (__MACH__) && defined (__APPLE__))
++#elif 0 // (defined (__MACH__) && defined (__APPLE__))
+ 	macosx_play (callback, audio_out, callback_data) ;
+ #elif (defined (sun) && defined (unix))
+ 	solaris_play (callback, audio_out, callback_data) ;
+@@ -1046,7 +1046,7 @@
+ 			alsa_close (audio_out) ;
+ 	#endif
+ 	opensoundsys_close (audio_out) ;
+-#elif (defined (__MACH__) && defined (__APPLE__))
++#elif 0 // (defined (__MACH__) && defined (__APPLE__))
+ 	macosx_close (audio_out) ;
+ #elif (defined (sun) && defined (unix))
+ 	solaris_close (audio_out) ;
