@@ -1,0 +1,26 @@
+From 5160f7a4182f35b2c25076f0adeb249481c61a84 Mon Sep 17 00:00:00 2001
+From: Sergey Avseyev <sergey.avseyev@gmail.com>
+Date: Wed, 20 Dec 2017 13:33:20 +0300
+Subject: [PATCH] Fix broken version API
+
+---
+ snappy-stubs-public.h.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/snappy-stubs-public.h.in b/snappy-stubs-public.h.in
+index 3fd79bb157eb50e1919b8b016efd504d63bc4dc7..bb5b2226bf170f5f678b7a7b60c14aa1c2e6c517 100644
+--- a/snappy-stubs-public.h.in
++++ b/snappy-stubs-public.h.in
+@@ -48,9 +48,9 @@
+ #include <sys/uio.h>
+ #endif  // HAVE_SYS_UIO_H
+ 
+-#define SNAPPY_MAJOR ${SNAPPY_MAJOR}
+-#define SNAPPY_MINOR ${SNAPPY_MINOR}
+-#define SNAPPY_PATCHLEVEL ${SNAPPY_PATCHLEVEL}
++#define SNAPPY_MAJOR ${PROJECT_VERSION_MAJOR}
++#define SNAPPY_MINOR ${PROJECT_VERSION_MINOR}
++#define SNAPPY_PATCHLEVEL ${PROJECT_VERSION_PATCH}
+ #define SNAPPY_VERSION \
+     ((SNAPPY_MAJOR << 16) | (SNAPPY_MINOR << 8) | SNAPPY_PATCHLEVEL)
+ 
