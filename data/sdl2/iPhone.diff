@@ -1,0 +1,20 @@
+--- SDL2-2.0.10/configure	2019-07-24 21:32:36.000000000 -0700
++++ SDL2-2.0.10+iPhone/configure	2019-11-09 18:18:21.000000000 -0800
+@@ -24934,7 +24934,7 @@
+ fi
+ 
+         ;;
+-    arm*-apple-darwin*|*-ios-*)
++    *-apple-darwin*|*-ios-*)
+         ARCH=ios
+ 
+         CheckVisibilityHidden
+@@ -25034,7 +25034,7 @@
+             EXTRA_LDFLAGS="$EXTRA_LDFLAGS -Wl,-framework,Metal"
+         fi
+         ;;
+-    *-*-darwin* )
++    *-*-darwinXXX* )
+         # This could be either full "Mac OS X", or plain "Darwin" which is
+         # just the OS X kernel sans upper layers like Carbon and Cocoa.
+         # Next line is broken, and a few files below require Mac OS X (full)
