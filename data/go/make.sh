@@ -36,4 +36,4 @@ pkg: ln -rs "${GOROOT_FINAL}"/bin/go "${PKG_TAPF}"/bin
 pkg: ln -rs "${GOROOT_FINAL}"/bin/gofmt "${PKG_TAPF}"/bin
 cp "${PKG_DATA}"/entitlement.xml "${PKG_DEST}/${GOROOT_FINAL}"/
 
-rm -rf $(find ${PKG_DEST} -iname darwin_amd64 -iname linux_amd64)
+rm -rf $(find ${PKG_DEST} -name darwin_amd64)
