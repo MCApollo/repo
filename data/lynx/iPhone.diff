@@ -1,0 +1,12 @@
+diff -Naur lynx2.8.9rel.1/WWW/Library/Implementation/www_tcp.h lynx2.8.9rel.1+iPhone/WWW/Library/Implementation/www_tcp.h
+--- lynx2.8.9rel.1/WWW/Library/Implementation/www_tcp.h	2018-05-16 13:31:43.000000000 -0700
++++ lynx2.8.9rel.1+iPhone/WWW/Library/Implementation/www_tcp.h	2019-12-10 12:13:20.000000000 -0800
+@@ -797,7 +797,7 @@
+ 
+ #if defined(VMS)
+ #define socklen_t unsigned
+-#else
++#elif ! defined(__APPLE__)
+ #define socklen_t int		/* used for default LY_SOCKLEN definition */
+ #endif
+ 
