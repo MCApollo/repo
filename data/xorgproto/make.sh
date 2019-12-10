@@ -33,5 +33,5 @@ meson --cross-file cross_file.txt --prefix=${PKG_TAPF}
 ninja -v
 DESTDIR=${PKG_DEST} ninja install -v 
 
-pkg: mkdir -p ${PKG_TAPF}/lib
-pkg: ln -rs ${PKG_TAPF}/share/pkgconfig ${PKG_TAPF}/lib/
+pkg: mkdir -p ${PKG_TAPF}/lib/pkgconfig
+ln -rs ${PKG_DEST}/${PKG_TAPF}/share/pkgconfig/* ${PKG_DEST}/${PKG_TAPF}/lib/pkgconfig/
