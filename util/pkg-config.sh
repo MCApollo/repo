@@ -23,7 +23,7 @@ while [[ $# -ne 0 ]]; do case "$1" in
         args[${#args[@]}]=$1
     ;;
 
-    (--errors-to-stdout|--exists|--modversion|--print-errors|--short-errors|--uninstalled|--debug)
+    (--errors-to-stdout|--exists|--modversion|--print-errors|--short-errors|--uninstalled|--debug|--static)
         args[${#args[@]}]=$1
     ;;
 
