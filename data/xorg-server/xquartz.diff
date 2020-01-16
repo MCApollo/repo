@@ -1,0 +1,103 @@
+diff -Naur xorg-server-1.20.7/hw/xfree86/xorg-wrapper.c xorg-server-1.20.7+iPhone/hw/xfree86/xorg-wrapper.c
+--- xorg-server-1.20.7/hw/xfree86/xorg-wrapper.c	2020-01-13 14:57:05.000000000 -0800
++++ xorg-server-1.20.7+iPhone/hw/xfree86/xorg-wrapper.c	2020-01-16 10:09:25.000000000 -0800
+@@ -255,13 +255,20 @@
+     if (needs_root_rights == 0 || (total_cards && kms_cards == total_cards)) {
+         gid_t realgid = getgid();
+         uid_t realuid = getuid();
+-
++#ifdef __APPLE__
++        if (setreuid(-1, realuid) != 0) {
++#else
+         if (setresgid(-1, realgid, realgid) != 0) {
++#endif
+             fprintf(stderr, "%s: Could not drop setgid privileges: %s\n",
+                 progname, strerror(errno));
+             exit(1);
+         }
++#ifdef __APPLE__
++        if (setreuid(-1, realuid) != 0) {
++#else
+         if (setresuid(-1, realuid, realuid) != 0) {
++#endif
+             fprintf(stderr, "%s: Could not drop setuid privileges: %s\n",
+                 progname, strerror(errno));
+             exit(1);
+diff -Naur xorg-server-1.20.7/include/dixfont.h xorg-server-1.20.7+iPhone/include/dixfont.h
+--- xorg-server-1.20.7/include/dixfont.h	2020-01-13 14:57:05.000000000 -0800
++++ xorg-server-1.20.7+iPhone/include/dixfont.h	2020-01-15 14:08:27.000000000 -0800
+@@ -90,7 +90,7 @@
+ 
+ /* Quartz support on Mac OS X pulls in the QuickDraw
+    framework whose InitFonts function conflicts here. */
+-#ifdef __APPLE__
++#if defined(__APPLE__) && !defined(__arm64__)
+ #define InitFonts Darwin_X_InitFonts
+ #endif
+ extern _X_EXPORT void InitFonts(void);
+diff -Naur xorg-server-1.20.7/include/resource.h xorg-server-1.20.7+iPhone/include/resource.h
+--- xorg-server-1.20.7/include/resource.h	2020-01-13 14:57:05.000000000 -0800
++++ xorg-server-1.20.7+iPhone/include/resource.h	2020-01-15 14:09:08.000000000 -0800
+@@ -186,7 +186,7 @@
+ 
+ /* Quartz support on Mac OS X uses the CarbonCore
+    framework whose AddResource function conflicts here. */
+-#ifdef __APPLE__
++#if defined(__APPLE__) && !defined(__arm64__)
+ #define AddResource Darwin_X_AddResource
+ #endif
+ extern _X_EXPORT Bool AddResource(XID id,
+diff -Naur xorg-server-1.20.7/include/window.h xorg-server-1.20.7+iPhone/include/window.h
+--- xorg-server-1.20.7/include/window.h	2020-01-13 14:57:05.000000000 -0800
++++ xorg-server-1.20.7+iPhone/include/window.h	2020-01-15 14:43:44.000000000 -0800
+@@ -122,7 +122,7 @@
+ 
+ /* Quartz support on Mac OS X uses the HIToolbox
+    framework whose ChangeWindowAttributes function conflicts here. */
+-#ifdef __APPLE__
++#if defined(__APPLE__) && !defined(__arm64__)
+ #define ChangeWindowAttributes Darwin_X_ChangeWindowAttributes
+ #endif
+ extern _X_EXPORT int ChangeWindowAttributes(WindowPtr /*pWin */ ,
+@@ -140,7 +140,7 @@
+ 
+ /* Quartz support on Mac OS X uses the HIToolbox
+    framework whose GetWindowAttributes function conflicts here. */
+-#ifdef __APPLE__
++#if defined(__APPLE__) && ! defined(__arm64__)
+ #define GetWindowAttributes(w,c,x) Darwin_X_GetWindowAttributes(w,c,x)
+ extern void Darwin_X_GetWindowAttributes(
+ #else
+diff -Naur xorg-server-1.20.7/miext/rootless/rootlessConfig.h xorg-server-1.20.7+iPhone/miext/rootless/rootlessConfig.h
+--- xorg-server-1.20.7/miext/rootless/rootlessConfig.h	2020-01-13 14:57:05.000000000 -0800
++++ xorg-server-1.20.7+iPhone/miext/rootless/rootlessConfig.h	2020-01-15 14:44:18.000000000 -0800
+@@ -34,7 +34,7 @@
+ #ifndef _ROOTLESSCONFIG_H
+ #define _ROOTLESSCONFIG_H
+ 
+-#ifdef __APPLE__
++#if defined(__APPLE__) && !defined(__APPLE__)
+ #define ROOTLESS_RESIZE_GRAVITY TRUE
+ #endif
+ 
+diff -Naur xorg-server-1.20.7/miext/rootless/rootlessWindow.c xorg-server-1.20.7+iPhone/miext/rootless/rootlessWindow.c
+--- xorg-server-1.20.7/miext/rootless/rootlessWindow.c	2020-01-13 14:57:05.000000000 -0800
++++ xorg-server-1.20.7+iPhone/miext/rootless/rootlessWindow.c	2020-01-15 14:46:47.000000000 -0800
+@@ -37,7 +37,7 @@
+ #include <limits.h>             /* For CHAR_BIT */
+ #include <assert.h>
+ #include <X11/Xatom.h>
+-#ifdef __APPLE__
++#if defined(__APPLE__) && ! defined(__arm64__)
+ #include <Xplugin.h>
+ #include "mi.h"
+ #include "pixmapstr.h"
+@@ -73,7 +73,7 @@
+ 
+ // TODO - abstract xp functions
+ 
+-#ifdef __APPLE__
++#if defined(__APPLE__) && ! defined(__arm64__)
+ 
+ // XXX: identical to x_cvt_vptr_to_uint ?
+ #define MAKE_WINDOW_ID(x)		((xp_window_id)((size_t)(x)))
