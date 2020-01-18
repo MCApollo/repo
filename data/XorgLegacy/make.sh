@@ -24,7 +24,7 @@ for dir in $(grep -v '^#' ${PKG_DATA}/legacy.md5 | awk '{print $2}'); do
     dir=${dir%.tar.bz2}
     pushd ${dir}
     cp -f ${PKG_BASE}/util/config.sub . || :
-    pkg:configure --enable-malloc0returnsnull PKG_CONFIG="${PKG_DATA}/pkg-config.sh"
+    pkg:configure --with-fontrootdir=${PKG_TAPF}/share/fonts --with-fc-confdir=${PKG_TAPF}/etc/fonts --enable-malloc0returnsnull PKG_CONFIG="${PKG_DATA}/pkg-config.sh"
     make -j4 UTIL_DIR=${PKG_WORK}/host/opt/X11/share/fonts/util/
     pkg:install
     popd

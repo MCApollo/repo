@@ -25,7 +25,7 @@ for dir in $(grep -v '^#' ${PKG_DATA}/font-7.md5 | awk '{print $2}'); do
     dir=${dir%.tar.xz}
     pushd ${dir}
     cp ${PKG_BASE}/util/config.sub . || :
-    pkg:configure --with-fontrootdir=${PKG_TAPF}/share --with-fc-confdir=${PKG_TAPF}/etc --enable-malloc0returnsnull PKG_CONFIG="${PKG_DATA}/pkg-config.sh" ${opt}
+    pkg:configure --with-fontrootdir=${PKG_TAPF}/share/fonts --with-fc-confdir=${PKG_TAPF}/etc/fonts --enable-malloc0returnsnull PKG_CONFIG="${PKG_DATA}/pkg-config.sh" ${opt}
     make -j4
     pkg:install
     popd
