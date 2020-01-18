@@ -23,3 +23,7 @@ EOF
 cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=iphoneos_toolchain.cmake -DCMAKE_LOCALSTATEDIR="${PKG_TAPF}/var" -DCMAKE_OSX_SYSROOT="${PKG_ROOT}" -DCMAKE_INSTALL_PREFIX="${PKG_TAPF}" -DWITH_JPEG8=ON
 make
 pkg:install 
+
+# Provide jpeg-9
+cp $(PKG_DEST_ jpeg)/${PKG_TAPF}/lib/libjpeg.9.dylib ${PKG_DEST}/${PKG_TAPF}/lib/ || \
+    { echo "### Error: './make.sh jpeg' first" >&2; exit 1; }
