@@ -1,0 +1,22 @@
+diff -Naur libxfce4util-4.14.0/libxfce4util/make-libxfce4util-alias.pl libxfce4util-4.14.0+iPhone/libxfce4util/make-libxfce4util-alias.pl
+--- libxfce4util-4.14.0/libxfce4util/make-libxfce4util-alias.pl	2019-05-04 08:55:34.000000000 -0700
++++ libxfce4util-4.14.0+iPhone/libxfce4util/make-libxfce4util-alias.pl	2020-01-27 13:14:58.000000000 -0800
+@@ -134,6 +134,7 @@
+         print <<EOF
+ extern __typeof ($symbol) $alias __attribute((visibility("hidden")))$attributes;
+ \#define $symbol $alias
++\#error HAAAA
+ 
+ EOF
+       }
+@@ -141,7 +142,9 @@
+       {
+         print <<EOF
+ \#undef $symbol 
+-extern __typeof ($symbol) $symbol __attribute((alias("$alias"), visibility("default")));
++extern __typeof ($symbol) $symbol __attribute((visibility("default")));
++__asm__(".globl _$alias, _$");
++__asm__(".set _$alias, _$symbol");
+ 
+ EOF
+       }
