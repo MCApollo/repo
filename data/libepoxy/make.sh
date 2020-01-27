@@ -27,6 +27,6 @@ objcpp	= '${PKG_TARG}-clang++'
 
 EOF
 
-AR=ar meson --cross-file cross_file.txt --prefix=${PKG_TAPF} -Dtests=false
+AR=ar meson --cross-file cross_file.txt --prefix=${PKG_TAPF} -Dtests=false -Dglx=yes
 ninja -v
 DESTDIR=${PKG_DEST} ninja install -v 
