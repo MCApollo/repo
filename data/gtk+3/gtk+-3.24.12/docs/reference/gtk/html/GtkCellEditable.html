@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkCellEditable: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="TreeWidgetObjects.html" title="Tree, List and Icon Grid Widgets">
+<link rel="prev" href="GtkCellRenderer.html" title="GtkCellRenderer">
+<link rel="next" href="GtkCellRendererAccel.html" title="GtkCellRendererAccel">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkCellEditable.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkCellEditable.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#GtkCellEditable.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#GtkCellEditable.implementations" class="shortcut">Known Implementations</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkCellEditable.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkCellEditable.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="TreeWidgetObjects.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkCellRenderer.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkCellRendererAccel.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkCellEditable"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkCellEditable.top_of_page"></a>GtkCellEditable</span></h2>
+<p>GtkCellEditable — Interface for widgets that can be used for editing cells</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkCellEditable.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellEditable.html#gtk-cell-editable-start-editing" title="gtk_cell_editable_start_editing ()">gtk_cell_editable_start_editing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellEditable.html#gtk-cell-editable-editing-done" title="gtk_cell_editable_editing_done ()">gtk_cell_editable_editing_done</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellEditable.html#gtk-cell-editable-remove-widget" title="gtk_cell_editable_remove_widget ()">gtk_cell_editable_remove_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkCellEditable.html#GtkCellEditable--editing-canceled" title="The “editing-canceled” property">editing-canceled</a></td>
+<td class="property_flags">Read / Write</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkCellEditable.html#GtkCellEditable-editing-done" title="The “editing-done” signal">editing-done</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkCellEditable.html#GtkCellEditable-remove-widget" title="The “remove-widget” signal">remove-widget</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkCellEditable.html#GtkCellEditable-struct" title="GtkCellEditable">GtkCellEditable</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkCellEditable.html#GtkCellEditableIface" title="struct GtkCellEditableIface">GtkCellEditableIface</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobject/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> GtkCellEditable
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+GtkCellEditable requires
+ <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.implementations"></a><h2>Known Implementations</h2>
+<p>
+GtkCellEditable is implemented by
+ <a class="link" href="GtkAppChooserButton.html" title="GtkAppChooserButton">GtkAppChooserButton</a>,  <a class="link" href="GtkComboBox.html" title="GtkComboBox">GtkComboBox</a>,  <a class="link" href="GtkComboBoxText.html" title="GtkComboBoxText">GtkComboBoxText</a>,  <a class="link" href="GtkEntry.html" title="GtkEntry">GtkEntry</a>,  <a class="link" href="GtkSearchEntry.html" title="GtkSearchEntry">GtkSearchEntry</a> and  <a class="link" href="GtkSpinButton.html" title="GtkSpinButton">GtkSpinButton</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> interface must be implemented for widgets to be usable
+to edit the contents of a <a class="link" href="GtkTreeView.html" title="GtkTreeView"><span class="type">GtkTreeView</span></a> cell. It provides a way to specify how
+temporary widgets should be configured for editing, get the new value, etc.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-cell-editable-start-editing"></a><h3>gtk_cell_editable_start_editing ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_editable_start_editing (<em class="parameter"><code><a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> *cell_editable</code></em>,
+                                 <em class="parameter"><code><span class="type">GdkEvent</span> *event</code></em>);</pre>
+<p>Begins editing on a <em class="parameter"><code>cell_editable</code></em>
+.</p>
+<p>The <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> for the cell creates and returns a <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> from
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-start-editing" title="gtk_cell_renderer_start_editing ()"><code class="function">gtk_cell_renderer_start_editing()</code></a>, configured for the <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> type.</p>
+<p>gtk_cell_editable_start_editing() can then set up <em class="parameter"><code>cell_editable</code></em>
+ suitably for
+editing a cell, e.g. making the Esc key emit <a class="link" href="GtkCellEditable.html#GtkCellEditable-editing-done" title="The “editing-done” signal"><span class="type">“editing-done”</span></a>.</p>
+<p>Note that the <em class="parameter"><code>cell_editable</code></em>
+ is created on-demand for the current edit; its
+lifetime is temporary and does not persist across other edits and/or cells.</p>
+<div class="refsect3">
+<a name="gtk-cell-editable-start-editing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_editable</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>The <span class="type">GdkEvent</span> that began the editing process, or
+<code class="literal">NULL</code> if editing was initiated programmatically. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-editable-editing-done"></a><h3>gtk_cell_editable_editing_done ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_editable_editing_done (<em class="parameter"><code><a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> *cell_editable</code></em>);</pre>
+<p>Emits the <a class="link" href="GtkCellEditable.html#GtkCellEditable-editing-done" title="The “editing-done” signal"><span class="type">“editing-done”</span></a> signal.</p>
+<div class="refsect3">
+<a name="gtk-cell-editable-editing-done.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell_editable</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-editable-remove-widget"></a><h3>gtk_cell_editable_remove_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_editable_remove_widget (<em class="parameter"><code><a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> *cell_editable</code></em>);</pre>
+<p>Emits the <a class="link" href="GtkCellEditable.html#GtkCellEditable-remove-widget" title="The “remove-widget” signal"><span class="type">“remove-widget”</span></a> signal.</p>
+<div class="refsect3">
+<a name="gtk-cell-editable-remove-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell_editable</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkCellEditable-struct"></a><h3>GtkCellEditable</h3>
+<pre class="programlisting">typedef struct _GtkCellEditable GtkCellEditable;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellEditableIface"></a><h3>struct GtkCellEditableIface</h3>
+<pre class="programlisting">struct GtkCellEditableIface {
+  /* signals */
+  void (* editing_done)  (GtkCellEditable *cell_editable);
+  void (* remove_widget) (GtkCellEditable *cell_editable);
+
+  /* virtual table */
+  void (* start_editing) (GtkCellEditable *cell_editable,
+			  GdkEvent        *event);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkCellEditableIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellEditableIface.editing-done"></a>editing_done</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal is a sign for the cell renderer to update its
+value from the cell_editable.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellEditableIface.remove-widget"></a>remove_widget</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal is meant to indicate that the cell is
+finished editing, and the widget may now be destroyed.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellEditableIface.start-editing"></a>start_editing</code></em> ()</p></td>
+<td class="struct_member_description"><p>Begins editing on a cell_editable.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkCellEditable--editing-canceled"></a><h3>The <code class="literal">“editing-canceled”</code> property</h3>
+<pre class="programlisting">  “editing-canceled”         <span class="type">gboolean</span></pre>
+<p>Indicates whether editing on the cell has been canceled.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.20</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkCellEditable-editing-done"></a><h3>The <code class="literal">“editing-done”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> *cell_editable,
+               <span class="type">gpointer</span>         user_data)</pre>
+<p>This signal is a sign for the cell renderer to update its
+value from the <em class="parameter"><code>cell_editable</code></em>
+.</p>
+<p>Implementations of <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> are responsible for
+emitting this signal when they are done editing, e.g.
+<a class="link" href="GtkEntry.html" title="GtkEntry"><span class="type">GtkEntry</span></a> emits this signal when the user presses Enter. Typical things to
+do in a handler for ::editing-done are to capture the edited value,
+disconnect the <em class="parameter"><code>cell_editable</code></em>
+ from signals on the <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>, etc.</p>
+<p>gtk_cell_editable_editing_done() is a convenience method
+for emitting <a class="link" href="GtkCellEditable.html#GtkCellEditable-editing-done" title="The “editing-done” signal"><span class="type">“editing-done”</span></a>.</p>
+<div class="refsect3">
+<a name="GtkCellEditable-editing-done.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_editable</p></td>
+<td class="parameter_description"><p>the object on which the signal was emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellEditable-remove-widget"></a><h3>The <code class="literal">“remove-widget”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> *cell_editable,
+               <span class="type">gpointer</span>         user_data)</pre>
+<p>This signal is meant to indicate that the cell is finished
+editing, and the <em class="parameter"><code>cell_editable</code></em>
+ widget is being removed and may
+subsequently be destroyed.</p>
+<p>Implementations of <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> are responsible for
+emitting this signal when they are done editing. It must
+be emitted after the <a class="link" href="GtkCellEditable.html#GtkCellEditable-editing-done" title="The “editing-done” signal"><span class="type">“editing-done”</span></a> signal,
+to give the cell renderer a chance to update the cell's value
+before the widget is removed.</p>
+<p>gtk_cell_editable_remove_widget() is a convenience method
+for emitting <a class="link" href="GtkCellEditable.html#GtkCellEditable-remove-widget" title="The “remove-widget” signal"><span class="type">“remove-widget”</span></a>.</p>
+<div class="refsect3">
+<a name="GtkCellEditable-remove-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_editable</p></td>
+<td class="parameter_description"><p>the object on which the signal was emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellEditable.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

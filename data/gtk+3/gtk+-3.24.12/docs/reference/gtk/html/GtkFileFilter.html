@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkFileFilter: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="SelectorWidgets.html" title="Selector Widgets and Dialogs">
+<link rel="prev" href="GtkFileChooserWidget.html" title="GtkFileChooserWidget">
+<link rel="next" href="GtkFontChooser.html" title="GtkFontChooser">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkFileFilter.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkFileFilter.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkFileFilter.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="SelectorWidgets.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkFileChooserWidget.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkFontChooser.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkFileFilter"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkFileFilter.top_of_page"></a>GtkFileFilter</span></h2>
+<p>GtkFileFilter — A filter for selecting a file subset</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkFileFilter.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GtkFileFilter.html#GtkFileFilterFunc" title="GtkFileFilterFunc ()">*GtkFileFilterFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="returnvalue">GtkFileFilter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-new" title="gtk_file_filter_new ()">gtk_file_filter_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-set-name" title="gtk_file_filter_set_name ()">gtk_file_filter_set_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-get-name" title="gtk_file_filter_get_name ()">gtk_file_filter_get_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-mime-type" title="gtk_file_filter_add_mime_type ()">gtk_file_filter_add_mime_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-pattern" title="gtk_file_filter_add_pattern ()">gtk_file_filter_add_pattern</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-pixbuf-formats" title="gtk_file_filter_add_pixbuf_formats ()">gtk_file_filter_add_pixbuf_formats</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-custom" title="gtk_file_filter_add_custom ()">gtk_file_filter_add_custom</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkFileFilter.html#GtkFileFilterFlags" title="enum GtkFileFilterFlags"><span class="returnvalue">GtkFileFilterFlags</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-get-needed" title="gtk_file_filter_get_needed ()">gtk_file_filter_get_needed</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-filter" title="gtk_file_filter_filter ()">gtk_file_filter_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="returnvalue">GtkFileFilter</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-new-from-gvariant" title="gtk_file_filter_new_from_gvariant ()">gtk_file_filter_new_from_gvariant</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GVariant</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-to-gvariant" title="gtk_file_filter_to_gvariant ()">gtk_file_filter_to_gvariant</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkFileFilter.html#GtkFileFilter-struct" title="GtkFileFilter">GtkFileFilter</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo">GtkFileFilterInfo</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkFileFilter.html#GtkFileFilterFlags" title="enum GtkFileFilterFlags">GtkFileFilterFlags</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> GtkFileFilter
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkFileFilter implements
+ <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.description"></a><h2>Description</h2>
+<p>A GtkFileFilter can be used to restrict the files being shown in a
+<a class="link" href="GtkFileChooser.html" title="GtkFileChooser"><span class="type">GtkFileChooser</span></a>. Files can be filtered based on their name (with
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-pattern" title="gtk_file_filter_add_pattern ()"><code class="function">gtk_file_filter_add_pattern()</code></a>), on their mime type (with
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-mime-type" title="gtk_file_filter_add_mime_type ()"><code class="function">gtk_file_filter_add_mime_type()</code></a>), or by a custom filter function
+(with <a class="link" href="GtkFileFilter.html#gtk-file-filter-add-custom" title="gtk_file_filter_add_custom ()"><code class="function">gtk_file_filter_add_custom()</code></a>).</p>
+<p>Filtering by mime types handles aliasing and subclassing of mime
+types; e.g. a filter for text/plain also matches a file with mime
+type application/rtf, since application/rtf is a subclass of
+text/plain. Note that <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> allows wildcards for the
+subtype of a mime type, so you can e.g. filter for image/*.</p>
+<p>Normally, filters are used by adding them to a <a class="link" href="GtkFileChooser.html" title="GtkFileChooser"><span class="type">GtkFileChooser</span></a>,
+see <a class="link" href="GtkFileChooser.html#gtk-file-chooser-add-filter" title="gtk_file_chooser_add_filter ()"><code class="function">gtk_file_chooser_add_filter()</code></a>, but it is also possible
+to manually use a filter on a file with <a class="link" href="GtkFileFilter.html#gtk-file-filter-filter" title="gtk_file_filter_filter ()"><code class="function">gtk_file_filter_filter()</code></a>.</p>
+<div class="refsect2">
+<a name="id-1.3.14.11.8.5"></a><h3>GtkFileFilter as GtkBuildable</h3>
+<p>The GtkFileFilter implementation of the GtkBuildable interface
+supports adding rules using the &lt;mime-types&gt;, &lt;patterns&gt; and
+&lt;applications&gt; elements and listing the rules within. Specifying
+a &lt;mime-type&gt; or &lt;pattern&gt; has the same effect as as calling
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-mime-type" title="gtk_file_filter_add_mime_type ()"><code class="function">gtk_file_filter_add_mime_type()</code></a> or <a class="link" href="GtkFileFilter.html#gtk-file-filter-add-pattern" title="gtk_file_filter_add_pattern ()"><code class="function">gtk_file_filter_add_pattern()</code></a>.</p>
+<p>An example of a UI definition fragment specifying GtkFileFilter
+rules:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkFileFilter"</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">mime</span><span class="symbol">-</span><span class="normal">types</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="normal">mime</span><span class="symbol">-</span><span class="normal">type</span><span class="symbol">&gt;</span><span class="normal">text</span><span class="symbol">/</span><span class="normal">plain</span><span class="symbol">&lt;/</span><span class="normal">mime</span><span class="symbol">-</span><span class="normal">type</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="normal">mime</span><span class="symbol">-</span><span class="normal">type</span><span class="symbol">&gt;</span><span class="normal">image</span><span class="symbol">/</span><span class="normal"> </span><span class="symbol">*&lt;/</span><span class="normal">mime</span><span class="symbol">-</span><span class="normal">type</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">mime</span><span class="symbol">-</span><span class="normal">types</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">patterns</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="normal">pattern</span><span class="symbol">&gt;*.</span><span class="normal">txt</span><span class="symbol">&lt;/</span><span class="normal">pattern</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="normal">pattern</span><span class="symbol">&gt;*.</span><span class="normal">png</span><span class="symbol">&lt;/</span><span class="normal">pattern</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">patterns</span><span class="symbol">&gt;</span>
+<span class="symbol">&lt;/</span><span class="normal">object</span><span class="symbol">&gt;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="GtkFileFilterFunc"></a><h3>GtkFileFilterFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+<span class="c_punctuation">(</span>*GtkFileFilterFunc<span class="c_punctuation">)</span> (<em class="parameter"><code>const <a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo"><span class="type">GtkFileFilterInfo</span></a> *filter_info</code></em>,
+                      <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>The type of function that is used with custom filters, see
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-custom" title="gtk_file_filter_add_custom ()"><code class="function">gtk_file_filter_add_custom()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkFileFilterFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>filter_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo"><span class="type">GtkFileFilterInfo</span></a> that is filled according
+to the <em class="parameter"><code>needed</code></em>
+flags passed to <a class="link" href="GtkFileFilter.html#gtk-file-filter-add-custom" title="gtk_file_filter_add_custom ()"><code class="function">gtk_file_filter_add_custom()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>user data passed to <a class="link" href="GtkFileFilter.html#gtk-file-filter-add-custom" title="gtk_file_filter_add_custom ()"><code class="function">gtk_file_filter_add_custom()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkFileFilterFunc.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the file should be displayed</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-new"></a><h3>gtk_file_filter_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="returnvalue">GtkFileFilter</span></a> *
+gtk_file_filter_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> with no rules added to it.
+Such a filter doesn’t accept any files, so is not
+particularly useful until you add rules with
+<a class="link" href="GtkFileFilter.html#gtk-file-filter-add-mime-type" title="gtk_file_filter_add_mime_type ()"><code class="function">gtk_file_filter_add_mime_type()</code></a>, <a class="link" href="GtkFileFilter.html#gtk-file-filter-add-pattern" title="gtk_file_filter_add_pattern ()"><code class="function">gtk_file_filter_add_pattern()</code></a>,
+or <a class="link" href="GtkFileFilter.html#gtk-file-filter-add-custom" title="gtk_file_filter_add_custom ()"><code class="function">gtk_file_filter_add_custom()</code></a>. To create a filter
+that accepts any file, use:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">GtkFileFilter</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">filter </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkFileFilter.html#gtk-file-filter-new">gtk_file_filter_new</a></span><span class="normal"> </span><span class="symbol">();</span>
+<span class="function"><a href="GtkFileFilter.html#gtk-file-filter-add-pattern">gtk_file_filter_add_pattern</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">filter</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"*"</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="gtk-file-filter-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-set-name"></a><h3>gtk_file_filter_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_file_filter_set_name (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>,
+                          <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Sets the human-readable name of the filter; this is the string
+that will be displayed in the file selector user interface if
+there is a selectable list of filters.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-set-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the human-readable-name for the filter, or <code class="literal">NULL</code>
+to remove any existing name. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-get-name"></a><h3>gtk_file_filter_get_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_file_filter_get_name (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>);</pre>
+<p>Gets the human-readable name for the filter. See <a class="link" href="GtkFileFilter.html#gtk-file-filter-set-name" title="gtk_file_filter_set_name ()"><code class="function">gtk_file_filter_set_name()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-get-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-file-filter-get-name.returns"></a><h4>Returns</h4>
+<p>The human-readable name of the filter,
+or <code class="literal">NULL</code>. This value is owned by GTK+ and must not
+be modified or freed. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-add-mime-type"></a><h3>gtk_file_filter_add_mime_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_file_filter_add_mime_type (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>,
+                               <em class="parameter"><code>const <span class="type">gchar</span> *mime_type</code></em>);</pre>
+<p>Adds a rule allowing a given mime type to <em class="parameter"><code>filter</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-add-mime-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mime_type</p></td>
+<td class="parameter_description"><p>name of a MIME type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-add-pattern"></a><h3>gtk_file_filter_add_pattern ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_file_filter_add_pattern (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>);</pre>
+<p>Adds a rule allowing a shell style glob to a filter.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-add-pattern.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pattern</p></td>
+<td class="parameter_description"><p>a shell style glob</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-add-pixbuf-formats"></a><h3>gtk_file_filter_add_pixbuf_formats ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_file_filter_add_pixbuf_formats (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>);</pre>
+<p>Adds a rule allowing image files in the formats supported
+by GdkPixbuf.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-add-pixbuf-formats.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-add-custom"></a><h3>gtk_file_filter_add_custom ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_file_filter_add_custom (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkFileFilter.html#GtkFileFilterFlags" title="enum GtkFileFilterFlags"><span class="type">GtkFileFilterFlags</span></a> needed</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkFileFilter.html#GtkFileFilterFunc" title="GtkFileFilterFunc ()"><span class="type">GtkFileFilterFunc</span></a> func</code></em>,
+                            <em class="parameter"><code><span class="type">gpointer</span> data</code></em>,
+                            <em class="parameter"><code><span class="type">GDestroyNotify</span> notify</code></em>);</pre>
+<p>Adds rule to a filter that allows files based on a custom callback
+function. The bitfield <em class="parameter"><code>needed</code></em>
+ which is passed in provides information
+about what sorts of information that the filter function needs;
+this allows GTK+ to avoid retrieving expensive information when
+it isn’t needed by the filter.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-add-custom.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>needed</p></td>
+<td class="parameter_description"><p>bitfield of flags indicating the information that the custom
+filter function needs.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>callback function; if the function returns <code class="literal">TRUE</code>, then
+the file will be displayed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>notify</p></td>
+<td class="parameter_description"><p>function to call to free <em class="parameter"><code>data</code></em>
+when it is no longer needed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-get-needed"></a><h3>gtk_file_filter_get_needed ()</h3>
+<pre class="programlisting"><a class="link" href="GtkFileFilter.html#GtkFileFilterFlags" title="enum GtkFileFilterFlags"><span class="returnvalue">GtkFileFilterFlags</span></a>
+gtk_file_filter_get_needed (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>);</pre>
+<p>Gets the fields that need to be filled in for the <a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo"><span class="type">GtkFileFilterInfo</span></a>
+passed to <a class="link" href="GtkFileFilter.html#gtk-file-filter-filter" title="gtk_file_filter_filter ()"><code class="function">gtk_file_filter_filter()</code></a></p>
+<p>This function will not typically be used by applications; it
+is intended principally for use in the implementation of
+<a class="link" href="GtkFileChooser.html" title="GtkFileChooser"><span class="type">GtkFileChooser</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-get-needed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-file-filter-get-needed.returns"></a><h4>Returns</h4>
+<p> bitfield of flags indicating needed fields when
+calling <a class="link" href="GtkFileFilter.html#gtk-file-filter-filter" title="gtk_file_filter_filter ()"><code class="function">gtk_file_filter_filter()</code></a></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-filter"></a><h3>gtk_file_filter_filter ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_file_filter_filter (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>,
+                        <em class="parameter"><code>const <a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo"><span class="type">GtkFileFilterInfo</span></a> *filter_info</code></em>);</pre>
+<p>Tests whether a file should be displayed according to <em class="parameter"><code>filter</code></em>
+.
+The <a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo"><span class="type">GtkFileFilterInfo</span></a> <em class="parameter"><code>filter_info</code></em>
+ should include
+the fields returned from <a class="link" href="GtkFileFilter.html#gtk-file-filter-get-needed" title="gtk_file_filter_get_needed ()"><code class="function">gtk_file_filter_get_needed()</code></a>.</p>
+<p>This function will not typically be used by applications; it
+is intended principally for use in the implementation of
+<a class="link" href="GtkFileChooser.html" title="GtkFileChooser"><span class="type">GtkFileChooser</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>filter_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo"><span class="type">GtkFileFilterInfo</span></a> containing information
+about a file.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-file-filter-filter.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the file should be displayed</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-new-from-gvariant"></a><h3>gtk_file_filter_new_from_gvariant ()</h3>
+<pre class="programlisting"><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="returnvalue">GtkFileFilter</span></a> *
+gtk_file_filter_new_from_gvariant (<em class="parameter"><code><span class="type">GVariant</span> *variant</code></em>);</pre>
+<p>Deserialize a file filter from an a{sv} variant in
+the format produced by <a class="link" href="GtkFileFilter.html#gtk-file-filter-to-gvariant" title="gtk_file_filter_to_gvariant ()"><code class="function">gtk_file_filter_to_gvariant()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-new-from-gvariant.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>variant</p></td>
+<td class="parameter_description"><p>an a{sv} <span class="type">GVariant</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-file-filter-new-from-gvariant.returns"></a><h4>Returns</h4>
+<p>a new <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> object. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-file-filter-to-gvariant"></a><h3>gtk_file_filter_to_gvariant ()</h3>
+<pre class="programlisting"><span class="returnvalue">GVariant</span> *
+gtk_file_filter_to_gvariant (<em class="parameter"><code><a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a> *filter</code></em>);</pre>
+<p>Serialize a file filter to an a{sv} variant.</p>
+<div class="refsect3">
+<a name="gtk-file-filter-to-gvariant.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFileFilter.html" title="GtkFileFilter"><span class="type">GtkFileFilter</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-file-filter-to-gvariant.returns"></a><h4>Returns</h4>
+<p>a new, floating, <span class="type">GVariant</span>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkFileFilter-struct"></a><h3>GtkFileFilter</h3>
+<pre class="programlisting">typedef struct _GtkFileFilter GtkFileFilter;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFileFilterInfo"></a><h3>struct GtkFileFilterInfo</h3>
+<pre class="programlisting">struct GtkFileFilterInfo {
+  GtkFileFilterFlags contains;
+
+  const gchar *filename;
+  const gchar *uri;
+  const gchar *display_name;
+  const gchar *mime_type;
+};
+</pre>
+<p>A <span class="type">GtkFileFilterInfo</span> is used to pass information about the
+tested file to <a class="link" href="GtkFileFilter.html#gtk-file-filter-filter" title="gtk_file_filter_filter ()"><code class="function">gtk_file_filter_filter()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkFileFilterInfo.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a class="link" href="GtkFileFilter.html#GtkFileFilterFlags" title="enum GtkFileFilterFlags"><span class="type">GtkFileFilterFlags</span></a> <em class="structfield"><code><a name="GtkFileFilterInfo.contains"></a>contains</code></em>;</p></td>
+<td class="struct_member_description"><p>Flags indicating which of the following fields need
+are filled</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p>const <span class="type">gchar</span> *<em class="structfield"><code><a name="GtkFileFilterInfo.filename"></a>filename</code></em>;</p></td>
+<td class="struct_member_description"><p>the filename of the file being tested</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p>const <span class="type">gchar</span> *<em class="structfield"><code><a name="GtkFileFilterInfo.uri"></a>uri</code></em>;</p></td>
+<td class="struct_member_description"><p>the URI for the file being tested</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p>const <span class="type">gchar</span> *<em class="structfield"><code><a name="GtkFileFilterInfo.display-name"></a>display_name</code></em>;</p></td>
+<td class="struct_member_description"><p>the string that will be used to display the file
+in the file chooser</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p>const <span class="type">gchar</span> *<em class="structfield"><code><a name="GtkFileFilterInfo.mime-type"></a>mime_type</code></em>;</p></td>
+<td class="struct_member_description"><p>the mime type of the file</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFileFilterFlags"></a><h3>enum GtkFileFilterFlags</h3>
+<p>These flags indicate what parts of a <a class="link" href="GtkFileFilter.html#GtkFileFilterInfo" title="struct GtkFileFilterInfo"><span class="type">GtkFileFilterInfo</span></a> struct
+are filled or need to be filled.</p>
+<div class="refsect3">
+<a name="GtkFileFilterFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-FILE-FILTER-FILENAME:CAPS"></a>GTK_FILE_FILTER_FILENAME</p></td>
+<td class="enum_member_description">
+<p>the filename of the file being tested</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-FILE-FILTER-URI:CAPS"></a>GTK_FILE_FILTER_URI</p></td>
+<td class="enum_member_description">
+<p>the URI for the file being tested</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-FILE-FILTER-DISPLAY-NAME:CAPS"></a>GTK_FILE_FILTER_DISPLAY_NAME</p></td>
+<td class="enum_member_description">
+<p>the string that will be used to 
+  display the file in the file chooser</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-FILE-FILTER-MIME-TYPE:CAPS"></a>GTK_FILE_FILTER_MIME_TYPE</p></td>
+<td class="enum_member_description">
+<p>the mime type of the file</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkFileFilter.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkFileChooser.html" title="GtkFileChooser"><span class="type">GtkFileChooser</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

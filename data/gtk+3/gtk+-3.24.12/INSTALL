@@ -1,0 +1,42 @@
+Prerequisites
+=============
+
+GTK+ requires the following packages:
+
+ - The GLib, Pango, GdkPixbuf, ATK and cairo libraries, available at
+   the same location as GTK+. GTK+ 3.24.12 requires at least
+   GLib 2.57.2, Pango 1.41.0,
+   GdkPixbuf 2.30.0, ATK 2.15.1
+   and cairo 1.14.0.
+
+ - libepoxy, for cross-platform OpenGL support.
+   It can be found here: https://github.com/anholt/libepoxy
+
+ - Each GDK backend has its own backend-specific requirements. For
+   the X11 backend, X11 R6 and XInput version 2 (as well as a number
+   of other extensions) are required. The Wayland backend requires
+   (obviously) the Wayland libraries.
+
+ - gobject-introspection 1.39.0 or newer.
+
+Simple install procedure
+========================
+
+  % tar xf gtk+-3.24.12.tar.xz          # unpack the sources
+  % cd gtk+-3.24.12                     # change to the toplevel directory
+  % ./configure                        # run the `configure' script
+  % make                               # build GTK+
+  [ Become root if necessary ]
+  % make install                       # install GTK+
+
+The Details
+===========
+
+Complete information about installing GTK+ and related libraries
+can be found in the file:
+
+ docs/reference/gtk/html/gtk-building.html
+
+Or online at:
+
+ http://library.gnome.org/devel/gtk/stable/gtk-building.html

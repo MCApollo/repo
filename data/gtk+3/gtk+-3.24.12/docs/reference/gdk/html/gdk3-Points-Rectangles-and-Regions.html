@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Points and Rectangles: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="GdkDevicePad.html" title="GtkDevicePad">
+<link rel="next" href="gdk3-Pixbufs.html" title="Pixbufs">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-Points-Rectangles-and-Regions.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GdkDevicePad.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Pixbufs.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-Points-Rectangles-and-Regions"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-Points-Rectangles-and-Regions.top_of_page"></a>Points and Rectangles</span></h2>
+<p>Points and Rectangles — Simple graphical data types</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-Points-Rectangles-and-Regions.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Points-Rectangles-and-Regions.html#gdk-rectangle-intersect" title="gdk_rectangle_intersect ()">gdk_rectangle_intersect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Points-Rectangles-and-Regions.html#gdk-rectangle-union" title="gdk_rectangle_union ()">gdk_rectangle_union</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Points-Rectangles-and-Regions.html#gdk-rectangle-equal" title="gdk_rectangle_equal ()">gdk_rectangle_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Points-Rectangles-and-Regions.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkPoint" title="struct GdkPoint">GdkPoint</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle">GdkRectangle</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Points-Rectangles-and-Regions.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Points-Rectangles-and-Regions.description"></a><h2>Description</h2>
+<p>GDK provides the <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkPoint" title="struct GdkPoint"><span class="type">GdkPoint</span></a> and <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> data types for representing pixels
+and sets of pixels on the screen. Together with Cairo’s <a href="/usr/share/gtk-doc/html/cairo/cairo-Regions.html#cairo-region-t"><span class="type">cairo_region_t</span></a> data
+type, they make up the central types for representing graphical data.</p>
+<p>A <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkPoint" title="struct GdkPoint"><span class="type">GdkPoint</span></a> represents an x and y coordinate of a point.</p>
+<p>A <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> represents the position and size of a rectangle.
+The intersection of two rectangles can be computed with
+<a class="link" href="gdk3-Points-Rectangles-and-Regions.html#gdk-rectangle-intersect" title="gdk_rectangle_intersect ()"><code class="function">gdk_rectangle_intersect()</code></a>. To find the union of two rectangles use
+<a class="link" href="gdk3-Points-Rectangles-and-Regions.html#gdk-rectangle-union" title="gdk_rectangle_union ()"><code class="function">gdk_rectangle_union()</code></a>.</p>
+<p><a href="/usr/share/gtk-doc/html/cairo/cairo-Regions.html#cairo-region-t"><span class="type">cairo_region_t</span></a> is usually used for managing clipping of graphical operations.</p>
+</div>
+<div class="refsect1">
+<a name="gdk3-Points-Rectangles-and-Regions.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-rectangle-intersect"></a><h3>gdk_rectangle_intersect ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_rectangle_intersect (<em class="parameter"><code>const <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *src1</code></em>,
+                         <em class="parameter"><code>const <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *src2</code></em>,
+                         <em class="parameter"><code><a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *dest</code></em>);</pre>
+<p>Calculates the intersection of two rectangles. It is allowed for
+<em class="parameter"><code>dest</code></em>
+ to be the same as either <em class="parameter"><code>src1</code></em>
+ or <em class="parameter"><code>src2</code></em>
+. If the rectangles 
+do not intersect, <em class="parameter"><code>dest</code></em>
+’s width and height is set to 0 and its x 
+and y values are undefined. If you are only interested in whether
+the rectangles intersect, but not in the intersecting area itself,
+pass <code class="literal">NULL</code> for <em class="parameter"><code>dest</code></em>
+.</p>
+<div class="refsect3">
+<a name="gdk-rectangle-intersect.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>src1</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src2</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>return location for the
+intersection of <em class="parameter"><code>src1</code></em>
+and <em class="parameter"><code>src2</code></em>
+, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Out parameter, where caller must allocate storage."><span class="acronym">out caller-allocates</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-rectangle-intersect.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the rectangles intersect.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-rectangle-union"></a><h3>gdk_rectangle_union ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_rectangle_union (<em class="parameter"><code>const <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *src1</code></em>,
+                     <em class="parameter"><code>const <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *src2</code></em>,
+                     <em class="parameter"><code><a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *dest</code></em>);</pre>
+<p>Calculates the union of two rectangles.
+The union of rectangles <em class="parameter"><code>src1</code></em>
+ and <em class="parameter"><code>src2</code></em>
+ is the smallest rectangle which
+includes both <em class="parameter"><code>src1</code></em>
+ and <em class="parameter"><code>src2</code></em>
+ within it.
+It is allowed for <em class="parameter"><code>dest</code></em>
+ to be the same as either <em class="parameter"><code>src1</code></em>
+ or <em class="parameter"><code>src2</code></em>
+.</p>
+<p>Note that this function does not ignore 'empty' rectangles (ie. with
+zero width or height).</p>
+<div class="refsect3">
+<a name="gdk-rectangle-union.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>src1</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>src2</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>return location for the union of <em class="parameter"><code>src1</code></em>
+and <em class="parameter"><code>src2</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-rectangle-equal"></a><h3>gdk_rectangle_equal ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_rectangle_equal (<em class="parameter"><code>const <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *rect1</code></em>,
+                     <em class="parameter"><code>const <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *rect2</code></em>);</pre>
+<p>Checks if the two given rectangles are equal.</p>
+<div class="refsect3">
+<a name="gdk-rectangle-equal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>rect1</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rect2</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-rectangle-equal.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the rectangles are equal.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Points-Rectangles-and-Regions.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkPoint"></a><h3>struct GdkPoint</h3>
+<pre class="programlisting">struct GdkPoint {
+  gint x;
+  gint y;
+};
+</pre>
+<p>Defines the x and y coordinates of a point.</p>
+<div class="refsect3">
+<a name="GdkPoint.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">gint</span> <em class="structfield"><code><a name="GdkPoint.x"></a>x</code></em>;</p></td>
+<td class="struct_member_description"><p>the x coordinate of the point.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gint</span> <em class="structfield"><code><a name="GdkPoint.y"></a>y</code></em>;</p></td>
+<td class="struct_member_description"><p>the y coordinate of the point.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkRectangle"></a><h3>GdkRectangle</h3>
+<pre class="programlisting">typedef struct {
+    int x, y;
+    int width, height;
+} GdkRectangle;
+</pre>
+<p>Defines the position and size of a rectangle. It is identical to
+<a href="/usr/share/gtk-doc/html/cairo/cairo-Types.html#cairo-rectangle-int-t"><span class="type">cairo_rectangle_int_t</span></a>.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

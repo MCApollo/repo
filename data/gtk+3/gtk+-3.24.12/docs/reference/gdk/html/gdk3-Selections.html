@@ -1,0 +1,734 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Selections: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="gdk3-Keyboard-Handling.html" title="Key Values">
+<link rel="next" href="gdk3-Drag-and-Drop.html" title="Drag And Drop">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-Selections.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdk3-Keyboard-Handling.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Drag-and-Drop.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-Selections"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-Selections.top_of_page"></a>Selections</span></h2>
+<p>Selections — Functions for transferring data between programs</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-Selections.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-owner-set" title="gdk_selection_owner_set ()">gdk_selection_owner_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-owner-set-for-display" title="gdk_selection_owner_set_for_display ()">gdk_selection_owner_set_for_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-owner-get" title="gdk_selection_owner_get ()">gdk_selection_owner_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-owner-get-for-display" title="gdk_selection_owner_get_for_display ()">gdk_selection_owner_get_for_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-convert" title="gdk_selection_convert ()">gdk_selection_convert</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-property-get" title="gdk_selection_property_get ()">gdk_selection_property_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-send-notify" title="gdk_selection_send_notify ()">gdk_selection_send_notify</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Selections.html#gdk-selection-send-notify-for-display" title="gdk_selection_send_notify_for_display ()">gdk_selection_send_notify_for_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Selections.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-PRIMARY:CAPS" title="GDK_SELECTION_PRIMARY">GDK_SELECTION_PRIMARY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-SECONDARY:CAPS" title="GDK_SELECTION_SECONDARY">GDK_SELECTION_SECONDARY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-CLIPBOARD:CAPS" title="GDK_SELECTION_CLIPBOARD">GDK_SELECTION_CLIPBOARD</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-TARGET-BITMAP:CAPS" title="GDK_TARGET_BITMAP">GDK_TARGET_BITMAP</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-TARGET-COLORMAP:CAPS" title="GDK_TARGET_COLORMAP">GDK_TARGET_COLORMAP</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-TARGET-DRAWABLE:CAPS" title="GDK_TARGET_DRAWABLE">GDK_TARGET_DRAWABLE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-TARGET-PIXMAP:CAPS" title="GDK_TARGET_PIXMAP">GDK_TARGET_PIXMAP</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-TARGET-STRING:CAPS" title="GDK_TARGET_STRING">GDK_TARGET_STRING</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-ATOM:CAPS" title="GDK_SELECTION_TYPE_ATOM">GDK_SELECTION_TYPE_ATOM</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-BITMAP:CAPS" title="GDK_SELECTION_TYPE_BITMAP">GDK_SELECTION_TYPE_BITMAP</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-COLORMAP:CAPS" title="GDK_SELECTION_TYPE_COLORMAP">GDK_SELECTION_TYPE_COLORMAP</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-DRAWABLE:CAPS" title="GDK_SELECTION_TYPE_DRAWABLE">GDK_SELECTION_TYPE_DRAWABLE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-INTEGER:CAPS" title="GDK_SELECTION_TYPE_INTEGER">GDK_SELECTION_TYPE_INTEGER</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-PIXMAP:CAPS" title="GDK_SELECTION_TYPE_PIXMAP">GDK_SELECTION_TYPE_PIXMAP</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-WINDOW:CAPS" title="GDK_SELECTION_TYPE_WINDOW">GDK_SELECTION_TYPE_WINDOW</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Selections.html#GDK-SELECTION-TYPE-STRING:CAPS" title="GDK_SELECTION_TYPE_STRING">GDK_SELECTION_TYPE_STRING</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Selections.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Selections.description"></a><h2>Description</h2>
+<p>GDK’s selection functions, based on the <a class="ulink" href="https://www.x.org/releases/X11R7.6/doc/xorg-docs/specs/ICCCM/icccm.html" target="_top">X selection mechanism</a>,
+provide a way to transfer arbitrary chunks of
+data between programs. A “selection” is a essentially
+a named clipboard, identified by a string interned as a <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a>. By
+claiming ownership of a selection, an application indicates that it will
+be responsible for supplying its contents. The most common selections are
+<code class="literal">PRIMARY</code> and <code class="literal">CLIPBOARD</code>.</p>
+<p>The contents of a selection can be represented in a number of formats,
+called “targets”. Each target is identified by an atom.
+A list of all possible targets supported by the selection owner can be
+retrieved by requesting the special target <code class="literal">TARGETS</code>. When
+a selection is retrieved, the data is accompanied by a type (an atom), and
+a format (an integer, representing the number of bits per item).
+See <a class="link" href="gdk3-Properties-and-Atoms.html" title="Properties and Atoms">Properties and Atoms</a>
+for more information.</p>
+<p>The functions in this section only contain the lowlevel parts of the
+selection protocol. A considerably more complicated implementation is needed
+on top of this. GTK+ contains such an implementation in the functions in
+<code class="literal">gtkselection.h</code> and programmers should use those functions
+instead of the ones presented here. If you plan to implement selection
+handling directly on top of the functions here, you should refer to the
+<a class="ulink" href="https://www.x.org/releases/X11R7.6/doc/xorg-docs/specs/ICCCM/icccm.html" target="_top">X Inter-Client Communication Conventions Manual (ICCCM)</a>.</p>
+<p>Note that although much of the selection API design is based on that of X,
+it will work on other GDK backends too.</p>
+</div>
+<div class="refsect1">
+<a name="gdk3-Selections.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-selection-owner-set"></a><h3>gdk_selection_owner_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_selection_owner_set (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *owner</code></em>,
+                         <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> selection</code></em>,
+                         <em class="parameter"><code><span class="type">guint32</span> time_</code></em>,
+                         <em class="parameter"><code><span class="type">gboolean</span> send_event</code></em>);</pre>
+<p>Sets the owner of the given selection.</p>
+<div class="refsect3">
+<a name="gdk-selection-owner-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>owner</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> or <code class="literal">NULL</code> to indicate that the
+the owner for the given should be unset. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an atom identifying a selection.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>timestamp to use when setting the selection.
+If this is older than the timestamp given last
+time the owner was set for the given selection, the
+request will be ignored.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>send_event</p></td>
+<td class="parameter_description"><p>if <code class="literal">TRUE</code>, and the new owner is different
+from the current owner, the current owner
+will be sent a SelectionClear event.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-selection-owner-set.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the selection owner was successfully
+changed to <em class="parameter"><code>owner</code></em>
+, otherwise <code class="literal">FALSE</code>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-selection-owner-set-for-display"></a><h3>gdk_selection_owner_set_for_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_selection_owner_set_for_display (<em class="parameter"><code><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *display</code></em>,
+                                     <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *owner</code></em>,
+                                     <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> selection</code></em>,
+                                     <em class="parameter"><code><span class="type">guint32</span> time_</code></em>,
+                                     <em class="parameter"><code><span class="type">gboolean</span> send_event</code></em>);</pre>
+<p>Sets the <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> <em class="parameter"><code>owner</code></em>
+ as the current owner of the selection <em class="parameter"><code>selection</code></em>
+.</p>
+<div class="refsect3">
+<a name="gdk-selection-owner-set-for-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>owner</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> or <code class="literal">NULL</code> to indicate that the owner for
+the given should be unset. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an atom identifying a selection</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>timestamp to use when setting the selection
+If this is older than the timestamp given last time the owner was
+set for the given selection, the request will be ignored</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>send_event</p></td>
+<td class="parameter_description"><p>if <code class="literal">TRUE</code>, and the new owner is different from the current
+owner, the current owner will be sent a SelectionClear event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-selection-owner-set-for-display.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the selection owner was successfully changed to owner,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-selection-owner-get"></a><h3>gdk_selection_owner_get ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+gdk_selection_owner_get (<em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> selection</code></em>);</pre>
+<p>Determines the owner of the given selection.</p>
+<div class="refsect3">
+<a name="gdk-selection-owner-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an atom indentifying a selection.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-selection-owner-get.returns"></a><h4>Returns</h4>
+<p>if there is a selection owner
+for this window, and it is a window known to the current process,
+the <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> that owns the selection, otherwise <code class="literal">NULL</code>. Note
+that the return value may be owned by a different process if a
+foreign window was previously created for that window, but a new
+foreign window will never be created by this call. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-selection-owner-get-for-display"></a><h3>gdk_selection_owner_get_for_display ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+gdk_selection_owner_get_for_display (<em class="parameter"><code><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *display</code></em>,
+                                     <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> selection</code></em>);</pre>
+<p>Determine the owner of the given selection.</p>
+<p>Note that the return value may be owned by a different
+process if a foreign window was previously created for that
+window, but a new foreign window will never be created by this call.</p>
+<div class="refsect3">
+<a name="gdk-selection-owner-get-for-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an atom indentifying a selection</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-selection-owner-get-for-display.returns"></a><h4>Returns</h4>
+<p>if there is a selection owner
+for this window, and it is a window known to the current
+process, the <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> that owns the selection, otherwise
+<code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-selection-convert"></a><h3>gdk_selection_convert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_selection_convert (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *requestor</code></em>,
+                       <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> selection</code></em>,
+                       <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> target</code></em>,
+                       <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Retrieves the contents of a selection in a given
+form.</p>
+<div class="refsect3">
+<a name="gdk-selection-convert.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>requestor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an atom identifying the selection to get the
+contents of.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>the form in which to retrieve the selection.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>the timestamp to use when retrieving the
+selection. The selection owner may refuse the
+request if it did not own the selection at
+the time indicated by the timestamp.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-selection-property-get"></a><h3>gdk_selection_property_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gdk_selection_property_get (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *requestor</code></em>,
+                            <em class="parameter"><code><span class="type">guchar</span> **data</code></em>,
+                            <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> *prop_type</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> *prop_format</code></em>);</pre>
+<p>Retrieves selection data that was stored by the selection
+data in response to a call to <a class="link" href="gdk3-Selections.html#gdk-selection-convert" title="gdk_selection_convert ()"><code class="function">gdk_selection_convert()</code></a>. This function
+will not be used by applications, who should use the <span class="type">GtkClipboard</span>
+API instead.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gdk-selection-property-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>requestor</p></td>
+<td class="parameter_description"><p>the window on which the data is stored</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>location to store a pointer to the retrieved data.
+If the retrieval failed, <code class="literal">NULL</code> we be stored here, otherwise, it
+will be non-<code class="literal">NULL</code> and the returned data should be freed with <code class="function">g_free()</code>
+when you are finished using it. The length of the
+allocated memory is one more than the length
+of the returned data, and the final byte will always
+be zero, to ensure nul-termination of strings</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_type</p></td>
+<td class="parameter_description"><p>location to store the type of the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_format</p></td>
+<td class="parameter_description"><p>location to store the format of the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-selection-property-get.returns"></a><h4>Returns</h4>
+<p> the length of the retrieved data.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-selection-send-notify"></a><h3>gdk_selection_send_notify ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_selection_send_notify (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *requestor</code></em>,
+                           <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> selection</code></em>,
+                           <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> target</code></em>,
+                           <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> property</code></em>,
+                           <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Sends a response to SelectionRequest event.</p>
+<div class="refsect3">
+<a name="gdk-selection-send-notify.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>requestor</p></td>
+<td class="parameter_description"><p>window to which to deliver response.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>selection that was requested.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>target that was selected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>property in which the selection owner stored the
+data, or <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-NONE:CAPS" title="GDK_NONE"><code class="literal">GDK_NONE</code></a> to indicate that the request
+was rejected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>timestamp.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-selection-send-notify-for-display"></a><h3>gdk_selection_send_notify_for_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_selection_send_notify_for_display (<em class="parameter"><code><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *display</code></em>,
+                                       <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *requestor</code></em>,
+                                       <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> selection</code></em>,
+                                       <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> target</code></em>,
+                                       <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> property</code></em>,
+                                       <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Send a response to SelectionRequest event.</p>
+<div class="refsect3">
+<a name="gdk-selection-send-notify-for-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> where <em class="parameter"><code>requestor</code></em>
+is realized</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>requestor</p></td>
+<td class="parameter_description"><p>window to which to deliver response</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>selection that was requested</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>target that was selected</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>property in which the selection owner stored the data,
+or <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-NONE:CAPS" title="GDK_NONE"><code class="literal">GDK_NONE</code></a> to indicate that the request was rejected</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>timestamp</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Selections.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GDK-SELECTION-PRIMARY:CAPS"></a><h3>GDK_SELECTION_PRIMARY</h3>
+<pre class="programlisting">#define GDK_SELECTION_PRIMARY 		_GDK_MAKE_ATOM (1)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">PRIMARY</code> selection.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-SECONDARY:CAPS"></a><h3>GDK_SELECTION_SECONDARY</h3>
+<pre class="programlisting">#define GDK_SELECTION_SECONDARY 	_GDK_MAKE_ATOM (2)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">SECONDARY</code> selection.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-CLIPBOARD:CAPS"></a><h3>GDK_SELECTION_CLIPBOARD</h3>
+<pre class="programlisting">#define GDK_SELECTION_CLIPBOARD 	_GDK_MAKE_ATOM (69)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">CLIPBOARD</code> selection.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-TARGET-BITMAP:CAPS"></a><h3>GDK_TARGET_BITMAP</h3>
+<pre class="programlisting">#define GDK_TARGET_BITMAP 		_GDK_MAKE_ATOM (5)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">BITMAP</code> selection target.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-TARGET-COLORMAP:CAPS"></a><h3>GDK_TARGET_COLORMAP</h3>
+<pre class="programlisting">#define GDK_TARGET_COLORMAP 		_GDK_MAKE_ATOM (7)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">COLORMAP</code> selection target.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-TARGET-DRAWABLE:CAPS"></a><h3>GDK_TARGET_DRAWABLE</h3>
+<pre class="programlisting">#define GDK_TARGET_DRAWABLE 		_GDK_MAKE_ATOM (17)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">DRAWABLE</code> selection target.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-TARGET-PIXMAP:CAPS"></a><h3>GDK_TARGET_PIXMAP</h3>
+<pre class="programlisting">#define GDK_TARGET_PIXMAP 		_GDK_MAKE_ATOM (20)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">PIXMAP</code> selection target.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-TARGET-STRING:CAPS"></a><h3>GDK_TARGET_STRING</h3>
+<pre class="programlisting">#define GDK_TARGET_STRING 		_GDK_MAKE_ATOM (31)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">STRING</code> selection target.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-ATOM:CAPS"></a><h3>GDK_SELECTION_TYPE_ATOM</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_ATOM 	_GDK_MAKE_ATOM (4)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">ATOM</code> selection type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-BITMAP:CAPS"></a><h3>GDK_SELECTION_TYPE_BITMAP</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_BITMAP 	_GDK_MAKE_ATOM (5)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">BITMAP</code> selection type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-COLORMAP:CAPS"></a><h3>GDK_SELECTION_TYPE_COLORMAP</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_COLORMAP 	_GDK_MAKE_ATOM (7)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">COLORMAP</code> selection type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-DRAWABLE:CAPS"></a><h3>GDK_SELECTION_TYPE_DRAWABLE</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_DRAWABLE 	_GDK_MAKE_ATOM (17)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">DRAWABLE</code> selection type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-INTEGER:CAPS"></a><h3>GDK_SELECTION_TYPE_INTEGER</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_INTEGER 	_GDK_MAKE_ATOM (19)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">INTEGER</code> selection type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-PIXMAP:CAPS"></a><h3>GDK_SELECTION_TYPE_PIXMAP</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_PIXMAP 	_GDK_MAKE_ATOM (20)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">PIXMAP</code> selection type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-WINDOW:CAPS"></a><h3>GDK_SELECTION_TYPE_WINDOW</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_WINDOW 	_GDK_MAKE_ATOM (33)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">WINDOW</code> selection type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-SELECTION-TYPE-STRING:CAPS"></a><h3>GDK_SELECTION_TYPE_STRING</h3>
+<pre class="programlisting">#define GDK_SELECTION_TYPE_STRING 	_GDK_MAKE_ATOM (31)
+</pre>
+<p>A <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> representing the <code class="literal">STRING</code> selection type.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

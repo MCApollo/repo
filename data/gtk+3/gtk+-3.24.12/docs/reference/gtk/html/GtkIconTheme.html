@@ -1,0 +1,3096 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkIconTheme: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="theming.html" title="Part IV. Theming in GTK+">
+<link rel="prev" href="gtk3-GtkWidgetPath.html" title="GtkWidgetPath">
+<link rel="next" href="migrating.html" title="Part V. Migrating from Previous Versions of GTK+">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkIconTheme.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkIconTheme.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkIconTheme.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="theming.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gtk3-GtkWidgetPath.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="migrating.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkIconTheme"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkIconTheme.top_of_page"></a>GtkIconTheme</span></h2>
+<p>GtkIconTheme — Looking up icons by name</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkIconTheme.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="returnvalue">GtkIconTheme</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-new" title="gtk_icon_theme_new ()">gtk_icon_theme_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="returnvalue">GtkIconTheme</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-default" title="gtk_icon_theme_get_default ()">gtk_icon_theme_get_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="returnvalue">GtkIconTheme</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-for-screen" title="gtk_icon_theme_get_for_screen ()">gtk_icon_theme_get_for_screen</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-set-screen" title="gtk_icon_theme_set_screen ()">gtk_icon_theme_set_screen</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-set-search-path" title="gtk_icon_theme_set_search_path ()">gtk_icon_theme_set_search_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-search-path" title="gtk_icon_theme_get_search_path ()">gtk_icon_theme_get_search_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-append-search-path" title="gtk_icon_theme_append_search_path ()">gtk_icon_theme_append_search_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-prepend-search-path" title="gtk_icon_theme_prepend_search_path ()">gtk_icon_theme_prepend_search_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-add-resource-path" title="gtk_icon_theme_add_resource_path ()">gtk_icon_theme_add_resource_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-set-custom-theme" title="gtk_icon_theme_set_custom_theme ()">gtk_icon_theme_set_custom_theme</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-has-icon" title="gtk_icon_theme_has_icon ()">gtk_icon_theme_has_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()">gtk_icon_theme_lookup_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon-for-scale" title="gtk_icon_theme_lookup_icon_for_scale ()">gtk_icon_theme_lookup_icon_for_scale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-choose-icon" title="gtk_icon_theme_choose_icon ()">gtk_icon_theme_choose_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-choose-icon-for-scale" title="gtk_icon_theme_choose_icon_for_scale ()">gtk_icon_theme_choose_icon_for_scale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-by-gicon" title="gtk_icon_theme_lookup_by_gicon ()">gtk_icon_theme_lookup_by_gicon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-by-gicon-for-scale" title="gtk_icon_theme_lookup_by_gicon_for_scale ()">gtk_icon_theme_lookup_by_gicon_for_scale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-load-icon" title="gtk_icon_theme_load_icon ()">gtk_icon_theme_load_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-load-icon-for-scale" title="gtk_icon_theme_load_icon_for_scale ()">gtk_icon_theme_load_icon_for_scale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="returnvalue">cairo_surface_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-load-surface" title="gtk_icon_theme_load_surface ()">gtk_icon_theme_load_surface</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-list-contexts" title="gtk_icon_theme_list_contexts ()">gtk_icon_theme_list_contexts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-list-icons" title="gtk_icon_theme_list_icons ()">gtk_icon_theme_list_icons</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-icon-sizes" title="gtk_icon_theme_get_icon_sizes ()">gtk_icon_theme_get_icon_sizes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-example-icon-name" title="gtk_icon_theme_get_example_icon_name ()">gtk_icon_theme_get_example_icon_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-rescan-if-needed" title="gtk_icon_theme_rescan_if_needed ()">gtk_icon_theme_rescan_if_needed</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-add-builtin-icon" title="gtk_icon_theme_add_builtin_icon ()">gtk_icon_theme_add_builtin_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-copy" title="gtk_icon_info_copy ()">gtk_icon_info_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-free" title="gtk_icon_info_free ()">gtk_icon_info_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-new-for-pixbuf" title="gtk_icon_info_new_for_pixbuf ()">gtk_icon_info_new_for_pixbuf</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-get-base-size" title="gtk_icon_info_get_base_size ()">gtk_icon_info_get_base_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-get-base-scale" title="gtk_icon_info_get_base_scale ()">gtk_icon_info_get_base_scale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-get-filename" title="gtk_icon_info_get_filename ()">gtk_icon_info_get_filename</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-get-builtin-pixbuf" title="gtk_icon_info_get_builtin_pixbuf ()">gtk_icon_info_get_builtin_pixbuf</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()">gtk_icon_info_load_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="returnvalue">cairo_surface_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-surface" title="gtk_icon_info_load_surface ()">gtk_icon_info_load_surface</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon-async" title="gtk_icon_info_load_icon_async ()">gtk_icon_info_load_icon_async</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon-finish" title="gtk_icon_info_load_icon_finish ()">gtk_icon_info_load_icon_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic" title="gtk_icon_info_load_symbolic ()">gtk_icon_info_load_symbolic</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-async" title="gtk_icon_info_load_symbolic_async ()">gtk_icon_info_load_symbolic_async</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-finish" title="gtk_icon_info_load_symbolic_finish ()">gtk_icon_info_load_symbolic_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-for-style" title="gtk_icon_info_load_symbolic_for_style ()">gtk_icon_info_load_symbolic_for_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-for-context" title="gtk_icon_info_load_symbolic_for_context ()">gtk_icon_info_load_symbolic_for_context</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-for-context-async" title="gtk_icon_info_load_symbolic_for_context_async ()">gtk_icon_info_load_symbolic_for_context_async</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-for-context-finish" title="gtk_icon_info_load_symbolic_for_context_finish ()">gtk_icon_info_load_symbolic_for_context_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-set-raw-coordinates" title="gtk_icon_info_set_raw_coordinates ()">gtk_icon_info_set_raw_coordinates</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-get-embedded-rect" title="gtk_icon_info_get_embedded_rect ()">gtk_icon_info_get_embedded_rect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-get-attach-points" title="gtk_icon_info_get_attach_points ()">gtk_icon_info_get_attach_points</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-get-display-name" title="gtk_icon_info_get_display_name ()">gtk_icon_info_get_display_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-is-symbolic" title="gtk_icon_info_is_symbolic ()">gtk_icon_info_is_symbolic</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkIconTheme.html#GtkIconTheme-changed" title="The “changed” signal">changed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo">GtkIconInfo</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkIconTheme.html#GtkIconTheme-struct" title="struct GtkIconTheme">GtkIconTheme</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkIconTheme.html#GtkIconThemeClass" title="struct GtkIconThemeClass">GtkIconThemeClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags">GtkIconLookupFlags</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkIconTheme.html#GTK-ICON-THEME-ERROR:CAPS" title="GTK_ICON_THEME_ERROR">GTK_ICON_THEME_ERROR</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkIconTheme.html#GtkIconThemeError" title="enum GtkIconThemeError">GtkIconThemeError</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GtkIconTheme
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.description"></a><h2>Description</h2>
+<p><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> provides a facility for looking up icons by name
+and size. The main reason for using a name rather than simply
+providing a filename is to allow different icons to be used
+depending on what “icon theme” is selected
+by the user. The operation of icon themes on Linux and Unix
+follows the <a class="ulink" href="http://www.freedesktop.org/Standards/icon-theme-spec" target="_top">Icon Theme Specification</a>
+There is a fallback icon theme, named <code class="literal">hicolor</code>, where applications
+should install their icons, but additional icon themes can be installed
+as operating system vendors and users choose.</p>
+<p>Named icons are similar to the deprecated Stock Items,
+and the distinction between the two may be a bit confusing.
+A few things to keep in mind:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>Stock images usually are used in conjunction with
+Stock Items, such as <a class="link" href="gtk3-Stock-Items.html#GTK-STOCK-OK:CAPS" title="GTK_STOCK_OK"><code class="literal">GTK_STOCK_OK</code></a> or
+<a class="link" href="gtk3-Stock-Items.html#GTK-STOCK-OPEN:CAPS" title="GTK_STOCK_OPEN"><code class="literal">GTK_STOCK_OPEN</code></a>. Named icons are easier to set up and therefore
+are more useful for new icons that an application wants to
+add, such as application icons or window icons.</p></li>
+<li class="listitem"><p>Stock images can only be loaded at the symbolic sizes defined
+by the <a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="type">GtkIconSize</span></a> enumeration, or by custom sizes defined
+by <a class="link" href="gtk3-Themeable-Stock-Images.html#gtk-icon-size-register" title="gtk_icon_size_register ()"><code class="function">gtk_icon_size_register()</code></a>, while named icons are more flexible
+and any pixel size can be specified.</p></li>
+<li class="listitem"><p>Because stock images are closely tied to stock items, and thus
+to actions in the user interface, stock images may come in
+multiple variants for different widget states or writing
+directions.</p></li>
+</ul></div>
+<p>A good rule of thumb is that if there is a stock image for what
+you want to use, use it, otherwise use a named icon. It turns
+out that internally stock images are generally defined in
+terms of one or more named icons. (An example of the
+more than one case is icons that depend on writing direction;
+<a class="link" href="gtk3-Stock-Items.html#GTK-STOCK-GO-FORWARD:CAPS" title="GTK_STOCK_GO_FORWARD"><code class="literal">GTK_STOCK_GO_FORWARD</code></a> uses the two themed icons
+“gtk-stock-go-forward-ltr” and “gtk-stock-go-forward-rtl”.)</p>
+<p>In many cases, named themes are used indirectly, via <a class="link" href="GtkImage.html" title="GtkImage"><span class="type">GtkImage</span></a>
+or stock items, rather than directly, but looking up icons
+directly is also simple. The <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> object acts
+as a database of all the icons in the current theme. You
+can create new <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> objects, but it’s much more
+efficient to use the standard icon theme for the <span class="type">GdkScreen</span>
+so that the icon information is shared with other people
+looking up icons.</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">GError</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">error </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+<span class="usertype">GtkIconTheme</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">icon_theme</span><span class="symbol">;</span>
+<span class="usertype">GdkPixbuf</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">pixbuf</span><span class="symbol">;</span>
+
+<span class="normal">icon_theme </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkIconTheme.html#gtk-icon-theme-get-default">gtk_icon_theme_get_default</a></span><span class="normal"> </span><span class="symbol">();</span>
+<span class="normal">pixbuf </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkIconTheme.html#gtk-icon-theme-load-icon">gtk_icon_theme_load_icon</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">icon_theme</span><span class="symbol">,</span>
+<span class="normal">                                   </span><span class="string">"my-icon-name"</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// icon name</span>
+<span class="normal">                                   </span><span class="number">48</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// icon size</span>
+<span class="normal">                                   </span><span class="number">0</span><span class="symbol">,</span><span class="normal">  </span><span class="comment">// flags</span>
+<span class="normal">                                   </span><span class="symbol">&amp;</span><span class="normal">error</span><span class="symbol">);</span>
+<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">pixbuf</span><span class="symbol">)</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">g_warning</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Couldn’t load icon: %s"</span><span class="symbol">,</span><span class="normal"> error</span><span class="symbol">-&gt;</span><span class="normal">message</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">g_error_free</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">error</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="keyword">else</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// Use the pixbuf</span>
+<span class="normal">    </span><span class="function">g_object_unref</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">pixbuf</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-icon-theme-new"></a><h3>gtk_icon_theme_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="returnvalue">GtkIconTheme</span></a> *
+gtk_icon_theme_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new icon theme object. Icon theme objects are used
+to lookup up an icon by name in a particular icon theme.
+Usually, you’ll want to use <a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-default" title="gtk_icon_theme_get_default ()"><code class="function">gtk_icon_theme_get_default()</code></a>
+or <a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-for-screen" title="gtk_icon_theme_get_for_screen ()"><code class="function">gtk_icon_theme_get_for_screen()</code></a> rather than creating
+a new icon theme object for scratch.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-new.returns"></a><h4>Returns</h4>
+<p> the newly created <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> object.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-get-default"></a><h3>gtk_icon_theme_get_default ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="returnvalue">GtkIconTheme</span></a> *
+gtk_icon_theme_get_default (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets the icon theme for the default screen. See
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-for-screen" title="gtk_icon_theme_get_for_screen ()"><code class="function">gtk_icon_theme_get_for_screen()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-default.returns"></a><h4>Returns</h4>
+<p>A unique <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> associated with
+the default screen. This icon theme is associated with
+the screen and can be used as long as the screen
+is open. Do not ref or unref it. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-get-for-screen"></a><h3>gtk_icon_theme_get_for_screen ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="returnvalue">GtkIconTheme</span></a> *
+gtk_icon_theme_get_for_screen (<em class="parameter"><code><span class="type">GdkScreen</span> *screen</code></em>);</pre>
+<p>Gets the icon theme object associated with <em class="parameter"><code>screen</code></em>
+; if this
+function has not previously been called for the given
+screen, a new icon theme object will be created and
+associated with the screen. Icon theme objects are
+fairly expensive to create, so using this function
+is usually a better choice than calling than <a class="link" href="GtkIconTheme.html#gtk-icon-theme-new" title="gtk_icon_theme_new ()"><code class="function">gtk_icon_theme_new()</code></a>
+and setting the screen yourself; by using this function
+a single icon theme object will be shared between users.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-for-screen.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>screen</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkScreen</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-for-screen.returns"></a><h4>Returns</h4>
+<p>A unique <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> associated with
+the given screen. This icon theme is associated with
+the screen and can be used as long as the screen
+is open. Do not ref or unref it. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-set-screen"></a><h3>gtk_icon_theme_set_screen ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_set_screen (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                           <em class="parameter"><code><span class="type">GdkScreen</span> *screen</code></em>);</pre>
+<p>Sets the screen for an icon theme; the screen is used
+to track the user’s currently configured icon theme,
+which might be different for different screens.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-set-screen.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>screen</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkScreen</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-set-search-path"></a><h3>gtk_icon_theme_set_search_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_set_search_path (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *path[]</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> n_elements</code></em>);</pre>
+<p>Sets the search path for the icon theme object. When looking
+for an icon theme, GTK+ will search for a subdirectory of
+one or more of the directories in <em class="parameter"><code>path</code></em>
+ with the same name
+as the icon theme containing an index.theme file. (Themes from
+multiple of the path elements are combined to allow themes to be
+extended by adding icons in the user’s home directory.)</p>
+<p>In addition if an icon found isn’t found either in the current
+icon theme or the default icon theme, and an image file with
+the right name is found directly in one of the elements of
+<em class="parameter"><code>path</code></em>
+, then that image will be used for the icon name.
+(This is legacy feature, and new icons should be put
+into the fallback icon theme, which is called hicolor,
+rather than directly on the icon path.)</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-set-search-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>array of
+directories that are searched for icon themes. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_elements][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> filename]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_elements</p></td>
+<td class="parameter_description"><p>number of elements in <em class="parameter"><code>path</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-get-search-path"></a><h3>gtk_icon_theme_get_search_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_get_search_path (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                <em class="parameter"><code><span class="type">gchar</span> **path[]</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *n_elements</code></em>);</pre>
+<p>Gets the current search path. See <a class="link" href="GtkIconTheme.html#gtk-icon-theme-set-search-path" title="gtk_icon_theme_set_search_path ()"><code class="function">gtk_icon_theme_set_search_path()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-search-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>location to store a list of icon theme path directories or <code class="literal">NULL</code>.
+The stored value should be freed with <code class="function">g_strfreev()</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_elements][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> filename][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_elements</p></td>
+<td class="parameter_description"><p>location to store number of elements in <em class="parameter"><code>path</code></em>
+, or <code class="literal">NULL</code></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-append-search-path"></a><h3>gtk_icon_theme_append_search_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_append_search_path (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);</pre>
+<p>Appends a directory to the search path. 
+See <a class="link" href="GtkIconTheme.html#gtk-icon-theme-set-search-path" title="gtk_icon_theme_set_search_path ()"><code class="function">gtk_icon_theme_set_search_path()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-append-search-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>directory name to append to the icon path. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> filename]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-prepend-search-path"></a><h3>gtk_icon_theme_prepend_search_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_prepend_search_path (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                    <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);</pre>
+<p>Prepends a directory to the search path. 
+See <a class="link" href="GtkIconTheme.html#gtk-icon-theme-set-search-path" title="gtk_icon_theme_set_search_path ()"><code class="function">gtk_icon_theme_set_search_path()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-prepend-search-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>directory name to prepend to the icon path. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> filename]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-add-resource-path"></a><h3>gtk_icon_theme_add_resource_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_add_resource_path (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);</pre>
+<p>Adds a resource path that will be looked at when looking
+for icons, similar to search paths.</p>
+<p>This function should be used to make application-specific icons
+available as part of the icon theme.</p>
+<p>The resources are considered as part of the hicolor icon theme
+and must be located in subdirectories that are defined in the
+hicolor icon theme, such as <code class="literal">@path/16x16/actions/run.png</code>.
+Icons that are directly placed in the resource path instead
+of a subdirectory are also considered as ultimate fallback.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-add-resource-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a resource path</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-set-custom-theme"></a><h3>gtk_icon_theme_set_custom_theme ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_set_custom_theme (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *theme_name</code></em>);</pre>
+<p>Sets the name of the icon theme that the <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> object uses
+overriding system configuration. This function cannot be called
+on the icon theme objects returned from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-default" title="gtk_icon_theme_get_default ()"><code class="function">gtk_icon_theme_get_default()</code></a>
+and <a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-for-screen" title="gtk_icon_theme_get_for_screen ()"><code class="function">gtk_icon_theme_get_for_screen()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-set-custom-theme.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>theme_name</p></td>
+<td class="parameter_description"><p>name of icon theme to use instead of
+configured theme, or <code class="literal">NULL</code> to unset a previously set custom theme. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-has-icon"></a><h3>gtk_icon_theme_has_icon ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_icon_theme_has_icon (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                         <em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>);</pre>
+<p>Checks whether an icon theme includes an icon
+for a particular name.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-has-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of an icon</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-has-icon.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>icon_theme</code></em>
+includes an
+icon for <em class="parameter"><code>icon_name</code></em>
+.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-lookup-icon"></a><h3>gtk_icon_theme_lookup_icon ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_theme_lookup_icon (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>);</pre>
+<p>Looks up a named icon and returns a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing
+information such as the filename of the icon. The icon
+can then be rendered into a pixbuf using
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>. (<a class="link" href="GtkIconTheme.html#gtk-icon-theme-load-icon" title="gtk_icon_theme_load_icon ()"><code class="function">gtk_icon_theme_load_icon()</code></a>
+combines these two steps if all you need is the pixbuf.)</p>
+<p>When rendering on displays with high pixel densities you should not
+use a <em class="parameter"><code>size</code></em>
+ multiplied by the scaling factor returned by functions
+like <code class="function">gdk_window_get_scale_factor()</code>. Instead, you should use
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon-for-scale" title="gtk_icon_theme_lookup_icon_for_scale ()"><code class="function">gtk_icon_theme_lookup_icon_for_scale()</code></a>, as the assets loaded
+for a given scaling factor may be different.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of the icon to lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>desired icon size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-icon.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> object
+containing information about the icon, or <code class="literal">NULL</code> if the
+icon wasn’t found. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-lookup-icon-for-scale"></a><h3>gtk_icon_theme_lookup_icon_for_scale ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_theme_lookup_icon_for_scale (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                      <em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> scale</code></em>,
+                                      <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>);</pre>
+<p>Looks up a named icon for a particular window scale and returns a
+<a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing information such as the filename of the
+icon. The icon can then be rendered into a pixbuf using
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>. (<a class="link" href="GtkIconTheme.html#gtk-icon-theme-load-icon" title="gtk_icon_theme_load_icon ()"><code class="function">gtk_icon_theme_load_icon()</code></a> combines
+these two steps if all you need is the pixbuf.)</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-icon-for-scale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of the icon to lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>desired icon size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>scale</p></td>
+<td class="parameter_description"><p>the desired scale</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-icon-for-scale.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> object
+containing information about the icon, or <code class="literal">NULL</code> if the
+icon wasn’t found. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-choose-icon"></a><h3>gtk_icon_theme_choose_icon ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_theme_choose_icon (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *icon_names[]</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>);</pre>
+<p>Looks up a named icon and returns a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing
+information such as the filename of the icon. The icon
+can then be rendered into a pixbuf using
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>. (<a class="link" href="GtkIconTheme.html#gtk-icon-theme-load-icon" title="gtk_icon_theme_load_icon ()"><code class="function">gtk_icon_theme_load_icon()</code></a>
+combines these two steps if all you need is the pixbuf.)</p>
+<p>If <em class="parameter"><code>icon_names</code></em>
+ contains more than one name, this function 
+tries them all in the given order before falling back to 
+inherited icon themes.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-choose-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_names</p></td>
+<td class="parameter_description"><p><code class="literal">NULL</code>-terminated array of
+icon names to lookup. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>desired icon size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-choose-icon.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> object
+containing information about the icon, or <code class="literal">NULL</code> if the icon wasn’t
+found. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-choose-icon-for-scale"></a><h3>gtk_icon_theme_choose_icon_for_scale ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_theme_choose_icon_for_scale (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                      <em class="parameter"><code>const <span class="type">gchar</span> *icon_names[]</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> scale</code></em>,
+                                      <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>);</pre>
+<p>Looks up a named icon for a particular window scale and returns
+a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing information such as the filename of the
+icon. The icon can then be rendered into a pixbuf using
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>. (<a class="link" href="GtkIconTheme.html#gtk-icon-theme-load-icon" title="gtk_icon_theme_load_icon ()"><code class="function">gtk_icon_theme_load_icon()</code></a>
+combines these two steps if all you need is the pixbuf.)</p>
+<p>If <em class="parameter"><code>icon_names</code></em>
+ contains more than one name, this function 
+tries them all in the given order before falling back to 
+inherited icon themes.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-choose-icon-for-scale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_names</p></td>
+<td class="parameter_description"><p><code class="literal">NULL</code>-terminated
+array of icon names to lookup. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>desired icon size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>scale</p></td>
+<td class="parameter_description"><p>desired scale</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-choose-icon-for-scale.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> object
+containing information about the icon, or <code class="literal">NULL</code> if the
+icon wasn’t found. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-lookup-by-gicon"></a><h3>gtk_icon_theme_lookup_by_gicon ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_theme_lookup_by_gicon (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                <em class="parameter"><code><span class="type">GIcon</span> *icon</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>);</pre>
+<p>Looks up an icon and returns a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing information
+such as the filename of the icon. The icon can then be rendered
+into a pixbuf using <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p>
+<p>When rendering on displays with high pixel densities you should not
+use a <em class="parameter"><code>size</code></em>
+ multiplied by the scaling factor returned by functions
+like <code class="function">gdk_window_get_scale_factor()</code>. Instead, you should use
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-by-gicon-for-scale" title="gtk_icon_theme_lookup_by_gicon_for_scale ()"><code class="function">gtk_icon_theme_lookup_by_gicon_for_scale()</code></a>, as the assets loaded
+for a given scaling factor may be different.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-by-gicon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon</p></td>
+<td class="parameter_description"><p>the <span class="type">GIcon</span> to look up</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>desired icon size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-by-gicon.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing
+information about the icon, or <code class="literal">NULL</code> if the icon wasn’t
+found. Unref with <code class="function">g_object_unref()</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-lookup-by-gicon-for-scale"></a><h3>gtk_icon_theme_lookup_by_gicon_for_scale ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_theme_lookup_by_gicon_for_scale
+                               (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                <em class="parameter"><code><span class="type">GIcon</span> *icon</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> scale</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>);</pre>
+<p>Looks up an icon and returns a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing information
+such as the filename of the icon. The icon can then be rendered into
+a pixbuf using <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-by-gicon-for-scale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon</p></td>
+<td class="parameter_description"><p>the <span class="type">GIcon</span> to look up</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>desired icon size</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>scale</p></td>
+<td class="parameter_description"><p>the desired scale</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-lookup-by-gicon-for-scale.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> containing
+information about the icon, or <code class="literal">NULL</code> if the icon wasn’t
+found. Unref with <code class="function">g_object_unref()</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-load-icon"></a><h3>gtk_icon_theme_load_icon ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_theme_load_icon (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                          <em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>,
+                          <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Looks up an icon in an icon theme, scales it to the given size
+and renders it into a pixbuf. This is a convenience function;
+if more details about the icon are needed, use
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a> followed by <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p>
+<p>Note that you probably want to listen for icon theme changes and
+update the icon. This is usually done by connecting to the
+GtkWidget::style-set signal. If for some reason you do not want to
+update the icon when the icon theme changes, you should consider
+using <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-Image-Data-in-Memory.html#gdk-pixbuf-copy"><code class="function">gdk_pixbuf_copy()</code></a> to make a private copy of the pixbuf
+returned by this function. Otherwise GTK+ may need to keep the old
+icon theme loaded, which would be a waste of memory.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-load-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of the icon to lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>the desired icon size. The resulting icon may not be
+exactly this size; see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-load-icon.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be
+a newly created icon or a new reference to an internal icon, so
+you must not modify the icon. Use <code class="function">g_object_unref()</code> to release
+your reference to the icon. <code class="literal">NULL</code> if the icon isn’t found. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-load-icon-for-scale"></a><h3>gtk_icon_theme_load_icon_for_scale ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_theme_load_icon_for_scale (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                                    <em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> scale</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>,
+                                    <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Looks up an icon in an icon theme for a particular window scale,
+scales it to the given size and renders it into a pixbuf. This is a
+convenience function; if more details about the icon are needed,
+use <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a> followed by
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p>
+<p>Note that you probably want to listen for icon theme changes and
+update the icon. This is usually done by connecting to the
+GtkWidget::style-set signal. If for some reason you do not want to
+update the icon when the icon theme changes, you should consider
+using <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-Image-Data-in-Memory.html#gdk-pixbuf-copy"><code class="function">gdk_pixbuf_copy()</code></a> to make a private copy of the pixbuf
+returned by this function. Otherwise GTK+ may need to keep the old
+icon theme loaded, which would be a waste of memory.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-load-icon-for-scale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of the icon to lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>the desired icon size. The resulting icon may not be
+exactly this size; see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>scale</p></td>
+<td class="parameter_description"><p>desired scale</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-load-icon-for-scale.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be
+a newly created icon or a new reference to an internal icon, so
+you must not modify the icon. Use <code class="function">g_object_unref()</code> to release
+your reference to the icon. <code class="literal">NULL</code> if the icon isn’t found. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-load-surface"></a><h3>gtk_icon_theme_load_surface ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="returnvalue">cairo_surface_t</span></a> *
+gtk_icon_theme_load_surface (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>,
+                             <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                             <em class="parameter"><code><span class="type">gint</span> scale</code></em>,
+                             <em class="parameter"><code><span class="type">GdkWindow</span> *for_window</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconLookupFlags" title="enum GtkIconLookupFlags"><span class="type">GtkIconLookupFlags</span></a> flags</code></em>,
+                             <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Looks up an icon in an icon theme for a particular window scale,
+scales it to the given size and renders it into a cairo surface. This is a
+convenience function; if more details about the icon are needed,
+use <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a> followed by
+<a class="link" href="GtkIconTheme.html#gtk-icon-info-load-surface" title="gtk_icon_info_load_surface ()"><code class="function">gtk_icon_info_load_surface()</code></a>.</p>
+<p>Note that you probably want to listen for icon theme changes and
+update the icon. This is usually done by connecting to the
+GtkWidget::style-set signal.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-load-surface.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of the icon to lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>the desired icon size. The resulting icon may not be
+exactly this size; see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>scale</p></td>
+<td class="parameter_description"><p>desired scale</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>for_window</p></td>
+<td class="parameter_description"><p><span class="type">GdkWindow</span> to optimize drawing for, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags modifying the behavior of the icon lookup</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-load-surface.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be
+a newly created icon or a new reference to an internal icon, so
+you must not modify the icon. Use <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-destroy"><code class="function">cairo_surface_destroy()</code></a> to
+release your reference to the icon. <code class="literal">NULL</code> if the icon isn’t
+found. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-list-contexts"></a><h3>gtk_icon_theme_list_contexts ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gtk_icon_theme_list_contexts (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>);</pre>
+<p>Gets the list of contexts available within the current
+hierarchy of icon themes.
+See <a class="link" href="GtkIconTheme.html#gtk-icon-theme-list-icons" title="gtk_icon_theme_list_icons ()"><code class="function">gtk_icon_theme_list_icons()</code></a> for details about contexts.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-list-contexts.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-list-contexts.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GList</span> list
+holding the names of all the contexts in the theme. You must first
+free each element in the list with <code class="function">g_free()</code>, then free the list
+itself with <code class="function">g_list_free()</code>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-list-icons"></a><h3>gtk_icon_theme_list_icons ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gtk_icon_theme_list_icons (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                           <em class="parameter"><code>const <span class="type">gchar</span> *context</code></em>);</pre>
+<p>Lists the icons in the current icon theme. Only a subset
+of the icons can be listed by providing a context string.
+The set of values for the context string is system dependent,
+but will typically include such values as “Applications” and
+“MimeTypes”. Contexts are explained in the
+<a class="ulink" href="http://www.freedesktop.org/wiki/Specifications/icon-theme-spec" target="_top">Icon Theme Specification</a>.
+The standard contexts are listed in the
+<a class="ulink" href="http://www.freedesktop.org/wiki/Specifications/icon-naming-spec" target="_top">Icon Naming Specification</a>.
+Also see <a class="link" href="GtkIconTheme.html#gtk-icon-theme-list-contexts" title="gtk_icon_theme_list_contexts ()"><code class="function">gtk_icon_theme_list_contexts()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-list-icons.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a string identifying a particular type of
+icon, or <code class="literal">NULL</code> to list all icons. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-list-icons.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GList</span> list
+holding the names of all the icons in the theme. You must
+first free each element in the list with <code class="function">g_free()</code>, then
+free the list itself with <code class="function">g_list_free()</code>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-get-icon-sizes"></a><h3>gtk_icon_theme_get_icon_sizes ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span> *
+gtk_icon_theme_get_icon_sizes (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                               <em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>);</pre>
+<p>Returns an array of integers describing the sizes at which
+the icon is available without scaling. A size of -1 means 
+that the icon is available in a scalable format. The array 
+is zero-terminated.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-icon-sizes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of an icon</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-icon-sizes.returns"></a><h4>Returns</h4>
+<p>An newly
+allocated array describing the sizes at which the icon is
+available. The array should be freed with <code class="function">g_free()</code> when it is no
+longer needed. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-get-example-icon-name"></a><h3>gtk_icon_theme_get_example_icon_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+gtk_icon_theme_get_example_icon_name (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>);</pre>
+<p>Gets the name of an icon that is representative of the
+current theme (for instance, to use when presenting
+a list of themes to the user.)</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-example-icon-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-get-example-icon-name.returns"></a><h4>Returns</h4>
+<p>the name of an example icon or <code class="literal">NULL</code>.
+Free with <code class="function">g_free()</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-rescan-if-needed"></a><h3>gtk_icon_theme_rescan_if_needed ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_icon_theme_rescan_if_needed (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>);</pre>
+<p>Checks to see if the icon theme has changed; if it has, any
+currently cached information is discarded and will be reloaded
+next time <em class="parameter"><code>icon_theme</code></em>
+ is accessed.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-rescan-if-needed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-theme-rescan-if-needed.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the icon theme has changed and needed
+to be reloaded.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-theme-add-builtin-icon"></a><h3>gtk_icon_theme_add_builtin_icon ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_theme_add_builtin_icon (<em class="parameter"><code>const <span class="type">gchar</span> *icon_name</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> size</code></em>,
+                                 <em class="parameter"><code><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *pixbuf</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_theme_add_builtin_icon</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkIconTheme.html#gtk-icon-theme-add-resource-path" title="gtk_icon_theme_add_resource_path ()"><code class="function">gtk_icon_theme_add_resource_path()</code></a>
+    to add application-specific icons to the icon theme.</p>
+</div>
+<p>Registers a built-in icon for icon theme lookups. The idea
+of built-in icons is to allow an application or library
+that uses themed icons to function requiring files to
+be present in the file system. For instance, the default
+images for all of GTK+’s stock icons are registered
+as built-icons.</p>
+<p>In general, if you use <a class="link" href="GtkIconTheme.html#gtk-icon-theme-add-builtin-icon" title="gtk_icon_theme_add_builtin_icon ()"><code class="function">gtk_icon_theme_add_builtin_icon()</code></a>
+you should also install the icon in the icon theme, so
+that the icon is generally available.</p>
+<p>This function will generally be used with pixbufs loaded
+via <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-Image-Data-in-Memory.html#gdk-pixbuf-new-from-inline"><code class="function">gdk_pixbuf_new_from_inline()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-theme-add-builtin-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_name</p></td>
+<td class="parameter_description"><p>the name of the icon to register</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>the size in pixels at which to register the icon (different
+images can be registered for the same icon name at different sizes.)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pixbuf</p></td>
+<td class="parameter_description"><p><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> that contains the image to use for <em class="parameter"><code>icon_name</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-copy"></a><h3>gtk_icon_info_copy ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_info_copy (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_copy</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <code class="function">g_object_ref()</code></p>
+</div>
+<p>Make a copy of a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gtk-icon-info-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-copy.returns"></a><h4>Returns</h4>
+<p>the new GtkIconInfo. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-free"></a><h3>gtk_icon_info_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_info_free (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_free</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <code class="function">g_object_unref()</code></p>
+</div>
+<p>Free a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> and associated information</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gtk-icon-info-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-new-for-pixbuf"></a><h3>gtk_icon_info_new_for_pixbuf ()</h3>
+<pre class="programlisting"><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="returnvalue">GtkIconInfo</span></a> *
+gtk_icon_info_new_for_pixbuf (<em class="parameter"><code><a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme</code></em>,
+                              <em class="parameter"><code><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *pixbuf</code></em>);</pre>
+<p>Creates a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> for a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-new-for-pixbuf.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pixbuf</p></td>
+<td class="parameter_description"><p>the pixbuf to wrap in a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-new-for-pixbuf.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-get-base-size"></a><h3>gtk_icon_info_get_base_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_icon_info_get_base_size (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<p>Gets the base size for the icon. The base size
+is a size for the icon that was specified by
+the icon theme creator. This may be different
+than the actual size of image; an example of
+this is small emblem icons that can be attached
+to a larger icon. These icons will be given
+the same base size as the larger icons to which
+they are attached.</p>
+<p>Note that for scaled icons the base size does
+not include the base scale.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-get-base-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-get-base-size.returns"></a><h4>Returns</h4>
+<p> the base size, or 0, if no base
+size is known for the icon.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-get-base-scale"></a><h3>gtk_icon_info_get_base_scale ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_icon_info_get_base_scale (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<p>Gets the base scale for the icon. The base scale is a scale
+for the icon that was specified by the icon theme creator.
+For instance an icon drawn for a high-dpi screen with window
+scale 2 for a base size of 32 will be 64 pixels tall and have
+a base scale of 2.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-get-base-scale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-get-base-scale.returns"></a><h4>Returns</h4>
+<p> the base scale</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-get-filename"></a><h3>gtk_icon_info_get_filename ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_icon_info_get_filename (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<p>Gets the filename for the icon. If the <a class="link" href="GtkIconTheme.html#GTK-ICON-LOOKUP-USE-BUILTIN:CAPS"><code class="literal">GTK_ICON_LOOKUP_USE_BUILTIN</code></a>
+flag was passed to <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>, there may be no
+filename if a builtin icon is returned; in this case, you should
+use <a class="link" href="GtkIconTheme.html#gtk-icon-info-get-builtin-pixbuf" title="gtk_icon_info_get_builtin_pixbuf ()"><code class="function">gtk_icon_info_get_builtin_pixbuf()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-get-filename.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-get-filename.returns"></a><h4>Returns</h4>
+<p>the filename for the icon, or <code class="literal">NULL</code>
+if <a class="link" href="GtkIconTheme.html#gtk-icon-info-get-builtin-pixbuf" title="gtk_icon_info_get_builtin_pixbuf ()"><code class="function">gtk_icon_info_get_builtin_pixbuf()</code></a> should be used instead.
+The return value is owned by GTK+ and should not be modified
+or freed. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> filename]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-get-builtin-pixbuf"></a><h3>gtk_icon_info_get_builtin_pixbuf ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_get_builtin_pixbuf (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_get_builtin_pixbuf</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>This function is deprecated, use
+    <a class="link" href="GtkIconTheme.html#gtk-icon-theme-add-resource-path" title="gtk_icon_theme_add_resource_path ()"><code class="function">gtk_icon_theme_add_resource_path()</code></a> instead of builtin icons.</p>
+</div>
+<p>Gets the built-in image for this icon, if any. To allow GTK+ to use
+built in icon images, you must pass the <a class="link" href="GtkIconTheme.html#GTK-ICON-LOOKUP-USE-BUILTIN:CAPS"><code class="literal">GTK_ICON_LOOKUP_USE_BUILTIN</code></a>
+to <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-get-builtin-pixbuf.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-get-builtin-pixbuf.returns"></a><h4>Returns</h4>
+<p>the built-in image pixbuf, or <code class="literal">NULL</code>.
+No extra reference is added to the returned pixbuf, so if
+you want to keep it around, you must use <code class="function">g_object_ref()</code>.
+The returned image must not be modified. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-icon"></a><h3>gtk_icon_info_load_icon ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_load_icon (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Renders an icon previously looked up in an icon theme using
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>; the size will be based on the size
+passed to <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>. Note that the resulting
+pixbuf may not be exactly this size; an icon theme may have icons
+that differ slightly from their nominal sizes, and in addition GTK+
+will avoid scaling icons that it considers sufficiently close to the
+requested size or for which the source image would have to be scaled
+up too far. (This maintains sharpness.). This behaviour can be changed
+by passing the <a class="link" href="GtkIconTheme.html#GTK-ICON-LOOKUP-FORCE-SIZE:CAPS"><code class="literal">GTK_ICON_LOOKUP_FORCE_SIZE</code></a> flag when obtaining
+the <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a>. If this flag has been specified, the pixbuf
+returned by this function will be scaled to the exact size.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-icon.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be a newly
+created icon or a new reference to an internal icon, so you must
+not modify the icon. Use <code class="function">g_object_unref()</code> to release your reference
+to the icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-surface"></a><h3>gtk_icon_info_load_surface ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="returnvalue">cairo_surface_t</span></a> *
+gtk_icon_info_load_surface (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                            <em class="parameter"><code><span class="type">GdkWindow</span> *for_window</code></em>,
+                            <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Renders an icon previously looked up in an icon theme using
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>; the size will be based on the size
+passed to <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>. Note that the resulting
+surface may not be exactly this size; an icon theme may have icons
+that differ slightly from their nominal sizes, and in addition GTK+
+will avoid scaling icons that it considers sufficiently close to the
+requested size or for which the source image would have to be scaled
+up too far. (This maintains sharpness.). This behaviour can be changed
+by passing the <a class="link" href="GtkIconTheme.html#GTK-ICON-LOOKUP-FORCE-SIZE:CAPS"><code class="literal">GTK_ICON_LOOKUP_FORCE_SIZE</code></a> flag when obtaining
+the <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a>. If this flag has been specified, the pixbuf
+returned by this function will be scaled to the exact size.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-surface.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>for_window</p></td>
+<td class="parameter_description"><p><span class="type">GdkWindow</span> to optimize drawing for, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location for error information on failure, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-surface.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be a newly
+created icon or a new reference to an internal icon, so you must
+not modify the icon. Use <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-destroy"><code class="function">cairo_surface_destroy()</code></a> to release your
+reference to the icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-icon-async"></a><h3>gtk_icon_info_load_icon_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_info_load_icon_async (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                               <em class="parameter"><code><span class="type">GCancellable</span> *cancellable</code></em>,
+                               <em class="parameter"><code><span class="type">GAsyncReadyCallback</span> callback</code></em>,
+                               <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Asynchronously load, render and scale an icon previously looked up
+from the icon theme using <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>.</p>
+<p>For more details, see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a> which is the synchronous
+version of this call.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-icon-async.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <span class="type">GCancellable</span> object, <code class="literal">NULL</code> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a <span class="type">GAsyncReadyCallback</span> to call when the
+request is satisfied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>the data to pass to callback function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-icon-finish"></a><h3>gtk_icon_info_load_icon_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_load_icon_finish (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                <em class="parameter"><code><span class="type">GAsyncResult</span> *res</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Finishes an async icon load, see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon-async" title="gtk_icon_info_load_icon_async ()"><code class="function">gtk_icon_info_load_icon_async()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-icon-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>a <span class="type">GAsyncResult</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-icon-finish.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be a newly
+created icon or a new reference to an internal icon, so you must
+not modify the icon. Use <code class="function">g_object_unref()</code> to release your reference
+to the icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-symbolic"></a><h3>gtk_icon_info_load_symbolic ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_load_symbolic (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                             <em class="parameter"><code>const <span class="type">GdkRGBA</span> *fg</code></em>,
+                             <em class="parameter"><code>const <span class="type">GdkRGBA</span> *success_color</code></em>,
+                             <em class="parameter"><code>const <span class="type">GdkRGBA</span> *warning_color</code></em>,
+                             <em class="parameter"><code>const <span class="type">GdkRGBA</span> *error_color</code></em>,
+                             <em class="parameter"><code><span class="type">gboolean</span> *was_symbolic</code></em>,
+                             <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Loads an icon, modifying it to match the system colours for the foreground,
+success, warning and error colors provided. If the icon is not a symbolic
+one, the function will return the result from <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p>
+<p>This allows loading symbolic icons that will match the system theme.</p>
+<p>Unless you are implementing a widget, you will want to use
+<code class="function">g_themed_icon_new_with_default_fallbacks()</code> to load the icon.</p>
+<p>As implementation details, the icon loaded needs to be of SVG type,
+contain the “symbolic” term as the last component of the icon name,
+and use the “fg”, “success”, “warning” and “error” CSS styles in the
+SVG file itself.</p>
+<p>See the <a class="ulink" href="http://www.freedesktop.org/wiki/SymbolicIcons" target="_top">Symbolic Icons Specification</a>
+for more information about symbolic icons.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fg</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the foreground color of the icon</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>success_color</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the warning color
+of the icon or <code class="literal">NULL</code> to use the default color. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>warning_color</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the warning color
+of the icon or <code class="literal">NULL</code> to use the default color. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error_color</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the error color
+of the icon or <code class="literal">NULL</code> to use the default color (allow-none). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>was_symbolic</p></td>
+<td class="parameter_description"><p>a <span class="type">gboolean</span>, returns whether the
+loaded icon was a symbolic one and whether the <em class="parameter"><code>fg</code></em>
+color was
+applied to it. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic.returns"></a><h4>Returns</h4>
+<p>a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> representing the loaded icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-symbolic-async"></a><h3>gtk_icon_info_load_symbolic_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_info_load_symbolic_async (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                   <em class="parameter"><code>const <span class="type">GdkRGBA</span> *fg</code></em>,
+                                   <em class="parameter"><code>const <span class="type">GdkRGBA</span> *success_color</code></em>,
+                                   <em class="parameter"><code>const <span class="type">GdkRGBA</span> *warning_color</code></em>,
+                                   <em class="parameter"><code>const <span class="type">GdkRGBA</span> *error_color</code></em>,
+                                   <em class="parameter"><code><span class="type">GCancellable</span> *cancellable</code></em>,
+                                   <em class="parameter"><code><span class="type">GAsyncReadyCallback</span> callback</code></em>,
+                                   <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Asynchronously load, render and scale a symbolic icon previously looked up
+from the icon theme using <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>.</p>
+<p>For more details, see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic" title="gtk_icon_info_load_symbolic ()"><code class="function">gtk_icon_info_load_symbolic()</code></a> which is the synchronous
+version of this call.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-async.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fg</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the foreground color of the icon</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>success_color</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the warning color
+of the icon or <code class="literal">NULL</code> to use the default color. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>warning_color</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the warning color
+of the icon or <code class="literal">NULL</code> to use the default color. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error_color</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkRGBA</span> representing the error color
+of the icon or <code class="literal">NULL</code> to use the default color (allow-none). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <span class="type">GCancellable</span> object,
+<code class="literal">NULL</code> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a <span class="type">GAsyncReadyCallback</span> to call when the
+request is satisfied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>the data to pass to callback function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-symbolic-finish"></a><h3>gtk_icon_info_load_symbolic_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_load_symbolic_finish (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                    <em class="parameter"><code><span class="type">GAsyncResult</span> *res</code></em>,
+                                    <em class="parameter"><code><span class="type">gboolean</span> *was_symbolic</code></em>,
+                                    <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Finishes an async icon load, see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-async" title="gtk_icon_info_load_symbolic_async ()"><code class="function">gtk_icon_info_load_symbolic_async()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>a <span class="type">GAsyncResult</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>was_symbolic</p></td>
+<td class="parameter_description"><p>a <span class="type">gboolean</span>, returns whether the
+loaded icon was a symbolic one and whether the <em class="parameter"><code>fg</code></em>
+color was
+applied to it. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-finish.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be a newly
+created icon or a new reference to an internal icon, so you must
+not modify the icon. Use <code class="function">g_object_unref()</code> to release your reference
+to the icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-symbolic-for-style"></a><h3>gtk_icon_info_load_symbolic_for_style ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_load_symbolic_for_style (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                       <em class="parameter"><code><a class="link" href="GtkStyle.html" title="GtkStyle"><span class="type">GtkStyle</span></a> *style</code></em>,
+                                       <em class="parameter"><code><a class="link" href="GtkWidget.html#GtkStateType" title="enum GtkStateType"><span class="type">GtkStateType</span></a> state</code></em>,
+                                       <em class="parameter"><code><span class="type">gboolean</span> *was_symbolic</code></em>,
+                                       <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_load_symbolic_for_style</code> has been deprecated since version 3.0 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-for-context" title="gtk_icon_info_load_symbolic_for_context ()"><code class="function">gtk_icon_info_load_symbolic_for_context()</code></a> instead</p>
+</div>
+<p>Loads an icon, modifying it to match the system colours for the foreground,
+success, warning and error colors provided. If the icon is not a symbolic
+one, the function will return the result from <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p>
+<p>This allows loading symbolic icons that will match the system theme.</p>
+<p>See <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic" title="gtk_icon_info_load_symbolic ()"><code class="function">gtk_icon_info_load_symbolic()</code></a> for more details.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-for-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>style</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStyle.html" title="GtkStyle"><span class="type">GtkStyle</span></a> to take the colors from</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>the widget state to use for colors</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>was_symbolic</p></td>
+<td class="parameter_description"><p>a <span class="type">gboolean</span>, returns whether the
+loaded icon was a symbolic one and whether the <em class="parameter"><code>fg</code></em>
+color was
+applied to it. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-for-style.returns"></a><h4>Returns</h4>
+<p>a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> representing the loaded icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-symbolic-for-context"></a><h3>gtk_icon_info_load_symbolic_for_context ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_load_symbolic_for_context
+                               (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a> *context</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> *was_symbolic</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Loads an icon, modifying it to match the system colors for the foreground,
+success, warning and error colors provided. If the icon is not a symbolic
+one, the function will return the result from <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.
+This function uses the regular foreground color and the symbolic colors
+with the names “success_color”, “warning_color” and “error_color” from
+the context.</p>
+<p>This allows loading symbolic icons that will match the system theme.</p>
+<p>See <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic" title="gtk_icon_info_load_symbolic ()"><code class="function">gtk_icon_info_load_symbolic()</code></a> for more details.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-for-context.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>was_symbolic</p></td>
+<td class="parameter_description"><p>a <span class="type">gboolean</span>, returns whether the
+loaded icon was a symbolic one and whether the <em class="parameter"><code>fg</code></em>
+color was
+applied to it. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-for-context.returns"></a><h4>Returns</h4>
+<p>a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> representing the loaded icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-symbolic-for-context-async"></a><h3>gtk_icon_info_load_symbolic_for_context_async ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_info_load_symbolic_for_context_async
+                               (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a> *context</code></em>,
+                                <em class="parameter"><code><span class="type">GCancellable</span> *cancellable</code></em>,
+                                <em class="parameter"><code><span class="type">GAsyncReadyCallback</span> callback</code></em>,
+                                <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Asynchronously load, render and scale a symbolic icon previously
+looked up from the icon theme using <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a>.</p>
+<p>For more details, see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-for-context" title="gtk_icon_info_load_symbolic_for_context ()"><code class="function">gtk_icon_info_load_symbolic_for_context()</code></a>
+which is the synchronous version of this call.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-for-context-async.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <span class="type">GCancellable</span> object,
+<code class="literal">NULL</code> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a <span class="type">GAsyncReadyCallback</span> to call when the
+request is satisfied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>the data to pass to callback function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-load-symbolic-for-context-finish"></a><h3>gtk_icon_info_load_symbolic_for_context_finish ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_icon_info_load_symbolic_for_context_finish
+                               (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                <em class="parameter"><code><span class="type">GAsyncResult</span> *res</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> *was_symbolic</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Finishes an async icon load, see <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-symbolic-for-context-async" title="gtk_icon_info_load_symbolic_for_context_async ()"><code class="function">gtk_icon_info_load_symbolic_for_context_async()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-for-context-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> from <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>a <span class="type">GAsyncResult</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>was_symbolic</p></td>
+<td class="parameter_description"><p>a <span class="type">gboolean</span>, returns whether the
+loaded icon was a symbolic one and whether the <em class="parameter"><code>fg</code></em>
+color was
+applied to it. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>location to store error information on failure,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-load-symbolic-for-context-finish.returns"></a><h4>Returns</h4>
+<p>the rendered icon; this may be a newly
+created icon or a new reference to an internal icon, so you must
+not modify the icon. Use <code class="function">g_object_unref()</code> to release your reference
+to the icon. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-set-raw-coordinates"></a><h3>gtk_icon_info_set_raw_coordinates ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_icon_info_set_raw_coordinates (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                   <em class="parameter"><code><span class="type">gboolean</span> raw_coordinates</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_set_raw_coordinates</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Embedded rectangles and attachment points are deprecated</p>
+</div>
+<p>Sets whether the coordinates returned by <a class="link" href="GtkIconTheme.html#gtk-icon-info-get-embedded-rect" title="gtk_icon_info_get_embedded_rect ()"><code class="function">gtk_icon_info_get_embedded_rect()</code></a>
+and <a class="link" href="GtkIconTheme.html#gtk-icon-info-get-attach-points" title="gtk_icon_info_get_attach_points ()"><code class="function">gtk_icon_info_get_attach_points()</code></a> should be returned in their
+original form as specified in the icon theme, instead of scaled
+appropriately for the pixbuf returned by <a class="link" href="GtkIconTheme.html#gtk-icon-info-load-icon" title="gtk_icon_info_load_icon ()"><code class="function">gtk_icon_info_load_icon()</code></a>.</p>
+<p>Raw coordinates are somewhat strange; they are specified to be with
+respect to the unscaled pixmap for PNG and XPM icons, but for SVG
+icons, they are in a 1000x1000 coordinate space that is scaled
+to the final size of the icon.  You can determine if the icon is an SVG
+icon by using <a class="link" href="GtkIconTheme.html#gtk-icon-info-get-filename" title="gtk_icon_info_get_filename ()"><code class="function">gtk_icon_info_get_filename()</code></a>, and seeing if it is non-<code class="literal">NULL</code>
+and ends in “.svg”.</p>
+<p>This function is provided primarily to allow compatibility wrappers
+for older API's, and is not expected to be useful for applications.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-set-raw-coordinates.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>raw_coordinates</p></td>
+<td class="parameter_description"><p>whether the coordinates of embedded rectangles
+and attached points should be returned in their original
+(unscaled) form.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-get-embedded-rect"></a><h3>gtk_icon_info_get_embedded_rect ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_icon_info_get_embedded_rect (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                 <em class="parameter"><code><span class="type">GdkRectangle</span> *rectangle</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_get_embedded_rect</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Embedded rectangles are deprecated</p>
+</div>
+<p>This function is deprecated and always returns <code class="literal">FALSE</code>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-get-embedded-rect.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rectangle</p></td>
+<td class="parameter_description"><p><span class="type">GdkRectangle</span> in which to store embedded
+rectangle coordinates; coordinates are only stored
+when this function returns <code class="literal">TRUE</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-get-embedded-rect.returns"></a><h4>Returns</h4>
+<p> <code class="literal">FALSE</code></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-get-attach-points"></a><h3>gtk_icon_info_get_attach_points ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_icon_info_get_attach_points (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>,
+                                 <em class="parameter"><code><span class="type">GdkPoint</span> **points</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> *n_points</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_get_attach_points</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Attachment points are deprecated</p>
+</div>
+<p>This function is deprecated and always returns <code class="literal">FALSE</code>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-get-attach-points.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>points</p></td>
+<td class="parameter_description"><p>location to store pointer
+to an array of points, or <code class="literal">NULL</code> free the array of points with <code class="function">g_free()</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_points][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_points</p></td>
+<td class="parameter_description"><p>location to store the number of points in <em class="parameter"><code>points</code></em>
+,
+or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-get-attach-points.returns"></a><h4>Returns</h4>
+<p> <code class="literal">FALSE</code></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-get-display-name"></a><h3>gtk_icon_info_get_display_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_icon_info_get_display_name (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_icon_info_get_display_name</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Display names are deprecated</p>
+</div>
+<p>This function is deprecated and always returns <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-get-display-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-get-display-name.returns"></a><h4>Returns</h4>
+<p> <code class="literal">NULL</code></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-icon-info-is-symbolic"></a><h3>gtk_icon_info_is_symbolic ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_icon_info_is_symbolic (<em class="parameter"><code><a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a> *icon_info</code></em>);</pre>
+<p>Checks if the icon is symbolic or not. This currently uses only
+the file name and not the file contents for determining this.
+This behaviour may change in the future.</p>
+<div class="refsect3">
+<a name="gtk-icon-info-is-symbolic.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icon_info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkIconTheme.html#GtkIconInfo" title="GtkIconInfo"><span class="type">GtkIconInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-icon-info-is-symbolic.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the icon is symbolic, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkIconInfo"></a><h3>GtkIconInfo</h3>
+<pre class="programlisting">typedef struct _GtkIconInfo GtkIconInfo;</pre>
+<p>Contains information found when looking up an icon in
+an icon theme.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkIconTheme-struct"></a><h3>struct GtkIconTheme</h3>
+<pre class="programlisting">struct GtkIconTheme;</pre>
+<p>Acts as a database of information about an icon theme.
+Normally, you retrieve the icon theme for a particular
+screen using <a class="link" href="GtkIconTheme.html#gtk-icon-theme-get-for-screen" title="gtk_icon_theme_get_for_screen ()"><code class="function">gtk_icon_theme_get_for_screen()</code></a> and it
+will contain information about current icon theme for
+that screen, but you can also create a new <a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a>
+object and set the icon theme name explicitly using
+<a class="link" href="GtkIconTheme.html#gtk-icon-theme-set-custom-theme" title="gtk_icon_theme_set_custom_theme ()"><code class="function">gtk_icon_theme_set_custom_theme()</code></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkIconThemeClass"></a><h3>struct GtkIconThemeClass</h3>
+<pre class="programlisting">struct GtkIconThemeClass {
+  GObjectClass parent_class;
+
+
+  void (* changed)  (GtkIconTheme *icon_theme);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkIconThemeClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkIconThemeClass.changed"></a>changed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when the current icon theme is switched or
+GTK+ detects that a change has occurred in the contents of the
+current icon theme.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkIconLookupFlags"></a><h3>enum GtkIconLookupFlags</h3>
+<p>Used to specify options for <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a></p>
+<div class="refsect3">
+<a name="GtkIconLookupFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-NO-SVG:CAPS"></a>GTK_ICON_LOOKUP_NO_SVG</p></td>
+<td class="enum_member_description">
+<p>Never get SVG icons, even if gdk-pixbuf
+  supports them. Cannot be used together with <a class="link" href="GtkIconTheme.html#GTK-ICON-LOOKUP-FORCE-SVG:CAPS"><code class="literal">GTK_ICON_LOOKUP_FORCE_SVG</code></a>.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-FORCE-SVG:CAPS"></a>GTK_ICON_LOOKUP_FORCE_SVG</p></td>
+<td class="enum_member_description">
+<p>Get SVG icons, even if gdk-pixbuf
+  doesn’t support them.
+  Cannot be used together with <a class="link" href="GtkIconTheme.html#GTK-ICON-LOOKUP-NO-SVG:CAPS"><code class="literal">GTK_ICON_LOOKUP_NO_SVG</code></a>.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-USE-BUILTIN:CAPS"></a>GTK_ICON_LOOKUP_USE_BUILTIN</p></td>
+<td class="enum_member_description">
+<p>When passed to
+  <a class="link" href="GtkIconTheme.html#gtk-icon-theme-lookup-icon" title="gtk_icon_theme_lookup_icon ()"><code class="function">gtk_icon_theme_lookup_icon()</code></a> includes builtin icons
+  as well as files. For a builtin icon, <a class="link" href="GtkIconTheme.html#gtk-icon-info-get-filename" title="gtk_icon_info_get_filename ()"><code class="function">gtk_icon_info_get_filename()</code></a>
+  is <code class="literal">NULL</code> and you need to call <a class="link" href="GtkIconTheme.html#gtk-icon-info-get-builtin-pixbuf" title="gtk_icon_info_get_builtin_pixbuf ()"><code class="function">gtk_icon_info_get_builtin_pixbuf()</code></a>.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-GENERIC-FALLBACK:CAPS"></a>GTK_ICON_LOOKUP_GENERIC_FALLBACK</p></td>
+<td class="enum_member_description">
+<p>Try to shorten icon name at '-'
+  characters before looking at inherited themes. This flag is only
+  supported in functions that take a single icon name. For more general
+  fallback, see <a class="link" href="GtkIconTheme.html#gtk-icon-theme-choose-icon" title="gtk_icon_theme_choose_icon ()"><code class="function">gtk_icon_theme_choose_icon()</code></a>. Since 2.12.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-FORCE-SIZE:CAPS"></a>GTK_ICON_LOOKUP_FORCE_SIZE</p></td>
+<td class="enum_member_description">
+<p>Always get the icon scaled to the
+  requested size. Since 2.14.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-FORCE-REGULAR:CAPS"></a>GTK_ICON_LOOKUP_FORCE_REGULAR</p></td>
+<td class="enum_member_description">
+<p>Try to always load regular icons, even
+  when symbolic icon names are given. Since 3.14.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-FORCE-SYMBOLIC:CAPS"></a>GTK_ICON_LOOKUP_FORCE_SYMBOLIC</p></td>
+<td class="enum_member_description">
+<p>Try to always load symbolic icons, even
+  when regular icon names are given. Since 3.14.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-DIR-LTR:CAPS"></a>GTK_ICON_LOOKUP_DIR_LTR</p></td>
+<td class="enum_member_description">
+<p>Try to load a variant of the icon for left-to-right
+  text direction. Since 3.14.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-LOOKUP-DIR-RTL:CAPS"></a>GTK_ICON_LOOKUP_DIR_RTL</p></td>
+<td class="enum_member_description">
+<p>Try to load a variant of the icon for right-to-left
+  text direction. Since 3.14.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-ICON-THEME-ERROR:CAPS"></a><h3>GTK_ICON_THEME_ERROR</h3>
+<pre class="programlisting">#define GTK_ICON_THEME_ERROR gtk_icon_theme_error_quark ()
+</pre>
+<p>The <span class="type">GQuark</span> used for <a class="link" href="GtkIconTheme.html#GtkIconThemeError" title="enum GtkIconThemeError"><span class="type">GtkIconThemeError</span></a> errors.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkIconThemeError"></a><h3>enum GtkIconThemeError</h3>
+<p>Error codes for GtkIconTheme operations.</p>
+<div class="refsect3">
+<a name="GtkIconThemeError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-THEME-NOT-FOUND:CAPS"></a>GTK_ICON_THEME_NOT_FOUND</p></td>
+<td class="enum_member_description">
+<p>The icon specified does not exist in the theme</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ICON-THEME-FAILED:CAPS"></a>GTK_ICON_THEME_FAILED</p></td>
+<td class="enum_member_description">
+<p>An unspecified error occurred.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkIconTheme.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkIconTheme-changed"></a><h3>The <code class="literal">“changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkIconTheme.html" title="GtkIconTheme"><span class="type">GtkIconTheme</span></a> *icon_theme,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>Emitted when the current icon theme is switched or GTK+ detects
+that a change has occurred in the contents of the current
+icon theme.</p>
+<div class="refsect3">
+<a name="GtkIconTheme-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icon_theme</p></td>
+<td class="parameter_description"><p>the icon theme</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

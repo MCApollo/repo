@@ -1,0 +1,1666 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Drag And Drop: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="gdk3-Selections.html" title="Selections">
+<link rel="next" href="gdk3-Properties-and-Atoms.html" title="Properties and Atoms">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-Drag-and-Drop.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#gdk3-Drag-and-Drop.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#gdk3-Drag-and-Drop.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdk3-Selections.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Properties-and-Atoms.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-Drag-and-Drop"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-Drag-and-Drop.top_of_page"></a>Drag And Drop</span></h2>
+<p>Drag And Drop — Functions for controlling drag and drop handling</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="returnvalue">GdkAtom</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-get-selection" title="gdk_drag_get_selection ()">gdk_drag_get_selection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-abort" title="gdk_drag_abort ()">gdk_drag_abort</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drop-reply" title="gdk_drop_reply ()">gdk_drop_reply</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-drop" title="gdk_drag_drop ()">gdk_drag_drop</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-drop-done" title="gdk_drag_drop_done ()">gdk_drag_drop_done</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-find-window-for-screen" title="gdk_drag_find_window_for_screen ()">gdk_drag_find_window_for_screen</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="returnvalue">GdkDragContext</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-begin" title="gdk_drag_begin ()">gdk_drag_begin</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="returnvalue">GdkDragContext</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-begin-for-device" title="gdk_drag_begin_for_device ()">gdk_drag_begin_for_device</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="returnvalue">GdkDragContext</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-begin-from-point" title="gdk_drag_begin_from_point ()">gdk_drag_begin_from_point</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-motion" title="gdk_drag_motion ()">gdk_drag_motion</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drop-finish" title="gdk_drop_finish ()">gdk_drop_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-status" title="gdk_drag_status ()">gdk_drag_status</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-drop-succeeded" title="gdk_drag_drop_succeeded ()">gdk_drag_drop_succeeded</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragProtocol" title="enum GdkDragProtocol"><span class="returnvalue">GdkDragProtocol</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-window-get-drag-protocol" title="gdk_window_get_drag_protocol ()">gdk_window_get_drag_protocol</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="returnvalue">GdkDragAction</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-actions" title="gdk_drag_context_get_actions ()">gdk_drag_context_get_actions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="returnvalue">GdkDragAction</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-suggested-action" title="gdk_drag_context_get_suggested_action ()">gdk_drag_context_get_suggested_action</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="returnvalue">GdkDragAction</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-selected-action" title="gdk_drag_context_get_selected_action ()">gdk_drag_context_get_selected_action</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-list-targets" title="gdk_drag_context_list_targets ()">gdk_drag_context_list_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-device" title="gdk_drag_context_get_device ()">gdk_drag_context_get_device</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-set-device" title="gdk_drag_context_set_device ()">gdk_drag_context_set_device</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-source-window" title="gdk_drag_context_get_source_window ()">gdk_drag_context_get_source_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-dest-window" title="gdk_drag_context_get_dest_window ()">gdk_drag_context_get_dest_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragProtocol" title="enum GdkDragProtocol"><span class="returnvalue">GdkDragProtocol</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-protocol" title="gdk_drag_context_get_protocol ()">gdk_drag_context_get_protocol</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-drag-window" title="gdk_drag_context_get_drag_window ()">gdk_drag_context_get_drag_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-set-hotspot" title="gdk_drag_context_set_hotspot ()">gdk_drag_context_set_hotspot</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()">gdk_drag_context_manage_dnd</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-action-changed" title="The “action-changed” signal">action-changed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-cancel" title="The “cancel” signal">cancel</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-dnd-finished" title="The “dnd-finished” signal">dnd-finished</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-drop-performed" title="The “drop-performed” signal">drop-performed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="GdkDragContext"></a><div class="refsect1">
+<a name="gdk3-Drag-and-Drop.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-struct" title="GdkDragContext">GdkDragContext</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragCancelReason" title="enum GdkDragCancelReason">GdkDragCancelReason</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragProtocol" title="enum GdkDragProtocol">GdkDragProtocol</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction">GdkDragAction</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GdkDragContext
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.description"></a><h2>Description</h2>
+<p>These functions provide a low level interface for drag and drop.
+The X backend of GDK supports both the Xdnd and Motif drag and drop
+protocols transparently, the Win32 backend supports the WM_DROPFILES
+protocol.</p>
+<p>GTK+ provides a higher level abstraction based on top of these functions,
+and so they are not normally needed in GTK+ applications.
+See the Drag and Drop section of
+the GTK+ documentation for more information.</p>
+</div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-drag-get-selection"></a><h3>gdk_drag_get_selection ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="returnvalue">GdkAtom</span></a>
+gdk_drag_get_selection (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Returns the selection atom for the current source window.</p>
+<div class="refsect3">
+<a name="gdk-drag-get-selection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-get-selection.returns"></a><h4>Returns</h4>
+<p>the selection atom, or <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-NONE:CAPS" title="GDK_NONE"><code class="literal">GDK_NONE</code></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-abort"></a><h3>gdk_drag_abort ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drag_abort (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Aborts a drag without dropping.</p>
+<p>This function is called by the drag source.</p>
+<p>This function does not need to be called in managed drag and drop
+operations. See <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()"><code class="function">gdk_drag_context_manage_dnd()</code></a> for more information.</p>
+<div class="refsect3">
+<a name="gdk-drag-abort.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>the timestamp for this operation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drop-reply"></a><h3>gdk_drop_reply ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drop_reply (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                <em class="parameter"><code><span class="type">gboolean</span> accepted</code></em>,
+                <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Accepts or rejects a drop.</p>
+<p>This function is called by the drag destination in response
+to a drop initiated by the drag source.</p>
+<div class="refsect3">
+<a name="gdk-drop-reply.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accepted</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if the drop is accepted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>the timestamp for this operation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-drop"></a><h3>gdk_drag_drop ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drag_drop (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+               <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Drops on the current destination.</p>
+<p>This function is called by the drag source.</p>
+<p>This function does not need to be called in managed drag and drop
+operations. See <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()"><code class="function">gdk_drag_context_manage_dnd()</code></a> for more information.</p>
+<div class="refsect3">
+<a name="gdk-drag-drop.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>the timestamp for this operation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-drop-done"></a><h3>gdk_drag_drop_done ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drag_drop_done (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                    <em class="parameter"><code><span class="type">gboolean</span> success</code></em>);</pre>
+<p>Inform GDK if the drop ended successfully. Passing <code class="literal">FALSE</code>
+for <em class="parameter"><code>success</code></em>
+ may trigger a drag cancellation animation.</p>
+<p>This function is called by the drag source, and should
+be the last call before dropping the reference to the
+<em class="parameter"><code>context</code></em>
+.</p>
+<p>The <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> will only take the first <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-drop-done" title="gdk_drag_drop_done ()"><code class="function">gdk_drag_drop_done()</code></a>
+call as effective, if this function is called multiple times,
+all subsequent calls will be ignored.</p>
+<div class="refsect3">
+<a name="gdk-drag-drop-done.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>success</p></td>
+<td class="parameter_description"><p>whether the drag was ultimatively successful</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-find-window-for-screen"></a><h3>gdk_drag_find_window_for_screen ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drag_find_window_for_screen (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                                 <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *drag_window</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GdkScreen.html" title="GdkScreen"><span class="type">GdkScreen</span></a> *screen</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> x_root</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> y_root</code></em>,
+                                 <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> **dest_window</code></em>,
+                                 <em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragProtocol" title="enum GdkDragProtocol"><span class="type">GdkDragProtocol</span></a> *protocol</code></em>);</pre>
+<p>Finds the destination window and DND protocol to use at the
+given pointer position.</p>
+<p>This function is called by the drag source to obtain the
+<em class="parameter"><code>dest_window</code></em>
+ and <em class="parameter"><code>protocol</code></em>
+ parameters for <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-motion" title="gdk_drag_motion ()"><code class="function">gdk_drag_motion()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-drag-find-window-for-screen.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>drag_window</p></td>
+<td class="parameter_description"><p>a window which may be at the pointer position, but
+should be ignored, since it is put up by the drag source as an icon</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>screen</p></td>
+<td class="parameter_description"><p>the screen where the destination window is sought</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x_root</p></td>
+<td class="parameter_description"><p>the x position of the pointer in root coordinates</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y_root</p></td>
+<td class="parameter_description"><p>the y position of the pointer in root coordinates</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dest_window</p></td>
+<td class="parameter_description"><p>location to store the destination window in. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>protocol</p></td>
+<td class="parameter_description"><p>location to store the DND protocol in. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-begin"></a><h3>gdk_drag_begin ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="returnvalue">GdkDragContext</span></a> *
+gdk_drag_begin (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                <em class="parameter"><code><span class="type">GList</span> *targets</code></em>);</pre>
+<p>Starts a drag and creates a new drag context for it.
+This function assumes that the drag is controlled by the
+client pointer device, use <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-begin-for-device" title="gdk_drag_begin_for_device ()"><code class="function">gdk_drag_begin_for_device()</code></a> to
+begin a drag with a different device.</p>
+<p>This function is called by the drag source.</p>
+<div class="refsect3">
+<a name="gdk-drag-begin.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the source window for this drag.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>the offered targets,
+as list of <a href="gdk3-Properties-and-Atoms.html#GdkAtom"><span class="type">GdkAtoms</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GdkAtom]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-begin.returns"></a><h4>Returns</h4>
+<p>a newly created <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-begin-for-device"></a><h3>gdk_drag_begin_for_device ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="returnvalue">GdkDragContext</span></a> *
+gdk_drag_begin_for_device (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                           <em class="parameter"><code><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> *device</code></em>,
+                           <em class="parameter"><code><span class="type">GList</span> *targets</code></em>);</pre>
+<p>Starts a drag and creates a new drag context for it.</p>
+<p>This function is called by the drag source.</p>
+<div class="refsect3">
+<a name="gdk-drag-begin-for-device.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the source window for this drag</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>device</p></td>
+<td class="parameter_description"><p>the device that controls this drag</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>the offered targets,
+as list of <a href="gdk3-Properties-and-Atoms.html#GdkAtom"><span class="type">GdkAtoms</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GdkAtom]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-begin-for-device.returns"></a><h4>Returns</h4>
+<p>a newly created <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-begin-from-point"></a><h3>gdk_drag_begin_from_point ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="returnvalue">GdkDragContext</span></a> *
+gdk_drag_begin_from_point (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                           <em class="parameter"><code><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> *device</code></em>,
+                           <em class="parameter"><code><span class="type">GList</span> *targets</code></em>,
+                           <em class="parameter"><code><span class="type">gint</span> x_root</code></em>,
+                           <em class="parameter"><code><span class="type">gint</span> y_root</code></em>);</pre>
+<p>Starts a drag and creates a new drag context for it.</p>
+<p>This function is called by the drag source.</p>
+<div class="refsect3">
+<a name="gdk-drag-begin-from-point.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the source window for this drag</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>device</p></td>
+<td class="parameter_description"><p>the device that controls this drag</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>the offered targets,
+as list of <a href="gdk3-Properties-and-Atoms.html#GdkAtom"><span class="type">GdkAtoms</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GdkAtom]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x_root</p></td>
+<td class="parameter_description"><p>the x coordinate where the drag nominally started</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y_root</p></td>
+<td class="parameter_description"><p>the y coordinate where the drag nominally started</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-begin-from-point.returns"></a><h4>Returns</h4>
+<p>a newly created <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-motion"></a><h3>gdk_drag_motion ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_drag_motion (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                 <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *dest_window</code></em>,
+                 <em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragProtocol" title="enum GdkDragProtocol"><span class="type">GdkDragProtocol</span></a> protocol</code></em>,
+                 <em class="parameter"><code><span class="type">gint</span> x_root</code></em>,
+                 <em class="parameter"><code><span class="type">gint</span> y_root</code></em>,
+                 <em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a> suggested_action</code></em>,
+                 <em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a> possible_actions</code></em>,
+                 <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Updates the drag context when the pointer moves or the
+set of actions changes.</p>
+<p>This function is called by the drag source.</p>
+<p>This function does not need to be called in managed drag and drop
+operations. See <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()"><code class="function">gdk_drag_context_manage_dnd()</code></a> for more information.</p>
+<div class="refsect3">
+<a name="gdk-drag-motion.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dest_window</p></td>
+<td class="parameter_description"><p>the new destination window, obtained by
+<code class="function">gdk_drag_find_window()</code></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>protocol</p></td>
+<td class="parameter_description"><p>the DND protocol in use, obtained by <code class="function">gdk_drag_find_window()</code></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x_root</p></td>
+<td class="parameter_description"><p>the x position of the pointer in root coordinates</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y_root</p></td>
+<td class="parameter_description"><p>the y position of the pointer in root coordinates</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>suggested_action</p></td>
+<td class="parameter_description"><p>the suggested action</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>possible_actions</p></td>
+<td class="parameter_description"><p>the possible actions</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>the timestamp for this operation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drop-finish"></a><h3>gdk_drop_finish ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drop_finish (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                 <em class="parameter"><code><span class="type">gboolean</span> success</code></em>,
+                 <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Ends the drag operation after a drop.</p>
+<p>This function is called by the drag destination.</p>
+<div class="refsect3">
+<a name="gdk-drop-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>success</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if the data was successfully received</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>the timestamp for this operation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-status"></a><h3>gdk_drag_status ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drag_status (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                 <em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a> action</code></em>,
+                 <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Selects one of the actions offered by the drag source.</p>
+<p>This function is called by the drag destination in response to
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-motion" title="gdk_drag_motion ()"><code class="function">gdk_drag_motion()</code></a> called by the drag source.</p>
+<div class="refsect3">
+<a name="gdk-drag-status.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>action</p></td>
+<td class="parameter_description"><p>the selected action which will be taken when a drop happens,
+or 0 to indicate that a drop will not be accepted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>the timestamp for this operation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-drop-succeeded"></a><h3>gdk_drag_drop_succeeded ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_drag_drop_succeeded (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Returns whether the dropped data has been successfully
+transferred. This function is intended to be used while
+handling a <a class="link" href="gdk3-Events.html#GDK-DROP-FINISHED:CAPS"><code class="literal">GDK_DROP_FINISHED</code></a> event, its return value is
+meaningless at other times.</p>
+<div class="refsect3">
+<a name="gdk-drag-drop-succeeded.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-drop-succeeded.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the drop was successful.</p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-window-get-drag-protocol"></a><h3>gdk_window_get_drag_protocol ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragProtocol" title="enum GdkDragProtocol"><span class="returnvalue">GdkDragProtocol</span></a>
+gdk_window_get_drag_protocol (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                              <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> **target</code></em>);</pre>
+<p>Finds out the DND protocol supported by a window.</p>
+<div class="refsect3">
+<a name="gdk-window-get-drag-protocol.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the destination window</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>location of the window
+where the drop should happen. This may be <em class="parameter"><code>window</code></em>
+or a proxy window,
+or <code class="literal">NULL</code> if <em class="parameter"><code>window</code></em>
+does not support Drag and Drop. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-window-get-drag-protocol.returns"></a><h4>Returns</h4>
+<p> the supported DND protocol.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-actions"></a><h3>gdk_drag_context_get_actions ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="returnvalue">GdkDragAction</span></a>
+gdk_drag_context_get_actions (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Determines the bitmask of actions proposed by the source if
+<a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-get-suggested-action" title="gdk_drag_context_get_suggested_action ()"><code class="function">gdk_drag_context_get_suggested_action()</code></a> returns <a class="link" href="gdk3-Drag-and-Drop.html#GDK-ACTION-ASK:CAPS"><code class="literal">GDK_ACTION_ASK</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-actions.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-actions.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a> flags</p>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-suggested-action"></a><h3>gdk_drag_context_get_suggested_action ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="returnvalue">GdkDragAction</span></a>
+gdk_drag_context_get_suggested_action (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Determines the suggested drag action of the context.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-suggested-action.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-suggested-action.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a> value</p>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-selected-action"></a><h3>gdk_drag_context_get_selected_action ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="returnvalue">GdkDragAction</span></a>
+gdk_drag_context_get_selected_action (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Determines the action chosen by the drag destination.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-selected-action.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-selected-action.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a> value</p>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-list-targets"></a><h3>gdk_drag_context_list_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gdk_drag_context_list_targets (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Retrieves the list of targets of the context.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-list-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-list-targets.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GList</span> of targets. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GdkAtom]</span></p>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-device"></a><h3>gdk_drag_context_get_device ()</h3>
+<pre class="programlisting"><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+gdk_drag_context_get_device (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Returns the <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> associated to the drag context.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-device.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-device.returns"></a><h4>Returns</h4>
+<p>The <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> associated to <em class="parameter"><code>context</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-set-device"></a><h3>gdk_drag_context_set_device ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drag_context_set_device (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                             <em class="parameter"><code><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> *device</code></em>);</pre>
+<p>Associates a <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> to <em class="parameter"><code>context</code></em>
+, so all Drag and Drop events
+for <em class="parameter"><code>context</code></em>
+ are emitted as if they came from this device.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-set-device.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>device</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-source-window"></a><h3>gdk_drag_context_get_source_window ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+gdk_drag_context_get_source_window (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Returns the <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> where the DND operation started.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-source-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-source-window.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-dest-window"></a><h3>gdk_drag_context_get_dest_window ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+gdk_drag_context_get_dest_window (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Returns the destination window for the DND operation.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-dest-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-dest-window.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-protocol"></a><h3>gdk_drag_context_get_protocol ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragProtocol" title="enum GdkDragProtocol"><span class="returnvalue">GdkDragProtocol</span></a>
+gdk_drag_context_get_protocol (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Returns the drag protocol that is used by this context.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-protocol.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-protocol.returns"></a><h4>Returns</h4>
+<p> the drag protocol</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-get-drag-window"></a><h3>gdk_drag_context_get_drag_window ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+gdk_drag_context_get_drag_window (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>);</pre>
+<p>Returns the window on which the drag icon should be rendered
+during the drag operation. Note that the window may not be
+available until the drag operation has begun. GDK will move
+the window in accordance with the ongoing drag operation.
+The window is owned by <em class="parameter"><code>context</code></em>
+ and will be destroyed when
+the drag operation is over.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-get-drag-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-get-drag-window.returns"></a><h4>Returns</h4>
+<p>the drag window, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-set-hotspot"></a><h3>gdk_drag_context_set_hotspot ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_drag_context_set_hotspot (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                              <em class="parameter"><code><span class="type">gint</span> hot_x</code></em>,
+                              <em class="parameter"><code><span class="type">gint</span> hot_y</code></em>);</pre>
+<p>Sets the position of the drag window that will be kept
+under the cursor hotspot. Initially, the hotspot is at the
+top left corner of the drag window.</p>
+<div class="refsect3">
+<a name="gdk-drag-context-set-hotspot.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>hot_x</p></td>
+<td class="parameter_description"><p>x coordinate of the drag window hotspot</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>hot_y</p></td>
+<td class="parameter_description"><p>y coordinate of the drag window hotspot</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-drag-context-manage-dnd"></a><h3>gdk_drag_context_manage_dnd ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_drag_context_manage_dnd (<em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context</code></em>,
+                             <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *ipc_window</code></em>,
+                             <em class="parameter"><code><a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a> actions</code></em>);</pre>
+<p>Requests the drag and drop operation to be managed by <em class="parameter"><code>context</code></em>
+.
+When a drag and drop operation becomes managed, the <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a>
+will internally handle all input and source-side <a class="link" href="gdk3-Event-Structures.html#GdkEventDND" title="struct GdkEventDND"><span class="type">GdkEventDND</span></a> events
+as required by the windowing system.</p>
+<p>Once the drag and drop operation is managed, the drag context will
+emit the following signals:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>The <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-action-changed" title="The “action-changed” signal"><span class="type">“action-changed”</span></a> signal whenever the final action
+to be performed by the drag and drop operation changes.</p></li>
+<li class="listitem"><p>The <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-drop-performed" title="The “drop-performed” signal"><span class="type">“drop-performed”</span></a> signal after the user performs
+the drag and drop gesture (typically by releasing the mouse button).</p></li>
+<li class="listitem"><p>The <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-dnd-finished" title="The “dnd-finished” signal"><span class="type">“dnd-finished”</span></a> signal after the drag and drop
+operation concludes (after all <span class="type">GdkSelection</span> transfers happen).</p></li>
+<li class="listitem"><p>The <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext-cancel" title="The “cancel” signal"><span class="type">“cancel”</span></a> signal if the drag and drop operation is
+finished but doesn't happen over an accepting destination, or is
+cancelled through other means.</p></li>
+</ul></div>
+<div class="refsect3">
+<a name="gdk-drag-context-manage-dnd.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ipc_window</p></td>
+<td class="parameter_description"><p>Window to use for IPC messaging/events</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>actions</p></td>
+<td class="parameter_description"><p>the actions supported by the drag source</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-drag-context-manage-dnd.returns"></a><h4>Returns</h4>
+<p> <span class="type">TRUE</span> if the drag and drop operation is managed.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkDragContext-struct"></a><h3>GdkDragContext</h3>
+<pre class="programlisting">typedef struct _GdkDragContext GdkDragContext;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkDragCancelReason"></a><h3>enum GdkDragCancelReason</h3>
+<p>Used in <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> to the reason of a cancelled DND operation.</p>
+<div class="refsect3">
+<a name="GdkDragCancelReason.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-CANCEL-NO-TARGET:CAPS"></a>GDK_DRAG_CANCEL_NO_TARGET</p></td>
+<td class="enum_member_description">
+<p>There is no suitable drop target.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-CANCEL-USER-CANCELLED:CAPS"></a>GDK_DRAG_CANCEL_USER_CANCELLED</p></td>
+<td class="enum_member_description">
+<p>Drag cancelled by the user</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-CANCEL-ERROR:CAPS"></a>GDK_DRAG_CANCEL_ERROR</p></td>
+<td class="enum_member_description">
+<p>Unspecified error.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkDragProtocol"></a><h3>enum GdkDragProtocol</h3>
+<p>Used in <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> to indicate the protocol according to
+which DND is done.</p>
+<div class="refsect3">
+<a name="GdkDragProtocol.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-NONE:CAPS"></a>GDK_DRAG_PROTO_NONE</p></td>
+<td class="enum_member_description">
+<p>no protocol.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-MOTIF:CAPS"></a>GDK_DRAG_PROTO_MOTIF</p></td>
+<td class="enum_member_description">
+<p>The Motif DND protocol. No longer supported</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-XDND:CAPS"></a>GDK_DRAG_PROTO_XDND</p></td>
+<td class="enum_member_description">
+<p>The Xdnd protocol.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-ROOTWIN:CAPS"></a>GDK_DRAG_PROTO_ROOTWIN</p></td>
+<td class="enum_member_description">
+<p>An extension to the Xdnd protocol for
+ unclaimed root window drops.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-WIN32-DROPFILES:CAPS"></a>GDK_DRAG_PROTO_WIN32_DROPFILES</p></td>
+<td class="enum_member_description">
+<p>The simple WM_DROPFILES protocol.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-OLE2:CAPS"></a>GDK_DRAG_PROTO_OLE2</p></td>
+<td class="enum_member_description">
+<p>The complex OLE2 DND protocol (not implemented).</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-LOCAL:CAPS"></a>GDK_DRAG_PROTO_LOCAL</p></td>
+<td class="enum_member_description">
+<p>Intra-application DND.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-PROTO-WAYLAND:CAPS"></a>GDK_DRAG_PROTO_WAYLAND</p></td>
+<td class="enum_member_description">
+<p>Wayland DND protocol.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkDragAction"></a><h3>enum GdkDragAction</h3>
+<p>Used in <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> to indicate what the destination
+should do with the dropped data.</p>
+<div class="refsect3">
+<a name="GdkDragAction.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ACTION-DEFAULT:CAPS"></a>GDK_ACTION_DEFAULT</p></td>
+<td class="enum_member_description">
+<p>Means nothing, and should not be used.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ACTION-COPY:CAPS"></a>GDK_ACTION_COPY</p></td>
+<td class="enum_member_description">
+<p>Copy the data.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ACTION-MOVE:CAPS"></a>GDK_ACTION_MOVE</p></td>
+<td class="enum_member_description">
+<p>Move the data, i.e. first copy it, then delete
+ it from the source using the DELETE target of the X selection protocol.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ACTION-LINK:CAPS"></a>GDK_ACTION_LINK</p></td>
+<td class="enum_member_description">
+<p>Add a link to the data. Note that this is only
+ useful if source and destination agree on what it means.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ACTION-PRIVATE:CAPS"></a>GDK_ACTION_PRIVATE</p></td>
+<td class="enum_member_description">
+<p>Special action which tells the source that the
+ destination will do something that the source doesn’t understand.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ACTION-ASK:CAPS"></a>GDK_ACTION_ASK</p></td>
+<td class="enum_member_description">
+<p>Ask the user what to do with the data.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Drag-and-Drop.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GdkDragContext-action-changed"></a><h3>The <code class="literal">“action-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context,
+               <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragAction" title="enum GdkDragAction"><span class="type">GdkDragAction</span></a>   action,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>A new action is being chosen for the drag and drop operation.</p>
+<p>This signal will only be emitted if the <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> manages
+the drag and drop operation. See <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()"><code class="function">gdk_drag_context_manage_dnd()</code></a>
+for more information.</p>
+<div class="refsect3">
+<a name="GdkDragContext-action-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>The object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>action</p></td>
+<td class="parameter_description"><p>The action currently chosen</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkDragContext-cancel"></a><h3>The <code class="literal">“cancel”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a>     *context,
+               <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragCancelReason" title="enum GdkDragCancelReason"><span class="type">GdkDragCancelReason</span></a> reason,
+               <span class="type">gpointer</span>            user_data)</pre>
+<p>The drag and drop operation was cancelled.</p>
+<p>This signal will only be emitted if the <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> manages
+the drag and drop operation. See <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()"><code class="function">gdk_drag_context_manage_dnd()</code></a>
+for more information.</p>
+<div class="refsect3">
+<a name="GdkDragContext-cancel.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>The object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>reason</p></td>
+<td class="parameter_description"><p>The reason the context was cancelled</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkDragContext-dnd-finished"></a><h3>The <code class="literal">“dnd-finished”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>The drag and drop operation was finished, the drag destination
+finished reading all data. The drag source can now free all
+miscellaneous data.</p>
+<p>This signal will only be emitted if the <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> manages
+the drag and drop operation. See <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()"><code class="function">gdk_drag_context_manage_dnd()</code></a>
+for more information.</p>
+<div class="refsect3">
+<a name="GdkDragContext-dnd-finished.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>The object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkDragContext-drop-performed"></a><h3>The <code class="literal">“drop-performed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> *context,
+               <span class="type">gint</span>            time,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>The drag and drop operation was performed on an accepting client.</p>
+<p>This signal will only be emitted if the <a class="link" href="gdk3-Drag-and-Drop.html#GdkDragContext"><span class="type">GdkDragContext</span></a> manages
+the drag and drop operation. See <a class="link" href="gdk3-Drag-and-Drop.html#gdk-drag-context-manage-dnd" title="gdk_drag_context_manage_dnd ()"><code class="function">gdk_drag_context_manage_dnd()</code></a>
+for more information.</p>
+<div class="refsect3">
+<a name="GdkDragContext-drop-performed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p>The object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time</p></td>
+<td class="parameter_description"><p>the time at which the drop happened.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

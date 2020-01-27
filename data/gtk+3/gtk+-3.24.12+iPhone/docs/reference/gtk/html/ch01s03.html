@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Building user interfaces: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtk-getting-started.html" title="Getting Started with GTK+">
+<link rel="prev" href="ch01s02.html" title="Packing">
+<link rel="next" href="ch01s04.html" title="Building applications">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtk-getting-started.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch01s02.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch01s04.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id-1.2.3.11"></a>Building user interfaces</h2></div></div></div>
+<p>When construcing a more complicated user interface, with dozens
+    or hundreds of widgets, doing all the setup work in C code is
+    cumbersome, and making changes becomes next to impossible.</p>
+<p>Thankfully, GTK+ supports the separation of user interface
+    layout from your business logic, by using UI descriptions in an
+    XML format that can be parsed by the <a class="link" href="GtkBuilder.html" title="GtkBuilder"><span class="type">GtkBuilder</span></a> class.</p>
+<div class="example">
+<a name="id-1.2.3.11.4"></a><p class="title"><b>Example 3. Packing buttons with GtkBuilder</b></p>
+<div class="example-contents">
+<p>Create a new file with the following content named example-3.c.</p>
+<pre class="programlisting">#include &lt;gtk/gtk.h&gt;
+
+static void
+print_hello (GtkWidget *widget,
+             gpointer   data)
+{
+  g_print ("Hello World\n");
+}
+
+int
+main (int   argc,
+      char *argv[])
+{
+  GtkBuilder *builder;
+  GObject *window;
+  GObject *button;
+  GError *error = NULL;
+
+  gtk_init (&amp;argc, &amp;argv);
+
+  /* Construct a GtkBuilder instance and load our UI description */
+  builder = gtk_builder_new ();
+  if (gtk_builder_add_from_file (builder, "builder.ui", &amp;error) == 0)
+    {
+      g_printerr ("Error loading file: %s\n", error-&gt;message);
+      g_clear_error (&amp;error);
+      return 1;
+    }
+
+  /* Connect signal handlers to the constructed widgets. */
+  window = gtk_builder_get_object (builder, "window");
+  g_signal_connect (window, "destroy", G_CALLBACK (gtk_main_quit), NULL);
+
+  button = gtk_builder_get_object (builder, "button1");
+  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
+
+  button = gtk_builder_get_object (builder, "button2");
+  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
+
+  button = gtk_builder_get_object (builder, "quit");
+  g_signal_connect (button, "clicked", G_CALLBACK (gtk_main_quit), NULL);
+
+  gtk_main ();
+
+  return 0;
+}
+</pre>
+<p>Create a new file with the following content named builder.ui.</p>
+<pre class="programlisting">&lt;interface&gt;
+  &lt;object id="window" class="GtkWindow"&gt;
+    &lt;property name="visible"&gt;True&lt;/property&gt;
+    &lt;property name="title"&gt;Grid&lt;/property&gt;
+    &lt;property name="border-width"&gt;10&lt;/property&gt;
+    &lt;child&gt;
+      &lt;object id="grid" class="GtkGrid"&gt;
+        &lt;property name="visible"&gt;True&lt;/property&gt;
+        &lt;child&gt;
+          &lt;object id="button1" class="GtkButton"&gt;
+            &lt;property name="visible"&gt;True&lt;/property&gt;
+            &lt;property name="label"&gt;Button 1&lt;/property&gt;
+          &lt;/object&gt;
+          &lt;packing&gt;
+            &lt;property name="left-attach"&gt;0&lt;/property&gt;
+            &lt;property name="top-attach"&gt;0&lt;/property&gt;
+          &lt;/packing&gt;
+        &lt;/child&gt;
+        &lt;child&gt;
+          &lt;object id="button2" class="GtkButton"&gt;
+            &lt;property name="visible"&gt;True&lt;/property&gt;
+            &lt;property name="label"&gt;Button 2&lt;/property&gt;
+          &lt;/object&gt;
+          &lt;packing&gt;
+            &lt;property name="left-attach"&gt;1&lt;/property&gt;
+            &lt;property name="top-attach"&gt;0&lt;/property&gt;
+          &lt;/packing&gt;
+        &lt;/child&gt;
+        &lt;child&gt;
+          &lt;object id="quit" class="GtkButton"&gt;
+            &lt;property name="visible"&gt;True&lt;/property&gt;
+            &lt;property name="label"&gt;Quit&lt;/property&gt;
+          &lt;/object&gt;
+          &lt;packing&gt;
+            &lt;property name="left-attach"&gt;0&lt;/property&gt;
+            &lt;property name="top-attach"&gt;1&lt;/property&gt;
+            &lt;property name="width"&gt;2&lt;/property&gt;
+          &lt;/packing&gt;
+        &lt;/child&gt;
+      &lt;/object&gt;
+      &lt;packing&gt;
+      &lt;/packing&gt;
+    &lt;/child&gt;
+  &lt;/object&gt;
+&lt;/interface&gt;
+</pre>
+</div>
+</div>
+<br class="example-break"><p>
+      You can compile the program above with GCC using:
+      </p>
+<div class="literallayout"><p><br>
+        <code class="literal">gcc `pkg-config --cflags gtk+-3.0` -o example-3 example-3.c `pkg-config --libs gtk+-3.0`</code><br>
+      </p></div>
+<p>
+    </p>
+<p>Note that GtkBuilder can also be used to construct objects
+    that are not widgets, such as tree models, adjustments, etc.
+    That is the reason the method we use here is called
+    <a class="link" href="GtkBuilder.html#gtk-builder-get-object" title="gtk_builder_get_object ()"><code class="function">gtk_builder_get_object()</code></a> and returns a GObject* instead of a
+    GtkWidget*.</p>
+<p>Normally, you would pass a full path to
+    <a class="link" href="GtkBuilder.html#gtk-builder-add-from-file" title="gtk_builder_add_from_file ()"><code class="function">gtk_builder_add_from_file()</code></a> to make the execution of your program
+    independent of the current directory. A common location to install
+    UI descriptions and similar data is
+    <code class="filename">/usr/share/<em class="replaceable"><code>appname</code></em></code>.
+    </p>
+<p>It is also possible to embed the UI description in the source
+    code as a string and use <a class="link" href="GtkBuilder.html#gtk-builder-add-from-string" title="gtk_builder_add_from_string ()"><code class="function">gtk_builder_add_from_string()</code></a> to load it.
+    But keeping the UI description in a separate file has several
+    advantages: It is then possible to make minor adjustments to the UI
+    without recompiling your program, and, more importantly, graphical
+    UI editors such as <a class="ulink" href="http://glade.gnome.org" target="_top">glade</a>
+    can load the file and allow you to create and modify your UI by
+    point-and-click.</p>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

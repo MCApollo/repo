@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="gtk30">
+  <!-- interface-requires gtk+ 3.10 -->
+  <!-- interface-requires gtkprivate 3.10 -->
+  <template class="GtkScaleButton" parent="GtkButton">
+    <property name="can-focus">1</property>
+    <property name="receives-default">1</property>
+    <property name="relief">none</property>
+    <property name="focus-on-click">0</property>
+    <child>
+      <object class="GtkImage" id="image">
+        <property name="visible">1</property>
+        <property name="icon-name">image-missing</property>
+        <property name="use-fallback">1</property>
+      </object>
+    </child>
+  </template>
+  <object class="GtkPopover" id="dock">
+    <signal name="map" handler="cb_popup_mapped" swapped="no"/>
+    <style>
+      <class name="scale-popup"/>
+    </style>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">1</property>
+        <property name="orientation">vertical</property>
+        <property name="margin">4</property>
+        <property name="spacing">4</property>
+        <child>
+          <object class="GtkButton" id="plus_button">
+            <property name="visible">1</property>
+            <property name="can-focus">1</property>
+            <property name="receives-default">1</property>
+            <property name="relief">none</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">1</property>
+                <property name="icon-name">list-add-symbolic</property>
+                <property name="use-fallback">1</property>
+              </object>
+            </child>
+            <signal name="button-press-event" handler="cb_button_press" swapped="no"/>
+            <signal name="button-release-event" handler="cb_button_release" swapped="no"/>
+            <signal name="clicked" handler="cb_button_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="fill">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScale" id="scale">
+            <property name="height-request">100</property>
+            <property name="visible">1</property>
+            <property name="can-focus">1</property>
+            <property name="orientation">vertical</property>
+            <property name="inverted">1</property>
+            <property name="round-digits">1</property>
+            <property name="draw-value">0</property>
+            <signal name="value-changed" handler="cb_scale_value_changed" swapped="no"/>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="minus_button">
+            <property name="visible">1</property>
+            <property name="can-focus">1</property>
+            <property name="receives-default">1</property>
+            <property name="relief">none</property>
+            <property name="halign">center</property>
+            <property name="valign">center</property>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">1</property>
+                <property name="icon-name">list-remove-symbolic</property>
+                <property name="use-fallback">1</property>
+              </object>
+            </child>
+            <signal name="button-press-event" handler="cb_button_press" swapped="no"/>
+            <signal name="button-release-event" handler="cb_button_release" swapped="no"/>
+            <signal name="clicked" handler="cb_button_clicked" swapped="no"/>
+          </object>
+          <packing>
+            <property name="fill">0</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

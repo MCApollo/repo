@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkViewport: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="MiscObjects.html" title="Miscellaneous">
+<link rel="prev" href="GtkTooltip.html" title="GtkTooltip">
+<link rel="next" href="GtkAccessible.html" title="GtkAccessible">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkViewport.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkViewport.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkViewport.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkViewport.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="MiscObjects.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkTooltip.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkAccessible.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkViewport"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkViewport.top_of_page"></a>GtkViewport</span></h2>
+<p>GtkViewport — An adapter which makes widgets scrollable</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkViewport.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-new" title="gtk_viewport_new ()">gtk_viewport_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-get-hadjustment" title="gtk_viewport_get_hadjustment ()">gtk_viewport_get_hadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-get-vadjustment" title="gtk_viewport_get_vadjustment ()">gtk_viewport_get_vadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-set-hadjustment" title="gtk_viewport_set_hadjustment ()">gtk_viewport_set_hadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-set-vadjustment" title="gtk_viewport_set_vadjustment ()">gtk_viewport_set_vadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-set-shadow-type" title="gtk_viewport_set_shadow_type ()">gtk_viewport_set_shadow_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="returnvalue">GtkShadowType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-get-shadow-type" title="gtk_viewport_get_shadow_type ()">gtk_viewport_get_shadow_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkWindow</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-get-bin-window" title="gtk_viewport_get_bin_window ()">gtk_viewport_get_bin_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkWindow</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkViewport.html#gtk-viewport-get-view-window" title="gtk_viewport_get_view_window ()">gtk_viewport_get_view_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="type">GtkShadowType</span></a></td>
+<td class="property_name"><a class="link" href="GtkViewport.html#GtkViewport--shadow-type" title="The “shadow-type” property">shadow-type</a></td>
+<td class="property_flags">Read / Write</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkViewport.html#GtkViewport-struct" title="struct GtkViewport">GtkViewport</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkViewport.html#GtkViewportClass" title="struct GtkViewportClass">GtkViewportClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                    <span class="lineart">╰──</span> GtkViewport
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkViewport implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a> and  <a class="link" href="GtkScrollable.html" title="GtkScrollable">GtkScrollable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> widget acts as an adaptor class, implementing
+scrollability for child widgets that lack their own scrolling
+capabilities. Use GtkViewport to scroll child widgets such as
+<a class="link" href="GtkGrid.html" title="GtkGrid"><span class="type">GtkGrid</span></a>, <a class="link" href="GtkBox.html" title="GtkBox"><span class="type">GtkBox</span></a>, and so on.</p>
+<p>If a widget has native scrolling abilities, such as <a class="link" href="GtkTextView.html" title="GtkTextView"><span class="type">GtkTextView</span></a>,
+<a class="link" href="GtkTreeView.html" title="GtkTreeView"><span class="type">GtkTreeView</span></a> or <a class="link" href="GtkIconView.html" title="GtkIconView"><span class="type">GtkIconView</span></a>, it can be added to a <a class="link" href="GtkScrolledWindow.html" title="GtkScrolledWindow"><span class="type">GtkScrolledWindow</span></a>
+with <a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()"><code class="function">gtk_container_add()</code></a>. If a widget does not, you must first add the
+widget to a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>, then add the viewport to the scrolled window.
+<a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()"><code class="function">gtk_container_add()</code></a> does this automatically if a child that does not
+implement <a class="link" href="GtkScrollable.html" title="GtkScrollable"><span class="type">GtkScrollable</span></a> is added to a <a class="link" href="GtkScrolledWindow.html" title="GtkScrolledWindow"><span class="type">GtkScrolledWindow</span></a>, so you can
+ignore the presence of the viewport.</p>
+<p>The GtkViewport will start scrolling content only if allocated less
+than the child widget’s minimum size in a given orientation.</p>
+<div class="refsect2">
+<a name="id-1.3.19.12.9.5"></a><h3>CSS nodes</h3>
+<p>GtkViewport has a single CSS node with name viewport.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-viewport-new"></a><h3>gtk_viewport_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_viewport_new (<em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *hadjustment</code></em>,
+                  <em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *vadjustment</code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> with the given adjustments, or with default
+adjustments if none are given.</p>
+<div class="refsect3">
+<a name="gtk-viewport-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>hadjustment</p></td>
+<td class="parameter_description"><p>horizontal adjustment. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vadjustment</p></td>
+<td class="parameter_description"><p>vertical adjustment. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-viewport-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-get-hadjustment"></a><h3>gtk_viewport_get_hadjustment ()</h3>
+<pre class="programlisting"><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+gtk_viewport_get_hadjustment (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_viewport_get_hadjustment</code> has been deprecated since version 3.0 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkScrollable.html#gtk-scrollable-get-hadjustment" title="gtk_scrollable_get_hadjustment ()"><code class="function">gtk_scrollable_get_hadjustment()</code></a></p>
+</div>
+<p>Returns the horizontal adjustment of the viewport.</p>
+<div class="refsect3">
+<a name="gtk-viewport-get-hadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-viewport-get-hadjustment.returns"></a><h4>Returns</h4>
+<p>the horizontal adjustment of <em class="parameter"><code>viewport</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-get-vadjustment"></a><h3>gtk_viewport_get_vadjustment ()</h3>
+<pre class="programlisting"><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+gtk_viewport_get_vadjustment (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_viewport_get_vadjustment</code> has been deprecated since version 3.0 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkScrollable.html#gtk-scrollable-get-vadjustment" title="gtk_scrollable_get_vadjustment ()"><code class="function">gtk_scrollable_get_vadjustment()</code></a></p>
+</div>
+<p>Returns the vertical adjustment of the viewport.</p>
+<div class="refsect3">
+<a name="gtk-viewport-get-vadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-viewport-get-vadjustment.returns"></a><h4>Returns</h4>
+<p>the vertical adjustment of <em class="parameter"><code>viewport</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-set-hadjustment"></a><h3>gtk_viewport_set_hadjustment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_viewport_set_hadjustment (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *adjustment</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_viewport_set_hadjustment</code> has been deprecated since version 3.0 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkScrollable.html#gtk-scrollable-set-hadjustment" title="gtk_scrollable_set_hadjustment ()"><code class="function">gtk_scrollable_set_hadjustment()</code></a></p>
+</div>
+<p>Sets the horizontal adjustment of the viewport.</p>
+<div class="refsect3">
+<a name="gtk-viewport-set-hadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>adjustment</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-set-vadjustment"></a><h3>gtk_viewport_set_vadjustment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_viewport_set_vadjustment (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *adjustment</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_viewport_set_vadjustment</code> has been deprecated since version 3.0 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkScrollable.html#gtk-scrollable-set-vadjustment" title="gtk_scrollable_set_vadjustment ()"><code class="function">gtk_scrollable_set_vadjustment()</code></a></p>
+</div>
+<p>Sets the vertical adjustment of the viewport.</p>
+<div class="refsect3">
+<a name="gtk-viewport-set-vadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>adjustment</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-set-shadow-type"></a><h3>gtk_viewport_set_shadow_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_viewport_set_shadow_type (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>,
+                              <em class="parameter"><code><a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="type">GtkShadowType</span></a> type</code></em>);</pre>
+<p>Sets the shadow type of the viewport.</p>
+<div class="refsect3">
+<a name="gtk-viewport-set-shadow-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the new shadow type.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-get-shadow-type"></a><h3>gtk_viewport_get_shadow_type ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="returnvalue">GtkShadowType</span></a>
+gtk_viewport_get_shadow_type (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>);</pre>
+<p>Gets the shadow type of the <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>. See
+<a class="link" href="GtkViewport.html#gtk-viewport-set-shadow-type" title="gtk_viewport_set_shadow_type ()"><code class="function">gtk_viewport_set_shadow_type()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-viewport-get-shadow-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-viewport-get-shadow-type.returns"></a><h4>Returns</h4>
+<p> the shadow type </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-get-bin-window"></a><h3>gtk_viewport_get_bin_window ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkWindow</span> *
+gtk_viewport_get_bin_window (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>);</pre>
+<p>Gets the bin window of the <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-viewport-get-bin-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-viewport-get-bin-window.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GdkWindow</span>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-viewport-get-view-window"></a><h3>gtk_viewport_get_view_window ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkWindow</span> *
+gtk_viewport_get_view_window (<em class="parameter"><code><a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a> *viewport</code></em>);</pre>
+<p>Gets the view window of the <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-viewport-get-view-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>viewport</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkViewport.html" title="GtkViewport"><span class="type">GtkViewport</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-viewport-get-view-window.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GdkWindow</span>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkViewport-struct"></a><h3>struct GtkViewport</h3>
+<pre class="programlisting">struct GtkViewport;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkViewportClass"></a><h3>struct GtkViewportClass</h3>
+<pre class="programlisting">struct GtkViewportClass {
+  GtkBinClass parent_class;
+};
+</pre>
+<div class="refsect3">
+<a name="GtkViewportClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkViewport--shadow-type"></a><h3>The <code class="literal">“shadow-type”</code> property</h3>
+<pre class="programlisting">  “shadow-type”              <a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="type">GtkShadowType</span></a></pre>
+<p>Determines how the shadowed box around the viewport is drawn.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_SHADOW_IN</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkViewport.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkScrolledWindow.html" title="GtkScrolledWindow"><span class="type">GtkScrolledWindow</span></a>, <a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

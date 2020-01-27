@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="gtk30">
+  <!-- interface-requires gtk+ 3.10 -->
+  <template class="GtkTooltipWindow" parent="GtkWindow">
+    <property name="resizable">0</property>
+    <property name="type-hint">tooltip</property>
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">1</property>
+        <property name="spacing">6</property>
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
+        <property name="margin-start">6</property>
+        <property name="margin-end">6</property>
+        <child>
+          <object class="GtkImage" id="image">
+            <property name="icon-name">image-missing</property>
+          </object>
+          <packing>
+            <property name="fill">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="label">
+            <property name="wrap">1</property>
+            <property name="max-width-chars">70</property>
+          </object>
+          <packing>
+            <property name="fill">0</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

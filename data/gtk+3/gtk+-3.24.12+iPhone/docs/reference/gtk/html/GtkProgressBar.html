@@ -1,0 +1,899 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkProgressBar: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="DisplayWidgets.html" title="Display Widgets">
+<link rel="prev" href="GtkInfoBar.html" title="GtkInfoBar">
+<link rel="next" href="GtkLevelBar.html" title="GtkLevelBar">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkProgressBar.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkProgressBar.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkProgressBar.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkProgressBar.properties" class="shortcut">Properties</a></span><span id="nav_style_properties">  <span class="dim">|</span> 
+                  <a href="#GtkProgressBar.style-properties" class="shortcut">Style Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="DisplayWidgets.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkInfoBar.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkLevelBar.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkProgressBar"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkProgressBar.top_of_page"></a>GtkProgressBar</span></h2>
+<p>GtkProgressBar — A widget which indicates progress visually</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="progressbar.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkProgressBar.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-new" title="gtk_progress_bar_new ()">gtk_progress_bar_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-pulse" title="gtk_progress_bar_pulse ()">gtk_progress_bar_pulse</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-fraction" title="gtk_progress_bar_set_fraction ()">gtk_progress_bar_set_fraction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-get-fraction" title="gtk_progress_bar_get_fraction ()">gtk_progress_bar_get_fraction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-inverted" title="gtk_progress_bar_set_inverted ()">gtk_progress_bar_set_inverted</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-get-inverted" title="gtk_progress_bar_get_inverted ()">gtk_progress_bar_get_inverted</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-show-text" title="gtk_progress_bar_set_show_text ()">gtk_progress_bar_set_show_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-get-show-text" title="gtk_progress_bar_get_show_text ()">gtk_progress_bar_get_show_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-text" title="gtk_progress_bar_set_text ()">gtk_progress_bar_set_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-get-text" title="gtk_progress_bar_get_text ()">gtk_progress_bar_get_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-ellipsize" title="gtk_progress_bar_set_ellipsize ()">gtk_progress_bar_set_ellipsize</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="returnvalue">PangoEllipsizeMode</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-get-ellipsize" title="gtk_progress_bar_get_ellipsize ()">gtk_progress_bar_get_ellipsize</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-pulse-step" title="gtk_progress_bar_set_pulse_step ()">gtk_progress_bar_set_pulse_step</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-get-pulse-step" title="gtk_progress_bar_get_pulse_step ()">gtk_progress_bar_get_pulse_step</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="type">PangoEllipsizeMode</span></a></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--ellipsize" title="The “ellipsize” property">ellipsize</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--fraction" title="The “fraction” property">fraction</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--inverted" title="The “inverted” property">inverted</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--pulse-step" title="The “pulse-step” property">pulse-step</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--show-text" title="The “show-text” property">show-text</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--text" title="The “text” property">text</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.style-properties"></a><h2>Style Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="style_properties_type">
+<col width="300px" class="style_properties_name">
+<col width="200px" class="style_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--s-min-horizontal-bar-height" title="The “min-horizontal-bar-height” style property">min-horizontal-bar-height</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--s-min-horizontal-bar-width" title="The “min-horizontal-bar-width” style property">min-horizontal-bar-width</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--s-min-vertical-bar-height" title="The “min-vertical-bar-height” style property">min-vertical-bar-height</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--s-min-vertical-bar-width" title="The “min-vertical-bar-width” style property">min-vertical-bar-width</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--s-xspacing" title="The “xspacing” style property">xspacing</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar--s-yspacing" title="The “yspacing” style property">yspacing</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkProgressBar.html#GtkProgressBar-struct" title="struct GtkProgressBar">GtkProgressBar</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> GtkProgressBar
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkProgressBar implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a> and  <a class="link" href="gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> is typically used to display the progress of a long
+running operation. It provides a visual clue that processing is underway.
+The GtkProgressBar can be used in two different modes: percentage mode
+and activity mode.</p>
+<p>When an application can determine how much work needs to take place
+(e.g. read a fixed number of bytes from a file) and can monitor its
+progress, it can use the GtkProgressBar in percentage mode and the
+user sees a growing bar indicating the percentage of the work that
+has been completed. In this mode, the application is required to call
+<a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-fraction" title="gtk_progress_bar_set_fraction ()"><code class="function">gtk_progress_bar_set_fraction()</code></a> periodically to update the progress bar.</p>
+<p>When an application has no accurate way of knowing the amount of work
+to do, it can use the <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> in activity mode, which shows
+activity by a block moving back and forth within the progress area. In
+this mode, the application is required to call <a class="link" href="GtkProgressBar.html#gtk-progress-bar-pulse" title="gtk_progress_bar_pulse ()"><code class="function">gtk_progress_bar_pulse()</code></a>
+periodically to update the progress bar.</p>
+<p>There is quite a bit of flexibility provided to control the appearance
+of the <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a>. Functions are provided to control the orientation
+of the bar, optional text can be displayed along with the bar, and the
+step size used in activity mode can be set.</p>
+<div class="refsect2">
+<a name="id-1.3.8.6.10.6"></a><h3>CSS nodes</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="normal">progressbar</span><span class="symbol">[.</span><span class="normal">osd</span><span class="symbol">]</span>
+<span class="normal">├── </span><span class="symbol">[</span><span class="normal">text</span><span class="symbol">]</span>
+<span class="normal">╰── trough</span><span class="symbol">[.</span><span class="normal">empty</span><span class="symbol">][.</span><span class="normal">full</span><span class="symbol">]</span>
+<span class="normal">    ╰── progress</span><span class="symbol">[.</span><span class="normal">pulse</span><span class="symbol">]</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>GtkProgressBar has a main CSS node with name progressbar and subnodes with
+names text and trough, of which the latter has a subnode named progress. The
+text subnode is only present if text is shown. The progress subnode has the
+style class .pulse when in activity mode. It gets the style classes .left,
+.right, .top or .bottom added when the progress 'touches' the corresponding
+end of the GtkProgressBar. The .osd class on the progressbar node is for use
+in overlays like the one Epiphany has for page loading progress.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-progress-bar-new"></a><h3>gtk_progress_bar_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_progress_bar_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-new.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-pulse"></a><h3>gtk_progress_bar_pulse ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_progress_bar_pulse (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>);</pre>
+<p>Indicates that some progress has been made, but you don’t know how much.
+Causes the progress bar to enter “activity mode,” where a block
+bounces back and forth. Each call to <a class="link" href="GtkProgressBar.html#gtk-progress-bar-pulse" title="gtk_progress_bar_pulse ()"><code class="function">gtk_progress_bar_pulse()</code></a>
+causes the block to move by a little bit (the amount of movement
+per pulse is determined by <a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-pulse-step" title="gtk_progress_bar_set_pulse_step ()"><code class="function">gtk_progress_bar_set_pulse_step()</code></a>).</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-pulse.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-set-fraction"></a><h3>gtk_progress_bar_set_fraction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_progress_bar_set_fraction (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>,
+                               <em class="parameter"><code><span class="type">gdouble</span> fraction</code></em>);</pre>
+<p>Causes the progress bar to “fill in” the given fraction
+of the bar. The fraction should be between 0.0 and 1.0,
+inclusive.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-set-fraction.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fraction</p></td>
+<td class="parameter_description"><p>fraction of the task that’s been completed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-get-fraction"></a><h3>gtk_progress_bar_get_fraction ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+gtk_progress_bar_get_fraction (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>);</pre>
+<p>Returns the current fraction of the task that’s been completed.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-fraction.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-fraction.returns"></a><h4>Returns</h4>
+<p> a fraction from 0.0 to 1.0</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-set-inverted"></a><h3>gtk_progress_bar_set_inverted ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_progress_bar_set_inverted (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>,
+                               <em class="parameter"><code><span class="type">gboolean</span> inverted</code></em>);</pre>
+<p>Progress bars normally grow from top to bottom or left to right.
+Inverted progress bars grow in the opposite direction.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-set-inverted.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>inverted</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to invert the progress bar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-get-inverted"></a><h3>gtk_progress_bar_get_inverted ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_progress_bar_get_inverted (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>);</pre>
+<p>Gets the value set by <a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-inverted" title="gtk_progress_bar_set_inverted ()"><code class="function">gtk_progress_bar_set_inverted()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-inverted.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-inverted.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the progress bar is inverted</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-set-show-text"></a><h3>gtk_progress_bar_set_show_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_progress_bar_set_show_text (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> show_text</code></em>);</pre>
+<p>Sets whether the progress bar will show text next to the bar.
+The shown text is either the value of the <a class="link" href="GtkProgressBar.html#GtkProgressBar--text" title="The “text” property"><span class="type">“text”</span></a>
+property or, if that is <code class="literal">NULL</code>, the <a class="link" href="GtkProgressBar.html#GtkProgressBar--fraction" title="The “fraction” property"><span class="type">“fraction”</span></a> value,
+as a percentage.</p>
+<p>To make a progress bar that is styled and sized suitably for containing
+text (even if the actual text is blank), set <a class="link" href="GtkProgressBar.html#GtkProgressBar--show-text" title="The “show-text” property"><span class="type">“show-text”</span></a> to
+<code class="literal">TRUE</code> and <a class="link" href="GtkProgressBar.html#GtkProgressBar--text" title="The “text” property"><span class="type">“text”</span></a> to the empty string (not <code class="literal">NULL</code>).</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-set-show-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>show_text</p></td>
+<td class="parameter_description"><p>whether to show text</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-get-show-text"></a><h3>gtk_progress_bar_get_show_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_progress_bar_get_show_text (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>);</pre>
+<p>Gets the value of the <a class="link" href="GtkProgressBar.html#GtkProgressBar--show-text" title="The “show-text” property"><span class="type">“show-text”</span></a> property.
+See <a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-show-text" title="gtk_progress_bar_set_show_text ()"><code class="function">gtk_progress_bar_set_show_text()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-show-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-show-text.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if text is shown in the progress bar</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-set-text"></a><h3>gtk_progress_bar_set_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_progress_bar_set_text (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>,
+                           <em class="parameter"><code>const <span class="type">gchar</span> *text</code></em>);</pre>
+<p>Causes the given <em class="parameter"><code>text</code></em>
+ to appear next to the progress bar.</p>
+<p>If <em class="parameter"><code>text</code></em>
+ is <code class="literal">NULL</code> and <a class="link" href="GtkProgressBar.html#GtkProgressBar--show-text" title="The “show-text” property"><span class="type">“show-text”</span></a> is <code class="literal">TRUE</code>, the current
+value of <a class="link" href="GtkProgressBar.html#GtkProgressBar--fraction" title="The “fraction” property"><span class="type">“fraction”</span></a> will be displayed as a percentage.</p>
+<p>If <em class="parameter"><code>text</code></em>
+ is non-<code class="literal">NULL</code> and <a class="link" href="GtkProgressBar.html#GtkProgressBar--show-text" title="The “show-text” property"><span class="type">“show-text”</span></a> is <code class="literal">TRUE</code>, the text
+will be displayed. In this case, it will not display the progress
+percentage. If <em class="parameter"><code>text</code></em>
+ is the empty string, the progress bar will still
+be styled and sized suitably for containing text, as long as
+<a class="link" href="GtkProgressBar.html#GtkProgressBar--show-text" title="The “show-text” property"><span class="type">“show-text”</span></a> is <code class="literal">TRUE</code>.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-set-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>text</p></td>
+<td class="parameter_description"><p>a UTF-8 string, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-get-text"></a><h3>gtk_progress_bar_get_text ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_progress_bar_get_text (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>);</pre>
+<p>Retrieves the text that is displayed with the progress bar,
+if any, otherwise <code class="literal">NULL</code>. The return value is a reference
+to the text, not a copy of it, so will become invalid
+if you change the text in the progress bar.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-text.returns"></a><h4>Returns</h4>
+<p>text, or <code class="literal">NULL</code>; this string is owned by the widget
+and should not be modified or freed. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-set-ellipsize"></a><h3>gtk_progress_bar_set_ellipsize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_progress_bar_set_ellipsize (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="type">PangoEllipsizeMode</span></a> mode</code></em>);</pre>
+<p>Sets the mode used to ellipsize (add an ellipsis: "...") the
+text if there is not enough space to render the entire string.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-set-ellipsize.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mode</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="type">PangoEllipsizeMode</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-get-ellipsize"></a><h3>gtk_progress_bar_get_ellipsize ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="returnvalue">PangoEllipsizeMode</span></a>
+gtk_progress_bar_get_ellipsize (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>);</pre>
+<p>Returns the ellipsizing position of the progress bar.
+See <a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-ellipsize" title="gtk_progress_bar_set_ellipsize ()"><code class="function">gtk_progress_bar_set_ellipsize()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-ellipsize.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-ellipsize.returns"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="type">PangoEllipsizeMode</span></a></p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-set-pulse-step"></a><h3>gtk_progress_bar_set_pulse_step ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_progress_bar_set_pulse_step (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>,
+                                 <em class="parameter"><code><span class="type">gdouble</span> fraction</code></em>);</pre>
+<p>Sets the fraction of total progress bar length to move the
+bouncing block for each call to <a class="link" href="GtkProgressBar.html#gtk-progress-bar-pulse" title="gtk_progress_bar_pulse ()"><code class="function">gtk_progress_bar_pulse()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-set-pulse-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fraction</p></td>
+<td class="parameter_description"><p>fraction between 0.0 and 1.0</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-progress-bar-get-pulse-step"></a><h3>gtk_progress_bar_get_pulse_step ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+gtk_progress_bar_get_pulse_step (<em class="parameter"><code><a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a> *pbar</code></em>);</pre>
+<p>Retrieves the pulse step set with <a class="link" href="GtkProgressBar.html#gtk-progress-bar-set-pulse-step" title="gtk_progress_bar_set_pulse_step ()"><code class="function">gtk_progress_bar_set_pulse_step()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-pulse-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>pbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkProgressBar.html" title="GtkProgressBar"><span class="type">GtkProgressBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-progress-bar-get-pulse-step.returns"></a><h4>Returns</h4>
+<p> a fraction from 0.0 to 1.0</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkProgressBar-struct"></a><h3>struct GtkProgressBar</h3>
+<pre class="programlisting">struct GtkProgressBar;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkProgressBar--ellipsize"></a><h3>The <code class="literal">“ellipsize”</code> property</h3>
+<pre class="programlisting">  “ellipsize”                <a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="type">PangoEllipsizeMode</span></a></pre>
+<p>The preferred place to ellipsize the string, if the progress bar does
+not have enough room to display the entire string, specified as a
+<a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PangoEllipsizeMode"><span class="type">PangoEllipsizeMode</span></a>.</p>
+<p>Note that setting this property to a value other than
+<a href="https://developer.gnome.org/pango/pango-Layout-Objects.html#PANGO-ELLIPSIZE-NONE:CAPS"><code class="literal">PANGO_ELLIPSIZE_NONE</code></a> has the side-effect that the progress bar requests
+only enough space to display the ellipsis ("..."). Another means to set a
+progress bar's width is <a class="link" href="GtkWidget.html#gtk-widget-set-size-request" title="gtk_widget_set_size_request ()"><code class="function">gtk_widget_set_size_request()</code></a>.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: PANGO_ELLIPSIZE_NONE</p>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--fraction"></a><h3>The <code class="literal">“fraction”</code> property</h3>
+<pre class="programlisting">  “fraction”                 <span class="type">gdouble</span></pre>
+<p>The fraction of total work that has been completed.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--inverted"></a><h3>The <code class="literal">“inverted”</code> property</h3>
+<pre class="programlisting">  “inverted”                 <span class="type">gboolean</span></pre>
+<p>Invert the direction in which the progress bar grows.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--pulse-step"></a><h3>The <code class="literal">“pulse-step”</code> property</h3>
+<pre class="programlisting">  “pulse-step”               <span class="type">gdouble</span></pre>
+<p>The fraction of total progress to move the bouncing block when pulsed.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0.1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--show-text"></a><h3>The <code class="literal">“show-text”</code> property</h3>
+<pre class="programlisting">  “show-text”                <span class="type">gboolean</span></pre>
+<p>Sets whether the progress bar will show a text in addition
+to the bar itself. The shown text is either the value of
+the <a class="link" href="GtkProgressBar.html#GtkProgressBar--text" title="The “text” property"><span class="type">“text”</span></a> property or, if that is <code class="literal">NULL</code>,
+the <a class="link" href="GtkProgressBar.html#GtkProgressBar--fraction" title="The “fraction” property"><span class="type">“fraction”</span></a> value, as a percentage.</p>
+<p>To make a progress bar that is styled and sized suitably for
+showing text (even if the actual text is blank), set
+<a class="link" href="GtkProgressBar.html#GtkProgressBar--show-text" title="The “show-text” property"><span class="type">“show-text”</span></a> to <code class="literal">TRUE</code> and <a class="link" href="GtkProgressBar.html#GtkProgressBar--text" title="The “text” property"><span class="type">“text”</span></a>
+to the empty string (not <code class="literal">NULL</code>).</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--text"></a><h3>The <code class="literal">“text”</code> property</h3>
+<pre class="programlisting">  “text”                     <span class="type">gchar</span> *</pre>
+<p>Text to be displayed in the progress bar.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkProgressBar.style-property-details"></a><h2>Style Property Details</h2>
+<div class="refsect2">
+<a name="GtkProgressBar--s-min-horizontal-bar-height"></a><h3>The <code class="literal">“min-horizontal-bar-height”</code> style property</h3>
+<pre class="programlisting">  “min-horizontal-bar-height” <span class="type">gint</span></pre>
+<p>Minimum horizontal height of the progress bar.</p>
+<div class="warning">
+<p><code class="literal">GtkProgressBar:min-horizontal-bar-height</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard CSS property min-height.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 6</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--s-min-horizontal-bar-width"></a><h3>The <code class="literal">“min-horizontal-bar-width”</code> style property</h3>
+<pre class="programlisting">  “min-horizontal-bar-width” <span class="type">gint</span></pre>
+<p>The minimum horizontal width of the progress bar.</p>
+<div class="warning">
+<p><code class="literal">GtkProgressBar:min-horizontal-bar-width</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard CSS property min-width.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 150</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--s-min-vertical-bar-height"></a><h3>The <code class="literal">“min-vertical-bar-height”</code> style property</h3>
+<pre class="programlisting">  “min-vertical-bar-height”  <span class="type">gint</span></pre>
+<p>The minimum vertical height of the progress bar.</p>
+<div class="warning">
+<p><code class="literal">GtkProgressBar:min-vertical-bar-height</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard CSS property min-height.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 80</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--s-min-vertical-bar-width"></a><h3>The <code class="literal">“min-vertical-bar-width”</code> style property</h3>
+<pre class="programlisting">  “min-vertical-bar-width”   <span class="type">gint</span></pre>
+<p>The minimum vertical width of the progress bar.</p>
+<div class="warning">
+<p><code class="literal">GtkProgressBar:min-vertical-bar-width</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard CSS property min-width.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 7</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--s-xspacing"></a><h3>The <code class="literal">“xspacing”</code> style property</h3>
+<pre class="programlisting">  “xspacing”                 <span class="type">gint</span></pre>
+<p>Extra spacing applied to the width of a progress bar.</p>
+<div class="warning">
+<p><code class="literal">GtkProgressBar:xspacing</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard CSS padding and margins; the
+    value of this style property is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkProgressBar--s-yspacing"></a><h3>The <code class="literal">“yspacing”</code> style property</h3>
+<pre class="programlisting">  “yspacing”                 <span class="type">gint</span></pre>
+<p>Extra spacing applied to the height of a progress bar.</p>
+<div class="warning">
+<p><code class="literal">GtkProgressBar:yspacing</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard CSS padding and margins; the
+    value of this style property is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 2</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

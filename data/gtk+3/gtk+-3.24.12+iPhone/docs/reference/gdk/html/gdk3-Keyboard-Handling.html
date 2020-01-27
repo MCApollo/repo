@@ -1,0 +1,1451 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Key Values: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="gdk3-Event-Structures.html" title="Event Structures">
+<link rel="next" href="gdk3-Selections.html" title="Selections">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-Keyboard-Handling.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#gdk3-Keyboard-Handling.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#gdk3-Keyboard-Handling.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdk3-Event-Structures.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Selections.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-Keyboard-Handling"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-Keyboard-Handling.top_of_page"></a>Key Values</span></h2>
+<p>Key Values — Functions for manipulating keyboard codes</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="returnvalue">GdkKeymap</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-default" title="gdk_keymap_get_default ()">gdk_keymap_get_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="returnvalue">GdkKeymap</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-for-display" title="gdk_keymap_get_for_display ()">gdk_keymap_get_for_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-lookup-key" title="gdk_keymap_lookup_key ()">gdk_keymap_lookup_key</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-translate-keyboard-state" title="gdk_keymap_translate_keyboard_state ()">gdk_keymap_translate_keyboard_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-entries-for-keyval" title="gdk_keymap_get_entries_for_keyval ()">gdk_keymap_get_entries_for_keyval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-entries-for-keycode" title="gdk_keymap_get_entries_for_keycode ()">gdk_keymap_get_entries_for_keycode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/pango/pango-Bidirectional-Text.html#PangoDirection"><span class="returnvalue">PangoDirection</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-direction" title="gdk_keymap_get_direction ()">gdk_keymap_get_direction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-have-bidi-layouts" title="gdk_keymap_have_bidi_layouts ()">gdk_keymap_have_bidi_layouts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-caps-lock-state" title="gdk_keymap_get_caps_lock_state ()">gdk_keymap_get_caps_lock_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-num-lock-state" title="gdk_keymap_get_num_lock_state ()">gdk_keymap_get_num_lock_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-scroll-lock-state" title="gdk_keymap_get_scroll_lock_state ()">gdk_keymap_get_scroll_lock_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-modifier-state" title="gdk_keymap_get_modifier_state ()">gdk_keymap_get_modifier_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-add-virtual-modifiers" title="gdk_keymap_add_virtual_modifiers ()">gdk_keymap_add_virtual_modifiers</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-map-virtual-modifiers" title="gdk_keymap_map_virtual_modifiers ()">gdk_keymap_map_virtual_modifiers</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Windows.html#GdkModifierType" title="enum GdkModifierType"><span class="returnvalue">GdkModifierType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-modifier-mask" title="gdk_keymap_get_modifier_mask ()">gdk_keymap_get_modifier_mask</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-name" title="gdk_keyval_name ()">gdk_keyval_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-from-name" title="gdk_keyval_from_name ()">gdk_keyval_from_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-convert-case" title="gdk_keyval_convert_case ()">gdk_keyval_convert_case</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-to-upper" title="gdk_keyval_to_upper ()">gdk_keyval_to_upper</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-to-lower" title="gdk_keyval_to_lower ()">gdk_keyval_to_lower</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-is-upper" title="gdk_keyval_is_upper ()">gdk_keyval_is_upper</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-is-lower" title="gdk_keyval_is_lower ()">gdk_keyval_is_lower</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint32</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-to-unicode" title="gdk_keyval_to_unicode ()">gdk_keyval_to_unicode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-unicode-to-keyval" title="gdk_unicode_to_keyval ()">gdk_unicode_to_keyval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap-direction-changed" title="The “direction-changed” signal">direction-changed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap-keys-changed" title="The “keys-changed” signal">keys-changed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap-state-changed" title="The “state-changed” signal">state-changed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="GdkKeymap"></a><div class="refsect1">
+<a name="gdk3-Keyboard-Handling.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap-struct" title="GdkKeymap">GdkKeymap</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey">GdkKeymapKey</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GdkKeymap
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.description"></a><h2>Description</h2>
+<p>Key values are the codes which are sent whenever a key is pressed or released.
+They appear in the <a class="link" href="gdk3-Event-Structures.html#GdkEventKey.keyval"><span class="type">GdkEventKey.keyval</span></a> field of the
+<a class="link" href="gdk3-Event-Structures.html#GdkEventKey" title="struct GdkEventKey"><span class="type">GdkEventKey</span></a> structure, which is passed to signal handlers for the
+<span class="type">“key-press-event”</span> and <span class="type">“key-release-event”</span> signals.
+The complete list of key values can be found in the
+<code class="literal">gdk/gdkkeysyms.h</code> header file.</p>
+<p>Key values are regularly updated from the upstream X.org X11 implementation,
+so new values are added regularly. They will be prefixed with GDK_KEY_ rather
+than XF86XK_ or XK_ (for older symbols).</p>
+<p>Key values can be converted into a string representation using
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-name" title="gdk_keyval_name ()"><code class="function">gdk_keyval_name()</code></a>. The reverse function, converting a string to a key value,
+is provided by <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-from-name" title="gdk_keyval_from_name ()"><code class="function">gdk_keyval_from_name()</code></a>.</p>
+<p>The case of key values can be determined using <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-is-upper" title="gdk_keyval_is_upper ()"><code class="function">gdk_keyval_is_upper()</code></a> and
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-is-lower" title="gdk_keyval_is_lower ()"><code class="function">gdk_keyval_is_lower()</code></a>. Key values can be converted to upper or lower case
+using <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-to-upper" title="gdk_keyval_to_upper ()"><code class="function">gdk_keyval_to_upper()</code></a> and <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-to-lower" title="gdk_keyval_to_lower ()"><code class="function">gdk_keyval_to_lower()</code></a>.</p>
+<p>When it makes sense, key values can be converted to and from
+Unicode characters with <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keyval-to-unicode" title="gdk_keyval_to_unicode ()"><code class="function">gdk_keyval_to_unicode()</code></a> and <a class="link" href="gdk3-Keyboard-Handling.html#gdk-unicode-to-keyval" title="gdk_unicode_to_keyval ()"><code class="function">gdk_unicode_to_keyval()</code></a>.</p>
+<div class="refsect2">
+<a name="key-group-explanation"></a><h3>Groups</h3>
+<p>One <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> object exists for each user display. <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-default" title="gdk_keymap_get_default ()"><code class="function">gdk_keymap_get_default()</code></a>
+returns the <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> for the default display; to obtain keymaps for other
+displays, use <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-for-display" title="gdk_keymap_get_for_display ()"><code class="function">gdk_keymap_get_for_display()</code></a>. A keymap
+is a mapping from <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> to key values. You can think of a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a>
+as a representation of a symbol printed on a physical keyboard key. That is, it
+contains three pieces of information. First, it contains the hardware keycode;
+this is an identifying number for a physical key. Second, it contains the
+“level” of the key. The level indicates which symbol on the
+key will be used, in a vertical direction. So on a standard US keyboard, the key
+with the number “1“ on it also has the exclamation point (”!”) character on
+it. The level indicates whether to use the “1” or the “!” symbol.  The letter
+keys are considered to have a lowercase letter at level 0, and an uppercase
+letter at level 1, though only the uppercase letter is printed.  Third, the
+<a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> contains a group; groups are not used on standard US keyboards,
+but are used in many other countries. On a keyboard with groups, there can be 3
+or 4 symbols printed on a single key. The group indicates movement in a
+horizontal direction. Usually groups are used for two different languages.  In
+group 0, a key might have two English characters, and in group 1 it might have
+two Hebrew characters. The Hebrew characters will be printed on the key next to
+the English characters.</p>
+<p>In order to use a keymap to interpret a key event, it’s necessary to first
+convert the keyboard state into an effective group and level. This is done via a
+set of rules that varies widely according to type of keyboard and user
+configuration. The function <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-translate-keyboard-state" title="gdk_keymap_translate_keyboard_state ()"><code class="function">gdk_keymap_translate_keyboard_state()</code></a> accepts a
+keyboard state -- consisting of hardware keycode pressed, active modifiers, and
+active group -- applies the appropriate rules, and returns the group/level to be
+used to index the keymap, along with the modifiers which did not affect the
+group and level. i.e. it returns “unconsumed modifiers.” The keyboard group may
+differ from the effective group used for keymap lookups because some keys don't
+have multiple groups - e.g. the Enter key is always in group 0 regardless of
+keyboard state.</p>
+<p>Note that <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-translate-keyboard-state" title="gdk_keymap_translate_keyboard_state ()"><code class="function">gdk_keymap_translate_keyboard_state()</code></a> also returns the keyval, i.e. it
+goes ahead and performs the keymap lookup in addition to telling you which
+effective group/level values were used for the lookup. <a class="link" href="gdk3-Event-Structures.html#GdkEventKey" title="struct GdkEventKey"><span class="type">GdkEventKey</span></a> already
+contains this keyval, however, so you don’t normally need to call
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-translate-keyboard-state" title="gdk_keymap_translate_keyboard_state ()"><code class="function">gdk_keymap_translate_keyboard_state()</code></a> just to get the keyval.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-keymap-get-default"></a><h3>gdk_keymap_get_default ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="returnvalue">GdkKeymap</span></a> *
+gdk_keymap_get_default (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gdk_keymap_get_default</code> has been deprecated since version 3.22 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-for-display" title="gdk_keymap_get_for_display ()"><code class="function">gdk_keymap_get_for_display()</code></a> instead</p>
+</div>
+<p>Returns the <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> attached to the default display.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-default.returns"></a><h4>Returns</h4>
+<p>the <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> attached to the default display. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-for-display"></a><h3>gdk_keymap_get_for_display ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="returnvalue">GdkKeymap</span></a> *
+gdk_keymap_get_for_display (<em class="parameter"><code><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *display</code></em>);</pre>
+<p>Returns the <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> attached to <em class="parameter"><code>display</code></em>
+.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-for-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-for-display.returns"></a><h4>Returns</h4>
+<p>the <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> attached to <em class="parameter"><code>display</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-lookup-key"></a><h3>gdk_keymap_lookup_key ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_keymap_lookup_key (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>,
+                       <em class="parameter"><code>const <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> *key</code></em>);</pre>
+<p>Looks up the keyval mapped to a keycode/group/level triplet.
+If no keyval is bound to <em class="parameter"><code>key</code></em>
+, returns 0. For normal user input,
+you want to use <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-translate-keyboard-state" title="gdk_keymap_translate_keyboard_state ()"><code class="function">gdk_keymap_translate_keyboard_state()</code></a> instead of
+this function, since the effective group/level may not be
+the same as the current keyboard state.</p>
+<div class="refsect3">
+<a name="gdk-keymap-lookup-key.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> with keycode, group, and level initialized</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-lookup-key.returns"></a><h4>Returns</h4>
+<p> a keyval, or 0 if none was mapped to the given <em class="parameter"><code>key</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-translate-keyboard-state"></a><h3>gdk_keymap_translate_keyboard_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_translate_keyboard_state (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>,
+                                     <em class="parameter"><code><span class="type">guint</span> hardware_keycode</code></em>,
+                                     <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkModifierType" title="enum GdkModifierType"><span class="type">GdkModifierType</span></a> state</code></em>,
+                                     <em class="parameter"><code><span class="type">gint</span> group</code></em>,
+                                     <em class="parameter"><code><span class="type">guint</span> *keyval</code></em>,
+                                     <em class="parameter"><code><span class="type">gint</span> *effective_group</code></em>,
+                                     <em class="parameter"><code><span class="type">gint</span> *level</code></em>,
+                                     <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkModifierType" title="enum GdkModifierType"><span class="type">GdkModifierType</span></a> *consumed_modifiers</code></em>);</pre>
+<p>Translates the contents of a <a class="link" href="gdk3-Event-Structures.html#GdkEventKey" title="struct GdkEventKey"><span class="type">GdkEventKey</span></a> into a keyval, effective
+group, and level. Modifiers that affected the translation and
+are thus unavailable for application use are returned in
+<em class="parameter"><code>consumed_modifiers</code></em>
+.
+See <a class="link" href="gdk3-Keyboard-Handling.html#key-group-explanation" title="Groups">Groups</a> for an explanation of
+groups and levels. The <em class="parameter"><code>effective_group</code></em>
+ is the group that was
+actually used for the translation; some keys such as Enter are not
+affected by the active keyboard group. The <em class="parameter"><code>level</code></em>
+ is derived from
+<em class="parameter"><code>state</code></em>
+. For convenience, <a class="link" href="gdk3-Event-Structures.html#GdkEventKey" title="struct GdkEventKey"><span class="type">GdkEventKey</span></a> already contains the translated
+keyval, so this function isn’t as useful as you might think.</p>
+<p><em class="parameter"><code>consumed_modifiers</code></em>
+ gives modifiers that should be masked outfrom <em class="parameter"><code>state</code></em>
+
+when comparing this key press to a hot key. For instance, on a US keyboard,
+the <code class="literal">plus</code> symbol is shifted, so when comparing a key press to a
+<code class="literal">&lt;Control&gt;plus</code> accelerator <code class="literal">&lt;Shift&gt;</code> should be masked out.</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="comment">// We want to ignore irrelevant modifiers like ScrollLock</span>
+<span class="preproc">#define</span><span class="normal"> </span><span class="function">ALL_ACCELS_MASK</span><span class="normal"> </span><span class="symbol">(</span><span class="normal"><a href="gdk3-Windows.html#GDK-CONTROL-MASK:CAPS">GDK_CONTROL_MASK</a> </span><span class="symbol">|</span><span class="normal"> <a href="gdk3-Windows.html#GDK-SHIFT-MASK:CAPS">GDK_SHIFT_MASK</a> </span><span class="symbol">|</span><span class="normal"> <a href="gdk3-Windows.html#GDK-MOD1-MASK:CAPS">GDK_MOD1_MASK</a></span><span class="symbol">)</span>
+<span class="function"><a href="gdk3-Keyboard-Handling.html#gdk-keymap-translate-keyboard-state">gdk_keymap_translate_keyboard_state</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">keymap</span><span class="symbol">,</span><span class="normal"> event</span><span class="symbol">-&gt;</span><span class="normal">hardware_keycode</span><span class="symbol">,</span>
+<span class="normal">                                     event</span><span class="symbol">-&gt;</span><span class="normal">state</span><span class="symbol">,</span><span class="normal"> event</span><span class="symbol">-&gt;</span><span class="normal">group</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="symbol">&amp;</span><span class="normal">keyval</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">consumed</span><span class="symbol">);</span>
+<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">keyval </span><span class="symbol">==</span><span class="normal"> <a href="gdk3-Cursors.html#GDK-PLUS:CAPS">GDK_PLUS</a> </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">    </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">-&gt;</span><span class="normal">state </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">consumed </span><span class="symbol">&amp;</span><span class="normal"> ALL_ACCELS_MASK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> <a href="gdk3-Windows.html#GDK-CONTROL-MASK:CAPS">GDK_CONTROL_MASK</a></span><span class="symbol">)</span>
+<span class="normal">  </span><span class="comment">// Control was pressed</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>An older interpretation <em class="parameter"><code>consumed_modifiers</code></em>
+ was that it contained
+all modifiers that might affect the translation of the key;
+this allowed accelerators to be stored with irrelevant consumed
+modifiers, by doing:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="comment">// XXX Don’t do this XXX</span>
+<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">keyval </span><span class="symbol">==</span><span class="normal"> accel_keyval </span><span class="symbol">&amp;&amp;</span>
+<span class="normal">    </span><span class="symbol">(</span><span class="normal">event</span><span class="symbol">-&gt;</span><span class="normal">state </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">consumed </span><span class="symbol">&amp;</span><span class="normal"> ALL_ACCELS_MASK</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">accel_mods </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">consumed</span><span class="symbol">))</span>
+<span class="normal">  </span><span class="comment">// Accelerator was pressed</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>However, this did not work if multi-modifier combinations were
+used in the keymap, since, for instance, <code class="literal">&lt;Control&gt;</code> would be
+masked out even if only <code class="literal">&lt;Control&gt;&amp;lt;Alt&gt;</code> was used in the keymap.
+To support this usage as well as well as possible, all single
+modifier combinations that could affect the key for any combination
+of modifiers will be returned in <em class="parameter"><code>consumed_modifiers</code></em>
+; multi-modifier
+combinations are returned only when actually found in <em class="parameter"><code>state</code></em>
+. When
+you store accelerators, you should always store them with consumed
+modifiers removed. Store <code class="literal">&lt;Control&gt;plus</code>, not <code class="literal">&lt;Control&gt;&amp;lt;Shift&gt;plus</code>,</p>
+<div class="refsect3">
+<a name="gdk-keymap-translate-keyboard-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>hardware_keycode</p></td>
+<td class="parameter_description"><p>a keycode</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>a modifier state</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>group</p></td>
+<td class="parameter_description"><p>active keyboard group</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>return location for keyval, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>effective_group</p></td>
+<td class="parameter_description"><p>return location for effective
+group, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>level</p></td>
+<td class="parameter_description"><p>return location for level, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>consumed_modifiers</p></td>
+<td class="parameter_description"><p>return location for modifiers
+that were used to determine the group or level, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-translate-keyboard-state.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if there was a keyval bound to the keycode/state/group</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-entries-for-keyval"></a><h3>gdk_keymap_get_entries_for_keyval ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_get_entries_for_keyval (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>,
+                                   <em class="parameter"><code><span class="type">guint</span> keyval</code></em>,
+                                   <em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> **keys</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> *n_keys</code></em>);</pre>
+<p>Obtains a list of keycode/group/level combinations that will
+generate <em class="parameter"><code>keyval</code></em>
+. Groups and levels are two kinds of keyboard mode;
+in general, the level determines whether the top or bottom symbol
+on a key is used, and the group determines whether the left or
+right symbol is used. On US keyboards, the shift key changes the
+keyboard level, and there are no groups. A group switch key might
+convert a keyboard between Hebrew to English modes, for example.
+<a class="link" href="gdk3-Event-Structures.html#GdkEventKey" title="struct GdkEventKey"><span class="type">GdkEventKey</span></a> contains a <code class="literal">group</code> field that indicates the active
+keyboard group. The level is computed from the modifier mask.
+The returned array should be freed
+with <code class="function">g_free()</code>.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-entries-for-keyval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a keyval, such as <code class="literal">GDK_KEY_a</code>, <code class="literal">GDK_KEY_Up</code>, <code class="literal">GDK_KEY_Return</code>, etc.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keys</p></td>
+<td class="parameter_description"><p>return location
+for an array of <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_keys][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_keys</p></td>
+<td class="parameter_description"><p>return location for number of elements in returned array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-entries-for-keyval.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if keys were found and returned</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-entries-for-keycode"></a><h3>gdk_keymap_get_entries_for_keycode ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_get_entries_for_keycode (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>,
+                                    <em class="parameter"><code><span class="type">guint</span> hardware_keycode</code></em>,
+                                    <em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> **keys</code></em>,
+                                    <em class="parameter"><code><span class="type">guint</span> **keyvals</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> *n_entries</code></em>);</pre>
+<p>Returns the keyvals bound to <em class="parameter"><code>hardware_keycode</code></em>
+.
+The Nth <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> in <em class="parameter"><code>keys</code></em>
+ is bound to the Nth
+keyval in <em class="parameter"><code>keyvals</code></em>
+. Free the returned arrays with <code class="function">g_free()</code>.
+When a keycode is pressed by the user, the keyval from
+this list of entries is selected by considering the effective
+keyboard group and level. See <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-translate-keyboard-state" title="gdk_keymap_translate_keyboard_state ()"><code class="function">gdk_keymap_translate_keyboard_state()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-entries-for-keycode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>hardware_keycode</p></td>
+<td class="parameter_description"><p>a keycode</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keys</p></td>
+<td class="parameter_description"><p>return
+location for array of <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_entries][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL may be passed instead of a pointer to a location."><span class="acronym">optional</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keyvals</p></td>
+<td class="parameter_description"><p>return
+location for array of keyvals, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_entries][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL may be passed instead of a pointer to a location."><span class="acronym">optional</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_entries</p></td>
+<td class="parameter_description"><p>length of <em class="parameter"><code>keys</code></em>
+and <em class="parameter"><code>keyvals</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-entries-for-keycode.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if there were any entries</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-direction"></a><h3>gdk_keymap_get_direction ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/pango/pango-Bidirectional-Text.html#PangoDirection"><span class="returnvalue">PangoDirection</span></a>
+gdk_keymap_get_direction (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>);</pre>
+<p>Returns the direction of effective layout of the keymap.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-direction.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-direction.returns"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/pango/pango-Bidirectional-Text.html#PANGO-DIRECTION-LTR:CAPS"><code class="literal">PANGO_DIRECTION_LTR</code></a> or <a href="https://developer.gnome.org/pango/pango-Bidirectional-Text.html#PANGO-DIRECTION-RTL:CAPS"><code class="literal">PANGO_DIRECTION_RTL</code></a>
+if it can determine the direction. <a href="https://developer.gnome.org/pango/pango-Bidirectional-Text.html#PANGO-DIRECTION-NEUTRAL:CAPS"><code class="literal">PANGO_DIRECTION_NEUTRAL</code></a>
+otherwise.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-have-bidi-layouts"></a><h3>gdk_keymap_have_bidi_layouts ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_have_bidi_layouts (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>);</pre>
+<p>Determines if keyboard layouts for both right-to-left and left-to-right
+languages are in use.</p>
+<div class="refsect3">
+<a name="gdk-keymap-have-bidi-layouts.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-have-bidi-layouts.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if there are layouts in both directions, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-caps-lock-state"></a><h3>gdk_keymap_get_caps_lock_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_get_caps_lock_state (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>);</pre>
+<p>Returns whether the Caps Lock modifer is locked.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-caps-lock-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-caps-lock-state.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if Caps Lock is on</p>
+</div>
+<p class="since">Since: 2.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-num-lock-state"></a><h3>gdk_keymap_get_num_lock_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_get_num_lock_state (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>);</pre>
+<p>Returns whether the Num Lock modifer is locked.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-num-lock-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-num-lock-state.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if Num Lock is on</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-scroll-lock-state"></a><h3>gdk_keymap_get_scroll_lock_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_get_scroll_lock_state (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>);</pre>
+<p>Returns whether the Scroll Lock modifer is locked.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-scroll-lock-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-scroll-lock-state.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if Scroll Lock is on</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-modifier-state"></a><h3>gdk_keymap_get_modifier_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_keymap_get_modifier_state (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>);</pre>
+<p>Returns the current modifier state.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-modifier-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-modifier-state.returns"></a><h4>Returns</h4>
+<p> the current modifier state.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-add-virtual-modifiers"></a><h3>gdk_keymap_add_virtual_modifiers ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_keymap_add_virtual_modifiers (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>,
+                                  <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkModifierType" title="enum GdkModifierType"><span class="type">GdkModifierType</span></a> *state</code></em>);</pre>
+<p>Maps the non-virtual modifiers (i.e Mod2, Mod3, ...) which are set
+in <em class="parameter"><code>state</code></em>
+ to the virtual modifiers (i.e. Super, Hyper and Meta) and
+set the corresponding bits in <em class="parameter"><code>state</code></em>
+.</p>
+<p>GDK already does this before delivering key events, but for
+compatibility reasons, it only sets the first virtual modifier
+it finds, whereas this function sets all matching virtual modifiers.</p>
+<p>This function is useful when matching key events against
+accelerators.</p>
+<div class="refsect3">
+<a name="gdk-keymap-add-virtual-modifiers.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>pointer to the modifier mask to change. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-map-virtual-modifiers"></a><h3>gdk_keymap_map_virtual_modifiers ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keymap_map_virtual_modifiers (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>,
+                                  <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkModifierType" title="enum GdkModifierType"><span class="type">GdkModifierType</span></a> *state</code></em>);</pre>
+<p>Maps the virtual modifiers (i.e. Super, Hyper and Meta) which
+are set in <em class="parameter"><code>state</code></em>
+ to their non-virtual counterparts (i.e. Mod2,
+Mod3,...) and set the corresponding bits in <em class="parameter"><code>state</code></em>
+.</p>
+<p>This function is useful when matching key events against
+accelerators.</p>
+<div class="refsect3">
+<a name="gdk-keymap-map-virtual-modifiers.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>pointer to the modifier state to map. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-map-virtual-modifiers.returns"></a><h4>Returns</h4>
+<p> <code class="literal">FALSE</code> if two virtual modifiers were mapped to the
+same non-virtual modifier. Note that <code class="literal">FALSE</code> is also returned
+if a virtual modifier is mapped to a non-virtual modifier that
+was already set in <em class="parameter"><code>state</code></em>
+.</p>
+</div>
+<p class="since">Since: 2.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keymap-get-modifier-mask"></a><h3>gdk_keymap_get_modifier_mask ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Windows.html#GdkModifierType" title="enum GdkModifierType"><span class="returnvalue">GdkModifierType</span></a>
+gdk_keymap_get_modifier_mask (<em class="parameter"><code><a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap</code></em>,
+                              <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkModifierIntent" title="enum GdkModifierIntent"><span class="type">GdkModifierIntent</span></a> intent</code></em>);</pre>
+<p>Returns the modifier mask the <em class="parameter"><code>keymap</code></em>
+’s windowing system backend
+uses for a particular purpose.</p>
+<p>Note that this function always returns real hardware modifiers, not
+virtual ones (e.g. it will return <a class="link" href="gdk3-Windows.html#GDK-MOD1-MASK:CAPS"><span class="type">GDK_MOD1_MASK</span></a> rather than
+<a class="link" href="gdk3-Windows.html#GDK-META-MASK:CAPS"><span class="type">GDK_META_MASK</span></a> if the backend maps MOD1 to META), so there are use
+cases where the return value of this function has to be transformed
+by <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-add-virtual-modifiers" title="gdk_keymap_add_virtual_modifiers ()"><code class="function">gdk_keymap_add_virtual_modifiers()</code></a> in order to contain the
+expected result.</p>
+<div class="refsect3">
+<a name="gdk-keymap-get-modifier-mask.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>intent</p></td>
+<td class="parameter_description"><p>the use case for the modifier mask</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keymap-get-modifier-mask.returns"></a><h4>Returns</h4>
+<p> the modifier mask used for <em class="parameter"><code>intent</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-name"></a><h3>gdk_keyval_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gdk_keyval_name (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>);</pre>
+<p>Converts a key value into a symbolic name.</p>
+<p>The names are the same as those in the
+<code class="literal">gdk/gdkkeysyms.h</code> header file
+but without the leading “GDK_KEY_”.</p>
+<div class="refsect3">
+<a name="gdk-keyval-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a key value</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keyval-name.returns"></a><h4>Returns</h4>
+<p>a string containing the name
+of the key, or <code class="literal">NULL</code> if <em class="parameter"><code>keyval</code></em>
+is not a valid key. The string
+should not be modified. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-from-name"></a><h3>gdk_keyval_from_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_keyval_from_name (<em class="parameter"><code>const <span class="type">gchar</span> *keyval_name</code></em>);</pre>
+<p>Converts a key name to a key value.</p>
+<p>The names are the same as those in the
+<code class="literal">gdk/gdkkeysyms.h</code> header file
+but without the leading “GDK_KEY_”.</p>
+<div class="refsect3">
+<a name="gdk-keyval-from-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keyval_name</p></td>
+<td class="parameter_description"><p>a key name</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keyval-from-name.returns"></a><h4>Returns</h4>
+<p> the corresponding key value, or <code class="literal">GDK_KEY_VoidSymbol</code>
+if the key name is not a valid key</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-convert-case"></a><h3>gdk_keyval_convert_case ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_keyval_convert_case (<em class="parameter"><code><span class="type">guint</span> symbol</code></em>,
+                         <em class="parameter"><code><span class="type">guint</span> *lower</code></em>,
+                         <em class="parameter"><code><span class="type">guint</span> *upper</code></em>);</pre>
+<p>Obtains the upper- and lower-case versions of the keyval <em class="parameter"><code>symbol</code></em>
+.
+Examples of keyvals are <span class="type">GDK_KEY_a</span>, <span class="type">GDK_KEY_Enter</span>, <span class="type">GDK_KEY_F1</span>, etc.</p>
+<div class="refsect3">
+<a name="gdk-keyval-convert-case.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>symbol</p></td>
+<td class="parameter_description"><p>a keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>lower</p></td>
+<td class="parameter_description"><p>return location for lowercase version of <em class="parameter"><code>symbol</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>upper</p></td>
+<td class="parameter_description"><p>return location for uppercase version of <em class="parameter"><code>symbol</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-to-upper"></a><h3>gdk_keyval_to_upper ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_keyval_to_upper (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>);</pre>
+<p>Converts a key value to upper case, if applicable.</p>
+<div class="refsect3">
+<a name="gdk-keyval-to-upper.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a key value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keyval-to-upper.returns"></a><h4>Returns</h4>
+<p> the upper case form of <em class="parameter"><code>keyval</code></em>
+, or <em class="parameter"><code>keyval</code></em>
+itself if it is already
+in upper case or it is not subject to case conversion.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-to-lower"></a><h3>gdk_keyval_to_lower ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_keyval_to_lower (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>);</pre>
+<p>Converts a key value to lower case, if applicable.</p>
+<div class="refsect3">
+<a name="gdk-keyval-to-lower.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a key value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keyval-to-lower.returns"></a><h4>Returns</h4>
+<p> the lower case form of <em class="parameter"><code>keyval</code></em>
+, or <em class="parameter"><code>keyval</code></em>
+itself if it is already
+in lower case or it is not subject to case conversion.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-is-upper"></a><h3>gdk_keyval_is_upper ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keyval_is_upper (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>);</pre>
+<p>Returns <code class="literal">TRUE</code> if the given key value is in upper case.</p>
+<div class="refsect3">
+<a name="gdk-keyval-is-upper.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a key value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keyval-is-upper.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>keyval</code></em>
+is in upper case, or if <em class="parameter"><code>keyval</code></em>
+is not subject to
+case conversion.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-is-lower"></a><h3>gdk_keyval_is_lower ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_keyval_is_lower (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>);</pre>
+<p>Returns <code class="literal">TRUE</code> if the given key value is in lower case.</p>
+<div class="refsect3">
+<a name="gdk-keyval-is-lower.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a key value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keyval-is-lower.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>keyval</code></em>
+is in lower case, or if <em class="parameter"><code>keyval</code></em>
+is not
+subject to case conversion.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-keyval-to-unicode"></a><h3>gdk_keyval_to_unicode ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>
+gdk_keyval_to_unicode (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>);</pre>
+<p>Convert from a GDK key symbol to the corresponding ISO10646 (Unicode)
+character.</p>
+<div class="refsect3">
+<a name="gdk-keyval-to-unicode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a GDK key symbol </p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-keyval-to-unicode.returns"></a><h4>Returns</h4>
+<p> the corresponding unicode character, or 0 if there
+is no corresponding character.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-unicode-to-keyval"></a><h3>gdk_unicode_to_keyval ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_unicode_to_keyval (<em class="parameter"><code><span class="type">guint32</span> wc</code></em>);</pre>
+<p>Convert from a ISO10646 character to a key symbol.</p>
+<div class="refsect3">
+<a name="gdk-unicode-to-keyval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>wc</p></td>
+<td class="parameter_description"><p>a ISO10646 encoded character</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-unicode-to-keyval.returns"></a><h4>Returns</h4>
+<p> the corresponding GDK key symbol, if one exists.
+or, if there is no corresponding symbol,
+wc | 0x01000000</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkKeymap-struct"></a><h3>GdkKeymap</h3>
+<pre class="programlisting">typedef struct _GdkKeymap GdkKeymap;</pre>
+<p>A <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> defines the translation from keyboard state
+(including a hardware key, a modifier mask, and active keyboard group)
+to a keyval. This translation has two phases. The first phase is
+to determine the effective keyboard group and level for the keyboard
+state; the second phase is to look up the keycode/group/level triplet
+in the keymap and see what keyval it corresponds to.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkKeymapKey"></a><h3>struct GdkKeymapKey</h3>
+<pre class="programlisting">struct GdkKeymapKey {
+  guint keycode;
+  gint  group;
+  gint  level;
+};
+</pre>
+<p>A <a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymapKey" title="struct GdkKeymapKey"><span class="type">GdkKeymapKey</span></a> is a hardware key that can be mapped to a keyval.</p>
+<div class="refsect3">
+<a name="GdkKeymapKey.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GdkKeymapKey.keycode"></a>keycode</code></em>;</p></td>
+<td class="struct_member_description"><p>the hardware keycode. This is an identifying number for a
+physical key.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gint</span> <em class="structfield"><code><a name="GdkKeymapKey.group"></a>group</code></em>;</p></td>
+<td class="struct_member_description"><p>indicates movement in a horizontal direction. Usually groups are used
+for two different languages. In group 0, a key might have two English
+characters, and in group 1 it might have two Hebrew characters. The Hebrew
+characters will be printed on the key next to the English characters.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gint</span> <em class="structfield"><code><a name="GdkKeymapKey.level"></a>level</code></em>;</p></td>
+<td class="struct_member_description"><p>indicates which symbol on the key will be used, in a vertical direction.
+So on a standard US keyboard, the key with the number “1” on it also has the
+exclamation point ("!") character on it. The level indicates whether to use
+the “1” or the “!” symbol. The letter keys are considered to have a lowercase
+letter at level 0, and an uppercase letter at level 1, though only the
+uppercase letter is printed.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Keyboard-Handling.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GdkKeymap-direction-changed"></a><h3>The <code class="literal">“direction-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap,
+               <span class="type">gpointer</span>   user_data)</pre>
+<p>The ::direction-changed signal gets emitted when the direction of
+the keymap changes.</p>
+<div class="refsect3">
+<a name="GdkKeymap-direction-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>the object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: 2.0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkKeymap-keys-changed"></a><h3>The <code class="literal">“keys-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap,
+               <span class="type">gpointer</span>   user_data)</pre>
+<p>The ::keys-changed signal is emitted when the mapping represented by
+<em class="parameter"><code>keymap</code></em>
+ changes.</p>
+<div class="refsect3">
+<a name="GdkKeymap-keys-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>the object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkKeymap-state-changed"></a><h3>The <code class="literal">“state-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gdk3-Keyboard-Handling.html#GdkKeymap"><span class="type">GdkKeymap</span></a> *keymap,
+               <span class="type">gpointer</span>   user_data)</pre>
+<p>The ::state-changed signal is emitted when the state of the
+keyboard changes, e.g when Caps Lock is turned on or off.
+See <a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-caps-lock-state" title="gdk_keymap_get_caps_lock_state ()"><code class="function">gdk_keymap_get_caps_lock_state()</code></a>.</p>
+<div class="refsect3">
+<a name="GdkKeymap-state-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keymap</p></td>
+<td class="parameter_description"><p>the object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: 2.16</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkOffscreenWindow: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="WindowWidgets.html" title="Windows">
+<link rel="prev" href="GtkInvisible.html" title="GtkInvisible">
+<link rel="next" href="GtkWindowGroup.html" title="GtkWindowGroup">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkOffscreenWindow.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkOffscreenWindow.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkOffscreenWindow.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="WindowWidgets.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkInvisible.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkWindowGroup.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkOffscreenWindow"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkOffscreenWindow.top_of_page"></a>GtkOffscreenWindow</span></h2>
+<p>GtkOffscreenWindow — A toplevel to manage offscreen rendering of child widgets</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkOffscreenWindow.html#gtk-offscreen-window-new" title="gtk_offscreen_window_new ()">gtk_offscreen_window_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="returnvalue">cairo_surface_t</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkOffscreenWindow.html#gtk-offscreen-window-get-surface" title="gtk_offscreen_window_get_surface ()">gtk_offscreen_window_get_surface</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkOffscreenWindow.html#gtk-offscreen-window-get-pixbuf" title="gtk_offscreen_window_get_pixbuf ()">gtk_offscreen_window_get_pixbuf</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkOffscreenWindow.html#GtkOffscreenWindow-struct" title="struct GtkOffscreenWindow">GtkOffscreenWindow</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkOffscreenWindow.html#GtkOffscreenWindowClass" title="struct GtkOffscreenWindowClass">GtkOffscreenWindowClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                    <span class="lineart">╰──</span> <a class="link" href="GtkWindow.html" title="GtkWindow">GtkWindow</a>
+                        <span class="lineart">╰──</span> GtkOffscreenWindow
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkOffscreenWindow implements
+ AtkImplementorIface and  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.description"></a><h2>Description</h2>
+<p>GtkOffscreenWindow is strictly intended to be used for obtaining
+snapshots of widgets that are not part of a normal widget hierarchy.
+Since <a class="link" href="GtkOffscreenWindow.html" title="GtkOffscreenWindow"><span class="type">GtkOffscreenWindow</span></a> is a toplevel widget you cannot obtain
+snapshots of a full window with it since you cannot pack a toplevel
+widget in another toplevel.</p>
+<p>The idea is to take a widget and manually set the state of it,
+add it to a GtkOffscreenWindow and then retrieve the snapshot
+as a <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="type">cairo_surface_t</span></a> or <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>.</p>
+<p>GtkOffscreenWindow derives from <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> only as an implementation
+detail.  Applications should not use any API specific to <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>
+to operate on this object.  It should be treated as a <a class="link" href="GtkBin.html" title="GtkBin"><span class="type">GtkBin</span></a> that
+has no parent widget.</p>
+<p>When contained offscreen widgets are redrawn, GtkOffscreenWindow
+will emit a <a class="link" href="GtkWidget.html#GtkWidget-damage-event" title="The “damage-event” signal"><span class="type">“damage-event”</span></a> signal.</p>
+</div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-offscreen-window-new"></a><h3>gtk_offscreen_window_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_offscreen_window_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a toplevel container widget that is used to retrieve
+snapshots of widgets without showing them on the screen.</p>
+<div class="refsect3">
+<a name="gtk-offscreen-window-new.returns"></a><h4>Returns</h4>
+<p> A pointer to a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p>
+</div>
+<p class="since">Since: 2.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-offscreen-window-get-surface"></a><h3>gtk_offscreen_window_get_surface ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="returnvalue">cairo_surface_t</span></a> *
+gtk_offscreen_window_get_surface (<em class="parameter"><code><a class="link" href="GtkOffscreenWindow.html" title="GtkOffscreenWindow"><span class="type">GtkOffscreenWindow</span></a> *offscreen</code></em>);</pre>
+<p>Retrieves a snapshot of the contained widget in the form of
+a <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="type">cairo_surface_t</span></a>.  If you need to keep this around over window
+resizes then you should add a reference to it.</p>
+<div class="refsect3">
+<a name="gtk-offscreen-window-get-surface.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>offscreen</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkOffscreenWindow.html" title="GtkOffscreenWindow"><span class="type">GtkOffscreenWindow</span></a> contained widget.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-offscreen-window-get-surface.returns"></a><h4>Returns</h4>
+<p>A <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-surface-t.html#cairo-surface-t"><span class="type">cairo_surface_t</span></a> pointer to the offscreen
+surface, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-offscreen-window-get-pixbuf"></a><h3>gtk_offscreen_window_get_pixbuf ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_offscreen_window_get_pixbuf (<em class="parameter"><code><a class="link" href="GtkOffscreenWindow.html" title="GtkOffscreenWindow"><span class="type">GtkOffscreenWindow</span></a> *offscreen</code></em>);</pre>
+<p>Retrieves a snapshot of the contained widget in the form of
+a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>.  This is a new pixbuf with a reference count of 1,
+and the application should unreference it once it is no longer
+needed.</p>
+<div class="refsect3">
+<a name="gtk-offscreen-window-get-pixbuf.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>offscreen</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkOffscreenWindow.html" title="GtkOffscreenWindow"><span class="type">GtkOffscreenWindow</span></a> contained widget.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-offscreen-window-get-pixbuf.returns"></a><h4>Returns</h4>
+<p>A <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> pointer, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.20</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkOffscreenWindow.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkOffscreenWindow-struct"></a><h3>struct GtkOffscreenWindow</h3>
+<pre class="programlisting">struct GtkOffscreenWindow;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkOffscreenWindowClass"></a><h3>struct GtkOffscreenWindowClass</h3>
+<pre class="programlisting">struct GtkOffscreenWindowClass {
+  GtkWindowClass parent_class;
+};
+</pre>
+<div class="refsect3">
+<a name="GtkOffscreenWindowClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

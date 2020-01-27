@@ -1,0 +1,1081 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkCssProvider: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="theming.html" title="Part IV. Theming in GTK+">
+<link rel="prev" href="GtkStyleContext.html" title="GtkStyleContext">
+<link rel="next" href="GtkStyleProvider.html" title="GtkStyleProvider">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkCssProvider.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkCssProvider.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkCssProvider.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkCssProvider.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="theming.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkStyleContext.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkStyleProvider.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkCssProvider"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkCssProvider.top_of_page"></a>GtkCssProvider</span></h2>
+<p>GtkCssProvider — CSS-like styling for widgets</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkCssProvider.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="returnvalue">GtkCssProvider</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-get-default" title="gtk_css_provider_get_default ()">gtk_css_provider_get_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="returnvalue">GtkCssProvider</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-get-named" title="gtk_css_provider_get_named ()">gtk_css_provider_get_named</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-data" title="gtk_css_provider_load_from_data ()">gtk_css_provider_load_from_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-file" title="gtk_css_provider_load_from_file ()">gtk_css_provider_load_from_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-path" title="gtk_css_provider_load_from_path ()">gtk_css_provider_load_from_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-resource" title="gtk_css_provider_load_from_resource ()">gtk_css_provider_load_from_resource</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="returnvalue">GtkCssProvider</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-new" title="gtk_css_provider_new ()">gtk_css_provider_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-to-string" title="gtk_css_provider_to_string ()">gtk_css_provider_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-get-end-line" title="gtk_css_section_get_end_line ()">gtk_css_section_get_end_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-get-end-position" title="gtk_css_section_get_end_position ()">gtk_css_section_get_end_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GFile</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-get-file" title="gtk_css_section_get_file ()">gtk_css_section_get_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="returnvalue">GtkCssSection</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-get-parent" title="gtk_css_section_get_parent ()">gtk_css_section_get_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCssProvider.html#GtkCssSectionType" title="enum GtkCssSectionType"><span class="returnvalue">GtkCssSectionType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-get-section-type" title="gtk_css_section_get_section_type ()">gtk_css_section_get_section_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-get-start-line" title="gtk_css_section_get_start_line ()">gtk_css_section_get_start_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-get-start-position" title="gtk_css_section_get_start_position ()">gtk_css_section_get_start_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="returnvalue">GtkCssSection</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-ref" title="gtk_css_section_ref ()">gtk_css_section_ref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCssProvider.html#gtk-css-section-unref" title="gtk_css_section_unref ()">gtk_css_section_unref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkCssProvider.html#GtkCssProvider-parsing-error" title="The “parsing-error” signal">parsing-error</a></td>
+<td class="signal_flags">Run Last</td>
+</tr></tbody>
+</table></div>
+</div>
+<a name="GtkCssSection"></a><div class="refsect1">
+<a name="GtkCssProvider.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkCssProvider.html#GtkCssProvider-struct" title="struct GtkCssProvider">GtkCssProvider</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkCssProvider.html#GTK-CSS-PROVIDER-ERROR:CAPS" title="GTK_CSS_PROVIDER_ERROR">GTK_CSS_PROVIDER_ERROR</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkCssProvider.html#GtkCssProviderError" title="enum GtkCssProviderError">GtkCssProviderError</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkCssProvider.html#GtkCssSection-struct" title="GtkCssSection">GtkCssSection</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkCssProvider.html#GtkCssSectionType" title="enum GtkCssSectionType">GtkCssSectionType</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobject/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">╰──</span> GtkCssSection
+    GObject
+    <span class="lineart">╰──</span> GtkCssProvider
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkCssProvider implements
+ <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider">GtkStyleProvider</a> and  GtkStyleProviderPrivate.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.description"></a><h2>Description</h2>
+<p>GtkCssProvider is an object implementing the <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a> interface.
+It is able to parse <a class="link" href="chap-css-overview.html#css-overview" title="Overview of CSS in GTK+">CSS-like</a> input in order to style widgets.</p>
+<p>An application can make GTK+ parse a specific CSS style sheet by calling
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-file" title="gtk_css_provider_load_from_file ()"><code class="function">gtk_css_provider_load_from_file()</code></a> or <a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-resource" title="gtk_css_provider_load_from_resource ()"><code class="function">gtk_css_provider_load_from_resource()</code></a>
+and adding the provider with <a class="link" href="GtkStyleContext.html#gtk-style-context-add-provider" title="gtk_style_context_add_provider ()"><code class="function">gtk_style_context_add_provider()</code></a> or
+<a class="link" href="GtkStyleContext.html#gtk-style-context-add-provider-for-screen" title="gtk_style_context_add_provider_for_screen ()"><code class="function">gtk_style_context_add_provider_for_screen()</code></a>.</p>
+<p>In addition, certain files will be read when GTK+ is initialized. First, the
+file <code class="literal">$XDG_CONFIG_HOME/gtk-3.0/gtk.css</code> is loaded if it exists. Then, GTK+
+loads the first existing file among
+<code class="literal">XDG_DATA_HOME/themes/THEME/gtk-VERSION/gtk.css</code>,
+<code class="literal">$HOME/.themes/THEME/gtk-VERSION/gtk.css</code>,
+<code class="literal">$XDG_DATA_DIRS/themes/THEME/gtk-VERSION/gtk.css</code> and
+<code class="literal">DATADIR/share/themes/THEME/gtk-VERSION/gtk.css</code>, where <code class="literal">THEME</code> is the name of
+the current theme (see the <a class="link" href="GtkSettings.html#GtkSettings--gtk-theme-name" title="The “gtk-theme-name” property"><span class="type">“gtk-theme-name”</span></a> setting), <code class="literal">DATADIR</code>
+is the prefix configured when GTK+ was compiled (unless overridden by the
+<code class="literal">GTK_DATA_PREFIX</code> environment variable), and <code class="literal">VERSION</code> is the GTK+ version number.
+If no file is found for the current version, GTK+ tries older versions all the
+way back to 3.0.</p>
+<p>In the same way, GTK+ tries to load a gtk-keys.css file for the current
+key theme, as defined by <a class="link" href="GtkSettings.html#GtkSettings--gtk-key-theme-name" title="The “gtk-key-theme-name” property"><span class="type">“gtk-key-theme-name”</span></a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-css-provider-get-default"></a><h3>gtk_css_provider_get_default ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="returnvalue">GtkCssProvider</span></a> *
+gtk_css_provider_get_default (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_css_provider_get_default</code> has been deprecated since version 3.24 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkCssProvider.html#gtk-css-provider-new" title="gtk_css_provider_new ()"><code class="function">gtk_css_provider_new()</code></a> instead.</p>
+</div>
+<p>Returns the provider containing the style settings used as a
+fallback for all widgets.</p>
+<div class="refsect3">
+<a name="gtk-css-provider-get-default.returns"></a><h4>Returns</h4>
+<p>The provider used for fallback styling.
+This memory is owned by GTK+, and you must not free it. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-provider-get-named"></a><h3>gtk_css_provider_get_named ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="returnvalue">GtkCssProvider</span></a> *
+gtk_css_provider_get_named (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *variant</code></em>);</pre>
+<p>Loads a theme from the usual theme paths</p>
+<div class="refsect3">
+<a name="gtk-css-provider-get-named.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>A theme name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>variant</p></td>
+<td class="parameter_description"><p>variant to load, for example, "dark", or
+<code class="literal">NULL</code> for the default. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-provider-get-named.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> with the theme loaded.
+This memory is owned by GTK+, and you must not free it. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-provider-load-from-data"></a><h3>gtk_css_provider_load_from_data ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_css_provider_load_from_data (<em class="parameter"><code><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> *css_provider</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *data</code></em>,
+                                 <em class="parameter"><code><span class="type">gssize</span> length</code></em>,
+                                 <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Loads <em class="parameter"><code>data</code></em>
+ into <em class="parameter"><code>css_provider</code></em>
+, and by doing so clears any previously loaded
+information.</p>
+<div class="refsect3">
+<a name="gtk-css-provider-load-from-data.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>css_provider</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>CSS data loaded in memory. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>length</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>data</code></em>
+in bytes, or -1 for NUL terminated strings. If
+<em class="parameter"><code>length</code></em>
+is not -1, the code will assume it is not NUL terminated and will
+potentially do a copy.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-provider-load-from-data.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code>. The return value is deprecated and <code class="literal">FALSE</code> will only be
+returned for backwards compatibility reasons if an <em class="parameter"><code>error</code></em>
+is not
+<code class="literal">NULL</code> and a loading error occurred. To track errors while loading
+CSS, connect to the <a class="link" href="GtkCssProvider.html#GtkCssProvider-parsing-error" title="The “parsing-error” signal"><span class="type">“parsing-error”</span></a> signal.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-provider-load-from-file"></a><h3>gtk_css_provider_load_from_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_css_provider_load_from_file (<em class="parameter"><code><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> *css_provider</code></em>,
+                                 <em class="parameter"><code><span class="type">GFile</span> *file</code></em>,
+                                 <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Loads the data contained in <em class="parameter"><code>file</code></em>
+ into <em class="parameter"><code>css_provider</code></em>
+, making it
+clear any previously loaded information.</p>
+<div class="refsect3">
+<a name="gtk-css-provider-load-from-file.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>css_provider</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>file</p></td>
+<td class="parameter_description"><p><span class="type">GFile</span> pointing to a file to load</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-provider-load-from-file.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code>. The return value is deprecated and <code class="literal">FALSE</code> will only be
+returned for backwards compatibility reasons if an <em class="parameter"><code>error</code></em>
+is not
+<code class="literal">NULL</code> and a loading error occurred. To track errors while loading
+CSS, connect to the <a class="link" href="GtkCssProvider.html#GtkCssProvider-parsing-error" title="The “parsing-error” signal"><span class="type">“parsing-error”</span></a> signal.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-provider-load-from-path"></a><h3>gtk_css_provider_load_from_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_css_provider_load_from_path (<em class="parameter"><code><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> *css_provider</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                                 <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Loads the data contained in <em class="parameter"><code>path</code></em>
+ into <em class="parameter"><code>css_provider</code></em>
+, making it clear
+any previously loaded information.</p>
+<div class="refsect3">
+<a name="gtk-css-provider-load-from-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>css_provider</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>the path of a filename to load, in the GLib filename encoding</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-provider-load-from-path.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code>. The return value is deprecated and <code class="literal">FALSE</code> will only be
+returned for backwards compatibility reasons if an <em class="parameter"><code>error</code></em>
+is not
+<code class="literal">NULL</code> and a loading error occurred. To track errors while loading
+CSS, connect to the <a class="link" href="GtkCssProvider.html#GtkCssProvider-parsing-error" title="The “parsing-error” signal"><span class="type">“parsing-error”</span></a> signal.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-provider-load-from-resource"></a><h3>gtk_css_provider_load_from_resource ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_css_provider_load_from_resource (<em class="parameter"><code><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> *css_provider</code></em>,
+                                     <em class="parameter"><code>const <span class="type">gchar</span> *resource_path</code></em>);</pre>
+<p>Loads the data contained in the resource at <em class="parameter"><code>resource_path</code></em>
+ into
+the <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a>, clearing any previously loaded information.</p>
+<p>To track errors while loading CSS, connect to the
+<a class="link" href="GtkCssProvider.html#GtkCssProvider-parsing-error" title="The “parsing-error” signal"><span class="type">“parsing-error”</span></a> signal.</p>
+<div class="refsect3">
+<a name="gtk-css-provider-load-from-resource.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>css_provider</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>resource_path</p></td>
+<td class="parameter_description"><p>a <span class="type">GResource</span> resource path</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-provider-new"></a><h3>gtk_css_provider_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="returnvalue">GtkCssProvider</span></a> *
+gtk_css_provider_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns a newly created <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-css-provider-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-provider-to-string"></a><h3>gtk_css_provider_to_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+gtk_css_provider_to_string (<em class="parameter"><code><a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> *provider</code></em>);</pre>
+<p>Converts the <em class="parameter"><code>provider</code></em>
+ into a string representation in CSS
+format.</p>
+<p>Using <a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-data" title="gtk_css_provider_load_from_data ()"><code class="function">gtk_css_provider_load_from_data()</code></a> with the return value
+from this function on a new provider created with
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-new" title="gtk_css_provider_new ()"><code class="function">gtk_css_provider_new()</code></a> will basically create a duplicate of
+this <em class="parameter"><code>provider</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-css-provider-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>provider</p></td>
+<td class="parameter_description"><p>the provider to write to a string</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-provider-to-string.returns"></a><h4>Returns</h4>
+<p> a new string representing the <em class="parameter"><code>provider</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-get-end-line"></a><h3>gtk_css_section_get_end_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_css_section_get_end_line (<em class="parameter"><code>const <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Returns the line in the CSS document where this section end.
+The line number is 0-indexed, so the first line of the document
+will return 0.
+This value may change in future invocations of this function if
+<em class="parameter"><code>section</code></em>
+ is not yet parsed completely. This will for example 
+happen in the GtkCssProvider::parsing-error signal.
+The end position and line may be identical to the start
+position and line for sections which failed to parse anything
+successfully.</p>
+<div class="refsect3">
+<a name="gtk-css-section-get-end-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>the section</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-get-end-line.returns"></a><h4>Returns</h4>
+<p> the line number</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-get-end-position"></a><h3>gtk_css_section_get_end_position ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_css_section_get_end_position (<em class="parameter"><code>const <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Returns the offset in bytes from the start of the current line
+returned via <a class="link" href="GtkCssProvider.html#gtk-css-section-get-end-line" title="gtk_css_section_get_end_line ()"><code class="function">gtk_css_section_get_end_line()</code></a>.
+This value may change in future invocations of this function if
+<em class="parameter"><code>section</code></em>
+ is not yet parsed completely. This will for example
+happen in the GtkCssProvider::parsing-error signal.
+The end position and line may be identical to the start
+position and line for sections which failed to parse anything
+successfully.</p>
+<div class="refsect3">
+<a name="gtk-css-section-get-end-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>the section</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-get-end-position.returns"></a><h4>Returns</h4>
+<p> the offset in bytes from the start of the line.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-get-file"></a><h3>gtk_css_section_get_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">GFile</span> *
+gtk_css_section_get_file (<em class="parameter"><code>const <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Gets the file that <em class="parameter"><code>section</code></em>
+ was parsed from. If no such file exists,
+for example because the CSS was loaded via
+<em class="parameter"><code><a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-data" title="gtk_css_provider_load_from_data ()"><code class="function">gtk_css_provider_load_from_data()</code></a></code></em>
+, then <code class="literal">NULL</code> is returned.</p>
+<div class="refsect3">
+<a name="gtk-css-section-get-file.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>the section</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-get-file.returns"></a><h4>Returns</h4>
+<p>the <span class="type">GFile</span> that <em class="parameter"><code>section</code></em>
+was parsed from
+or <code class="literal">NULL</code> if <em class="parameter"><code>section</code></em>
+was parsed from other data. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-get-parent"></a><h3>gtk_css_section_get_parent ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="returnvalue">GtkCssSection</span></a> *
+gtk_css_section_get_parent (<em class="parameter"><code>const <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Gets the parent section for the given <em class="parameter"><code>section</code></em>
+. The parent section is
+the section that contains this <em class="parameter"><code>section</code></em>
+. A special case are sections of
+type <a class="link" href="GtkCssProvider.html#GTK-CSS-SECTION-DOCUMENT:CAPS"><span class="type">GTK_CSS_SECTION_DOCUMENT</span></a>. Their parent will either be <code class="literal">NULL</code>
+if they are the original CSS document that was loaded by
+<a class="link" href="GtkCssProvider.html#gtk-css-provider-load-from-file" title="gtk_css_provider_load_from_file ()"><code class="function">gtk_css_provider_load_from_file()</code></a> or a section of type
+<a class="link" href="GtkCssProvider.html#GTK-CSS-SECTION-IMPORT:CAPS"><span class="type">GTK_CSS_SECTION_IMPORT</span></a> if it was loaded with an import rule from
+a different file.</p>
+<div class="refsect3">
+<a name="gtk-css-section-get-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>the section</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-get-parent.returns"></a><h4>Returns</h4>
+<p>the parent section or <code class="literal">NULL</code> if none. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-get-section-type"></a><h3>gtk_css_section_get_section_type ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCssProvider.html#GtkCssSectionType" title="enum GtkCssSectionType"><span class="returnvalue">GtkCssSectionType</span></a>
+gtk_css_section_get_section_type (<em class="parameter"><code>const <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Gets the type of information that <em class="parameter"><code>section</code></em>
+ describes.</p>
+<div class="refsect3">
+<a name="gtk-css-section-get-section-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>the section</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-get-section-type.returns"></a><h4>Returns</h4>
+<p> the type of <em class="parameter"><code>section</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-get-start-line"></a><h3>gtk_css_section_get_start_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_css_section_get_start_line (<em class="parameter"><code>const <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Returns the line in the CSS document where this section starts.
+The line number is 0-indexed, so the first line of the document
+will return 0.</p>
+<div class="refsect3">
+<a name="gtk-css-section-get-start-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>the section</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-get-start-line.returns"></a><h4>Returns</h4>
+<p> the line number</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-get-start-position"></a><h3>gtk_css_section_get_start_position ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_css_section_get_start_position (<em class="parameter"><code>const <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Returns the offset in bytes from the start of the current line
+returned via <a class="link" href="GtkCssProvider.html#gtk-css-section-get-start-line" title="gtk_css_section_get_start_line ()"><code class="function">gtk_css_section_get_start_line()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-css-section-get-start-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>the section</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-get-start-position.returns"></a><h4>Returns</h4>
+<p> the offset in bytes from the start of the line.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-ref"></a><h3>gtk_css_section_ref ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="returnvalue">GtkCssSection</span></a> *
+gtk_css_section_ref (<em class="parameter"><code><a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Increments the reference count on <em class="parameter"><code>section</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-css-section-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-css-section-ref.returns"></a><h4>Returns</h4>
+<p> <em class="parameter"><code>section</code></em>
+itself.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-css-section-unref"></a><h3>gtk_css_section_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_css_section_unref (<em class="parameter"><code><a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a> *section</code></em>);</pre>
+<p>Decrements the reference count on <em class="parameter"><code>section</code></em>
+, freeing the
+structure if the reference count reaches 0.</p>
+<div class="refsect3">
+<a name="gtk-css-section-unref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkCssProvider-struct"></a><h3>struct GtkCssProvider</h3>
+<pre class="programlisting">struct GtkCssProvider;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-CSS-PROVIDER-ERROR:CAPS"></a><h3>GTK_CSS_PROVIDER_ERROR</h3>
+<pre class="programlisting">#define GTK_CSS_PROVIDER_ERROR (gtk_css_provider_error_quark ())
+</pre>
+<p>Domain for <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> errors.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCssProviderError"></a><h3>enum GtkCssProviderError</h3>
+<p>Error codes for <a class="link" href="GtkCssProvider.html#GTK-CSS-PROVIDER-ERROR:CAPS" title="GTK_CSS_PROVIDER_ERROR"><code class="literal">GTK_CSS_PROVIDER_ERROR</code></a>.</p>
+<div class="refsect3">
+<a name="GtkCssProviderError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-PROVIDER-ERROR-FAILED:CAPS"></a>GTK_CSS_PROVIDER_ERROR_FAILED</p></td>
+<td class="enum_member_description">
+<p>Failed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-PROVIDER-ERROR-SYNTAX:CAPS"></a>GTK_CSS_PROVIDER_ERROR_SYNTAX</p></td>
+<td class="enum_member_description">
+<p>Syntax error.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-PROVIDER-ERROR-IMPORT:CAPS"></a>GTK_CSS_PROVIDER_ERROR_IMPORT</p></td>
+<td class="enum_member_description">
+<p>Import error.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-PROVIDER-ERROR-NAME:CAPS"></a>GTK_CSS_PROVIDER_ERROR_NAME</p></td>
+<td class="enum_member_description">
+<p>Name error.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-PROVIDER-ERROR-DEPRECATED:CAPS"></a>GTK_CSS_PROVIDER_ERROR_DEPRECATED</p></td>
+<td class="enum_member_description">
+<p>Deprecation error.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-PROVIDER-ERROR-UNKNOWN-VALUE:CAPS"></a>GTK_CSS_PROVIDER_ERROR_UNKNOWN_VALUE</p></td>
+<td class="enum_member_description">
+<p>Unknown value.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCssSection-struct"></a><h3>GtkCssSection</h3>
+<pre class="programlisting">typedef struct _GtkCssSection GtkCssSection;</pre>
+<p>Defines a part of a CSS document. Because sections are nested into
+one another, you can use <a class="link" href="GtkCssProvider.html#gtk-css-section-get-parent" title="gtk_css_section_get_parent ()"><code class="function">gtk_css_section_get_parent()</code></a> to get the
+containing region.</p>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCssSectionType"></a><h3>enum GtkCssSectionType</h3>
+<p>The different types of sections indicate parts of a CSS document as
+parsed by GTK’s CSS parser. They are oriented towards the
+<a class="ulink" href="http://www.w3.org/TR/CSS21/grammar.html" target="_top">CSS Grammar</a>,
+but may contain extensions.</p>
+<p>More types might be added in the future as the parser incorporates
+more features.</p>
+<div class="refsect3">
+<a name="GtkCssSectionType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-DOCUMENT:CAPS"></a>GTK_CSS_SECTION_DOCUMENT</p></td>
+<td class="enum_member_description">
+<p>The section describes a complete document.
+  This section time is the only one where <a class="link" href="GtkCssProvider.html#gtk-css-section-get-parent" title="gtk_css_section_get_parent ()"><code class="function">gtk_css_section_get_parent()</code></a>
+  might return <code class="literal">NULL</code>.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-IMPORT:CAPS"></a>GTK_CSS_SECTION_IMPORT</p></td>
+<td class="enum_member_description">
+<p>The section defines an import rule.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-COLOR-DEFINITION:CAPS"></a>GTK_CSS_SECTION_COLOR_DEFINITION</p></td>
+<td class="enum_member_description">
+<p>The section defines a color. This
+  is a GTK extension to CSS.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-BINDING-SET:CAPS"></a>GTK_CSS_SECTION_BINDING_SET</p></td>
+<td class="enum_member_description">
+<p>The section defines a binding set. This
+  is a GTK extension to CSS.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-RULESET:CAPS"></a>GTK_CSS_SECTION_RULESET</p></td>
+<td class="enum_member_description">
+<p>The section defines a CSS ruleset.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-SELECTOR:CAPS"></a>GTK_CSS_SECTION_SELECTOR</p></td>
+<td class="enum_member_description">
+<p>The section defines a CSS selector.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-DECLARATION:CAPS"></a>GTK_CSS_SECTION_DECLARATION</p></td>
+<td class="enum_member_description">
+<p>The section defines the declaration of
+  a CSS variable.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-VALUE:CAPS"></a>GTK_CSS_SECTION_VALUE</p></td>
+<td class="enum_member_description">
+<p>The section defines the value of a CSS declaration.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CSS-SECTION-KEYFRAMES:CAPS"></a>GTK_CSS_SECTION_KEYFRAMES</p></td>
+<td class="enum_member_description">
+<p>The section defines keyframes. See <a class="ulink" href="http://dev.w3.org/csswg/css3-animations/#keyframes" target="_top">CSS
+  Animations</a> for details. Since 3.6</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkCssProvider-parsing-error"></a><h3>The <code class="literal">“parsing-error”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a> *provider,
+               <a class="link" href="GtkCssProvider.html#GtkCssSection"><span class="type">GtkCssSection</span></a>  *section,
+               <span class="type">GError</span>         *error,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>Signals that a parsing error occurred. the <em class="parameter"><code>path</code></em>
+, <em class="parameter"><code>line</code></em>
+ and <em class="parameter"><code>position</code></em>
+
+describe the actual location of the error as accurately as possible.</p>
+<p>Parsing errors are never fatal, so the parsing will resume after
+the error. Errors may however cause parts of the given
+data or even all of it to not be parsed at all. So it is a useful idea
+to check that the parsing succeeds by connecting to this signal.</p>
+<p>Note that this signal may be emitted at any time as the css provider
+may opt to defer parsing parts or all of the input to a later time
+than when a loading function was called.</p>
+<div class="refsect3">
+<a name="GtkCssProvider-parsing-error.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>provider</p></td>
+<td class="parameter_description"><p>the provider that had a parsing error</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>section</p></td>
+<td class="parameter_description"><p>section the error happened in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>The parsing error</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCssProvider.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a>, <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

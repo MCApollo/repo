@@ -1,0 +1,71 @@
+diff --git a/meson.build b/meson.build
+index 60ef872f52d9cc1f1e4170b706523ab160dc656a..ba93dcc3f8d35edc0acb8209ac0e262a05d374e3 100644
+--- a/meson.build
++++ b/meson.build
+@@ -823,6 +823,11 @@ if profiler_enabled
+   endif
+ endif
+ 
++module_suffix = []
++if os_darwin
++  module_suffix = 'so'
++endif
++
+ build_gir = get_option('introspection')
+ subdir('gdk')
+ subdir('gtk')
+diff --git a/modules/input/meson.build b/modules/input/meson.build
+index 09625a93c17737c3e1d88d430fbde4a226a7ca07..7b201af894bc8551e2e6a98327c923ed1e1039a6 100644
+--- a/modules/input/meson.build
++++ b/modules/input/meson.build
+@@ -15,6 +15,7 @@ foreach l: immodules
+                   install_dir: '@0@/gtk-@1@/@2@/immodules/'.format(gtk_libdir, gtk_api_version, gtk_binary_version),
+                   include_directories: [confinc, gtkinc],
+                   install : true,
++                  name_suffix: module_suffix,
+                   name_prefix: '')
+   endif
+ endforeach
+diff --git a/modules/printbackends/meson.build b/modules/printbackends/meson.build
+index a3dd649e5a09c9b6329d823ceb6589c96434ef03..7ffe671c4ba8887f113e051b2696554684204946 100644
+--- a/modules/printbackends/meson.build
++++ b/modules/printbackends/meson.build
+@@ -112,6 +112,7 @@ if print_backends.contains('file')
+                 c_args: printbackends_args,
+                 dependencies: libgtk_dep,
+                 install_dir: printbackends_install_dir,
++                name_suffix: module_suffix,
+                 install : true)
+ endif
+ 
+@@ -121,6 +122,7 @@ if print_backends.contains('lpr')
+                 c_args: printbackends_args,
+                 dependencies: libgtk_dep,
+                 install_dir: printbackends_install_dir,
++                name_suffix: module_suffix,
+                 install : true)
+ endif
+ 
+@@ -130,6 +132,7 @@ if print_backends.contains('test')
+                 c_args: printbackends_args,
+                 dependencies: libgtk_dep,
+                 install_dir: printbackends_install_dir,
++                name_suffix: module_suffix,
+                 install : true)
+ endif
+ 
+@@ -141,6 +144,7 @@ if print_backends.contains('cloudprint')
+                   c_args: printbackends_args,
+                   dependencies: [ libgtk_dep, rest_dep, json_glib_dep ],
+                   install_dir: printbackends_install_dir,
++                  name_suffix: module_suffix,
+                   install : true)
+ endif
+ 
+@@ -153,5 +157,6 @@ if print_backends.contains('cups')
+                 c_args: printbackends_args,
+                 dependencies: [libgtk_dep, cups_dep] + cups_extra_deps,
+                 install_dir: printbackends_install_dir,
++                name_suffix: module_suffix,
+                 install : true)
+ endif

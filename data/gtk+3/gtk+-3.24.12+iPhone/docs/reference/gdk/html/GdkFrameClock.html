@@ -1,0 +1,879 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Frame clock: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="gdk3-Windows.html" title="Windows">
+<link rel="next" href="gdk3-GdkFrameTimings.html" title="Frame timings">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GdkFrameClock.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GdkFrameClock.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GdkFrameClock.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdk3-Windows.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-GdkFrameTimings.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GdkFrameClock"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GdkFrameClock.top_of_page"></a>Frame clock</span></h2>
+<p>Frame clock — Frame clock syncs painting to a window or display</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GdkFrameClock.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint64</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-frame-time" title="gdk_frame_clock_get_frame_time ()">gdk_frame_clock_get_frame_time</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-request-phase" title="gdk_frame_clock_request_phase ()">gdk_frame_clock_request_phase</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-begin-updating" title="gdk_frame_clock_begin_updating ()">gdk_frame_clock_begin_updating</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-end-updating" title="gdk_frame_clock_end_updating ()">gdk_frame_clock_end_updating</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint64</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-frame-counter" title="gdk_frame_clock_get_frame_counter ()">gdk_frame_clock_get_frame_counter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint64</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-history-start" title="gdk_frame_clock_get_history_start ()">gdk_frame_clock_get_history_start</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="returnvalue">GdkFrameTimings</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-timings" title="gdk_frame_clock_get_timings ()">gdk_frame_clock_get_timings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="returnvalue">GdkFrameTimings</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-current-timings" title="gdk_frame_clock_get_current_timings ()">gdk_frame_clock_get_current_timings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-refresh-info" title="gdk_frame_clock_get_refresh_info ()">gdk_frame_clock_get_refresh_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-after-paint" title="The “after-paint” signal">after-paint</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-before-paint" title="The “before-paint” signal">before-paint</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-flush-events" title="The “flush-events” signal">flush-events</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-layout" title="The “layout” signal">layout</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-paint" title="The “paint” signal">paint</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-resume-events" title="The “resume-events” signal">resume-events</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-update" title="The “update” signal">update</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GdkFrameClock.html#GdkFrameClock-struct" title="GdkFrameClock">GdkFrameClock</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GdkFrameClock.html#GdkFrameClockPhase" title="enum GdkFrameClockPhase">GdkFrameClockPhase</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GdkFrameClock
+</pre>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdkwayland.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.description"></a><h2>Description</h2>
+<p>A <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> tells the application when to update and repaint a
+window. This may be synced to the vertical refresh rate of the
+monitor, for example. Even when the frame clock uses a simple timer
+rather than a hardware-based vertical sync, the frame clock helps
+because it ensures everything paints at the same time (reducing the
+total number of frames). The frame clock can also automatically
+stop painting when it knows the frames will not be visible, or
+scale back animation framerates.</p>
+<p><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> is designed to be compatible with an OpenGL-based
+implementation or with mozRequestAnimationFrame in Firefox,
+for example.</p>
+<p>A frame clock is idle until someone requests a frame with
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-request-phase" title="gdk_frame_clock_request_phase ()"><code class="function">gdk_frame_clock_request_phase()</code></a>. At some later point that makes
+sense for the synchronization being implemented, the clock will
+process a frame and emit signals for each phase that has been
+requested. (See the signals of the <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> class for
+documentation of the phases. <a class="link" href="GdkFrameClock.html#GDK-FRAME-CLOCK-PHASE-UPDATE:CAPS"><code class="literal">GDK_FRAME_CLOCK_PHASE_UPDATE</code></a> and the
+<a class="link" href="GdkFrameClock.html#GdkFrameClock-update" title="The “update” signal"><span class="type">“update”</span></a> signal are most interesting for application
+writers, and are used to update the animations, using the frame time
+given by <a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-frame-time" title="gdk_frame_clock_get_frame_time ()"><code class="function">gdk_frame_clock_get_frame_time()</code></a>.</p>
+<p>The frame time is reported in microseconds and generally in the same
+timescale as <code class="function">g_get_monotonic_time()</code>, however, it is not the same
+as <code class="function">g_get_monotonic_time()</code>. The frame time does not advance during
+the time a frame is being painted, and outside of a frame, an attempt
+is made so that all calls to <a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-frame-time" title="gdk_frame_clock_get_frame_time ()"><code class="function">gdk_frame_clock_get_frame_time()</code></a> that
+are called at a “similar” time get the same value. This means that
+if different animations are timed by looking at the difference in
+time between an initial value from <a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-frame-time" title="gdk_frame_clock_get_frame_time ()"><code class="function">gdk_frame_clock_get_frame_time()</code></a>
+and the value inside the <a class="link" href="GdkFrameClock.html#GdkFrameClock-update" title="The “update” signal"><span class="type">“update”</span></a> signal of the clock,
+they will stay exactly synchronized.</p>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-frame-clock-get-frame-time"></a><h3>gdk_frame_clock_get_frame_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>
+gdk_frame_clock_get_frame_time (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>);</pre>
+<p>Gets the time that should currently be used for animations.  Inside
+the processing of a frame, it’s the time used to compute the
+animation position of everything in a frame. Outside of a frame, it's
+the time of the conceptual “previous frame,” which may be either
+the actual previous frame time, or if that’s too old, an updated
+time.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-frame-time.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-frame-time.returns"></a><h4>Returns</h4>
+<p> a timestamp in microseconds, in the timescale of
+of <code class="function">g_get_monotonic_time()</code>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-request-phase"></a><h3>gdk_frame_clock_request_phase ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_frame_clock_request_phase (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>,
+                               <em class="parameter"><code><a class="link" href="GdkFrameClock.html#GdkFrameClockPhase" title="enum GdkFrameClockPhase"><span class="type">GdkFrameClockPhase</span></a> phase</code></em>);</pre>
+<p>Asks the frame clock to run a particular phase. The signal
+corresponding the requested phase will be emitted the next
+time the frame clock processes. Multiple calls to
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-request-phase" title="gdk_frame_clock_request_phase ()"><code class="function">gdk_frame_clock_request_phase()</code></a> will be combined together
+and only one frame processed. If you are displaying animated
+content and want to continually request the
+<a class="link" href="GdkFrameClock.html#GDK-FRAME-CLOCK-PHASE-UPDATE:CAPS"><code class="literal">GDK_FRAME_CLOCK_PHASE_UPDATE</code></a> phase for a period of time,
+you should use <a class="link" href="GdkFrameClock.html#gdk-frame-clock-begin-updating" title="gdk_frame_clock_begin_updating ()"><code class="function">gdk_frame_clock_begin_updating()</code></a> instead, since
+this allows GTK+ to adjust system parameters to get maximally
+smooth animations.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-request-phase.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>phase</p></td>
+<td class="parameter_description"><p>the phase that is requested</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-begin-updating"></a><h3>gdk_frame_clock_begin_updating ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_frame_clock_begin_updating (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>);</pre>
+<p>Starts updates for an animation. Until a matching call to
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-end-updating" title="gdk_frame_clock_end_updating ()"><code class="function">gdk_frame_clock_end_updating()</code></a> is made, the frame clock will continually
+request a new frame with the <a class="link" href="GdkFrameClock.html#GDK-FRAME-CLOCK-PHASE-UPDATE:CAPS"><code class="literal">GDK_FRAME_CLOCK_PHASE_UPDATE</code></a> phase.
+This function may be called multiple times and frames will be
+requested until <a class="link" href="GdkFrameClock.html#gdk-frame-clock-end-updating" title="gdk_frame_clock_end_updating ()"><code class="function">gdk_frame_clock_end_updating()</code></a> is called the same
+number of times.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-begin-updating.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-end-updating"></a><h3>gdk_frame_clock_end_updating ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_frame_clock_end_updating (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>);</pre>
+<p>Stops updates for an animation. See the documentation for
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-begin-updating" title="gdk_frame_clock_begin_updating ()"><code class="function">gdk_frame_clock_begin_updating()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-end-updating.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-get-frame-counter"></a><h3>gdk_frame_clock_get_frame_counter ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>
+gdk_frame_clock_get_frame_counter (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>);</pre>
+<p>A <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> maintains a 64-bit counter that increments for
+each frame drawn.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-frame-counter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-frame-counter.returns"></a><h4>Returns</h4>
+<p> inside frame processing, the value of the frame counter
+for the current frame. Outside of frame processing, the frame
+counter for the last frame.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-get-history-start"></a><h3>gdk_frame_clock_get_history_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint64</span>
+gdk_frame_clock_get_history_start (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>);</pre>
+<p><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> internally keeps a history of <a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="type">GdkFrameTimings</span></a>
+objects for recent frames that can be retrieved with
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-timings" title="gdk_frame_clock_get_timings ()"><code class="function">gdk_frame_clock_get_timings()</code></a>. The set of stored frames
+is the set from the counter values given by
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-history-start" title="gdk_frame_clock_get_history_start ()"><code class="function">gdk_frame_clock_get_history_start()</code></a> and
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-frame-counter" title="gdk_frame_clock_get_frame_counter ()"><code class="function">gdk_frame_clock_get_frame_counter()</code></a>, inclusive.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-history-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-history-start.returns"></a><h4>Returns</h4>
+<p> the frame counter value for the oldest frame
+that is available in the internal frame history of the
+<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-get-timings"></a><h3>gdk_frame_clock_get_timings ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="returnvalue">GdkFrameTimings</span></a> *
+gdk_frame_clock_get_timings (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>,
+                             <em class="parameter"><code><span class="type">gint64</span> frame_counter</code></em>);</pre>
+<p>Retrieves a <a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="type">GdkFrameTimings</span></a> object holding timing information
+for the current frame or a recent frame. The <a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="type">GdkFrameTimings</span></a>
+object may not yet be complete: see <a class="link" href="gdk3-GdkFrameTimings.html#gdk-frame-timings-get-complete" title="gdk_frame_timings_get_complete ()"><code class="function">gdk_frame_timings_get_complete()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-timings.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>frame_counter</p></td>
+<td class="parameter_description"><p>the frame counter value identifying the frame to
+be received.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-timings.returns"></a><h4>Returns</h4>
+<p>the <a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="type">GdkFrameTimings</span></a> object for
+the specified frame, or <code class="literal">NULL</code> if it is not available. See
+<a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-history-start" title="gdk_frame_clock_get_history_start ()"><code class="function">gdk_frame_clock_get_history_start()</code></a>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-get-current-timings"></a><h3>gdk_frame_clock_get_current_timings ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="returnvalue">GdkFrameTimings</span></a> *
+gdk_frame_clock_get_current_timings (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>);</pre>
+<p>Gets the frame timings for the current frame.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-current-timings.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-current-timings.returns"></a><h4>Returns</h4>
+<p>the <a class="link" href="gdk3-GdkFrameTimings.html#GdkFrameTimings" title="GdkFrameTimings"><span class="type">GdkFrameTimings</span></a> for the
+frame currently being processed, or even no frame is being
+processed, for the previous frame. Before any frames have been
+processed, returns <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-frame-clock-get-refresh-info"></a><h3>gdk_frame_clock_get_refresh_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_frame_clock_get_refresh_info (<em class="parameter"><code><a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *frame_clock</code></em>,
+                                  <em class="parameter"><code><span class="type">gint64</span> base_time</code></em>,
+                                  <em class="parameter"><code><span class="type">gint64</span> *refresh_interval_return</code></em>,
+                                  <em class="parameter"><code><span class="type">gint64</span> *presentation_time_return</code></em>);</pre>
+<p>Using the frame history stored in the frame clock, finds the last
+known presentation time and refresh interval, and assuming that
+presentation times are separated by the refresh interval,
+predicts a presentation time that is a multiple of the refresh
+interval after the last presentation time, and later than <em class="parameter"><code>base_time</code></em>
+.</p>
+<div class="refsect3">
+<a name="gdk-frame-clock-get-refresh-info.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>frame_clock</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>base_time</p></td>
+<td class="parameter_description"><p>base time for determining a presentaton time</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>refresh_interval_return</p></td>
+<td class="parameter_description"><p>a location to store the
+determined refresh interval, or <code class="literal">NULL</code>. A default refresh interval of
+1/60th of a second will be stored if no history is present. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL may be passed instead of a pointer to a location."><span class="acronym">optional</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>presentation_time_return</p></td>
+<td class="parameter_description"><p>a location to store the next
+candidate presentation time after the given base time.
+0 will be will be stored if no history is present. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkFrameClock-struct"></a><h3>GdkFrameClock</h3>
+<pre class="programlisting">typedef struct _GdkFrameClock GdkFrameClock;</pre>
+<div class="refsect3">
+<a name="GdkFrameClock.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkFrameClockPhase"></a><h3>enum GdkFrameClockPhase</h3>
+<p><a class="link" href="GdkFrameClock.html#GdkFrameClockPhase" title="enum GdkFrameClockPhase"><span class="type">GdkFrameClockPhase</span></a> is used to represent the different paint clock
+phases that can be requested. The elements of the enumeration
+correspond to the signals of <a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a>.</p>
+<div class="refsect3">
+<a name="GdkFrameClockPhase.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-NONE:CAPS"></a>GDK_FRAME_CLOCK_PHASE_NONE</p></td>
+<td class="enum_member_description">
+<p>no phase</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-FLUSH-EVENTS:CAPS"></a>GDK_FRAME_CLOCK_PHASE_FLUSH_EVENTS</p></td>
+<td class="enum_member_description">
+<p>corresponds to GdkFrameClock::flush-events. Should not be handled by applications.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-BEFORE-PAINT:CAPS"></a>GDK_FRAME_CLOCK_PHASE_BEFORE_PAINT</p></td>
+<td class="enum_member_description">
+<p>corresponds to GdkFrameClock::before-paint. Should not be handled by applications.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-UPDATE:CAPS"></a>GDK_FRAME_CLOCK_PHASE_UPDATE</p></td>
+<td class="enum_member_description">
+<p>corresponds to GdkFrameClock::update.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-LAYOUT:CAPS"></a>GDK_FRAME_CLOCK_PHASE_LAYOUT</p></td>
+<td class="enum_member_description">
+<p>corresponds to GdkFrameClock::layout.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-PAINT:CAPS"></a>GDK_FRAME_CLOCK_PHASE_PAINT</p></td>
+<td class="enum_member_description">
+<p>corresponds to GdkFrameClock::paint.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-RESUME-EVENTS:CAPS"></a>GDK_FRAME_CLOCK_PHASE_RESUME_EVENTS</p></td>
+<td class="enum_member_description">
+<p>corresponds to GdkFrameClock::resume-events. Should not be handled by applications.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FRAME-CLOCK-PHASE-AFTER-PAINT:CAPS"></a>GDK_FRAME_CLOCK_PHASE_AFTER_PAINT</p></td>
+<td class="enum_member_description">
+<p>corresponds to GdkFrameClock::after-paint. Should not be handled by applications.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkFrameClock.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GdkFrameClock-after-paint"></a><h3>The <code class="literal">“after-paint”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *clock,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal ends processing of the frame. Applications
+should generally not handle this signal.</p>
+<div class="refsect3">
+<a name="GdkFrameClock-after-paint.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clock</p></td>
+<td class="parameter_description"><p>the frame clock emitting the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkFrameClock-before-paint"></a><h3>The <code class="literal">“before-paint”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *clock,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal begins processing of the frame. Applications
+should generally not handle this signal.</p>
+<div class="refsect3">
+<a name="GdkFrameClock-before-paint.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clock</p></td>
+<td class="parameter_description"><p>the frame clock emitting the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkFrameClock-flush-events"></a><h3>The <code class="literal">“flush-events”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *clock,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal is used to flush pending motion events that
+are being batched up and compressed together. Applications
+should not handle this signal.</p>
+<div class="refsect3">
+<a name="GdkFrameClock-flush-events.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clock</p></td>
+<td class="parameter_description"><p>the frame clock emitting the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkFrameClock-layout"></a><h3>The <code class="literal">“layout”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *clock,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal is emitted as the second step of toolkit and
+application processing of the frame. Any work to update
+sizes and positions of application elements should be
+performed. GTK+ normally handles this internally.</p>
+<div class="refsect3">
+<a name="GdkFrameClock-layout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clock</p></td>
+<td class="parameter_description"><p>the frame clock emitting the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkFrameClock-paint"></a><h3>The <code class="literal">“paint”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *clock,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal is emitted as the third step of toolkit and
+application processing of the frame. The frame is
+repainted. GDK normally handles this internally and
+produces expose events, which are turned into GTK+
+<span class="type">“draw”</span> signals.</p>
+<div class="refsect3">
+<a name="GdkFrameClock-paint.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clock</p></td>
+<td class="parameter_description"><p>the frame clock emitting the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkFrameClock-resume-events"></a><h3>The <code class="literal">“resume-events”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *clock,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal is emitted after processing of the frame is
+finished, and is handled internally by GTK+ to resume normal
+event processing. Applications should not handle this signal.</p>
+<div class="refsect3">
+<a name="GdkFrameClock-resume-events.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clock</p></td>
+<td class="parameter_description"><p>the frame clock emitting the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkFrameClock-update"></a><h3>The <code class="literal">“update”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkFrameClock.html" title="Frame clock"><span class="type">GdkFrameClock</span></a> *clock,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal is emitted as the first step of toolkit and
+application processing of the frame. Animations should
+be updated using <a class="link" href="GdkFrameClock.html#gdk-frame-clock-get-frame-time" title="gdk_frame_clock_get_frame_time ()"><code class="function">gdk_frame_clock_get_frame_time()</code></a>.
+Applications can connect directly to this signal, or
+use <code class="function">gtk_widget_add_tick_callback()</code> as a more convenient
+interface.</p>
+<div class="refsect3">
+<a name="GdkFrameClock-update.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>clock</p></td>
+<td class="parameter_description"><p>the frame clock emitting the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

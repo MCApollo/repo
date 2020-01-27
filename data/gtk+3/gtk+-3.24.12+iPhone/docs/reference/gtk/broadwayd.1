@@ -1,0 +1,107 @@
+'\" t
+.\"     Title: broadwayd
+.\"    Author: Alexander Larsson
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 10/03/2019
+.\"    Manual: User Commands
+.\"    Source: GTK+
+.\"  Language: English
+.\"
+.TH "BROADWAYD" "1" "" "GTK+" "User Commands"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+broadwayd \- Broadway display server
+.SH "SYNOPSIS"
+.HP \w'\fBbroadwayd\fR\ 'u
+\fBbroadwayd\fR [\-\-port\ \fIPORT\fR] [\-\-address\ \fIADDRESS\fR] [\-\-unixsocket\ \fIADDRESS\fR] [\fI:DISPLAY\fR]
+.SH "DESCRIPTION"
+.PP
+\fBbroadwayd\fR
+is a display server for the Broadway GDK backend\&. It allows multiple GTK+ applications to display their windows in the same web browser, by connecting to broadwayd\&.
+.PP
+When using broadwayd, specify the display number to use, prefixed with a colon, similar to X\&. The default display number is 0\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+broadwayd :5
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Then point your web browser at
+http://127\&.0\&.0\&.1:8085\&. Start your applications like this:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+GDK_BACKEND=broadway BROADWAY_DISPLAY=:5 gtk3\-demo
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+You can add password protection for your session by creating a file in
+$XDG_CONFIG_HOME/broadway\&.passwd
+or
+$HOME/\&.config/broadway\&.passwd
+with a crypt(3) style password hash\&. A simple way to generate it is with openssl:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+openssl passwd \-1  > ~/\&.config/broadway\&.passwd
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.SH "OPTIONS"
+.PP
+\-\-port
+.RS 4
+Use
+\fIPORT\fR
+as the HTTP port, instead of the default 8080 + (\fIDISPLAY\fR
+\- 1)\&.
+.RE
+.PP
+\-\-address
+.RS 4
+Use
+\fIADDRESS\fR
+as the HTTP address, instead of the default
+http://127\&.0\&.0\&.1:\fIPORT\fR\&.
+.RE
+.PP
+\-\-unixsocket
+.RS 4
+Use
+\fIADDRESS\fR
+as the unix domain socket address\&. This option overrides
+\-\-address
+and
+\-\-port\&. It is available only on Unix\-like systems\&.
+.RE

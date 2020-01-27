@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="gtk30">
+  <!-- interface-requires gtk+ 3.10 -->
+  <template class="GtkStatusbar" parent="GtkBox">
+    <property name="spacing">2</property>
+    <property name="margin-start">10</property>
+    <property name="margin-end">10</property>
+    <property name="margin-top">6</property>
+    <property name="margin-bottom">6</property>
+    <child>
+      <object class="GtkFrame" id="frame">
+        <property name="visible">1</property>
+        <property name="shadow-type">none</property>
+        <child>
+          <object class="GtkBox" id="message_area">
+            <property name="visible">1</property>
+            <property name="spacing">4</property>
+            <property name="margin">4</property>
+            <child>
+              <object class="GtkLabel" id="label">
+                <property name="visible">1</property>
+                <property name="halign">start</property>
+                <property name="valign">center</property>
+                <property name="ellipsize">end</property>
+                <property name="single-line-mode">1</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child type="label_item"/>
+      </object>
+      <packing>
+        <property name="expand">1</property>
+      </packing>
+    </child>
+  </template>
+</interface>

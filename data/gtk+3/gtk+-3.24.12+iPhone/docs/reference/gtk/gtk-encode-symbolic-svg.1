@@ -1,0 +1,54 @@
+'\" t
+.\"     Title: gtk-encode-symbolic-svg
+.\"    Author: Alexander Larsson
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 10/03/2019
+.\"    Manual: User Commands
+.\"    Source: GTK+
+.\"  Language: English
+.\"
+.TH "GTK\-ENCODE\-SYMBOLI" "1" "" "GTK+" "User Commands"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+gtk-encode-symbolic-svg \- Symbolic icon conversion utility
+.SH "SYNOPSIS"
+.HP \w'\fBgtk\-encode\-symbolic\-svg\fR\ 'u
+\fBgtk\-encode\-symbolic\-svg\fR [OPTION\&.\&.\&.] \fIPATH\fR \fIWIDTH\fRx\fIHEIGHT\fR
+.SH "DESCRIPTION"
+.PP
+\fBgtk\-encode\-symbolic\-svg\fR
+converts symbolic svg icons into specially prepared png files\&. GTK+ can load and recolor these pngs, just like original svgs, but loading them is much faster\&.
+.PP
+\fIPATH\fR
+is the name of a symbolic svg file,
+\fIWIDTH\fRx\fIHEIGHT\fR
+are the desired dimensions for the generated png file\&.
+.PP
+To distinguish them from ordinary pngs, the generated files have the extension
+\&.symbolic\&.png\&.
+.SH "OPTIONS"
+.PP
+\-o \fIDIRECTORY\fR, \-\-output \fIDIRECTORY\fR
+.RS 4
+Write png files to
+\fIDIRECTORY\fR
+instead of the current working directory\&.
+.RE

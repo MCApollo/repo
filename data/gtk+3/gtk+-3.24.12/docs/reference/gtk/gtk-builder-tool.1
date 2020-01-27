@@ -1,0 +1,88 @@
+'\" t
+.\"     Title: gtk-builder-tool
+.\"    Author: Matthias Clasen
+.\" Generator: DocBook XSL Stylesheets vsnapshot <http://docbook.sf.net/>
+.\"      Date: 10/03/2019
+.\"    Manual: User Commands
+.\"    Source: GTK+
+.\"  Language: English
+.\"
+.TH "GTK\-BUILDER\-TOOL" "1" "" "GTK+" "User Commands"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+gtk-builder-tool \- GtkBuilder file utility
+.SH "SYNOPSIS"
+.HP \w'\fBgtk\-builder\-tool\fR\ 'u
+\fBgtk\-builder\-tool\fR [\fICOMMAND\fR] [\fIOPTION\fR...] \fIFILE\fR
+.SH "DESCRIPTION"
+.PP
+\fBgtk\-builder\-tool\fR
+can perform various operations on GtkBuilder \&.ui files\&.
+.PP
+You should always test the modified \&.ui files produced by gtk\-builder\-tool before using them in production\&.
+.SH "COMMANDS"
+.PP
+The following commands are understood:
+.PP
+\fBvalidate\fR
+.RS 4
+Validates the \&.ui file and report errors to stderr\&.
+.RE
+.PP
+\fBsimplify\fR
+.RS 4
+Simplifies the \&.ui file by removing properties that are set to their default values and write the resulting XML to stdout, or back to the input file\&.
+.RE
+.PP
+\fBenumerate\fR
+.RS 4
+Lists all the named objects that are created in the \&.ui file\&.
+.RE
+.PP
+\fBpreview\fR
+.RS 4
+Preview the \&.ui file\&. This command accepts options to specify the ID of an object and a \&.css file to use\&.
+.RE
+.SH "SIMPLIFY OPTIONS"
+.PP
+The
+\fBsimplify\fR
+command accepts the following options:
+.PP
+\fB\-\-replace\fR
+.RS 4
+Write the content back to the \&.ui file instead of stdout\&.
+.RE
+.SH "PREVIEW OPTIONS"
+.PP
+The
+\fBpreview\fR
+command accepts the following options:
+.PP
+\fB\-\-id=\fR\fBID\fR
+.RS 4
+The ID of the object to preview\&. If not specified, gtk\-builder\-tool will choose a suitable object on its own\&.
+.RE
+.PP
+\fB\-\-css=\fR\fBFILE\fR
+.RS 4
+Load style information from the given \&.css file\&.
+.RE

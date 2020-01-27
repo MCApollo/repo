@@ -1,0 +1,2371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Selections: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtkbase.html" title="Part III. GTK+ Core Reference">
+<link rel="prev" href="gtk3-Standard-Enumerations.html" title="Standard Enumerations">
+<link rel="next" href="gtk3-Testing.html" title="Testing">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gtk3-Selections.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#gtk3-Selections.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtkbase.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gtk3-Standard-Enumerations.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gtk3-Testing.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gtk3-Selections"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gtk3-Selections.top_of_page"></a>Selections</span></h2>
+<p>Selections — Functions for handling inter-process communication
+    via selections</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gtk3-Selections.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="returnvalue">GtkTargetEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-entry-new" title="gtk_target_entry_new ()">gtk_target_entry_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="returnvalue">GtkTargetEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-entry-copy" title="gtk_target_entry_copy ()">gtk_target_entry_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-entry-free" title="gtk_target_entry_free ()">gtk_target_entry_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="returnvalue">GtkTargetList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-new" title="gtk_target_list_new ()">gtk_target_list_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="returnvalue">GtkTargetList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-ref" title="gtk_target_list_ref ()">gtk_target_list_ref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-unref" title="gtk_target_list_unref ()">gtk_target_list_unref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-add" title="gtk_target_list_add ()">gtk_target_list_add</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-add-table" title="gtk_target_list_add_table ()">gtk_target_list_add_table</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-add-text-targets" title="gtk_target_list_add_text_targets ()">gtk_target_list_add_text_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-add-image-targets" title="gtk_target_list_add_image_targets ()">gtk_target_list_add_image_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-add-uri-targets" title="gtk_target_list_add_uri_targets ()">gtk_target_list_add_uri_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-add-rich-text-targets" title="gtk_target_list_add_rich_text_targets ()">gtk_target_list_add_rich_text_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-remove" title="gtk_target_list_remove ()">gtk_target_list_remove</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-list-find" title="gtk_target_list_find ()">gtk_target_list_find</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-table-free" title="gtk_target_table_free ()">gtk_target_table_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="returnvalue">GtkTargetEntry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-target-table-new-from-list" title="gtk_target_table_new_from_list ()">gtk_target_table_new_from_list</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-owner-set" title="gtk_selection_owner_set ()">gtk_selection_owner_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-owner-set-for-display" title="gtk_selection_owner_set_for_display ()">gtk_selection_owner_set_for_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-add-target" title="gtk_selection_add_target ()">gtk_selection_add_target</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-add-targets" title="gtk_selection_add_targets ()">gtk_selection_add_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-clear-targets" title="gtk_selection_clear_targets ()">gtk_selection_clear_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-convert" title="gtk_selection_convert ()">gtk_selection_convert</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-set" title="gtk_selection_data_set ()">gtk_selection_data_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-set-text" title="gtk_selection_data_set_text ()">gtk_selection_data_set_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-text" title="gtk_selection_data_get_text ()">gtk_selection_data_get_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-set-pixbuf" title="gtk_selection_data_set_pixbuf ()">gtk_selection_data_set_pixbuf</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-pixbuf" title="gtk_selection_data_get_pixbuf ()">gtk_selection_data_get_pixbuf</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-set-uris" title="gtk_selection_data_set_uris ()">gtk_selection_data_set_uris</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> **
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-uris" title="gtk_selection_data_get_uris ()">gtk_selection_data_get_uris</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-targets" title="gtk_selection_data_get_targets ()">gtk_selection_data_get_targets</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-targets-include-image" title="gtk_selection_data_targets_include_image ()">gtk_selection_data_targets_include_image</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-targets-include-text" title="gtk_selection_data_targets_include_text ()">gtk_selection_data_targets_include_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-targets-include-uri" title="gtk_selection_data_targets_include_uri ()">gtk_selection_data_targets_include_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-targets-include-rich-text" title="gtk_selection_data_targets_include_rich_text ()">gtk_selection_data_targets_include_rich_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkAtom</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-selection" title="gtk_selection_data_get_selection ()">gtk_selection_data_get_selection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">guchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-data" title="gtk_selection_data_get_data ()">gtk_selection_data_get_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-length" title="gtk_selection_data_get_length ()">gtk_selection_data_get_length</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">guchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-data-with-length" title="gtk_selection_data_get_data_with_length ()">gtk_selection_data_get_data_with_length</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkAtom</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-data-type" title="gtk_selection_data_get_data_type ()">gtk_selection_data_get_data_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkDisplay</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-display" title="gtk_selection_data_get_display ()">gtk_selection_data_get_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-format" title="gtk_selection_data_get_format ()">gtk_selection_data_get_format</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkAtom</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-get-target" title="gtk_selection_data_get_target ()">gtk_selection_data_get_target</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-targets-include-image" title="gtk_targets_include_image ()">gtk_targets_include_image</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-targets-include-text" title="gtk_targets_include_text ()">gtk_targets_include_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-targets-include-uri" title="gtk_targets_include_uri ()">gtk_targets_include_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-targets-include-rich-text" title="gtk_targets_include_rich_text ()">gtk_targets_include_rich_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-remove-all" title="gtk_selection_remove_all ()">gtk_selection_remove_all</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="returnvalue">GtkSelectionData</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-copy" title="gtk_selection_data_copy ()">gtk_selection_data_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-free" title="gtk_selection_data_free ()">gtk_selection_data_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="GtkSelectionData"></a><a name="GtkTargetList"></a><div class="refsect1">
+<a name="gtk3-Selections.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData">GtkSelectionData</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry">GtkTargetEntry</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gtk3-Selections.html#GtkTargetList-struct" title="GtkTargetList">GtkTargetList</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="gtk3-Selections.html#GtkTargetPair" title="struct GtkTargetPair">GtkTargetPair</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Selections.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobject/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">├──</span> GtkSelectionData
+    <span class="lineart">╰──</span> GtkTargetList
+</pre>
+</div>
+<div class="refsect1">
+<a name="gtk3-Selections.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gtk3-Selections.description"></a><h2>Description</h2>
+<p>The selection mechanism provides the basis for different types
+of communication between processes. In particular, drag and drop and
+<a class="link" href="gtk3-Clipboards.html#GtkClipboard"><span class="type">GtkClipboard</span></a> work via selections. You will very seldom or
+never need to use most of the functions in this section directly;
+<a class="link" href="gtk3-Clipboards.html#GtkClipboard"><span class="type">GtkClipboard</span></a> provides a nicer interface to the same functionality.</p>
+<p>If an application is expected to exchange image data and work
+on Windows, it is highly advised to support at least "image/bmp" target
+for the widest possible compatibility with third-party applications.
+<a class="link" href="gtk3-Clipboards.html#GtkClipboard"><span class="type">GtkClipboard</span></a> already does that by using <a class="link" href="gtk3-Selections.html#gtk-target-list-add-image-targets" title="gtk_target_list_add_image_targets ()"><code class="function">gtk_target_list_add_image_targets()</code></a>
+and <a class="link" href="gtk3-Selections.html#gtk-selection-data-set-pixbuf" title="gtk_selection_data_set_pixbuf ()"><code class="function">gtk_selection_data_set_pixbuf()</code></a> or <a class="link" href="gtk3-Selections.html#gtk-selection-data-get-pixbuf" title="gtk_selection_data_get_pixbuf ()"><code class="function">gtk_selection_data_get_pixbuf()</code></a>,
+which is one of the reasons why it is advised to use <a class="link" href="gtk3-Clipboards.html#GtkClipboard"><span class="type">GtkClipboard</span></a>.</p>
+<p>Some of the datatypes defined this section are used in
+the <a class="link" href="gtk3-Clipboards.html#GtkClipboard"><span class="type">GtkClipboard</span></a> and drag-and-drop API’s as well. The
+<a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> and <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> objects represent
+lists of data types that are supported when sending or
+receiving data. The <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object is used to
+store a chunk of data along with the data type and other
+associated information.</p>
+</div>
+<div class="refsect1">
+<a name="gtk3-Selections.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-target-entry-new"></a><h3>gtk_target_entry_new ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="returnvalue">GtkTargetEntry</span></a> *
+gtk_target_entry_new (<em class="parameter"><code>const <span class="type">gchar</span> *target</code></em>,
+                      <em class="parameter"><code><span class="type">guint</span> flags</code></em>,
+                      <em class="parameter"><code><span class="type">guint</span> info</code></em>);</pre>
+<p>Makes a new <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-target-entry-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>String identifier for target</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Set of flags, see <a class="link" href="gtk3-Drag-and-Drop.html#GtkTargetFlags" title="enum GtkTargetFlags"><span class="type">GtkTargetFlags</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>an ID that will be passed back to the application</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-target-entry-new.returns"></a><h4>Returns</h4>
+<p> a pointer to a new <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a>.
+Free with <a class="link" href="gtk3-Selections.html#gtk-target-entry-free" title="gtk_target_entry_free ()"><code class="function">gtk_target_entry_free()</code></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-entry-copy"></a><h3>gtk_target_entry_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="returnvalue">GtkTargetEntry</span></a> *
+gtk_target_entry_copy (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> *data</code></em>);</pre>
+<p>Makes a copy of a <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> and its data.</p>
+<div class="refsect3">
+<a name="gtk-target-entry-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-target-entry-copy.returns"></a><h4>Returns</h4>
+<p> a pointer to a copy of <em class="parameter"><code>data</code></em>
+.
+Free with <a class="link" href="gtk3-Selections.html#gtk-target-entry-free" title="gtk_target_entry_free ()"><code class="function">gtk_target_entry_free()</code></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-entry-free"></a><h3>gtk_target_entry_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_entry_free (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> *data</code></em>);</pre>
+<p>Frees a <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> returned from
+<a class="link" href="gtk3-Selections.html#gtk-target-entry-new" title="gtk_target_entry_new ()"><code class="function">gtk_target_entry_new()</code></a> or <a class="link" href="gtk3-Selections.html#gtk-target-entry-copy" title="gtk_target_entry_copy ()"><code class="function">gtk_target_entry_copy()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-target-entry-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-new"></a><h3>gtk_target_list_new ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="returnvalue">GtkTargetList</span></a> *
+gtk_target_list_new (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> *targets</code></em>,
+                     <em class="parameter"><code><span class="type">guint</span> ntargets</code></em>);</pre>
+<p>Creates a new <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> from an array of <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-target-list-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>Pointer to an array
+of <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=ntargets][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ntargets</p></td>
+<td class="parameter_description"><p>number of entries in <em class="parameter"><code>targets</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-target-list-new.returns"></a><h4>Returns</h4>
+<p>the new <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-ref"></a><h3>gtk_target_list_ref ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="returnvalue">GtkTargetList</span></a> *
+gtk_target_list_ref (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>);</pre>
+<p>Increases the reference count of a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> by one.</p>
+<div class="refsect3">
+<a name="gtk-target-list-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-target-list-ref.returns"></a><h4>Returns</h4>
+<p> the passed in <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-unref"></a><h3>gtk_target_list_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_unref (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>);</pre>
+<p>Decreases the reference count of a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> by one.
+If the resulting reference count is zero, frees the list.</p>
+<div class="refsect3">
+<a name="gtk-target-list-unref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-add"></a><h3>gtk_target_list_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_add (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                     <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>,
+                     <em class="parameter"><code><span class="type">guint</span> flags</code></em>,
+                     <em class="parameter"><code><span class="type">guint</span> info</code></em>);</pre>
+<p>Appends another target to a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-target-list-add.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>the interned atom representing the target</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>the flags for this target</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>an ID that will be passed back to the application</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-add-table"></a><h3>gtk_target_list_add_table ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_add_table (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                           <em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> *targets</code></em>,
+                           <em class="parameter"><code><span class="type">guint</span> ntargets</code></em>);</pre>
+<p>Prepends a table of <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> to a target list.</p>
+<div class="refsect3">
+<a name="gtk-target-list-add-table.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>the table of <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=ntargets]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ntargets</p></td>
+<td class="parameter_description"><p>number of targets in the table</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-add-text-targets"></a><h3>gtk_target_list_add_text_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_add_text_targets (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                                  <em class="parameter"><code><span class="type">guint</span> info</code></em>);</pre>
+<p>Appends the text targets supported by <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> to
+the target list. All targets are added with the same <em class="parameter"><code>info</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-target-list-add-text-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>an ID that will be passed back to the application</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-add-image-targets"></a><h3>gtk_target_list_add_image_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_add_image_targets (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                                   <em class="parameter"><code><span class="type">guint</span> info</code></em>,
+                                   <em class="parameter"><code><span class="type">gboolean</span> writable</code></em>);</pre>
+<p>Appends the image targets supported by <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> to
+the target list. All targets are added with the same <em class="parameter"><code>info</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-target-list-add-image-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>an ID that will be passed back to the application</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>writable</p></td>
+<td class="parameter_description"><p>whether to add only targets for which GTK+ knows
+how to convert a pixbuf into the format</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-add-uri-targets"></a><h3>gtk_target_list_add_uri_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_add_uri_targets (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                                 <em class="parameter"><code><span class="type">guint</span> info</code></em>);</pre>
+<p>Appends the URI targets supported by <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> to
+the target list. All targets are added with the same <em class="parameter"><code>info</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-target-list-add-uri-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>an ID that will be passed back to the application</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-add-rich-text-targets"></a><h3>gtk_target_list_add_rich_text_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_add_rich_text_targets (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                                       <em class="parameter"><code><span class="type">guint</span> info</code></em>,
+                                       <em class="parameter"><code><span class="type">gboolean</span> deserializable</code></em>,
+                                       <em class="parameter"><code><a class="link" href="GtkTextBuffer.html" title="GtkTextBuffer"><span class="type">GtkTextBuffer</span></a> *buffer</code></em>);</pre>
+<p>Appends the rich text targets registered with
+<a class="link" href="GtkTextBuffer.html#gtk-text-buffer-register-serialize-format" title="gtk_text_buffer_register_serialize_format ()"><code class="function">gtk_text_buffer_register_serialize_format()</code></a> or
+<a class="link" href="GtkTextBuffer.html#gtk-text-buffer-register-deserialize-format" title="gtk_text_buffer_register_deserialize_format ()"><code class="function">gtk_text_buffer_register_deserialize_format()</code></a> to the target list. All
+targets are added with the same <em class="parameter"><code>info</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-target-list-add-rich-text-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>an ID that will be passed back to the application</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>deserializable</p></td>
+<td class="parameter_description"><p>if <code class="literal">TRUE</code>, then deserializable rich text formats
+will be added, serializable formats otherwise.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>buffer</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkTextBuffer.html" title="GtkTextBuffer"><span class="type">GtkTextBuffer</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-remove"></a><h3>gtk_target_list_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_list_remove (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                        <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>);</pre>
+<p>Removes a target from a target list.</p>
+<div class="refsect3">
+<a name="gtk-target-list-remove.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>the interned atom representing the target</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-list-find"></a><h3>gtk_target_list_find ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_target_list_find (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                      <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>,
+                      <em class="parameter"><code><span class="type">guint</span> *info</code></em>);</pre>
+<p>Looks up a given target in a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-target-list-find.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>an interned atom representing the target to search for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a pointer to the location to store
+application info for target, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-target-list-find.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the target was found, otherwise <code class="literal">FALSE</code></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-table-free"></a><h3>gtk_target_table_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_target_table_free (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> *targets</code></em>,
+                       <em class="parameter"><code><span class="type">gint</span> n_targets</code></em>);</pre>
+<p>This function frees a target table as returned by
+<a class="link" href="gtk3-Selections.html#gtk-target-table-new-from-list" title="gtk_target_table_new_from_list ()"><code class="function">gtk_target_table_new_from_list()</code></a></p>
+<div class="refsect3">
+<a name="gtk-target-table-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> array. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_targets]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_targets</p></td>
+<td class="parameter_description"><p>the number of entries in the array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-target-table-new-from-list"></a><h3>gtk_target_table_new_from_list ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="returnvalue">GtkTargetEntry</span></a> *
+gtk_target_table_new_from_list (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a> *list</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *n_targets</code></em>);</pre>
+<p>This function creates an <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> array that contains the
+same targets as the passed <code class="literal">list</code>. The returned table is newly
+allocated and should be freed using <a class="link" href="gtk3-Selections.html#gtk-target-table-free" title="gtk_target_table_free ()"><code class="function">gtk_target_table_free()</code></a> when no
+longer needed.</p>
+<div class="refsect3">
+<a name="gtk-target-table-new-from-list.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkTargetList"><span class="type">GtkTargetList</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_targets</p></td>
+<td class="parameter_description"><p>return location for the number ot targets in the table. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-target-table-new-from-list.returns"></a><h4>Returns</h4>
+<p>the new table. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_targets][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-owner-set"></a><h3>gtk_selection_owner_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_owner_set (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                         <em class="parameter"><code><span class="type">GdkAtom</span> selection</code></em>,
+                         <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Claims ownership of a given selection for a particular widget,
+or, if <em class="parameter"><code>widget</code></em>
+ is <code class="literal">NULL</code>, release ownership of the selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-owner-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an interned atom representing the selection to claim</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>timestamp with which to claim the selection</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-owner-set.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the operation succeeded</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-owner-set-for-display"></a><h3>gtk_selection_owner_set_for_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_owner_set_for_display (<em class="parameter"><code><span class="type">GdkDisplay</span> *display</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                     <em class="parameter"><code><span class="type">GdkAtom</span> selection</code></em>,
+                                     <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Claim ownership of a given selection for a particular widget, or,
+if <em class="parameter"><code>widget</code></em>
+ is <code class="literal">NULL</code>, release ownership of the selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-owner-set-for-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>the <span class="type">GdkDisplay</span> where the selection is set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>new selection owner (a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>), or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an interned atom representing the selection to claim.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>timestamp with which to claim the selection</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-owner-set-for-display.returns"></a><h4>Returns</h4>
+<p> TRUE if the operation succeeded </p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-add-target"></a><h3>gtk_selection_add_target ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_selection_add_target (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                          <em class="parameter"><code><span class="type">GdkAtom</span> selection</code></em>,
+                          <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>,
+                          <em class="parameter"><code><span class="type">guint</span> info</code></em>);</pre>
+<p>Appends a specified target to the list of supported targets for a 
+given widget and selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-add-target.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>the selection</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>target to add.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>A unsigned integer which will be passed back to the application.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-add-targets"></a><h3>gtk_selection_add_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_selection_add_targets (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                           <em class="parameter"><code><span class="type">GdkAtom</span> selection</code></em>,
+                           <em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> *targets</code></em>,
+                           <em class="parameter"><code><span class="type">guint</span> ntargets</code></em>);</pre>
+<p>Prepends a table of targets to the list of supported targets
+for a given widget and selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-add-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>the selection</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>a table of targets to add. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=ntargets]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ntargets</p></td>
+<td class="parameter_description"><p>number of entries in <em class="parameter"><code>targets</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-clear-targets"></a><h3>gtk_selection_clear_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_selection_clear_targets (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                             <em class="parameter"><code><span class="type">GdkAtom</span> selection</code></em>);</pre>
+<p>Remove all targets registered for the given selection for the
+widget.</p>
+<div class="refsect3">
+<a name="gtk-selection-clear-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>an atom representing a selection</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-convert"></a><h3>gtk_selection_convert ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_convert (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                       <em class="parameter"><code><span class="type">GdkAtom</span> selection</code></em>,
+                       <em class="parameter"><code><span class="type">GdkAtom</span> target</code></em>,
+                       <em class="parameter"><code><span class="type">guint32</span> time_</code></em>);</pre>
+<p>Requests the contents of a selection. When received, 
+a “selection-received” signal will be generated.</p>
+<div class="refsect3">
+<a name="gtk-selection-convert.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>The widget which acts as requestor</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>selection</p></td>
+<td class="parameter_description"><p>Which selection to get</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target</p></td>
+<td class="parameter_description"><p>Form of information desired (e.g., STRING)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>Time of request (usually of triggering event)
+In emergency, you could use <span class="type">GDK_CURRENT_TIME</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-convert.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if requested succeeded. <code class="literal">FALSE</code> if we could not process
+request. (e.g., there was already a request in process for
+this widget).</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-set"></a><h3>gtk_selection_data_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_selection_data_set (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                        <em class="parameter"><code><span class="type">GdkAtom</span> type</code></em>,
+                        <em class="parameter"><code><span class="type">gint</span> format</code></em>,
+                        <em class="parameter"><code>const <span class="type">guchar</span> *data</code></em>,
+                        <em class="parameter"><code><span class="type">gint</span> length</code></em>);</pre>
+<p>Stores new data into a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object. Should
+only be called from a selection handler callback.
+Zero-terminates the stored data.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the type of selection data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>format (number of bits in a unit)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>pointer to the data (will be copied). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>length</p></td>
+<td class="parameter_description"><p>length of the data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-set-text"></a><h3>gtk_selection_data_set_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_set_text (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>,
+                             <em class="parameter"><code><span class="type">gint</span> len</code></em>);</pre>
+<p>Sets the contents of the selection from a UTF-8 encoded string.
+The string is converted to the form determined by
+<em class="parameter"><code>selection_data-&gt;target</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-set-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>a UTF-8 string</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>len</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>str</code></em>
+, or -1 if <em class="parameter"><code>str</code></em>
+is nul-terminated.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-set-text.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the selection was successfully set,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-text"></a><h3>gtk_selection_data_get_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">guchar</span> *
+gtk_selection_data_get_text (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Gets the contents of the selection data as a UTF-8 string.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-text.returns"></a><h4>Returns</h4>
+<p>if the selection data contained a
+recognized text type and it could be converted to UTF-8, a newly
+allocated string containing the converted text, otherwise <code class="literal">NULL</code>.
+If the result is non-<code class="literal">NULL</code> it must be freed with <code class="function">g_free()</code>. </p>
+<p><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> utf8][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-set-pixbuf"></a><h3>gtk_selection_data_set_pixbuf ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_set_pixbuf (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                               <em class="parameter"><code><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *pixbuf</code></em>);</pre>
+<p>Sets the contents of the selection from a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>
+The pixbuf is converted to the form determined by
+<em class="parameter"><code>selection_data-&gt;target</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-set-pixbuf.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pixbuf</p></td>
+<td class="parameter_description"><p>a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-set-pixbuf.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the selection was successfully set,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-pixbuf"></a><h3>gtk_selection_data_get_pixbuf ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_selection_data_get_pixbuf (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Gets the contents of the selection data as a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-pixbuf.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-pixbuf.returns"></a><h4>Returns</h4>
+<p>if the selection data
+contained a recognized image type and it could be converted to a
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>, a newly allocated pixbuf is returned, otherwise
+<code class="literal">NULL</code>.  If the result is non-<code class="literal">NULL</code> it must be freed with
+<code class="function">g_object_unref()</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-set-uris"></a><h3>gtk_selection_data_set_uris ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_set_uris (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                             <em class="parameter"><code><span class="type">gchar</span> **uris</code></em>);</pre>
+<p>Sets the contents of the selection from a list of URIs.
+The string is converted to the form determined by
+<em class="parameter"><code>selection_data-&gt;target</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-set-uris.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uris</p></td>
+<td class="parameter_description"><p>a <code class="literal">NULL</code>-terminated array of
+strings holding URIs. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-set-uris.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the selection was successfully set,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-uris"></a><h3>gtk_selection_data_get_uris ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> **
+gtk_selection_data_get_uris (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Gets the contents of the selection data as array of URIs.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-uris.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-uris.returns"></a><h4>Returns</h4>
+<p>if
+the selection data contains a list of
+URIs, a newly allocated <code class="literal">NULL</code>-terminated string array
+containing the URIs, otherwise <code class="literal">NULL</code>. If the result is
+non-<code class="literal">NULL</code> it must be freed with <code class="function">g_strfreev()</code>. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-targets"></a><h3>gtk_selection_data_get_targets ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_get_targets (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                                <em class="parameter"><code><span class="type">GdkAtom</span> **targets</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *n_atoms</code></em>);</pre>
+<p>Gets the contents of <em class="parameter"><code>selection_data</code></em>
+ as an array of targets.
+This can be used to interpret the results of getting
+the standard TARGETS target that is always supplied for
+any selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-targets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>location to store an array of targets. The result stored
+here must be freed with <code class="function">g_free()</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_atoms][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_atoms</p></td>
+<td class="parameter_description"><p>location to store number of items in <em class="parameter"><code>targets</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-targets.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>selection_data</code></em>
+contains a valid
+array of targets, otherwise <code class="literal">FALSE</code>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-targets-include-image"></a><h3>gtk_selection_data_targets_include_image ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_targets_include_image
+                               (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> writable</code></em>);</pre>
+<p>Given a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object holding a list of targets,
+determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-image.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>writable</p></td>
+<td class="parameter_description"><p>whether to accept only targets for which GTK+ knows
+how to convert a pixbuf into the format</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-image.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>selection_data</code></em>
+holds a list of targets,
+and a suitable target for images is included, otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-targets-include-text"></a><h3>gtk_selection_data_targets_include_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_targets_include_text
+                               (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Given a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object holding a list of targets,
+determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide text.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-text.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>selection_data</code></em>
+holds a list of targets,
+and a suitable target for text is included, otherwise <code class="literal">FALSE</code>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-targets-include-uri"></a><h3>gtk_selection_data_targets_include_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_targets_include_uri
+                               (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Given a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object holding a list of targets,
+determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide a list or URIs.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-uri.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>selection_data</code></em>
+holds a list of targets,
+and a suitable target for URI lists is included, otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-targets-include-rich-text"></a><h3>gtk_selection_data_targets_include_rich_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_selection_data_targets_include_rich_text
+                               (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkTextBuffer.html" title="GtkTextBuffer"><span class="type">GtkTextBuffer</span></a> *buffer</code></em>);</pre>
+<p>Given a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object holding a list of targets,
+determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide rich text.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-rich-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> object</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>buffer</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkTextBuffer.html" title="GtkTextBuffer"><span class="type">GtkTextBuffer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-targets-include-rich-text.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>selection_data</code></em>
+holds a list of targets,
+and a suitable target for rich text is included,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-selection"></a><h3>gtk_selection_data_get_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkAtom</span>
+gtk_selection_data_get_selection (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Retrieves the selection <span class="type">GdkAtom</span> of the selection data.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-selection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-selection.returns"></a><h4>Returns</h4>
+<p>the selection <span class="type">GdkAtom</span> of the selection data. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-data"></a><h3>gtk_selection_data_get_data ()</h3>
+<pre class="programlisting">const <span class="returnvalue">guchar</span> *
+gtk_selection_data_get_data (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Retrieves the raw data of the selection.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-data.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a
+<a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-data.returns"></a><h4>Returns</h4>
+<p>the raw data of the selection. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-length"></a><h3>gtk_selection_data_get_length ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_selection_data_get_length (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Retrieves the length of the raw data of the selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-length.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-length.returns"></a><h4>Returns</h4>
+<p> the length of the data of the selection.</p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-data-with-length"></a><h3>gtk_selection_data_get_data_with_length ()</h3>
+<pre class="programlisting">const <span class="returnvalue">guchar</span> *
+gtk_selection_data_get_data_with_length
+                               (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *length</code></em>);</pre>
+<p>Retrieves the raw data of the selection along with its length.</p>
+<p><span class="annotation">[<acronym title="Rename the original symbol's name to SYMBOL."><span class="acronym">rename-to</span></acronym> gtk_selection_data_get_data]</span></p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-data-with-length.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>length</p></td>
+<td class="parameter_description"><p>return location for length of the data segment. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-data-with-length.returns"></a><h4>Returns</h4>
+<p>the raw data of the selection. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-data-type"></a><h3>gtk_selection_data_get_data_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkAtom</span>
+gtk_selection_data_get_data_type (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Retrieves the data type of the selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-data-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-data-type.returns"></a><h4>Returns</h4>
+<p>the data type of the selection. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-display"></a><h3>gtk_selection_data_get_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkDisplay</span> *
+gtk_selection_data_get_display (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Retrieves the display of the selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-display.returns"></a><h4>Returns</h4>
+<p>the display of the selection. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-format"></a><h3>gtk_selection_data_get_format ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_selection_data_get_format (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Retrieves the format of the selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-format.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-format.returns"></a><h4>Returns</h4>
+<p> the format of the selection.</p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-get-target"></a><h3>gtk_selection_data_get_target ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkAtom</span>
+gtk_selection_data_get_target (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *selection_data</code></em>);</pre>
+<p>Retrieves the target of the selection.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-get-target.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>selection_data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-get-target.returns"></a><h4>Returns</h4>
+<p>the target of the selection. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-targets-include-image"></a><h3>gtk_targets_include_image ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_targets_include_image (<em class="parameter"><code><span class="type">GdkAtom</span> *targets</code></em>,
+                           <em class="parameter"><code><span class="type">gint</span> n_targets</code></em>,
+                           <em class="parameter"><code><span class="type">gboolean</span> writable</code></em>);</pre>
+<p>Determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-targets-include-image.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>an array of <span class="type">GdkAtoms</span>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_targets]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_targets</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>targets</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>writable</p></td>
+<td class="parameter_description"><p>whether to accept only targets for which GTK+ knows
+how to convert a pixbuf into the format</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-targets-include-image.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>targets</code></em>
+include a suitable target for images,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-targets-include-text"></a><h3>gtk_targets_include_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_targets_include_text (<em class="parameter"><code><span class="type">GdkAtom</span> *targets</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> n_targets</code></em>);</pre>
+<p>Determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide text.</p>
+<div class="refsect3">
+<a name="gtk-targets-include-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>an array of <span class="type">GdkAtoms</span>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_targets]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_targets</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>targets</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-targets-include-text.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>targets</code></em>
+include a suitable target for text,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-targets-include-uri"></a><h3>gtk_targets_include_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_targets_include_uri (<em class="parameter"><code><span class="type">GdkAtom</span> *targets</code></em>,
+                         <em class="parameter"><code><span class="type">gint</span> n_targets</code></em>);</pre>
+<p>Determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide an uri list.</p>
+<div class="refsect3">
+<a name="gtk-targets-include-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>an array of <span class="type">GdkAtoms</span>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_targets]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_targets</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>targets</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-targets-include-uri.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>targets</code></em>
+include a suitable target for uri lists,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-targets-include-rich-text"></a><h3>gtk_targets_include_rich_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_targets_include_rich_text (<em class="parameter"><code><span class="type">GdkAtom</span> *targets</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> n_targets</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkTextBuffer.html" title="GtkTextBuffer"><span class="type">GtkTextBuffer</span></a> *buffer</code></em>);</pre>
+<p>Determines if any of the targets in <em class="parameter"><code>targets</code></em>
+ can be used to
+provide rich text.</p>
+<div class="refsect3">
+<a name="gtk-targets-include-rich-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>targets</p></td>
+<td class="parameter_description"><p>an array of <span class="type">GdkAtoms</span>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_targets]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_targets</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>targets</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>buffer</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkTextBuffer.html" title="GtkTextBuffer"><span class="type">GtkTextBuffer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-targets-include-rich-text.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>targets</code></em>
+include a suitable target for rich text,
+otherwise <code class="literal">FALSE</code>.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-remove-all"></a><h3>gtk_selection_remove_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_selection_remove_all (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+<p>Removes all handlers and unsets ownership of all 
+selections for a widget. Called when widget is being
+destroyed. This function will not generally be
+called by applications.</p>
+<div class="refsect3">
+<a name="gtk-selection-remove-all.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> </p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-copy"></a><h3>gtk_selection_data_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="returnvalue">GtkSelectionData</span></a> *
+gtk_selection_data_copy (<em class="parameter"><code>const <a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *data</code></em>);</pre>
+<p>Makes a copy of a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a> and its data.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-selection-data-copy.returns"></a><h4>Returns</h4>
+<p> a pointer to a copy of <em class="parameter"><code>data</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-selection-data-free"></a><h3>gtk_selection_data_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_selection_data_free (<em class="parameter"><code><a class="link" href="gtk3-Selections.html#GtkSelectionData"><span class="type">GtkSelectionData</span></a> *data</code></em>);</pre>
+<p>Frees a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a> returned from
+<a class="link" href="gtk3-Selections.html#gtk-selection-data-copy" title="gtk_selection_data_copy ()"><code class="function">gtk_selection_data_copy()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-selection-data-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>a pointer to a <a class="link" href="gtk3-Selections.html#GtkSelectionData-struct" title="GtkSelectionData"><span class="type">GtkSelectionData</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Selections.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkSelectionData-struct"></a><h3>GtkSelectionData</h3>
+<pre class="programlisting">typedef struct _GtkSelectionData GtkSelectionData;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkTargetEntry"></a><h3>struct GtkTargetEntry</h3>
+<pre class="programlisting">struct GtkTargetEntry {
+  gchar *target;
+  guint  flags;
+  guint  info;
+};
+</pre>
+<p>A <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a> represents a single type of
+data than can be supplied for by a widget for a selection
+or for supplied or received during drag-and-drop.</p>
+<div class="refsect3">
+<a name="GtkTargetEntry.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> *<em class="structfield"><code><a name="GtkTargetEntry.target"></a>target</code></em>;</p></td>
+<td class="struct_member_description"><p>a string representation of the target type</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GtkTargetEntry.flags"></a>flags</code></em>;</p></td>
+<td class="struct_member_description"><p><a class="link" href="gtk3-Drag-and-Drop.html#GtkTargetFlags" title="enum GtkTargetFlags"><span class="type">GtkTargetFlags</span></a> for DND</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GtkTargetEntry.info"></a>info</code></em>;</p></td>
+<td class="struct_member_description"><p>an application-assigned integer ID which will
+get passed as a parameter to e.g the <a class="link" href="GtkWidget.html#GtkWidget-selection-get" title="The “selection-get” signal"><span class="type">“selection-get”</span></a>
+signal. It allows the application to identify the target
+type without extensive string compares.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkTargetList-struct"></a><h3>GtkTargetList</h3>
+<pre class="programlisting">typedef struct _GtkTargetList GtkTargetList;</pre>
+<p>A <a class="link" href="gtk3-Selections.html#GtkTargetList-struct" title="GtkTargetList"><span class="type">GtkTargetList</span></a> is a reference counted list
+of <a class="link" href="gtk3-Selections.html#GtkTargetPair" title="struct GtkTargetPair"><span class="type">GtkTargetPair</span></a> and should be treated as
+opaque.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkTargetPair"></a><h3>struct GtkTargetPair</h3>
+<pre class="programlisting">struct GtkTargetPair {
+  GdkAtom   target;
+  guint     flags;
+  guint     info;
+};
+</pre>
+<p>A <a class="link" href="gtk3-Selections.html#GtkTargetPair" title="struct GtkTargetPair"><span class="type">GtkTargetPair</span></a> is used to represent the same
+information as a table of <a class="link" href="gtk3-Selections.html#GtkTargetEntry" title="struct GtkTargetEntry"><span class="type">GtkTargetEntry</span></a>, but in
+an efficient form.</p>
+<div class="refsect3">
+<a name="GtkTargetPair.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">GdkAtom</span> <em class="structfield"><code><a name="GtkTargetPair.target"></a>target</code></em>;</p></td>
+<td class="struct_member_description"><p><span class="type">GdkAtom</span> representation of the target type</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GtkTargetPair.flags"></a>flags</code></em>;</p></td>
+<td class="struct_member_description"><p><a class="link" href="gtk3-Drag-and-Drop.html#GtkTargetFlags" title="enum GtkTargetFlags"><span class="type">GtkTargetFlags</span></a> for DND</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GtkTargetPair.info"></a>info</code></em>;</p></td>
+<td class="struct_member_description"><p>an application-assigned integer ID which will
+get passed as a parameter to e.g the <a class="link" href="GtkWidget.html#GtkWidget-selection-get" title="The “selection-get” signal"><span class="type">“selection-get”</span></a>
+signal. It allows the application to identify the target
+type without extensive string compares.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Selections.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> - Much of the operation of selections happens via
+    signals for <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>. In particular, if you are using the functions
+    in this section, you may need to pay attention to
+    <a class="link" href="GtkWidget.html#GtkWidget-selection-get" title="The “selection-get” signal"><span class="type">“selection-get”</span></a>, <a class="link" href="GtkWidget.html#GtkWidget-selection-received" title="The “selection-received” signal"><span class="type">“selection-received”</span></a> and
+    <a class="link" href="GtkWidget.html#GtkWidget-selection-clear-event" title="The “selection-clear-event” signal"><span class="type">“selection-clear-event”</span></a> signals</p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

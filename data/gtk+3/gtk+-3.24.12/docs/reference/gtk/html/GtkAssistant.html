@@ -1,0 +1,1944 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkAssistant: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="WindowWidgets.html" title="Windows">
+<link rel="prev" href="GtkAboutDialog.html" title="GtkAboutDialog">
+<link rel="next" href="GtkInvisible.html" title="GtkInvisible">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkAssistant.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkAssistant.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkAssistant.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkAssistant.properties" class="shortcut">Properties</a></span><span id="nav_child_properties">  <span class="dim">|</span> 
+                  <a href="#GtkAssistant.child-properties" class="shortcut">Child Properties</a></span><span id="nav_style_properties">  <span class="dim">|</span> 
+                  <a href="#GtkAssistant.style-properties" class="shortcut">Style Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkAssistant.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="WindowWidgets.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkAboutDialog.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkInvisible.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkAssistant"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkAssistant.top_of_page"></a>GtkAssistant</span></h2>
+<p>GtkAssistant — A widget used to guide users through multi-step operations</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="assistant.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkAssistant.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-new" title="gtk_assistant_new ()">gtk_assistant_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-current-page" title="gtk_assistant_get_current_page ()">gtk_assistant_get_current_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-current-page" title="gtk_assistant_set_current_page ()">gtk_assistant_set_current_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-n-pages" title="gtk_assistant_get_n_pages ()">gtk_assistant_get_n_pages</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-nth-page" title="gtk_assistant_get_nth_page ()">gtk_assistant_get_nth_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-prepend-page" title="gtk_assistant_prepend_page ()">gtk_assistant_prepend_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-append-page" title="gtk_assistant_append_page ()">gtk_assistant_append_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-insert-page" title="gtk_assistant_insert_page ()">gtk_assistant_insert_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-remove-page" title="gtk_assistant_remove_page ()">gtk_assistant_remove_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GtkAssistant.html#GtkAssistantPageFunc" title="GtkAssistantPageFunc ()">*GtkAssistantPageFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-forward-page-func" title="gtk_assistant_set_forward_page_func ()">gtk_assistant_set_forward_page_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-page-type" title="gtk_assistant_set_page_type ()">gtk_assistant_set_page_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkAssistant.html#GtkAssistantPageType" title="enum GtkAssistantPageType"><span class="returnvalue">GtkAssistantPageType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-page-type" title="gtk_assistant_get_page_type ()">gtk_assistant_get_page_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-page-title" title="gtk_assistant_set_page_title ()">gtk_assistant_set_page_title</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-page-title" title="gtk_assistant_get_page_title ()">gtk_assistant_get_page_title</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-page-header-image" title="gtk_assistant_set_page_header_image ()">gtk_assistant_set_page_header_image</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-page-header-image" title="gtk_assistant_get_page_header_image ()">gtk_assistant_get_page_header_image</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-page-side-image" title="gtk_assistant_set_page_side_image ()">gtk_assistant_set_page_side_image</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-page-side-image" title="gtk_assistant_get_page_side_image ()">gtk_assistant_get_page_side_image</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-page-complete" title="gtk_assistant_set_page_complete ()">gtk_assistant_set_page_complete</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-page-complete" title="gtk_assistant_get_page_complete ()">gtk_assistant_get_page_complete</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-page-has-padding" title="gtk_assistant_set_page_has_padding ()">gtk_assistant_set_page_has_padding</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-get-page-has-padding" title="gtk_assistant_get_page_has_padding ()">gtk_assistant_get_page_has_padding</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-add-action-widget" title="gtk_assistant_add_action_widget ()">gtk_assistant_add_action_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-remove-action-widget" title="gtk_assistant_remove_action_widget ()">gtk_assistant_remove_action_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-update-buttons-state" title="gtk_assistant_update_buttons_state ()">gtk_assistant_update_buttons_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-commit" title="gtk_assistant_commit ()">gtk_assistant_commit</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-next-page" title="gtk_assistant_next_page ()">gtk_assistant_next_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkAssistant.html#gtk-assistant-previous-page" title="gtk_assistant_previous_page ()">gtk_assistant_previous_page</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--use-header-bar" title="The “use-header-bar” property">use-header-bar</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.child-properties"></a><h2>Child Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="child_properties_type">
+<col width="300px" class="child_properties_name">
+<col width="200px" class="child_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--c-complete" title="The “complete” child property">complete</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--c-has-padding" title="The “has-padding” child property">has-padding</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--c-header-image" title="The “header-image” child property">header-image</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkAssistant.html#GtkAssistantPageType" title="enum GtkAssistantPageType"><span class="type">GtkAssistantPageType</span></a></td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--c-page-type" title="The “page-type” child property">page-type</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--c-sidebar-image" title="The “sidebar-image” child property">sidebar-image</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--c-title" title="The “title” child property">title</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.style-properties"></a><h2>Style Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="style_properties_type">
+<col width="300px" class="style_properties_name">
+<col width="200px" class="style_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--s-content-padding" title="The “content-padding” style property">content-padding</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkAssistant.html#GtkAssistant--s-header-padding" title="The “header-padding” style property">header-padding</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkAssistant.html#GtkAssistant-apply" title="The “apply” signal">apply</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkAssistant.html#GtkAssistant-cancel" title="The “cancel” signal">cancel</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkAssistant.html#GtkAssistant-close" title="The “close” signal">close</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkAssistant.html#GtkAssistant-escape" title="The “escape” signal">escape</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkAssistant.html#GtkAssistant-prepare" title="The “prepare” signal">prepare</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkAssistant.html#GtkAssistant-struct" title="struct GtkAssistant">GtkAssistant</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkAssistant.html#GtkAssistantClass" title="struct GtkAssistantClass">GtkAssistantClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkAssistant.html#GtkAssistantPageType" title="enum GtkAssistantPageType">GtkAssistantPageType</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                    <span class="lineart">╰──</span> <a class="link" href="GtkWindow.html" title="GtkWindow">GtkWindow</a>
+                        <span class="lineart">╰──</span> GtkAssistant
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkAssistant implements
+ AtkImplementorIface and  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.description"></a><h2>Description</h2>
+<p>A <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> is a widget used to represent a generally complex
+operation splitted in several steps, guiding the user through its
+pages and controlling the page flow to collect the necessary data.</p>
+<p>The design of GtkAssistant is that it controls what buttons to show
+and to make sensitive, based on what it knows about the page sequence
+and the <a class="link" href="GtkAssistant.html#GtkAssistantPageType" title="enum GtkAssistantPageType">type</a> of each page,
+in addition to state information like the page
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-page-complete" title="gtk_assistant_set_page_complete ()">completion</a>
+and <a class="link" href="GtkAssistant.html#gtk-assistant-commit" title="gtk_assistant_commit ()">committed</a> status.</p>
+<p>If you have a case that doesn’t quite fit in <a href="GtkAssistant.html#GtkAssistant-struct"><span class="type">GtkAssistants</span></a> way of
+handling buttons, you can use the <a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-CUSTOM:CAPS"><span class="type">GTK_ASSISTANT_PAGE_CUSTOM</span></a> page
+type and handle buttons yourself.</p>
+<div class="refsect2">
+<a name="id-1.3.6.6.12.5"></a><h3>GtkAssistant as GtkBuildable</h3>
+<p>The GtkAssistant implementation of the <a class="link" href="GtkBuildable.html" title="GtkBuildable"><span class="type">GtkBuildable</span></a> interface
+exposes the <em class="parameter"><code>action_area</code></em>
+ as internal children with the name
+“action_area”.</p>
+<p>To add pages to an assistant in <a class="link" href="GtkBuilder.html" title="GtkBuilder"><span class="type">GtkBuilder</span></a>, simply add it as a
+child to the GtkAssistant object, and set its child properties
+as necessary.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.3.6.6.12.6"></a><h3>CSS nodes</h3>
+<p>GtkAssistant has a single CSS node with the name assistant.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-assistant-new"></a><h3>gtk_assistant_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_assistant_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-assistant-new.returns"></a><h4>Returns</h4>
+<p> a newly created <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-current-page"></a><h3>gtk_assistant_get_current_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_assistant_get_current_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>);</pre>
+<p>Returns the page number of the current page.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-current-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-current-page.returns"></a><h4>Returns</h4>
+<p> The index (starting from 0) of the current
+page in the <em class="parameter"><code>assistant</code></em>
+, or -1 if the <em class="parameter"><code>assistant</code></em>
+has no pages,
+or no current page.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-current-page"></a><h3>gtk_assistant_set_current_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_current_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> page_num</code></em>);</pre>
+<p>Switches the page to <em class="parameter"><code>page_num</code></em>
+.</p>
+<p>Note that this will only be necessary in custom buttons,
+as the <em class="parameter"><code>assistant</code></em>
+ flow can be set with
+<a class="link" href="GtkAssistant.html#gtk-assistant-set-forward-page-func" title="gtk_assistant_set_forward_page_func ()"><code class="function">gtk_assistant_set_forward_page_func()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-current-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page_num</p></td>
+<td class="parameter_description"><p>index of the page to switch to, starting from 0.
+If negative, the last page will be used. If greater
+than the number of pages in the <em class="parameter"><code>assistant</code></em>
+, nothing
+will be done.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-n-pages"></a><h3>gtk_assistant_get_n_pages ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_assistant_get_n_pages (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>);</pre>
+<p>Returns the number of pages in the <em class="parameter"><code>assistant</code></em>
+</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-n-pages.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-n-pages.returns"></a><h4>Returns</h4>
+<p> the number of pages in the <em class="parameter"><code>assistant</code></em>
+</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-nth-page"></a><h3>gtk_assistant_get_nth_page ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_assistant_get_nth_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> page_num</code></em>);</pre>
+<p>Returns the child widget contained in page number <em class="parameter"><code>page_num</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-nth-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page_num</p></td>
+<td class="parameter_description"><p>the index of a page in the <em class="parameter"><code>assistant</code></em>
+,
+or -1 to get the last page</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-nth-page.returns"></a><h4>Returns</h4>
+<p>the child widget, or <code class="literal">NULL</code>
+if <em class="parameter"><code>page_num</code></em>
+is out of bounds. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-prepend-page"></a><h3>gtk_assistant_prepend_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_assistant_prepend_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<p>Prepends a page to the <em class="parameter"><code>assistant</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-prepend-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-prepend-page.returns"></a><h4>Returns</h4>
+<p> the index (starting at 0) of the inserted page</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-append-page"></a><h3>gtk_assistant_append_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_assistant_append_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                           <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<p>Appends a page to the <em class="parameter"><code>assistant</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-append-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-append-page.returns"></a><h4>Returns</h4>
+<p> the index (starting at 0) of the inserted page</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-insert-page"></a><h3>gtk_assistant_insert_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_assistant_insert_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                           <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>,
+                           <em class="parameter"><code><span class="type">gint</span> position</code></em>);</pre>
+<p>Inserts a page in the <em class="parameter"><code>assistant</code></em>
+ at a given position.</p>
+<div class="refsect3">
+<a name="gtk-assistant-insert-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>the index (starting at 0) at which to insert the page,
+or -1 to append the page to the <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-insert-page.returns"></a><h4>Returns</h4>
+<p> the index (starting from 0) of the inserted page</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-remove-page"></a><h3>gtk_assistant_remove_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_remove_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                           <em class="parameter"><code><span class="type">gint</span> page_num</code></em>);</pre>
+<p>Removes the <em class="parameter"><code>page_num</code></em>
+’s page from <em class="parameter"><code>assistant</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-remove-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page_num</p></td>
+<td class="parameter_description"><p>the index of a page in the <em class="parameter"><code>assistant</code></em>
+,
+or -1 to remove the last page</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistantPageFunc"></a><h3>GtkAssistantPageFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+<span class="c_punctuation">(</span>*GtkAssistantPageFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><span class="type">gint</span> current_page</code></em>,
+                         <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>A function used by <a class="link" href="GtkAssistant.html#gtk-assistant-set-forward-page-func" title="gtk_assistant_set_forward_page_func ()"><code class="function">gtk_assistant_set_forward_page_func()</code></a> to know which
+is the next page given a current one. It’s called both for computing the
+next page when the user presses the “forward” button and for handling
+the behavior of the “last” button.</p>
+<div class="refsect3">
+<a name="GtkAssistantPageFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>current_page</p></td>
+<td class="parameter_description"><p>The page number used to calculate the next page.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkAssistantPageFunc.returns"></a><h4>Returns</h4>
+<p> The next page number.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-forward-page-func"></a><h3>gtk_assistant_set_forward_page_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_forward_page_func (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkAssistant.html#GtkAssistantPageFunc" title="GtkAssistantPageFunc ()"><span class="type">GtkAssistantPageFunc</span></a> page_func</code></em>,
+                                     <em class="parameter"><code><span class="type">gpointer</span> data</code></em>,
+                                     <em class="parameter"><code><span class="type">GDestroyNotify</span> destroy</code></em>);</pre>
+<p>Sets the page forwarding function to be <em class="parameter"><code>page_func</code></em>
+.</p>
+<p>This function will be used to determine what will be
+the next page when the user presses the forward button.
+Setting <em class="parameter"><code>page_func</code></em>
+ to <code class="literal">NULL</code> will make the assistant to
+use the default forward function, which just goes to the
+next visible page.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-forward-page-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page_func</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkAssistant.html#GtkAssistantPageFunc" title="GtkAssistantPageFunc ()"><span class="type">GtkAssistantPageFunc</span></a>, or <code class="literal">NULL</code>
+to use the default one. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>user data for <em class="parameter"><code>page_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>destroy</p></td>
+<td class="parameter_description"><p>destroy notifier for <em class="parameter"><code>data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-page-type"></a><h3>gtk_assistant_set_page_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_page_type (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkAssistant.html#GtkAssistantPageType" title="enum GtkAssistantPageType"><span class="type">GtkAssistantPageType</span></a> type</code></em>);</pre>
+<p>Sets the page type for <em class="parameter"><code>page</code></em>
+.</p>
+<p>The page type determines the page behavior in the <em class="parameter"><code>assistant</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-page-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the new type for <em class="parameter"><code>page</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-page-type"></a><h3>gtk_assistant_get_page_type ()</h3>
+<pre class="programlisting"><a class="link" href="GtkAssistant.html#GtkAssistantPageType" title="enum GtkAssistantPageType"><span class="returnvalue">GtkAssistantPageType</span></a>
+gtk_assistant_get_page_type (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<p>Gets the page type of <em class="parameter"><code>page</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-type.returns"></a><h4>Returns</h4>
+<p> the page type of <em class="parameter"><code>page</code></em>
+</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-page-title"></a><h3>gtk_assistant_set_page_title ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_page_title (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *title</code></em>);</pre>
+<p>Sets a title for <em class="parameter"><code>page</code></em>
+.</p>
+<p>The title is displayed in the header area of the assistant
+when <em class="parameter"><code>page</code></em>
+ is the current page.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-page-title.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>title</p></td>
+<td class="parameter_description"><p>the new title for <em class="parameter"><code>page</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-page-title"></a><h3>gtk_assistant_get_page_title ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_assistant_get_page_title (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<p>Gets the title for <em class="parameter"><code>page</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-title.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-title.returns"></a><h4>Returns</h4>
+<p> the title for <em class="parameter"><code>page</code></em>
+</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-page-header-image"></a><h3>gtk_assistant_set_page_header_image ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_page_header_image (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>,
+                                     <em class="parameter"><code><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *pixbuf</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_assistant_set_page_header_image</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Since GTK+ 3.2, a header is no longer shown;
+    add your header decoration to the page content instead.</p>
+</div>
+<p>Sets a header image for <em class="parameter"><code>page</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-page-header-image.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pixbuf</p></td>
+<td class="parameter_description"><p>the new header image <em class="parameter"><code>page</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-page-header-image"></a><h3>gtk_assistant_get_page_header_image ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_assistant_get_page_header_image (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_assistant_get_page_header_image</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Since GTK+ 3.2, a header is no longer shown;
+    add your header decoration to the page content instead.</p>
+</div>
+<p>Gets the header image for <em class="parameter"><code>page</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-header-image.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-header-image.returns"></a><h4>Returns</h4>
+<p>the header image for <em class="parameter"><code>page</code></em>
+,
+or <code class="literal">NULL</code> if there’s no header image for the page. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-page-side-image"></a><h3>gtk_assistant_set_page_side_image ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_page_side_image (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                   <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>,
+                                   <em class="parameter"><code><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *pixbuf</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_assistant_set_page_side_image</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Since GTK+ 3.2, sidebar images are not
+    shown anymore.</p>
+</div>
+<p>Sets a side image for <em class="parameter"><code>page</code></em>
+.</p>
+<p>This image used to be displayed in the side area of the assistant
+when <em class="parameter"><code>page</code></em>
+ is the current page.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-page-side-image.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pixbuf</p></td>
+<td class="parameter_description"><p>the new side image <em class="parameter"><code>page</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-page-side-image"></a><h3>gtk_assistant_get_page_side_image ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_assistant_get_page_side_image (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                   <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_assistant_get_page_side_image</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Since GTK+ 3.2, sidebar images are not
+    shown anymore.</p>
+</div>
+<p>Gets the side image for <em class="parameter"><code>page</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-side-image.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-side-image.returns"></a><h4>Returns</h4>
+<p>the side image for <em class="parameter"><code>page</code></em>
+,
+or <code class="literal">NULL</code> if there’s no side image for the page. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-page-complete"></a><h3>gtk_assistant_set_page_complete ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_page_complete (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>,
+                                 <em class="parameter"><code><span class="type">gboolean</span> complete</code></em>);</pre>
+<p>Sets whether <em class="parameter"><code>page</code></em>
+ contents are complete.</p>
+<p>This will make <em class="parameter"><code>assistant</code></em>
+ update the buttons state
+to be able to continue the task.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-page-complete.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>complete</p></td>
+<td class="parameter_description"><p>the completeness status of the page</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-page-complete"></a><h3>gtk_assistant_get_page_complete ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_assistant_get_page_complete (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>page</code></em>
+ is complete.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-complete.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-complete.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>page</code></em>
+is complete.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-set-page-has-padding"></a><h3>gtk_assistant_set_page_has_padding ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_set_page_has_padding (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>,
+                                    <em class="parameter"><code><span class="type">gboolean</span> has_padding</code></em>);</pre>
+<p>Sets whether the assistant is adding padding around
+the page.</p>
+<div class="refsect3">
+<a name="gtk-assistant-set-page-has-padding.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>has_padding</p></td>
+<td class="parameter_description"><p>whether this page has padding</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-get-page-has-padding"></a><h3>gtk_assistant_get_page_has_padding ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_assistant_get_page_has_padding (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *page</code></em>);</pre>
+<p>Gets whether page has padding.</p>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-has-padding.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>a page of <em class="parameter"><code>assistant</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-assistant-get-page-has-padding.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>page</code></em>
+has padding</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-add-action-widget"></a><h3>gtk_assistant_add_action_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_add_action_widget (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>);</pre>
+<p>Adds a widget to the action area of a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-assistant-add-action-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-remove-action-widget"></a><h3>gtk_assistant_remove_action_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_remove_action_widget (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>);</pre>
+<p>Removes a widget from the action area of a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-assistant-remove-action-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-update-buttons-state"></a><h3>gtk_assistant_update_buttons_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_update_buttons_state (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>);</pre>
+<p>Forces <em class="parameter"><code>assistant</code></em>
+ to recompute the buttons state.</p>
+<p>GTK+ automatically takes care of this in most situations,
+e.g. when the user goes to a different page, or when the
+visibility or completeness of a page changes.</p>
+<p>One situation where it can be necessary to call this
+function is when changing a value on the current page
+affects the future page flow of the assistant.</p>
+<div class="refsect3">
+<a name="gtk-assistant-update-buttons-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-commit"></a><h3>gtk_assistant_commit ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_commit (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>);</pre>
+<p>Erases the visited page history so the back button is not
+shown on the current page, and removes the cancel button
+from subsequent pages.</p>
+<p>Use this when the information provided up to the current
+page is hereafter deemed permanent and cannot be modified
+or undone. For example, showing a progress page to track
+a long-running, unreversible operation after the user has
+clicked apply on a confirmation page.</p>
+<div class="refsect3">
+<a name="gtk-assistant-commit.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-next-page"></a><h3>gtk_assistant_next_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_next_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>);</pre>
+<p>Navigate to the next page.</p>
+<p>It is a programming error to call this function when
+there is no next page.</p>
+<p>This function is for use when creating pages of the
+<a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-CUSTOM:CAPS"><span class="type">GTK_ASSISTANT_PAGE_CUSTOM</span></a> type.</p>
+<div class="refsect3">
+<a name="gtk-assistant-next-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-assistant-previous-page"></a><h3>gtk_assistant_previous_page ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_assistant_previous_page (<em class="parameter"><code><a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant</code></em>);</pre>
+<p>Navigate to the previous visited page.</p>
+<p>It is a programming error to call this function when
+no previous page is available.</p>
+<p>This function is for use when creating pages of the
+<a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-CUSTOM:CAPS"><span class="type">GTK_ASSISTANT_PAGE_CUSTOM</span></a> type.</p>
+<div class="refsect3">
+<a name="gtk-assistant-previous-page.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkAssistant-struct"></a><h3>struct GtkAssistant</h3>
+<pre class="programlisting">struct GtkAssistant;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistantClass"></a><h3>struct GtkAssistantClass</h3>
+<pre class="programlisting">struct GtkAssistantClass {
+  GtkWindowClass parent_class;
+
+
+  void (* prepare) (GtkAssistant *assistant, GtkWidget *page);
+  void (* apply)   (GtkAssistant *assistant);
+  void (* close)   (GtkAssistant *assistant);
+  void (* cancel)  (GtkAssistant *assistant);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkAssistantClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkAssistantClass.prepare"></a>prepare</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when a new page is set as the assistant’s current page, before making the new page visible.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkAssistantClass.apply"></a>apply</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when the apply button is clicked.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkAssistantClass.close"></a>close</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted either when the close button or last page apply button is clicked.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkAssistantClass.cancel"></a>cancel</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when the cancel button is clicked.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistantPageType"></a><h3>enum GtkAssistantPageType</h3>
+<p>An enum for determining the page role inside the <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a>. It's
+used to handle buttons sensitivity and visibility.</p>
+<p>Note that an assistant needs to end its page flow with a page of type
+<a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-CONFIRM:CAPS"><code class="literal">GTK_ASSISTANT_PAGE_CONFIRM</code></a>, <a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-SUMMARY:CAPS"><code class="literal">GTK_ASSISTANT_PAGE_SUMMARY</code></a> or
+<a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-PROGRESS:CAPS"><code class="literal">GTK_ASSISTANT_PAGE_PROGRESS</code></a> to be correct.</p>
+<p>The Cancel button will only be shown if the page isn’t “committed”.
+See <a class="link" href="GtkAssistant.html#gtk-assistant-commit" title="gtk_assistant_commit ()"><code class="function">gtk_assistant_commit()</code></a> for details.</p>
+<div class="refsect3">
+<a name="GtkAssistantPageType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ASSISTANT-PAGE-CONTENT:CAPS"></a>GTK_ASSISTANT_PAGE_CONTENT</p></td>
+<td class="enum_member_description">
+<p>The page has regular contents. Both the
+ Back and forward buttons will be shown.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ASSISTANT-PAGE-INTRO:CAPS"></a>GTK_ASSISTANT_PAGE_INTRO</p></td>
+<td class="enum_member_description">
+<p>The page contains an introduction to the
+ assistant task. Only the Forward button will be shown if there is a
+  next page.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ASSISTANT-PAGE-CONFIRM:CAPS"></a>GTK_ASSISTANT_PAGE_CONFIRM</p></td>
+<td class="enum_member_description">
+<p>The page lets the user confirm or deny the
+ changes. The Back and Apply buttons will be shown.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ASSISTANT-PAGE-SUMMARY:CAPS"></a>GTK_ASSISTANT_PAGE_SUMMARY</p></td>
+<td class="enum_member_description">
+<p>The page informs the user of the changes
+ done. Only the Close button will be shown.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ASSISTANT-PAGE-PROGRESS:CAPS"></a>GTK_ASSISTANT_PAGE_PROGRESS</p></td>
+<td class="enum_member_description">
+<p>Used for tasks that take a long time to
+ complete, blocks the assistant until the page is marked as complete.
+  Only the back button will be shown.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ASSISTANT-PAGE-CUSTOM:CAPS"></a>GTK_ASSISTANT_PAGE_CUSTOM</p></td>
+<td class="enum_member_description">
+<p>Used for when other page types are not
+ appropriate. No buttons will be shown, and the application must
+ add its own buttons through <a class="link" href="GtkAssistant.html#gtk-assistant-add-action-widget" title="gtk_assistant_add_action_widget ()"><code class="function">gtk_assistant_add_action_widget()</code></a>.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkAssistant--use-header-bar"></a><h3>The <code class="literal">“use-header-bar”</code> property</h3>
+<pre class="programlisting">  “use-header-bar”           <span class="type">gint</span></pre>
+<p><code class="literal">TRUE</code> if the assistant uses a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> for action buttons
+instead of the action-area.</p>
+<p>For technical reasons, this property is declared as an integer
+property, but you should only set it to <code class="literal">TRUE</code> or <code class="literal">FALSE</code>.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Allowed values: [-1,1]</p>
+<p>Default value: -1</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.child-property-details"></a><h2>Child Property Details</h2>
+<div class="refsect2">
+<a name="GtkAssistant--c-complete"></a><h3>The <code class="literal">“complete”</code> child property</h3>
+<pre class="programlisting">  “complete”                 <span class="type">gboolean</span></pre>
+<p>Setting the "complete" child property to <code class="literal">TRUE</code> marks a page as
+complete (i.e.: all the required fields are filled out). GTK+ uses
+this information to control the sensitivity of the navigation buttons.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant--c-has-padding"></a><h3>The <code class="literal">“has-padding”</code> child property</h3>
+<pre class="programlisting">  “has-padding”              <span class="type">gboolean</span></pre>
+<p>Whether the assistant adds padding around the page.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant--c-header-image"></a><h3>The <code class="literal">“header-image”</code> child property</h3>
+<pre class="programlisting">  “header-image”             <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *</pre>
+<p>This image used to be displayed in the page header.</p>
+<div class="warning">
+<p><code class="literal">GtkAssistant:header-image</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Since GTK+ 3.2, a header is no longer shown;
+    add your header decoration to the page content instead.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant--c-page-type"></a><h3>The <code class="literal">“page-type”</code> child property</h3>
+<pre class="programlisting">  “page-type”                <a class="link" href="GtkAssistant.html#GtkAssistantPageType" title="enum GtkAssistantPageType"><span class="type">GtkAssistantPageType</span></a></pre>
+<p>The type of the assistant page.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_ASSISTANT_PAGE_CONTENT</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant--c-sidebar-image"></a><h3>The <code class="literal">“sidebar-image”</code> child property</h3>
+<pre class="programlisting">  “sidebar-image”            <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> *</pre>
+<p>This image used to be displayed in the 'sidebar'.</p>
+<div class="warning">
+<p><code class="literal">GtkAssistant:sidebar-image</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Since GTK+ 3.2, the sidebar image is no longer shown.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant--c-title"></a><h3>The <code class="literal">“title”</code> child property</h3>
+<pre class="programlisting">  “title”                    <span class="type">gchar</span> *</pre>
+<p>The title of the page.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+<p class="since">Since: 2.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.style-property-details"></a><h2>Style Property Details</h2>
+<div class="refsect2">
+<a name="GtkAssistant--s-content-padding"></a><h3>The <code class="literal">“content-padding”</code> style property</h3>
+<pre class="programlisting">  “content-padding”          <span class="type">gint</span></pre>
+<p>Number of pixels around the content.</p>
+<div class="warning">
+<p><code class="literal">GtkAssistant:content-padding</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>This style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant--s-header-padding"></a><h3>The <code class="literal">“header-padding”</code> style property</h3>
+<pre class="programlisting">  “header-padding”           <span class="type">gint</span></pre>
+<p>Number of pixels around the header.</p>
+<div class="warning">
+<p><code class="literal">GtkAssistant:header-padding</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>This style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkAssistant.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkAssistant-apply"></a><h3>The <code class="literal">“apply”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>The ::apply signal is emitted when the apply button is clicked.</p>
+<p>The default behavior of the <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> is to switch to the page
+after the current page, unless the current page is the last one.</p>
+<p>A handler for the ::apply signal should carry out the actions for
+which the wizard has collected data. If the action takes a long time
+to complete, you might consider putting a page of type
+<a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-PROGRESS:CAPS"><code class="literal">GTK_ASSISTANT_PAGE_PROGRESS</code></a> after the confirmation page and handle
+this operation within the <a class="link" href="GtkAssistant.html#GtkAssistant-prepare" title="The “prepare” signal"><span class="type">“prepare”</span></a> signal of the progress
+page.</p>
+<div class="refsect3">
+<a name="GtkAssistant-apply.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant-cancel"></a><h3>The <code class="literal">“cancel”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>The ::cancel signal is emitted when then the cancel button is clicked.</p>
+<div class="refsect3">
+<a name="GtkAssistant-cancel.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant-close"></a><h3>The <code class="literal">“close”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>The ::close signal is emitted either when the close button of
+a summary page is clicked, or when the apply button in the last
+page in the flow (of type <a class="link" href="GtkAssistant.html#GTK-ASSISTANT-PAGE-CONFIRM:CAPS"><code class="literal">GTK_ASSISTANT_PAGE_CONFIRM</code></a>) is clicked.</p>
+<div class="refsect3">
+<a name="GtkAssistant-close.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant-escape"></a><h3>The <code class="literal">“escape”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAssistant-prepare"></a><h3>The <code class="literal">“prepare”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a> *assistant,
+               <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>    *page,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>The ::prepare signal is emitted when a new page is set as the
+assistant's current page, before making the new page visible.</p>
+<p>A handler for this signal can do any preparations which are
+necessary before showing <em class="parameter"><code>page</code></em>
+.</p>
+<div class="refsect3">
+<a name="GtkAssistant-prepare.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>assistant</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkAssistant.html" title="GtkAssistant"><span class="type">GtkAssistant</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>page</p></td>
+<td class="parameter_description"><p>the current page</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: 2.10</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

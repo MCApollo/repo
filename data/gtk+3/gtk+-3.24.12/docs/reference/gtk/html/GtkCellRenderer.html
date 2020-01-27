@@ -1,0 +1,2073 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkCellRenderer: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="TreeWidgetObjects.html" title="Tree, List and Icon Grid Widgets">
+<link rel="prev" href="GtkCellAreaContext.html" title="GtkCellAreaContext">
+<link rel="next" href="GtkCellEditable.html" title="GtkCellEditable">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkCellRenderer.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkCellRenderer.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkCellRenderer.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkCellRenderer.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="TreeWidgetObjects.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkCellAreaContext.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkCellEditable.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkCellRenderer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkCellRenderer.top_of_page"></a>GtkCellRenderer</span></h2>
+<p>GtkCellRenderer — An object for rendering a single cell</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkCellRenderer.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-class-set-accessible-type" title="gtk_cell_renderer_class_set_accessible_type ()">gtk_cell_renderer_class_set_accessible_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-aligned-area" title="gtk_cell_renderer_get_aligned_area ()">gtk_cell_renderer_get_aligned_area</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-size" title="gtk_cell_renderer_get_size ()">gtk_cell_renderer_get_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()">gtk_cell_renderer_render</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-activate" title="gtk_cell_renderer_activate ()">gtk_cell_renderer_activate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="returnvalue">GtkCellEditable</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-start-editing" title="gtk_cell_renderer_start_editing ()">gtk_cell_renderer_start_editing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-stop-editing" title="gtk_cell_renderer_stop_editing ()">gtk_cell_renderer_stop_editing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-fixed-size" title="gtk_cell_renderer_get_fixed_size ()">gtk_cell_renderer_get_fixed_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-set-fixed-size" title="gtk_cell_renderer_set_fixed_size ()">gtk_cell_renderer_set_fixed_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-visible" title="gtk_cell_renderer_get_visible ()">gtk_cell_renderer_get_visible</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-set-visible" title="gtk_cell_renderer_set_visible ()">gtk_cell_renderer_set_visible</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-sensitive" title="gtk_cell_renderer_get_sensitive ()">gtk_cell_renderer_get_sensitive</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-set-sensitive" title="gtk_cell_renderer_set_sensitive ()">gtk_cell_renderer_set_sensitive</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-alignment" title="gtk_cell_renderer_get_alignment ()">gtk_cell_renderer_get_alignment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-set-alignment" title="gtk_cell_renderer_set_alignment ()">gtk_cell_renderer_set_alignment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-padding" title="gtk_cell_renderer_get_padding ()">gtk_cell_renderer_get_padding</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-set-padding" title="gtk_cell_renderer_set_padding ()">gtk_cell_renderer_set_padding</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Standard-Enumerations.html#GtkStateFlags" title="enum GtkStateFlags"><span class="returnvalue">GtkStateFlags</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-state" title="gtk_cell_renderer_get_state ()">gtk_cell_renderer_get_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-is-activatable" title="gtk_cell_renderer_is_activatable ()">gtk_cell_renderer_is_activatable</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-preferred-height" title="gtk_cell_renderer_get_preferred_height ()">gtk_cell_renderer_get_preferred_height</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-preferred-height-for-width" title="gtk_cell_renderer_get_preferred_height_for_width ()">gtk_cell_renderer_get_preferred_height_for_width</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-preferred-size" title="gtk_cell_renderer_get_preferred_size ()">gtk_cell_renderer_get_preferred_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-preferred-width" title="gtk_cell_renderer_get_preferred_width ()">gtk_cell_renderer_get_preferred_width</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-preferred-width-for-height" title="gtk_cell_renderer_get_preferred_width_for_height ()">gtk_cell_renderer_get_preferred_width_for_height</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html#GtkSizeRequestMode" title="enum GtkSizeRequestMode"><span class="returnvalue">GtkSizeRequestMode</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-request-mode" title="gtk_cell_renderer_get_request_mode ()">gtk_cell_renderer_get_request_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--cell-background" title="The “cell-background” property">cell-background</a></td>
+<td class="property_flags">Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GdkColor</span> *</td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--cell-background-gdk" title="The “cell-background-gdk” property">cell-background-gdk</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GdkRGBA</span> *</td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--cell-background-rgba" title="The “cell-background-rgba” property">cell-background-rgba</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--cell-background-set" title="The “cell-background-set” property">cell-background-set</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--editing" title="The “editing” property">editing</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--height" title="The “height” property">height</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--is-expanded" title="The “is-expanded” property">is-expanded</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--is-expander" title="The “is-expander” property">is-expander</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkCellRenderer.html#GtkCellRendererMode" title="enum GtkCellRendererMode"><span class="type">GtkCellRendererMode</span></a></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--mode" title="The “mode” property">mode</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--sensitive" title="The “sensitive” property">sensitive</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--visible" title="The “visible” property">visible</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--width" title="The “width” property">width</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gfloat</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--xalign" title="The “xalign” property">xalign</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--xpad" title="The “xpad” property">xpad</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gfloat</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--yalign" title="The “yalign” property">yalign</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer--ypad" title="The “ypad” property">ypad</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer-editing-canceled" title="The “editing-canceled” signal">editing-canceled</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer-editing-started" title="The “editing-started” signal">editing-started</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkCellRenderer.html#GtkCellRendererState" title="enum GtkCellRendererState">GtkCellRendererState</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkCellRenderer.html#GtkCellRendererMode" title="enum GtkCellRendererMode">GtkCellRendererMode</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkCellRenderer.html#GtkCellRenderer-struct" title="struct GtkCellRenderer">GtkCellRenderer</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkCellRenderer.html#GtkCellRendererClass" title="struct GtkCellRendererClass">GtkCellRendererClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> GtkCellRenderer
+            <span class="lineart">├──</span> <a class="link" href="GtkCellRendererText.html" title="GtkCellRendererText">GtkCellRendererText</a>
+            <span class="lineart">├──</span> <a class="link" href="GtkCellRendererPixbuf.html" title="GtkCellRendererPixbuf">GtkCellRendererPixbuf</a>
+            <span class="lineart">├──</span> <a class="link" href="GtkCellRendererProgress.html" title="GtkCellRendererProgress">GtkCellRendererProgress</a>
+            <span class="lineart">├──</span> <a class="link" href="GtkCellRendererSpinner.html" title="GtkCellRendererSpinner">GtkCellRendererSpinner</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkCellRendererToggle.html" title="GtkCellRendererToggle">GtkCellRendererToggle</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> is a base class of a set of objects used for
+rendering a cell to a <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-t.html#cairo-t"><span class="type">cairo_t</span></a>.  These objects are used primarily by
+the <a class="link" href="GtkTreeView.html" title="GtkTreeView"><span class="type">GtkTreeView</span></a> widget, though they aren’t tied to them in any
+specific way.  It is worth noting that <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> is not a
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> and cannot be treated as such.</p>
+<p>The primary use of a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> is for drawing a certain graphical
+elements on a <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-t.html#cairo-t"><span class="type">cairo_t</span></a>. Typically, one cell renderer is used to
+draw many cells on the screen.  To this extent, it isn’t expected that a
+CellRenderer keep any permanent state around.  Instead, any state is set
+just prior to use using <span class="type">GObjects</span> property system.  Then, the
+cell is measured using <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-size" title="gtk_cell_renderer_get_size ()"><code class="function">gtk_cell_renderer_get_size()</code></a>. Finally, the cell
+is rendered in the correct location using <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()"><code class="function">gtk_cell_renderer_render()</code></a>.</p>
+<p>There are a number of rules that must be followed when writing a new
+<a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>.  First and foremost, it’s important that a certain set
+of properties will always yield a cell renderer of the same size,
+barring a <a class="link" href="GtkStyle.html" title="GtkStyle"><span class="type">GtkStyle</span></a> change.  The <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> also has a number of
+generic properties that are expected to be honored by all children.</p>
+<p>Beyond merely rendering a cell, cell renderers can optionally
+provide active user interface elements. A cell renderer can be
+“activatable” like <a class="link" href="GtkCellRendererToggle.html" title="GtkCellRendererToggle"><span class="type">GtkCellRendererToggle</span></a>,
+which toggles when it gets activated by a mouse click, or it can be
+“editable” like <a class="link" href="GtkCellRendererText.html" title="GtkCellRendererText"><span class="type">GtkCellRendererText</span></a>, which
+allows the user to edit the text using a widget implementing the
+<a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> interface, e.g. <a class="link" href="GtkEntry.html" title="GtkEntry"><span class="type">GtkEntry</span></a>.
+To make a cell renderer activatable or editable, you have to
+implement the <a class="link" href="GtkCellRenderer.html#GtkCellRendererClass.activate"><span class="type">GtkCellRendererClass.activate</span></a> or
+<a class="link" href="GtkCellRenderer.html#GtkCellRendererClass.start-editing"><span class="type">GtkCellRendererClass.start_editing</span></a> virtual functions, respectively.</p>
+<p>Many properties of <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> and its subclasses have a
+corresponding “set” property, e.g. “cell-background-set” corresponds
+to “cell-background”. These “set” properties reflect whether a property
+has been set or not. You should not set them independently.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-cell-renderer-class-set-accessible-type"></a><h3>gtk_cell_renderer_class_set_accessible_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_class_set_accessible_type
+                               (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html#GtkCellRendererClass" title="struct GtkCellRendererClass"><span class="type">GtkCellRendererClass</span></a> *renderer_class</code></em>,
+                                <em class="parameter"><code><span class="type">GType</span> type</code></em>);</pre>
+<p>Sets the type to be used for creating accessibles for cells rendered by
+cell renderers of <em class="parameter"><code>renderer_class</code></em>
+. Note that multiple accessibles will
+be created.</p>
+<p>This function should only be called from class init functions of cell
+renderers.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-class-set-accessible-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>renderer_class</p></td>
+<td class="parameter_description"><p>class to set the accessible type for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>The object type that implements the accessible for <em class="parameter"><code>widget_class</code></em>
+.
+The type must be a subtype of <span class="type">GtkRendererCellAccessible</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-aligned-area"></a><h3>gtk_cell_renderer_get_aligned_area ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_aligned_area (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkCellRenderer.html#GtkCellRendererState" title="enum GtkCellRendererState"><span class="type">GtkCellRendererState</span></a> flags</code></em>,
+                                    <em class="parameter"><code>const <span class="type">GdkRectangle</span> *cell_area</code></em>,
+                                    <em class="parameter"><code><span class="type">GdkRectangle</span> *aligned_area</code></em>);</pre>
+<p>Gets the aligned area used by <em class="parameter"><code>cell</code></em>
+ inside <em class="parameter"><code>cell_area</code></em>
+. Used for finding
+the appropriate edit and focus rectangle.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-aligned-area.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> this cell will be rendering to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>render flags</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell_area</p></td>
+<td class="parameter_description"><p>cell area which would be passed to <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()"><code class="function">gtk_cell_renderer_render()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>aligned_area</p></td>
+<td class="parameter_description"><p>the return location for the space inside <em class="parameter"><code>cell_area</code></em>
+that would acually be used to render. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-size"></a><h3>gtk_cell_renderer_get_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_size (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                            <em class="parameter"><code>const <span class="type">GdkRectangle</span> *cell_area</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> *x_offset</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> *y_offset</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> *width</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> *height</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_cell_renderer_get_size</code> has been deprecated since version 3.0 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-get-preferred-size" title="gtk_cell_renderer_get_preferred_size ()"><code class="function">gtk_cell_renderer_get_preferred_size()</code></a> instead.</p>
+</div>
+<p>Obtains the width and height needed to render the cell. Used by view 
+widgets to determine the appropriate size for the cell_area passed to
+<a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()"><code class="function">gtk_cell_renderer_render()</code></a>.  If <em class="parameter"><code>cell_area</code></em>
+ is not <code class="literal">NULL</code>, fills in the
+x and y offsets (if set) of the cell relative to this location. </p>
+<p>Please note that the values set in <em class="parameter"><code>width</code></em>
+ and <em class="parameter"><code>height</code></em>
+, as well as those 
+in <em class="parameter"><code>x_offset</code></em>
+ and <em class="parameter"><code>y_offset</code></em>
+ are inclusive of the xpad and ypad properties.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the widget the renderer is rendering to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell_area</p></td>
+<td class="parameter_description"><p>The area a cell will be allocated, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x_offset</p></td>
+<td class="parameter_description"><p>location to return x offset of cell relative to <em class="parameter"><code>cell_area</code></em>
+, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y_offset</p></td>
+<td class="parameter_description"><p>location to return y offset of cell relative to <em class="parameter"><code>cell_area</code></em>
+, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>width</p></td>
+<td class="parameter_description"><p>location to return width needed to render a cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>height</p></td>
+<td class="parameter_description"><p>location to return height needed to render a cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-render"></a><h3>gtk_cell_renderer_render ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_render (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-t.html#cairo-t"><span class="type">cairo_t</span></a> *cr</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                          <em class="parameter"><code>const <span class="type">GdkRectangle</span> *background_area</code></em>,
+                          <em class="parameter"><code>const <span class="type">GdkRectangle</span> *cell_area</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkCellRenderer.html#GtkCellRendererState" title="enum GtkCellRendererState"><span class="type">GtkCellRendererState</span></a> flags</code></em>);</pre>
+<p>Invokes the virtual render function of the <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>. The three
+passed-in rectangles are areas in <em class="parameter"><code>cr</code></em>
+. Most renderers will draw within
+<em class="parameter"><code>cell_area</code></em>
+; the xalign, yalign, xpad, and ypad fields of the <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>
+should be honored with respect to <em class="parameter"><code>cell_area</code></em>
+. <em class="parameter"><code>background_area</code></em>
+ includes the
+blank space around the cell, and also the area containing the tree expander;
+so the <em class="parameter"><code>background_area</code></em>
+ rectangles for all cells tile to cover the entire
+<em class="parameter"><code>window</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-render.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cr</p></td>
+<td class="parameter_description"><p>a cairo context to draw to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the widget owning <em class="parameter"><code>window</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>background_area</p></td>
+<td class="parameter_description"><p>entire cell area (including tree expanders and maybe
+padding on the sides)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell_area</p></td>
+<td class="parameter_description"><p>area normally rendered by a cell renderer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags that affect rendering</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-activate"></a><h3>gtk_cell_renderer_activate ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_cell_renderer_activate (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                            <em class="parameter"><code><span class="type">GdkEvent</span> *event</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                            <em class="parameter"><code>const <span class="type">GdkRectangle</span> *background_area</code></em>,
+                            <em class="parameter"><code>const <span class="type">GdkRectangle</span> *cell_area</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkCellRenderer.html#GtkCellRendererState" title="enum GtkCellRendererState"><span class="type">GtkCellRendererState</span></a> flags</code></em>);</pre>
+<p>Passes an activate event to the cell renderer for possible processing.  
+Some cell renderers may use events; for example, <a class="link" href="GtkCellRendererToggle.html" title="GtkCellRendererToggle"><span class="type">GtkCellRendererToggle</span></a> 
+toggles when it gets a mouse click.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-activate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkEvent</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>widget that received the event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>widget-dependent string representation of the event location;
+e.g. for <a class="link" href="GtkTreeView.html" title="GtkTreeView"><span class="type">GtkTreeView</span></a>, a string representation of <a class="link" href="GtkTreeModel.html#GtkTreePath"><span class="type">GtkTreePath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>background_area</p></td>
+<td class="parameter_description"><p>background area as passed to <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()"><code class="function">gtk_cell_renderer_render()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell_area</p></td>
+<td class="parameter_description"><p>cell area as passed to <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()"><code class="function">gtk_cell_renderer_render()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>render flags</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-renderer-activate.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event was consumed/handled</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-start-editing"></a><h3>gtk_cell_renderer_start_editing ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="returnvalue">GtkCellEditable</span></a> *
+gtk_cell_renderer_start_editing (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                 <em class="parameter"><code><span class="type">GdkEvent</span> *event</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                                 <em class="parameter"><code>const <span class="type">GdkRectangle</span> *background_area</code></em>,
+                                 <em class="parameter"><code>const <span class="type">GdkRectangle</span> *cell_area</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkCellRenderer.html#GtkCellRendererState" title="enum GtkCellRendererState"><span class="type">GtkCellRendererState</span></a> flags</code></em>);</pre>
+<p>Starts editing the contents of this <em class="parameter"><code>cell</code></em>
+, through a new <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a>
+widget created by the <a class="link" href="GtkCellRenderer.html#GtkCellRendererClass.start-editing"><span class="type">GtkCellRendererClass.start_editing</span></a> virtual function.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-start-editing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkEvent</span>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>widget that received the event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>widget-dependent string representation of the event location;
+e.g. for <a class="link" href="GtkTreeView.html" title="GtkTreeView"><span class="type">GtkTreeView</span></a>, a string representation of <a class="link" href="GtkTreeModel.html#GtkTreePath"><span class="type">GtkTreePath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>background_area</p></td>
+<td class="parameter_description"><p>background area as passed to <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()"><code class="function">gtk_cell_renderer_render()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell_area</p></td>
+<td class="parameter_description"><p>cell area as passed to <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-render" title="gtk_cell_renderer_render ()"><code class="function">gtk_cell_renderer_render()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>render flags</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-renderer-start-editing.returns"></a><h4>Returns</h4>
+<p>A new <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> for editing this
+<em class="parameter"><code>cell</code></em>
+, or <code class="literal">NULL</code> if editing is not possible. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-stop-editing"></a><h3>gtk_cell_renderer_stop_editing ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_stop_editing (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> canceled</code></em>);</pre>
+<p>Informs the cell renderer that the editing is stopped.
+If <em class="parameter"><code>canceled</code></em>
+ is <code class="literal">TRUE</code>, the cell renderer will emit the 
+<a class="link" href="GtkCellRenderer.html#GtkCellRenderer-editing-canceled" title="The “editing-canceled” signal"><span class="type">“editing-canceled”</span></a> signal. </p>
+<p>This function should be called by cell renderer implementations 
+in response to the <a class="link" href="GtkCellEditable.html#GtkCellEditable-editing-done" title="The “editing-done” signal"><span class="type">“editing-done”</span></a> signal of 
+<a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-stop-editing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>canceled</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if the editing has been canceled</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-fixed-size"></a><h3>gtk_cell_renderer_get_fixed_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_fixed_size (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                  <em class="parameter"><code><span class="type">gint</span> *width</code></em>,
+                                  <em class="parameter"><code><span class="type">gint</span> *height</code></em>);</pre>
+<p>Fills in <em class="parameter"><code>width</code></em>
+ and <em class="parameter"><code>height</code></em>
+ with the appropriate size of <em class="parameter"><code>cell</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-fixed-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>width</p></td>
+<td class="parameter_description"><p>location to fill in with the fixed width of the cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>height</p></td>
+<td class="parameter_description"><p>location to fill in with the fixed height of the cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-set-fixed-size"></a><h3>gtk_cell_renderer_set_fixed_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_set_fixed_size (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                  <em class="parameter"><code><span class="type">gint</span> width</code></em>,
+                                  <em class="parameter"><code><span class="type">gint</span> height</code></em>);</pre>
+<p>Sets the renderer size to be explicit, independent of the properties set.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-set-fixed-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>width</p></td>
+<td class="parameter_description"><p>the width of the cell renderer, or -1</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>height</p></td>
+<td class="parameter_description"><p>the height of the cell renderer, or -1</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-visible"></a><h3>gtk_cell_renderer_get_visible ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_cell_renderer_get_visible (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>);</pre>
+<p>Returns the cell renderer’s visibility.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-visible.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-visible.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the cell renderer is visible</p>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-set-visible"></a><h3>gtk_cell_renderer_set_visible ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_set_visible (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                               <em class="parameter"><code><span class="type">gboolean</span> visible</code></em>);</pre>
+<p>Sets the cell renderer’s visibility.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-set-visible.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>visible</p></td>
+<td class="parameter_description"><p>the visibility of the cell</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-sensitive"></a><h3>gtk_cell_renderer_get_sensitive ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_cell_renderer_get_sensitive (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>);</pre>
+<p>Returns the cell renderer’s sensitivity.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-sensitive.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-sensitive.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the cell renderer is sensitive</p>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-set-sensitive"></a><h3>gtk_cell_renderer_set_sensitive ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_set_sensitive (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                 <em class="parameter"><code><span class="type">gboolean</span> sensitive</code></em>);</pre>
+<p>Sets the cell renderer’s sensitivity.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-set-sensitive.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sensitive</p></td>
+<td class="parameter_description"><p>the sensitivity of the cell</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-alignment"></a><h3>gtk_cell_renderer_get_alignment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_alignment (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                 <em class="parameter"><code><span class="type">gfloat</span> *xalign</code></em>,
+                                 <em class="parameter"><code><span class="type">gfloat</span> *yalign</code></em>);</pre>
+<p>Fills in <em class="parameter"><code>xalign</code></em>
+ and <em class="parameter"><code>yalign</code></em>
+ with the appropriate values of <em class="parameter"><code>cell</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-alignment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>xalign</p></td>
+<td class="parameter_description"><p>location to fill in with the x alignment of the cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>yalign</p></td>
+<td class="parameter_description"><p>location to fill in with the y alignment of the cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-set-alignment"></a><h3>gtk_cell_renderer_set_alignment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_set_alignment (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                 <em class="parameter"><code><span class="type">gfloat</span> xalign</code></em>,
+                                 <em class="parameter"><code><span class="type">gfloat</span> yalign</code></em>);</pre>
+<p>Sets the renderer’s alignment within its available space.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-set-alignment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>xalign</p></td>
+<td class="parameter_description"><p>the x alignment of the cell renderer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>yalign</p></td>
+<td class="parameter_description"><p>the y alignment of the cell renderer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-padding"></a><h3>gtk_cell_renderer_get_padding ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_padding (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> *xpad</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> *ypad</code></em>);</pre>
+<p>Fills in <em class="parameter"><code>xpad</code></em>
+ and <em class="parameter"><code>ypad</code></em>
+ with the appropriate values of <em class="parameter"><code>cell</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-padding.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>xpad</p></td>
+<td class="parameter_description"><p>location to fill in with the x padding of the cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ypad</p></td>
+<td class="parameter_description"><p>location to fill in with the y padding of the cell, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-set-padding"></a><h3>gtk_cell_renderer_set_padding ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_set_padding (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> xpad</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> ypad</code></em>);</pre>
+<p>Sets the renderer’s padding.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-set-padding.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>xpad</p></td>
+<td class="parameter_description"><p>the x padding of the cell renderer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ypad</p></td>
+<td class="parameter_description"><p>the y padding of the cell renderer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.18</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-state"></a><h3>gtk_cell_renderer_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Standard-Enumerations.html#GtkStateFlags" title="enum GtkStateFlags"><span class="returnvalue">GtkStateFlags</span></a>
+gtk_cell_renderer_get_state (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkCellRenderer.html#GtkCellRendererState" title="enum GtkCellRendererState"><span class="type">GtkCellRendererState</span></a> cell_state</code></em>);</pre>
+<p>Translates the cell renderer state to <a class="link" href="gtk3-Standard-Enumerations.html#GtkStateFlags" title="enum GtkStateFlags"><span class="type">GtkStateFlags</span></a>,
+based on the cell renderer and widget sensitivity, and
+the given <a class="link" href="GtkCellRenderer.html#GtkCellRendererState" title="enum GtkCellRendererState"><span class="type">GtkCellRendererState</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell_state</p></td>
+<td class="parameter_description"><p>cell renderer state</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-state.returns"></a><h4>Returns</h4>
+<p> the widget state flags applying to <em class="parameter"><code>cell</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-is-activatable"></a><h3>gtk_cell_renderer_is_activatable ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_cell_renderer_is_activatable (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>);</pre>
+<p>Checks whether the cell renderer can do something when activated.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-is-activatable.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-renderer-is-activatable.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the cell renderer can do anything when activated</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-preferred-height"></a><h3>gtk_cell_renderer_get_preferred_height ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_preferred_height
+                               (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *minimum_size</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *natural_size</code></em>);</pre>
+<p>Retreives a renderer’s natural size when rendered to <em class="parameter"><code>widget</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-preferred-height.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> this cell will be rendering to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minimum_size</p></td>
+<td class="parameter_description"><p>location to store the minimum size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>natural_size</p></td>
+<td class="parameter_description"><p>location to store the natural size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-preferred-height-for-width"></a><h3>gtk_cell_renderer_get_preferred_height_for_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_preferred_height_for_width
+                               (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> width</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *minimum_height</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *natural_height</code></em>);</pre>
+<p>Retreives a cell renderers’s minimum and natural height if it were rendered to 
+<em class="parameter"><code>widget</code></em>
+ with the specified <em class="parameter"><code>width</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-preferred-height-for-width.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> this cell will be rendering to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>width</p></td>
+<td class="parameter_description"><p>the size which is available for allocation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minimum_height</p></td>
+<td class="parameter_description"><p>location for storing the minimum size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>natural_height</p></td>
+<td class="parameter_description"><p>location for storing the preferred size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-preferred-size"></a><h3>gtk_cell_renderer_get_preferred_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_preferred_size (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                      <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                      <em class="parameter"><code><a class="link" href="GtkWidget.html#GtkRequisition"><span class="type">GtkRequisition</span></a> *minimum_size</code></em>,
+                                      <em class="parameter"><code><a class="link" href="GtkWidget.html#GtkRequisition"><span class="type">GtkRequisition</span></a> *natural_size</code></em>);</pre>
+<p>Retrieves the minimum and natural size of a cell taking
+into account the widget’s preference for height-for-width management.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-preferred-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> this cell will be rendering to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minimum_size</p></td>
+<td class="parameter_description"><p>location for storing the minimum size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>natural_size</p></td>
+<td class="parameter_description"><p>location for storing the natural size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-preferred-width"></a><h3>gtk_cell_renderer_get_preferred_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_preferred_width (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                       <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                       <em class="parameter"><code><span class="type">gint</span> *minimum_size</code></em>,
+                                       <em class="parameter"><code><span class="type">gint</span> *natural_size</code></em>);</pre>
+<p>Retreives a renderer’s natural size when rendered to <em class="parameter"><code>widget</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-preferred-width.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> this cell will be rendering to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minimum_size</p></td>
+<td class="parameter_description"><p>location to store the minimum size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>natural_size</p></td>
+<td class="parameter_description"><p>location to store the natural size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-preferred-width-for-height"></a><h3>gtk_cell_renderer_get_preferred_width_for_height ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_renderer_get_preferred_width_for_height
+                               (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> height</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *minimum_width</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> *natural_width</code></em>);</pre>
+<p>Retreives a cell renderers’s minimum and natural width if it were rendered to 
+<em class="parameter"><code>widget</code></em>
+ with the specified <em class="parameter"><code>height</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-preferred-width-for-height.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> this cell will be rendering to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>height</p></td>
+<td class="parameter_description"><p>the size which is available for allocation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>minimum_width</p></td>
+<td class="parameter_description"><p>location for storing the minimum size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>natural_width</p></td>
+<td class="parameter_description"><p>location for storing the preferred size, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-renderer-get-request-mode"></a><h3>gtk_cell_renderer_get_request_mode ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html#GtkSizeRequestMode" title="enum GtkSizeRequestMode"><span class="returnvalue">GtkSizeRequestMode</span></a>
+gtk_cell_renderer_get_request_mode (<em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>);</pre>
+<p>Gets whether the cell renderer prefers a height-for-width layout
+or a width-for-height layout.</p>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-request-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>    instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-renderer-get-request-mode.returns"></a><h4>Returns</h4>
+<p> The <a class="link" href="GtkWidget.html#GtkSizeRequestMode" title="enum GtkSizeRequestMode"><span class="type">GtkSizeRequestMode</span></a> preferred by this renderer.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkCellRendererState"></a><h3>enum GtkCellRendererState</h3>
+<p>Tells how a cell is to be rendered.</p>
+<div class="refsect3">
+<a name="GtkCellRendererState.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-SELECTED:CAPS"></a>GTK_CELL_RENDERER_SELECTED</p></td>
+<td class="enum_member_description">
+<p>The cell is currently selected, and
+ probably has a selection colored background to render to.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-PRELIT:CAPS"></a>GTK_CELL_RENDERER_PRELIT</p></td>
+<td class="enum_member_description">
+<p>The mouse is hovering over the cell.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-INSENSITIVE:CAPS"></a>GTK_CELL_RENDERER_INSENSITIVE</p></td>
+<td class="enum_member_description">
+<p>The cell is drawn in an insensitive manner</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-SORTED:CAPS"></a>GTK_CELL_RENDERER_SORTED</p></td>
+<td class="enum_member_description">
+<p>The cell is in a sorted row</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-FOCUSED:CAPS"></a>GTK_CELL_RENDERER_FOCUSED</p></td>
+<td class="enum_member_description">
+<p>The cell is in the focus row.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-EXPANDABLE:CAPS"></a>GTK_CELL_RENDERER_EXPANDABLE</p></td>
+<td class="enum_member_description">
+<p>The cell is in a row that can be expanded. Since 3.4</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-EXPANDED:CAPS"></a>GTK_CELL_RENDERER_EXPANDED</p></td>
+<td class="enum_member_description">
+<p>The cell is in a row that is expanded. Since 3.4</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRendererMode"></a><h3>enum GtkCellRendererMode</h3>
+<p>Identifies how the user can interact with a particular cell.</p>
+<div class="refsect3">
+<a name="GtkCellRendererMode.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-MODE-INERT:CAPS"></a>GTK_CELL_RENDERER_MODE_INERT</p></td>
+<td class="enum_member_description">
+<p>The cell is just for display
+ and cannot be interacted with.  Note that this doesn’t mean that eg. the
+ row being drawn can’t be selected -- just that a particular element of
+ it cannot be individually modified.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-MODE-ACTIVATABLE:CAPS"></a>GTK_CELL_RENDERER_MODE_ACTIVATABLE</p></td>
+<td class="enum_member_description">
+<p>The cell can be clicked.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-CELL-RENDERER-MODE-EDITABLE:CAPS"></a>GTK_CELL_RENDERER_MODE_EDITABLE</p></td>
+<td class="enum_member_description">
+<p>The cell can be edited or otherwise modified.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer-struct"></a><h3>struct GtkCellRenderer</h3>
+<pre class="programlisting">struct GtkCellRenderer;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRendererClass"></a><h3>struct GtkCellRendererClass</h3>
+<pre class="programlisting">struct GtkCellRendererClass {
+  /* vtable - not signals */
+  GtkSizeRequestMode (* get_request_mode)                (GtkCellRenderer      *cell);
+  void               (* get_preferred_width)             (GtkCellRenderer      *cell,
+                                                          GtkWidget            *widget,
+                                                          gint                 *minimum_size,
+                                                          gint                 *natural_size);
+  void               (* get_preferred_height_for_width)  (GtkCellRenderer      *cell,
+                                                          GtkWidget            *widget,
+                                                          gint                  width,
+                                                          gint                 *minimum_height,
+                                                          gint                 *natural_height);
+  void               (* get_preferred_height)            (GtkCellRenderer      *cell,
+                                                          GtkWidget            *widget,
+                                                          gint                 *minimum_size,
+                                                          gint                 *natural_size);
+  void               (* get_preferred_width_for_height)  (GtkCellRenderer      *cell,
+                                                          GtkWidget            *widget,
+                                                          gint                  height,
+                                                          gint                 *minimum_width,
+                                                          gint                 *natural_width);
+  void               (* get_aligned_area)                (GtkCellRenderer      *cell,
+                                                          GtkWidget            *widget,
+							  GtkCellRendererState  flags,
+                                                          const GdkRectangle   *cell_area,
+                                                          GdkRectangle         *aligned_area);
+  void               (* get_size)                        (GtkCellRenderer      *cell,
+                                                          GtkWidget            *widget,
+                                                          const GdkRectangle   *cell_area,
+                                                          gint                 *x_offset,
+                                                          gint                 *y_offset,
+                                                          gint                 *width,
+                                                          gint                 *height);
+  void               (* render)                          (GtkCellRenderer      *cell,
+                                                          cairo_t              *cr,
+                                                          GtkWidget            *widget,
+                                                          const GdkRectangle   *background_area,
+                                                          const GdkRectangle   *cell_area,
+                                                          GtkCellRendererState  flags);
+  gboolean           (* activate)                        (GtkCellRenderer      *cell,
+                                                          GdkEvent             *event,
+                                                          GtkWidget            *widget,
+                                                          const gchar          *path,
+                                                          const GdkRectangle   *background_area,
+                                                          const GdkRectangle   *cell_area,
+                                                          GtkCellRendererState  flags);
+  GtkCellEditable *  (* start_editing)                   (GtkCellRenderer      *cell,
+                                                          GdkEvent             *event,
+                                                          GtkWidget            *widget,
+                                                          const gchar          *path,
+                                                          const GdkRectangle   *background_area,
+                                                          const GdkRectangle   *cell_area,
+                                                          GtkCellRendererState  flags);
+
+  /* Signals */
+  void (* editing_canceled) (GtkCellRenderer *cell);
+  void (* editing_started)  (GtkCellRenderer *cell,
+			     GtkCellEditable *editable,
+			     const gchar     *path);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkCellRendererClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.get-request-mode"></a>get_request_mode</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to gets whether the cell renderer prefers
+a height-for-width layout or a width-for-height layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.get-preferred-width"></a>get_preferred_width</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to get a renderer’s natural width.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.get-preferred-height-for-width"></a>get_preferred_height_for_width</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to get a renderer’s natural height for width.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.get-preferred-height"></a>get_preferred_height</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to get a renderer’s natural height.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.get-preferred-width-for-height"></a>get_preferred_width_for_height</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to get a renderer’s natural width for height.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.get-aligned-area"></a>get_aligned_area</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to get the aligned area used by <em class="parameter"><code>cell</code></em>
+inside <em class="parameter"><code>cell_area</code></em>
+.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.get-size"></a>get_size</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to get the width and height needed to render the cell. Deprecated: 3.0.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.render"></a>render</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to render the content of the <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.activate"></a>activate</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to activate the content of the <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.start-editing"></a>start_editing</code></em> ()</p></td>
+<td class="struct_member_description"><p>Called to initiate editing the content of the <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a>.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.editing-canceled"></a>editing_canceled</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal gets emitted when the user cancels the process of editing a cell.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellRendererClass.editing-started"></a>editing_started</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal gets emitted when a cell starts to be edited.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkCellRenderer--cell-background"></a><h3>The <code class="literal">“cell-background”</code> property</h3>
+<pre class="programlisting">  “cell-background”          <span class="type">gchar</span> *</pre>
+<p>Cell background color as a string.</p>
+<p>Flags: Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--cell-background-gdk"></a><h3>The <code class="literal">“cell-background-gdk”</code> property</h3>
+<pre class="programlisting">  “cell-background-gdk”      <span class="type">GdkColor</span> *</pre>
+<p>Cell background as a <span class="type">GdkColor</span></p>
+<div class="warning">
+<p><code class="literal">GtkCellRenderer:cell-background-gdk</code> has been deprecated since version 3.4 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkCellRenderer.html#GtkCellRenderer--cell-background-rgba" title="The “cell-background-rgba” property"><span class="type">“cell-background-rgba”</span></a> instead.</p>
+</div>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--cell-background-rgba"></a><h3>The <code class="literal">“cell-background-rgba”</code> property</h3>
+<pre class="programlisting">  “cell-background-rgba”     <span class="type">GdkRGBA</span> *</pre>
+<p>Cell background as a <span class="type">GdkRGBA</span></p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--cell-background-set"></a><h3>The <code class="literal">“cell-background-set”</code> property</h3>
+<pre class="programlisting">  “cell-background-set”      <span class="type">gboolean</span></pre>
+<p>Whether the cell background color is set.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--editing"></a><h3>The <code class="literal">“editing”</code> property</h3>
+<pre class="programlisting">  “editing”                  <span class="type">gboolean</span></pre>
+<p>Whether the cell renderer is currently in editing mode.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--height"></a><h3>The <code class="literal">“height”</code> property</h3>
+<pre class="programlisting">  “height”                   <span class="type">gint</span></pre>
+<p>The fixed height.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--is-expanded"></a><h3>The <code class="literal">“is-expanded”</code> property</h3>
+<pre class="programlisting">  “is-expanded”              <span class="type">gboolean</span></pre>
+<p>Row is an expander row, and is expanded.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--is-expander"></a><h3>The <code class="literal">“is-expander”</code> property</h3>
+<pre class="programlisting">  “is-expander”              <span class="type">gboolean</span></pre>
+<p>Row has children.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--mode"></a><h3>The <code class="literal">“mode”</code> property</h3>
+<pre class="programlisting">  “mode”                     <a class="link" href="GtkCellRenderer.html#GtkCellRendererMode" title="enum GtkCellRendererMode"><span class="type">GtkCellRendererMode</span></a></pre>
+<p>Editable mode of the CellRenderer.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_CELL_RENDERER_MODE_INERT</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--sensitive"></a><h3>The <code class="literal">“sensitive”</code> property</h3>
+<pre class="programlisting">  “sensitive”                <span class="type">gboolean</span></pre>
+<p>Display the cell sensitive.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--visible"></a><h3>The <code class="literal">“visible”</code> property</h3>
+<pre class="programlisting">  “visible”                  <span class="type">gboolean</span></pre>
+<p>Display the cell.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--width"></a><h3>The <code class="literal">“width”</code> property</h3>
+<pre class="programlisting">  “width”                    <span class="type">gint</span></pre>
+<p>The fixed width.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--xalign"></a><h3>The <code class="literal">“xalign”</code> property</h3>
+<pre class="programlisting">  “xalign”                   <span class="type">gfloat</span></pre>
+<p>The x-align.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--xpad"></a><h3>The <code class="literal">“xpad”</code> property</h3>
+<pre class="programlisting">  “xpad”                     <span class="type">guint</span></pre>
+<p>The xpad.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--yalign"></a><h3>The <code class="literal">“yalign”</code> property</h3>
+<pre class="programlisting">  “yalign”                   <span class="type">gfloat</span></pre>
+<p>The y-align.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,1]</p>
+<p>Default value: 0.5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer--ypad"></a><h3>The <code class="literal">“ypad”</code> property</h3>
+<pre class="programlisting">  “ypad”                     <span class="type">guint</span></pre>
+<p>The ypad.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkCellRenderer-editing-canceled"></a><h3>The <code class="literal">“editing-canceled”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *renderer,
+               <span class="type">gpointer</span>         user_data)</pre>
+<p>This signal gets emitted when the user cancels the process of editing a
+cell.  For example, an editable cell renderer could be written to cancel
+editing when the user presses Escape. </p>
+<p>See also: <a class="link" href="GtkCellRenderer.html#gtk-cell-renderer-stop-editing" title="gtk_cell_renderer_stop_editing ()"><code class="function">gtk_cell_renderer_stop_editing()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkCellRenderer-editing-canceled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>renderer</p></td>
+<td class="parameter_description"><p>the object which received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellRenderer-editing-started"></a><h3>The <code class="literal">“editing-started”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *renderer,
+               <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a> *editable,
+               <span class="type">gchar</span>           *path,
+               <span class="type">gpointer</span>         user_data)</pre>
+<p>This signal gets emitted when a cell starts to be edited.
+The intended use of this signal is to do special setup
+on <em class="parameter"><code>editable</code></em>
+, e.g. adding a <a class="link" href="GtkEntryCompletion.html" title="GtkEntryCompletion"><span class="type">GtkEntryCompletion</span></a> or setting
+up additional columns in a <a class="link" href="GtkComboBox.html" title="GtkComboBox"><span class="type">GtkComboBox</span></a>.</p>
+<p>See <a class="link" href="GtkCellEditable.html#gtk-cell-editable-start-editing" title="gtk_cell_editable_start_editing ()"><code class="function">gtk_cell_editable_start_editing()</code></a> for information on the lifecycle of
+the <em class="parameter"><code>editable</code></em>
+ and a way to do setup that doesn’t depend on the <em class="parameter"><code>renderer</code></em>
+.</p>
+<p>Note that GTK+ doesn't guarantee that cell renderers will
+continue to use the same kind of widget for editing in future
+releases, therefore you should check the type of <em class="parameter"><code>editable</code></em>
+
+before doing any specific setup, as in the following example:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">text_editing_started</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GtkCellRenderer</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">cell</span><span class="symbol">,</span>
+<span class="normal">                      </span><span class="usertype">GtkCellEditable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">editable</span><span class="symbol">,</span>
+<span class="normal">                      </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">gchar</span><span class="normal">     </span><span class="symbol">*</span><span class="normal">path</span><span class="symbol">,</span>
+<span class="normal">                      </span><span class="usertype">gpointer</span><span class="normal">         data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">GTK_IS_ENTRY</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">editable</span><span class="symbol">))</span>
+
+<span class="normal">    </span><span class="cbracket">{</span>
+<span class="normal">      </span><span class="usertype">GtkEntry</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">entry </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GTK_ENTRY</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">editable</span><span class="symbol">);</span>
+
+<span class="normal">      </span><span class="comment">// ... create a GtkEntryCompletion</span>
+
+<span class="normal">      </span><span class="function"><a href="GtkEntry.html#gtk-entry-set-completion">gtk_entry_set_completion</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">entry</span><span class="symbol">,</span><span class="normal"> completion</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="cbracket">}</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="GtkCellRenderer-editing-started.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>renderer</p></td>
+<td class="parameter_description"><p>the object which received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>the path identifying the edited cell</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: 2.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellRenderer.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkCellEditable.html" title="GtkCellEditable"><span class="type">GtkCellEditable</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

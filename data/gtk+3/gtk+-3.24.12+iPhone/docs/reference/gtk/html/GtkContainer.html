@@ -1,0 +1,2463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkContainer: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="AbstractObjects.html" title="Abstract Base Classes">
+<link rel="prev" href="GtkWidget.html" title="GtkWidget">
+<link rel="next" href="GtkBin.html" title="GtkBin">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkContainer.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkContainer.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkContainer.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkContainer.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkContainer.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="AbstractObjects.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkWidget.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkBin.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkContainer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkContainer.top_of_page"></a>GtkContainer</span></h2>
+<p>GtkContainer — Base class for widgets which contain other widgets</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkContainer.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#GTK-IS-RESIZE-CONTAINER:CAPS" title="GTK_IS_RESIZE_CONTAINER()">GTK_IS_RESIZE_CONTAINER</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#GTK-CONTAINER-WARN-INVALID-CHILD-PROPERTY-ID:CAPS" title="GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID()">GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()">gtk_container_add</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-remove" title="gtk_container_remove ()">gtk_container_remove</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-add-with-properties" title="gtk_container_add_with_properties ()">gtk_container_add_with_properties</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkContainer.html#GtkResizeMode" title="enum GtkResizeMode"><span class="returnvalue">GtkResizeMode</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-resize-mode" title="gtk_container_get_resize_mode ()">gtk_container_get_resize_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-set-resize-mode" title="gtk_container_set_resize_mode ()">gtk_container_set_resize_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-check-resize" title="gtk_container_check_resize ()">gtk_container_check_resize</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-foreach" title="gtk_container_foreach ()">gtk_container_foreach</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-children" title="gtk_container_get_children ()">gtk_container_get_children</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-path-for-child" title="gtk_container_get_path_for_child ()">gtk_container_get_path_for_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-set-reallocate-redraws" title="gtk_container_set_reallocate_redraws ()">gtk_container_set_reallocate_redraws</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-focus-child" title="gtk_container_get_focus_child ()">gtk_container_get_focus_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-set-focus-child" title="gtk_container_set_focus_child ()">gtk_container_set_focus_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-focus-vadjustment" title="gtk_container_get_focus_vadjustment ()">gtk_container_get_focus_vadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-set-focus-vadjustment" title="gtk_container_set_focus_vadjustment ()">gtk_container_set_focus_vadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-focus-hadjustment" title="gtk_container_get_focus_hadjustment ()">gtk_container_get_focus_hadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-set-focus-hadjustment" title="gtk_container_set_focus_hadjustment ()">gtk_container_set_focus_hadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-resize-children" title="gtk_container_resize_children ()">gtk_container_resize_children</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GType</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-type" title="gtk_container_child_type ()">gtk_container_child_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-get" title="gtk_container_child_get ()">gtk_container_child_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-set" title="gtk_container_child_set ()">gtk_container_child_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-get-property" title="gtk_container_child_get_property ()">gtk_container_child_get_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-set-property" title="gtk_container_child_set_property ()">gtk_container_child_set_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-get-valist" title="gtk_container_child_get_valist ()">gtk_container_child_get_valist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-set-valist" title="gtk_container_child_set_valist ()">gtk_container_child_set_valist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-notify" title="gtk_container_child_notify ()">gtk_container_child_notify</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-child-notify-by-pspec" title="gtk_container_child_notify_by_pspec ()">gtk_container_child_notify_by_pspec</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-forall" title="gtk_container_forall ()">gtk_container_forall</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-border-width" title="gtk_container_get_border_width ()">gtk_container_get_border_width</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-set-border-width" title="gtk_container_set_border_width ()">gtk_container_set_border_width</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-propagate-draw" title="gtk_container_propagate_draw ()">gtk_container_propagate_draw</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-get-focus-chain" title="gtk_container_get_focus_chain ()">gtk_container_get_focus_chain</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-set-focus-chain" title="gtk_container_set_focus_chain ()">gtk_container_set_focus_chain</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-unset-focus-chain" title="gtk_container_unset_focus_chain ()">gtk_container_unset_focus_chain</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GParamSpec</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-class-find-child-property" title="gtk_container_class_find_child_property ()">gtk_container_class_find_child_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-class-install-child-property" title="gtk_container_class_install_child_property ()">gtk_container_class_install_child_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-class-install-child-properties" title="gtk_container_class_install_child_properties ()">gtk_container_class_install_child_properties</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GParamSpec</span> **
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-class-list-child-properties" title="gtk_container_class_list_child_properties ()">gtk_container_class_list_child_properties</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkContainer.html#gtk-container-class-handle-border-width" title="gtk_container_class_handle_border_width ()">gtk_container_class_handle_border_width</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkContainer.html#GtkContainer--border-width" title="The “border-width” property">border-width</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkContainer.html#GtkContainer--child" title="The “child” property">child</a></td>
+<td class="property_flags">Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkContainer.html#GtkResizeMode" title="enum GtkResizeMode"><span class="type">GtkResizeMode</span></a></td>
+<td class="property_name"><a class="link" href="GtkContainer.html#GtkContainer--resize-mode" title="The “resize-mode” property">resize-mode</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkContainer.html#GtkContainer-add" title="The “add” signal">add</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkContainer.html#GtkContainer-check-resize" title="The “check-resize” signal">check-resize</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkContainer.html#GtkContainer-remove" title="The “remove” signal">remove</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkContainer.html#GtkContainer-set-focus-child" title="The “set-focus-child” signal">set-focus-child</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkContainer.html#GtkContainer-struct" title="struct GtkContainer">GtkContainer</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass">GtkContainerClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkContainer.html#GtkResizeMode" title="enum GtkResizeMode">GtkResizeMode</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> GtkContainer
+                <span class="lineart">├──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkBox.html" title="GtkBox">GtkBox</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkFixed.html" title="GtkFixed">GtkFixed</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkFlowBox.html" title="GtkFlowBox">GtkFlowBox</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkGrid.html" title="GtkGrid">GtkGrid</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar">GtkHeaderBar</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkPaned.html" title="GtkPaned">GtkPaned</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkIconView.html" title="GtkIconView">GtkIconView</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkLayout.html" title="GtkLayout">GtkLayout</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkListBox.html" title="GtkListBox">GtkListBox</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkMenuShell.html" title="GtkMenuShell">GtkMenuShell</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkNotebook.html" title="GtkNotebook">GtkNotebook</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkSocket.html" title="GtkSocket">GtkSocket</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkStack.html" title="GtkStack">GtkStack</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkTable.html" title="GtkTable">GtkTable</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkTextView.html" title="GtkTextView">GtkTextView</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkToolbar.html" title="GtkToolbar">GtkToolbar</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkToolItemGroup.html" title="GtkToolItemGroup">GtkToolItemGroup</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkToolPalette.html" title="GtkToolPalette">GtkToolPalette</a>
+                <span class="lineart">╰──</span> <a class="link" href="GtkTreeView.html" title="GtkTreeView">GtkTreeView</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkContainer implements
+ AtkImplementorIface and  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.description"></a><h2>Description</h2>
+<p>A GTK+ user interface is constructed by nesting widgets inside widgets.
+Container widgets are the inner nodes in the resulting tree of widgets:
+they contain other widgets. So, for example, you might have a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>
+containing a <a class="link" href="GtkFrame.html" title="GtkFrame"><span class="type">GtkFrame</span></a> containing a <a class="link" href="GtkLabel.html" title="GtkLabel"><span class="type">GtkLabel</span></a>. If you wanted an image instead
+of a textual label inside the frame, you might replace the <a class="link" href="GtkLabel.html" title="GtkLabel"><span class="type">GtkLabel</span></a> widget
+with a <a class="link" href="GtkImage.html" title="GtkImage"><span class="type">GtkImage</span></a> widget.</p>
+<p>There are two major kinds of container widgets in GTK+. Both are subclasses
+of the abstract GtkContainer base class.</p>
+<p>The first type of container widget has a single child widget and derives
+from <a class="link" href="GtkBin.html" title="GtkBin"><span class="type">GtkBin</span></a>. These containers are decorators, which
+add some kind of functionality to the child. For example, a <a class="link" href="GtkButton.html" title="GtkButton"><span class="type">GtkButton</span></a> makes
+its child into a clickable button; a <a class="link" href="GtkFrame.html" title="GtkFrame"><span class="type">GtkFrame</span></a> draws a frame around its child
+and a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> places its child widget inside a top-level window.</p>
+<p>The second type of container can have more than one child; its purpose is to
+manage layout. This means that these containers assign
+sizes and positions to their children. For example, a <a class="link" href="GtkHBox.html" title="GtkHBox"><span class="type">GtkHBox</span></a> arranges its
+children in a horizontal row, and a <a class="link" href="GtkGrid.html" title="GtkGrid"><span class="type">GtkGrid</span></a> arranges the widgets it contains
+in a two-dimensional grid.</p>
+<p>For implementations of <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> the virtual method <a class="link" href="GtkContainer.html#GtkContainerClass.forall"><code class="function">GtkContainerClass.forall()</code></a>
+is always required, since it's used for drawing and other internal operations
+on the children.
+If the <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> implementation expect to have non internal children
+it's needed to implement both <a class="link" href="GtkContainer.html#GtkContainerClass.add"><code class="function">GtkContainerClass.add()</code></a> and <a class="link" href="GtkContainer.html#GtkContainerClass.remove"><code class="function">GtkContainerClass.remove()</code></a>.
+If the GtkContainer implementation has internal children, they should be added
+with <a class="link" href="GtkWidget.html#gtk-widget-set-parent" title="gtk_widget_set_parent ()"><code class="function">gtk_widget_set_parent()</code></a> on <code class="function">init()</code> and removed with <a class="link" href="GtkWidget.html#gtk-widget-unparent" title="gtk_widget_unparent ()"><code class="function">gtk_widget_unparent()</code></a>
+in the <a class="link" href="GtkWidget.html#GtkWidgetClass.destroy"><code class="function">GtkWidgetClass.destroy()</code></a> implementation.
+See more about implementing custom widgets at https://wiki.gnome.org/HowDoI/CustomWidgets</p>
+<div class="refsect2">
+<a name="id-1.3.20.3.10.7"></a><h3>Height for width geometry management</h3>
+<p>GTK+ uses a height-for-width (and width-for-height) geometry management system.
+Height-for-width means that a widget can change how much vertical space it needs,
+depending on the amount of horizontal space that it is given (and similar for
+width-for-height).</p>
+<p>There are some things to keep in mind when implementing container widgets
+that make use of GTK+’s height for width geometry management system. First,
+it’s important to note that a container must prioritize one of its
+dimensions, that is to say that a widget or container can only have a
+<a class="link" href="GtkWidget.html#GtkSizeRequestMode" title="enum GtkSizeRequestMode"><span class="type">GtkSizeRequestMode</span></a> that is <a class="link" href="GtkWidget.html#GTK-SIZE-REQUEST-HEIGHT-FOR-WIDTH:CAPS"><code class="literal">GTK_SIZE_REQUEST_HEIGHT_FOR_WIDTH</code></a> or
+<a class="link" href="GtkWidget.html#GTK-SIZE-REQUEST-WIDTH-FOR-HEIGHT:CAPS"><code class="literal">GTK_SIZE_REQUEST_WIDTH_FOR_HEIGHT</code></a>. However, every widget and container
+must be able to respond to the APIs for both dimensions, i.e. even if a
+widget has a request mode that is height-for-width, it is possible that
+its parent will request its sizes using the width-for-height APIs.</p>
+<p>To ensure that everything works properly, here are some guidelines to follow
+when implementing height-for-width (or width-for-height) containers.</p>
+<p>Each request mode involves 2 virtual methods. Height-for-width apis run
+through <a class="link" href="GtkWidget.html#gtk-widget-get-preferred-width" title="gtk_widget_get_preferred_width ()"><code class="function">gtk_widget_get_preferred_width()</code></a> and then through <a class="link" href="GtkWidget.html#gtk-widget-get-preferred-height-for-width" title="gtk_widget_get_preferred_height_for_width ()"><code class="function">gtk_widget_get_preferred_height_for_width()</code></a>.
+When handling requests in the opposite <a class="link" href="GtkWidget.html#GtkSizeRequestMode" title="enum GtkSizeRequestMode"><span class="type">GtkSizeRequestMode</span></a> it is important that
+every widget request at least enough space to display all of its content at all times.</p>
+<p>When <a class="link" href="GtkWidget.html#gtk-widget-get-preferred-height" title="gtk_widget_get_preferred_height ()"><code class="function">gtk_widget_get_preferred_height()</code></a> is called on a container that is height-for-width,
+the container must return the height for its minimum width. This is easily achieved by
+simply calling the reverse apis implemented for itself as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">foo_container_get_preferred_height</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GtkWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">widget</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="usertype">gint</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">min_height</span><span class="symbol">,</span>
+<span class="normal">                                    </span><span class="usertype">gint</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nat_height</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i_am_in_height_for_width_mode</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="cbracket">{</span>
+<span class="normal">       </span><span class="usertype">gint</span><span class="normal"> min_width</span><span class="symbol">;</span>
+
+<span class="normal">       </span><span class="function">GTK_WIDGET_GET_CLASS</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">widget</span><span class="symbol">)-&gt;</span><span class="function">get_preferred_width</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">widget</span><span class="symbol">,</span>
+<span class="normal">                                                           </span><span class="symbol">&amp;</span><span class="normal">min_width</span><span class="symbol">,</span>
+<span class="normal">                                                           NULL</span><span class="symbol">);</span>
+<span class="normal">       </span><span class="function">GTK_WIDGET_GET_CLASS</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">widget</span><span class="symbol">)-&gt;</span><span class="normal">get_preferred_height_for_width</span>
+<span class="normal">                                                          </span><span class="symbol">(</span><span class="normal">widget</span><span class="symbol">,</span>
+<span class="normal">                                                           min_width</span><span class="symbol">,</span>
+<span class="normal">                                                           min_height</span><span class="symbol">,</span>
+<span class="normal">                                                           nat_height</span><span class="symbol">);</span>
+<span class="normal">     </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">     </span><span class="cbracket">{</span>
+<span class="normal">       </span><span class="symbol">...</span><span class="normal"> many containers support both </span><span class="usertype">request</span><span class="normal"> modes</span><span class="symbol">,</span><span class="normal"> execute the</span>
+<span class="normal">       </span><span class="usertype">real</span><span class="normal"> width</span><span class="symbol">-</span><span class="keyword">for</span><span class="symbol">-</span><span class="normal">height request here by returning the</span>
+<span class="normal">       collective heights of all widgets that are stacked</span>
+<span class="normal">       </span><span class="function">vertically</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">or whatever is appropriate </span><span class="keyword">for</span><span class="normal"> </span><span class="usertype">this</span><span class="normal"> container</span><span class="symbol">)</span>
+<span class="normal">       </span><span class="symbol">...</span>
+<span class="normal">     </span><span class="cbracket">}</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>Similarly, when <a class="link" href="GtkWidget.html#gtk-widget-get-preferred-width-for-height" title="gtk_widget_get_preferred_width_for_height ()"><code class="function">gtk_widget_get_preferred_width_for_height()</code></a> is called for a container or widget
+that is height-for-width, it then only needs to return the base minimum width like so:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">foo_container_get_preferred_width_for_height</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GtkWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">widget</span><span class="symbol">,</span>
+<span class="normal">                                              </span><span class="usertype">gint</span><span class="normal"> for_height</span><span class="symbol">,</span>
+<span class="normal">                                              </span><span class="usertype">gint</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">min_width</span><span class="symbol">,</span>
+<span class="normal">                                              </span><span class="usertype">gint</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">nat_width</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i_am_in_height_for_width_mode</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="cbracket">{</span>
+<span class="normal">       </span><span class="function">GTK_WIDGET_GET_CLASS</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">widget</span><span class="symbol">)-&gt;</span><span class="function">get_preferred_width</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">widget</span><span class="symbol">,</span>
+<span class="normal">                                                           min_width</span><span class="symbol">,</span>
+<span class="normal">                                                           nat_width</span><span class="symbol">);</span>
+<span class="normal">     </span><span class="cbracket">}</span>
+<span class="normal">   </span><span class="keyword">else</span>
+<span class="normal">     </span><span class="cbracket">{</span>
+<span class="normal">       </span><span class="symbol">...</span><span class="normal"> execute the </span><span class="usertype">real</span><span class="normal"> width</span><span class="symbol">-</span><span class="keyword">for</span><span class="symbol">-</span><span class="normal">height request here based on</span>
+<span class="normal">       the required width of the children collectively </span><span class="keyword">if</span><span class="normal"> the</span>
+<span class="normal">       container were to be allocated the </span><span class="usertype">said</span><span class="normal"> height </span><span class="symbol">...</span>
+<span class="normal">     </span><span class="cbracket">}</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>Height for width requests are generally implemented in terms of a virtual allocation
+of widgets in the input orientation. Assuming an height-for-width request mode, a container
+would implement the <code class="function">get_preferred_height_for_width()</code> virtual function by first calling
+<a class="link" href="GtkWidget.html#gtk-widget-get-preferred-width" title="gtk_widget_get_preferred_width ()"><code class="function">gtk_widget_get_preferred_width()</code></a> for each of its children.</p>
+<p>For each potential group of children that are lined up horizontally, the values returned by
+<a class="link" href="GtkWidget.html#gtk-widget-get-preferred-width" title="gtk_widget_get_preferred_width ()"><code class="function">gtk_widget_get_preferred_width()</code></a> should be collected in an array of <a class="link" href="GtkWidget.html#GtkRequestedSize" title="struct GtkRequestedSize"><span class="type">GtkRequestedSize</span></a> structures.
+Any child spacing should be removed from the input <em class="parameter"><code>for_width</code></em>
+ and then the collective size should be
+allocated using the <a class="link" href="GtkWidget.html#gtk-distribute-natural-allocation" title="gtk_distribute_natural_allocation ()"><code class="function">gtk_distribute_natural_allocation()</code></a> convenience function.</p>
+<p>The container will then move on to request the preferred height for each child by using
+<a class="link" href="GtkWidget.html#gtk-widget-get-preferred-height-for-width" title="gtk_widget_get_preferred_height_for_width ()"><code class="function">gtk_widget_get_preferred_height_for_width()</code></a> and using the sizes stored in the <a class="link" href="GtkWidget.html#GtkRequestedSize" title="struct GtkRequestedSize"><span class="type">GtkRequestedSize</span></a> array.</p>
+<p>To allocate a height-for-width container, it’s again important
+to consider that a container must prioritize one dimension over the other. So if
+a container is a height-for-width container it must first allocate all widgets horizontally
+using a <a class="link" href="GtkWidget.html#GtkRequestedSize" title="struct GtkRequestedSize"><span class="type">GtkRequestedSize</span></a> array and <a class="link" href="GtkWidget.html#gtk-distribute-natural-allocation" title="gtk_distribute_natural_allocation ()"><code class="function">gtk_distribute_natural_allocation()</code></a> and then add any
+extra space (if and where appropriate) for the widget to expand.</p>
+<p>After adding all the expand space, the container assumes it was allocated sufficient
+height to fit all of its content. At this time, the container must use the total horizontal sizes
+of each widget to request the height-for-width of each of its children and store the requests in a
+<a class="link" href="GtkWidget.html#GtkRequestedSize" title="struct GtkRequestedSize"><span class="type">GtkRequestedSize</span></a> array for any widgets that stack vertically (for tabular containers this can
+be generalized into the heights and widths of rows and columns).
+The vertical space must then again be distributed using <a class="link" href="GtkWidget.html#gtk-distribute-natural-allocation" title="gtk_distribute_natural_allocation ()"><code class="function">gtk_distribute_natural_allocation()</code></a>
+while this time considering the allocated height of the widget minus any vertical spacing
+that the container adds. Then vertical expand space should be added where appropriate and available
+and the container should go on to actually allocating the child widgets.</p>
+<p>See <a class="link" href="GtkWidget.html#geometry-management" title="Height-for-width Geometry Management">GtkWidget’s geometry management section</a>
+to learn more about implementing height-for-width geometry management for widgets.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.3.20.3.10.8"></a><h3>Child properties</h3>
+<p>GtkContainer introduces child properties.
+These are object properties that are not specific
+to either the container or the contained widget, but rather to their relation.
+Typical examples of child properties are the position or pack-type of a widget
+which is contained in a <a class="link" href="GtkBox.html" title="GtkBox"><span class="type">GtkBox</span></a>.</p>
+<p>Use <a class="link" href="GtkContainer.html#gtk-container-class-install-child-property" title="gtk_container_class_install_child_property ()"><code class="function">gtk_container_class_install_child_property()</code></a> to install child properties
+for a container class and <a class="link" href="GtkContainer.html#gtk-container-class-find-child-property" title="gtk_container_class_find_child_property ()"><code class="function">gtk_container_class_find_child_property()</code></a> or
+<a class="link" href="GtkContainer.html#gtk-container-class-list-child-properties" title="gtk_container_class_list_child_properties ()"><code class="function">gtk_container_class_list_child_properties()</code></a> to get information about existing
+child properties.</p>
+<p>To set the value of a child property, use <a class="link" href="GtkContainer.html#gtk-container-child-set-property" title="gtk_container_child_set_property ()"><code class="function">gtk_container_child_set_property()</code></a>,
+<a class="link" href="GtkContainer.html#gtk-container-child-set" title="gtk_container_child_set ()"><code class="function">gtk_container_child_set()</code></a> or <a class="link" href="GtkContainer.html#gtk-container-child-set-valist" title="gtk_container_child_set_valist ()"><code class="function">gtk_container_child_set_valist()</code></a>.
+To obtain the value of a child property, use
+<a class="link" href="GtkContainer.html#gtk-container-child-get-property" title="gtk_container_child_get_property ()"><code class="function">gtk_container_child_get_property()</code></a>, <a class="link" href="GtkContainer.html#gtk-container-child-get" title="gtk_container_child_get ()"><code class="function">gtk_container_child_get()</code></a> or
+<a class="link" href="GtkContainer.html#gtk-container-child-get-valist" title="gtk_container_child_get_valist ()"><code class="function">gtk_container_child_get_valist()</code></a>. To emit notification about child property
+changes, use <a class="link" href="GtkWidget.html#gtk-widget-child-notify" title="gtk_widget_child_notify ()"><code class="function">gtk_widget_child_notify()</code></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.3.20.3.10.9"></a><h3>GtkContainer as GtkBuildable</h3>
+<p>The GtkContainer implementation of the GtkBuildable interface supports
+a &lt;packing&gt; element for children, which can contain multiple &lt;property&gt;
+elements that specify child properties for the child.</p>
+<p>Since 2.16, child properties can also be marked as translatable using
+the same “translatable”, “comments” and “context” attributes that are used
+for regular properties.</p>
+<p>Since 3.16, containers can have a &lt;focus-chain&gt; element containing multiple
+&lt;widget&gt; elements, one for each child that should be added to the focus
+chain. The ”name” attribute gives the id of the widget.</p>
+<p>An example of these properties in UI definitions:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkBox"</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkEntry"</span><span class="normal"> id</span><span class="symbol">=</span><span class="string">"entry1"</span><span class="symbol">/&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="normal">packing</span><span class="symbol">&gt;</span>
+<span class="normal">      </span><span class="symbol">&lt;</span><span class="usertype">property</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"pack-type"</span><span class="symbol">&gt;</span><span class="normal">start</span><span class="symbol">&lt;/</span><span class="normal">property</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;/</span><span class="normal">packing</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkEntry"</span><span class="normal"> id</span><span class="symbol">=</span><span class="string">"entry2"</span><span class="symbol">/&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">focus</span><span class="symbol">-</span><span class="normal">chain</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">widget</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"entry1"</span><span class="symbol">/&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">widget</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"entry2"</span><span class="symbol">/&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">focus</span><span class="symbol">-</span><span class="normal">chain</span><span class="symbol">&gt;</span>
+<span class="symbol">&lt;/</span><span class="normal">object</span><span class="symbol">&gt;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="GTK-IS-RESIZE-CONTAINER:CAPS"></a><h3>GTK_IS_RESIZE_CONTAINER()</h3>
+<pre class="programlisting">#define             GTK_IS_RESIZE_CONTAINER(widget)</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-CONTAINER-WARN-INVALID-CHILD-PROPERTY-ID:CAPS"></a><h3>GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID()</h3>
+<pre class="programlisting">#define             GTK_CONTAINER_WARN_INVALID_CHILD_PROPERTY_ID(object, property_id, pspec)</pre>
+<p>This macro should be used to emit a standard warning about unexpected
+properties in <code class="function">set_child_property()</code> and <code class="function">get_child_property()</code> implementations.</p>
+<div class="refsect3">
+<a name="GTK-CONTAINER-WARN-INVALID-CHILD-PROPERTY-ID.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>the <span class="type">GObject</span> on which <code class="function">set_child_property()</code> or <code class="function">get_child_property()</code>
+was called</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_id</p></td>
+<td class="parameter_description"><p>the numeric id of the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>the <span class="type">GParamSpec</span> of the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-add"></a><h3>gtk_container_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_add (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                   <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+<p>Adds <em class="parameter"><code>widget</code></em>
+ to <em class="parameter"><code>container</code></em>
+. Typically used for simple containers
+such as <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>, <a class="link" href="GtkFrame.html" title="GtkFrame"><span class="type">GtkFrame</span></a>, or <a class="link" href="GtkButton.html" title="GtkButton"><span class="type">GtkButton</span></a>; for more complicated
+layout containers such as <a class="link" href="GtkBox.html" title="GtkBox"><span class="type">GtkBox</span></a> or <a class="link" href="GtkGrid.html" title="GtkGrid"><span class="type">GtkGrid</span></a>, this function will
+pick default packing parameters that may not be correct.  So
+consider functions such as <a class="link" href="GtkBox.html#gtk-box-pack-start" title="gtk_box_pack_start ()"><code class="function">gtk_box_pack_start()</code></a> and
+<a class="link" href="GtkGrid.html#gtk-grid-attach" title="gtk_grid_attach ()"><code class="function">gtk_grid_attach()</code></a> as an alternative to <a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()"><code class="function">gtk_container_add()</code></a> in
+those cases. A widget may be added to only one container at a time;
+you can’t place the same widget inside two different containers.</p>
+<p>Note that some containers, such as <a class="link" href="GtkScrolledWindow.html" title="GtkScrolledWindow"><span class="type">GtkScrolledWindow</span></a> or <a class="link" href="GtkListBox.html" title="GtkListBox"><span class="type">GtkListBox</span></a>,
+may add intermediate children between the added widget and the
+container.</p>
+<div class="refsect3">
+<a name="gtk-container-add.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a widget to be placed inside <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-remove"></a><h3>gtk_container_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_remove (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                      <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+<p>Removes <em class="parameter"><code>widget</code></em>
+ from <em class="parameter"><code>container</code></em>
+. <em class="parameter"><code>widget</code></em>
+ must be inside <em class="parameter"><code>container</code></em>
+.
+Note that <em class="parameter"><code>container</code></em>
+ will own a reference to <em class="parameter"><code>widget</code></em>
+, and that this
+may be the last reference held; so removing a widget from its
+container can destroy that widget. If you want to use <em class="parameter"><code>widget</code></em>
+
+again, you need to add a reference to it before removing it from
+a container, using <code class="function">g_object_ref()</code>. If you don’t want to use <em class="parameter"><code>widget</code></em>
+
+again it’s usually more efficient to simply destroy it directly
+using <a class="link" href="GtkWidget.html#gtk-widget-destroy" title="gtk_widget_destroy ()"><code class="function">gtk_widget_destroy()</code></a> since this will remove it from the
+container and help break any circular reference count cycles.</p>
+<div class="refsect3">
+<a name="gtk-container-remove.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a current child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-add-with-properties"></a><h3>gtk_container_add_with_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_add_with_properties (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                   <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *first_prop_name</code></em>,
+                                   <em class="parameter"><code>...</code></em>);</pre>
+<p>Adds <em class="parameter"><code>widget</code></em>
+ to <em class="parameter"><code>container</code></em>
+, setting child properties at the same time.
+See <a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()"><code class="function">gtk_container_add()</code></a> and <a class="link" href="GtkContainer.html#gtk-container-child-set" title="gtk_container_child_set ()"><code class="function">gtk_container_child_set()</code></a> for more details.</p>
+<div class="refsect3">
+<a name="gtk-container-add-with-properties.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a widget to be placed inside <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>first_prop_name</p></td>
+<td class="parameter_description"><p>the name of the first child property to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>...</p></td>
+<td class="parameter_description"><p>a <code class="literal">NULL</code>-terminated list of property names and values, starting
+with <em class="parameter"><code>first_prop_name</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-resize-mode"></a><h3>gtk_container_get_resize_mode ()</h3>
+<pre class="programlisting"><a class="link" href="GtkContainer.html#GtkResizeMode" title="enum GtkResizeMode"><span class="returnvalue">GtkResizeMode</span></a>
+gtk_container_get_resize_mode (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_container_get_resize_mode</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Resize modes are deprecated. They aren’t necessary
+    anymore since frame clocks and might introduce obscure bugs if
+    used.</p>
+</div>
+<p>Returns the resize mode for the container. See
+<a class="link" href="GtkContainer.html#gtk-container-set-resize-mode" title="gtk_container_set_resize_mode ()"><code class="function">gtk_container_set_resize_mode()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-get-resize-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-resize-mode.returns"></a><h4>Returns</h4>
+<p> the current resize mode</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-set-resize-mode"></a><h3>gtk_container_set_resize_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_set_resize_mode (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkContainer.html#GtkResizeMode" title="enum GtkResizeMode"><span class="type">GtkResizeMode</span></a> resize_mode</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_container_set_resize_mode</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Resize modes are deprecated. They aren’t necessary
+    anymore since frame clocks and might introduce obscure bugs if
+    used.</p>
+</div>
+<p>Sets the resize mode for the container.</p>
+<p>The resize mode of a container determines whether a resize request
+will be passed to the container’s parent, queued for later execution
+or executed immediately.</p>
+<div class="refsect3">
+<a name="gtk-container-set-resize-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>resize_mode</p></td>
+<td class="parameter_description"><p>the new resize mode</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-check-resize"></a><h3>gtk_container_check_resize ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_check_resize (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-foreach"></a><h3>gtk_container_foreach ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_foreach (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                       <em class="parameter"><code><a class="link" href="GtkWidget.html#GtkCallback" title="GtkCallback ()"><span class="type">GtkCallback</span></a> callback</code></em>,
+                       <em class="parameter"><code><span class="type">gpointer</span> callback_data</code></em>);</pre>
+<p>Invokes <em class="parameter"><code>callback</code></em>
+ on each non-internal child of <em class="parameter"><code>container</code></em>
+.
+See <a class="link" href="GtkContainer.html#gtk-container-forall" title="gtk_container_forall ()"><code class="function">gtk_container_forall()</code></a> for details on what constitutes
+an “internal” child. For all practical purposes, this function
+should iterate over precisely those child widgets that were
+added to the container by the application with explicit <code class="function">add()</code>
+calls.</p>
+<p>It is permissible to remove the child from the <em class="parameter"><code>callback</code></em>
+ handler.</p>
+<p>Most applications should use <a class="link" href="GtkContainer.html#gtk-container-foreach" title="gtk_container_foreach ()"><code class="function">gtk_container_foreach()</code></a>,
+rather than <a class="link" href="GtkContainer.html#gtk-container-forall" title="gtk_container_forall ()"><code class="function">gtk_container_forall()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-foreach.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a callback. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback_data</p></td>
+<td class="parameter_description"><p>callback user data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-children"></a><h3>gtk_container_get_children ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gtk_container_get_children (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<p>Returns the container’s non-internal children. See
+<a class="link" href="GtkContainer.html#gtk-container-forall" title="gtk_container_forall ()"><code class="function">gtk_container_forall()</code></a> for details on what constitutes an "internal" child.</p>
+<div class="refsect3">
+<a name="gtk-container-get-children.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-children.returns"></a><h4>Returns</h4>
+<p>a newly-allocated list of the container’s non-internal children. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkWidget][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-path-for-child"></a><h3>gtk_container_get_path_for_child ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+gtk_container_get_path_for_child (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                  <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>);</pre>
+<p>Returns a newly created widget path representing all the widget hierarchy
+from the toplevel down to and including <em class="parameter"><code>child</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-container-get-path-for-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-path-for-child.returns"></a><h4>Returns</h4>
+<p> A newly created <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-set-reallocate-redraws"></a><h3>gtk_container_set_reallocate_redraws ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_set_reallocate_redraws (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                      <em class="parameter"><code><span class="type">gboolean</span> needs_redraws</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_container_set_reallocate_redraws</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Call <a class="link" href="GtkWidget.html#gtk-widget-queue-draw" title="gtk_widget_queue_draw ()"><code class="function">gtk_widget_queue_draw()</code></a> in your size_allocate handler.</p>
+</div>
+<p>Sets the <em class="parameter"><code>reallocate_redraws</code></em>
+ flag of the container to the given value.</p>
+<p>Containers requesting reallocation redraws get automatically
+redrawn if any of their children changed allocation.</p>
+<div class="refsect3">
+<a name="gtk-container-set-reallocate-redraws.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>needs_redraws</p></td>
+<td class="parameter_description"><p>the new value for the container’s <em class="parameter"><code>reallocate_redraws</code></em>
+flag</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-focus-child"></a><h3>gtk_container_get_focus_child ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_container_get_focus_child (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<p>Returns the current focus child widget inside <em class="parameter"><code>container</code></em>
+. This is not the
+currently focused widget. That can be obtained by calling
+<a class="link" href="GtkWindow.html#gtk-window-get-focus" title="gtk_window_get_focus ()"><code class="function">gtk_window_get_focus()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-get-focus-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-focus-child.returns"></a><h4>Returns</h4>
+<p>The child widget which will receive the
+focus inside <em class="parameter"><code>container</code></em>
+when the <em class="parameter"><code>container</code></em>
+is focused,
+or <code class="literal">NULL</code> if none is set. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-set-focus-child"></a><h3>gtk_container_set_focus_child ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_set_focus_child (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>);</pre>
+<p>Sets, or unsets if <em class="parameter"><code>child</code></em>
+ is <code class="literal">NULL</code>, the focused child of <em class="parameter"><code>container</code></em>
+.</p>
+<p>This function emits the GtkContainer::set_focus_child signal of
+<em class="parameter"><code>container</code></em>
+. Implementations of <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> can override the
+default behaviour by overriding the class closure of this signal.</p>
+<p>This is function is mostly meant to be used by widgets. Applications can use
+<a class="link" href="GtkWidget.html#gtk-widget-grab-focus" title="gtk_widget_grab_focus ()"><code class="function">gtk_widget_grab_focus()</code></a> to manually set the focus to a specific widget.</p>
+<div class="refsect3">
+<a name="gtk-container-set-focus-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-focus-vadjustment"></a><h3>gtk_container_get_focus_vadjustment ()</h3>
+<pre class="programlisting"><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+gtk_container_get_focus_vadjustment (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<p>Retrieves the vertical focus adjustment for the container. See
+<a class="link" href="GtkContainer.html#gtk-container-set-focus-vadjustment" title="gtk_container_set_focus_vadjustment ()"><code class="function">gtk_container_set_focus_vadjustment()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-get-focus-vadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-focus-vadjustment.returns"></a><h4>Returns</h4>
+<p>the vertical focus adjustment, or
+<code class="literal">NULL</code> if none has been set. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-set-focus-vadjustment"></a><h3>gtk_container_set_focus_vadjustment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_set_focus_vadjustment (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *adjustment</code></em>);</pre>
+<p>Hooks up an adjustment to focus handling in a container, so when a
+child of the container is focused, the adjustment is scrolled to
+show that widget. This function sets the vertical alignment. See
+<a class="link" href="GtkScrolledWindow.html#gtk-scrolled-window-get-vadjustment" title="gtk_scrolled_window_get_vadjustment ()"><code class="function">gtk_scrolled_window_get_vadjustment()</code></a> for a typical way of obtaining
+the adjustment and <a class="link" href="GtkContainer.html#gtk-container-set-focus-hadjustment" title="gtk_container_set_focus_hadjustment ()"><code class="function">gtk_container_set_focus_hadjustment()</code></a> for setting
+the horizontal adjustment.</p>
+<p>The adjustments have to be in pixel units and in the same coordinate
+system as the allocation for immediate children of the container.</p>
+<div class="refsect3">
+<a name="gtk-container-set-focus-vadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>adjustment</p></td>
+<td class="parameter_description"><p>an adjustment which should be adjusted when the focus
+is moved among the descendents of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-focus-hadjustment"></a><h3>gtk_container_get_focus_hadjustment ()</h3>
+<pre class="programlisting"><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="returnvalue">GtkAdjustment</span></a> *
+gtk_container_get_focus_hadjustment (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<p>Retrieves the horizontal focus adjustment for the container. See
+<a class="link" href="GtkContainer.html#gtk-container-set-focus-hadjustment" title="gtk_container_set_focus_hadjustment ()"><code class="function">gtk_container_set_focus_hadjustment()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-get-focus-hadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-focus-hadjustment.returns"></a><h4>Returns</h4>
+<p>the horizontal focus adjustment, or <code class="literal">NULL</code> if
+none has been set. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-set-focus-hadjustment"></a><h3>gtk_container_set_focus_hadjustment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_set_focus_hadjustment (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *adjustment</code></em>);</pre>
+<p>Hooks up an adjustment to focus handling in a container, so when a child
+of the container is focused, the adjustment is scrolled to show that
+widget. This function sets the horizontal alignment.
+See <a class="link" href="GtkScrolledWindow.html#gtk-scrolled-window-get-hadjustment" title="gtk_scrolled_window_get_hadjustment ()"><code class="function">gtk_scrolled_window_get_hadjustment()</code></a> for a typical way of obtaining
+the adjustment and <a class="link" href="GtkContainer.html#gtk-container-set-focus-vadjustment" title="gtk_container_set_focus_vadjustment ()"><code class="function">gtk_container_set_focus_vadjustment()</code></a> for setting
+the vertical adjustment.</p>
+<p>The adjustments have to be in pixel units and in the same coordinate
+system as the allocation for immediate children of the container.</p>
+<div class="refsect3">
+<a name="gtk-container-set-focus-hadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>adjustment</p></td>
+<td class="parameter_description"><p>an adjustment which should be adjusted when the focus is
+moved among the descendents of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-resize-children"></a><h3>gtk_container_resize_children ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_resize_children (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<div class="warning"><p><code class="literal">gtk_container_resize_children</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p></div>
+<div class="refsect3">
+<a name="gtk-container-resize-children.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-type"></a><h3>gtk_container_child_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>
+gtk_container_child_type (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<p>Returns the type of the children supported by the container.</p>
+<p>Note that this may return <code class="literal">G_TYPE_NONE</code> to indicate that no more
+children can be added, e.g. for a <a class="link" href="GtkPaned.html" title="GtkPaned"><span class="type">GtkPaned</span></a> which already has two
+children.</p>
+<div class="refsect3">
+<a name="gtk-container-child-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-child-type.returns"></a><h4>Returns</h4>
+<p> a <span class="type">GType</span>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-get"></a><h3>gtk_container_child_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_get (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                         <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                         <em class="parameter"><code>const <span class="type">gchar</span> *first_prop_name</code></em>,
+                         <em class="parameter"><code>...</code></em>);</pre>
+<p>Gets the values of one or more child properties for <em class="parameter"><code>child</code></em>
+ and <em class="parameter"><code>container</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-container-child-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget which is a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>first_prop_name</p></td>
+<td class="parameter_description"><p>the name of the first property to get</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>...</p></td>
+<td class="parameter_description"><p>return location for the first property, followed
+optionally by more name/return location pairs, followed by <code class="literal">NULL</code></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-set"></a><h3>gtk_container_child_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_set (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                         <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                         <em class="parameter"><code>const <span class="type">gchar</span> *first_prop_name</code></em>,
+                         <em class="parameter"><code>...</code></em>);</pre>
+<p>Sets one or more child properties for <em class="parameter"><code>child</code></em>
+ and <em class="parameter"><code>container</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-container-child-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget which is a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>first_prop_name</p></td>
+<td class="parameter_description"><p>the name of the first property to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>...</p></td>
+<td class="parameter_description"><p>a <code class="literal">NULL</code>-terminated list of property names and values, starting
+with <em class="parameter"><code>first_prop_name</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-get-property"></a><h3>gtk_container_child_get_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_get_property (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                  <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *property_name</code></em>,
+                                  <em class="parameter"><code><span class="type">GValue</span> *value</code></em>);</pre>
+<p>Gets the value of a child property for <em class="parameter"><code>child</code></em>
+ and <em class="parameter"><code>container</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-container-child-get-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget which is a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_name</p></td>
+<td class="parameter_description"><p>the name of the property to get</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a location to return the value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-set-property"></a><h3>gtk_container_child_set_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_set_property (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                  <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *property_name</code></em>,
+                                  <em class="parameter"><code>const <span class="type">GValue</span> *value</code></em>);</pre>
+<p>Sets a child property for <em class="parameter"><code>child</code></em>
+ and <em class="parameter"><code>container</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-container-child-set-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget which is a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_name</p></td>
+<td class="parameter_description"><p>the name of the property to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the value to set the property to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-get-valist"></a><h3>gtk_container_child_get_valist ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_get_valist (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *first_property_name</code></em>,
+                                <em class="parameter"><code><span class="type">va_list</span> var_args</code></em>);</pre>
+<p>Gets the values of one or more child properties for <em class="parameter"><code>child</code></em>
+ and <em class="parameter"><code>container</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-container-child-get-valist.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget which is a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>first_property_name</p></td>
+<td class="parameter_description"><p>the name of the first property to get</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>var_args</p></td>
+<td class="parameter_description"><p>return location for the first property, followed
+optionally by more name/return location pairs, followed by <code class="literal">NULL</code></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-set-valist"></a><h3>gtk_container_child_set_valist ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_set_valist (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *first_property_name</code></em>,
+                                <em class="parameter"><code><span class="type">va_list</span> var_args</code></em>);</pre>
+<p>Sets one or more child properties for <em class="parameter"><code>child</code></em>
+ and <em class="parameter"><code>container</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-container-child-set-valist.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a widget which is a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>first_property_name</p></td>
+<td class="parameter_description"><p>the name of the first property to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>var_args</p></td>
+<td class="parameter_description"><p>a <code class="literal">NULL</code>-terminated list of property names and values, starting
+with <em class="parameter"><code>first_prop_name</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-notify"></a><h3>gtk_container_child_notify ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_notify (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                            <em class="parameter"><code>const <span class="type">gchar</span> *child_property</code></em>);</pre>
+<p>Emits a <a class="link" href="GtkWidget.html#GtkWidget-child-notify" title="The “child-notify” signal"><span class="type">“child-notify”</span></a> signal for the
+child property
+<em class="parameter"><code>child_property</code></em>
+ on the child.</p>
+<p>This is an analogue of <code class="function">g_object_notify()</code> for child properties.</p>
+<p>Also see <a class="link" href="GtkWidget.html#gtk-widget-child-notify" title="gtk_widget_child_notify ()"><code class="function">gtk_widget_child_notify()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-child-notify.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>the child widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child_property</p></td>
+<td class="parameter_description"><p>the name of a child property installed on
+the class of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-child-notify-by-pspec"></a><h3>gtk_container_child_notify_by_pspec ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_child_notify_by_pspec (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                                     <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>);</pre>
+<p>Emits a <a class="link" href="GtkWidget.html#GtkWidget-child-notify" title="The “child-notify” signal"><span class="type">“child-notify”</span></a> signal for the
+child property specified by
+<em class="parameter"><code>pspec</code></em>
+ on the child.</p>
+<p>This is an analogue of <code class="function">g_object_notify_by_pspec()</code> for child properties.</p>
+<div class="refsect3">
+<a name="gtk-container-child-notify-by-pspec.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>the child widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>the <span class="type">GParamSpec</span> of a child property instealled on
+the class of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-forall"></a><h3>gtk_container_forall ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_forall (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                      <em class="parameter"><code><a class="link" href="GtkWidget.html#GtkCallback" title="GtkCallback ()"><span class="type">GtkCallback</span></a> callback</code></em>,
+                      <em class="parameter"><code><span class="type">gpointer</span> callback_data</code></em>);</pre>
+<p>Invokes <em class="parameter"><code>callback</code></em>
+ on each direct child of <em class="parameter"><code>container</code></em>
+, including
+children that are considered “internal” (implementation details
+of the container). “Internal” children generally weren’t added
+by the user of the container, but were added by the container
+implementation itself.</p>
+<p>Most applications should use <a class="link" href="GtkContainer.html#gtk-container-foreach" title="gtk_container_foreach ()"><code class="function">gtk_container_foreach()</code></a>, rather
+than <a class="link" href="GtkContainer.html#gtk-container-forall" title="gtk_container_forall ()"><code class="function">gtk_container_forall()</code></a>.</p>
+<p><span class="annotation">[<acronym title="This is the invoker for a virtual method."><span class="acronym">virtual</span></acronym> forall]</span></p>
+<div class="refsect3">
+<a name="gtk-container-forall.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a callback. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>][<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> callback_data]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback_data</p></td>
+<td class="parameter_description"><p>callback user data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-border-width"></a><h3>gtk_container_get_border_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_container_get_border_width (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<p>Retrieves the border width of the container. See
+<a class="link" href="GtkContainer.html#gtk-container-set-border-width" title="gtk_container_set_border_width ()"><code class="function">gtk_container_set_border_width()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-get-border-width.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-border-width.returns"></a><h4>Returns</h4>
+<p> the current border width</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-set-border-width"></a><h3>gtk_container_set_border_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_set_border_width (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> border_width</code></em>);</pre>
+<p>Sets the border width of the container.</p>
+<p>The border width of a container is the amount of space to leave
+around the outside of the container. The only exception to this is
+<a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>; because toplevel windows can’t leave space outside,
+they leave the space inside. The border is added on all sides of
+the container. To add space to only one side, use a specific
+<a class="link" href="GtkWidget.html#GtkWidget--margin" title="The “margin” property"><span class="type">“margin”</span></a> property on the child widget, for example
+<a class="link" href="GtkWidget.html#GtkWidget--margin-top" title="The “margin-top” property"><span class="type">“margin-top”</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-set-border-width.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>border_width</p></td>
+<td class="parameter_description"><p>amount of blank space to leave outside
+the container. Valid values are in the range 0-65535 pixels.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-propagate-draw"></a><h3>gtk_container_propagate_draw ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_propagate_draw (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-t.html#cairo-t"><span class="type">cairo_t</span></a> *cr</code></em>);</pre>
+<p>When a container receives a call to the draw function, it must send
+synthetic <a class="link" href="GtkWidget.html#GtkWidget-draw" title="The “draw” signal"><span class="type">“draw”</span></a> calls to all children that don’t have their
+own <span class="type">GdkWindows</span>. This function provides a convenient way of doing this.
+A container, when it receives a call to its <a class="link" href="GtkWidget.html#GtkWidget-draw" title="The “draw” signal"><span class="type">“draw”</span></a> function,
+calls <a class="link" href="GtkContainer.html#gtk-container-propagate-draw" title="gtk_container_propagate_draw ()"><code class="function">gtk_container_propagate_draw()</code></a> once for each child, passing in
+the <em class="parameter"><code>cr</code></em>
+ the container received.</p>
+<p>gtk_container_propagate_draw() takes care of translating the origin of <em class="parameter"><code>cr</code></em>
+,
+and deciding whether the draw needs to be sent to the child. It is a
+convenient and optimized way of getting the same effect as calling
+<a class="link" href="GtkWidget.html#gtk-widget-draw" title="gtk_widget_draw ()"><code class="function">gtk_widget_draw()</code></a> on the child directly.</p>
+<p>In most cases, a container can simply either inherit the
+<a class="link" href="GtkWidget.html#GtkWidget-draw" title="The “draw” signal"><span class="type">“draw”</span></a> implementation from <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a>, or do some drawing
+and then chain to the ::draw implementation from <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-propagate-draw.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cr</p></td>
+<td class="parameter_description"><p>Cairo context as passed to the container. If you want to use <em class="parameter"><code>cr</code></em>
+in container’s draw function, consider using <a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-t.html#cairo-save"><code class="function">cairo_save()</code></a> and
+<a href="/usr/share/gtk-doc/html/cairo/cairo-cairo-t.html#cairo-restore"><code class="function">cairo_restore()</code></a> before calling this function.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-get-focus-chain"></a><h3>gtk_container_get_focus_chain ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_container_get_focus_chain (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                               <em class="parameter"><code><span class="type">GList</span> **focusable_widgets</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_container_get_focus_chain</code> has been deprecated since version 3.24 and should not be used in newly-written code.</p>
+<p>For overriding focus behavior, use the
+    GtkWidgetClass::focus signal.</p>
+</div>
+<p>Retrieves the focus chain of the container, if one has been
+set explicitly. If no focus chain has been explicitly
+set, GTK+ computes the focus chain based on the positions
+of the children. In that case, GTK+ stores <code class="literal">NULL</code> in
+<em class="parameter"><code>focusable_widgets</code></em>
+ and returns <code class="literal">FALSE</code>.</p>
+<div class="refsect3">
+<a name="gtk-container-get-focus-chain.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>focusable_widgets</p></td>
+<td class="parameter_description"><p>location
+to store the focus chain of the
+container, or <code class="literal">NULL</code>. You should free this list
+using <code class="function">g_list_free()</code> when you are done with it, however
+no additional reference count is added to the
+individual widgets in the focus chain. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkWidget][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-get-focus-chain.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the focus chain of the container
+has been set explicitly.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-set-focus-chain"></a><h3>gtk_container_set_focus_chain ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_set_focus_chain (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>,
+                               <em class="parameter"><code><span class="type">GList</span> *focusable_widgets</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_container_set_focus_chain</code> has been deprecated since version 3.24 and should not be used in newly-written code.</p>
+<p>For overriding focus behavior, use the
+    GtkWidgetClass::focus signal.</p>
+</div>
+<p>Sets a focus chain, overriding the one computed automatically by GTK+.</p>
+<p>In principle each widget in the chain should be a descendant of the
+container, but this is not enforced by this method, since it’s allowed
+to set the focus chain before you pack the widgets, or have a widget
+in the chain that isn’t always packed. The necessary checks are done
+when the focus chain is actually traversed.</p>
+<div class="refsect3">
+<a name="gtk-container-set-focus-chain.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>focusable_widgets</p></td>
+<td class="parameter_description"><p>the new focus chain. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkWidget]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-unset-focus-chain"></a><h3>gtk_container_unset_focus_chain ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_unset_focus_chain (<em class="parameter"><code><a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_container_unset_focus_chain</code> has been deprecated since version 3.24 and should not be used in newly-written code.</p>
+<p>For overriding focus behavior, use the
+    GtkWidgetClass::focus signal.</p>
+</div>
+<p>Removes a focus chain explicitly set with <a class="link" href="GtkContainer.html#gtk-container-set-focus-chain" title="gtk_container_set_focus_chain ()"><code class="function">gtk_container_set_focus_chain()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-container-unset-focus-chain.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>container</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-class-find-child-property"></a><h3>gtk_container_class_find_child_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">GParamSpec</span> *
+gtk_container_class_find_child_property
+                               (<em class="parameter"><code><span class="type">GObjectClass</span> *cclass</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *property_name</code></em>);</pre>
+<p>Finds a child property of a container class by name.</p>
+<div class="refsect3">
+<a name="gtk-container-class-find-child-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cclass</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> GtkContainerClass]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_name</p></td>
+<td class="parameter_description"><p>the name of the child property to find</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-class-find-child-property.returns"></a><h4>Returns</h4>
+<p>the <span class="type">GParamSpec</span> of the child
+property or <code class="literal">NULL</code> if <em class="parameter"><code>class</code></em>
+has no child property with that
+name. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-class-install-child-property"></a><h3>gtk_container_class_install_child_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_class_install_child_property
+                               (<em class="parameter"><code><a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a> *cclass</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> property_id</code></em>,
+                                <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>);</pre>
+<p>Installs a child property on a container class.</p>
+<div class="refsect3">
+<a name="gtk-container-class-install-child-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cclass</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_id</p></td>
+<td class="parameter_description"><p>the id for the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>the <span class="type">GParamSpec</span> for the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-class-install-child-properties"></a><h3>gtk_container_class_install_child_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_class_install_child_properties
+                               (<em class="parameter"><code><a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a> *cclass</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> n_pspecs</code></em>,
+                                <em class="parameter"><code><span class="type">GParamSpec</span> **pspecs</code></em>);</pre>
+<p>Installs child properties on a container class.</p>
+<div class="refsect3">
+<a name="gtk-container-class-install-child-properties.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cclass</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_pspecs</p></td>
+<td class="parameter_description"><p>the length of the <span class="type">GParamSpec</span> array</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pspecs</p></td>
+<td class="parameter_description"><p>the <span class="type">GParamSpec</span> array defining the new
+child properties. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_pspecs]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-class-list-child-properties"></a><h3>gtk_container_class_list_child_properties ()</h3>
+<pre class="programlisting"><span class="returnvalue">GParamSpec</span> **
+gtk_container_class_list_child_properties
+                               (<em class="parameter"><code><span class="type">GObjectClass</span> *cclass</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> *n_properties</code></em>);</pre>
+<p>Returns all child properties of a container class.</p>
+<div class="refsect3">
+<a name="gtk-container-class-list-child-properties.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cclass</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> GtkContainerClass]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_properties</p></td>
+<td class="parameter_description"><p>location to return the number of child properties found</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-container-class-list-child-properties.returns"></a><h4>Returns</h4>
+<p>a newly allocated <code class="literal">NULL</code>-terminated array of <span class="type">GParamSpec</span>*.
+The array must be freed with <code class="function">g_free()</code>. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_properties][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-container-class-handle-border-width"></a><h3>gtk_container_class_handle_border_width ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_container_class_handle_border_width
+                               (<em class="parameter"><code><a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a> *klass</code></em>);</pre>
+<p>Modifies a subclass of <a class="link" href="GtkContainer.html#GtkContainerClass" title="struct GtkContainerClass"><span class="type">GtkContainerClass</span></a> to automatically add and
+remove the border-width setting on GtkContainer.  This allows the
+subclass to ignore the border width in its size request and
+allocate methods. The intent is for a subclass to invoke this
+in its class_init function.</p>
+<p>gtk_container_class_handle_border_width() is necessary because it
+would break API too badly to make this behavior the default. So
+subclasses must “opt in” to the parent class handling border_width
+for them.</p>
+<div class="refsect3">
+<a name="gtk-container-class-handle-border-width.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>klass</p></td>
+<td class="parameter_description"><p>the class struct of a <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> subclass</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkContainer-struct"></a><h3>struct GtkContainer</h3>
+<pre class="programlisting">struct GtkContainer;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkContainerClass"></a><h3>struct GtkContainerClass</h3>
+<pre class="programlisting">struct GtkContainerClass {
+  GtkWidgetClass parent_class;
+
+
+  void    (*add)       		(GtkContainer	 *container,
+				 GtkWidget	 *widget);
+  void    (*remove)    		(GtkContainer	 *container,
+				 GtkWidget	 *widget);
+  void    (*check_resize) (GtkContainer	 *container);
+  void    (*forall)    		(GtkContainer	 *container,
+				 gboolean	  include_internals,
+				 GtkCallback	  callback,
+				 gpointer	  callback_data);
+  void    (*set_focus_child) (GtkContainer	 *container,
+				 GtkWidget	 *child);
+  GType   (*child_type)		(GtkContainer	 *container);
+  gchar*  (*composite_name) (GtkContainer	 *container,
+				 GtkWidget	 *child);
+  void    (*set_child_property) (GtkContainer    *container,
+				 GtkWidget       *child,
+				 guint            property_id,
+				 const GValue    *value,
+				 GParamSpec      *pspec);
+  void    (*get_child_property) (GtkContainer    *container,
+                                 GtkWidget       *child,
+				 guint            property_id,
+				 GValue          *value,
+				 GParamSpec      *pspec);
+  GtkWidgetPath * (*get_path_for_child) (GtkContainer *container,
+                                         GtkWidget    *child);
+};
+</pre>
+<p>Base class for containers.</p>
+<div class="refsect3">
+<a name="GtkContainerClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.add"></a>add</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when a widget is added to container.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.remove"></a>remove</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when a widget is removed from container.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.check-resize"></a>check_resize</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when a size recalculation is needed.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.forall"></a>forall</code></em> ()</p></td>
+<td class="struct_member_description"><p>Invokes callback on each child of container. The callback handler
+may remove the child.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.set-focus-child"></a>set_focus_child</code></em> ()</p></td>
+<td class="struct_member_description"><p>Sets the focused child of container.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.child-type"></a>child_type</code></em> ()</p></td>
+<td class="struct_member_description"><p>Returns the type of the children supported by the container.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.composite-name"></a>composite_name</code></em> ()</p></td>
+<td class="struct_member_description"><p>Gets a widget’s composite name. Deprecated: 3.10.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.set-child-property"></a>set_child_property</code></em> ()</p></td>
+<td class="struct_member_description"><p>Set a property on a child of container.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.get-child-property"></a>get_child_property</code></em> ()</p></td>
+<td class="struct_member_description"><p>Get a property from a child of container.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkContainerClass.get-path-for-child"></a>get_path_for_child</code></em> ()</p></td>
+<td class="struct_member_description"><p>Get path representing entire widget hierarchy
+from the toplevel down to and including <em class="parameter"><code>child</code></em>
+.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkResizeMode"></a><h3>enum GtkResizeMode</h3>
+<div class="refsect3">
+<a name="GtkResizeMode.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RESIZE-PARENT:CAPS"></a>GTK_RESIZE_PARENT</p></td>
+<td class="enum_member_description">
+<p>Pass resize request to the parent</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RESIZE-QUEUE:CAPS"></a>GTK_RESIZE_QUEUE</p></td>
+<td class="enum_member_description">
+<p>Queue resizes on this widget</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RESIZE-IMMEDIATE:CAPS"></a>GTK_RESIZE_IMMEDIATE</p></td>
+<td class="enum_member_description">
+<p>Resize immediately. Deprecated.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkContainer--border-width"></a><h3>The <code class="literal">“border-width”</code> property</h3>
+<pre class="programlisting">  “border-width”             <span class="type">guint</span></pre>
+<p>The width of the empty border outside the containers children.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &lt;= 65535</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkContainer--child"></a><h3>The <code class="literal">“child”</code> property</h3>
+<pre class="programlisting">  “child”                    <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</pre>
+<p>Can be used to add a new child to the container.</p>
+<p>Flags: Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkContainer--resize-mode"></a><h3>The <code class="literal">“resize-mode”</code> property</h3>
+<pre class="programlisting">  “resize-mode”              <a class="link" href="GtkContainer.html#GtkResizeMode" title="enum GtkResizeMode"><span class="type">GtkResizeMode</span></a></pre>
+<p>Specify how resize events are handled.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_RESIZE_PARENT</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkContainer.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkContainer-add"></a><h3>The <code class="literal">“add”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container,
+               <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>    *widget,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkContainer-check-resize"></a><h3>The <code class="literal">“check-resize”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkContainer-remove"></a><h3>The <code class="literal">“remove”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container,
+               <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>    *widget,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkContainer-set-focus-child"></a><h3>The <code class="literal">“set-focus-child”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *container,
+               <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>    *widget,
+               <span class="type">gpointer</span>      user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

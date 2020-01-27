@@ -1,0 +1,864 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkMenuButton: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="ButtonWidgets.html" title="Buttons and Toggles">
+<link rel="prev" href="GtkLinkButton.html" title="GtkLinkButton">
+<link rel="next" href="GtkSwitch.html" title="GtkSwitch">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkMenuButton.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkMenuButton.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkMenuButton.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkMenuButton.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ButtonWidgets.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkLinkButton.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkSwitch.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkMenuButton"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkMenuButton.top_of_page"></a>GtkMenuButton</span></h2>
+<p>GtkMenuButton — A widget that shows a popup when clicked on</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="menu-button.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkMenuButton.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-new" title="gtk_menu_button_new ()">gtk_menu_button_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-set-popup" title="gtk_menu_button_set_popup ()">gtk_menu_button_set_popup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkMenu.html" title="GtkMenu"><span class="returnvalue">GtkMenu</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-get-popup" title="gtk_menu_button_get_popup ()">gtk_menu_button_get_popup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-set-popover" title="gtk_menu_button_set_popover ()">gtk_menu_button_set_popover</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkPopover.html" title="GtkPopover"><span class="returnvalue">GtkPopover</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-get-popover" title="gtk_menu_button_get_popover ()">gtk_menu_button_get_popover</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-set-menu-model" title="gtk_menu_button_set_menu_model ()">gtk_menu_button_set_menu_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GMenuModel</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-get-menu-model" title="gtk_menu_button_get_menu_model ()">gtk_menu_button_get_menu_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-set-use-popover" title="gtk_menu_button_set_use_popover ()">gtk_menu_button_set_use_popover</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-get-use-popover" title="gtk_menu_button_get_use_popover ()">gtk_menu_button_get_use_popover</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-set-direction" title="gtk_menu_button_set_direction ()">gtk_menu_button_set_direction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="returnvalue">GtkArrowType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-get-direction" title="gtk_menu_button_get_direction ()">gtk_menu_button_get_direction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-set-align-widget" title="gtk_menu_button_set_align_widget ()">gtk_menu_button_set_align_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuButton.html#gtk-menu-button-get-align-widget" title="gtk_menu_button_get_align_widget ()">gtk_menu_button_get_align_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkMenuButton.html#GtkMenuButton--align-widget" title="The “align-widget” property">align-widget</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="type">GtkArrowType</span></a></td>
+<td class="property_name"><a class="link" href="GtkMenuButton.html#GtkMenuButton--direction" title="The “direction” property">direction</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GMenuModel</span> *</td>
+<td class="property_name"><a class="link" href="GtkMenuButton.html#GtkMenuButton--menu-model" title="The “menu-model” property">menu-model</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkMenuButton.html#GtkMenuButton--popover" title="The “popover” property">popover</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkMenuButton.html#GtkMenuButton--popup" title="The “popup” property">popup</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkMenuButton.html#GtkMenuButton--use-popover" title="The “use-popover” property">use-popover</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkMenuButton.html#GtkMenuButton-struct" title="struct GtkMenuButton">GtkMenuButton</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType">GtkArrowType</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                    <span class="lineart">╰──</span> <a class="link" href="GtkButton.html" title="GtkButton">GtkButton</a>
+                        <span class="lineart">╰──</span> <a class="link" href="GtkToggleButton.html" title="GtkToggleButton">GtkToggleButton</a>
+                            <span class="lineart">╰──</span> GtkMenuButton
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkMenuButton implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>,  <a class="link" href="GtkActionable.html" title="GtkActionable">GtkActionable</a> and  <a class="link" href="GtkActivatable.html" title="GtkActivatable">GtkActivatable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> widget is used to display a popup when clicked on.
+This popup can be provided either as a <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a>, a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> or an
+abstract <span class="type">GMenuModel</span>.</p>
+<p>The <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> widget can hold any valid child widget. That is, it
+can hold almost any other standard <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>. The most commonly used
+child is <a class="link" href="GtkImage.html" title="GtkImage"><span class="type">GtkImage</span></a>. If no widget is explicitely added to the <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a>,
+a <a class="link" href="GtkImage.html" title="GtkImage"><span class="type">GtkImage</span></a> is automatically created, using an arrow image oriented
+according to <a class="link" href="GtkMenuButton.html#GtkMenuButton--direction" title="The “direction” property"><span class="type">“direction”</span></a> or the generic “open-menu-symbolic”
+icon if the direction is not set.</p>
+<p>The positioning of the popup is determined by the <a class="link" href="GtkMenuButton.html#GtkMenuButton--direction" title="The “direction” property"><span class="type">“direction”</span></a>
+property of the menu button.</p>
+<p>For menus, the <a class="link" href="GtkWidget.html#GtkWidget--halign" title="The “halign” property"><span class="type">“halign”</span></a> and <a class="link" href="GtkWidget.html#GtkWidget--valign" title="The “valign” property"><span class="type">“valign”</span></a> properties of the
+menu are also taken into account. For example, when the direction is
+<a class="link" href="GtkMenuButton.html#GTK-ARROW-DOWN:CAPS"><code class="literal">GTK_ARROW_DOWN</code></a> and the horizontal alignment is <a class="link" href="GtkWidget.html#GTK-ALIGN-START:CAPS"><code class="literal">GTK_ALIGN_START</code></a>, the
+menu will be positioned below the button, with the starting edge
+(depending on the text direction) of the menu aligned with the starting
+edge of the button. If there is not enough space below the button, the
+menu is popped up above the button instead. If the alignment would move
+part of the menu offscreen, it is “pushed in”.</p>
+<div class="refsect3">
+<a name="id-1.3.9.7.9.6"></a><h4>Direction = Down</h4>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+<p>halign = start</p>
+<p><span class="inlinemediaobject"><img src="down-start.png"></span></p>
+</li>
+<li class="listitem">
+<p>halign = center</p>
+<p><span class="inlinemediaobject"><img src="down-center.png"></span></p>
+</li>
+<li class="listitem">
+<p>halign = end</p>
+<p><span class="inlinemediaobject"><img src="down-end.png"></span></p>
+</li>
+</ul></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.9.7.9.7"></a><h4>Direction = Up</h4>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+<p>halign = start</p>
+<p><span class="inlinemediaobject"><img src="up-start.png"></span></p>
+</li>
+<li class="listitem">
+<p>halign = center</p>
+<p><span class="inlinemediaobject"><img src="up-center.png"></span></p>
+</li>
+<li class="listitem">
+<p>halign = end</p>
+<p><span class="inlinemediaobject"><img src="up-end.png"></span></p>
+</li>
+</ul></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.9.7.9.8"></a><h4>Direction = Left</h4>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+<p>valign = start</p>
+<p><span class="inlinemediaobject"><img src="left-start.png"></span></p>
+</li>
+<li class="listitem">
+<p>valign = center</p>
+<p><span class="inlinemediaobject"><img src="left-center.png"></span></p>
+</li>
+<li class="listitem">
+<p>valign = end</p>
+<p><span class="inlinemediaobject"><img src="left-end.png"></span></p>
+</li>
+</ul></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.9.7.9.9"></a><h4>Direction = Right</h4>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+<p>valign = start</p>
+<p><span class="inlinemediaobject"><img src="right-start.png"></span></p>
+</li>
+<li class="listitem">
+<p>valign = center</p>
+<p><span class="inlinemediaobject"><img src="right-center.png"></span></p>
+</li>
+<li class="listitem">
+<p>valign = end</p>
+<p><span class="inlinemediaobject"><img src="right-end.png"></span></p>
+</li>
+</ul></div>
+</div>
+<div class="refsect2">
+<a name="id-1.3.9.7.9.10"></a><h3>CSS nodes</h3>
+<p>GtkMenuButton has a single CSS node with name button. To differentiate
+it from a plain <a class="link" href="GtkButton.html" title="GtkButton"><span class="type">GtkButton</span></a>, it gets the .popup style class.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-menu-button-new"></a><h3>gtk_menu_button_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_menu_button_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> widget with downwards-pointing
+arrow as the only child. You can replace the child widget
+with another <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> should you wish to.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-new.returns"></a><h4>Returns</h4>
+<p> The newly created <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> widget</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-set-popup"></a><h3>gtk_menu_button_set_popup ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_button_set_popup (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>,
+                           <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *menu</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> that will be popped up when the <em class="parameter"><code>menu_button</code></em>
+ is clicked, or
+<code class="literal">NULL</code> to dissociate any existing menu and disable the button.</p>
+<p>If <a class="link" href="GtkMenuButton.html#GtkMenuButton--menu-model" title="The “menu-model” property"><span class="type">“menu-model”</span></a> or <a class="link" href="GtkMenuButton.html#GtkMenuButton--popover" title="The “popover” property"><span class="type">“popover”</span></a> are set, those objects
+are dissociated from the <em class="parameter"><code>menu_button</code></em>
+, and those properties are set to <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-set-popup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>menu</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a>, or <code class="literal">NULL</code> to unset and disable the button. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-get-popup"></a><h3>gtk_menu_button_get_popup ()</h3>
+<pre class="programlisting"><a class="link" href="GtkMenu.html" title="GtkMenu"><span class="returnvalue">GtkMenu</span></a> *
+gtk_menu_button_get_popup (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>);</pre>
+<p>Returns the <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> that pops out of the button.
+If the button does not use a <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a>, this function
+returns <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-get-popup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-button-get-popup.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-set-popover"></a><h3>gtk_menu_button_set_popover ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_button_set_popover (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *popover</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> that will be popped up when the <em class="parameter"><code>menu_button</code></em>
+ is clicked,
+or <code class="literal">NULL</code> to dissociate any existing popover and disable the button.</p>
+<p>If <a class="link" href="GtkMenuButton.html#GtkMenuButton--menu-model" title="The “menu-model” property"><span class="type">“menu-model”</span></a> or <a class="link" href="GtkMenuButton.html#GtkMenuButton--popup" title="The “popup” property"><span class="type">“popup”</span></a> are set, those objects
+are dissociated from the <em class="parameter"><code>menu_button</code></em>
+, and those properties are set to <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-set-popover.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a>, or <code class="literal">NULL</code> to unset and disable the button. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-get-popover"></a><h3>gtk_menu_button_get_popover ()</h3>
+<pre class="programlisting"><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="returnvalue">GtkPopover</span></a> *
+gtk_menu_button_get_popover (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>);</pre>
+<p>Returns the <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> that pops out of the button.
+If the button is not using a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a>, this function
+returns <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-get-popover.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-button-get-popover.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-set-menu-model"></a><h3>gtk_menu_button_set_menu_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_button_set_menu_model (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>,
+                                <em class="parameter"><code><span class="type">GMenuModel</span> *menu_model</code></em>);</pre>
+<p>Sets the <span class="type">GMenuModel</span> from which the popup will be constructed,
+or <code class="literal">NULL</code> to dissociate any existing menu model and disable the button.</p>
+<p>Depending on the value of <a class="link" href="GtkMenuButton.html#GtkMenuButton--use-popover" title="The “use-popover” property"><span class="type">“use-popover”</span></a>, either a
+<a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> will be created with <a class="link" href="GtkMenu.html#gtk-menu-new-from-model" title="gtk_menu_new_from_model ()"><code class="function">gtk_menu_new_from_model()</code></a>, or a
+<a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> with <a class="link" href="GtkPopover.html#gtk-popover-new-from-model" title="gtk_popover_new_from_model ()"><code class="function">gtk_popover_new_from_model()</code></a>. In either case,
+actions will be connected as documented for these functions.</p>
+<p>If <a class="link" href="GtkMenuButton.html#GtkMenuButton--popup" title="The “popup” property"><span class="type">“popup”</span></a> or <a class="link" href="GtkMenuButton.html#GtkMenuButton--popover" title="The “popover” property"><span class="type">“popover”</span></a> are already set, those
+widgets are dissociated from the <em class="parameter"><code>menu_button</code></em>
+, and those properties are set
+to <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-set-menu-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>menu_model</p></td>
+<td class="parameter_description"><p>a <span class="type">GMenuModel</span>, or <code class="literal">NULL</code> to unset and disable the
+button. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-get-menu-model"></a><h3>gtk_menu_button_get_menu_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">GMenuModel</span> *
+gtk_menu_button_get_menu_model (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>);</pre>
+<p>Returns the <span class="type">GMenuModel</span> used to generate the popup.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-get-menu-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-button-get-menu-model.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GMenuModel</span> or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-set-use-popover"></a><h3>gtk_menu_button_set_use_popover ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_button_set_use_popover (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>,
+                                 <em class="parameter"><code><span class="type">gboolean</span> use_popover</code></em>);</pre>
+<p>Sets whether to construct a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> instead of <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a>
+when <a class="link" href="GtkMenuButton.html#gtk-menu-button-set-menu-model" title="gtk_menu_button_set_menu_model ()"><code class="function">gtk_menu_button_set_menu_model()</code></a> is called. Note that
+this property is only consulted when a new menu model is set.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-set-use-popover.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>use_popover</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to construct a popover from the menu model</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-get-use-popover"></a><h3>gtk_menu_button_get_use_popover ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_menu_button_get_use_popover (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>);</pre>
+<p>Returns whether a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> or a <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> will be constructed
+from the menu model.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-get-use-popover.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-button-get-use-popover.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if using a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-set-direction"></a><h3>gtk_menu_button_set_direction ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_button_set_direction (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="type">GtkArrowType</span></a> direction</code></em>);</pre>
+<p>Sets the direction in which the popup will be popped up, as
+well as changing the arrow’s direction. The child will not
+be changed to an arrow if it was customized.</p>
+<p>If the does not fit in the available space in the given direction,
+GTK+ will its best to keep it inside the screen and fully visible.</p>
+<p>If you pass <a class="link" href="GtkMenuButton.html#GTK-ARROW-NONE:CAPS"><code class="literal">GTK_ARROW_NONE</code></a> for a <em class="parameter"><code>direction</code></em>
+, the popup will behave
+as if you passed <a class="link" href="GtkMenuButton.html#GTK-ARROW-DOWN:CAPS"><code class="literal">GTK_ARROW_DOWN</code></a> (although you won’t see any arrows).</p>
+<div class="refsect3">
+<a name="gtk-menu-button-set-direction.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>direction</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="type">GtkArrowType</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-get-direction"></a><h3>gtk_menu_button_get_direction ()</h3>
+<pre class="programlisting"><a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="returnvalue">GtkArrowType</span></a>
+gtk_menu_button_get_direction (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>);</pre>
+<p>Returns the direction the popup will be pointing at when popped up.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-get-direction.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-button-get-direction.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="type">GtkArrowType</span></a> value</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-set-align-widget"></a><h3>gtk_menu_button_set_align_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_button_set_align_widget (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>,
+                                  <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *align_widget</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> to use to line the menu with when popped up.
+Note that the <em class="parameter"><code>align_widget</code></em>
+ must contain the <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> itself.</p>
+<p>Setting it to <code class="literal">NULL</code> means that the menu will be aligned with the
+button itself.</p>
+<p>Note that this property is only used with menus currently,
+and not for popovers.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-set-align-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>align_widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-button-get-align-widget"></a><h3>gtk_menu_button_get_align_widget ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_menu_button_get_align_widget (<em class="parameter"><code><a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a> *menu_button</code></em>);</pre>
+<p>Returns the parent <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> to use to line up with menu.</p>
+<div class="refsect3">
+<a name="gtk-menu-button-get-align-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_button</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuButton.html" title="GtkMenuButton"><span class="type">GtkMenuButton</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-button-get-align-widget.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> value or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkMenuButton-struct"></a><h3>struct GtkMenuButton</h3>
+<pre class="programlisting">struct GtkMenuButton;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkArrowType"></a><h3>enum GtkArrowType</h3>
+<p>Used to indicate the direction in which an arrow should point.</p>
+<div class="refsect3">
+<a name="GtkArrowType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ARROW-UP:CAPS"></a>GTK_ARROW_UP</p></td>
+<td class="enum_member_description">
+<p>Represents an upward pointing arrow.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ARROW-DOWN:CAPS"></a>GTK_ARROW_DOWN</p></td>
+<td class="enum_member_description">
+<p>Represents a downward pointing arrow.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ARROW-LEFT:CAPS"></a>GTK_ARROW_LEFT</p></td>
+<td class="enum_member_description">
+<p>Represents a left pointing arrow.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ARROW-RIGHT:CAPS"></a>GTK_ARROW_RIGHT</p></td>
+<td class="enum_member_description">
+<p>Represents a right pointing arrow.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ARROW-NONE:CAPS"></a>GTK_ARROW_NONE</p></td>
+<td class="enum_member_description">
+<p>No arrow. Since 2.10.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuButton.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkMenuButton--align-widget"></a><h3>The <code class="literal">“align-widget”</code> property</h3>
+<pre class="programlisting">  “align-widget”             <a class="link" href="GtkContainer.html" title="GtkContainer"><span class="type">GtkContainer</span></a> *</pre>
+<p>The <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> to use to align the menu with.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuButton--direction"></a><h3>The <code class="literal">“direction”</code> property</h3>
+<pre class="programlisting">  “direction”                <a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="type">GtkArrowType</span></a></pre>
+<p>The <a class="link" href="GtkMenuButton.html#GtkArrowType" title="enum GtkArrowType"><span class="type">GtkArrowType</span></a> representing the direction in which the
+menu or popover will be popped out.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_ARROW_DOWN</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuButton--menu-model"></a><h3>The <code class="literal">“menu-model”</code> property</h3>
+<pre class="programlisting">  “menu-model”               <span class="type">GMenuModel</span> *</pre>
+<p>The <span class="type">GMenuModel</span> from which the popup will be created.
+Depending on the <a class="link" href="GtkMenuButton.html#GtkMenuButton--use-popover" title="The “use-popover” property"><span class="type">“use-popover”</span></a> property, that may
+be a menu or a popover.</p>
+<p>See <a class="link" href="GtkMenuButton.html#gtk-menu-button-set-menu-model" title="gtk_menu_button_set_menu_model ()"><code class="function">gtk_menu_button_set_menu_model()</code></a> for the interaction with the
+<a class="link" href="GtkMenuButton.html#GtkMenuButton--popup" title="The “popup” property"><span class="type">“popup”</span></a> property.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuButton--popover"></a><h3>The <code class="literal">“popover”</code> property</h3>
+<pre class="programlisting">  “popover”                  <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *</pre>
+<p>The <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> that will be popped up when the button is clicked.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuButton--popup"></a><h3>The <code class="literal">“popup”</code> property</h3>
+<pre class="programlisting">  “popup”                    <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> *</pre>
+<p>The <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> that will be popped up when the button is clicked.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuButton--use-popover"></a><h3>The <code class="literal">“use-popover”</code> property</h3>
+<pre class="programlisting">  “use-popover”              <span class="type">gboolean</span></pre>
+<p>Whether to construct a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> from the menu model,
+or a <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a>.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

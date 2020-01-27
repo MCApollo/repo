@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>The GTK+ Input and Event Handling Model: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtk.html" title="Part I. GTK+ Overview">
+<link rel="prev" href="chap-drawing-model.html" title="The GTK+ Drawing Model">
+<link rel="next" href="gtkobjects.html" title="Part II. GTK+ Widgets and Objects">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtk.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="chap-drawing-model.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gtkobjects.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="chap-input-handling"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle">The GTK+ Input and Event Handling Model</span></h2>
+<p>The GTK+ Input and Event Handling Model — 
+    GTK+ input and event handling in detail
+</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="input-overview"></a><h2>Overview of GTK+ input and event handling</h2>
+<p>
+   This chapter describes in detail how GTK+ handles input. If you are interested
+   in what happens to translate a key press or mouse motion of the users into a
+   change of a GTK+ widget, you should read this chapter. This knowledge will also
+   be useful if you decide to implement your own widgets.
+  </p>
+<div class="refsect2">
+<a name="id-1.2.7.3.3"></a><h3>Devices and events</h3>
+<p>
+     The most basic input devices that every computer user has interacted with are
+     keyboards and mice; beyond these, GTK+ supports touchpads, touchscreens and
+     more exotic input devices such as graphics tablets. Inside GTK+, every such
+     input device is represented by a <span class="type">GdkDevice</span> object.
+    </p>
+<p>
+     To simplify dealing with the variability between these input devices, GTK+
+     has a concept of master and slave devices. The concrete physical devices that
+     have many different characteristics (mice may have 2 or 3 or 8 buttons,
+     keyboards have different layouts and may or may not have a separate number
+     block, etc) are represented as slave devices. Each slave device is
+     associated with a virtual master device. Master devices always come in
+     pointer/keyboard pairs - you can think of such a pair as a 'seat'.
+    </p>
+<p>
+     GTK+ widgets generally deal with the master devices, and thus can be used
+     with any pointing device or keyboard.
+    </p>
+<p>
+     When a user interacts with an input device (e.g. moves a mouse or presses
+     a key on the keyboard), GTK+ receives events from the windowing system.
+     These are typically directed at a specific window - for pointer events,
+     the window under the pointer (grabs complicate this), for keyboard events,
+     the window with the keyboard focus.
+    </p>
+<p>
+     GDK translates these raw windowing system events into <span class="type">GdkEvents</span>.
+     Typical input events are:
+     </p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td><span class="type">GdkEventButton</span></td></tr>
+<tr><td><span class="type">GdkEventMotion</span></td></tr>
+<tr><td><span class="type">GdkEventCrossing</span></td></tr>
+<tr><td><span class="type">GdkEventKey</span></td></tr>
+<tr><td><span class="type">GdkEventFocus</span></td></tr>
+<tr><td><span class="type">GdkEventTouch</span></td></tr>
+</table>
+<p>
+    </p>
+<p>
+      Additionally, GDK/GTK synthesizes other signals to let know whether
+      grabs (system-wide or in-app) are taking input away:
+      </p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td><span class="type">GdkEventGrabBroken</span></td></tr>
+<tr><td><a class="link" href="GtkWidget.html#GtkWidget-grab-notify" title="The “grab-notify” signal"><span class="type">“grab-notify”</span></a></td></tr>
+</table>
+<p>
+    </p>
+<p>
+      When GTK+ is initialized, it sets up an event handler function with
+      <code class="function">gdk_event_handler_set()</code>, which receives all of these input events
+      (as well as others, for instance window management related events).
+    </p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="event-propagation"></a><h3>Event propagation</h3>
+<p>
+      For widgets which have a <span class="type">GdkWindow</span> set, events are received from the
+      windowing system and passed to <a class="link" href="gtk3-General.html#gtk-main-do-event" title="gtk_main_do_event ()"><code class="function">gtk_main_do_event()</code></a>. See its documentation
+      for details of what it does: compression of enter/leave events,
+      identification of the widget receiving the event, pushing the event onto a
+      stack for <a class="link" href="gtk3-General.html#gtk-get-current-event" title="gtk_get_current_event ()"><code class="function">gtk_get_current_event()</code></a>, and propagating the event to the
+      widget.
+    </p>
+<p>
+      When a GDK backend produces an input event, it is tied to a <span class="type">GdkDevice</span> and
+      a <span class="type">GdkWindow</span>, which in turn represents a windowing system surface in the
+      backend. If a widget has grabbed the current input device, or all input
+      devices, the event is propagated to that <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>. Otherwise, it is
+      propagated to the the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> which called <a class="link" href="GtkWidget.html#gtk-widget-register-window" title="gtk_widget_register_window ()"><code class="function">gtk_widget_register_window()</code></a>
+      on the <span class="type">GdkWindow</span> receiving the event.
+    </p>
+<p>
+      Grabs are implemented for each input device, and globally. A grab for a
+      specific input device (<a class="link" href="gtk3-General.html#gtk-device-grab-add" title="gtk_device_grab_add ()"><code class="function">gtk_device_grab_add()</code></a>), is sent events in
+      preference to a global grab (<a class="link" href="gtk3-General.html#gtk-grab-add" title="gtk_grab_add ()"><code class="function">gtk_grab_add()</code></a>). Input grabs only have effect
+      within the <a class="link" href="GtkWindowGroup.html" title="GtkWindowGroup"><span class="type">GtkWindowGroup</span></a> containing the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> which registered the
+      event’s <span class="type">GdkWindow</span>. If this <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> is a child of the grab widget, the
+      event is propagated to the child — this is the basis for propagating
+      events within modal dialogs.
+    </p>
+<p>
+      An event is propagated to a widget using <a class="link" href="gtk3-General.html#gtk-propagate-event" title="gtk_propagate_event ()"><code class="function">gtk_propagate_event()</code></a>.
+      Propagation differs between event types: key events (<code class="literal">GDK_KEY_PRESS</code>,
+      <code class="literal">GDK_KEY_RELEASE</code>) are delivered to the top-level <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>; other events
+      are propagated down and up the widget hierarchy in three phases (see
+      <a class="link" href="GtkEventController.html#GtkPropagationPhase" title="enum GtkPropagationPhase"><span class="type">GtkPropagationPhase</span></a>).
+    </p>
+<p>
+      For key events, the top-level window’s default <span class="type">“key-press-event”</span>
+      and <span class="type">“key-release-event”</span> signal handlers handle mnemonics and
+      accelerators first. Other key presses are then passed to
+      <a class="link" href="GtkWindow.html#gtk-window-propagate-key-event" title="gtk_window_propagate_key_event ()"><code class="function">gtk_window_propagate_key_event()</code></a> which propagates the event upwards from
+      the window’s current focus widget (<a class="link" href="GtkWindow.html#gtk-window-get-focus" title="gtk_window_get_focus ()"><code class="function">gtk_window_get_focus()</code></a>) to the
+      top-level.
+    </p>
+<p>
+      For other events, in the first phase (the “capture” phase) the event is
+      delivered to each widget from the top-most (for example, the top-level
+      <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> or grab widget) down to the target <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>.
+      <a class="link" href="chap-input-handling.html#event-controllers-and-gestures" title="Event controllers and gestures">Gestures</a> that are
+      attached with <a class="link" href="GtkEventController.html#GTK-PHASE-CAPTURE:CAPS"><code class="literal">GTK_PHASE_CAPTURE</code></a> get a chance to react to the event.
+    </p>
+<p>
+      After the “capture” phase, the widget that was intended to be the
+      destination of the event will run gestures attached to it with
+      <a class="link" href="GtkEventController.html#GTK-PHASE-TARGET:CAPS"><code class="literal">GTK_PHASE_TARGET</code></a>. This is known as the “target” phase, and only
+      happens on that widget.
+    </p>
+<p>
+      Next, the <a class="link" href="GtkWidget.html#GtkWidget-event" title="The “event” signal"><span class="type">“event”</span></a> signal is emitted, then the appropriate signal
+      for the event in question, for example <a class="link" href="GtkWidget.html#GtkWidget-motion-notify-event" title="The “motion-notify-event” signal"><span class="type">“motion-notify-event”</span></a>.
+      Handling these signals was the primary way to handle input in GTK+ widgets
+      before gestures were introduced. If the widget is realized, the
+      <a class="link" href="GtkWidget.html#GtkWidget-event-after" title="The “event-after” signal"><span class="type">“event-after”</span></a> signal is emitted. The signals are emitted from
+      the target widget up to the top-level, as part of the “bubble” phase.
+    </p>
+<p>
+      The default handlers for the event signals send the event
+      to gestures that are attached with <a class="link" href="GtkEventController.html#GTK-PHASE-BUBBLE:CAPS"><code class="literal">GTK_PHASE_BUBBLE</code></a>. Therefore,
+      gestures in the “bubble” phase are only used if the widget does
+      not have its own event handlers, or takes care to chain up to the
+      default <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> handlers.
+    </p>
+<p>
+      Events are not delivered to a widget which is insensitive or unmapped.
+    </p>
+<p>
+      Any time during the propagation phase, a widget may indicate that a
+      received event was consumed and propagation should therefore be stopped.
+      In traditional event handlers, this is hinted by returning <code class="literal">GDK_EVENT_STOP</code>.
+      If gestures are used, this may happen when the widget tells the gesture
+      to claim the event touch sequence (or the pointer events) for its own. See the
+      "gesture states" section below to know more of the latter.
+    </p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="event-masks"></a><h3>Event masks</h3>
+<p>
+      Each widget instance has a basic event mask and another per input device,
+      which determine the types of input event it receives. Each event mask set
+      on a widget is added to the corresponding (basic or per-device) event mask
+      for the widget’s <span class="type">GdkWindow</span>, and all child <span class="type">GdkWindows</span>.
+    </p>
+<p>
+      If a widget is windowless (<a class="link" href="GtkWidget.html#gtk-widget-get-has-window" title="gtk_widget_get_has_window ()"><code class="function">gtk_widget_get_has_window()</code></a> returns <code class="literal">FALSE</code>) and
+      an application wants to receive custom events on it, it must be placed
+      inside a <a class="link" href="GtkEventBox.html" title="GtkEventBox"><span class="type">GtkEventBox</span></a> to receive the events, and an appropriate event mask
+      must be set on the box. When implementing a widget, use a <code class="literal">GDK_INPUT_ONLY</code>
+      <span class="type">GdkWindow</span> to receive the events instead.
+    </p>
+<p>
+      Filtering events against event masks happens inside <span class="type">GdkWindow</span>, which
+      exposes event masks to the windowing system to reduce the number of events
+      GDK receives from it. On receiving an event, it is filtered against the
+      <span class="type">GdkWindow</span>’s mask for the input device, if set. Otherwise, it is filtered
+      against the <span class="type">GdkWindow</span>’s basic event mask.
+    </p>
+<p>
+      This means that widgets must add to the event mask for each event type
+      they expect to receive, using <a class="link" href="GtkWidget.html#gtk-widget-set-events" title="gtk_widget_set_events ()"><code class="function">gtk_widget_set_events()</code></a> or
+      <a class="link" href="GtkWidget.html#gtk-widget-add-events" title="gtk_widget_add_events ()"><code class="function">gtk_widget_add_events()</code></a> to preserve the existing mask. Widgets which are
+      aware of floating devices should use <a class="link" href="GtkWidget.html#gtk-widget-set-device-events" title="gtk_widget_set_device_events ()"><code class="function">gtk_widget_set_device_events()</code></a> or
+      <a class="link" href="GtkWidget.html#gtk-widget-add-device-events" title="gtk_widget_add_device_events ()"><code class="function">gtk_widget_add_device_events()</code></a>, and must explicitly enable the device
+      using <a class="link" href="GtkWidget.html#gtk-widget-set-device-enabled" title="gtk_widget_set_device_enabled ()"><code class="function">gtk_widget_set_device_enabled()</code></a>. See the <span class="type">GdkDeviceManager</span>
+      documentation for more information.
+    </p>
+<p>
+      All standard widgets set the event mask for all events they expect to
+      receive, and it is not necessary to modify this. Masks should be set when
+      implementing a new widget.
+    </p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.2.7.3.6"></a><h3>Touch events</h3>
+<p>
+      Touch events are emitted as events of type <code class="literal">GDK_TOUCH_BEGIN</code>, <code class="literal">GDK_TOUCH_UPDATE</code> or
+      <code class="literal">GDK_TOUCH_END</code>, those events contain an “event sequence” that univocally identifies
+      the physical touch until it is lifted from the device.
+    </p>
+<p>
+      On some windowing platforms, multitouch devices perform pointer emulation, this works
+      by granting a “pointer emulating” hint to one of the currently interacting touch
+      sequences, which will be reported on every <span class="type">GdkEventTouch</span> event from that sequence. By
+      default, if a widget didn't request touch events by setting <code class="literal">GDK_TOUCH_MASK</code> on its
+      event mask and didn't override <a class="link" href="GtkWidget.html#GtkWidget-touch-event" title="The “touch-event” signal"><span class="type">“touch-event”</span></a>, GTK+ will transform these
+      “pointer emulating” events into semantically similar <span class="type">GdkEventButton</span> and <span class="type">GdkEventMotion</span>
+      events. Depending on <code class="literal">GDK_TOUCH_MASK</code> being in the event mask or not, non-pointer-emulating
+      sequences could still trigger gestures or just get filtered out, regardless of the widget
+      not handling those directly.
+    </p>
+<p>
+      If the widget sets <code class="literal">GDK_TOUCH_MASK</code> on its event mask and doesn't chain up on
+      <a class="link" href="GtkWidget.html#GtkWidget-touch-event" title="The “touch-event” signal"><span class="type">“touch-event”</span></a>, only touch events will be received, and no pointer emulation
+      will be performed.
+    </p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.2.7.3.7"></a><h3>Grabs</h3>
+<p>
+      Grabs are a method to claim all input events from a device, they happen
+      either implicitly on pointer and touch devices, or explicitly. Implicit grabs
+      happen on user interaction, when a <span class="type">GdkEventButtonPress</span> happens, all events from
+      then on, until after the corresponding <span class="type">GdkEventButtonRelease</span>, will be reported
+      to the widget that got the first event. Likewise, on touch events, every
+      <span class="type">GdkEventSequence</span> will deliver only events to the widget that received its
+      <code class="literal">GDK_TOUCH_BEGIN</code> event.
+    </p>
+<p>
+      Explicit grabs happen programatically (both activation and deactivation),
+      and can be either system-wide (GDK grabs) or application-wide (GTK grabs).
+      On the windowing platforms that support it, GDK grabs will prevent any
+      interaction with any other application/window/widget than the grabbing one,
+      whereas GTK grabs will be effective only within the application (across all
+      its windows), still allowing for interaction with other applications.
+    </p>
+<p>
+      But one important aspect of grabs is that they may potentially happen at any
+      point somewhere else, even while the pointer/touch device is already grabbed.
+      This makes it necessary for widgets to handle the cancellation of any ongoing
+      interaction. Depending on whether a GTK or GDK grab is causing this, the
+      widget will respectively receive a <a class="link" href="GtkWidget.html#GtkWidget-grab-notify" title="The “grab-notify” signal"><span class="type">“grab-notify”</span></a> signal, or a
+      <span class="type">GdkEventGrabBroken</span> event.
+    </p>
+<p>
+      On gestures, these signals are handled automatically, causing the gesture
+      to cancel all tracked pointer/touch events, and signal the end of recognition.
+    </p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.2.7.3.8"></a><h3>Keyboard input</h3>
+</div>
+<hr>
+<div class="refsect2">
+<a name="event-controllers-and-gestures"></a><h3>Event controllers and gestures</h3>
+<p>
+      Event controllers are standalone objects that can perform specific actions
+      upon received <span class="type">GdkEvents</span>. These are tied to a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>, and can be told of
+      the event propagation phase at which they will manage the events.
+    </p>
+<p>
+      Gestures are a set of specific controllers that are prepared to handle pointer
+      and/or touch events, each gestures implementation attempts to recognize specific
+      actions out the received events, notifying of the state/progress accordingly to
+      let the widget react to those. On multi-touch gestures, every interacting touch
+      sequence will be tracked independently.
+    </p>
+<p>
+      Being gestures “simple” units, it is not uncommon to tie several together to
+      perform higher level actions, grouped gestures handle the same event sequences
+      simultaneously, and those sequences share a same state across all grouped
+      gestures. Some examples of grouping may be:
+
+      </p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+	  A “drag” and a “swipe” gestures may want grouping. The former will report
+	  events as the dragging happens, the latter will tell the swipe X/Y velocities
+	  only after gesture has finished.
+	</td></tr>
+<tr><td>
+	  Grouping a “drag” gesture with a “pan” gesture will only effectively allow
+	  dragging in the panning orientation, as both gestures share state.
+	</td></tr>
+<tr><td>
+	  If “press” and “long press” are wanted simultaneously, those would need grouping.
+	</td></tr>
+</table>
+<p>
+    </p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.2.7.3.10"></a><h3>Gesture states</h3>
+<p>
+      Gestures have a notion of “state” for each individual touch sequence. When events
+      from a touch sequence are first received, the touch sequence will have “none” state,
+      this means the touch sequence is being handled by the gesture to possibly trigger
+      actions, but the event propagation will not be stopped.
+    </p>
+<p>
+      When the gesture enters recognition, or at a later point in time, the widget may
+      choose to claim the touch sequences (individually or as a group), hence stopping
+      event propagation after the event is run through every gesture in that widget and
+      propagation phase. Anytime this happens, the touch sequences are cancelled downwards
+      the propagation chain, to let these know that no further events will be sent.
+    </p>
+<p>
+      Alternatively, or at a later point in time, the widget may choose to deny the touch
+      sequences, thus letting those go through again in event propagation. When this happens
+      in the capture phase, and if there are no other claiming gestures in the widget,
+      a <code class="literal">GDK_TOUCH_BEGIN</code>/<code class="literal">GDK_BUTTON_PRESS</code> event will be emulated and
+      propagated downwards, in order to preserve consistency.
+    </p>
+<p>
+      Grouped gestures always share the same state for a given touch sequence, so setting
+      the state on one does transfer the state to the others. They also are mutually exclusive,
+      within a widget there may be only one gesture group claiming a given sequence. If
+      another gesture group claims later that same sequence, the first group will deny the
+      sequence.
+    </p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

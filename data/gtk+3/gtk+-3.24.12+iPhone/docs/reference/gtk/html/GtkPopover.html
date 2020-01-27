@@ -1,0 +1,1184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkPopover: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="MenusAndCombos.html" title="Menus, Combo Box, Toolbar">
+<link rel="prev" href="GtkRadioToolButton.html" title="GtkRadioToolButton">
+<link rel="next" href="GtkPopoverMenu.html" title="GtkPopoverMenu">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkPopover.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkPopover.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkPopover.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkPopover.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkPopover.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="MenusAndCombos.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkRadioToolButton.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkPopoverMenu.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkPopover"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkPopover.top_of_page"></a>GtkPopover</span></h2>
+<p>GtkPopover — Context dependent bubbles</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkPopover.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-new" title="gtk_popover_new ()">gtk_popover_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-new-from-model" title="gtk_popover_new_from_model ()">gtk_popover_new_from_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-bind-model" title="gtk_popover_bind_model ()">gtk_popover_bind_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-popup" title="gtk_popover_popup ()">gtk_popover_popup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-popdown" title="gtk_popover_popdown ()">gtk_popover_popdown</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-set-relative-to" title="gtk_popover_set_relative_to ()">gtk_popover_set_relative_to</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-get-relative-to" title="gtk_popover_get_relative_to ()">gtk_popover_get_relative_to</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-set-pointing-to" title="gtk_popover_set_pointing_to ()">gtk_popover_set_pointing_to</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-get-pointing-to" title="gtk_popover_get_pointing_to ()">gtk_popover_get_pointing_to</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-set-position" title="gtk_popover_set_position ()">gtk_popover_set_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Standard-Enumerations.html#GtkPositionType" title="enum GtkPositionType"><span class="returnvalue">GtkPositionType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-get-position" title="gtk_popover_get_position ()">gtk_popover_get_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-set-constrain-to" title="gtk_popover_set_constrain_to ()">gtk_popover_set_constrain_to</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkPopover.html#GtkPopoverConstraint" title="enum GtkPopoverConstraint"><span class="returnvalue">GtkPopoverConstraint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-get-constrain-to" title="gtk_popover_get_constrain_to ()">gtk_popover_get_constrain_to</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-set-modal" title="gtk_popover_set_modal ()">gtk_popover_set_modal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-get-modal" title="gtk_popover_get_modal ()">gtk_popover_get_modal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-set-transitions-enabled" title="gtk_popover_set_transitions_enabled ()">gtk_popover_set_transitions_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-get-transitions-enabled" title="gtk_popover_get_transitions_enabled ()">gtk_popover_get_transitions_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-set-default-widget" title="gtk_popover_set_default_widget ()">gtk_popover_set_default_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkPopover.html#gtk-popover-get-default-widget" title="gtk_popover_get_default_widget ()">gtk_popover_get_default_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a class="link" href="GtkPopover.html#GtkPopoverConstraint" title="enum GtkPopoverConstraint"><span class="type">GtkPopoverConstraint</span></a></td>
+<td class="property_name"><a class="link" href="GtkPopover.html#GtkPopover--constrain-to" title="The “constrain-to” property">constrain-to</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkPopover.html#GtkPopover--modal" title="The “modal” property">modal</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GdkRectangle</span> *</td>
+<td class="property_name"><a class="link" href="GtkPopover.html#GtkPopover--pointing-to" title="The “pointing-to” property">pointing-to</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkPositionType" title="enum GtkPositionType"><span class="type">GtkPositionType</span></a></td>
+<td class="property_name"><a class="link" href="GtkPopover.html#GtkPopover--position" title="The “position” property">position</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkPopover.html#GtkPopover--relative-to" title="The “relative-to” property">relative-to</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkPopover.html#GtkPopover--transitions-enabled" title="The “transitions-enabled” property">transitions-enabled</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkPopover.html#GtkPopover-closed" title="The “closed” signal">closed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkPopover.html#GtkPopover-struct" title="struct GtkPopover">GtkPopover</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkPopover.html#GtkPopoverConstraint" title="enum GtkPopoverConstraint">GtkPopoverConstraint</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                    <span class="lineart">╰──</span> GtkPopover
+                        <span class="lineart">╰──</span> <a class="link" href="GtkPopoverMenu.html" title="GtkPopoverMenu">GtkPopoverMenu</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkPopover implements
+ AtkImplementorIface and  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.description"></a><h2>Description</h2>
+<p>GtkPopover is a bubble-like context window, primarily meant to
+provide context-dependent information or options. Popovers are
+attached to a widget, passed at construction time on <a class="link" href="GtkPopover.html#gtk-popover-new" title="gtk_popover_new ()"><code class="function">gtk_popover_new()</code></a>,
+or updated afterwards through <a class="link" href="GtkPopover.html#gtk-popover-set-relative-to" title="gtk_popover_set_relative_to ()"><code class="function">gtk_popover_set_relative_to()</code></a>, by
+default they will point to the whole widget area, although this
+behavior can be changed through <a class="link" href="GtkPopover.html#gtk-popover-set-pointing-to" title="gtk_popover_set_pointing_to ()"><code class="function">gtk_popover_set_pointing_to()</code></a>.</p>
+<p>The position of a popover relative to the widget it is attached to
+can also be changed through <a class="link" href="GtkPopover.html#gtk-popover-set-position" title="gtk_popover_set_position ()"><code class="function">gtk_popover_set_position()</code></a>.</p>
+<p>By default, <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> performs a GTK+ grab, in order to ensure
+input events get redirected to it while it is shown, and also so
+the popover is dismissed in the expected situations (clicks outside
+the popover, or the Esc key being pressed). If no such modal behavior
+is desired on a popover, <a class="link" href="GtkPopover.html#gtk-popover-set-modal" title="gtk_popover_set_modal ()"><code class="function">gtk_popover_set_modal()</code></a> may be called on it
+to tweak its behavior.</p>
+<div class="refsect3">
+<a name="id-1.3.13.20.10.5"></a><h4>GtkPopover as menu replacement</h4>
+<p>GtkPopover is often used to replace menus. To facilitate this, it
+supports being populated from a <span class="type">GMenuModel</span>, using
+<a class="link" href="GtkPopover.html#gtk-popover-new-from-model" title="gtk_popover_new_from_model ()"><code class="function">gtk_popover_new_from_model()</code></a>. In addition to all the regular menu
+model features, this function supports rendering sections in the
+model in a more compact form, as a row of icon buttons instead of
+menu items.</p>
+<p>To use this rendering, set the ”display-hint” attribute of the
+section to ”horizontal-buttons” and set the icons of your items
+with the ”verb-icon” attribute.</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="symbol">&lt;</span><span class="normal">section</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"display-hint"</span><span class="symbol">&gt;</span><span class="normal">horizontal</span><span class="symbol">-</span><span class="normal">buttons</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">item</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"label"</span><span class="symbol">&gt;</span><span class="normal">Cut</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"action"</span><span class="symbol">&gt;</span><span class="normal">app</span><span class="symbol">.</span><span class="normal">cut</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"verb-icon"</span><span class="symbol">&gt;</span><span class="normal">edit</span><span class="symbol">-</span><span class="normal">cut</span><span class="symbol">-</span><span class="normal">symbolic</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">item</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">item</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"label"</span><span class="symbol">&gt;</span><span class="normal">Copy</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"action"</span><span class="symbol">&gt;</span><span class="normal">app</span><span class="symbol">.</span><span class="normal">copy</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"verb-icon"</span><span class="symbol">&gt;</span><span class="normal">edit</span><span class="symbol">-</span><span class="normal">copy</span><span class="symbol">-</span><span class="normal">symbolic</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">item</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">item</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"label"</span><span class="symbol">&gt;</span><span class="normal">Paste</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"action"</span><span class="symbol">&gt;</span><span class="normal">app</span><span class="symbol">.</span><span class="normal">paste</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"verb-icon"</span><span class="symbol">&gt;</span><span class="normal">edit</span><span class="symbol">-</span><span class="normal">paste</span><span class="symbol">-</span><span class="normal">symbolic</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">item</span><span class="symbol">&gt;</span>
+<span class="symbol">&lt;/</span><span class="normal">section</span><span class="symbol">&gt;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<div class="refsect2">
+<a name="id-1.3.13.20.10.6"></a><h3>CSS nodes</h3>
+<p>GtkPopover has a single css node called popover. It always gets the
+.background style class and it gets the .menu style class if it is
+menu-like (e.g. <a class="link" href="GtkPopoverMenu.html" title="GtkPopoverMenu"><span class="type">GtkPopoverMenu</span></a> or created using <a class="link" href="GtkPopover.html#gtk-popover-new-from-model" title="gtk_popover_new_from_model ()"><code class="function">gtk_popover_new_from_model()</code></a>.</p>
+<p>Particular uses of GtkPopover, such as touch selection popups
+or magnifiers in <a class="link" href="GtkEntry.html" title="GtkEntry"><span class="type">GtkEntry</span></a> or <a class="link" href="GtkTextView.html" title="GtkTextView"><span class="type">GtkTextView</span></a> get style classes
+like .touch-selection or .magnifier to differentiate from
+plain popovers.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-popover-new"></a><h3>gtk_popover_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_popover_new (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *relative_to</code></em>);</pre>
+<p>Creates a new popover to point to <em class="parameter"><code>relative_to</code></em>
+</p>
+<div class="refsect3">
+<a name="gtk-popover-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>relative_to</p></td>
+<td class="parameter_description"><p><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> the popover is related to. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-new-from-model"></a><h3>gtk_popover_new_from_model ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_popover_new_from_model (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *relative_to</code></em>,
+                            <em class="parameter"><code><span class="type">GMenuModel</span> *model</code></em>);</pre>
+<p>Creates a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> and populates it according to
+<em class="parameter"><code>model</code></em>
+. The popover is pointed to the <em class="parameter"><code>relative_to</code></em>
+ widget.</p>
+<p>The created buttons are connected to actions found in the
+<a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a> to which the popover belongs - typically
+by means of being attached to a widget that is contained within
+the <a href="GtkApplicationWindow.html#GtkApplicationWindow-struct"><span class="type">GtkApplicationWindows</span></a> widget hierarchy.</p>
+<p>Actions can also be added using <a class="link" href="GtkWidget.html#gtk-widget-insert-action-group" title="gtk_widget_insert_action_group ()"><code class="function">gtk_widget_insert_action_group()</code></a>
+on the menus attach widget or on any of its parent widgets.</p>
+<div class="refsect3">
+<a name="gtk-popover-new-from-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>relative_to</p></td>
+<td class="parameter_description"><p><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> the popover is related to. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>a <span class="type">GMenuModel</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-new-from-model.returns"></a><h4>Returns</h4>
+<p> the new <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-bind-model"></a><h3>gtk_popover_bind_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_bind_model (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                        <em class="parameter"><code><span class="type">GMenuModel</span> *model</code></em>,
+                        <em class="parameter"><code>const <span class="type">gchar</span> *action_namespace</code></em>);</pre>
+<p>Establishes a binding between a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> and a <span class="type">GMenuModel</span>.</p>
+<p>The contents of <em class="parameter"><code>popover</code></em>
+ are removed and then refilled with menu items
+according to <em class="parameter"><code>model</code></em>
+.  When <em class="parameter"><code>model</code></em>
+ changes, <em class="parameter"><code>popover</code></em>
+ is updated.
+Calling this function twice on <em class="parameter"><code>popover</code></em>
+ with different <em class="parameter"><code>model</code></em>
+ will
+cause the first binding to be replaced with a binding to the new
+model. If <em class="parameter"><code>model</code></em>
+ is <code class="literal">NULL</code> then any previous binding is undone and
+all children are removed.</p>
+<p>If <em class="parameter"><code>action_namespace</code></em>
+ is non-<code class="literal">NULL</code> then the effect is as if all
+actions mentioned in the <em class="parameter"><code>model</code></em>
+ have their names prefixed with the
+namespace, plus a dot.  For example, if the action “quit” is
+mentioned and <em class="parameter"><code>action_namespace</code></em>
+ is “app” then the effective action
+name is “app.quit”.</p>
+<p>This function uses <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> to define the action name and
+target values on the created menu items.  If you want to use an
+action group other than “app” and “win”, or if you want to use a
+<a class="link" href="GtkMenuShell.html" title="GtkMenuShell"><span class="type">GtkMenuShell</span></a> outside of a <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a>, then you will need
+to attach your own action group to the widget hierarchy using
+<a class="link" href="GtkWidget.html#gtk-widget-insert-action-group" title="gtk_widget_insert_action_group ()"><code class="function">gtk_widget_insert_action_group()</code></a>.  As an example, if you created a
+group with a “quit” action and inserted it with the name “mygroup”
+then you would use the action name “mygroup.quit” in your
+<span class="type">GMenuModel</span>.</p>
+<div class="refsect3">
+<a name="gtk-popover-bind-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <span class="type">GMenuModel</span> to bind to or <code class="literal">NULL</code> to remove
+binding. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>action_namespace</p></td>
+<td class="parameter_description"><p>the namespace for actions in <em class="parameter"><code>model</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-popup"></a><h3>gtk_popover_popup ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_popup (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<p>Pops <em class="parameter"><code>popover</code></em>
+ up. This is different than a <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a> call
+in that it shows the popover with a transition. If you want to show
+the popover without a transition, use <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-popover-popup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-popdown"></a><h3>gtk_popover_popdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_popdown (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<p>Pops <em class="parameter"><code>popover</code></em>
+ down.This is different than a <a class="link" href="GtkWidget.html#gtk-widget-hide" title="gtk_widget_hide ()"><code class="function">gtk_widget_hide()</code></a> call
+in that it shows the popover with a transition. If you want to hide
+the popover without a transition, use <a class="link" href="GtkWidget.html#gtk-widget-hide" title="gtk_widget_hide ()"><code class="function">gtk_widget_hide()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-popover-popdown.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-set-relative-to"></a><h3>gtk_popover_set_relative_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_set_relative_to (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *relative_to</code></em>);</pre>
+<p>Sets a new widget to be attached to <em class="parameter"><code>popover</code></em>
+. If <em class="parameter"><code>popover</code></em>
+ is
+visible, the position will be updated.</p>
+<p>Note: the ownership of popovers is always given to their <em class="parameter"><code>relative_to</code></em>
+
+widget, so if <em class="parameter"><code>relative_to</code></em>
+ is set to <code class="literal">NULL</code> on an attached <em class="parameter"><code>popover</code></em>
+, it
+will be detached from its previous widget, and consequently destroyed
+unless extra references are kept.</p>
+<div class="refsect3">
+<a name="gtk-popover-set-relative-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>relative_to</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-get-relative-to"></a><h3>gtk_popover_get_relative_to ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_popover_get_relative_to (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<p>Returns the widget <em class="parameter"><code>popover</code></em>
+ is currently attached to</p>
+<div class="refsect3">
+<a name="gtk-popover-get-relative-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-get-relative-to.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-set-pointing-to"></a><h3>gtk_popover_set_pointing_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_set_pointing_to (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                             <em class="parameter"><code>const <span class="type">GdkRectangle</span> *rect</code></em>);</pre>
+<p>Sets the rectangle that <em class="parameter"><code>popover</code></em>
+ will point to, in the
+coordinate space of the widget <em class="parameter"><code>popover</code></em>
+ is attached to,
+see <a class="link" href="GtkPopover.html#gtk-popover-set-relative-to" title="gtk_popover_set_relative_to ()"><code class="function">gtk_popover_set_relative_to()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-popover-set-pointing-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rect</p></td>
+<td class="parameter_description"><p>rectangle to point to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-get-pointing-to"></a><h3>gtk_popover_get_pointing_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_popover_get_pointing_to (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                             <em class="parameter"><code><span class="type">GdkRectangle</span> *rect</code></em>);</pre>
+<p>If a rectangle to point to has been set, this function will
+return <code class="literal">TRUE</code> and fill in <em class="parameter"><code>rect</code></em>
+ with such rectangle, otherwise
+it will return <code class="literal">FALSE</code> and fill in <em class="parameter"><code>rect</code></em>
+ with the attached
+widget coordinates.</p>
+<div class="refsect3">
+<a name="gtk-popover-get-pointing-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rect</p></td>
+<td class="parameter_description"><p>location to store the rectangle. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-get-pointing-to.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if a rectangle to point to was set.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-set-position"></a><h3>gtk_popover_set_position ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_set_position (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                          <em class="parameter"><code><a class="link" href="gtk3-Standard-Enumerations.html#GtkPositionType" title="enum GtkPositionType"><span class="type">GtkPositionType</span></a> position</code></em>);</pre>
+<p>Sets the preferred position for <em class="parameter"><code>popover</code></em>
+ to appear. If the <em class="parameter"><code>popover</code></em>
+
+is currently visible, it will be immediately updated.</p>
+<p>This preference will be respected where possible, although
+on lack of space (eg. if close to the window edges), the
+<a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> may choose to appear on the opposite side</p>
+<div class="refsect3">
+<a name="gtk-popover-set-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>preferred popover position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-get-position"></a><h3>gtk_popover_get_position ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Standard-Enumerations.html#GtkPositionType" title="enum GtkPositionType"><span class="returnvalue">GtkPositionType</span></a>
+gtk_popover_get_position (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<p>Returns the preferred position of <em class="parameter"><code>popover</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-popover-get-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-get-position.returns"></a><h4>Returns</h4>
+<p> The preferred position.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-set-constrain-to"></a><h3>gtk_popover_set_constrain_to ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_set_constrain_to (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkPopover.html#GtkPopoverConstraint" title="enum GtkPopoverConstraint"><span class="type">GtkPopoverConstraint</span></a> constraint</code></em>);</pre>
+<p>Sets a constraint for positioning this popover.</p>
+<p>Note that not all platforms support placing popovers freely,
+and may already impose constraints.</p>
+<div class="refsect3">
+<a name="gtk-popover-set-constrain-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>constraint</p></td>
+<td class="parameter_description"><p>the new constraint</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-get-constrain-to"></a><h3>gtk_popover_get_constrain_to ()</h3>
+<pre class="programlisting"><a class="link" href="GtkPopover.html#GtkPopoverConstraint" title="enum GtkPopoverConstraint"><span class="returnvalue">GtkPopoverConstraint</span></a>
+gtk_popover_get_constrain_to (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<p>Returns the constraint for placing this popover.
+See <a class="link" href="GtkPopover.html#gtk-popover-set-constrain-to" title="gtk_popover_set_constrain_to ()"><code class="function">gtk_popover_set_constrain_to()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-popover-get-constrain-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-get-constrain-to.returns"></a><h4>Returns</h4>
+<p> the constraint for placing this popover.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-set-modal"></a><h3>gtk_popover_set_modal ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_set_modal (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                       <em class="parameter"><code><span class="type">gboolean</span> modal</code></em>);</pre>
+<p>Sets whether <em class="parameter"><code>popover</code></em>
+ is modal, a modal popover will grab all input
+within the toplevel and grab the keyboard focus on it when being
+displayed. Clicking outside the popover area or pressing Esc will
+dismiss the popover and ungrab input.</p>
+<div class="refsect3">
+<a name="gtk-popover-set-modal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>modal</p></td>
+<td class="parameter_description"><p><span class="type">TRUE</span> to make popover claim all input within the toplevel</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-get-modal"></a><h3>gtk_popover_get_modal ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_popover_get_modal (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<p>Returns whether the popover is modal, see gtk_popover_set_modal to
+see the implications of this.</p>
+<div class="refsect3">
+<a name="gtk-popover-get-modal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-get-modal.returns"></a><h4>Returns</h4>
+<p> <span class="type">TRUE</span> if <em class="parameter"><code>popover</code></em>
+is modal</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-set-transitions-enabled"></a><h3>gtk_popover_set_transitions_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_set_transitions_enabled (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                                     <em class="parameter"><code><span class="type">gboolean</span> transitions_enabled</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_popover_set_transitions_enabled</code> has been deprecated since version 3.22 and should not be used in newly-written code.</p>
+<p>You can show or hide the popover without transitions
+  using <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a> and <a class="link" href="GtkWidget.html#gtk-widget-hide" title="gtk_widget_hide ()"><code class="function">gtk_widget_hide()</code></a> while <a class="link" href="GtkPopover.html#gtk-popover-popup" title="gtk_popover_popup ()"><code class="function">gtk_popover_popup()</code></a>
+  and <a class="link" href="GtkPopover.html#gtk-popover-popdown" title="gtk_popover_popdown ()"><code class="function">gtk_popover_popdown()</code></a> will use transitions.</p>
+</div>
+<p>Sets whether show/hide transitions are enabled on this popover</p>
+<div class="refsect3">
+<a name="gtk-popover-set-transitions-enabled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>transitions_enabled</p></td>
+<td class="parameter_description"><p>Whether transitions are enabled</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-get-transitions-enabled"></a><h3>gtk_popover_get_transitions_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_popover_get_transitions_enabled (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_popover_get_transitions_enabled</code> has been deprecated since version 3.22 and should not be used in newly-written code.</p>
+<p>You can show or hide the popover without transitions
+  using <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a> and <a class="link" href="GtkWidget.html#gtk-widget-hide" title="gtk_widget_hide ()"><code class="function">gtk_widget_hide()</code></a> while <a class="link" href="GtkPopover.html#gtk-popover-popup" title="gtk_popover_popup ()"><code class="function">gtk_popover_popup()</code></a>
+  and <a class="link" href="GtkPopover.html#gtk-popover-popdown" title="gtk_popover_popdown ()"><code class="function">gtk_popover_popdown()</code></a> will use transitions.</p>
+</div>
+<p>Returns whether show/hide transitions are enabled on this popover.</p>
+<div class="refsect3">
+<a name="gtk-popover-get-transitions-enabled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-get-transitions-enabled.returns"></a><h4>Returns</h4>
+<p> <span class="type">TRUE</span> if the show and hide transitions of the given
+popover are enabled, <span class="type">FALSE</span> otherwise.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-set-default-widget"></a><h3>gtk_popover_set_default_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_popover_set_default_widget (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+<p>Sets the widget that should be set as default widget while
+the popover is shown (see <a class="link" href="GtkWindow.html#gtk-window-set-default" title="gtk_window_set_default ()"><code class="function">gtk_window_set_default()</code></a>). <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a>
+remembers the previous default widget and reestablishes it
+when the popover is dismissed.</p>
+<div class="refsect3">
+<a name="gtk-popover-set-default-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the new default widget, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-popover-get-default-widget"></a><h3>gtk_popover_get_default_widget ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_popover_get_default_widget (<em class="parameter"><code><a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover</code></em>);</pre>
+<p>Gets the widget that should be set as the default while
+the popover is shown.</p>
+<div class="refsect3">
+<a name="gtk-popover-get-default-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>popover</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-popover-get-default-widget.returns"></a><h4>Returns</h4>
+<p>the default widget,
+or <code class="literal">NULL</code> if there is none. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkPopover-struct"></a><h3>struct GtkPopover</h3>
+<pre class="programlisting">struct GtkPopover;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkPopoverConstraint"></a><h3>enum GtkPopoverConstraint</h3>
+<p>Describes constraints to positioning of popovers. More values
+may be added to this enumeration in the future.</p>
+<div class="refsect3">
+<a name="GtkPopoverConstraint.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-POPOVER-CONSTRAINT-NONE:CAPS"></a>GTK_POPOVER_CONSTRAINT_NONE</p></td>
+<td class="enum_member_description">
+<p>Don't constrain the popover position
+  beyond what is imposed by the implementation</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-POPOVER-CONSTRAINT-WINDOW:CAPS"></a>GTK_POPOVER_CONSTRAINT_WINDOW</p></td>
+<td class="enum_member_description">
+<p>Constrain the popover to the boundaries
+  of the window that it is attached to</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkPopover--constrain-to"></a><h3>The <code class="literal">“constrain-to”</code> property</h3>
+<pre class="programlisting">  “constrain-to”             <a class="link" href="GtkPopover.html#GtkPopoverConstraint" title="enum GtkPopoverConstraint"><span class="type">GtkPopoverConstraint</span></a></pre>
+<p>Sets a constraint for the popover position.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_POPOVER_CONSTRAINT_WINDOW</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkPopover--modal"></a><h3>The <code class="literal">“modal”</code> property</h3>
+<pre class="programlisting">  “modal”                    <span class="type">gboolean</span></pre>
+<p>Sets whether the popover is modal (so other elements in the window do not
+receive input while the popover is visible).</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkPopover--pointing-to"></a><h3>The <code class="literal">“pointing-to”</code> property</h3>
+<pre class="programlisting">  “pointing-to”              <span class="type">GdkRectangle</span> *</pre>
+<p>Marks a specific rectangle to be pointed.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkPopover--position"></a><h3>The <code class="literal">“position”</code> property</h3>
+<pre class="programlisting">  “position”                 <a class="link" href="gtk3-Standard-Enumerations.html#GtkPositionType" title="enum GtkPositionType"><span class="type">GtkPositionType</span></a></pre>
+<p>Sets the preferred position of the popover.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_POS_TOP</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkPopover--relative-to"></a><h3>The <code class="literal">“relative-to”</code> property</h3>
+<pre class="programlisting">  “relative-to”              <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</pre>
+<p>Sets the attached widget.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkPopover--transitions-enabled"></a><h3>The <code class="literal">“transitions-enabled”</code> property</h3>
+<pre class="programlisting">  “transitions-enabled”      <span class="type">gboolean</span></pre>
+<p>Whether show/hide transitions are enabled for this popover.</p>
+<div class="warning">
+<p><code class="literal">GtkPopover:transitions-enabled</code> has been deprecated since version 3.22 and should not be used in newly-written code.</p>
+<p>You can show or hide the popover without transitions
+  using <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a> and <a class="link" href="GtkWidget.html#gtk-widget-hide" title="gtk_widget_hide ()"><code class="function">gtk_widget_hide()</code></a> while <a class="link" href="GtkPopover.html#gtk-popover-popup" title="gtk_popover_popup ()"><code class="function">gtk_popover_popup()</code></a>
+  and <a class="link" href="GtkPopover.html#gtk-popover-popdown" title="gtk_popover_popdown ()"><code class="function">gtk_popover_popdown()</code></a> will use transitions.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkPopover.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkPopover-closed"></a><h3>The <code class="literal">“closed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkPopover.html" title="GtkPopover"><span class="type">GtkPopover</span></a> *popover,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>This signal is emitted when the popover is dismissed either through
+API or user interaction.</p>
+<div class="refsect3">
+<a name="GtkPopover-closed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

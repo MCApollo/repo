@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Packing: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtk-getting-started.html" title="Getting Started with GTK+">
+<link rel="prev" href="gtk-getting-started.html" title="Getting Started with GTK+">
+<link rel="next" href="ch01s03.html" title="Building user interfaces">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtk-getting-started.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gtk-getting-started.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch01s03.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id-1.2.3.10"></a>Packing</h2></div></div></div>
+<p>When creating an application, you'll want to put more than one widget
+    inside a window.
+    When you want to put more than one widget into a window,
+    it becomes important to control how each widget is positioned and sized.
+    This is where packing comes in.</p>
+<p>GTK+ comes with a large variety of <em class="firstterm">layout containers</em>
+    whose purpose it is to control the layout of the child widgets that are
+    added to them. See <a class="xref" href="LayoutContainers.html" title="Layout Containers"><i>Layout Containers</i></a> for an overview.</p>
+<p>The following example shows how the GtkGrid container lets you
+    arrange several buttons:</p>
+<div class="informalfigure"><div class="mediaobject"><img src="grid-packing.png"></div></div>
+<div class="example">
+<a name="gtk-getting-started-grid-packing"></a><p class="title"><b>Example 2. Packing buttons</b></p>
+<div class="example-contents">
+<p>Create a new file with the following content named example-2.c.</p>
+<pre class="programlisting">#include &lt;gtk/gtk.h&gt;
+
+static void
+print_hello (GtkWidget *widget,
+             gpointer   data)
+{
+  g_print ("Hello World\n");
+}
+
+static void
+activate (GtkApplication *app,
+          gpointer        user_data)
+{
+  GtkWidget *window;
+  GtkWidget *grid;
+  GtkWidget *button;
+
+  /* create a new window, and set its title */
+  window = gtk_application_window_new (app);
+  gtk_window_set_title (GTK_WINDOW (window), "Window");
+  gtk_container_set_border_width (GTK_CONTAINER (window), 10);
+
+  /* Here we construct the container that is going pack our buttons */
+  grid = gtk_grid_new ();
+
+  /* Pack the container in the window */
+  gtk_container_add (GTK_CONTAINER (window), grid);
+
+  button = gtk_button_new_with_label ("Button 1");
+  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
+
+  /* Place the first button in the grid cell (0, 0), and make it fill
+   * just 1 cell horizontally and vertically (ie no spanning)
+   */
+  gtk_grid_attach (GTK_GRID (grid), button, 0, 0, 1, 1);
+
+  button = gtk_button_new_with_label ("Button 2");
+  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
+
+  /* Place the second button in the grid cell (1, 0), and make it fill
+   * just 1 cell horizontally and vertically (ie no spanning)
+   */
+  gtk_grid_attach (GTK_GRID (grid), button, 1, 0, 1, 1);
+
+  button = gtk_button_new_with_label ("Quit");
+  g_signal_connect_swapped (button, "clicked", G_CALLBACK (gtk_widget_destroy), window);
+
+  /* Place the Quit button in the grid cell (0, 1), and make it
+   * span 2 columns.
+   */
+  gtk_grid_attach (GTK_GRID (grid), button, 0, 1, 2, 1);
+
+  /* Now that we are done packing our widgets, we show them all
+   * in one go, by calling gtk_widget_show_all() on the window.
+   * This call recursively calls gtk_widget_show() on all widgets
+   * that are contained in the window, directly or indirectly.
+   */
+  gtk_widget_show_all (window);
+
+}
+
+int
+main (int    argc,
+      char **argv)
+{
+  GtkApplication *app;
+  int status;
+
+  app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+  g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+  status = g_application_run (G_APPLICATION (app), argc, argv);
+  g_object_unref (app);
+
+  return status;
+}
+</pre>
+</div>
+</div>
+<br class="example-break"><p>
+      You can compile the program above with GCC using:
+      </p>
+<div class="literallayout"><p><br>
+        <code class="literal">gcc `pkg-config --cflags gtk+-3.0` -o example-2 example-2.c `pkg-config --libs gtk+-3.0`</code><br>
+      </p></div>
+<p>
+    </p>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

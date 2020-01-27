@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="gtk30">
+  <object class="GtkTextTagTable" id="tags">
+    <child type="tag">
+      <object class="GtkTextTag">
+        <property name="name">warning</property>
+        <property name="underline">single</property>
+        <property name="underline-rgba">darkorange</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag">
+        <property name="name">error</property>
+        <property name="underline">error</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkTextBuffer" id="text">
+    <property name="tag-table">tags</property>
+    <signal name="changed" handler="text_changed"/>
+  </object>
+  <template class="GtkInspectorCssEditor" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkBox">
+        <property name="visible">True</property>
+        <property name="orientation">horizontal</property>
+        <property name="spacing">6</property>
+        <property name="margin">6</property>
+        <child>
+          <object class="GtkToggleButton" id="disable_button">
+            <property name="visible">True</property>
+            <property name="relief">none</property>
+            <property name="tooltip-text" translatable="yes">Disable this custom CSS</property>
+            <signal name="toggled" handler="disable_toggled"/>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">media-playback-pause-symbolic</property>
+                <property name="icon-size">1</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">start</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton" id="save_button">
+            <property name="visible">True</property>
+            <property name="relief">none</property>
+            <property name="tooltip-text" translatable="yes">Save the current CSS</property>
+            <signal name="clicked" handler="save_clicked"/>
+            <style>
+              <class name="image-button"/>
+            </style>
+            <child>
+              <object class="GtkImage">
+                <property name="visible">True</property>
+                <property name="icon-name">document-save-symbolic</property>
+                <property name="icon-size">1</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">start</property>
+          </packing>
+        </child>
+        <child type="center">
+          <object class="GtkLabel" id="object_title">
+            <property name="visible">True</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkScrolledWindow">
+        <property name="visible">True</property>
+        <property name="hscrollbar-policy">never</property>
+        <property name="vscrollbar-policy">automatic</property>
+        <property name="expand">True</property>
+        <child>
+          <object class="GtkTextView" id="view">
+            <property name="visible">True</property>
+            <property name="buffer">text</property>
+            <property name="wrap-mode">word</property>
+            <property name="monospace">True</property>
+            <property name="has-focus">True</property>
+            <property name="left-margin">6</property>
+            <property name="right-margin">6</property>
+            <property name="has-tooltip">True</property>
+            <signal name="query-tooltip" handler="query_tooltip_cb"/>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -1,0 +1,1967 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkWidgetPath: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="theming.html" title="Part IV. Theming in GTK+">
+<link rel="prev" href="gtk3-GtkStyleProperties.html" title="GtkStyleProperties">
+<link rel="next" href="GtkIconTheme.html" title="GtkIconTheme">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gtk3-GtkWidgetPath.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="theming.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gtk3-GtkStyleProperties.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkIconTheme.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gtk3-GtkWidgetPath"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gtk3-GtkWidgetPath.top_of_page"></a>GtkWidgetPath</span></h2>
+<p>GtkWidgetPath — Widget path abstraction</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gtk3-GtkWidgetPath.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-type" title="gtk_widget_path_append_type ()">gtk_widget_path_append_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-with-siblings" title="gtk_widget_path_append_with_siblings ()">gtk_widget_path_append_with_siblings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-for-widget" title="gtk_widget_path_append_for_widget ()">gtk_widget_path_append_for_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-copy" title="gtk_widget_path_copy ()">gtk_widget_path_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-ref" title="gtk_widget_path_ref ()">gtk_widget_path_ref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-unref" title="gtk_widget_path_unref ()">gtk_widget_path_unref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-free" title="gtk_widget_path_free ()">gtk_widget_path_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GType</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-get-object-type" title="gtk_widget_path_get_object_type ()">gtk_widget_path_get_object_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-has-parent" title="gtk_widget_path_has_parent ()">gtk_widget_path_has_parent</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-is-type" title="gtk_widget_path_is_type ()">gtk_widget_path_is_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-add-class" title="gtk_widget_path_iter_add_class ()">gtk_widget_path_iter_add_class</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-add-region" title="gtk_widget_path_iter_add_region ()">gtk_widget_path_iter_add_region</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-clear-classes" title="gtk_widget_path_iter_clear_classes ()">gtk_widget_path_iter_clear_classes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-clear-regions" title="gtk_widget_path_iter_clear_regions ()">gtk_widget_path_iter_clear_regions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-name" title="gtk_widget_path_iter_get_name ()">gtk_widget_path_iter_get_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-object-name" title="gtk_widget_path_iter_get_object_name ()">gtk_widget_path_iter_get_object_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GType</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-object-type" title="gtk_widget_path_iter_get_object_type ()">gtk_widget_path_iter_get_object_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-siblings" title="gtk_widget_path_iter_get_siblings ()">gtk_widget_path_iter_get_siblings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-sibling-index" title="gtk_widget_path_iter_get_sibling_index ()">gtk_widget_path_iter_get_sibling_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Standard-Enumerations.html#GtkStateFlags" title="enum GtkStateFlags"><span class="returnvalue">GtkStateFlags</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-state" title="gtk_widget_path_iter_get_state ()">gtk_widget_path_iter_get_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-class" title="gtk_widget_path_iter_has_class ()">gtk_widget_path_iter_has_class</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-name" title="gtk_widget_path_iter_has_name ()">gtk_widget_path_iter_has_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-qclass" title="gtk_widget_path_iter_has_qclass ()">gtk_widget_path_iter_has_qclass</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-qname" title="gtk_widget_path_iter_has_qname ()">gtk_widget_path_iter_has_qname</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-qregion" title="gtk_widget_path_iter_has_qregion ()">gtk_widget_path_iter_has_qregion</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-region" title="gtk_widget_path_iter_has_region ()">gtk_widget_path_iter_has_region</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GSList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-list-classes" title="gtk_widget_path_iter_list_classes ()">gtk_widget_path_iter_list_classes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GSList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-list-regions" title="gtk_widget_path_iter_list_regions ()">gtk_widget_path_iter_list_regions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-remove-class" title="gtk_widget_path_iter_remove_class ()">gtk_widget_path_iter_remove_class</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-remove-region" title="gtk_widget_path_iter_remove_region ()">gtk_widget_path_iter_remove_region</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-set-name" title="gtk_widget_path_iter_set_name ()">gtk_widget_path_iter_set_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-set-object-name" title="gtk_widget_path_iter_set_object_name ()">gtk_widget_path_iter_set_object_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-set-object-type" title="gtk_widget_path_iter_set_object_type ()">gtk_widget_path_iter_set_object_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-set-state" title="gtk_widget_path_iter_set_state ()">gtk_widget_path_iter_set_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-length" title="gtk_widget_path_length ()">gtk_widget_path_length</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-new" title="gtk_widget_path_new ()">gtk_widget_path_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-prepend-type" title="gtk_widget_path_prepend_type ()">gtk_widget_path_prepend_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-to-string" title="gtk_widget_path_to_string ()">gtk_widget_path_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gtk3-GtkWidgetPath.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath">GtkWidgetPath</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gtk3-GtkWidgetPath.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gtk3-GtkWidgetPath.description"></a><h2>Description</h2>
+<p>GtkWidgetPath is a boxed type that represents a widget hierarchy from
+the topmost widget, typically a toplevel, to any child. This widget
+path abstraction is used in <a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a> on behalf of the real
+widget in order to query style information.</p>
+<p>If you are using GTK+ widgets, you probably will not need to use
+this API directly, as there is <a class="link" href="GtkWidget.html#gtk-widget-get-path" title="gtk_widget_get_path ()"><code class="function">gtk_widget_get_path()</code></a>, and the style
+context returned by <a class="link" href="GtkWidget.html#gtk-widget-get-style-context" title="gtk_widget_get_style_context ()"><code class="function">gtk_widget_get_style_context()</code></a> will be automatically
+updated on widget hierarchy changes.</p>
+<p>The widget path generation is generally simple:</p>
+<div class="refsect3">
+<a name="id-1.5.8.6.5"></a><h4>Defining a button within a window</h4>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">GtkWidgetPath</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">path</span><span class="symbol">;</span>
+
+<span class="normal">  path </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-new">gtk_widget_path_new</a></span><span class="normal"> </span><span class="symbol">();</span>
+<span class="normal">  </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-type">gtk_widget_path_append_type</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> GTK_TYPE_WINDOW</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-type">gtk_widget_path_append_type</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> GTK_TYPE_BUTTON</span><span class="symbol">);</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>Although more complex information, such as widget names, or
+different classes (property that may be used by other widget
+types) and intermediate regions may be included:</p>
+</div>
+<div class="refsect3">
+<a name="id-1.5.8.6.6"></a><h4>Defining the first tab widget in a notebook</h4>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">GtkWidgetPath</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">path</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">guint</span><span class="normal"> pos</span><span class="symbol">;</span>
+
+<span class="normal">  path </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-new">gtk_widget_path_new</a></span><span class="normal"> </span><span class="symbol">();</span>
+
+<span class="normal">  pos </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-type">gtk_widget_path_append_type</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> GTK_TYPE_NOTEBOOK</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-add-region">gtk_widget_path_iter_add_region</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> pos</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"tab"</span><span class="symbol">,</span><span class="normal"> <a href="GtkStyleContext.html#GTK-REGION-EVEN:CAPS">GTK_REGION_EVEN</a> </span><span class="symbol">|</span><span class="normal"> <a href="GtkStyleContext.html#GTK-REGION-FIRST:CAPS">GTK_REGION_FIRST</a></span><span class="symbol">);</span>
+
+<span class="normal">  pos </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-type">gtk_widget_path_append_type</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> GTK_TYPE_LABEL</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-set-name">gtk_widget_path_iter_set_name</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> pos</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"first tab label"</span><span class="symbol">);</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>All this information will be used to match the style information
+that applies to the described widget.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-GtkWidgetPath.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-widget-path-append-type"></a><h3>gtk_widget_path_append_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_widget_path_append_type (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                             <em class="parameter"><code><span class="type">GType</span> type</code></em>);</pre>
+<p>Appends a widget type to the widget hierarchy represented by <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-append-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>widget type to append</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-append-type.returns"></a><h4>Returns</h4>
+<p> the position where the element was inserted</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-append-with-siblings"></a><h3>gtk_widget_path_append_with_siblings ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_widget_path_append_with_siblings (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                      <em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *siblings</code></em>,
+                                      <em class="parameter"><code><span class="type">guint</span> sibling_index</code></em>);</pre>
+<p>Appends a widget type with all its siblings to the widget hierarchy
+represented by <em class="parameter"><code>path</code></em>
+. Using this function instead of
+<a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-append-type" title="gtk_widget_path_append_type ()"><code class="function">gtk_widget_path_append_type()</code></a> will allow the CSS theming to use
+sibling matches in selectors and apply :nth-<a class="link" href="glossary.html#child" title="child"><code class="function">child()</code></a> pseudo classes.
+In turn, it requires a lot more care in widget implementations as
+widgets need to make sure to call <a class="link" href="GtkWidget.html#gtk-widget-reset-style" title="gtk_widget_reset_style ()"><code class="function">gtk_widget_reset_style()</code></a> on all
+involved widgets when the <em class="parameter"><code>siblings</code></em>
+ path changes.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-append-with-siblings.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>the widget path to append to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>siblings</p></td>
+<td class="parameter_description"><p>a widget path describing a list of siblings. This path
+may not contain any siblings itself and it must not be modified
+afterwards.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sibling_index</p></td>
+<td class="parameter_description"><p>index into <em class="parameter"><code>siblings</code></em>
+for where the added element is
+positioned.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-append-with-siblings.returns"></a><h4>Returns</h4>
+<p> the position where the element was inserted.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-append-for-widget"></a><h3>gtk_widget_path_append_for_widget ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_widget_path_append_for_widget (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                   <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>);</pre>
+<p>Appends the data from <em class="parameter"><code>widget</code></em>
+ to the widget hierarchy represented
+by <em class="parameter"><code>path</code></em>
+. This function is a shortcut for adding information from
+<em class="parameter"><code>widget</code></em>
+ to the given <em class="parameter"><code>path</code></em>
+. This includes setting the name or
+adding the style classes from <em class="parameter"><code>widget</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-append-for-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a widget path</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the widget to append to the widget path</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-append-for-widget.returns"></a><h4>Returns</h4>
+<p> the position where the data was inserted</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-copy"></a><h3>gtk_widget_path_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+gtk_widget_path_copy (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<p>Returns a copy of <em class="parameter"><code>path</code></em>
+</p>
+<div class="refsect3">
+<a name="gtk-widget-path-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-copy.returns"></a><h4>Returns</h4>
+<p>a copy of <em class="parameter"><code>path</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-ref"></a><h3>gtk_widget_path_ref ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+gtk_widget_path_ref (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<p>Increments the reference count on <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-ref.returns"></a><h4>Returns</h4>
+<p> <em class="parameter"><code>path</code></em>
+itself.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-unref"></a><h3>gtk_widget_path_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_unref (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<p>Decrements the reference count on <em class="parameter"><code>path</code></em>
+, freeing the structure
+if the reference count reaches 0.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-unref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-free"></a><h3>gtk_widget_path_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_free (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<p>Decrements the reference count on <em class="parameter"><code>path</code></em>
+, freeing the structure
+if the reference count reaches 0.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-get-object-type"></a><h3>gtk_widget_path_get_object_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>
+gtk_widget_path_get_object_type (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<p>Returns the topmost object type, that is, the object type this path
+is representing.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-get-object-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-get-object-type.returns"></a><h4>Returns</h4>
+<p> The object type</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-has-parent"></a><h3>gtk_widget_path_has_parent ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_has_parent (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                            <em class="parameter"><code><span class="type">GType</span> type</code></em>);</pre>
+<p>Returns <code class="literal">TRUE</code> if any of the parents of the widget represented
+in <em class="parameter"><code>path</code></em>
+ is of type <em class="parameter"><code>type</code></em>
+, or any subtype of it.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-has-parent.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>widget type to check in parents</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-has-parent.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if any parent is of type <em class="parameter"><code>type</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-is-type"></a><h3>gtk_widget_path_is_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_is_type (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                         <em class="parameter"><code><span class="type">GType</span> type</code></em>);</pre>
+<p>Returns <code class="literal">TRUE</code> if the widget type represented by this path
+is <em class="parameter"><code>type</code></em>
+, or a subtype of it.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-is-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>widget type to match</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-is-type.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the widget represented by <em class="parameter"><code>path</code></em>
+is of type <em class="parameter"><code>type</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-add-class"></a><h3>gtk_widget_path_iter_add_class ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_add_class (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Adds the class <em class="parameter"><code>name</code></em>
+ to the widget at position <em class="parameter"><code>pos</code></em>
+ in
+the hierarchy defined in <em class="parameter"><code>path</code></em>
+. See
+<a class="link" href="GtkStyleContext.html#gtk-style-context-add-class" title="gtk_style_context_add_class ()"><code class="function">gtk_style_context_add_class()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-add-class.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>a class name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-add-region"></a><h3>gtk_widget_path_iter_add_region ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_add_region (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkStyleContext.html#GtkRegionFlags" title="enum GtkRegionFlags"><span class="type">GtkRegionFlags</span></a> flags</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_widget_path_iter_add_region</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>The use of regions is deprecated.</p>
+</div>
+<p>Adds the region <em class="parameter"><code>name</code></em>
+ to the widget at position <em class="parameter"><code>pos</code></em>
+ in
+the hierarchy defined in <em class="parameter"><code>path</code></em>
+. See
+<a class="link" href="GtkStyleContext.html#gtk-style-context-add-region" title="gtk_style_context_add_region ()"><code class="function">gtk_style_context_add_region()</code></a>.</p>
+<p>Region names must only contain lowercase letters
+and “-”, starting always with a lowercase letter.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-add-region.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>region name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>flags affecting the region</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-clear-classes"></a><h3>gtk_widget_path_iter_clear_classes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_clear_classes (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Removes all classes from the widget at position <em class="parameter"><code>pos</code></em>
+ in the
+hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-clear-classes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-clear-regions"></a><h3>gtk_widget_path_iter_clear_regions ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_clear_regions (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_widget_path_iter_clear_regions</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>The use of regions is deprecated.</p>
+</div>
+<p>Removes all regions from the widget at position <em class="parameter"><code>pos</code></em>
+ in the
+hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-clear-regions.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-get-name"></a><h3>gtk_widget_path_iter_get_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_widget_path_iter_get_name (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Returns the name corresponding to the widget found at
+the position <em class="parameter"><code>pos</code></em>
+ in the widget hierarchy defined by
+<em class="parameter"><code>path</code></em>
+</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to get the widget name for, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-name.returns"></a><h4>Returns</h4>
+<p>The widget name, or <code class="literal">NULL</code> if none was set. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-get-object-name"></a><h3>gtk_widget_path_iter_get_object_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+gtk_widget_path_iter_get_object_name (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Returns the object name that is at position <em class="parameter"><code>pos</code></em>
+ in the widget
+hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-object-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to get the object name for, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-object-name.returns"></a><h4>Returns</h4>
+<p>the name or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-get-object-type"></a><h3>gtk_widget_path_iter_get_object_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">GType</span>
+gtk_widget_path_iter_get_object_type (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Returns the object <span class="type">GType</span> that is at position <em class="parameter"><code>pos</code></em>
+ in the widget
+hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-object-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to get the object type for, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-object-type.returns"></a><h4>Returns</h4>
+<p> a widget type</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-get-siblings"></a><h3>gtk_widget_path_iter_get_siblings ()</h3>
+<pre class="programlisting">const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+gtk_widget_path_iter_get_siblings (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Returns the list of siblings for the element at <em class="parameter"><code>pos</code></em>
+. If the element
+was not added with siblings, <code class="literal">NULL</code> is returned.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-siblings.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to get the siblings for, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-siblings.returns"></a><h4>Returns</h4>
+<p> <code class="literal">NULL</code> or the list of siblings for the element at <em class="parameter"><code>pos</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-get-sibling-index"></a><h3>gtk_widget_path_iter_get_sibling_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_widget_path_iter_get_sibling_index
+                               (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Returns the index into the list of siblings for the element at <em class="parameter"><code>pos</code></em>
+ as
+returned by <a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-siblings" title="gtk_widget_path_iter_get_siblings ()"><code class="function">gtk_widget_path_iter_get_siblings()</code></a>. If that function would
+return <code class="literal">NULL</code> because the element at <em class="parameter"><code>pos</code></em>
+ has no siblings, this function
+will return 0.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-sibling-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to get the sibling index for, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-sibling-index.returns"></a><h4>Returns</h4>
+<p> 0 or the index into the list of siblings for the element at <em class="parameter"><code>pos</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-get-state"></a><h3>gtk_widget_path_iter_get_state ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Standard-Enumerations.html#GtkStateFlags" title="enum GtkStateFlags"><span class="returnvalue">GtkStateFlags</span></a>
+gtk_widget_path_iter_get_state (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Returns the state flags corresponding to the widget found at
+the position <em class="parameter"><code>pos</code></em>
+ in the widget hierarchy defined by
+<em class="parameter"><code>path</code></em>
+</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to get the state for, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-get-state.returns"></a><h4>Returns</h4>
+<p> The state flags</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-has-class"></a><h3>gtk_widget_path_iter_has_class ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_iter_has_class (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Returns <code class="literal">TRUE</code> if the widget at position <em class="parameter"><code>pos</code></em>
+ has the class <em class="parameter"><code>name</code></em>
+
+defined, <code class="literal">FALSE</code> otherwise.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-class.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>class name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-class.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the class <em class="parameter"><code>name</code></em>
+is defined for the widget at <em class="parameter"><code>pos</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-has-name"></a><h3>gtk_widget_path_iter_has_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_iter_has_name (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                               <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Returns <code class="literal">TRUE</code> if the widget at position <em class="parameter"><code>pos</code></em>
+ has the name <em class="parameter"><code>name</code></em>
+,
+<code class="literal">FALSE</code> otherwise.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>a widget name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-name.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the widget at <em class="parameter"><code>pos</code></em>
+has this name</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-has-qclass"></a><h3>gtk_widget_path_iter_has_qclass ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_iter_has_qclass (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                 <em class="parameter"><code><span class="type">GQuark</span> qname</code></em>);</pre>
+<p>See <a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-class" title="gtk_widget_path_iter_has_class ()"><code class="function">gtk_widget_path_iter_has_class()</code></a>. This is a version that operates
+with GQuarks.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-qclass.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>qname</p></td>
+<td class="parameter_description"><p>class name as a <span class="type">GQuark</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-qclass.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the widget at <em class="parameter"><code>pos</code></em>
+has the class defined.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-has-qname"></a><h3>gtk_widget_path_iter_has_qname ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_iter_has_qname (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                <em class="parameter"><code><span class="type">GQuark</span> qname</code></em>);</pre>
+<p>See <a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-name" title="gtk_widget_path_iter_has_name ()"><code class="function">gtk_widget_path_iter_has_name()</code></a>. This is a version
+that operates on <span class="type">GQuarks</span>.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-qname.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>qname</p></td>
+<td class="parameter_description"><p>widget name as a <span class="type">GQuark</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-qname.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the widget at <em class="parameter"><code>pos</code></em>
+has this name</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-has-qregion"></a><h3>gtk_widget_path_iter_has_qregion ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_iter_has_qregion (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                  <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                  <em class="parameter"><code><span class="type">GQuark</span> qname</code></em>,
+                                  <em class="parameter"><code><a class="link" href="GtkStyleContext.html#GtkRegionFlags" title="enum GtkRegionFlags"><span class="type">GtkRegionFlags</span></a> *flags</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_widget_path_iter_has_qregion</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>The use of regions is deprecated.</p>
+</div>
+<p>See <a class="link" href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-has-region" title="gtk_widget_path_iter_has_region ()"><code class="function">gtk_widget_path_iter_has_region()</code></a>. This is a version that operates
+with GQuarks.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-qregion.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>qname</p></td>
+<td class="parameter_description"><p>region name as a <span class="type">GQuark</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>return location for the region flags. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-qregion.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the widget at <em class="parameter"><code>pos</code></em>
+has the region defined.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-has-region"></a><h3>gtk_widget_path_iter_has_region ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_widget_path_iter_has_region (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkStyleContext.html#GtkRegionFlags" title="enum GtkRegionFlags"><span class="type">GtkRegionFlags</span></a> *flags</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_widget_path_iter_has_region</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>The use of regions is deprecated.</p>
+</div>
+<p>Returns <code class="literal">TRUE</code> if the widget at position <em class="parameter"><code>pos</code></em>
+ has the class <em class="parameter"><code>name</code></em>
+
+defined, <code class="literal">FALSE</code> otherwise.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-region.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>region name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>return location for the region flags. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-has-region.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the class <em class="parameter"><code>name</code></em>
+is defined for the widget at <em class="parameter"><code>pos</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-list-classes"></a><h3>gtk_widget_path_iter_list_classes ()</h3>
+<pre class="programlisting"><span class="returnvalue">GSList</span> *
+gtk_widget_path_iter_list_classes (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Returns a list with all the class names defined for the widget
+at position <em class="parameter"><code>pos</code></em>
+ in the hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-list-classes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-list-classes.returns"></a><h4>Returns</h4>
+<p>The list of
+classes, This is a list of strings, the <span class="type">GSList</span> contents
+are owned by GTK+, but you should use <code class="function">g_slist_free()</code> to
+free the list itself. </p>
+<p><span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-list-regions"></a><h3>gtk_widget_path_iter_list_regions ()</h3>
+<pre class="programlisting"><span class="returnvalue">GSList</span> *
+gtk_widget_path_iter_list_regions (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_widget_path_iter_list_regions</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>The use of regions is deprecated.</p>
+</div>
+<p>Returns a list with all the region names defined for the widget
+at position <em class="parameter"><code>pos</code></em>
+ in the hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-list-regions.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to query, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-list-regions.returns"></a><h4>Returns</h4>
+<p>The list of
+regions, This is a list of strings, the <span class="type">GSList</span> contents
+are owned by GTK+, but you should use <code class="function">g_slist_free()</code> to
+free the list itself. </p>
+<p><span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-remove-class"></a><h3>gtk_widget_path_iter_remove_class ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_remove_class (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Removes the class <em class="parameter"><code>name</code></em>
+ from the widget at position <em class="parameter"><code>pos</code></em>
+ in
+the hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-remove-class.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>class name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-remove-region"></a><h3>gtk_widget_path_iter_remove_region ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_remove_region (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                    <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_widget_path_iter_remove_region</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>The use of regions is deprecated.</p>
+</div>
+<p>Removes the region <em class="parameter"><code>name</code></em>
+ from the widget at position <em class="parameter"><code>pos</code></em>
+ in
+the hierarchy defined in <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-remove-region.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>region name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-set-name"></a><h3>gtk_widget_path_iter_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_set_name (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                               <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Sets the widget name for the widget found at position <em class="parameter"><code>pos</code></em>
+
+in the widget hierarchy defined by <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-set-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>widget name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-set-object-name"></a><h3>gtk_widget_path_iter_set_object_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_set_object_name (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                      <em class="parameter"><code>const <span class="type">char</span> *name</code></em>);</pre>
+<p>Sets the object name for a given position in the widget hierarchy
+defined by <em class="parameter"><code>path</code></em>
+.</p>
+<p>When set, the object name overrides the object type when matching
+CSS.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-set-object-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>object name to set or <code class="literal">NULL</code> to unset. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-set-object-type"></a><h3>gtk_widget_path_iter_set_object_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_set_object_type (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                      <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                      <em class="parameter"><code><span class="type">GType</span> type</code></em>);</pre>
+<p>Sets the object type for a given position in the widget hierarchy
+defined by <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-set-object-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>object type to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-iter-set-state"></a><h3>gtk_widget_path_iter_set_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_iter_set_state (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> pos</code></em>,
+                                <em class="parameter"><code><a class="link" href="gtk3-Standard-Enumerations.html#GtkStateFlags" title="enum GtkStateFlags"><span class="type">GtkStateFlags</span></a> state</code></em>);</pre>
+<p>Sets the widget name for the widget found at position <em class="parameter"><code>pos</code></em>
+
+in the widget hierarchy defined by <em class="parameter"><code>path</code></em>
+.</p>
+<p>If you want to update just a single state flag, you need to do
+this manually, as this function updates all state flags.</p>
+<div class="refsect3">
+<a name="id-1.5.8.7.35.6"></a><h4>Setting a flag</h4>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-set-state">gtk_widget_path_iter_set_state</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> pos</span><span class="symbol">,</span><span class="normal"> </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-state">gtk_widget_path_iter_get_state</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> pos</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">|</span><span class="normal"> flag</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<div class="refsect3">
+<a name="id-1.5.8.7.35.7"></a><h4>Unsetting a flag</h4>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-set-state">gtk_widget_path_iter_set_state</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> pos</span><span class="symbol">,</span><span class="normal"> </span><span class="function"><a href="gtk3-GtkWidgetPath.html#gtk-widget-path-iter-get-state">gtk_widget_path_iter_get_state</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">path</span><span class="symbol">,</span><span class="normal"> pos</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal"> </span><span class="symbol">~</span><span class="normal">flag</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-iter-set-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>position to modify, -1 for the path head</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>state flags</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-length"></a><h3>gtk_widget_path_length ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_widget_path_length (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<p>Returns the number of <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> <span class="type">GTypes</span> between the represented
+widget and its topmost container.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-length.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-length.returns"></a><h4>Returns</h4>
+<p> the number of elements in the path</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-new"></a><h3>gtk_widget_path_new ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="returnvalue">GtkWidgetPath</span></a> *
+gtk_widget_path_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns an empty widget path.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-new.returns"></a><h4>Returns</h4>
+<p>A newly created, empty, <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-prepend-type"></a><h3>gtk_widget_path_prepend_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_widget_path_prepend_type (<em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                              <em class="parameter"><code><span class="type">GType</span> type</code></em>);</pre>
+<p>Prepends a widget type to the widget hierachy represented by <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-prepend-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>widget type to prepend</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-widget-path-to-string"></a><h3>gtk_widget_path_to_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">char</span> *
+gtk_widget_path_to_string (<em class="parameter"><code>const <a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<p>Dumps the widget path into a string representation. It tries to match
+the CSS style as closely as possible (Note that there might be paths
+that cannot be represented in CSS).</p>
+<p>The main use of this code is for debugging purposes, so that you can
+<code class="function">g_print()</code> the path or dump it in a gdb session.</p>
+<div class="refsect3">
+<a name="gtk-widget-path-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>the path</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-widget-path-to-string.returns"></a><h4>Returns</h4>
+<p> A new string describing <em class="parameter"><code>path</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-GtkWidgetPath.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkWidgetPath"></a><h3>GtkWidgetPath</h3>
+<pre class="programlisting">typedef struct _GtkWidgetPath GtkWidgetPath;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-GtkWidgetPath.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

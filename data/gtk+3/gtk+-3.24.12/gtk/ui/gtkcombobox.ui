@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="gtk30">
+  <!-- interface-requires gtk+ 3.10 -->
+  <template class="GtkComboBox" parent="GtkBin">
+    <child>
+      <object class="GtkBox" id="box">
+        <property name="visible">1</property>
+        <style>
+          <class name="linked"/>
+        </style>
+        <child>
+          <object class="GtkToggleButton" id="button">
+            <property name="visible">1</property>
+            <signal name="toggled" handler="gtk_combo_box_button_toggled" swapped="no"/>
+            <child>
+              <object class="GtkBox">
+                <property name="visible">1</property>
+                <child>
+                  <object class="GtkIcon" id="arrow">
+                    <property name="visible">1</property>
+                    <property name="css-name">arrow</property>
+                  </object>
+                  <packing>
+                    <property name="pack-type">end</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

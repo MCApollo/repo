@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkActionable: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="Application.html" title="Application support">
+<link rel="prev" href="GtkApplicationWindow.html" title="GtkApplicationWindow">
+<link rel="next" href="Builder.html" title="Interface builder">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkActionable.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkActionable.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#GtkActionable.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#GtkActionable.implementations" class="shortcut">Known Implementations</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkActionable.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="Application.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkApplicationWindow.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="Builder.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkActionable"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkActionable.top_of_page"></a>GtkActionable</span></h2>
+<p>GtkActionable — An interface for widgets that can be associated
+    with actions</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkActionable.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkActionable.html#gtk-actionable-get-action-name" title="gtk_actionable_get_action_name ()">gtk_actionable_get_action_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkActionable.html#gtk-actionable-set-action-name" title="gtk_actionable_set_action_name ()">gtk_actionable_set_action_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GVariant</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkActionable.html#gtk-actionable-get-action-target-value" title="gtk_actionable_get_action_target_value ()">gtk_actionable_get_action_target_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkActionable.html#gtk-actionable-set-action-target-value" title="gtk_actionable_set_action_target_value ()">gtk_actionable_set_action_target_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkActionable.html#gtk-actionable-set-action-target" title="gtk_actionable_set_action_target ()">gtk_actionable_set_action_target</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkActionable.html#gtk-actionable-set-detailed-action-name" title="gtk_actionable_set_detailed_action_name ()">gtk_actionable_set_detailed_action_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkActionable.html#GtkActionable--action-name" title="The “action-name” property">action-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GVariant</span> *</td>
+<td class="property_name"><a class="link" href="GtkActionable.html#GtkActionable--action-target" title="The “action-target” property">action-target</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkActionable.html#GtkActionable-struct" title="GtkActionable">GtkActionable</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkActionable.html#GtkActionableInterface" title="struct GtkActionableInterface">GtkActionableInterface</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobject/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> GtkActionable
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+GtkActionable requires
+ <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.implementations"></a><h2>Known Implementations</h2>
+<p>
+GtkActionable is implemented by
+ <a class="link" href="GtkButton.html" title="GtkButton">GtkButton</a>,  <a class="link" href="GtkCheckButton.html" title="GtkCheckButton">GtkCheckButton</a>,  <a class="link" href="GtkCheckMenuItem.html" title="GtkCheckMenuItem">GtkCheckMenuItem</a>,  <a class="link" href="GtkColorButton.html" title="GtkColorButton">GtkColorButton</a>,  <a class="link" href="GtkFontButton.html" title="GtkFontButton">GtkFontButton</a>,  <a class="link" href="GtkImageMenuItem.html" title="GtkImageMenuItem">GtkImageMenuItem</a>,  <a class="link" href="GtkLinkButton.html" title="GtkLinkButton">GtkLinkButton</a>,  <a class="link" href="GtkListBox.html#GtkListBoxRow">GtkListBoxRow</a>,  <a class="link" href="GtkLockButton.html" title="GtkLockButton">GtkLockButton</a>,  <a class="link" href="GtkMenuButton.html" title="GtkMenuButton">GtkMenuButton</a>,  <a class="link" href="GtkMenuItem.html" title="GtkMenuItem">GtkMenuItem</a>,  <a class="link" href="GtkMenuToolButton.html" title="GtkMenuToolButton">GtkMenuToolButton</a>,  <a class="link" href="GtkModelButton.html" title="GtkModelButton">GtkModelButton</a>,  <a class="link" href="GtkRadioButton.html" title="GtkRadioButton">GtkRadioButton</a>,  <a class="link" href="GtkRadioMenuItem.html" title="GtkRadioMenuItem">GtkRadioMenuItem</a>,  <a class="link" href="GtkRadioToolButton.html" title="GtkRadioToolButton">GtkRadioToolButton</a>,  <a class="link" href="GtkScaleButton.html" title="GtkScaleButton">GtkScaleButton</a>,  <a class="link" href="GtkSeparatorMenuItem.html" title="GtkSeparatorMenuItem">GtkSeparatorMenuItem</a>,  <a class="link" href="GtkSwitch.html" title="GtkSwitch">GtkSwitch</a>,  <a class="link" href="GtkTearoffMenuItem.html" title="GtkTearoffMenuItem">GtkTearoffMenuItem</a>,  <a class="link" href="GtkToggleButton.html" title="GtkToggleButton">GtkToggleButton</a>,  <a class="link" href="GtkToggleToolButton.html" title="GtkToggleToolButton">GtkToggleToolButton</a>,  <a class="link" href="GtkToolButton.html" title="GtkToolButton">GtkToolButton</a> and  <a class="link" href="GtkVolumeButton.html" title="GtkVolumeButton">GtkVolumeButton</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.description"></a><h2>Description</h2>
+<p>This interface provides a convenient way of associating widgets with
+actions on a <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a> or <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a>.</p>
+<p>It primarily consists of two properties: <a class="link" href="GtkActionable.html#GtkActionable--action-name" title="The “action-name” property"><span class="type">“action-name”</span></a>
+and <a class="link" href="GtkActionable.html#GtkActionable--action-target" title="The “action-target” property"><span class="type">“action-target”</span></a>. There are also some convenience APIs
+for setting these properties.</p>
+<p>The action will be looked up in action groups that are found among
+the widgets ancestors. Most commonly, these will be the actions with
+the “win.” or “app.” prefix that are associated with the <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a>
+or <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a>, but other action groups that are added with
+<a class="link" href="GtkWidget.html#gtk-widget-insert-action-group" title="gtk_widget_insert_action_group ()"><code class="function">gtk_widget_insert_action_group()</code></a> will be consulted as well.</p>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-actionable-get-action-name"></a><h3>gtk_actionable_get_action_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_actionable_get_action_name (<em class="parameter"><code><a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> *actionable</code></em>);</pre>
+<p>Gets the action name for <em class="parameter"><code>actionable</code></em>
+.</p>
+<p>See <a class="link" href="GtkActionable.html#gtk-actionable-set-action-name" title="gtk_actionable_set_action_name ()"><code class="function">gtk_actionable_set_action_name()</code></a> for more information.</p>
+<div class="refsect3">
+<a name="gtk-actionable-get-action-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>actionable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-actionable-get-action-name.returns"></a><h4>Returns</h4>
+<p>the action name, or <code class="literal">NULL</code> if none is set. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-actionable-set-action-name"></a><h3>gtk_actionable_set_action_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_actionable_set_action_name (<em class="parameter"><code><a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> *actionable</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *action_name</code></em>);</pre>
+<p>Specifies the name of the action with which this widget should be
+associated.  If <em class="parameter"><code>action_name</code></em>
+ is <code class="literal">NULL</code> then the widget will be
+unassociated from any previous action.</p>
+<p>Usually this function is used when the widget is located (or will be
+located) within the hierarchy of a <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a>.</p>
+<p>Names are of the form “win.save” or “app.quit” for actions on the
+containing <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a> or its associated <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a>,
+respectively.  This is the same form used for actions in the <span class="type">GMenu</span>
+associated with the window.</p>
+<div class="refsect3">
+<a name="gtk-actionable-set-action-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>actionable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>action_name</p></td>
+<td class="parameter_description"><p>an action name, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-actionable-get-action-target-value"></a><h3>gtk_actionable_get_action_target_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">GVariant</span> *
+gtk_actionable_get_action_target_value
+                               (<em class="parameter"><code><a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> *actionable</code></em>);</pre>
+<p>Gets the current target value of <em class="parameter"><code>actionable</code></em>
+.</p>
+<p>See <a class="link" href="GtkActionable.html#gtk-actionable-set-action-target-value" title="gtk_actionable_set_action_target_value ()"><code class="function">gtk_actionable_set_action_target_value()</code></a> for more information.</p>
+<div class="refsect3">
+<a name="gtk-actionable-get-action-target-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>actionable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-actionable-get-action-target-value.returns"></a><h4>Returns</h4>
+<p>the current target value. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-actionable-set-action-target-value"></a><h3>gtk_actionable_set_action_target_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_actionable_set_action_target_value
+                               (<em class="parameter"><code><a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> *actionable</code></em>,
+                                <em class="parameter"><code><span class="type">GVariant</span> *target_value</code></em>);</pre>
+<p>Sets the target value of an actionable widget.</p>
+<p>If <em class="parameter"><code>target_value</code></em>
+ is <code class="literal">NULL</code> then the target value is unset.</p>
+<p>The target value has two purposes.  First, it is used as the
+parameter to activation of the action associated with the
+<a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> widget. Second, it is used to determine if the widget
+should be rendered as “active” — the widget is active if the state
+is equal to the given target.</p>
+<p>Consider the example of associating a set of buttons with a <span class="type">GAction</span>
+with string state in a typical “radio button” situation.  Each button
+will be associated with the same action, but with a different target
+value for that action.  Clicking on a particular button will activate
+the action with the target of that button, which will typically cause
+the action’s state to change to that value.  Since the action’s state
+is now equal to the target value of the button, the button will now
+be rendered as active (and the other buttons, with different targets,
+rendered inactive).</p>
+<div class="refsect3">
+<a name="gtk-actionable-set-action-target-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>actionable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>target_value</p></td>
+<td class="parameter_description"><p>a <span class="type">GVariant</span> to set as the target value, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-actionable-set-action-target"></a><h3>gtk_actionable_set_action_target ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_actionable_set_action_target (<em class="parameter"><code><a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> *actionable</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *format_string</code></em>,
+                                  <em class="parameter"><code>...</code></em>);</pre>
+<p>Sets the target of an actionable widget.</p>
+<p>This is a convenience function that calls <code class="function">g_variant_new()</code> for
+<em class="parameter"><code>format_string</code></em>
+ and uses the result to call
+<a class="link" href="GtkActionable.html#gtk-actionable-set-action-target-value" title="gtk_actionable_set_action_target_value ()"><code class="function">gtk_actionable_set_action_target_value()</code></a>.</p>
+<p>If you are setting a string-valued target and want to set the action
+name at the same time, you can use
+<a class="link" href="GtkActionable.html#gtk-actionable-set-detailed-action-name" title="gtk_actionable_set_detailed_action_name ()"><code class="function">gtk_actionable_set_detailed_action_name()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-actionable-set-action-target.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>actionable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format_string</p></td>
+<td class="parameter_description"><p>a GVariant format string</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>...</p></td>
+<td class="parameter_description"><p>arguments appropriate for <em class="parameter"><code>format_string</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-actionable-set-detailed-action-name"></a><h3>gtk_actionable_set_detailed_action_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_actionable_set_detailed_action_name
+                               (<em class="parameter"><code><a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> *actionable</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *detailed_action_name</code></em>);</pre>
+<p>Sets the action-name and associated string target value of an
+actionable widget.</p>
+<p><em class="parameter"><code>detailed_action_name</code></em>
+ is a string in the format accepted by
+<code class="function">g_action_parse_detailed_name()</code>.</p>
+<p>(Note that prior to version 3.22.25,
+this function is only usable for actions with a simple "s" target, and
+<em class="parameter"><code>detailed_action_name</code></em>
+ must be of the form <code class="literal">"action::target"</code> where
+<code class="literal">action</code> is the action name and <code class="literal">target</code> is the string to use
+as the target.)</p>
+<div class="refsect3">
+<a name="gtk-actionable-set-detailed-action-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>actionable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a> widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>detailed_action_name</p></td>
+<td class="parameter_description"><p>the detailed action name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkActionable-struct"></a><h3>GtkActionable</h3>
+<pre class="programlisting">typedef struct _GtkActionable GtkActionable;</pre>
+<p>An opaque pointer type.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkActionableInterface"></a><h3>struct GtkActionableInterface</h3>
+<pre class="programlisting">struct GtkActionableInterface {
+  const gchar * (* get_action_name)             (GtkActionable *actionable);
+  void          (* set_action_name)             (GtkActionable *actionable,
+                                                 const gchar   *action_name);
+  GVariant *    (* get_action_target_value)     (GtkActionable *actionable);
+  void          (* set_action_target_value)     (GtkActionable *actionable,
+                                                 GVariant      *target_value);
+};
+</pre>
+<p>The interface vtable for <a class="link" href="GtkActionable.html" title="GtkActionable"><span class="type">GtkActionable</span></a>.</p>
+<div class="refsect3">
+<a name="GtkActionableInterface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkActionableInterface.get-action-name"></a>get_action_name</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual function for <a class="link" href="GtkActionable.html#gtk-actionable-get-action-name" title="gtk_actionable_get_action_name ()"><code class="function">gtk_actionable_get_action_name()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkActionableInterface.set-action-name"></a>set_action_name</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual function for <a class="link" href="GtkActionable.html#gtk-actionable-set-action-name" title="gtk_actionable_set_action_name ()"><code class="function">gtk_actionable_set_action_name()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkActionableInterface.get-action-target-value"></a>get_action_target_value</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual function for <a class="link" href="GtkActionable.html#gtk-actionable-get-action-target-value" title="gtk_actionable_get_action_target_value ()"><code class="function">gtk_actionable_get_action_target_value()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkActionableInterface.set-action-target-value"></a>set_action_target_value</code></em> ()</p></td>
+<td class="struct_member_description"><p>virtual function for <a class="link" href="GtkActionable.html#gtk-actionable-set-action-target-value" title="gtk_actionable_set_action_target_value ()"><code class="function">gtk_actionable_set_action_target_value()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkActionable.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkActionable--action-name"></a><h3>The <code class="literal">“action-name”</code> property</h3>
+<pre class="programlisting">  “action-name”              <span class="type">gchar</span> *</pre>
+<p>The name of the associated action, like 'app.quit'.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkActionable--action-target"></a><h3>The <code class="literal">“action-target”</code> property</h3>
+<pre class="programlisting">  “action-target”            <span class="type">GVariant</span> *</pre>
+<p>The parameter for action invocations.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: GVariant&lt;*&gt;</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

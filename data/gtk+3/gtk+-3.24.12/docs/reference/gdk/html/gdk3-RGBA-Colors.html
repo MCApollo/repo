@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>RGBA Colors: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="gdk3-Pixbufs.html" title="Pixbufs">
+<link rel="next" href="gdk3-Visuals.html" title="Visuals">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-RGBA-Colors.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdk3-Pixbufs.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Visuals.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-RGBA-Colors"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-RGBA-Colors.top_of_page"></a>RGBA Colors</span></h2>
+<p>RGBA Colors — RGBA colors</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-RGBA-Colors.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="returnvalue">GdkRGBA</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-copy" title="gdk_rgba_copy ()">gdk_rgba_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-free" title="gdk_rgba_free ()">gdk_rgba_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-parse" title="gdk_rgba_parse ()">gdk_rgba_parse</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-equal" title="gdk_rgba_equal ()">gdk_rgba_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-hash" title="gdk_rgba_hash ()">gdk_rgba_hash</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-to-string" title="gdk_rgba_to_string ()">gdk_rgba_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-RGBA-Colors.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA">GdkRGBA</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-RGBA-Colors.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-RGBA-Colors.description"></a><h2>Description</h2>
+<p><a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> is a convenient way to pass rgba colors around.
+It’s based on cairo’s way to deal with colors and mirrors its behavior.
+All values are in the range from 0.0 to 1.0 inclusive. So the color
+(0.0, 0.0, 0.0, 0.0) represents transparent black and
+(1.0, 1.0, 1.0, 1.0) is opaque white. Other values will be clamped
+to this range when drawing.</p>
+</div>
+<div class="refsect1">
+<a name="gdk3-RGBA-Colors.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-rgba-copy"></a><h3>gdk_rgba_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="returnvalue">GdkRGBA</span></a> *
+gdk_rgba_copy (<em class="parameter"><code>const <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> *rgba</code></em>);</pre>
+<p>Makes a copy of a <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a>.</p>
+<p>The result must be freed through <a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-free" title="gdk_rgba_free ()"><code class="function">gdk_rgba_free()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-rgba-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>rgba</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-rgba-copy.returns"></a><h4>Returns</h4>
+<p> A newly allocated <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a>, with the same contents as <em class="parameter"><code>rgba</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-rgba-free"></a><h3>gdk_rgba_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_rgba_free (<em class="parameter"><code><a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> *rgba</code></em>);</pre>
+<p>Frees a <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> created with <a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-copy" title="gdk_rgba_copy ()"><code class="function">gdk_rgba_copy()</code></a></p>
+<div class="refsect3">
+<a name="gdk-rgba-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>rgba</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-rgba-parse"></a><h3>gdk_rgba_parse ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_rgba_parse (<em class="parameter"><code><a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> *rgba</code></em>,
+                <em class="parameter"><code>const <span class="type">gchar</span> *spec</code></em>);</pre>
+<p>Parses a textual representation of a color, filling in
+the <em class="parameter"><code>red</code></em>
+, <em class="parameter"><code>green</code></em>
+, <em class="parameter"><code>blue</code></em>
+ and <em class="parameter"><code>alpha</code></em>
+ fields of the <em class="parameter"><code>rgba</code></em>
+ <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a>.</p>
+<p>The string can be either one of:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>A standard name (Taken from the X11 rgb.txt file).</p></li>
+<li class="listitem"><p>A hexadecimal value in the form “#rgb”, “#rrggbb”,
+“#rrrgggbbb” or ”#rrrrggggbbbb”</p></li>
+<li class="listitem"><p>A RGB color in the form “rgb(r,g,b)” (In this case the color will
+have full opacity)</p></li>
+<li class="listitem"><p>A RGBA color in the form “rgba(r,g,b,a)”</p></li>
+</ul></div>
+<p>Where “r”, “g”, “b” and “a” are respectively the red, green, blue and
+alpha color values. In the last two cases, “r”, “g”, and “b” are either integers
+in the range 0 to 255 or percentage values in the range 0% to 100%, and
+a is a floating point value in the range 0 to 1.</p>
+<div class="refsect3">
+<a name="gdk-rgba-parse.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>rgba</p></td>
+<td class="parameter_description"><p>the <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> to fill in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>spec</p></td>
+<td class="parameter_description"><p>the string specifying the color</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-rgba-parse.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the parsing succeeded</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-rgba-equal"></a><h3>gdk_rgba_equal ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_rgba_equal (<em class="parameter"><code><span class="type">gconstpointer</span> p1</code></em>,
+                <em class="parameter"><code><span class="type">gconstpointer</span> p2</code></em>);</pre>
+<p>Compares two RGBA colors.</p>
+<div class="refsect3">
+<a name="gdk-rgba-equal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>p1</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> pointer. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> GdkRGBA]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>p2</p></td>
+<td class="parameter_description"><p>another <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> pointer. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> GdkRGBA]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-rgba-equal.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the two colors compare equal</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-rgba-hash"></a><h3>gdk_rgba_hash ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_rgba_hash (<em class="parameter"><code><span class="type">gconstpointer</span> p</code></em>);</pre>
+<p>A hash function suitable for using for a hash
+table that stores <a href="gdk3-RGBA-Colors.html#GdkRGBA"><span class="type">GdkRGBAs</span></a>.</p>
+<div class="refsect3">
+<a name="gdk-rgba-hash.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>p</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> pointer. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> GdkRGBA]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-rgba-hash.returns"></a><h4>Returns</h4>
+<p> The hash value for <em class="parameter"><code>p</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-rgba-to-string"></a><h3>gdk_rgba_to_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gdk_rgba_to_string (<em class="parameter"><code>const <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> *rgba</code></em>);</pre>
+<p>Returns a textual specification of <em class="parameter"><code>rgba</code></em>
+ in the form
+<code class="literal">rgb(r,g,b)</code> or
+<code class="literal">rgba(r g,b,a)</code>,
+where “r”, “g”, “b” and “a” represent the red, green,
+blue and alpha values respectively. “r”, “g”, and “b” are
+represented as integers in the range 0 to 255, and “a”
+is represented as a floating point value in the range 0 to 1.</p>
+<p>These string forms are string forms that are supported by
+the CSS3 colors module, and can be parsed by <a class="link" href="gdk3-RGBA-Colors.html#gdk-rgba-parse" title="gdk_rgba_parse ()"><code class="function">gdk_rgba_parse()</code></a>.</p>
+<p>Note that this string representation may lose some
+precision, since “r”, “g” and “b” are represented as 8-bit
+integers. If this is a concern, you should use a
+different representation.</p>
+<div class="refsect3">
+<a name="gdk-rgba-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>rgba</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-rgba-to-string.returns"></a><h4>Returns</h4>
+<p> A newly allocated text string</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-RGBA-Colors.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkRGBA"></a><h3>GdkRGBA</h3>
+<pre class="programlisting">typedef struct {
+  gdouble red;
+  gdouble green;
+  gdouble blue;
+  gdouble alpha;
+} GdkRGBA;
+</pre>
+<p>A <a class="link" href="gdk3-RGBA-Colors.html#GdkRGBA" title="GdkRGBA"><span class="type">GdkRGBA</span></a> is used to represent a (possibly translucent)
+color, in a way that is compatible with cairo’s notion of color.</p>
+<div class="refsect3">
+<a name="GdkRGBA.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">gdouble</span> <em class="structfield"><code><a name="GdkRGBA.red"></a>red</code></em>;</p></td>
+<td class="struct_member_description"><p>The intensity of the red channel from 0.0 to 1.0 inclusive</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gdouble</span> <em class="structfield"><code><a name="GdkRGBA.green"></a>green</code></em>;</p></td>
+<td class="struct_member_description"><p>The intensity of the green channel from 0.0 to 1.0 inclusive</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gdouble</span> <em class="structfield"><code><a name="GdkRGBA.blue"></a>blue</code></em>;</p></td>
+<td class="struct_member_description"><p>The intensity of the blue channel from 0.0 to 1.0 inclusive</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gdouble</span> <em class="structfield"><code><a name="GdkRGBA.alpha"></a>alpha</code></em>;</p></td>
+<td class="struct_member_description"><p>The opacity of the color from 0.0 for completely translucent to
+1.0 for opaque</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

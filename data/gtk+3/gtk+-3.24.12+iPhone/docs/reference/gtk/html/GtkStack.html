@@ -1,0 +1,1428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkStack: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="LayoutContainers.html" title="Layout Containers">
+<link rel="prev" href="GtkFlowBox.html" title="GtkFlowBox">
+<link rel="next" href="GtkStackSwitcher.html" title="GtkStackSwitcher">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkStack.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkStack.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkStack.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkStack.properties" class="shortcut">Properties</a></span><span id="nav_child_properties">  <span class="dim">|</span> 
+                  <a href="#GtkStack.child-properties" class="shortcut">Child Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="LayoutContainers.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkFlowBox.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkStackSwitcher.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkStack"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkStack.top_of_page"></a>GtkStack</span></h2>
+<p>GtkStack — A stacking container</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="stack.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkStack.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-new" title="gtk_stack_new ()">gtk_stack_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-add-named" title="gtk_stack_add_named ()">gtk_stack_add_named</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-add-titled" title="gtk_stack_add_titled ()">gtk_stack_add_titled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-child-by-name" title="gtk_stack_get_child_by_name ()">gtk_stack_get_child_by_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-visible-child" title="gtk_stack_set_visible_child ()">gtk_stack_set_visible_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-visible-child" title="gtk_stack_get_visible_child ()">gtk_stack_get_visible_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-visible-child-name" title="gtk_stack_set_visible_child_name ()">gtk_stack_set_visible_child_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-visible-child-name" title="gtk_stack_get_visible_child_name ()">gtk_stack_get_visible_child_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-visible-child-full" title="gtk_stack_set_visible_child_full ()">gtk_stack_set_visible_child_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-homogeneous" title="gtk_stack_set_homogeneous ()">gtk_stack_set_homogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-homogeneous" title="gtk_stack_get_homogeneous ()">gtk_stack_get_homogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-hhomogeneous" title="gtk_stack_set_hhomogeneous ()">gtk_stack_set_hhomogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-hhomogeneous" title="gtk_stack_get_hhomogeneous ()">gtk_stack_get_hhomogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-vhomogeneous" title="gtk_stack_set_vhomogeneous ()">gtk_stack_set_vhomogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-vhomogeneous" title="gtk_stack_get_vhomogeneous ()">gtk_stack_get_vhomogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-transition-duration" title="gtk_stack_set_transition_duration ()">gtk_stack_set_transition_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-transition-duration" title="gtk_stack_get_transition_duration ()">gtk_stack_get_transition_duration</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-transition-type" title="gtk_stack_set_transition_type ()">gtk_stack_set_transition_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkStack.html#GtkStackTransitionType" title="enum GtkStackTransitionType"><span class="returnvalue">GtkStackTransitionType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-transition-type" title="gtk_stack_get_transition_type ()">gtk_stack_get_transition_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-transition-running" title="gtk_stack_get_transition_running ()">gtk_stack_get_transition_running</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-get-interpolate-size" title="gtk_stack_get_interpolate_size ()">gtk_stack_get_interpolate_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStack.html#gtk-stack-set-interpolate-size" title="gtk_stack_set_interpolate_size ()">gtk_stack_set_interpolate_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--hhomogeneous" title="The “hhomogeneous” property">hhomogeneous</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--homogeneous" title="The “homogeneous” property">homogeneous</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--interpolate-size" title="The “interpolate-size” property">interpolate-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--transition-duration" title="The “transition-duration” property">transition-duration</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--transition-running" title="The “transition-running” property">transition-running</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkStack.html#GtkStackTransitionType" title="enum GtkStackTransitionType"><span class="type">GtkStackTransitionType</span></a></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--transition-type" title="The “transition-type” property">transition-type</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--vhomogeneous" title="The “vhomogeneous” property">vhomogeneous</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--visible-child" title="The “visible-child” property">visible-child</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--visible-child-name" title="The “visible-child-name” property">visible-child-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.child-properties"></a><h2>Child Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="child_properties_type">
+<col width="300px" class="child_properties_name">
+<col width="200px" class="child_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--c-icon-name" title="The “icon-name” child property">icon-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--c-name" title="The “name” child property">name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--c-needs-attention" title="The “needs-attention” child property">needs-attention</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--c-position" title="The “position” child property">position</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkStack.html#GtkStack--c-title" title="The “title” child property">title</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkStack.html#GtkStack-struct" title="struct GtkStack">GtkStack</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkStack.html#GtkStackTransitionType" title="enum GtkStackTransitionType">GtkStackTransitionType</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> GtkStack
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkStack.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkStack implements
+ AtkImplementorIface and  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkStack.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkStack.description"></a><h2>Description</h2>
+<p>The GtkStack widget is a container which only shows
+one of its children at a time. In contrast to GtkNotebook,
+GtkStack does not provide a means for users to change the
+visible child. Instead, the <a class="link" href="GtkStackSwitcher.html" title="GtkStackSwitcher"><span class="type">GtkStackSwitcher</span></a> widget can be
+used with GtkStack to provide this functionality.</p>
+<p>Transitions between pages can be animated as slides or
+fades. This can be controlled with <a class="link" href="GtkStack.html#gtk-stack-set-transition-type" title="gtk_stack_set_transition_type ()"><code class="function">gtk_stack_set_transition_type()</code></a>.
+These animations respect the <a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-animations" title="The “gtk-enable-animations” property"><span class="type">“gtk-enable-animations”</span></a>
+setting.</p>
+<p>The GtkStack widget was added in GTK+ 3.10.</p>
+<div class="refsect2">
+<a name="id-1.3.7.7.10.5"></a><h3>CSS nodes</h3>
+<p>GtkStack has a single CSS node named stack.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-stack-new"></a><h3>gtk_stack_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_stack_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> container.</p>
+<div class="refsect3">
+<a name="gtk-stack-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-add-named"></a><h3>gtk_stack_add_named ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_add_named (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                     <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                     <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Adds a child to <em class="parameter"><code>stack</code></em>
+.
+The child is identified by the <em class="parameter"><code>name</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-stack-add-named.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>the widget to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name for <em class="parameter"><code>child</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-add-titled"></a><h3>gtk_stack_add_titled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_add_titled (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                      <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>,
+                      <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                      <em class="parameter"><code>const <span class="type">gchar</span> *title</code></em>);</pre>
+<p>Adds a child to <em class="parameter"><code>stack</code></em>
+.
+The child is identified by the <em class="parameter"><code>name</code></em>
+. The <em class="parameter"><code>title</code></em>
+
+will be used by <a class="link" href="GtkStackSwitcher.html" title="GtkStackSwitcher"><span class="type">GtkStackSwitcher</span></a> to represent
+<em class="parameter"><code>child</code></em>
+ in a tab bar, so it should be short.</p>
+<div class="refsect3">
+<a name="gtk-stack-add-titled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>the widget to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name for <em class="parameter"><code>child</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>title</p></td>
+<td class="parameter_description"><p>a human-readable title for <em class="parameter"><code>child</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-child-by-name"></a><h3>gtk_stack_get_child_by_name ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_stack_get_child_by_name (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Finds the child of the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> with the name given as
+the argument. Returns <code class="literal">NULL</code> if there is no child with this
+name.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-child-by-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of the child to find</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-child-by-name.returns"></a><h4>Returns</h4>
+<p>the requested child of the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-visible-child"></a><h3>gtk_stack_set_visible_child ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_visible_child (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>);</pre>
+<p>Makes <em class="parameter"><code>child</code></em>
+ the visible child of <em class="parameter"><code>stack</code></em>
+.</p>
+<p>If <em class="parameter"><code>child</code></em>
+ is different from the currently
+visible child, the transition between the
+two will be animated with the current
+transition type of <em class="parameter"><code>stack</code></em>
+.</p>
+<p>Note that the <em class="parameter"><code>child</code></em>
+ widget has to be visible itself
+(see <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a>) in order to become the visible
+child of <em class="parameter"><code>stack</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-visible-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>stack</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-visible-child"></a><h3>gtk_stack_get_visible_child ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_stack_get_visible_child (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Gets the currently visible child of <em class="parameter"><code>stack</code></em>
+, or <code class="literal">NULL</code> if
+there are no visible children.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-visible-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-visible-child.returns"></a><h4>Returns</h4>
+<p>the visible child of the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-visible-child-name"></a><h3>gtk_stack_set_visible_child_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_visible_child_name (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Makes the child with the given name visible.</p>
+<p>If <em class="parameter"><code>child</code></em>
+ is different from the currently
+visible child, the transition between the
+two will be animated with the current
+transition type of <em class="parameter"><code>stack</code></em>
+.</p>
+<p>Note that the child widget has to be visible itself
+(see <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a>) in order to become the visible
+child of <em class="parameter"><code>stack</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-visible-child-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of the child to make visible</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-visible-child-name"></a><h3>gtk_stack_get_visible_child_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_stack_get_visible_child_name (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Returns the name of the currently visible child of <em class="parameter"><code>stack</code></em>
+, or
+<code class="literal">NULL</code> if there is no visible child.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-visible-child-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-visible-child-name.returns"></a><h4>Returns</h4>
+<p>the name of the visible child of the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-visible-child-full"></a><h3>gtk_stack_set_visible_child_full ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_visible_child_full (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                  <em class="parameter"><code><a class="link" href="GtkStack.html#GtkStackTransitionType" title="enum GtkStackTransitionType"><span class="type">GtkStackTransitionType</span></a> transition</code></em>);</pre>
+<p>Makes the child with the given name visible.</p>
+<p>Note that the child widget has to be visible itself
+(see <a class="link" href="GtkWidget.html#gtk-widget-show" title="gtk_widget_show ()"><code class="function">gtk_widget_show()</code></a>) in order to become the visible
+child of <em class="parameter"><code>stack</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-visible-child-full.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of the child to make visible</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>transition</p></td>
+<td class="parameter_description"><p>the transition type to use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-homogeneous"></a><h3>gtk_stack_set_homogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_homogeneous (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                           <em class="parameter"><code><span class="type">gboolean</span> homogeneous</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> to be homogeneous or not. If it
+is homogeneous, the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> will request the same
+size for all its children. If it isn't, the stack
+may change size when a different child becomes visible.</p>
+<p>Since 3.16, homogeneity can be controlled separately
+for horizontal and vertical size, with the
+<a class="link" href="GtkStack.html#GtkStack--hhomogeneous" title="The “hhomogeneous” property"><span class="type">“hhomogeneous”</span></a> and <a class="link" href="GtkStack.html#GtkStack--vhomogeneous" title="The “vhomogeneous” property"><span class="type">“vhomogeneous”</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-homogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>homogeneous</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to make <em class="parameter"><code>stack</code></em>
+homogeneous</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-homogeneous"></a><h3>gtk_stack_get_homogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_stack_get_homogeneous (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>stack</code></em>
+ is homogeneous.
+See <a class="link" href="GtkStack.html#gtk-stack-set-homogeneous" title="gtk_stack_set_homogeneous ()"><code class="function">gtk_stack_set_homogeneous()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-homogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-homogeneous.returns"></a><h4>Returns</h4>
+<p> whether <em class="parameter"><code>stack</code></em>
+is homogeneous.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-hhomogeneous"></a><h3>gtk_stack_set_hhomogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_hhomogeneous (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                            <em class="parameter"><code><span class="type">gboolean</span> hhomogeneous</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> to be horizontally homogeneous or not.
+If it is homogeneous, the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> will request the same
+width for all its children. If it isn't, the stack
+may change width when a different child becomes visible.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-hhomogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>hhomogeneous</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to make <em class="parameter"><code>stack</code></em>
+horizontally homogeneous</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-hhomogeneous"></a><h3>gtk_stack_get_hhomogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_stack_get_hhomogeneous (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>stack</code></em>
+ is horizontally homogeneous.
+See <a class="link" href="GtkStack.html#gtk-stack-set-hhomogeneous" title="gtk_stack_set_hhomogeneous ()"><code class="function">gtk_stack_set_hhomogeneous()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-hhomogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-hhomogeneous.returns"></a><h4>Returns</h4>
+<p> whether <em class="parameter"><code>stack</code></em>
+is horizontally homogeneous.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-vhomogeneous"></a><h3>gtk_stack_set_vhomogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_vhomogeneous (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                            <em class="parameter"><code><span class="type">gboolean</span> vhomogeneous</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> to be vertically homogeneous or not.
+If it is homogeneous, the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> will request the same
+height for all its children. If it isn't, the stack
+may change height when a different child becomes visible.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-vhomogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vhomogeneous</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to make <em class="parameter"><code>stack</code></em>
+vertically homogeneous</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-vhomogeneous"></a><h3>gtk_stack_get_vhomogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_stack_get_vhomogeneous (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Gets whether <em class="parameter"><code>stack</code></em>
+ is vertically homogeneous.
+See <a class="link" href="GtkStack.html#gtk-stack-set-vhomogeneous" title="gtk_stack_set_vhomogeneous ()"><code class="function">gtk_stack_set_vhomogeneous()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-vhomogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-vhomogeneous.returns"></a><h4>Returns</h4>
+<p> whether <em class="parameter"><code>stack</code></em>
+is vertically homogeneous.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-transition-duration"></a><h3>gtk_stack_set_transition_duration ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_transition_duration (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                                   <em class="parameter"><code><span class="type">guint</span> duration</code></em>);</pre>
+<p>Sets the duration that transitions between pages in <em class="parameter"><code>stack</code></em>
+
+will take.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-transition-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>duration</p></td>
+<td class="parameter_description"><p>the new duration, in milliseconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-transition-duration"></a><h3>gtk_stack_get_transition_duration ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_stack_get_transition_duration (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Returns the amount of time (in milliseconds) that
+transitions between pages in <em class="parameter"><code>stack</code></em>
+ will take.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-transition-duration.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-transition-duration.returns"></a><h4>Returns</h4>
+<p> the transition duration</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-transition-type"></a><h3>gtk_stack_set_transition_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_transition_type (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkStack.html#GtkStackTransitionType" title="enum GtkStackTransitionType"><span class="type">GtkStackTransitionType</span></a> transition</code></em>);</pre>
+<p>Sets the type of animation that will be used for
+transitions between pages in <em class="parameter"><code>stack</code></em>
+. Available
+types include various kinds of fades and slides.</p>
+<p>The transition type can be changed without problems
+at runtime, so it is possible to change the animation
+based on the page that is about to become current.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-transition-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>transition</p></td>
+<td class="parameter_description"><p>the new transition type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-transition-type"></a><h3>gtk_stack_get_transition_type ()</h3>
+<pre class="programlisting"><a class="link" href="GtkStack.html#GtkStackTransitionType" title="enum GtkStackTransitionType"><span class="returnvalue">GtkStackTransitionType</span></a>
+gtk_stack_get_transition_type (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Gets the type of animation that will be used
+for transitions between pages in <em class="parameter"><code>stack</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-transition-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-transition-type.returns"></a><h4>Returns</h4>
+<p> the current transition type of <em class="parameter"><code>stack</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-transition-running"></a><h3>gtk_stack_get_transition_running ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_stack_get_transition_running (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Returns whether the <em class="parameter"><code>stack</code></em>
+ is currently in a transition from one page to
+another.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-transition-running.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-transition-running.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the transition is currently running, <code class="literal">FALSE</code> otherwise.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-get-interpolate-size"></a><h3>gtk_stack_get_interpolate_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_stack_get_interpolate_size (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>);</pre>
+<p>Returns wether the <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> is set up to interpolate between
+the sizes of children on page switch.</p>
+<div class="refsect3">
+<a name="gtk-stack-get-interpolate-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-stack-get-interpolate-size.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if child sizes are interpolated</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-stack-set-interpolate-size"></a><h3>gtk_stack_set_interpolate_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_stack_set_interpolate_size (<em class="parameter"><code><a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> *stack</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> interpolate_size</code></em>);</pre>
+<p>Sets whether or not <em class="parameter"><code>stack</code></em>
+ will interpolate its size when
+changing the visible child. If the <a class="link" href="GtkStack.html#GtkStack--interpolate-size" title="The “interpolate-size” property"><span class="type">“interpolate-size”</span></a>
+property is set to <code class="literal">TRUE</code>, <em class="parameter"><code>stack</code></em>
+ will interpolate its size between
+the current one and the one it'll take after changing the
+visible child, according to the set transition duration.</p>
+<div class="refsect3">
+<a name="gtk-stack-set-interpolate-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>stack</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interpolate_size</p></td>
+<td class="parameter_description"><p>the new value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkStack-struct"></a><h3>struct GtkStack</h3>
+<pre class="programlisting">struct GtkStack;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStackTransitionType"></a><h3>enum GtkStackTransitionType</h3>
+<p>These enumeration values describe the possible transitions
+between pages in a <a class="link" href="GtkStack.html" title="GtkStack"><span class="type">GtkStack</span></a> widget.</p>
+<p>New values may be added to this enumeration over time.</p>
+<div class="refsect3">
+<a name="GtkStackTransitionType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-NONE:CAPS"></a>GTK_STACK_TRANSITION_TYPE_NONE</p></td>
+<td class="enum_member_description">
+<p>No transition</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-CROSSFADE:CAPS"></a>GTK_STACK_TRANSITION_TYPE_CROSSFADE</p></td>
+<td class="enum_member_description">
+<p>A cross-fade</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-SLIDE-RIGHT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_SLIDE_RIGHT</p></td>
+<td class="enum_member_description">
+<p>Slide from left to right</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-SLIDE-LEFT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT</p></td>
+<td class="enum_member_description">
+<p>Slide from right to left</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-SLIDE-UP:CAPS"></a>GTK_STACK_TRANSITION_TYPE_SLIDE_UP</p></td>
+<td class="enum_member_description">
+<p>Slide from bottom up</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-SLIDE-DOWN:CAPS"></a>GTK_STACK_TRANSITION_TYPE_SLIDE_DOWN</p></td>
+<td class="enum_member_description">
+<p>Slide from top down</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-SLIDE-LEFT-RIGHT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_SLIDE_LEFT_RIGHT</p></td>
+<td class="enum_member_description">
+<p>Slide from left or right according to the children order</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-SLIDE-UP-DOWN:CAPS"></a>GTK_STACK_TRANSITION_TYPE_SLIDE_UP_DOWN</p></td>
+<td class="enum_member_description">
+<p>Slide from top down or bottom up according to the order</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-UP:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_UP</p></td>
+<td class="enum_member_description">
+<p>Cover the old page by sliding up. Since 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-DOWN:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_DOWN</p></td>
+<td class="enum_member_description">
+<p>Cover the old page by sliding down. Since: 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-LEFT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_LEFT</p></td>
+<td class="enum_member_description">
+<p>Cover the old page by sliding to the left. Since: 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-RIGHT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_RIGHT</p></td>
+<td class="enum_member_description">
+<p>Cover the old page by sliding to the right. Since: 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-UNDER-UP:CAPS"></a>GTK_STACK_TRANSITION_TYPE_UNDER_UP</p></td>
+<td class="enum_member_description">
+<p>Uncover the new page by sliding up. Since 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-UNDER-DOWN:CAPS"></a>GTK_STACK_TRANSITION_TYPE_UNDER_DOWN</p></td>
+<td class="enum_member_description">
+<p>Uncover the new page by sliding down. Since: 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-UNDER-LEFT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_UNDER_LEFT</p></td>
+<td class="enum_member_description">
+<p>Uncover the new page by sliding to the left. Since: 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-UNDER-RIGHT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_UNDER_RIGHT</p></td>
+<td class="enum_member_description">
+<p>Uncover the new page by sliding to the right. Since: 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-UP-DOWN:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_UP_DOWN</p></td>
+<td class="enum_member_description">
+<p>Cover the old page sliding up or uncover the new page sliding down, according to order. Since: 3.12</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-DOWN-UP:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_DOWN_UP</p></td>
+<td class="enum_member_description">
+<p>Cover the old page sliding down or uncover the new page sliding up, according to order. Since: 3.14</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-LEFT-RIGHT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_LEFT_RIGHT</p></td>
+<td class="enum_member_description">
+<p>Cover the old page sliding left or uncover the new page sliding right, according to order. Since: 3.14</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-STACK-TRANSITION-TYPE-OVER-RIGHT-LEFT:CAPS"></a>GTK_STACK_TRANSITION_TYPE_OVER_RIGHT_LEFT</p></td>
+<td class="enum_member_description">
+<p>Cover the old page sliding right or uncover the new page sliding left, according to order. Since: 3.14</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkStack--hhomogeneous"></a><h3>The <code class="literal">“hhomogeneous”</code> property</h3>
+<pre class="programlisting">  “hhomogeneous”             <span class="type">gboolean</span></pre>
+<p><code class="literal">TRUE</code> if the stack allocates the same width for all children.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--homogeneous"></a><h3>The <code class="literal">“homogeneous”</code> property</h3>
+<pre class="programlisting">  “homogeneous”              <span class="type">gboolean</span></pre>
+<p>Homogeneous sizing.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--interpolate-size"></a><h3>The <code class="literal">“interpolate-size”</code> property</h3>
+<pre class="programlisting">  “interpolate-size”         <span class="type">gboolean</span></pre>
+<p>Whether or not the size should smoothly change when changing between differently sized children.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--transition-duration"></a><h3>The <code class="literal">“transition-duration”</code> property</h3>
+<pre class="programlisting">  “transition-duration”      <span class="type">guint</span></pre>
+<p>The animation duration, in milliseconds.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 200</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--transition-running"></a><h3>The <code class="literal">“transition-running”</code> property</h3>
+<pre class="programlisting">  “transition-running”       <span class="type">gboolean</span></pre>
+<p>Whether or not the transition is currently running.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--transition-type"></a><h3>The <code class="literal">“transition-type”</code> property</h3>
+<pre class="programlisting">  “transition-type”          <a class="link" href="GtkStack.html#GtkStackTransitionType" title="enum GtkStackTransitionType"><span class="type">GtkStackTransitionType</span></a></pre>
+<p>The type of animation used to transition.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_STACK_TRANSITION_TYPE_NONE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--vhomogeneous"></a><h3>The <code class="literal">“vhomogeneous”</code> property</h3>
+<pre class="programlisting">  “vhomogeneous”             <span class="type">gboolean</span></pre>
+<p><code class="literal">TRUE</code> if the stack allocates the same height for all children.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-16.html#api-index-3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--visible-child"></a><h3>The <code class="literal">“visible-child”</code> property</h3>
+<pre class="programlisting">  “visible-child”            <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</pre>
+<p>The widget currently visible in the stack.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--visible-child-name"></a><h3>The <code class="literal">“visible-child-name”</code> property</h3>
+<pre class="programlisting">  “visible-child-name”       <span class="type">gchar</span> *</pre>
+<p>The name of the widget currently visible in the stack.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.child-property-details"></a><h2>Child Property Details</h2>
+<div class="refsect2">
+<a name="GtkStack--c-icon-name"></a><h3>The <code class="literal">“icon-name”</code> child property</h3>
+<pre class="programlisting">  “icon-name”                <span class="type">gchar</span> *</pre>
+<p>The icon name of the child page.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--c-name"></a><h3>The <code class="literal">“name”</code> child property</h3>
+<pre class="programlisting">  “name”                     <span class="type">gchar</span> *</pre>
+<p>The name of the child page.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--c-needs-attention"></a><h3>The <code class="literal">“needs-attention”</code> child property</h3>
+<pre class="programlisting">  “needs-attention”          <span class="type">gboolean</span></pre>
+<p>Sets a flag specifying whether the child requires the user attention.
+This is used by the <a class="link" href="GtkStackSwitcher.html" title="GtkStackSwitcher"><span class="type">GtkStackSwitcher</span></a> to change the appearance of the
+corresponding button when a page needs attention and it is not the
+current one.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--c-position"></a><h3>The <code class="literal">“position”</code> child property</h3>
+<pre class="programlisting">  “position”                 <span class="type">gint</span></pre>
+<p>The index of the child in the parent.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStack--c-title"></a><h3>The <code class="literal">“title”</code> child property</h3>
+<pre class="programlisting">  “title”                    <span class="type">gchar</span> *</pre>
+<p>The title of the child page.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkStack.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkNotebook.html" title="GtkNotebook"><span class="type">GtkNotebook</span></a>, <a class="link" href="GtkStackSwitcher.html" title="GtkStackSwitcher"><span class="type">GtkStackSwitcher</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

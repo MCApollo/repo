@@ -1,0 +1,914 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkCellLayout: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="TreeWidgetObjects.html" title="Tree, List and Icon Grid Widgets">
+<link rel="prev" href="GtkTreeModelFilter.html" title="GtkTreeModelFilter">
+<link rel="next" href="GtkCellArea.html" title="GtkCellArea">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkCellLayout.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkCellLayout.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#GtkCellLayout.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#GtkCellLayout.implementations" class="shortcut">Known Implementations</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="TreeWidgetObjects.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkTreeModelFilter.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkCellArea.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkCellLayout"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkCellLayout.top_of_page"></a>GtkCellLayout</span></h2>
+<p>GtkCellLayout — An interface for packing cells</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkCellLayout.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GtkCellLayout.html#GtkCellLayoutDataFunc" title="GtkCellLayoutDataFunc ()">*GtkCellLayoutDataFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-pack-start" title="gtk_cell_layout_pack_start ()">gtk_cell_layout_pack_start</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-pack-end" title="gtk_cell_layout_pack_end ()">gtk_cell_layout_pack_end</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="returnvalue">GtkCellArea</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-get-area" title="gtk_cell_layout_get_area ()">gtk_cell_layout_get_area</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-get-cells" title="gtk_cell_layout_get_cells ()">gtk_cell_layout_get_cells</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-reorder" title="gtk_cell_layout_reorder ()">gtk_cell_layout_reorder</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-clear" title="gtk_cell_layout_clear ()">gtk_cell_layout_clear</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-set-attributes" title="gtk_cell_layout_set_attributes ()">gtk_cell_layout_set_attributes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-add-attribute" title="gtk_cell_layout_add_attribute ()">gtk_cell_layout_add_attribute</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-set-cell-data-func" title="gtk_cell_layout_set_cell_data_func ()">gtk_cell_layout_set_cell_data_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-clear-attributes" title="gtk_cell_layout_clear_attributes ()">gtk_cell_layout_clear_attributes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkCellLayout.html#GtkCellLayout-struct" title="GtkCellLayout">GtkCellLayout</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkCellLayout.html#GtkCellLayoutIface" title="struct GtkCellLayoutIface">GtkCellLayoutIface</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobject/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> GtkCellLayout
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+GtkCellLayout requires
+ GObject.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.implementations"></a><h2>Known Implementations</h2>
+<p>
+GtkCellLayout is implemented by
+ <a class="link" href="GtkAppChooserButton.html" title="GtkAppChooserButton">GtkAppChooserButton</a>,  <a class="link" href="GtkCellArea.html" title="GtkCellArea">GtkCellArea</a>,  <a class="link" href="GtkCellAreaBox.html" title="GtkCellAreaBox">GtkCellAreaBox</a>,  <a class="link" href="GtkCellView.html" title="GtkCellView">GtkCellView</a>,  <a class="link" href="GtkComboBox.html" title="GtkComboBox">GtkComboBox</a>,  <a class="link" href="GtkComboBoxText.html" title="GtkComboBoxText">GtkComboBoxText</a>,  <a class="link" href="GtkEntryCompletion.html" title="GtkEntryCompletion">GtkEntryCompletion</a>,  <a class="link" href="GtkIconView.html" title="GtkIconView">GtkIconView</a> and  <a class="link" href="GtkTreeViewColumn.html" title="GtkTreeViewColumn">GtkTreeViewColumn</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.description"></a><h2>Description</h2>
+<p><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> is an interface to be implemented by all objects which
+want to provide a <a class="link" href="GtkTreeViewColumn.html" title="GtkTreeViewColumn"><span class="type">GtkTreeViewColumn</span></a> like API for packing cells,
+setting attributes and data funcs.</p>
+<p>One of the notable features provided by implementations of 
+GtkCellLayout are attributes. Attributes let you set the properties
+in flexible ways. They can just be set to constant values like regular
+properties. But they can also be mapped to a column of the underlying
+tree model with <a class="link" href="GtkCellLayout.html#gtk-cell-layout-set-attributes" title="gtk_cell_layout_set_attributes ()"><code class="function">gtk_cell_layout_set_attributes()</code></a>, which means that the value
+of the attribute can change from cell to cell as they are rendered by
+the cell renderer. Finally, it is possible to specify a function with
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-set-cell-data-func" title="gtk_cell_layout_set_cell_data_func ()"><code class="function">gtk_cell_layout_set_cell_data_func()</code></a> that is called to determine the
+value of the attribute for each cell that is rendered.</p>
+<div class="refsect2">
+<a name="id-1.3.12.13.9.4"></a><h3>GtkCellLayouts as GtkBuildable</h3>
+<p>Implementations of GtkCellLayout which also implement the GtkBuildable
+interface (<a class="link" href="GtkCellView.html" title="GtkCellView"><span class="type">GtkCellView</span></a>, <a class="link" href="GtkIconView.html" title="GtkIconView"><span class="type">GtkIconView</span></a>, <a class="link" href="GtkComboBox.html" title="GtkComboBox"><span class="type">GtkComboBox</span></a>,
+<a class="link" href="GtkEntryCompletion.html" title="GtkEntryCompletion"><span class="type">GtkEntryCompletion</span></a>, <a class="link" href="GtkTreeViewColumn.html" title="GtkTreeViewColumn"><span class="type">GtkTreeViewColumn</span></a>) accept GtkCellRenderer objects
+as &lt;child&gt; elements in UI definitions. They support a custom &lt;attributes&gt;
+element for their children, which can contain multiple &lt;attribute&gt;
+elements. Each &lt;attribute&gt; element has a name attribute which specifies
+a property of the cell renderer; the content of the element is the
+attribute value.</p>
+<p>This is an example of a UI definition fragment specifying attributes:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkCellView"</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkCellRendererText"</span><span class="symbol">/&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="normal">attributes</span><span class="symbol">&gt;</span>
+<span class="normal">      </span><span class="symbol">&lt;</span><span class="usertype">attribute</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"text"</span><span class="symbol">&gt;</span><span class="number">0</span><span class="symbol">&lt;/</span><span class="normal">attribute</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;/</span><span class="normal">attributes</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">child</span><span class="symbol">&gt;</span><span class="string">"</span>
+<span class="string">&lt;/object&gt;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>Furthermore for implementations of GtkCellLayout that use a <a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a>
+to lay out cells (all GtkCellLayouts in GTK+ use a GtkCellArea)
+cell properties can also be defined in the format by
+specifying the custom &lt;cell-packing&gt; attribute which can contain multiple
+&lt;property&gt; elements defined in the normal way.</p>
+<p>Here is a UI definition fragment specifying cell properties:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkTreeViewColumn"</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkCellRendererText"</span><span class="symbol">/&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="normal">cell</span><span class="symbol">-</span><span class="normal">packing</span><span class="symbol">&gt;</span>
+<span class="normal">      </span><span class="symbol">&lt;</span><span class="usertype">property</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"align"</span><span class="symbol">&gt;</span><span class="normal">True</span><span class="symbol">&lt;/</span><span class="normal">property</span><span class="symbol">&gt;</span>
+<span class="normal">      </span><span class="symbol">&lt;</span><span class="usertype">property</span><span class="normal"> name</span><span class="symbol">=</span><span class="string">"expand"</span><span class="symbol">&gt;</span><span class="normal">False</span><span class="symbol">&lt;/</span><span class="normal">property</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;/</span><span class="normal">cell</span><span class="symbol">-</span><span class="normal">packing</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">child</span><span class="symbol">&gt;</span><span class="string">"</span>
+<span class="string">&lt;/object&gt;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.3.12.13.9.5"></a><h3>Subclassing GtkCellLayout implementations</h3>
+<p>When subclassing a widget that implements <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> like
+<a class="link" href="GtkIconView.html" title="GtkIconView"><span class="type">GtkIconView</span></a> or <a class="link" href="GtkComboBox.html" title="GtkComboBox"><span class="type">GtkComboBox</span></a>, there are some considerations related
+to the fact that these widgets internally use a <a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a>.
+The cell area is exposed as a construct-only property by these
+widgets. This means that it is possible to e.g. do</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="normal">combo </span><span class="symbol">=</span><span class="normal"> </span><span class="function">g_object_new</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">GTK_TYPE_COMBO_BOX</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"cell-area"</span><span class="symbol">,</span><span class="normal"> my_cell_area</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>to use a custom cell area with a combo box. But construct properties
+are only initialized after instance <code class="function">init()</code>
+functions have run, which means that using functions which rely on
+the existence of the cell area in your subclass’ <code class="function">init()</code> function will
+cause the default cell area to be instantiated. In this case, a provided
+construct property value will be ignored (with a warning, to alert
+you to the problem).</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">my_combo_box_init</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">MyComboBox</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">GtkCellRenderer</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">cell</span><span class="symbol">;</span>
+
+<span class="normal">  cell </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkCellRendererPixbuf.html#gtk-cell-renderer-pixbuf-new">gtk_cell_renderer_pixbuf_new</a></span><span class="normal"> </span><span class="symbol">();</span>
+<span class="normal">  </span><span class="comment">// The following call causes the default cell area for combo boxes,</span>
+<span class="normal">  </span><span class="comment">// a GtkCellAreaBox, to be instantiated</span>
+<span class="normal">  </span><span class="function"><a href="GtkCellLayout.html#gtk-cell-layout-pack-start">gtk_cell_layout_pack_start</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function">GTK_CELL_LAYOUT</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">b</span><span class="symbol">),</span><span class="normal"> cell</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="symbol">...</span>
+<span class="cbracket">}</span>
+
+<span class="normal"><a href="GtkWidget.html#GtkWidget-struct">GtkWidget</a> </span><span class="symbol">*</span>
+<span class="function">my_combo_box_new</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GtkCellArea</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">area</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">// This call is going to cause a warning about area being ignored</span>
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="function">g_object_new</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">MY_TYPE_COMBO_BOX</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"cell-area"</span><span class="symbol">,</span><span class="normal"> area</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>If supporting alternative cell areas with your derived widget is
+not important, then this does not have to concern you. If you want
+to support alternative cell areas, you can do so by moving the
+problematic calls out of <code class="function">init()</code> and into a <code class="function">constructor()</code>
+for your class.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="GtkCellLayoutDataFunc"></a><h3>GtkCellLayoutDataFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*GtkCellLayoutDataFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkTreeModel.html" title="GtkTreeModel"><span class="type">GtkTreeModel</span></a> *tree_model</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkTreeModel.html#GtkTreeIter"><span class="type">GtkTreeIter</span></a> *iter</code></em>,
+                          <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>A function which should set the value of <em class="parameter"><code>cell_layout</code></em>
+’s cell renderer(s)
+as appropriate.</p>
+<div class="refsect3">
+<a name="GtkCellLayoutDataFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>the cell renderer whose value is to be set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tree_model</p></td>
+<td class="parameter_description"><p>the model</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>iter</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkTreeModel.html#GtkTreeIter"><span class="type">GtkTreeIter</span></a> indicating the row to set the value for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>user data passed to <a class="link" href="GtkCellLayout.html#gtk-cell-layout-set-cell-data-func" title="gtk_cell_layout_set_cell_data_func ()"><code class="function">gtk_cell_layout_set_cell_data_func()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-pack-start"></a><h3>gtk_cell_layout_pack_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_pack_start (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                            <em class="parameter"><code><span class="type">gboolean</span> expand</code></em>);</pre>
+<p>Packs the <em class="parameter"><code>cell</code></em>
+ into the beginning of <em class="parameter"><code>cell_layout</code></em>
+. If <em class="parameter"><code>expand</code></em>
+ is <code class="literal">FALSE</code>,
+then the <em class="parameter"><code>cell</code></em>
+ is allocated no more space than it needs. Any unused space
+is divided evenly between cells for which <em class="parameter"><code>expand</code></em>
+ is <code class="literal">TRUE</code>.</p>
+<p>Note that reusing the same cell renderer is not supported.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-pack-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>expand</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if <em class="parameter"><code>cell</code></em>
+is to be given extra space allocated to <em class="parameter"><code>cell_layout</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-pack-end"></a><h3>gtk_cell_layout_pack_end ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_pack_end (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                          <em class="parameter"><code><span class="type">gboolean</span> expand</code></em>);</pre>
+<p>Adds the <em class="parameter"><code>cell</code></em>
+ to the end of <em class="parameter"><code>cell_layout</code></em>
+. If <em class="parameter"><code>expand</code></em>
+ is <code class="literal">FALSE</code>, then the
+<em class="parameter"><code>cell</code></em>
+ is allocated no more space than it needs. Any unused space is
+divided evenly between cells for which <em class="parameter"><code>expand</code></em>
+ is <code class="literal">TRUE</code>.</p>
+<p>Note that reusing the same cell renderer is not supported.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-pack-end.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>expand</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if <em class="parameter"><code>cell</code></em>
+is to be given extra space allocated to <em class="parameter"><code>cell_layout</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-get-area"></a><h3>gtk_cell_layout_get_area ()</h3>
+<pre class="programlisting"><a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="returnvalue">GtkCellArea</span></a> *
+gtk_cell_layout_get_area (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>);</pre>
+<p>Returns the underlying <a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a> which might be <em class="parameter"><code>cell_layout</code></em>
+
+if called on a <a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a> or might be <code class="literal">NULL</code> if no <a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a>
+is used by <em class="parameter"><code>cell_layout</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-get-area.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-layout-get-area.returns"></a><h4>Returns</h4>
+<p>the cell area used by <em class="parameter"><code>cell_layout</code></em>
+,
+or <code class="literal">NULL</code> in case no cell area is used. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-get-cells"></a><h3>gtk_cell_layout_get_cells ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gtk_cell_layout_get_cells (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>);</pre>
+<p>Returns the cell renderers which have been added to <em class="parameter"><code>cell_layout</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-get-cells.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-cell-layout-get-cells.returns"></a><h4>Returns</h4>
+<p>a list of cell renderers. The list, but not the renderers has
+been newly allocated and should be freed with <code class="function">g_list_free()</code>
+when no longer needed. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkCellRenderer][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-reorder"></a><h3>gtk_cell_layout_reorder ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_reorder (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                         <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                         <em class="parameter"><code><span class="type">gint</span> position</code></em>);</pre>
+<p>Re-inserts <em class="parameter"><code>cell</code></em>
+ at <em class="parameter"><code>position</code></em>
+.</p>
+<p>Note that <em class="parameter"><code>cell</code></em>
+ has already to be packed into <em class="parameter"><code>cell_layout</code></em>
+
+for this to function properly.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-reorder.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> to reorder</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>new position to insert <em class="parameter"><code>cell</code></em>
+at</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-clear"></a><h3>gtk_cell_layout_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_clear (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>);</pre>
+<p>Unsets all the mappings on all renderers on <em class="parameter"><code>cell_layout</code></em>
+ and
+removes all renderers from <em class="parameter"><code>cell_layout</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-clear.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-set-attributes"></a><h3>gtk_cell_layout_set_attributes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_set_attributes (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                <em class="parameter"><code>...</code></em>);</pre>
+<p>Sets the attributes in list as the attributes of <em class="parameter"><code>cell_layout</code></em>
+.</p>
+<p>The attributes should be in attribute/column order, as in
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-add-attribute" title="gtk_cell_layout_add_attribute ()"><code class="function">gtk_cell_layout_add_attribute()</code></a>. All existing attributes are
+removed, and replaced with the new attributes.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-set-attributes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>...</p></td>
+<td class="parameter_description"><p>a <code class="literal">NULL</code>-terminated list of attributes</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-add-attribute"></a><h3>gtk_cell_layout_add_attribute ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_add_attribute (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                               <em class="parameter"><code>const <span class="type">gchar</span> *attribute</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> column</code></em>);</pre>
+<p>Adds an attribute mapping to the list in <em class="parameter"><code>cell_layout</code></em>
+.</p>
+<p>The <em class="parameter"><code>column</code></em>
+ is the column of the model to get a value from, and the
+<em class="parameter"><code>attribute</code></em>
+ is the parameter on <em class="parameter"><code>cell</code></em>
+ to be set from the value. So for
+example if column 2 of the model contains strings, you could have the
+“text” attribute of a <a class="link" href="GtkCellRendererText.html" title="GtkCellRendererText"><span class="type">GtkCellRendererText</span></a> get its values from column 2.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-add-attribute.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>attribute</p></td>
+<td class="parameter_description"><p>an attribute on the renderer</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>column</p></td>
+<td class="parameter_description"><p>the column position on the model to get the attribute from</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-set-cell-data-func"></a><h3>gtk_cell_layout_set_cell_data_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_set_cell_data_func (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>,
+                                    <em class="parameter"><code><a class="link" href="GtkCellLayout.html#GtkCellLayoutDataFunc" title="GtkCellLayoutDataFunc ()"><span class="type">GtkCellLayoutDataFunc</span></a> func</code></em>,
+                                    <em class="parameter"><code><span class="type">gpointer</span> func_data</code></em>,
+                                    <em class="parameter"><code><span class="type">GDestroyNotify</span> destroy</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkCellLayout.html#GtkCellLayoutDataFunc" title="GtkCellLayoutDataFunc ()"><span class="type">GtkCellLayoutDataFunc</span></a> to use for <em class="parameter"><code>cell_layout</code></em>
+.</p>
+<p>This function is used instead of the standard attributes mapping
+for setting the column value, and should set the value of <em class="parameter"><code>cell_layout</code></em>
+’s
+cell renderer(s) as appropriate.</p>
+<p><em class="parameter"><code>func</code></em>
+ may be <code class="literal">NULL</code> to remove a previously set function.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-set-cell-data-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkCellLayout.html#GtkCellLayoutDataFunc" title="GtkCellLayoutDataFunc ()"><span class="type">GtkCellLayoutDataFunc</span></a> to use, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func_data</p></td>
+<td class="parameter_description"><p>user data for <em class="parameter"><code>func</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>destroy</p></td>
+<td class="parameter_description"><p>destroy notify for <em class="parameter"><code>func_data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-cell-layout-clear-attributes"></a><h3>gtk_cell_layout_clear_attributes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_cell_layout_clear_attributes (<em class="parameter"><code><a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a> *cell_layout</code></em>,
+                                  <em class="parameter"><code><a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> *cell</code></em>);</pre>
+<p>Clears all existing attributes previously set with
+<a class="link" href="GtkCellLayout.html#gtk-cell-layout-set-attributes" title="gtk_cell_layout_set_attributes ()"><code class="function">gtk_cell_layout_set_attributes()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-cell-layout-clear-attributes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cell_layout</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellLayout.html" title="GtkCellLayout"><span class="type">GtkCellLayout</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cell</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer"><span class="type">GtkCellRenderer</span></a> to clear the attribute mapping on</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkCellLayout.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkCellLayout-struct"></a><h3>GtkCellLayout</h3>
+<pre class="programlisting">typedef struct _GtkCellLayout GtkCellLayout;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkCellLayoutIface"></a><h3>struct GtkCellLayoutIface</h3>
+<pre class="programlisting">struct GtkCellLayoutIface {
+  /* Virtual Table */
+  void (* pack_start)         (GtkCellLayout         *cell_layout,
+                               GtkCellRenderer       *cell,
+                               gboolean               expand);
+  void (* pack_end)           (GtkCellLayout         *cell_layout,
+                               GtkCellRenderer       *cell,
+                               gboolean               expand);
+  void (* clear)              (GtkCellLayout         *cell_layout);
+  void (* add_attribute)      (GtkCellLayout         *cell_layout,
+                               GtkCellRenderer       *cell,
+                               const gchar           *attribute,
+                               gint                   column);
+  void (* set_cell_data_func) (GtkCellLayout         *cell_layout,
+                               GtkCellRenderer       *cell,
+                               GtkCellLayoutDataFunc  func,
+                               gpointer               func_data,
+                               GDestroyNotify         destroy);
+  void (* clear_attributes)   (GtkCellLayout         *cell_layout,
+                               GtkCellRenderer       *cell);
+  void (* reorder)            (GtkCellLayout         *cell_layout,
+                               GtkCellRenderer       *cell,
+                               gint                   position);
+  GList* (* get_cells)        (GtkCellLayout         *cell_layout);
+
+  GtkCellArea *(* get_area)   (GtkCellLayout         *cell_layout);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkCellLayoutIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.pack-start"></a>pack_start</code></em> ()</p></td>
+<td class="struct_member_description"><p>Packs the cell into the beginning of cell_layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.pack-end"></a>pack_end</code></em> ()</p></td>
+<td class="struct_member_description"><p>Adds the cell to the end of cell_layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.clear"></a>clear</code></em> ()</p></td>
+<td class="struct_member_description"><p>Unsets all the mappings on all renderers on cell_layout and
+removes all renderers from cell_layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.add-attribute"></a>add_attribute</code></em> ()</p></td>
+<td class="struct_member_description"><p>Adds an attribute mapping to the list in
+cell_layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.set-cell-data-func"></a>set_cell_data_func</code></em> ()</p></td>
+<td class="struct_member_description"><p>Sets the <a class="link" href="GtkCellLayout.html#GtkCellLayoutDataFunc" title="GtkCellLayoutDataFunc ()"><span class="type">GtkCellLayoutDataFunc</span></a> to use for
+cell_layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.clear-attributes"></a>clear_attributes</code></em> ()</p></td>
+<td class="struct_member_description"><p>Clears all existing attributes previously set
+with <a class="link" href="GtkCellLayout.html#gtk-cell-layout-set-attributes" title="gtk_cell_layout_set_attributes ()"><code class="function">gtk_cell_layout_set_attributes()</code></a>.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.reorder"></a>reorder</code></em> ()</p></td>
+<td class="struct_member_description"><p>Re-inserts cell at position.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.get-cells"></a>get_cells</code></em> ()</p></td>
+<td class="struct_member_description"><p>Get the cell renderers which have been added to
+cell_layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkCellLayoutIface.get-area"></a>get_area</code></em> ()</p></td>
+<td class="struct_member_description"><p>Get the underlying <a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a> which might be
+cell_layout if called on a <a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a> or might be NULL if no
+<a class="link" href="GtkCellArea.html" title="GtkCellArea"><span class="type">GtkCellArea</span></a> is used by cell_layout.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

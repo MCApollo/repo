@@ -1,0 +1,891 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkEditable: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="NumericEntry.html" title="Numeric and Text Data Entry">
+<link rel="prev" href="GtkSearchBar.html" title="GtkSearchBar">
+<link rel="next" href="TextWidgetObjects.html" title="Multiline Text Editor">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkEditable.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkEditable.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#GtkEditable.implementations" class="shortcut">Known Implementations</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkEditable.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="NumericEntry.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkSearchBar.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="TextWidgetObjects.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkEditable"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkEditable.top_of_page"></a>GtkEditable</span></h2>
+<p>GtkEditable — Interface for text-editing widgets</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkEditable.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-select-region" title="gtk_editable_select_region ()">gtk_editable_select_region</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-get-selection-bounds" title="gtk_editable_get_selection_bounds ()">gtk_editable_get_selection_bounds</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-insert-text" title="gtk_editable_insert_text ()">gtk_editable_insert_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-delete-text" title="gtk_editable_delete_text ()">gtk_editable_delete_text</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-get-chars" title="gtk_editable_get_chars ()">gtk_editable_get_chars</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-cut-clipboard" title="gtk_editable_cut_clipboard ()">gtk_editable_cut_clipboard</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-copy-clipboard" title="gtk_editable_copy_clipboard ()">gtk_editable_copy_clipboard</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-paste-clipboard" title="gtk_editable_paste_clipboard ()">gtk_editable_paste_clipboard</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-delete-selection" title="gtk_editable_delete_selection ()">gtk_editable_delete_selection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-set-position" title="gtk_editable_set_position ()">gtk_editable_set_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-get-position" title="gtk_editable_get_position ()">gtk_editable_get_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-set-editable" title="gtk_editable_set_editable ()">gtk_editable_set_editable</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEditable.html#gtk-editable-get-editable" title="gtk_editable_get_editable ()">gtk_editable_get_editable</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkEditable.html#GtkEditable-changed" title="The “changed” signal">changed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkEditable.html#GtkEditable-delete-text" title="The “delete-text” signal">delete-text</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkEditable.html#GtkEditable-insert-text" title="The “insert-text” signal">insert-text</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkEditable.html#GtkEditable-struct" title="GtkEditable">GtkEditable</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobject/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> GtkEditable
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.implementations"></a><h2>Known Implementations</h2>
+<p>
+GtkEditable is implemented by
+ <a class="link" href="GtkEntry.html" title="GtkEntry">GtkEntry</a>,  <a class="link" href="GtkSearchEntry.html" title="GtkSearchEntry">GtkSearchEntry</a> and  <a class="link" href="GtkSpinButton.html" title="GtkSpinButton">GtkSpinButton</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> interface is an interface which should be implemented by
+text editing widgets, such as <a class="link" href="GtkEntry.html" title="GtkEntry"><span class="type">GtkEntry</span></a> and <a class="link" href="GtkSpinButton.html" title="GtkSpinButton"><span class="type">GtkSpinButton</span></a>. It contains functions
+for generically manipulating an editable widget, a large number of action
+signals used for key bindings, and several signals that an application can
+connect to to modify the behavior of a widget.</p>
+<p>As an example of the latter usage, by connecting
+the following handler to <a class="link" href="GtkEditable.html#GtkEditable-insert-text" title="The “insert-text” signal"><span class="type">“insert-text”</span></a>, an application
+can convert all entry into a widget into uppercase.</p>
+<div class="refsect3">
+<a name="id-1.3.10.9.9.4"></a><h4>Forcing entry to uppercase.</h4>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;ctype.h&gt;</span><span class="normal">;</span>
+
+<span class="type">void</span>
+<span class="function">insert_text_handler</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GtkEditable</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">editable</span><span class="symbol">,</span>
+<span class="normal">                     </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">gchar</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">text</span><span class="symbol">,</span>
+<span class="normal">                     </span><span class="usertype">gint</span><span class="normal">         length</span><span class="symbol">,</span>
+<span class="normal">                     </span><span class="usertype">gint</span><span class="normal">        </span><span class="symbol">*</span><span class="normal">position</span><span class="symbol">,</span>
+<span class="normal">                     </span><span class="usertype">gpointer</span><span class="normal">     data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">gchar</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">result </span><span class="symbol">=</span><span class="normal"> </span><span class="function">g_utf8_strup</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">text</span><span class="symbol">,</span><span class="normal"> length</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">g_signal_handlers_block_by_func</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">editable</span><span class="symbol">,</span>
+<span class="normal">                               </span><span class="symbol">(</span><span class="normal">gpointer</span><span class="symbol">)</span><span class="normal"> insert_text_handler</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function"><a href="GtkEditable.html#gtk-editable-insert-text">gtk_editable_insert_text</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">editable</span><span class="symbol">,</span><span class="normal"> result</span><span class="symbol">,</span><span class="normal"> length</span><span class="symbol">,</span><span class="normal"> position</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">g_signal_handlers_unblock_by_func</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">editable</span><span class="symbol">,</span>
+<span class="normal">                                     </span><span class="symbol">(</span><span class="normal">gpointer</span><span class="symbol">)</span><span class="normal"> insert_text_handler</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">g_signal_stop_emission_by_name</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">editable</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"insert_text"</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="function">g_free</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">result</span><span class="symbol">);</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-editable-select-region"></a><h3>gtk_editable_select_region ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_select_region (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> start_pos</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> end_pos</code></em>);</pre>
+<p>Selects a region of text. The characters that are selected are 
+those characters at positions from <em class="parameter"><code>start_pos</code></em>
+ up to, but not 
+including <em class="parameter"><code>end_pos</code></em>
+. If <em class="parameter"><code>end_pos</code></em>
+ is negative, then the
+characters selected are those characters from <em class="parameter"><code>start_pos</code></em>
+ to 
+the end of the text.</p>
+<p>Note that positions are specified in characters, not bytes.</p>
+<p><span class="annotation">[<acronym title="This is the invoker for a virtual method."><span class="acronym">virtual</span></acronym> set_selection_bounds]</span></p>
+<div class="refsect3">
+<a name="gtk-editable-select-region.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start_pos</p></td>
+<td class="parameter_description"><p>start of region</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end_pos</p></td>
+<td class="parameter_description"><p>end of region</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-get-selection-bounds"></a><h3>gtk_editable_get_selection_bounds ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_editable_get_selection_bounds (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> *start_pos</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> *end_pos</code></em>);</pre>
+<p>Retrieves the selection bound of the editable. start_pos will be filled
+with the start of the selection and <em class="parameter"><code>end_pos</code></em>
+ with end. If no text was
+selected both will be identical and <code class="literal">FALSE</code> will be returned.</p>
+<p>Note that positions are specified in characters, not bytes.</p>
+<div class="refsect3">
+<a name="gtk-editable-get-selection-bounds.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start_pos</p></td>
+<td class="parameter_description"><p>location to store the starting position, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end_pos</p></td>
+<td class="parameter_description"><p>location to store the end position, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-editable-get-selection-bounds.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if an area is selected, <code class="literal">FALSE</code> otherwise</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-insert-text"></a><h3>gtk_editable_insert_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_insert_text (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>,
+                          <em class="parameter"><code>const <span class="type">gchar</span> *new_text</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> new_text_length</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> *position</code></em>);</pre>
+<p>Inserts <em class="parameter"><code>new_text_length</code></em>
+ bytes of <em class="parameter"><code>new_text</code></em>
+ into the contents of the
+widget, at position <em class="parameter"><code>position</code></em>
+.</p>
+<p>Note that the position is in characters, not in bytes. 
+The function updates <em class="parameter"><code>position</code></em>
+ to point after the newly inserted text.</p>
+<p><span class="annotation">[<acronym title="This is the invoker for a virtual method."><span class="acronym">virtual</span></acronym> do_insert_text]</span></p>
+<div class="refsect3">
+<a name="gtk-editable-insert-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>new_text</p></td>
+<td class="parameter_description"><p>the text to append</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>new_text_length</p></td>
+<td class="parameter_description"><p>the length of the text in bytes, or -1</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>location of the position text will be inserted at. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-delete-text"></a><h3>gtk_editable_delete_text ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_delete_text (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> start_pos</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> end_pos</code></em>);</pre>
+<p>Deletes a sequence of characters. The characters that are deleted are 
+those characters at positions from <em class="parameter"><code>start_pos</code></em>
+ up to, but not including 
+<em class="parameter"><code>end_pos</code></em>
+. If <em class="parameter"><code>end_pos</code></em>
+ is negative, then the characters deleted
+are those from <em class="parameter"><code>start_pos</code></em>
+ to the end of the text.</p>
+<p>Note that the positions are specified in characters, not bytes.</p>
+<p><span class="annotation">[<acronym title="This is the invoker for a virtual method."><span class="acronym">virtual</span></acronym> do_delete_text]</span></p>
+<div class="refsect3">
+<a name="gtk-editable-delete-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start_pos</p></td>
+<td class="parameter_description"><p>start position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end_pos</p></td>
+<td class="parameter_description"><p>end position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-get-chars"></a><h3>gtk_editable_get_chars ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_editable_get_chars (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>,
+                        <em class="parameter"><code><span class="type">gint</span> start_pos</code></em>,
+                        <em class="parameter"><code><span class="type">gint</span> end_pos</code></em>);</pre>
+<p>Retrieves a sequence of characters. The characters that are retrieved 
+are those characters at positions from <em class="parameter"><code>start_pos</code></em>
+ up to, but not 
+including <em class="parameter"><code>end_pos</code></em>
+. If <em class="parameter"><code>end_pos</code></em>
+ is negative, then the characters
+retrieved are those characters from <em class="parameter"><code>start_pos</code></em>
+ to the end of the text.</p>
+<p>Note that positions are specified in characters, not bytes.</p>
+<div class="refsect3">
+<a name="gtk-editable-get-chars.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start_pos</p></td>
+<td class="parameter_description"><p>start of text</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end_pos</p></td>
+<td class="parameter_description"><p>end of text</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-editable-get-chars.returns"></a><h4>Returns</h4>
+<p> a pointer to the contents of the widget as a
+string. This string is allocated by the <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a>
+implementation and should be freed by the caller.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-cut-clipboard"></a><h3>gtk_editable_cut_clipboard ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_cut_clipboard (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>);</pre>
+<p>Removes the contents of the currently selected content in the editable and
+puts it on the clipboard.</p>
+<div class="refsect3">
+<a name="gtk-editable-cut-clipboard.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-copy-clipboard"></a><h3>gtk_editable_copy_clipboard ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_copy_clipboard (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>);</pre>
+<p>Copies the contents of the currently selected content in the editable and
+puts it on the clipboard.</p>
+<div class="refsect3">
+<a name="gtk-editable-copy-clipboard.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-paste-clipboard"></a><h3>gtk_editable_paste_clipboard ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_paste_clipboard (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>);</pre>
+<p>Pastes the content of the clipboard to the current position of the
+cursor in the editable.</p>
+<div class="refsect3">
+<a name="gtk-editable-paste-clipboard.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-delete-selection"></a><h3>gtk_editable_delete_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_delete_selection (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>);</pre>
+<p>Deletes the currently selected text of the editable.
+This call doesn’t do anything if there is no selected text.</p>
+<div class="refsect3">
+<a name="gtk-editable-delete-selection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-set-position"></a><h3>gtk_editable_set_position ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_set_position (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>,
+                           <em class="parameter"><code><span class="type">gint</span> position</code></em>);</pre>
+<p>Sets the cursor position in the editable to the given value.</p>
+<p>The cursor is displayed before the character with the given (base 0) 
+index in the contents of the editable. The value must be less than or 
+equal to the number of characters in the editable. A value of -1 
+indicates that the position should be set after the last character 
+of the editable. Note that <em class="parameter"><code>position</code></em>
+ is in characters, not in bytes.</p>
+<div class="refsect3">
+<a name="gtk-editable-set-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>the position of the cursor </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-get-position"></a><h3>gtk_editable_get_position ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_editable_get_position (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>);</pre>
+<p>Retrieves the current position of the cursor relative to the start
+of the content of the editable. </p>
+<p>Note that this position is in characters, not in bytes.</p>
+<div class="refsect3">
+<a name="gtk-editable-get-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-editable-get-position.returns"></a><h4>Returns</h4>
+<p> the cursor position</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-set-editable"></a><h3>gtk_editable_set_editable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_editable_set_editable (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>,
+                           <em class="parameter"><code><span class="type">gboolean</span> is_editable</code></em>);</pre>
+<p>Determines if the user can edit the text in the editable
+widget or not.</p>
+<div class="refsect3">
+<a name="gtk-editable-set-editable.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>is_editable</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if the user is allowed to edit the text
+in the widget</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-editable-get-editable"></a><h3>gtk_editable_get_editable ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_editable_get_editable (<em class="parameter"><code><a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable</code></em>);</pre>
+<p>Retrieves whether <em class="parameter"><code>editable</code></em>
+ is editable. See
+<a class="link" href="GtkEditable.html#gtk-editable-set-editable" title="gtk_editable_set_editable ()"><code class="function">gtk_editable_set_editable()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-editable-get-editable.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-editable-get-editable.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>editable</code></em>
+is editable.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkEditable-struct"></a><h3>GtkEditable</h3>
+<pre class="programlisting">typedef struct _GtkEditable GtkEditable;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEditable.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkEditable-changed"></a><h3>The <code class="literal">“changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>The ::changed signal is emitted at the end of a single
+user-visible operation on the contents of the <a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a>.</p>
+<p>E.g., a paste operation that replaces the contents of the
+selection will cause only one signal emission (even though it
+is implemented by first deleting the selection, then inserting
+the new content, and may cause multiple ::notify::text signals
+to be emitted).</p>
+<div class="refsect3">
+<a name="GtkEditable-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>the object which received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkEditable-delete-text"></a><h3>The <code class="literal">“delete-text”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable,
+               <span class="type">gint</span>         start_pos,
+               <span class="type">gint</span>         end_pos,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>This signal is emitted when text is deleted from
+the widget by the user. The default handler for
+this signal will normally be responsible for deleting
+the text, so by connecting to this signal and then
+stopping the signal with <code class="function">g_signal_stop_emission()</code>, it
+is possible to modify the range of deleted text, or
+prevent it from being deleted entirely. The <em class="parameter"><code>start_pos</code></em>
+
+and <em class="parameter"><code>end_pos</code></em>
+ parameters are interpreted as for
+<a class="link" href="GtkEditable.html#gtk-editable-delete-text" title="gtk_editable_delete_text ()"><code class="function">gtk_editable_delete_text()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkEditable-delete-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>the object which received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start_pos</p></td>
+<td class="parameter_description"><p>the starting position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end_pos</p></td>
+<td class="parameter_description"><p>the end position</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkEditable-insert-text"></a><h3>The <code class="literal">“insert-text”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkEditable.html" title="GtkEditable"><span class="type">GtkEditable</span></a> *editable,
+               <span class="type">gchar</span>       *new_text,
+               <span class="type">gint</span>         new_text_length,
+               <span class="type">gpointer</span>     position,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>This signal is emitted when text is inserted into
+the widget by the user. The default handler for
+this signal will normally be responsible for inserting
+the text, so by connecting to this signal and then
+stopping the signal with <code class="function">g_signal_stop_emission()</code>, it
+is possible to modify the inserted text, or prevent
+it from being inserted entirely.</p>
+<div class="refsect3">
+<a name="GtkEditable-insert-text.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>editable</p></td>
+<td class="parameter_description"><p>the object which received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>new_text</p></td>
+<td class="parameter_description"><p>the new text to insert</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>new_text_length</p></td>
+<td class="parameter_description"><p>the length of the new text, in bytes,
+or -1 if new_text is nul-terminated</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>the position, in characters,
+at which to insert the new text. this is an in-out
+parameter.  After the signal emission is finished, it
+should point after the newly inserted text. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> int]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

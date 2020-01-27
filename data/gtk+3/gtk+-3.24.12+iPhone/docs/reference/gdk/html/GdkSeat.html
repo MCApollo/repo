@@ -1,0 +1,777 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GdkSeat: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="GdkScreen.html" title="GdkScreen">
+<link rel="next" href="GdkMonitor.html" title="GdkMonitor">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GdkSeat.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GdkSeat.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GdkSeat.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GdkSeat.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GdkScreen.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GdkMonitor.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GdkSeat"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GdkSeat.top_of_page"></a>GdkSeat</span></h2>
+<p>GdkSeat — Object representing an user seat</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GdkSeat.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GdkSeat.html#GdkSeatGrabPrepareFunc" title="GdkSeatGrabPrepareFunc ()">*GdkSeatGrabPrepareFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="returnvalue">GdkDisplay</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkSeat.html#gdk-seat-get-display" title="gdk_seat_get_display ()">gdk_seat_get_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-General.html#GdkGrabStatus" title="enum GdkGrabStatus"><span class="returnvalue">GdkGrabStatus</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GdkSeat.html#gdk-seat-grab" title="gdk_seat_grab ()">gdk_seat_grab</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkSeat.html#gdk-seat-ungrab" title="gdk_seat_ungrab ()">gdk_seat_ungrab</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkSeat.html#GdkSeatCapabilities" title="enum GdkSeatCapabilities"><span class="returnvalue">GdkSeatCapabilities</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GdkSeat.html#gdk-seat-get-capabilities" title="gdk_seat_get_capabilities ()">gdk_seat_get_capabilities</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkSeat.html#gdk-seat-get-pointer" title="gdk_seat_get_pointer ()">gdk_seat_get_pointer</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkSeat.html#gdk-seat-get-keyboard" title="gdk_seat_get_keyboard ()">gdk_seat_get_keyboard</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkSeat.html#gdk-seat-get-slaves" title="gdk_seat_get_slaves ()">gdk_seat_get_slaves</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *</td>
+<td class="property_name"><a class="link" href="GdkSeat.html#GdkSeat--display" title="The “display” property">display</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkSeat.html#GdkSeat-device-added" title="The “device-added” signal">device-added</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkSeat.html#GdkSeat-device-removed" title="The “device-removed” signal">device-removed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkSeat.html#GdkSeat-tool-added" title="The “tool-added” signal">tool-added</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkSeat.html#GdkSeat-tool-removed" title="The “tool-removed” signal">tool-removed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GdkSeat.html#GdkSeat-struct" title="GdkSeat">GdkSeat</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GdkSeat.html#GdkSeatCapabilities" title="enum GdkSeatCapabilities">GdkSeatCapabilities</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GdkSeat
+</pre>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> object represents a collection of input devices
+that belong to a user.</p>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="GdkSeatGrabPrepareFunc"></a><h3>GdkSeatGrabPrepareFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*GdkSeatGrabPrepareFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>,
+                           <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                           <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Type of the callback used to set up <em class="parameter"><code>window</code></em>
+ so it can be
+grabbed. A typical action would be ensuring the window is
+visible, although there's room for other initialization
+actions.</p>
+<div class="refsect3">
+<a name="GdkSeatGrabPrepareFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> being grabbed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> being grabbed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data passed in <a class="link" href="GdkSeat.html#gdk-seat-grab" title="gdk_seat_grab ()"><code class="function">gdk_seat_grab()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-seat-get-display"></a><h3>gdk_seat_get_display ()</h3>
+<pre class="programlisting"><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="returnvalue">GdkDisplay</span></a> *
+gdk_seat_get_display (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>);</pre>
+<p>Returns the <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> this seat belongs to.</p>
+<div class="refsect3">
+<a name="gdk-seat-get-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-seat-get-display.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a>. This object is owned by GTK+
+and must not be freed. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-seat-grab"></a><h3>gdk_seat_grab ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-General.html#GdkGrabStatus" title="enum GdkGrabStatus"><span class="returnvalue">GdkGrabStatus</span></a>
+gdk_seat_grab (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>,
+               <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+               <em class="parameter"><code><a class="link" href="GdkSeat.html#GdkSeatCapabilities" title="enum GdkSeatCapabilities"><span class="type">GdkSeatCapabilities</span></a> capabilities</code></em>,
+               <em class="parameter"><code><span class="type">gboolean</span> owner_events</code></em>,
+               <em class="parameter"><code><a class="link" href="gdk3-Cursors.html#GdkCursor"><span class="type">GdkCursor</span></a> *cursor</code></em>,
+               <em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+               <em class="parameter"><code><a class="link" href="GdkSeat.html#GdkSeatGrabPrepareFunc" title="GdkSeatGrabPrepareFunc ()"><span class="type">GdkSeatGrabPrepareFunc</span></a> prepare_func</code></em>,
+               <em class="parameter"><code><span class="type">gpointer</span> prepare_func_data</code></em>);</pre>
+<p>Grabs the seat so that all events corresponding to the given <em class="parameter"><code>capabilities</code></em>
+
+are passed to this application until the seat is ungrabbed with <a class="link" href="GdkSeat.html#gdk-seat-ungrab" title="gdk_seat_ungrab ()"><code class="function">gdk_seat_ungrab()</code></a>,
+or the window becomes hidden. This overrides any previous grab on the
+seat by this client.</p>
+<p>As a rule of thumb, if a grab is desired over <a class="link" href="GdkSeat.html#GDK-SEAT-CAPABILITY-POINTER:CAPS"><code class="literal">GDK_SEAT_CAPABILITY_POINTER</code></a>,
+all other "pointing" capabilities (eg. <a class="link" href="GdkSeat.html#GDK-SEAT-CAPABILITY-TOUCH:CAPS"><code class="literal">GDK_SEAT_CAPABILITY_TOUCH</code></a>) should
+be grabbed too, so the user is able to interact with all of those while
+the grab holds, you should thus use <a class="link" href="GdkSeat.html#GDK-SEAT-CAPABILITY-ALL-POINTING:CAPS"><code class="literal">GDK_SEAT_CAPABILITY_ALL_POINTING</code></a> most
+commonly.</p>
+<p>Grabs are used for operations which need complete control over the
+events corresponding to the given capabilities. For example in GTK+ this
+is used for Drag and Drop operations, popup menus and such.</p>
+<p>Note that if the event mask of a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> has selected both button press
+and button release events, or touch begin and touch end, then a press event
+will cause an automatic grab until the button is released, equivalent to a
+grab on the window with <em class="parameter"><code>owner_events</code></em>
+ set to <code class="literal">TRUE</code>. This is done because most
+applications expect to receive paired press and release events.</p>
+<p>If you set up anything at the time you take the grab that needs to be
+cleaned up when the grab ends, you should handle the <a class="link" href="gdk3-Event-Structures.html#GdkEventGrabBroken" title="struct GdkEventGrabBroken"><span class="type">GdkEventGrabBroken</span></a>
+events that are emitted when the grab ends unvoluntarily.</p>
+<div class="refsect3">
+<a name="gdk-seat-grab.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> which will own the grab</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>capabilities</p></td>
+<td class="parameter_description"><p>capabilities that will be grabbed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>owner_events</p></td>
+<td class="parameter_description"><p>if <code class="literal">FALSE</code> then all device events are reported with respect to
+<em class="parameter"><code>window</code></em>
+and are only reported if selected by <em class="parameter"><code>event_mask</code></em>
+. If
+<code class="literal">TRUE</code> then pointer events for this application are reported
+as normal, but pointer events outside this application are
+reported with respect to <em class="parameter"><code>window</code></em>
+and only if selected by
+<em class="parameter"><code>event_mask</code></em>
+. In either mode, unreported events are discarded.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>the cursor to display while the grab is active. If
+this is <code class="literal">NULL</code> then the normal cursors are used for
+<em class="parameter"><code>window</code></em>
+and its descendants, and the cursor for <em class="parameter"><code>window</code></em>
+is used
+elsewhere. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>the event that is triggering the grab, or <code class="literal">NULL</code> if none
+is available. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prepare_func</p></td>
+<td class="parameter_description"><p>function to
+prepare the window to be grabbed, it can be <code class="literal">NULL</code> if <em class="parameter"><code>window</code></em>
+is
+visible before this call. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>][<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> prepare_func_data]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prepare_func_data</p></td>
+<td class="parameter_description"><p>user data to pass to <em class="parameter"><code>prepare_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-seat-grab.returns"></a><h4>Returns</h4>
+<p> <a class="link" href="gdk3-General.html#GDK-GRAB-SUCCESS:CAPS"><code class="literal">GDK_GRAB_SUCCESS</code></a> if the grab was successful.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-seat-ungrab"></a><h3>gdk_seat_ungrab ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_seat_ungrab (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>);</pre>
+<p>Releases a grab added through <a class="link" href="GdkSeat.html#gdk-seat-grab" title="gdk_seat_grab ()"><code class="function">gdk_seat_grab()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-seat-ungrab.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-seat-get-capabilities"></a><h3>gdk_seat_get_capabilities ()</h3>
+<pre class="programlisting"><a class="link" href="GdkSeat.html#GdkSeatCapabilities" title="enum GdkSeatCapabilities"><span class="returnvalue">GdkSeatCapabilities</span></a>
+gdk_seat_get_capabilities (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>);</pre>
+<p>Returns the capabilities this <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> currently has.</p>
+<div class="refsect3">
+<a name="gdk-seat-get-capabilities.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-seat-get-capabilities.returns"></a><h4>Returns</h4>
+<p> the seat capabilities</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-seat-get-pointer"></a><h3>gdk_seat_get_pointer ()</h3>
+<pre class="programlisting"><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+gdk_seat_get_pointer (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>);</pre>
+<p>Returns the master device that routes pointer events.</p>
+<div class="refsect3">
+<a name="gdk-seat-get-pointer.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-seat-get-pointer.returns"></a><h4>Returns</h4>
+<p>a master <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> with pointer
+capabilities. This object is owned by GTK+ and must not be freed. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-seat-get-keyboard"></a><h3>gdk_seat_get_keyboard ()</h3>
+<pre class="programlisting"><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+gdk_seat_get_keyboard (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>);</pre>
+<p>Returns the master device that routes keyboard events.</p>
+<div class="refsect3">
+<a name="gdk-seat-get-keyboard.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-seat-get-keyboard.returns"></a><h4>Returns</h4>
+<p>a master <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> with keyboard
+capabilities. This object is owned by GTK+ and must not be freed. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-seat-get-slaves"></a><h3>gdk_seat_get_slaves ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gdk_seat_get_slaves (<em class="parameter"><code><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> *seat</code></em>,
+                     <em class="parameter"><code><a class="link" href="GdkSeat.html#GdkSeatCapabilities" title="enum GdkSeatCapabilities"><span class="type">GdkSeatCapabilities</span></a> capabilities</code></em>);</pre>
+<p>Returns the slave devices that match the given capabilities.</p>
+<div class="refsect3">
+<a name="gdk-seat-get-slaves.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>capabilities</p></td>
+<td class="parameter_description"><p>capabilities to get devices for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-seat-get-slaves.returns"></a><h4>Returns</h4>
+<p>A list of <a href="GdkDevice.html#GdkDevice-struct"><span class="type">GdkDevices</span></a>.
+The list must be freed with <code class="function">g_list_free()</code>, the elements are owned
+by GDK and must not be freed. </p>
+<p><span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GdkDevice]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkSeat-struct"></a><h3>GdkSeat</h3>
+<pre class="programlisting">typedef struct _GdkSeat GdkSeat;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkSeatCapabilities"></a><h3>enum GdkSeatCapabilities</h3>
+<p>Flags describing the seat capabilities.</p>
+<div class="refsect3">
+<a name="GdkSeatCapabilities.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SEAT-CAPABILITY-NONE:CAPS"></a>GDK_SEAT_CAPABILITY_NONE</p></td>
+<td class="enum_member_description">
+<p>No input capabilities</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SEAT-CAPABILITY-POINTER:CAPS"></a>GDK_SEAT_CAPABILITY_POINTER</p></td>
+<td class="enum_member_description">
+<p>The seat has a pointer (e.g. mouse)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SEAT-CAPABILITY-TOUCH:CAPS"></a>GDK_SEAT_CAPABILITY_TOUCH</p></td>
+<td class="enum_member_description">
+<p>The seat has touchscreen(s) attached</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SEAT-CAPABILITY-TABLET-STYLUS:CAPS"></a>GDK_SEAT_CAPABILITY_TABLET_STYLUS</p></td>
+<td class="enum_member_description">
+<p>The seat has drawing tablet(s) attached</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SEAT-CAPABILITY-KEYBOARD:CAPS"></a>GDK_SEAT_CAPABILITY_KEYBOARD</p></td>
+<td class="enum_member_description">
+<p>The seat has keyboard(s) attached</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SEAT-CAPABILITY-ALL-POINTING:CAPS"></a>GDK_SEAT_CAPABILITY_ALL_POINTING</p></td>
+<td class="enum_member_description">
+<p>The union of all pointing capabilities</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SEAT-CAPABILITY-ALL:CAPS"></a>GDK_SEAT_CAPABILITY_ALL</p></td>
+<td class="enum_member_description">
+<p>The union of all capabilities</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GdkSeat--display"></a><h3>The <code class="literal">“display”</code> property</h3>
+<pre class="programlisting">  “display”                  <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *</pre>
+<p><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> of this seat.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GdkSeat-device-added"></a><h3>The <code class="literal">“device-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a>   *seat,
+               <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> *device,
+               <span class="type">gpointer</span>   user_data)</pre>
+<p>The ::device-added signal is emitted when a new input
+device is related to this seat.</p>
+<div class="refsect3">
+<a name="GdkSeat-device-added.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>the object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>device</p></td>
+<td class="parameter_description"><p>the newly added <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkSeat-device-removed"></a><h3>The <code class="literal">“device-removed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a>   *seat,
+               <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> *device,
+               <span class="type">gpointer</span>   user_data)</pre>
+<p>The ::device-removed signal is emitted when an
+input device is removed (e.g. unplugged).</p>
+<div class="refsect3">
+<a name="GdkSeat-device-removed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>the object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>device</p></td>
+<td class="parameter_description"><p>the just removed <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkSeat-tool-added"></a><h3>The <code class="literal">“tool-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a>       *seat,
+               <span class="type">GdkDeviceTool</span> *tool,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>The ::tool-added signal is emitted whenever a new tool
+is made known to the seat. The tool may later be assigned
+to a device (i.e. on proximity with a tablet). The device
+will emit the <a class="link" href="GdkDevice.html#GdkDevice-tool-changed" title="The “tool-changed” signal"><span class="type">“tool-changed”</span></a> signal accordingly.</p>
+<p>A same tool may be used by several devices.</p>
+<div class="refsect3">
+<a name="GdkSeat-tool-added.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>the object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tool</p></td>
+<td class="parameter_description"><p>the new <span class="type">GdkDeviceTool</span> known to the seat</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkSeat-tool-removed"></a><h3>The <code class="literal">“tool-removed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a>       *seat,
+               <span class="type">GdkDeviceTool</span> *tool,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>This signal is emitted whenever a tool is no longer known
+to this <em class="parameter"><code>seat</code></em>
+.</p>
+<div class="refsect3">
+<a name="GdkSeat-tool-removed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>seat</p></td>
+<td class="parameter_description"><p>the object on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tool</p></td>
+<td class="parameter_description"><p>the just removed <span class="type">GdkDeviceTool</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkSeat.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a>, <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

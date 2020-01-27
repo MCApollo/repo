@@ -1,0 +1,2277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Settings: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtkbase.html" title="Part III. GTK+ Core Reference">
+<link rel="prev" href="gtk3-Drag-and-Drop.html" title="Drag and Drop">
+<link rel="next" href="gtk3-Bindings.html" title="Bindings">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkSettings.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkSettings.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkSettings.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkSettings.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtkbase.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gtk3-Drag-and-Drop.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gtk3-Bindings.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkSettings"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkSettings.top_of_page"></a>Settings</span></h2>
+<p>Settings — Sharing settings between applications</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkSettings.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkSettings.html" title="Settings"><span class="returnvalue">GtkSettings</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-get-default" title="gtk_settings_get_default ()">gtk_settings_get_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkSettings.html" title="Settings"><span class="returnvalue">GtkSettings</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-get-for-screen" title="gtk_settings_get_for_screen ()">gtk_settings_get_for_screen</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-install-property" title="gtk_settings_install_property ()">gtk_settings_install_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-install-property-parser" title="gtk_settings_install_property_parser ()">gtk_settings_install_property_parser</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-rc-property-parse-color" title="gtk_rc_property_parse_color ()">gtk_rc_property_parse_color</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-rc-property-parse-enum" title="gtk_rc_property_parse_enum ()">gtk_rc_property_parse_enum</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-rc-property-parse-flags" title="gtk_rc_property_parse_flags ()">gtk_rc_property_parse_flags</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-rc-property-parse-requisition" title="gtk_rc_property_parse_requisition ()">gtk_rc_property_parse_requisition</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-rc-property-parse-border" title="gtk_rc_property_parse_border ()">gtk_rc_property_parse_border</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-set-property-value" title="gtk_settings_set_property_value ()">gtk_settings_set_property_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-set-string-property" title="gtk_settings_set_string_property ()">gtk_settings_set_string_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-set-long-property" title="gtk_settings_set_long_property ()">gtk_settings_set_long_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-set-double-property" title="gtk_settings_set_double_property ()">gtk_settings_set_double_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkSettings.html#gtk-settings-reset-property" title="gtk_settings_reset_property ()">gtk_settings_reset_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">GHashTable</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--color-hash" title="The “color-hash” property">color-hash</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-alternative-button-order" title="The “gtk-alternative-button-order” property">gtk-alternative-button-order</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-alternative-sort-arrows" title="The “gtk-alternative-sort-arrows” property">gtk-alternative-sort-arrows</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-application-prefer-dark-theme" title="The “gtk-application-prefer-dark-theme” property">gtk-application-prefer-dark-theme</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-auto-mnemonics" title="The “gtk-auto-mnemonics” property">gtk-auto-mnemonics</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-button-images" title="The “gtk-button-images” property">gtk-button-images</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-can-change-accels" title="The “gtk-can-change-accels” property">gtk-can-change-accels</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-color-palette" title="The “gtk-color-palette” property">gtk-color-palette</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-color-scheme" title="The “gtk-color-scheme” property">gtk-color-scheme</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-cursor-blink" title="The “gtk-cursor-blink” property">gtk-cursor-blink</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-cursor-blink-time" title="The “gtk-cursor-blink-time” property">gtk-cursor-blink-time</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-cursor-blink-timeout" title="The “gtk-cursor-blink-timeout” property">gtk-cursor-blink-timeout</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-cursor-theme-name" title="The “gtk-cursor-theme-name” property">gtk-cursor-theme-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-cursor-theme-size" title="The “gtk-cursor-theme-size” property">gtk-cursor-theme-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-decoration-layout" title="The “gtk-decoration-layout” property">gtk-decoration-layout</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-dialogs-use-header" title="The “gtk-dialogs-use-header” property">gtk-dialogs-use-header</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-dnd-drag-threshold" title="The “gtk-dnd-drag-threshold” property">gtk-dnd-drag-threshold</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-double-click-distance" title="The “gtk-double-click-distance” property">gtk-double-click-distance</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-double-click-time" title="The “gtk-double-click-time” property">gtk-double-click-time</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-accels" title="The “gtk-enable-accels” property">gtk-enable-accels</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-animations" title="The “gtk-enable-animations” property">gtk-enable-animations</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-event-sounds" title="The “gtk-enable-event-sounds” property">gtk-enable-event-sounds</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-input-feedback-sounds" title="The “gtk-enable-input-feedback-sounds” property">gtk-enable-input-feedback-sounds</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-mnemonics" title="The “gtk-enable-mnemonics” property">gtk-enable-mnemonics</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-primary-paste" title="The “gtk-enable-primary-paste” property">gtk-enable-primary-paste</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-enable-tooltips" title="The “gtk-enable-tooltips” property">gtk-enable-tooltips</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-entry-password-hint-timeout" title="The “gtk-entry-password-hint-timeout” property">gtk-entry-password-hint-timeout</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-entry-select-on-focus" title="The “gtk-entry-select-on-focus” property">gtk-entry-select-on-focus</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-error-bell" title="The “gtk-error-bell” property">gtk-error-bell</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-fallback-icon-theme" title="The “gtk-fallback-icon-theme” property">gtk-fallback-icon-theme</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-file-chooser-backend" title="The “gtk-file-chooser-backend” property">gtk-file-chooser-backend</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-font-name" title="The “gtk-font-name” property">gtk-font-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-fontconfig-timestamp" title="The “gtk-fontconfig-timestamp” property">gtk-fontconfig-timestamp</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-icon-sizes" title="The “gtk-icon-sizes” property">gtk-icon-sizes</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-icon-theme-name" title="The “gtk-icon-theme-name” property">gtk-icon-theme-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-im-module" title="The “gtk-im-module” property">gtk-im-module</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkSettings.html#GtkIMPreeditStyle" title="enum GtkIMPreeditStyle"><span class="type">GtkIMPreeditStyle</span></a></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-im-preedit-style" title="The “gtk-im-preedit-style” property">gtk-im-preedit-style</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkSettings.html#GtkIMStatusStyle" title="enum GtkIMStatusStyle"><span class="type">GtkIMStatusStyle</span></a></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-im-status-style" title="The “gtk-im-status-style” property">gtk-im-status-style</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-key-theme-name" title="The “gtk-key-theme-name” property">gtk-key-theme-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-keynav-cursor-only" title="The “gtk-keynav-cursor-only” property">gtk-keynav-cursor-only</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-keynav-use-caret" title="The “gtk-keynav-use-caret” property">gtk-keynav-use-caret</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-keynav-wrap-around" title="The “gtk-keynav-wrap-around” property">gtk-keynav-wrap-around</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-label-select-on-focus" title="The “gtk-label-select-on-focus” property">gtk-label-select-on-focus</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-long-press-time" title="The “gtk-long-press-time” property">gtk-long-press-time</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-menu-bar-accel" title="The “gtk-menu-bar-accel” property">gtk-menu-bar-accel</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-menu-bar-popup-delay" title="The “gtk-menu-bar-popup-delay” property">gtk-menu-bar-popup-delay</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-menu-images" title="The “gtk-menu-images” property">gtk-menu-images</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-menu-popdown-delay" title="The “gtk-menu-popdown-delay” property">gtk-menu-popdown-delay</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-menu-popup-delay" title="The “gtk-menu-popup-delay” property">gtk-menu-popup-delay</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-modules" title="The “gtk-modules” property">gtk-modules</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-overlay-scrolling" title="The “gtk-overlay-scrolling” property">gtk-overlay-scrolling</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-primary-button-warps-slider" title="The “gtk-primary-button-warps-slider” property">gtk-primary-button-warps-slider</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-print-backends" title="The “gtk-print-backends” property">gtk-print-backends</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-print-preview-command" title="The “gtk-print-preview-command” property">gtk-print-preview-command</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-recent-files-enabled" title="The “gtk-recent-files-enabled” property">gtk-recent-files-enabled</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-recent-files-limit" title="The “gtk-recent-files-limit” property">gtk-recent-files-limit</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-recent-files-max-age" title="The “gtk-recent-files-max-age” property">gtk-recent-files-max-age</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkScrolledWindow.html#GtkCornerType" title="enum GtkCornerType"><span class="type">GtkCornerType</span></a></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-scrolled-window-placement" title="The “gtk-scrolled-window-placement” property">gtk-scrolled-window-placement</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-shell-shows-app-menu" title="The “gtk-shell-shows-app-menu” property">gtk-shell-shows-app-menu</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-shell-shows-desktop" title="The “gtk-shell-shows-desktop” property">gtk-shell-shows-desktop</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-shell-shows-menubar" title="The “gtk-shell-shows-menubar” property">gtk-shell-shows-menubar</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-show-input-method-menu" title="The “gtk-show-input-method-menu” property">gtk-show-input-method-menu</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-show-unicode-menu" title="The “gtk-show-unicode-menu” property">gtk-show-unicode-menu</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-sound-theme-name" title="The “gtk-sound-theme-name” property">gtk-sound-theme-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-split-cursor" title="The “gtk-split-cursor” property">gtk-split-cursor</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-theme-name" title="The “gtk-theme-name” property">gtk-theme-name</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-timeout-expand" title="The “gtk-timeout-expand” property">gtk-timeout-expand</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-timeout-initial" title="The “gtk-timeout-initial” property">gtk-timeout-initial</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-timeout-repeat" title="The “gtk-timeout-repeat” property">gtk-timeout-repeat</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-titlebar-double-click" title="The “gtk-titlebar-double-click” property">gtk-titlebar-double-click</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-titlebar-middle-click" title="The “gtk-titlebar-middle-click” property">gtk-titlebar-middle-click</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-titlebar-right-click" title="The “gtk-titlebar-right-click” property">gtk-titlebar-right-click</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="type">GtkIconSize</span></a></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-toolbar-icon-size" title="The “gtk-toolbar-icon-size” property">gtk-toolbar-icon-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="type">GtkToolbarStyle</span></a></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-toolbar-style" title="The “gtk-toolbar-style” property">gtk-toolbar-style</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-tooltip-browse-mode-timeout" title="The “gtk-tooltip-browse-mode-timeout” property">gtk-tooltip-browse-mode-timeout</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-tooltip-browse-timeout" title="The “gtk-tooltip-browse-timeout” property">gtk-tooltip-browse-timeout</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-tooltip-timeout" title="The “gtk-tooltip-timeout” property">gtk-tooltip-timeout</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-touchscreen-mode" title="The “gtk-touchscreen-mode” property">gtk-touchscreen-mode</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkScrolledWindow.html#GtkPolicyType" title="enum GtkPolicyType"><span class="type">GtkPolicyType</span></a></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-visible-focus" title="The “gtk-visible-focus” property">gtk-visible-focus</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-xft-antialias" title="The “gtk-xft-antialias” property">gtk-xft-antialias</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-xft-dpi" title="The “gtk-xft-dpi” property">gtk-xft-dpi</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-xft-hinting" title="The “gtk-xft-hinting” property">gtk-xft-hinting</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-xft-hintstyle" title="The “gtk-xft-hintstyle” property">gtk-xft-hintstyle</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkSettings.html#GtkSettings--gtk-xft-rgba" title="The “gtk-xft-rgba” property">gtk-xft-rgba</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkSettings.html#GtkSettings-struct" title="GtkSettings">GtkSettings</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkSettings.html#GtkSettingsValue" title="struct GtkSettingsValue">GtkSettingsValue</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkSettings.html#GtkIMPreeditStyle" title="enum GtkIMPreeditStyle">GtkIMPreeditStyle</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkSettings.html#GtkIMStatusStyle" title="enum GtkIMStatusStyle">GtkIMStatusStyle</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GtkSettings
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkSettings implements
+ <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider">GtkStyleProvider</a> and  GtkStyleProviderPrivate.</p>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.description"></a><h2>Description</h2>
+<p>GtkSettings provide a mechanism to share global settings between
+applications.</p>
+<p>On the X window system, this sharing is realized by an
+<a class="ulink" href="http://www.freedesktop.org/wiki/Specifications/xsettings-spec" target="_top">XSettings</a>
+manager that is usually part of the desktop environment, along with
+utilities that let the user change these settings. In the absence of
+an Xsettings manager, GTK+ reads default values for settings from
+<code class="literal">settings.ini</code> files in
+<code class="literal">/etc/gtk-3.0</code>, <code class="literal">$XDG_CONFIG_DIRS/gtk-3.0</code>
+and <code class="literal">$XDG_CONFIG_HOME/gtk-3.0</code>.
+These files must be valid key files (see <span class="type">GKeyFile</span>), and have
+a section called Settings. Themes can also provide default values
+for settings by installing a <code class="literal">settings.ini</code> file
+next to their <code class="literal">gtk.css</code> file.</p>
+<p>Applications can override system-wide settings by setting the property
+of the GtkSettings object with <code class="function">g_object_set()</code>. This should be restricted
+to special cases though; GtkSettings are not meant as an application
+configuration facility. When doing so, you need to be aware that settings
+that are specific to individual widgets may not be available before the
+widget type has been realized at least once. The following example
+demonstrates a way to do this:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="gtk3-General.html#gtk-init">gtk_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">argc</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">argv</span><span class="symbol">);</span>
+
+<span class="comment">// make sure the type is realized</span>
+<span class="function">g_type_class_unref</span><span class="normal"> </span><span class="symbol">(</span><span class="function">g_type_class_ref</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">GTK_TYPE_IMAGE_MENU_ITEM</span><span class="symbol">));</span>
+
+<span class="function">g_object_set</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="GtkSettings.html#gtk-settings-get-default">gtk_settings_get_default</a></span><span class="normal"> </span><span class="symbol">(),</span><span class="normal"> </span><span class="string">"gtk-enable-animations"</span><span class="symbol">,</span><span class="normal"> FALSE</span><span class="symbol">,</span><span class="normal"> NULL</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>There is one GtkSettings instance per screen. It can be obtained with
+<a class="link" href="GtkSettings.html#gtk-settings-get-for-screen" title="gtk_settings_get_for_screen ()"><code class="function">gtk_settings_get_for_screen()</code></a>, but in many cases, it is more convenient
+to use <a class="link" href="GtkWidget.html#gtk-widget-get-settings" title="gtk_widget_get_settings ()"><code class="function">gtk_widget_get_settings()</code></a>. <a class="link" href="GtkSettings.html#gtk-settings-get-default" title="gtk_settings_get_default ()"><code class="function">gtk_settings_get_default()</code></a> returns the
+GtkSettings instance for the default screen.</p>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-settings-get-default"></a><h3>gtk_settings_get_default ()</h3>
+<pre class="programlisting"><a class="link" href="GtkSettings.html" title="Settings"><span class="returnvalue">GtkSettings</span></a> *
+gtk_settings_get_default (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets the <a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> object for the default GDK screen, creating
+it if necessary. See <a class="link" href="GtkSettings.html#gtk-settings-get-for-screen" title="gtk_settings_get_for_screen ()"><code class="function">gtk_settings_get_for_screen()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-settings-get-default.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> object. If there is
+no default screen, then returns <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-get-for-screen"></a><h3>gtk_settings_get_for_screen ()</h3>
+<pre class="programlisting"><a class="link" href="GtkSettings.html" title="Settings"><span class="returnvalue">GtkSettings</span></a> *
+gtk_settings_get_for_screen (<em class="parameter"><code><span class="type">GdkScreen</span> *screen</code></em>);</pre>
+<p>Gets the <a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> object for <em class="parameter"><code>screen</code></em>
+, creating it if necessary.</p>
+<div class="refsect3">
+<a name="gtk-settings-get-for-screen.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>screen</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkScreen</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-settings-get-for-screen.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> object. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-install-property"></a><h3>gtk_settings_install_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_settings_install_property (<em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_settings_install_property</code> has been deprecated since version 3.16 and should not be used in newly-written code.</p>
+<p>This function is not useful outside GTK+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-install-property-parser"></a><h3>gtk_settings_install_property_parser ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_settings_install_property_parser (<em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>,
+                                      <em class="parameter"><code><a class="link" href="GtkStyle.html#GtkRcPropertyParser" title="GtkRcPropertyParser ()"><span class="type">GtkRcPropertyParser</span></a> parser</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_settings_install_property_parser</code> has been deprecated since version 3.16 and should not be used in newly-written code.</p>
+<p>This function is not useful outside GTK+.</p>
+</div>
+<div class="refsect3">
+<a name="gtk-settings-install-property-parser.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>parser</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-rc-property-parse-color"></a><h3>gtk_rc_property_parse_color ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_rc_property_parse_color (<em class="parameter"><code>const <span class="type">GParamSpec</span> *pspec</code></em>,
+                             <em class="parameter"><code>const <span class="type">GString</span> *gstring</code></em>,
+                             <em class="parameter"><code><span class="type">GValue</span> *property_value</code></em>);</pre>
+<p>A <a class="link" href="GtkStyle.html#GtkRcPropertyParser" title="GtkRcPropertyParser ()"><span class="type">GtkRcPropertyParser</span></a> for use with <a class="link" href="GtkSettings.html#gtk-settings-install-property-parser" title="gtk_settings_install_property_parser ()"><code class="function">gtk_settings_install_property_parser()</code></a>
+or <a class="link" href="GtkWidget.html#gtk-widget-class-install-style-property-parser" title="gtk_widget_class_install_style_property_parser ()"><code class="function">gtk_widget_class_install_style_property_parser()</code></a> which parses a
+color given either by its name or in the form
+<code class="literal">{ red, green, blue }</code> where red, green and
+blue are integers between 0 and 65535 or floating-point numbers
+between 0 and 1.</p>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-color.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>a <span class="type">GParamSpec</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>gstring</p></td>
+<td class="parameter_description"><p>the <span class="type">GString</span> to be parsed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_value</p></td>
+<td class="parameter_description"><p>a <span class="type">GValue</span> which must hold <span class="type">GdkColor</span> values.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-color.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>gstring</code></em>
+could be parsed and <em class="parameter"><code>property_value</code></em>
+has been set to the resulting <span class="type">GdkColor</span>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-rc-property-parse-enum"></a><h3>gtk_rc_property_parse_enum ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_rc_property_parse_enum (<em class="parameter"><code>const <span class="type">GParamSpec</span> *pspec</code></em>,
+                            <em class="parameter"><code>const <span class="type">GString</span> *gstring</code></em>,
+                            <em class="parameter"><code><span class="type">GValue</span> *property_value</code></em>);</pre>
+<p>A <a class="link" href="GtkStyle.html#GtkRcPropertyParser" title="GtkRcPropertyParser ()"><span class="type">GtkRcPropertyParser</span></a> for use with <a class="link" href="GtkSettings.html#gtk-settings-install-property-parser" title="gtk_settings_install_property_parser ()"><code class="function">gtk_settings_install_property_parser()</code></a>
+or <a class="link" href="GtkWidget.html#gtk-widget-class-install-style-property-parser" title="gtk_widget_class_install_style_property_parser ()"><code class="function">gtk_widget_class_install_style_property_parser()</code></a> which parses a single
+enumeration value.</p>
+<p>The enumeration value can be specified by its name, its nickname or
+its numeric value. For consistency with flags parsing, the value
+may be surrounded by parentheses.</p>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-enum.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>a <span class="type">GParamSpec</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>gstring</p></td>
+<td class="parameter_description"><p>the <span class="type">GString</span> to be parsed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_value</p></td>
+<td class="parameter_description"><p>a <span class="type">GValue</span> which must hold enum values.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-enum.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>gstring</code></em>
+could be parsed and <em class="parameter"><code>property_value</code></em>
+has been set to the resulting <span class="type">GEnumValue</span>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-rc-property-parse-flags"></a><h3>gtk_rc_property_parse_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_rc_property_parse_flags (<em class="parameter"><code>const <span class="type">GParamSpec</span> *pspec</code></em>,
+                             <em class="parameter"><code>const <span class="type">GString</span> *gstring</code></em>,
+                             <em class="parameter"><code><span class="type">GValue</span> *property_value</code></em>);</pre>
+<p>A <a class="link" href="GtkStyle.html#GtkRcPropertyParser" title="GtkRcPropertyParser ()"><span class="type">GtkRcPropertyParser</span></a> for use with <a class="link" href="GtkSettings.html#gtk-settings-install-property-parser" title="gtk_settings_install_property_parser ()"><code class="function">gtk_settings_install_property_parser()</code></a>
+or <a class="link" href="GtkWidget.html#gtk-widget-class-install-style-property-parser" title="gtk_widget_class_install_style_property_parser ()"><code class="function">gtk_widget_class_install_style_property_parser()</code></a> which parses flags.</p>
+<p>Flags can be specified by their name, their nickname or
+numerically. Multiple flags can be specified in the form
+<code class="literal">"( flag1 | flag2 | ... )"</code>.</p>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-flags.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>a <span class="type">GParamSpec</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>gstring</p></td>
+<td class="parameter_description"><p>the <span class="type">GString</span> to be parsed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_value</p></td>
+<td class="parameter_description"><p>a <span class="type">GValue</span> which must hold flags values.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-flags.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>gstring</code></em>
+could be parsed and <em class="parameter"><code>property_value</code></em>
+has been set to the resulting flags value.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-rc-property-parse-requisition"></a><h3>gtk_rc_property_parse_requisition ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_rc_property_parse_requisition (<em class="parameter"><code>const <span class="type">GParamSpec</span> *pspec</code></em>,
+                                   <em class="parameter"><code>const <span class="type">GString</span> *gstring</code></em>,
+                                   <em class="parameter"><code><span class="type">GValue</span> *property_value</code></em>);</pre>
+<p>A <a class="link" href="GtkStyle.html#GtkRcPropertyParser" title="GtkRcPropertyParser ()"><span class="type">GtkRcPropertyParser</span></a> for use with <a class="link" href="GtkSettings.html#gtk-settings-install-property-parser" title="gtk_settings_install_property_parser ()"><code class="function">gtk_settings_install_property_parser()</code></a>
+or <a class="link" href="GtkWidget.html#gtk-widget-class-install-style-property-parser" title="gtk_widget_class_install_style_property_parser ()"><code class="function">gtk_widget_class_install_style_property_parser()</code></a> which parses a
+requisition in the form
+<code class="literal">"{ width, height }"</code> for integers <code class="literal">width</code> and <code class="literal">height</code>.</p>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-requisition.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>a <span class="type">GParamSpec</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>gstring</p></td>
+<td class="parameter_description"><p>the <span class="type">GString</span> to be parsed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_value</p></td>
+<td class="parameter_description"><p>a <span class="type">GValue</span> which must hold boxed values.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-requisition.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>gstring</code></em>
+could be parsed and <em class="parameter"><code>property_value</code></em>
+has been set to the resulting <a class="link" href="GtkWidget.html#GtkRequisition"><span class="type">GtkRequisition</span></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-rc-property-parse-border"></a><h3>gtk_rc_property_parse_border ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_rc_property_parse_border (<em class="parameter"><code>const <span class="type">GParamSpec</span> *pspec</code></em>,
+                              <em class="parameter"><code>const <span class="type">GString</span> *gstring</code></em>,
+                              <em class="parameter"><code><span class="type">GValue</span> *property_value</code></em>);</pre>
+<p>A <a class="link" href="GtkStyle.html#GtkRcPropertyParser" title="GtkRcPropertyParser ()"><span class="type">GtkRcPropertyParser</span></a> for use with <a class="link" href="GtkSettings.html#gtk-settings-install-property-parser" title="gtk_settings_install_property_parser ()"><code class="function">gtk_settings_install_property_parser()</code></a>
+or <a class="link" href="GtkWidget.html#gtk-widget-class-install-style-property-parser" title="gtk_widget_class_install_style_property_parser ()"><code class="function">gtk_widget_class_install_style_property_parser()</code></a> which parses
+borders in the form
+<code class="literal">"{ left, right, top, bottom }"</code> for integers
+left, right, top and bottom.</p>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-border.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>a <span class="type">GParamSpec</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>gstring</p></td>
+<td class="parameter_description"><p>the <span class="type">GString</span> to be parsed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_value</p></td>
+<td class="parameter_description"><p>a <span class="type">GValue</span> which must hold boxed values.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-rc-property-parse-border.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>gstring</code></em>
+could be parsed and <em class="parameter"><code>property_value</code></em>
+has been set to the resulting <a class="link" href="GtkStyleContext.html#GtkBorder"><span class="type">GtkBorder</span></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-set-property-value"></a><h3>gtk_settings_set_property_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_settings_set_property_value (<em class="parameter"><code><a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> *settings</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                 <em class="parameter"><code>const <a class="link" href="GtkSettings.html#GtkSettingsValue" title="struct GtkSettingsValue"><span class="type">GtkSettingsValue</span></a> *svalue</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_settings_set_property_value</code> has been deprecated since version 3.16 and should not be used in newly-written code.</p>
+<p>Use <code class="function">g_object_set()</code> instead.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-set-string-property"></a><h3>gtk_settings_set_string_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_settings_set_string_property (<em class="parameter"><code><a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> *settings</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *v_string</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *origin</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_settings_set_string_property</code> has been deprecated since version 3.16 and should not be used in newly-written code.</p>
+<p>Use <code class="function">g_object_set()</code> instead.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-set-long-property"></a><h3>gtk_settings_set_long_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_settings_set_long_property (<em class="parameter"><code><a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> *settings</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                <em class="parameter"><code><span class="type">glong</span> v_long</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *origin</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_settings_set_long_property</code> has been deprecated since version 3.16 and should not be used in newly-written code.</p>
+<p>Use <code class="function">g_object_set()</code> instead.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-set-double-property"></a><h3>gtk_settings_set_double_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_settings_set_double_property (<em class="parameter"><code><a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> *settings</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                  <em class="parameter"><code><span class="type">gdouble</span> v_double</code></em>,
+                                  <em class="parameter"><code>const <span class="type">gchar</span> *origin</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_settings_set_double_property</code> has been deprecated since version 3.16 and should not be used in newly-written code.</p>
+<p>Use <code class="function">g_object_set()</code> instead.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-settings-reset-property"></a><h3>gtk_settings_reset_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_settings_reset_property (<em class="parameter"><code><a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> *settings</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Undoes the effect of calling <code class="function">g_object_set()</code> to install an
+application-specific value for a setting. After this call,
+the setting will again follow the session-wide value for
+this setting.</p>
+<div class="refsect3">
+<a name="gtk-settings-reset-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>settings</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a> object</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of the setting to reset</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkSettings-struct"></a><h3>GtkSettings</h3>
+<pre class="programlisting">typedef struct _GtkSettings GtkSettings;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettingsValue"></a><h3>struct GtkSettingsValue</h3>
+<pre class="programlisting">struct GtkSettingsValue {
+  /* origin should be something like "filename:linenumber" for rc files,
+   * or e.g. "XProperty" for other sources
+   */
+  gchar *origin;
+
+  /* valid types are LONG, DOUBLE and STRING corresponding to the token parsed,
+   * or a GSTRING holding an unparsed statement
+   */
+  GValue value;
+};
+</pre>
+<div class="refsect3">
+<a name="GtkSettingsValue.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> *<em class="structfield"><code><a name="GtkSettingsValue.origin"></a>origin</code></em>;</p></td>
+<td class="struct_member_description"><p>Origin should be something like “filename:linenumber” for
+rc files, or e.g. “XProperty” for other sources.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">GValue</span> <em class="structfield"><code><a name="GtkSettingsValue.value"></a>value</code></em>;</p></td>
+<td class="struct_member_description"><p>Valid types are LONG, DOUBLE and STRING corresponding to
+the token parsed, or a GSTRING holding an unparsed statement</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkIMPreeditStyle"></a><h3>enum GtkIMPreeditStyle</h3>
+<div class="warning"><p><code class="literal">GtkIMPreeditStyle</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p></div>
+<p>Style for input method preedit. See also
+<a class="link" href="GtkSettings.html#GtkSettings--gtk-im-preedit-style" title="The “gtk-im-preedit-style” property"><span class="type">“gtk-im-preedit-style”</span></a></p>
+<div class="refsect3">
+<a name="GtkIMPreeditStyle.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-IM-PREEDIT-NOTHING:CAPS"></a>GTK_IM_PREEDIT_NOTHING</p></td>
+<td class="enum_member_description">
+<p>Deprecated</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-IM-PREEDIT-CALLBACK:CAPS"></a>GTK_IM_PREEDIT_CALLBACK</p></td>
+<td class="enum_member_description">
+<p>Deprecated</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-IM-PREEDIT-NONE:CAPS"></a>GTK_IM_PREEDIT_NONE</p></td>
+<td class="enum_member_description">
+<p>Deprecated</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkIMStatusStyle"></a><h3>enum GtkIMStatusStyle</h3>
+<div class="warning"><p><code class="literal">GtkIMStatusStyle</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p></div>
+<p>Style for input method status. See also
+<a class="link" href="GtkSettings.html#GtkSettings--gtk-im-status-style" title="The “gtk-im-status-style” property"><span class="type">“gtk-im-status-style”</span></a></p>
+<div class="refsect3">
+<a name="GtkIMStatusStyle.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-IM-STATUS-NOTHING:CAPS"></a>GTK_IM_STATUS_NOTHING</p></td>
+<td class="enum_member_description">
+<p>Deprecated</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-IM-STATUS-CALLBACK:CAPS"></a>GTK_IM_STATUS_CALLBACK</p></td>
+<td class="enum_member_description">
+<p>Deprecated</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-IM-STATUS-NONE:CAPS"></a>GTK_IM_STATUS_NONE</p></td>
+<td class="enum_member_description">
+<p>Deprecated</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkSettings.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkSettings--color-hash"></a><h3>The <code class="literal">“color-hash”</code> property</h3>
+<pre class="programlisting">  “color-hash”               <span class="type">GHashTable</span> *</pre>
+<p>Holds a hash table representation of the <a class="link" href="GtkSettings.html#GtkSettings--gtk-color-scheme" title="The “gtk-color-scheme” property"><span class="type">“gtk-color-scheme”</span></a>
+setting, mapping color names to <span class="type">GdkColors</span>.</p>
+<p><span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
+<div class="warning">
+<p><code class="literal">GtkSettings:color-hash</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Will always return an empty hash table.</p>
+</div>
+<p>Flags: Read</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-alternative-button-order"></a><h3>The <code class="literal">“gtk-alternative-button-order”</code> property</h3>
+<pre class="programlisting">  “gtk-alternative-button-order” <span class="type">gboolean</span></pre>
+<p>Whether buttons in dialogs should use the alternative button order.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-alternative-sort-arrows"></a><h3>The <code class="literal">“gtk-alternative-sort-arrows”</code> property</h3>
+<pre class="programlisting">  “gtk-alternative-sort-arrows” <span class="type">gboolean</span></pre>
+<p>Controls the direction of the sort indicators in sorted list and tree
+views. By default an arrow pointing down means the column is sorted
+in ascending order. When set to <code class="literal">TRUE</code>, this order will be inverted.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-application-prefer-dark-theme"></a><h3>The <code class="literal">“gtk-application-prefer-dark-theme”</code> property</h3>
+<pre class="programlisting">  “gtk-application-prefer-dark-theme” <span class="type">gboolean</span></pre>
+<p>Whether the application prefers to use a dark theme. If a GTK+ theme
+includes a dark variant, it will be used instead of the configured
+theme.</p>
+<p>Some applications benefit from minimizing the amount of light pollution that
+interferes with the content. Good candidates for dark themes are photo and
+video editors that make the actual content get all the attention and minimize
+the distraction of the chrome.</p>
+<p>Dark themes should not be used for documents, where large spaces are white/light
+and the dark chrome creates too much contrast (web browser, text editor...).</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-auto-mnemonics"></a><h3>The <code class="literal">“gtk-auto-mnemonics”</code> property</h3>
+<pre class="programlisting">  “gtk-auto-mnemonics”       <span class="type">gboolean</span></pre>
+<p>Whether mnemonics should be automatically shown and hidden when the user
+presses the mnemonic activator.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-auto-mnemonics</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.20</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-button-images"></a><h3>The <code class="literal">“gtk-button-images”</code> property</h3>
+<pre class="programlisting">  “gtk-button-images”        <span class="type">gboolean</span></pre>
+<p>Whether images should be shown on buttons</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-button-images</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is deprecated. Application developers
+  control whether a button should show an icon or not, on a
+  per-button basis. If a <a class="link" href="GtkButton.html" title="GtkButton"><span class="type">GtkButton</span></a> should show an icon, use the
+  <a class="link" href="GtkButton.html#GtkButton--always-show-image" title="The “always-show-image” property"><span class="type">“always-show-image”</span></a> property of <a class="link" href="GtkButton.html" title="GtkButton"><span class="type">GtkButton</span></a>, and pack a
+  <a class="link" href="GtkImage.html" title="GtkImage"><span class="type">GtkImage</span></a> inside the <a class="link" href="GtkButton.html" title="GtkButton"><span class="type">GtkButton</span></a></p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-can-change-accels"></a><h3>The <code class="literal">“gtk-can-change-accels”</code> property</h3>
+<pre class="programlisting">  “gtk-can-change-accels”    <span class="type">gboolean</span></pre>
+<p>Whether menu accelerators can be changed by pressing a key over the menu item.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-can-change-accels</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-color-palette"></a><h3>The <code class="literal">“gtk-color-palette”</code> property</h3>
+<pre class="programlisting">  “gtk-color-palette”        <span class="type">gchar</span> *</pre>
+<p>Palette to use in the deprecated color selector.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-color-palette</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>Only used by the deprecated color selector widget.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: "black:white:gray50:red:purple:blue:light blue:green:yellow:orange:lavender:brown:goldenrod4:dodger blue:pink:light green:gray10:gray30:gray75:gray90"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-color-scheme"></a><h3>The <code class="literal">“gtk-color-scheme”</code> property</h3>
+<pre class="programlisting">  “gtk-color-scheme”         <span class="type">gchar</span> *</pre>
+<p>A palette of named colors for use in themes. The format of the string is</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="normal">name1</span><span class="symbol">:</span><span class="normal"> color1</span>
+<span class="normal">name2</span><span class="symbol">:</span><span class="normal"> color2</span>
+<span class="symbol">...</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+Color names must be acceptable as identifiers in the
+<a class="link" href="gtk3-Resource-Files.html" title="Resource Files">gtkrc</a> syntax, and
+color specifications must be in the format accepted by
+<code class="function">gdk_color_parse()</code>.</p>
+<p>Note that due to the way the color tables from different sources are
+merged, color specifications will be converted to hexadecimal form
+when getting this property.</p>
+<p>Starting with GTK+ 2.12, the entries can alternatively be separated
+by ';' instead of newlines:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="normal">name1</span><span class="symbol">:</span><span class="normal"> color1</span><span class="symbol">;</span><span class="normal"> name2</span><span class="symbol">:</span><span class="normal"> color2</span><span class="symbol">;</span><span class="normal"> </span><span class="symbol">...</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-color-scheme</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Color scheme support was dropped and is no longer supported.
+    You can still set this property, but it will be ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: ""</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-cursor-blink"></a><h3>The <code class="literal">“gtk-cursor-blink”</code> property</h3>
+<pre class="programlisting">  “gtk-cursor-blink”         <span class="type">gboolean</span></pre>
+<p>Whether the cursor should blink.</p>
+<p>Also see the <a class="link" href="GtkSettings.html#GtkSettings--gtk-cursor-blink-timeout" title="The “gtk-cursor-blink-timeout” property"><span class="type">“gtk-cursor-blink-timeout”</span></a> setting,
+which allows more flexible control over cursor blinking.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-cursor-blink-time"></a><h3>The <code class="literal">“gtk-cursor-blink-time”</code> property</h3>
+<pre class="programlisting">  “gtk-cursor-blink-time”    <span class="type">gint</span></pre>
+<p>Length of the cursor blink cycle, in milliseconds.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 100</p>
+<p>Default value: 1200</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-cursor-blink-timeout"></a><h3>The <code class="literal">“gtk-cursor-blink-timeout”</code> property</h3>
+<pre class="programlisting">  “gtk-cursor-blink-timeout” <span class="type">gint</span></pre>
+<p>Time after which the cursor stops blinking, in seconds.
+The timer is reset after each user interaction.</p>
+<p>Setting this to zero has the same effect as setting
+<a class="link" href="GtkSettings.html#GtkSettings--gtk-cursor-blink" title="The “gtk-cursor-blink” property"><span class="type">“gtk-cursor-blink”</span></a> to <code class="literal">FALSE</code>.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 10</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-cursor-theme-name"></a><h3>The <code class="literal">“gtk-cursor-theme-name”</code> property</h3>
+<pre class="programlisting">  “gtk-cursor-theme-name”    <span class="type">gchar</span> *</pre>
+<p>Name of the cursor theme to use, or NULL to use the default theme.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-cursor-theme-size"></a><h3>The <code class="literal">“gtk-cursor-theme-size”</code> property</h3>
+<pre class="programlisting">  “gtk-cursor-theme-size”    <span class="type">gint</span></pre>
+<p>Size to use for cursors, or 0 to use the default size.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [0,128]</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-decoration-layout"></a><h3>The <code class="literal">“gtk-decoration-layout”</code> property</h3>
+<pre class="programlisting">  “gtk-decoration-layout”    <span class="type">gchar</span> *</pre>
+<p>This setting determines which buttons should be put in the
+titlebar of client-side decorated windows, and whether they
+should be placed at the left of right.</p>
+<p>The format of the string is button names, separated by commas.
+A colon separates the buttons that should appear on the left
+from those on the right. Recognized button names are minimize,
+maximize, close, icon (the window icon) and menu (a menu button
+for the fallback app menu).</p>
+<p>For example, "menu:minimize,maximize,close" specifies a menu
+on the left, and minimize, maximize and close buttons on the right.</p>
+<p>Note that buttons will only be shown when they are meaningful.
+E.g. a menu button only appears when the desktop shell does not
+show the app menu, and a close button only appears on a window
+that can be closed.</p>
+<p>Also note that the setting can be overridden with the
+<a class="link" href="GtkHeaderBar.html#GtkHeaderBar--decoration-layout" title="The “decoration-layout” property"><span class="type">“decoration-layout”</span></a> property.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "menu:minimize,maximize,close"</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-dialogs-use-header"></a><h3>The <code class="literal">“gtk-dialogs-use-header”</code> property</h3>
+<pre class="programlisting">  “gtk-dialogs-use-header”   <span class="type">gboolean</span></pre>
+<p>Whether builtin GTK+ dialogs such as the file chooser, the
+color chooser or the font chooser will use a header bar at
+the top to show action widgets, or an action area at the bottom.</p>
+<p>This setting does not affect custom dialogs using GtkDialog
+directly, or message dialogs.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-dnd-drag-threshold"></a><h3>The <code class="literal">“gtk-dnd-drag-threshold”</code> property</h3>
+<pre class="programlisting">  “gtk-dnd-drag-threshold”   <span class="type">gint</span></pre>
+<p>Number of pixels the cursor can move before dragging.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-double-click-distance"></a><h3>The <code class="literal">“gtk-double-click-distance”</code> property</h3>
+<pre class="programlisting">  “gtk-double-click-distance” <span class="type">gint</span></pre>
+<p>Maximum distance allowed between two clicks for them to be considered a double click (in pixels).</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-double-click-time"></a><h3>The <code class="literal">“gtk-double-click-time”</code> property</h3>
+<pre class="programlisting">  “gtk-double-click-time”    <span class="type">gint</span></pre>
+<p>Maximum time allowed between two clicks for them to be considered a double click (in milliseconds).</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 400</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-enable-accels"></a><h3>The <code class="literal">“gtk-enable-accels”</code> property</h3>
+<pre class="programlisting">  “gtk-enable-accels”        <span class="type">gboolean</span></pre>
+<p>Whether menu items should have visible accelerators which can be
+activated.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-enable-animations"></a><h3>The <code class="literal">“gtk-enable-animations”</code> property</h3>
+<pre class="programlisting">  “gtk-enable-animations”    <span class="type">gboolean</span></pre>
+<p>Whether to enable toolkit-wide animations.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-enable-event-sounds"></a><h3>The <code class="literal">“gtk-enable-event-sounds”</code> property</h3>
+<pre class="programlisting">  “gtk-enable-event-sounds”  <span class="type">gboolean</span></pre>
+<p>Whether to play any event sounds at all.</p>
+<p>See the <a class="ulink" href="http://www.freedesktop.org/wiki/Specifications/sound-theme-spec" target="_top">Sound Theme Specifications</a>
+for more information on event sounds and sound themes.</p>
+<p>GTK+ itself does not support event sounds, you have to use a loadable
+module like the one that comes with libcanberra.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-enable-input-feedback-sounds"></a><h3>The <code class="literal">“gtk-enable-input-feedback-sounds”</code> property</h3>
+<pre class="programlisting">  “gtk-enable-input-feedback-sounds” <span class="type">gboolean</span></pre>
+<p>Whether to play event sounds as feedback to user input.</p>
+<p>See the <a class="ulink" href="http://www.freedesktop.org/wiki/Specifications/sound-theme-spec" target="_top">Sound Theme Specifications</a>
+for more information on event sounds and sound themes.</p>
+<p>GTK+ itself does not support event sounds, you have to use a loadable
+module like the one that comes with libcanberra.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-enable-mnemonics"></a><h3>The <code class="literal">“gtk-enable-mnemonics”</code> property</h3>
+<pre class="programlisting">  “gtk-enable-mnemonics”     <span class="type">gboolean</span></pre>
+<p>Whether labels and menu items should have visible mnemonics which
+can be activated.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-enable-mnemonics</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting can still be used for application
+     overrides, but will be ignored in the future</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-enable-primary-paste"></a><h3>The <code class="literal">“gtk-enable-primary-paste”</code> property</h3>
+<pre class="programlisting">  “gtk-enable-primary-paste” <span class="type">gboolean</span></pre>
+<p>Whether a middle click on a mouse should paste the
+'PRIMARY' clipboard content at the cursor location.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-enable-tooltips"></a><h3>The <code class="literal">“gtk-enable-tooltips”</code> property</h3>
+<pre class="programlisting">  “gtk-enable-tooltips”      <span class="type">gboolean</span></pre>
+<p>Whether tooltips should be shown on widgets.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-enable-tooltips</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-entry-password-hint-timeout"></a><h3>The <code class="literal">“gtk-entry-password-hint-timeout”</code> property</h3>
+<pre class="programlisting">  “gtk-entry-password-hint-timeout” <span class="type">guint</span></pre>
+<p>How long to show the last input character in hidden
+entries. This value is in milliseconds. 0 disables showing the
+last char. 600 is a good value for enabling it.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-entry-select-on-focus"></a><h3>The <code class="literal">“gtk-entry-select-on-focus”</code> property</h3>
+<pre class="programlisting">  “gtk-entry-select-on-focus” <span class="type">gboolean</span></pre>
+<p>Whether to select the contents of an entry when it is focused.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-error-bell"></a><h3>The <code class="literal">“gtk-error-bell”</code> property</h3>
+<pre class="programlisting">  “gtk-error-bell”           <span class="type">gboolean</span></pre>
+<p>When <code class="literal">TRUE</code>, keyboard navigation and other input-related errors
+will cause a beep. Since the error bell is implemented using
+<code class="function">gdk_window_beep()</code>, the windowing system may offer ways to
+configure the error bell in many ways, such as flashing the
+window or similar visual effects.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-fallback-icon-theme"></a><h3>The <code class="literal">“gtk-fallback-icon-theme”</code> property</h3>
+<pre class="programlisting">  “gtk-fallback-icon-theme”  <span class="type">gchar</span> *</pre>
+<p>Name of a icon theme to fall back to.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-fallback-icon-theme</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-file-chooser-backend"></a><h3>The <code class="literal">“gtk-file-chooser-backend”</code> property</h3>
+<pre class="programlisting">  “gtk-file-chooser-backend” <span class="type">gchar</span> *</pre>
+<p>Name of the GtkFileChooser backend to use by default.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-file-chooser-backend</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored. <a class="link" href="GtkFileChooser.html" title="GtkFileChooser"><span class="type">GtkFileChooser</span></a> uses GIO by default.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-font-name"></a><h3>The <code class="literal">“gtk-font-name”</code> property</h3>
+<pre class="programlisting">  “gtk-font-name”            <span class="type">gchar</span> *</pre>
+<p>The default font to use. GTK+ uses the family name and size from this string.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "Sans 10"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-fontconfig-timestamp"></a><h3>The <code class="literal">“gtk-fontconfig-timestamp”</code> property</h3>
+<pre class="programlisting">  “gtk-fontconfig-timestamp” <span class="type">guint</span></pre>
+<p>Timestamp of current fontconfig configuration.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-icon-sizes"></a><h3>The <code class="literal">“gtk-icon-sizes”</code> property</h3>
+<pre class="programlisting">  “gtk-icon-sizes”           <span class="type">gchar</span> *</pre>
+<p>A list of icon sizes. The list is separated by colons, and
+item has the form:</p>
+<p><code class="literal">size-name</code> = <code class="literal">width</code> , <code class="literal">height</code></p>
+<p>E.g. "gtk-menu=16,16:gtk-button=20,20:gtk-dialog=48,48".
+GTK+ itself use the following named icon sizes: gtk-menu,
+gtk-button, gtk-small-toolbar, gtk-large-toolbar, gtk-dnd,
+gtk-dialog. Applications can register their own named icon
+sizes with <a class="link" href="gtk3-Themeable-Stock-Images.html#gtk-icon-size-register" title="gtk_icon_size_register ()"><code class="function">gtk_icon_size_register()</code></a>.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-icon-sizes</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-icon-theme-name"></a><h3>The <code class="literal">“gtk-icon-theme-name”</code> property</h3>
+<pre class="programlisting">  “gtk-icon-theme-name”      <span class="type">gchar</span> *</pre>
+<p>Name of icon theme to use.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "Adwaita"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-im-module"></a><h3>The <code class="literal">“gtk-im-module”</code> property</h3>
+<pre class="programlisting">  “gtk-im-module”            <span class="type">gchar</span> *</pre>
+<p>Which IM (input method) module should be used by default. This is the
+input method that will be used if the user has not explicitly chosen
+another input method from the IM context menu.
+This also can be a colon-separated list of input methods, which GTK+
+will try in turn until it finds one available on the system.</p>
+<p>See <a class="link" href="GtkIMContext.html" title="GtkIMContext"><span class="type">GtkIMContext</span></a>.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-im-preedit-style"></a><h3>The <code class="literal">“gtk-im-preedit-style”</code> property</h3>
+<pre class="programlisting">  “gtk-im-preedit-style”     <a class="link" href="GtkSettings.html#GtkIMPreeditStyle" title="enum GtkIMPreeditStyle"><span class="type">GtkIMPreeditStyle</span></a></pre>
+<p>How to draw the input method preedit string.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-im-preedit-style</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_IM_PREEDIT_CALLBACK</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-im-status-style"></a><h3>The <code class="literal">“gtk-im-status-style”</code> property</h3>
+<pre class="programlisting">  “gtk-im-status-style”      <a class="link" href="GtkSettings.html#GtkIMStatusStyle" title="enum GtkIMStatusStyle"><span class="type">GtkIMStatusStyle</span></a></pre>
+<p>How to draw the input method statusbar.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-im-status-style</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_IM_STATUS_CALLBACK</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-key-theme-name"></a><h3>The <code class="literal">“gtk-key-theme-name”</code> property</h3>
+<pre class="programlisting">  “gtk-key-theme-name”       <span class="type">gchar</span> *</pre>
+<p>Name of key theme to load.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-keynav-cursor-only"></a><h3>The <code class="literal">“gtk-keynav-cursor-only”</code> property</h3>
+<pre class="programlisting">  “gtk-keynav-cursor-only”   <span class="type">gboolean</span></pre>
+<p>When <code class="literal">TRUE</code>, keyboard navigation should be able to reach all widgets
+by using the cursor keys only. Tab, Shift etc. keys can't be expected
+to be present on the used input device.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-keynav-cursor-only</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>Generally, the behavior for touchscreen input should be
+            performed dynamically based on <code class="function">gdk_event_get_source_device()</code>.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-keynav-use-caret"></a><h3>The <code class="literal">“gtk-keynav-use-caret”</code> property</h3>
+<pre class="programlisting">  “gtk-keynav-use-caret”     <span class="type">gboolean</span></pre>
+<p>Whether GTK+ should make sure that text can be navigated with
+a caret, even if it is not editable. This is useful when using
+a screen reader.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-keynav-wrap-around"></a><h3>The <code class="literal">“gtk-keynav-wrap-around”</code> property</h3>
+<pre class="programlisting">  “gtk-keynav-wrap-around”   <span class="type">gboolean</span></pre>
+<p>When <code class="literal">TRUE</code>, some widgets will wrap around when doing keyboard
+navigation, such as menus, menubars and notebooks.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-keynav-wrap-around</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-label-select-on-focus"></a><h3>The <code class="literal">“gtk-label-select-on-focus”</code> property</h3>
+<pre class="programlisting">  “gtk-label-select-on-focus” <span class="type">gboolean</span></pre>
+<p>Whether to select the contents of a selectable label when it is focused.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-long-press-time"></a><h3>The <code class="literal">“gtk-long-press-time”</code> property</h3>
+<pre class="programlisting">  “gtk-long-press-time”      <span class="type">guint</span></pre>
+<p>The time for a button or touch press to be considered a "long press".</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &lt;= G_MAXINT</p>
+<p>Default value: 500</p>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-menu-bar-accel"></a><h3>The <code class="literal">“gtk-menu-bar-accel”</code> property</h3>
+<pre class="programlisting">  “gtk-menu-bar-accel”       <span class="type">gchar</span> *</pre>
+<p>Keybinding to activate the menu bar.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-menu-bar-accel</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting can still be used for application
+     overrides, but will be ignored in the future</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: "F10"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-menu-bar-popup-delay"></a><h3>The <code class="literal">“gtk-menu-bar-popup-delay”</code> property</h3>
+<pre class="programlisting">  “gtk-menu-bar-popup-delay” <span class="type">gint</span></pre>
+<p>Delay before the submenus of a menu bar appear.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-menu-bar-popup-delay</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-menu-images"></a><h3>The <code class="literal">“gtk-menu-images”</code> property</h3>
+<pre class="programlisting">  “gtk-menu-images”          <span class="type">gboolean</span></pre>
+<p>Whether images should be shown in menu items</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-menu-images</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is deprecated. Application developers
+  control whether or not a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> should have an icon or not,
+  on a per widget basis. Either use a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> with a <a class="link" href="GtkBox.html" title="GtkBox"><span class="type">GtkBox</span></a>
+  containing a <a class="link" href="GtkImage.html" title="GtkImage"><span class="type">GtkImage</span></a> and a <a class="link" href="GtkAccelLabel.html" title="GtkAccelLabel"><span class="type">GtkAccelLabel</span></a>, or describe your menus
+  using a <span class="type">GMenu</span> XML description</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-menu-popdown-delay"></a><h3>The <code class="literal">“gtk-menu-popdown-delay”</code> property</h3>
+<pre class="programlisting">  “gtk-menu-popdown-delay”   <span class="type">gint</span></pre>
+<p>The time before hiding a submenu when the pointer is moving towards the submenu.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-menu-popdown-delay</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 1000</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-menu-popup-delay"></a><h3>The <code class="literal">“gtk-menu-popup-delay”</code> property</h3>
+<pre class="programlisting">  “gtk-menu-popup-delay”     <span class="type">gint</span></pre>
+<p>Minimum time the pointer must stay over a menu item before the submenu appear.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-menu-popup-delay</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 225</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-modules"></a><h3>The <code class="literal">“gtk-modules”</code> property</h3>
+<pre class="programlisting">  “gtk-modules”              <span class="type">gchar</span> *</pre>
+<p>List of currently active GTK modules.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-overlay-scrolling"></a><h3>The <code class="literal">“gtk-overlay-scrolling”</code> property</h3>
+<pre class="programlisting">  “gtk-overlay-scrolling”    <span class="type">gboolean</span></pre>
+<p>Whether scrolled windows may use overlayed scrolling indicators.
+If this is set to <code class="literal">FALSE</code>, scrolled windows will have permanent
+scrollbars.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: 3.24.9</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-primary-button-warps-slider"></a><h3>The <code class="literal">“gtk-primary-button-warps-slider”</code> property</h3>
+<pre class="programlisting">  “gtk-primary-button-warps-slider” <span class="type">gboolean</span></pre>
+<p>If the value of this setting is <code class="literal">TRUE</code>, clicking the primary button in a
+<a class="link" href="GtkRange.html" title="GtkRange"><span class="type">GtkRange</span></a> trough will move the slider, and hence set the range’s value, to
+the point that you clicked. If it is <code class="literal">FALSE</code>, a primary click will cause the
+slider/value to move by the range’s page-size towards the point clicked.</p>
+<p>Whichever action you choose for the primary button, the other action will
+be available by holding Shift and primary-clicking, or (since GTK+ 3.22.25)
+clicking the middle mouse button.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-print-backends"></a><h3>The <code class="literal">“gtk-print-backends”</code> property</h3>
+<pre class="programlisting">  “gtk-print-backends”       <span class="type">gchar</span> *</pre>
+<p>A comma-separated list of print backends to use in the print
+dialog. Available print backends depend on the GTK+ installation,
+and may include "file", "cups", "lpr" or "papi".</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "file,cups"</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-print-preview-command"></a><h3>The <code class="literal">“gtk-print-preview-command”</code> property</h3>
+<pre class="programlisting">  “gtk-print-preview-command” <span class="type">gchar</span> *</pre>
+<p>A command to run for displaying the print preview. The command
+should contain a <code class="literal">%f</code> placeholder, which will get replaced by
+the path to the pdf file. The command may also contain a <code class="literal">%s</code>
+placeholder, which will get replaced by the path to a file
+containing the print settings in the format produced by
+<a class="link" href="GtkPrintSettings.html#gtk-print-settings-to-file" title="gtk_print_settings_to_file ()"><code class="function">gtk_print_settings_to_file()</code></a>.</p>
+<p>The preview application is responsible for removing the pdf file
+and the print settings file when it is done.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "evince --unlink-tempfile --preview --print-settings %s %f"</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-recent-files-enabled"></a><h3>The <code class="literal">“gtk-recent-files-enabled”</code> property</h3>
+<pre class="programlisting">  “gtk-recent-files-enabled” <span class="type">gboolean</span></pre>
+<p>Whether GTK+ should keep track of items inside the recently used
+resources list. If set to <code class="literal">FALSE</code>, the list will always be empty.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-recent-files-limit"></a><h3>The <code class="literal">“gtk-recent-files-limit”</code> property</h3>
+<pre class="programlisting">  “gtk-recent-files-limit”   <span class="type">gint</span></pre>
+<p>The number of recently used files that should be displayed by default by
+<a class="link" href="GtkRecentChooser.html" title="GtkRecentChooser"><span class="type">GtkRecentChooser</span></a> implementations and by the <a class="link" href="GtkFileChooser.html" title="GtkFileChooser"><span class="type">GtkFileChooser</span></a>. A value of
+-1 means every recently used file stored.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-recent-files-limit</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 50</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-recent-files-max-age"></a><h3>The <code class="literal">“gtk-recent-files-max-age”</code> property</h3>
+<pre class="programlisting">  “gtk-recent-files-max-age” <span class="type">gint</span></pre>
+<p>The maximum age, in days, of the items inside the recently used
+resources list. Items older than this setting will be excised
+from the list. If set to 0, the list will always be empty; if
+set to -1, no item will be removed.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 30</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-scrolled-window-placement"></a><h3>The <code class="literal">“gtk-scrolled-window-placement”</code> property</h3>
+<pre class="programlisting">  “gtk-scrolled-window-placement” <a class="link" href="GtkScrolledWindow.html#GtkCornerType" title="enum GtkCornerType"><span class="type">GtkCornerType</span></a></pre>
+<p>Where the contents of scrolled windows are located with respect to the
+scrollbars, if not overridden by the scrolled window's own placement.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-scrolled-window-placement</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_CORNER_TOP_LEFT</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-shell-shows-app-menu"></a><h3>The <code class="literal">“gtk-shell-shows-app-menu”</code> property</h3>
+<pre class="programlisting">  “gtk-shell-shows-app-menu” <span class="type">gboolean</span></pre>
+<p>Set to TRUE if the desktop environment is displaying the app menu, FALSE if the app should display it itself.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-shell-shows-desktop"></a><h3>The <code class="literal">“gtk-shell-shows-desktop”</code> property</h3>
+<pre class="programlisting">  “gtk-shell-shows-desktop”  <span class="type">gboolean</span></pre>
+<p>Set to TRUE if the desktop environment is displaying the desktop folder, FALSE if not.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-shell-shows-menubar"></a><h3>The <code class="literal">“gtk-shell-shows-menubar”</code> property</h3>
+<pre class="programlisting">  “gtk-shell-shows-menubar”  <span class="type">gboolean</span></pre>
+<p>Set to TRUE if the desktop environment is displaying the menubar, FALSE if the app should display it itself.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-show-input-method-menu"></a><h3>The <code class="literal">“gtk-show-input-method-menu”</code> property</h3>
+<pre class="programlisting">  “gtk-show-input-method-menu” <span class="type">gboolean</span></pre>
+<p>Whether the context menus of entries and text views should offer to change the input method.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-show-input-method-menu</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-show-unicode-menu"></a><h3>The <code class="literal">“gtk-show-unicode-menu”</code> property</h3>
+<pre class="programlisting">  “gtk-show-unicode-menu”    <span class="type">gboolean</span></pre>
+<p>Whether the context menus of entries and text views should offer to insert control characters.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-show-unicode-menu</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-sound-theme-name"></a><h3>The <code class="literal">“gtk-sound-theme-name”</code> property</h3>
+<pre class="programlisting">  “gtk-sound-theme-name”     <span class="type">gchar</span> *</pre>
+<p>The XDG sound theme to use for event sounds.</p>
+<p>See the <a class="ulink" href="http://www.freedesktop.org/wiki/Specifications/sound-theme-spec" target="_top">Sound Theme Specifications</a>
+for more information on event sounds and sound themes.</p>
+<p>GTK+ itself does not support event sounds, you have to use a loadable
+module like the one that comes with libcanberra.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "freedesktop"</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-split-cursor"></a><h3>The <code class="literal">“gtk-split-cursor”</code> property</h3>
+<pre class="programlisting">  “gtk-split-cursor”         <span class="type">gboolean</span></pre>
+<p>Whether two cursors should be displayed for mixed left-to-right and right-to-left text.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-theme-name"></a><h3>The <code class="literal">“gtk-theme-name”</code> property</h3>
+<pre class="programlisting">  “gtk-theme-name”           <span class="type">gchar</span> *</pre>
+<p>Name of theme to load.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "Adwaita"</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-timeout-expand"></a><h3>The <code class="literal">“gtk-timeout-expand”</code> property</h3>
+<pre class="programlisting">  “gtk-timeout-expand”       <span class="type">gint</span></pre>
+<p>Expand value for timeouts, when a widget is expanding a new region.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-timeout-expand</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 500</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-timeout-initial"></a><h3>The <code class="literal">“gtk-timeout-initial”</code> property</h3>
+<pre class="programlisting">  “gtk-timeout-initial”      <span class="type">gint</span></pre>
+<p>Starting value for timeouts, when button is pressed.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-timeout-initial</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 500</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-timeout-repeat"></a><h3>The <code class="literal">“gtk-timeout-repeat”</code> property</h3>
+<pre class="programlisting">  “gtk-timeout-repeat”       <span class="type">gint</span></pre>
+<p>Repeat value for timeouts, when button is pressed.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-timeout-repeat</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 50</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-titlebar-double-click"></a><h3>The <code class="literal">“gtk-titlebar-double-click”</code> property</h3>
+<pre class="programlisting">  “gtk-titlebar-double-click” <span class="type">gchar</span> *</pre>
+<p>This setting determines the action to take when a double-click
+occurs on the titlebar of client-side decorated windows.</p>
+<p>Recognized actions are minimize, toggle-maximize, menu, lower
+or none.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "toggle-maximize"</p>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-titlebar-middle-click"></a><h3>The <code class="literal">“gtk-titlebar-middle-click”</code> property</h3>
+<pre class="programlisting">  “gtk-titlebar-middle-click” <span class="type">gchar</span> *</pre>
+<p>This setting determines the action to take when a middle-click
+occurs on the titlebar of client-side decorated windows.</p>
+<p>Recognized actions are minimize, toggle-maximize, menu, lower
+or none.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "none"</p>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-titlebar-right-click"></a><h3>The <code class="literal">“gtk-titlebar-right-click”</code> property</h3>
+<pre class="programlisting">  “gtk-titlebar-right-click” <span class="type">gchar</span> *</pre>
+<p>This setting determines the action to take when a right-click
+occurs on the titlebar of client-side decorated windows.</p>
+<p>Recognized actions are minimize, toggle-maximize, menu, lower
+or none.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: "menu"</p>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-toolbar-icon-size"></a><h3>The <code class="literal">“gtk-toolbar-icon-size”</code> property</h3>
+<pre class="programlisting">  “gtk-toolbar-icon-size”    <a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="type">GtkIconSize</span></a></pre>
+<p>The size of icons in default toolbars.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-toolbar-icon-size</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_ICON_SIZE_LARGE_TOOLBAR</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-toolbar-style"></a><h3>The <code class="literal">“gtk-toolbar-style”</code> property</h3>
+<pre class="programlisting">  “gtk-toolbar-style”        <a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="type">GtkToolbarStyle</span></a></pre>
+<p>The size of icons in default toolbars.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-toolbar-style</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_TOOLBAR_BOTH_HORIZ</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-tooltip-browse-mode-timeout"></a><h3>The <code class="literal">“gtk-tooltip-browse-mode-timeout”</code> property</h3>
+<pre class="programlisting">  “gtk-tooltip-browse-mode-timeout” <span class="type">gint</span></pre>
+<p>Amount of time, in milliseconds, after which the browse mode
+will be disabled.</p>
+<p>See <a class="link" href="GtkSettings.html#GtkSettings--gtk-tooltip-browse-timeout" title="The “gtk-tooltip-browse-timeout” property"><span class="type">“gtk-tooltip-browse-timeout”</span></a> for more information
+about browse mode.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-tooltip-browse-mode-timeout</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 500</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-tooltip-browse-timeout"></a><h3>The <code class="literal">“gtk-tooltip-browse-timeout”</code> property</h3>
+<pre class="programlisting">  “gtk-tooltip-browse-timeout” <span class="type">gint</span></pre>
+<p>Controls the time after which tooltips will appear when
+browse mode is enabled, in milliseconds.</p>
+<p>Browse mode is enabled when the mouse pointer moves off an object
+where a tooltip was currently being displayed. If the mouse pointer
+hits another object before the browse mode timeout expires (see
+<a class="link" href="GtkSettings.html#GtkSettings--gtk-tooltip-browse-mode-timeout" title="The “gtk-tooltip-browse-mode-timeout” property"><span class="type">“gtk-tooltip-browse-mode-timeout”</span></a>), it will take the
+amount of milliseconds specified by this setting to popup the tooltip
+for the new object.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-tooltip-browse-timeout</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 60</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-tooltip-timeout"></a><h3>The <code class="literal">“gtk-tooltip-timeout”</code> property</h3>
+<pre class="programlisting">  “gtk-tooltip-timeout”      <span class="type">gint</span></pre>
+<p>Time, in milliseconds, after which a tooltip could appear if the
+cursor is hovering on top of a widget.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-tooltip-timeout</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 500</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-touchscreen-mode"></a><h3>The <code class="literal">“gtk-touchscreen-mode”</code> property</h3>
+<pre class="programlisting">  “gtk-touchscreen-mode”     <span class="type">gboolean</span></pre>
+<p>When <code class="literal">TRUE</code>, there are no motion notify events delivered on this screen,
+and widgets can't use the pointer hovering them for any essential
+functionality.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-touchscreen-mode</code> has been deprecated since version 3.4. and should not be used in newly-written code.</p>
+<p>Generally, the behavior for touchscreen input should be
+            performed dynamically based on <code class="function">gdk_event_get_source_device()</code>.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-visible-focus"></a><h3>The <code class="literal">“gtk-visible-focus”</code> property</h3>
+<pre class="programlisting">  “gtk-visible-focus”        <a class="link" href="GtkScrolledWindow.html#GtkPolicyType" title="enum GtkPolicyType"><span class="type">GtkPolicyType</span></a></pre>
+<p>Whether 'focus rectangles' should be always visible, never visible,
+or hidden until the user starts to use the keyboard.</p>
+<div class="warning">
+<p><code class="literal">GtkSettings:gtk-visible-focus</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>This setting is ignored</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_POLICY_AUTOMATIC</p>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-xft-antialias"></a><h3>The <code class="literal">“gtk-xft-antialias”</code> property</h3>
+<pre class="programlisting">  “gtk-xft-antialias”        <span class="type">gint</span></pre>
+<p>Whether to antialias Xft fonts; 0=no, 1=yes, -1=default.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [-1,1]</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-xft-dpi"></a><h3>The <code class="literal">“gtk-xft-dpi”</code> property</h3>
+<pre class="programlisting">  “gtk-xft-dpi”              <span class="type">gint</span></pre>
+<p>Resolution for Xft, in 1024 * dots/inch. -1 to use default value.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [-1,1048576]</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-xft-hinting"></a><h3>The <code class="literal">“gtk-xft-hinting”</code> property</h3>
+<pre class="programlisting">  “gtk-xft-hinting”          <span class="type">gint</span></pre>
+<p>Whether to hint Xft fonts; 0=no, 1=yes, -1=default.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: [-1,1]</p>
+<p>Default value: -1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-xft-hintstyle"></a><h3>The <code class="literal">“gtk-xft-hintstyle”</code> property</h3>
+<pre class="programlisting">  “gtk-xft-hintstyle”        <span class="type">gchar</span> *</pre>
+<p>What degree of hinting to use; hintnone, hintslight, hintmedium, or hintfull.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkSettings--gtk-xft-rgba"></a><h3>The <code class="literal">“gtk-xft-rgba”</code> property</h3>
+<pre class="programlisting">  “gtk-xft-rgba”             <span class="type">gchar</span> *</pre>
+<p>Type of subpixel antialiasing; none, rgb, bgr, vrgb, vbgr.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

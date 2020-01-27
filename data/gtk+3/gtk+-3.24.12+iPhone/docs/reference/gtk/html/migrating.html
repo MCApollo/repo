@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Part V. Migrating from Previous Versions of GTK+: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="prev" href="GtkIconTheme.html" title="GtkIconTheme">
+<link rel="next" href="gtk-migrating-2-to-3.html" title="Migrating from GTK+ 2.x to GTK+ 3">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
+<td><a accesskey="p" href="GtkIconTheme.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gtk-migrating-2-to-3.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="part">
+<div class="titlepage"><div><div><h1 class="title">
+<a name="migrating"></a>Part V. Migrating from Previous Versions of GTK+</h1></div></div></div>
+<div class="partintro">
+<div></div>
+<p>
+        This part describes what you need to change in programs use
+        older versions of GTK+ so that they can use the new features.
+        It also mentions how to convert applications using widgets
+        found in the libgnomeui library to use their counterparts
+        in GTK+.
+      </p>
+<div class="toc">
+<p><b>Table of Contents</b></p>
+<dl class="toc">
+<dt><span class="chapter"><a href="gtk-migrating-2-to-3.html">Migrating from GTK+ 2.x to GTK+ 3</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="gtk-migrating-2-to-3.html#id-1.6.3.3">Preparation in GTK+ 2.x</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="gtk-migrating-2-to-3.html#id-1.6.3.3.3">Do not include individual headers</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-2-to-3.html#id-1.6.3.3.4">Do not use deprecated symbols</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-2-to-3.html#id-1.6.3.3.5">Use accessor functions instead of direct access</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-2-to-3.html#id-1.6.3.3.6">Replace GDK_&lt;keyname&gt; with GDK_KEY_&lt;keyname&gt;</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-2-to-3.html#id-1.6.3.3.7">Use GIO for launching applications</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-2-to-3.html#id-1.6.3.3.8">Use cairo for drawing</a></span></dt>
+</dl></dd>
+<dt><span class="section"><a href="ch26s02.html">Changes that need to be done at the time of the switch</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.3">Replace size_request by get_preferred_width/height</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.4">Replace GdkRegion by cairo_region_t</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.5">Replace GdkPixmap by cairo surfaces</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.6">Replace GdkColormap by GdkVisual</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.7">GdkDrawable is gone</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.8">Event filtering</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.9">Backend-specific code</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.10">GtkPlug and GtkSocket</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.11">The GtkWidget::draw signal</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.12">GtkProgressBar orientation</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.13">Check your expand and fill flags</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.14">Scrolling changes</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.15">GtkObject is gone</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.16">GtkEntryCompletion signal parameters</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.17">Resize grips</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.18">Prevent mixed linkage</a></span></dt>
+<dt><span class="section"><a href="ch26s02.html#id-1.6.3.4.19">Install GTK+ modules in the right place</a></span></dt>
+</dl></dd>
+</dl></dd>
+<dt><span class="chapter"><a href="gtk-migrating-GtkStyleContext.html">Theming changes</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="gtk-migrating-GtkStyleContext.html#gtk-migrating-GtkStyleContext-themes">Migrating themes</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-theme-GtkStyleContext-engines.html">Migrating theme engines</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-GtkStyleContext-parser-extensions.html">Extending the CSS parser</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-GtkStyleContext-css.html">Using the CSS file format</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-GtkStyleContext-checklist.html">A checklist for widgets</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-GtkStyleContext-parsing.html">Parsing of custom resources</a></span></dt>
+<dt><span class="section"><a href="gtk-migrating-GtkStyleContext-bonus-points.html">Bonus points</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="gtk-migrating-unique-GtkApplication.html">Migrating from libunique to GApplication or GtkApplication</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="gtk-migrating-unique-GtkApplication.html#id-1.6.5.5">Uniqueness</a></span></dt>
+<dt><span class="section"><a href="ch28s02.html">Commands and Messages</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="gtk-migrating-smclient-GtkApplication.html">Migrating from EggSMClient to GtkApplication</a></span></dt>
+<dt><span class="chapter"><a href="gtk-migrating-GtkGrid.html">Migrating from other containers to GtkGrid</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="gtk-migrating-GtkGrid.html#id-1.6.7.4">GtkBox versus GtkGrid: packing</a></span></dt>
+<dt><span class="section"><a href="ch30s02.html">GtkBox versus GtkGrid: sizing</a></span></dt>
+<dt><span class="section"><a href="ch30s03.html">GtkBox versus GtkGrid: spacing</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="gtk-migrating-checklist.html">Migration Details Checklist</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="gtk-migrating-checklist.html#checklist-popup-menu">Implement GtkWidget::popup_menu</a></span></dt>
+<dt><span class="section"><a href="checklist-gdkeventexpose-region.html">Use GdkEventExpose.region</a></span></dt>
+<dt><span class="section"><a href="checklist-modifiers.html">Test for modifier keys correctly</a></span></dt>
+<dt><span class="section"><a href="checklist-named-icons.html">Use named icons</a></span></dt>
+</dl></dd>
+<dt><span class="chapter"><a href="gtk-migrating-3-x-to-y.html">Migrating from one GTK+ 3 release to another</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="gtk-migrating-3-x-to-y.html#id-1.6.9.4">Changes in GTK+ 3.2</a></span></dt>
+<dt><span class="section"><a href="ch32s02.html">Changes in GTK+ 3.4</a></span></dt>
+<dt><span class="section"><a href="ch32s03.html">Changes in GTK+ 3.6</a></span></dt>
+<dt><span class="section"><a href="ch32s04.html">Changes in GTK+ 3.8</a></span></dt>
+<dt><span class="section"><a href="ch32s05.html">Changes in GTK+ 3.10</a></span></dt>
+<dt><span class="section"><a href="ch32s06.html">Changes in GTK+ 3.12</a></span></dt>
+<dt><span class="section"><a href="ch32s07.html">Changes in GTK+ 3.14</a></span></dt>
+<dt><span class="section"><a href="ch32s08.html">Changes in GTK+ 3.16</a></span></dt>
+<dt><span class="section"><a href="ch32s09.html">Changes in GTK+ 3.18</a></span></dt>
+<dt><span class="section"><a href="ch32s10.html">Changes in GTK+ 3.20</a></span></dt>
+<dt><span class="section"><a href="ch32s11.html">Changes in GTK+ 3.22</a></span></dt>
+</dl></dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

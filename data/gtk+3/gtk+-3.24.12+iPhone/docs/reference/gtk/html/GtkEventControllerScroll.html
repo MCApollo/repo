@@ -1,0 +1,526 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkEventControllerScroll: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="Gestures.html" title="Gestures and event handling">
+<link rel="prev" href="GtkEventControllerKey.html" title="GtkEventControllerKey">
+<link rel="next" href="GtkEventControllerMotion.html" title="GtkEventControllerMotion">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkEventControllerScroll.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkEventControllerScroll.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkEventControllerScroll.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkEventControllerScroll.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="Gestures.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkEventControllerKey.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkEventControllerMotion.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkEventControllerScroll"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkEventControllerScroll.top_of_page"></a>GtkEventControllerScroll</span></h2>
+<p>GtkEventControllerScroll — Event controller for scroll events</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkEventController.html" title="GtkEventController"><span class="returnvalue">GtkEventController</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventControllerScroll.html#gtk-event-controller-scroll-new" title="gtk_event_controller_scroll_new ()">gtk_event_controller_scroll_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventControllerScroll.html#gtk-event-controller-scroll-set-flags" title="gtk_event_controller_scroll_set_flags ()">gtk_event_controller_scroll_set_flags</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScrollFlags" title="enum GtkEventControllerScrollFlags"><span class="returnvalue">GtkEventControllerScrollFlags</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventControllerScroll.html#gtk-event-controller-scroll-get-flags" title="gtk_event_controller_scroll_get_flags ()">gtk_event_controller_scroll_get_flags</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScrollFlags" title="enum GtkEventControllerScrollFlags"><span class="type">GtkEventControllerScrollFlags</span></a></td>
+<td class="property_name"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll--flags" title="The “flags” property">flags</a></td>
+<td class="property_flags">Read / Write</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-decelerate" title="The “decelerate” signal">decelerate</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll" title="The “scroll” signal">scroll</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll-begin" title="The “scroll-begin” signal">scroll-begin</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll-end" title="The “scroll-end” signal">scroll-end</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-struct" title="GtkEventControllerScroll">GtkEventControllerScroll</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScrollFlags" title="enum GtkEventControllerScrollFlags">GtkEventControllerScrollFlags</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> <a class="link" href="GtkEventController.html" title="GtkEventController">GtkEventController</a>
+        <span class="lineart">╰──</span> GtkEventControllerScroll
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.description"></a><h2>Description</h2>
+<p><a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a> is an event controller meant to handle
+scroll events from mice and touchpads. It is capable of handling
+both discrete and continuous scroll events, abstracting them both
+on the <a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll" title="The “scroll” signal"><span class="type">“scroll”</span></a> signal (deltas in the
+discrete case are multiples of 1).</p>
+<p>In the case of continuous scroll events, <a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a>
+encloses all <a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll" title="The “scroll” signal"><span class="type">“scroll”</span></a> events between two
+<a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll-begin" title="The “scroll-begin” signal"><span class="type">“scroll-begin”</span></a> and <a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll-end" title="The “scroll-end” signal"><span class="type">“scroll-end”</span></a>
+signals.</p>
+<p>The behavior of the event controller can be modified by the
+flags given at creation time, or modified at a later point through
+<a class="link" href="GtkEventControllerScroll.html#gtk-event-controller-scroll-set-flags" title="gtk_event_controller_scroll_set_flags ()"><code class="function">gtk_event_controller_scroll_set_flags()</code></a> (e.g. because the scrolling
+conditions of the widget changed).</p>
+<p>The controller can be set up to emit motion for either/both vertical
+and horizontal scroll events through <a class="link" href="GtkEventControllerScroll.html#GTK-EVENT-CONTROLLER-SCROLL-VERTICAL:CAPS"><span class="type">GTK_EVENT_CONTROLLER_SCROLL_VERTICAL</span></a>,
+<a class="link" href="GtkEventControllerScroll.html#GTK-EVENT-CONTROLLER-SCROLL-HORIZONTAL:CAPS"><span class="type">GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL</span></a> and <span class="type">GTK_EVENT_CONTROLLER_SCROLL_BOTH</span>.
+If any axis is disabled, the respective <a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-scroll" title="The “scroll” signal"><span class="type">“scroll”</span></a>
+delta will be 0. Vertical scroll events will be translated to horizontal
+motion for the devices incapable of horizontal scrolling.</p>
+<p>The event controller can also be forced to emit discrete events on all devices
+through <a class="link" href="GtkEventControllerScroll.html#GTK-EVENT-CONTROLLER-SCROLL-DISCRETE:CAPS"><span class="type">GTK_EVENT_CONTROLLER_SCROLL_DISCRETE</span></a>. This can be used to implement
+discrete actions triggered through scroll events (e.g. switching across
+combobox options).</p>
+<p>The <a class="link" href="GtkEventControllerScroll.html#GTK-EVENT-CONTROLLER-SCROLL-KINETIC:CAPS"><span class="type">GTK_EVENT_CONTROLLER_SCROLL_KINETIC</span></a> flag toggles the emission of the
+<a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-decelerate" title="The “decelerate” signal"><span class="type">“decelerate”</span></a> signal, emitted at the end of scrolling
+with two X/Y velocity arguments that are consistent with the motion that
+was received.</p>
+<p>This object was added in 3.24.</p>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-event-controller-scroll-new"></a><h3>gtk_event_controller_scroll_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="returnvalue">GtkEventController</span></a> *
+gtk_event_controller_scroll_new (<em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScrollFlags" title="enum GtkEventControllerScrollFlags"><span class="type">GtkEventControllerScrollFlags</span></a> flags</code></em>);</pre>
+<p>Creates a new event controller that will handle scroll events
+for the given <em class="parameter"><code>widget</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-scroll-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>behavior flags</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-event-controller-scroll-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-24.html#api-index-3.24">3.24</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-event-controller-scroll-set-flags"></a><h3>gtk_event_controller_scroll_set_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_event_controller_scroll_set_flags (<em class="parameter"><code><a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a> *controller</code></em>,
+                                       <em class="parameter"><code><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScrollFlags" title="enum GtkEventControllerScrollFlags"><span class="type">GtkEventControllerScrollFlags</span></a> flags</code></em>);</pre>
+<p>Sets the flags conditioning scroll controller behavior.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-scroll-set-flags.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>scroll</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>behavior flags</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-24.html#api-index-3.24">3.24</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-event-controller-scroll-get-flags"></a><h3>gtk_event_controller_scroll_get_flags ()</h3>
+<pre class="programlisting"><a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScrollFlags" title="enum GtkEventControllerScrollFlags"><span class="returnvalue">GtkEventControllerScrollFlags</span></a>
+gtk_event_controller_scroll_get_flags (<em class="parameter"><code><a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a> *controller</code></em>);</pre>
+<p>Gets the flags conditioning the scroll controller behavior.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-scroll-get-flags.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>scroll</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-event-controller-scroll-get-flags.returns"></a><h4>Returns</h4>
+<p> the controller flags.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-24.html#api-index-3.24">3.24</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkEventControllerScroll-struct"></a><h3>GtkEventControllerScroll</h3>
+<pre class="programlisting">typedef struct _GtkEventControllerScroll GtkEventControllerScroll;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkEventControllerScrollFlags"></a><h3>enum GtkEventControllerScrollFlags</h3>
+<p>Describes the behavior of a <a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a>.</p>
+<div class="refsect3">
+<a name="GtkEventControllerScrollFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-EVENT-CONTROLLER-SCROLL-NONE:CAPS"></a>GTK_EVENT_CONTROLLER_SCROLL_NONE</p></td>
+<td class="enum_member_description">
+<p>Don't emit scroll.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-EVENT-CONTROLLER-SCROLL-VERTICAL:CAPS"></a>GTK_EVENT_CONTROLLER_SCROLL_VERTICAL</p></td>
+<td class="enum_member_description">
+<p>Emit scroll with vertical deltas.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-EVENT-CONTROLLER-SCROLL-HORIZONTAL:CAPS"></a>GTK_EVENT_CONTROLLER_SCROLL_HORIZONTAL</p></td>
+<td class="enum_member_description">
+<p>Emit scroll with horizontal deltas.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-EVENT-CONTROLLER-SCROLL-DISCRETE:CAPS"></a>GTK_EVENT_CONTROLLER_SCROLL_DISCRETE</p></td>
+<td class="enum_member_description">
+<p>Only emit deltas that are multiples of 1.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-EVENT-CONTROLLER-SCROLL-KINETIC:CAPS"></a>GTK_EVENT_CONTROLLER_SCROLL_KINETIC</p></td>
+<td class="enum_member_description">
+<p>Emit <a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScroll-decelerate" title="The “decelerate” signal"><span class="type">“decelerate”</span></a>
+  after continuous scroll finishes.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-EVENT-CONTROLLER-SCROLL-BOTH-AXES:CAPS"></a>GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES</p></td>
+<td class="enum_member_description">
+<p>Emit scroll on both axes.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-24.html#api-index-3.24">3.24</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkEventControllerScroll--flags"></a><h3>The <code class="literal">“flags”</code> property</h3>
+<pre class="programlisting">  “flags”                    <a class="link" href="GtkEventControllerScroll.html#GtkEventControllerScrollFlags" title="enum GtkEventControllerScrollFlags"><span class="type">GtkEventControllerScrollFlags</span></a></pre>
+<p>The flags affecting event controller behavior</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3-24.html#api-index-3.24">3.24</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkEventControllerScroll-decelerate"></a><h3>The <code class="literal">“decelerate”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a> *controller,
+               <span class="type">gdouble</span>                   vel_x,
+               <span class="type">gdouble</span>                   vel_y,
+               <span class="type">gpointer</span>                  user_data)</pre>
+<p>Emitted after scroll is finished if the <a class="link" href="GtkEventControllerScroll.html#GTK-EVENT-CONTROLLER-SCROLL-KINETIC:CAPS"><span class="type">GTK_EVENT_CONTROLLER_SCROLL_KINETIC</span></a>
+flag is set. <em class="parameter"><code>vel_x</code></em>
+ and <em class="parameter"><code>vel_y</code></em>
+ express the initial velocity that was
+imprinted by the scroll events. <em class="parameter"><code>vel_x</code></em>
+ and <em class="parameter"><code>vel_y</code></em>
+ are expressed in
+pixels/ms.</p>
+<div class="refsect3">
+<a name="GtkEventControllerScroll-decelerate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>The object that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vel_x</p></td>
+<td class="parameter_description"><p>X velocity</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vel_y</p></td>
+<td class="parameter_description"><p>Y velocity</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkEventControllerScroll-scroll"></a><h3>The <code class="literal">“scroll”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a> *controller,
+               <span class="type">gdouble</span>                   dx,
+               <span class="type">gdouble</span>                   dy,
+               <span class="type">gpointer</span>                  user_data)</pre>
+<p>Signals that the widget should scroll by the
+amount specified by <em class="parameter"><code>dx</code></em>
+ and <em class="parameter"><code>dy</code></em>
+.</p>
+<div class="refsect3">
+<a name="GtkEventControllerScroll-scroll.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>The object that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dx</p></td>
+<td class="parameter_description"><p>X delta</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dy</p></td>
+<td class="parameter_description"><p>Y delta</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkEventControllerScroll-scroll-begin"></a><h3>The <code class="literal">“scroll-begin”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a> *controller,
+               <span class="type">gpointer</span>                  user_data)</pre>
+<p>Signals that a new scrolling operation has begun. It will
+only be emitted on devices capable of it.</p>
+<div class="refsect3">
+<a name="GtkEventControllerScroll-scroll-begin.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>The object that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkEventControllerScroll-scroll-end"></a><h3>The <code class="literal">“scroll-end”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll"><span class="type">GtkEventControllerScroll</span></a> *controller,
+               <span class="type">gpointer</span>                  user_data)</pre>
+<p>Signals that a new scrolling operation has finished. It will
+only be emitted on devices capable of it.</p>
+<div class="refsect3">
+<a name="GtkEventControllerScroll-scroll-end.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>The object that received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEventControllerScroll.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

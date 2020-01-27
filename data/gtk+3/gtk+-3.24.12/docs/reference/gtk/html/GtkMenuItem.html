@@ -1,0 +1,1401 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkMenuItem: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="MenusAndCombos.html" title="Menus, Combo Box, Toolbar">
+<link rel="prev" href="GtkMenuBar.html" title="GtkMenuBar">
+<link rel="next" href="GtkRadioMenuItem.html" title="GtkRadioMenuItem">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkMenuItem.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkMenuItem.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkMenuItem.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkMenuItem.properties" class="shortcut">Properties</a></span><span id="nav_style_properties">  <span class="dim">|</span> 
+                  <a href="#GtkMenuItem.style-properties" class="shortcut">Style Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkMenuItem.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="MenusAndCombos.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkMenuBar.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkRadioMenuItem.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkMenuItem"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkMenuItem.top_of_page"></a>GtkMenuItem</span></h2>
+<p>GtkMenuItem — The widget used for item in menus</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkMenuItem.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-new" title="gtk_menu_item_new ()">gtk_menu_item_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-new-with-label" title="gtk_menu_item_new_with_label ()">gtk_menu_item_new_with_label</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-new-with-mnemonic" title="gtk_menu_item_new_with_mnemonic ()">gtk_menu_item_new_with_mnemonic</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-set-right-justified" title="gtk_menu_item_set_right_justified ()">gtk_menu_item_set_right_justified</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-get-right-justified" title="gtk_menu_item_get_right_justified ()">gtk_menu_item_get_right_justified</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-get-label" title="gtk_menu_item_get_label ()">gtk_menu_item_get_label</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-set-label" title="gtk_menu_item_set_label ()">gtk_menu_item_set_label</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-get-use-underline" title="gtk_menu_item_get_use_underline ()">gtk_menu_item_get_use_underline</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-set-use-underline" title="gtk_menu_item_set_use_underline ()">gtk_menu_item_set_use_underline</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-set-submenu" title="gtk_menu_item_set_submenu ()">gtk_menu_item_set_submenu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-get-submenu" title="gtk_menu_item_get_submenu ()">gtk_menu_item_get_submenu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-set-accel-path" title="gtk_menu_item_set_accel_path ()">gtk_menu_item_set_accel_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-get-accel-path" title="gtk_menu_item_get_accel_path ()">gtk_menu_item_get_accel_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-select" title="gtk_menu_item_select ()">gtk_menu_item_select</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-deselect" title="gtk_menu_item_deselect ()">gtk_menu_item_deselect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-activate" title="gtk_menu_item_activate ()">gtk_menu_item_activate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-toggle-size-request" title="gtk_menu_item_toggle_size_request ()">gtk_menu_item_toggle_size_request</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-toggle-size-allocate" title="gtk_menu_item_toggle_size_allocate ()">gtk_menu_item_toggle_size_allocate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-get-reserve-indicator" title="gtk_menu_item_get_reserve_indicator ()">gtk_menu_item_get_reserve_indicator</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkMenuItem.html#gtk-menu-item-set-reserve-indicator" title="gtk_menu_item_set_reserve_indicator ()">gtk_menu_item_set_reserve_indicator</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--accel-path" title="The “accel-path” property">accel-path</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--label" title="The “label” property">label</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--right-justified" title="The “right-justified” property">right-justified</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--submenu" title="The “submenu” property">submenu</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--use-underline" title="The “use-underline” property">use-underline</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.style-properties"></a><h2>Style Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="style_properties_type">
+<col width="300px" class="style_properties_name">
+<col width="200px" class="style_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gfloat</span></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--s-arrow-scaling" title="The “arrow-scaling” style property">arrow-scaling</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--s-arrow-spacing" title="The “arrow-spacing” style property">arrow-spacing</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--s-horizontal-padding" title="The “horizontal-padding” style property">horizontal-padding</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="type">GtkShadowType</span></a></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--s-selected-shadow-type" title="The “selected-shadow-type” style property">selected-shadow-type</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--s-toggle-spacing" title="The “toggle-spacing” style property">toggle-spacing</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem--s-width-chars" title="The “width-chars” style property">width-chars</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem-activate" title="The “activate” signal">activate</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem-activate-item" title="The “activate-item” signal">activate-item</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem-deselect" title="The “deselect” signal">deselect</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem-select" title="The “select” signal">select</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem-toggle-size-allocate" title="The “toggle-size-allocate” signal">toggle-size-allocate</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem-toggle-size-request" title="The “toggle-size-request” signal">toggle-size-request</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkMenuItem.html#GtkMenuItem-struct" title="struct GtkMenuItem">GtkMenuItem</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkMenuItem.html#GtkMenuItemClass" title="struct GtkMenuItemClass">GtkMenuItemClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                    <span class="lineart">╰──</span> GtkMenuItem
+                        <span class="lineart">├──</span> <a class="link" href="GtkCheckMenuItem.html" title="GtkCheckMenuItem">GtkCheckMenuItem</a>
+                        <span class="lineart">├──</span> <a class="link" href="GtkImageMenuItem.html" title="GtkImageMenuItem">GtkImageMenuItem</a>
+                        <span class="lineart">├──</span> <a class="link" href="GtkSeparatorMenuItem.html" title="GtkSeparatorMenuItem">GtkSeparatorMenuItem</a>
+                        <span class="lineart">╰──</span> <a class="link" href="GtkTearoffMenuItem.html" title="GtkTearoffMenuItem">GtkTearoffMenuItem</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkMenuItem implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>,  <a class="link" href="GtkActivatable.html" title="GtkActivatable">GtkActivatable</a> and  <a class="link" href="GtkActionable.html" title="GtkActionable">GtkActionable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> widget and the derived widgets are the only valid
+children for menus. Their function is to correctly handle highlighting,
+alignment, events and submenus.</p>
+<p>As a GtkMenuItem derives from <a class="link" href="GtkBin.html" title="GtkBin"><span class="type">GtkBin</span></a> it can hold any valid child widget,
+although only a few are really useful.</p>
+<p>By default, a GtkMenuItem sets a <a class="link" href="GtkAccelLabel.html" title="GtkAccelLabel"><span class="type">GtkAccelLabel</span></a> as its child.
+GtkMenuItem has direct functions to set the label and its mnemonic.
+For more advanced label settings, you can fetch the child widget from the GtkBin.</p>
+<p>An example for setting markup and accelerator on a MenuItem:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">GtkWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">menu_item </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkMenuItem.html#gtk-menu-item-new-with-label">gtk_menu_item_new_with_label</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Example Menu Item"</span><span class="symbol">);</span>
+
+<span class="usertype">GtkWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">child </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkBin.html#gtk-bin-get-child">gtk_bin_get_child</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function">GTK_BIN</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">menu_item</span><span class="symbol">));</span>
+<span class="function"><a href="GtkLabel.html#gtk-label-set-markup">gtk_label_set_markup</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function">GTK_LABEL</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">child</span><span class="symbol">),</span><span class="normal"> </span><span class="string">"&lt;i&gt;new label&lt;/i&gt; with &lt;b&gt;markup&lt;/b&gt;"</span><span class="symbol">);</span>
+<span class="function"><a href="GtkAccelLabel.html#gtk-accel-label-set-accel">gtk_accel_label_set_accel</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function">GTK_ACCEL_LABEL</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">child</span><span class="symbol">),</span><span class="normal"> GDK_KEY_1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect2">
+<a name="id-1.3.13.6.11.8"></a><h3>GtkMenuItem as GtkBuildable</h3>
+<p>The GtkMenuItem implementation of the <a class="link" href="GtkBuildable.html" title="GtkBuildable"><span class="type">GtkBuildable</span></a> interface supports
+adding a submenu by specifying “submenu” as the “type” attribute of
+a &lt;child&gt; element.</p>
+<p>An example of UI definition fragment with submenus:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkMenuItem"</span><span class="symbol">&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;</span><span class="usertype">child</span><span class="normal"> type</span><span class="symbol">=</span><span class="string">"submenu"</span><span class="symbol">&gt;</span>
+<span class="normal">    </span><span class="symbol">&lt;</span><span class="usertype">object</span><span class="normal"> class</span><span class="symbol">=</span><span class="string">"GtkMenu"</span><span class="symbol">/&gt;</span>
+<span class="normal">  </span><span class="symbol">&lt;/</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="symbol">&lt;/</span><span class="normal">object</span><span class="symbol">&gt;</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.3.13.6.11.9"></a><h3>CSS nodes</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="normal">menuitem</span>
+<span class="normal">├── </span><span class="symbol">&lt;</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">╰── </span><span class="symbol">[</span><span class="normal">arrow</span><span class="symbol">.</span><span class="normal">right</span><span class="symbol">]</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>GtkMenuItem has a single CSS node with name menuitem. If the menuitem
+has a submenu, it gets another CSS node with name arrow, which has
+the .left or .right style class.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-menu-item-new"></a><h3>gtk_menu_item_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_menu_item_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-new.returns"></a><h4>Returns</h4>
+<p> the newly created <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-new-with-label"></a><h3>gtk_menu_item_new_with_label ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_menu_item_new_with_label (<em class="parameter"><code>const <span class="type">gchar</span> *label</code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> whose child is a <a class="link" href="GtkLabel.html" title="GtkLabel"><span class="type">GtkLabel</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-new-with-label.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>label</p></td>
+<td class="parameter_description"><p>the text for the label</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-new-with-label.returns"></a><h4>Returns</h4>
+<p> the newly created <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-new-with-mnemonic"></a><h3>gtk_menu_item_new_with_mnemonic ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_menu_item_new_with_mnemonic (<em class="parameter"><code>const <span class="type">gchar</span> *label</code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> containing a label.</p>
+<p>The label will be created using <a class="link" href="GtkLabel.html#gtk-label-new-with-mnemonic" title="gtk_label_new_with_mnemonic ()"><code class="function">gtk_label_new_with_mnemonic()</code></a>,
+so underscores in <em class="parameter"><code>label</code></em>
+ indicate the mnemonic for the menu item.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-new-with-mnemonic.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>label</p></td>
+<td class="parameter_description"><p>The text of the button, with an underscore in front of the
+mnemonic character</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-new-with-mnemonic.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-set-right-justified"></a><h3>gtk_menu_item_set_right_justified ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_set_right_justified (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                                   <em class="parameter"><code><span class="type">gboolean</span> right_justified</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_menu_item_set_right_justified</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>If you insist on using it, use
+  <a class="link" href="GtkWidget.html#gtk-widget-set-hexpand" title="gtk_widget_set_hexpand ()"><code class="function">gtk_widget_set_hexpand()</code></a> and <a class="link" href="GtkWidget.html#gtk-widget-set-halign" title="gtk_widget_set_halign ()"><code class="function">gtk_widget_set_halign()</code></a>.</p>
+</div>
+<p>Sets whether the menu item appears justified at the right
+side of a menu bar. This was traditionally done for “Help”
+menu items, but is now considered a bad idea. (If the widget
+layout is reversed for a right-to-left language like Hebrew
+or Arabic, right-justified-menu-items appear at the left.)</p>
+<div class="refsect3">
+<a name="gtk-menu-item-set-right-justified.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>right_justified</p></td>
+<td class="parameter_description"><p>if <code class="literal">TRUE</code> the menu item will appear at the
+far right if added to a menu bar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-get-right-justified"></a><h3>gtk_menu_item_get_right_justified ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_menu_item_get_right_justified (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_menu_item_get_right_justified</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>See <a class="link" href="GtkMenuItem.html#gtk-menu-item-set-right-justified" title="gtk_menu_item_set_right_justified ()"><code class="function">gtk_menu_item_set_right_justified()</code></a></p>
+</div>
+<p>Gets whether the menu item appears justified at the right
+side of the menu bar.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-get-right-justified.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-get-right-justified.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the menu item will appear at the
+far right if added to a menu bar.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-get-label"></a><h3>gtk_menu_item_get_label ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_menu_item_get_label (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Sets <em class="parameter"><code>text</code></em>
+ on the <em class="parameter"><code>menu_item</code></em>
+ label</p>
+<div class="refsect3">
+<a name="gtk-menu-item-get-label.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-get-label.returns"></a><h4>Returns</h4>
+<p> The text in the <em class="parameter"><code>menu_item</code></em>
+label. This is the internal
+string used by the label, and must not be modified.</p>
+</div>
+<p class="since">Since: 2.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-set-label"></a><h3>gtk_menu_item_set_label ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_set_label (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                         <em class="parameter"><code>const <span class="type">gchar</span> *label</code></em>);</pre>
+<p>Sets <em class="parameter"><code>text</code></em>
+ on the <em class="parameter"><code>menu_item</code></em>
+ label</p>
+<div class="refsect3">
+<a name="gtk-menu-item-set-label.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>label</p></td>
+<td class="parameter_description"><p>the text you want to set</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-get-use-underline"></a><h3>gtk_menu_item_get_use_underline ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_menu_item_get_use_underline (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Checks if an underline in the text indicates the next character
+should be used for the mnemonic accelerator key.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-get-use-underline.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-get-use-underline.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if an embedded underline in the label
+indicates the mnemonic accelerator key.</p>
+</div>
+<p class="since">Since: 2.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-set-use-underline"></a><h3>gtk_menu_item_set_use_underline ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_set_use_underline (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                                 <em class="parameter"><code><span class="type">gboolean</span> setting</code></em>);</pre>
+<p>If true, an underline in the text indicates the next character
+should be used for the mnemonic accelerator key.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-set-use-underline.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>setting</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if underlines in the text indicate mnemonics</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-set-submenu"></a><h3>gtk_menu_item_set_submenu ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_set_submenu (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                           <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *submenu</code></em>);</pre>
+<p>Sets or replaces the menu item’s submenu, or removes it when a <code class="literal">NULL</code>
+submenu is passed.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-set-submenu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>submenu</p></td>
+<td class="parameter_description"><p>the submenu, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> Gtk.Menu]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-get-submenu"></a><h3>gtk_menu_item_get_submenu ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_menu_item_get_submenu (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Gets the submenu underneath this menu item, if any.
+See <a class="link" href="GtkMenuItem.html#gtk-menu-item-set-submenu" title="gtk_menu_item_set_submenu ()"><code class="function">gtk_menu_item_set_submenu()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-get-submenu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-get-submenu.returns"></a><h4>Returns</h4>
+<p>submenu for this menu item, or <code class="literal">NULL</code> if none. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-set-accel-path"></a><h3>gtk_menu_item_set_accel_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_set_accel_path (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *accel_path</code></em>);</pre>
+<p>Set the accelerator path on <em class="parameter"><code>menu_item</code></em>
+, through which runtime
+changes of the menu item’s accelerator caused by the user can be
+identified and saved to persistent storage (see <a class="link" href="gtk3-Accelerator-Maps.html#gtk-accel-map-save" title="gtk_accel_map_save ()"><code class="function">gtk_accel_map_save()</code></a>
+on this). To set up a default accelerator for this menu item, call
+<a class="link" href="gtk3-Accelerator-Maps.html#gtk-accel-map-add-entry" title="gtk_accel_map_add_entry ()"><code class="function">gtk_accel_map_add_entry()</code></a> with the same <em class="parameter"><code>accel_path</code></em>
+. See also
+<a class="link" href="gtk3-Accelerator-Maps.html#gtk-accel-map-add-entry" title="gtk_accel_map_add_entry ()"><code class="function">gtk_accel_map_add_entry()</code></a> on the specifics of accelerator paths,
+and <a class="link" href="GtkMenu.html#gtk-menu-set-accel-path" title="gtk_menu_set_accel_path ()"><code class="function">gtk_menu_set_accel_path()</code></a> for a more convenient variant of
+this function.</p>
+<p>This function is basically a convenience wrapper that handles
+calling <a class="link" href="GtkWidget.html#gtk-widget-set-accel-path" title="gtk_widget_set_accel_path ()"><code class="function">gtk_widget_set_accel_path()</code></a> with the appropriate accelerator
+group for the menu item.</p>
+<p>Note that you do need to set an accelerator on the parent menu with
+<a class="link" href="GtkMenu.html#gtk-menu-set-accel-group" title="gtk_menu_set_accel_group ()"><code class="function">gtk_menu_set_accel_group()</code></a> for this to work.</p>
+<p>Note that <em class="parameter"><code>accel_path</code></em>
+ string will be stored in a <span class="type">GQuark</span>.
+Therefore, if you pass a static string, you can save some memory
+by interning it first with <code class="function">g_intern_static_string()</code>.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-set-accel-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a valid <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_path</p></td>
+<td class="parameter_description"><p>accelerator path, corresponding to this menu
+item’s functionality, or <code class="literal">NULL</code> to unset the current path. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-get-accel-path"></a><h3>gtk_menu_item_get_accel_path ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_menu_item_get_accel_path (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Retrieve the accelerator path that was previously set on <em class="parameter"><code>menu_item</code></em>
+.</p>
+<p>See <a class="link" href="GtkMenuItem.html#gtk-menu-item-set-accel-path" title="gtk_menu_item_set_accel_path ()"><code class="function">gtk_menu_item_set_accel_path()</code></a> for details.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-get-accel-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a valid <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-get-accel-path.returns"></a><h4>Returns</h4>
+<p>the accelerator path corresponding to
+this menu item’s functionality, or <code class="literal">NULL</code> if not set. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-select"></a><h3>gtk_menu_item_select ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_select (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Emits the <a class="link" href="GtkMenuItem.html#GtkMenuItem-select" title="The “select” signal"><span class="type">“select”</span></a> signal on the given item.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-select.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>the menu item</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-deselect"></a><h3>gtk_menu_item_deselect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_deselect (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Emits the <a class="link" href="GtkMenuItem.html#GtkMenuItem-deselect" title="The “deselect” signal"><span class="type">“deselect”</span></a> signal on the given item.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-deselect.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>the menu item</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-activate"></a><h3>gtk_menu_item_activate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_activate (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Emits the <a class="link" href="GtkMenuItem.html#GtkMenuItem-activate" title="The “activate” signal"><span class="type">“activate”</span></a> signal on the given item</p>
+<div class="refsect3">
+<a name="gtk-menu-item-activate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>the menu item</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-toggle-size-request"></a><h3>gtk_menu_item_toggle_size_request ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_toggle_size_request (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                                   <em class="parameter"><code><span class="type">gint</span> *requisition</code></em>);</pre>
+<p>Emits the <a class="link" href="GtkMenuItem.html#GtkMenuItem-toggle-size-request" title="The “toggle-size-request” signal"><span class="type">“toggle-size-request”</span></a> signal on the given item.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-toggle-size-request.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>the menu item</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>requisition</p></td>
+<td class="parameter_description"><p>the requisition to use as signal data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-toggle-size-allocate"></a><h3>gtk_menu_item_toggle_size_allocate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_toggle_size_allocate (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                                    <em class="parameter"><code><span class="type">gint</span> allocation</code></em>);</pre>
+<p>Emits the <a class="link" href="GtkMenuItem.html#GtkMenuItem-toggle-size-allocate" title="The “toggle-size-allocate” signal"><span class="type">“toggle-size-allocate”</span></a> signal on the given item.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-toggle-size-allocate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>the menu item.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>allocation</p></td>
+<td class="parameter_description"><p>the allocation to use as signal data.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-get-reserve-indicator"></a><h3>gtk_menu_item_get_reserve_indicator ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_menu_item_get_reserve_indicator (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>);</pre>
+<p>Returns whether the <em class="parameter"><code>menu_item</code></em>
+ reserves space for
+the submenu indicator, regardless if it has a submenu
+or not.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-get-reserve-indicator.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-menu-item-get-reserve-indicator.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>menu_item</code></em>
+always reserves space for the
+submenu indicator</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-menu-item-set-reserve-indicator"></a><h3>gtk_menu_item_set_reserve_indicator ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_menu_item_set_reserve_indicator (<em class="parameter"><code><a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menu_item</code></em>,
+                                     <em class="parameter"><code><span class="type">gboolean</span> reserve</code></em>);</pre>
+<p>Sets whether the <em class="parameter"><code>menu_item</code></em>
+ should reserve space for
+the submenu indicator, regardless if it actually has
+a submenu or not.</p>
+<p>There should be little need for applications to call
+this functions.</p>
+<div class="refsect3">
+<a name="gtk-menu-item-set-reserve-indicator.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menu_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>reserve</p></td>
+<td class="parameter_description"><p>the new value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkMenuItem-struct"></a><h3>struct GtkMenuItem</h3>
+<pre class="programlisting">struct GtkMenuItem;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItemClass"></a><h3>struct GtkMenuItemClass</h3>
+<pre class="programlisting">struct GtkMenuItemClass {
+  GtkBinClass parent_class;
+
+
+  /* If the following flag is true, then we should always
+   * hide the menu when the MenuItem is activated. Otherwise,
+   * it is up to the caller. For instance, when navigating
+   * a menu with the keyboard, &lt;Space&gt; doesn't hide, but
+   * &lt;Return&gt; does.
+   */
+  guint hide_on_activate : 1;
+
+  void (* activate)             (GtkMenuItem *menu_item);
+  void (* activate_item)        (GtkMenuItem *menu_item);
+  void (* toggle_size_request)  (GtkMenuItem *menu_item,
+                                 gint        *requisition);
+  void (* toggle_size_allocate) (GtkMenuItem *menu_item,
+                                 gint         allocation);
+  void (* set_label)            (GtkMenuItem *menu_item,
+                                 const gchar *label);
+  const gchar * (* get_label)   (GtkMenuItem *menu_item);
+
+  void (* select)               (GtkMenuItem *menu_item);
+  void (* deselect)             (GtkMenuItem *menu_item);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkMenuItemClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GtkMenuItemClass.hide-on-activate"></a>hide_on_activate</code></em> : 1;</p></td>
+<td class="struct_member_description"><p>If <code class="literal">TRUE</code>, then we should always
+hide the menu when the <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><code class="literal">GtkMenuItem</code></a> is activated. Otherwise,
+it is up to the caller.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.activate"></a>activate</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when the item is activated.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.activate-item"></a>activate_item</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when the item is activated, but also
+if the menu item has a submenu.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.toggle-size-request"></a>toggle_size_request</code></em> ()</p></td>
+<td class="struct_member_description"> </td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.toggle-size-allocate"></a>toggle_size_allocate</code></em> ()</p></td>
+<td class="struct_member_description"> </td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.set-label"></a>set_label</code></em> ()</p></td>
+<td class="struct_member_description"><p>Sets <em class="parameter"><code>text</code></em>
+on the <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> label</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.get-label"></a>get_label</code></em> ()</p></td>
+<td class="struct_member_description"><p>Gets <em class="parameter"><code>text</code></em>
+from the <a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> label</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.select"></a>select</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when the item is selected.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkMenuItemClass.deselect"></a>deselect</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when the item is deselected.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkMenuItem--accel-path"></a><h3>The <code class="literal">“accel-path”</code> property</h3>
+<pre class="programlisting">  “accel-path”               <span class="type">gchar</span> *</pre>
+<p>Sets the accelerator path of the menu item, through which runtime
+changes of the menu item's accelerator caused by the user can be
+identified and saved to persistant storage.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--label"></a><h3>The <code class="literal">“label”</code> property</h3>
+<pre class="programlisting">  “label”                    <span class="type">gchar</span> *</pre>
+<p>The text for the child label.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: ""</p>
+<p class="since">Since: 2.16</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--right-justified"></a><h3>The <code class="literal">“right-justified”</code> property</h3>
+<pre class="programlisting">  “right-justified”          <span class="type">gboolean</span></pre>
+<p>Sets whether the menu item appears justified
+at the right side of a menu bar.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--submenu"></a><h3>The <code class="literal">“submenu”</code> property</h3>
+<pre class="programlisting">  “submenu”                  <a class="link" href="GtkMenu.html" title="GtkMenu"><span class="type">GtkMenu</span></a> *</pre>
+<p>The submenu attached to the menu item, or <code class="literal">NULL</code> if it has none.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--use-underline"></a><h3>The <code class="literal">“use-underline”</code> property</h3>
+<pre class="programlisting">  “use-underline”            <span class="type">gboolean</span></pre>
+<p><code class="literal">TRUE</code> if underlines in the text indicate mnemonics.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.16</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.style-property-details"></a><h2>Style Property Details</h2>
+<div class="refsect2">
+<a name="GtkMenuItem--s-arrow-scaling"></a><h3>The <code class="literal">“arrow-scaling”</code> style property</h3>
+<pre class="programlisting">  “arrow-scaling”            <span class="type">gfloat</span></pre>
+<p>Amount of space used up by the arrow, relative to the menu item's font
+size.</p>
+<div class="warning">
+<p><code class="literal">GtkMenuItem:arrow-scaling</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>use the standard min-width/min-height CSS properties on
+  the arrow node; the value of this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: [0,2]</p>
+<p>Default value: 0.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--s-arrow-spacing"></a><h3>The <code class="literal">“arrow-spacing”</code> style property</h3>
+<pre class="programlisting">  “arrow-spacing”            <span class="type">gint</span></pre>
+<p>Spacing between menu item label and submenu arrow.</p>
+<div class="warning">
+<p><code class="literal">GtkMenuItem:arrow-spacing</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>use the standard margin CSS property on the arrow node;
+  the value of this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--s-horizontal-padding"></a><h3>The <code class="literal">“horizontal-padding”</code> style property</h3>
+<pre class="programlisting">  “horizontal-padding”       <span class="type">gint</span></pre>
+<p>Padding to left and right of the menu item.</p>
+<div class="warning">
+<p><code class="literal">GtkMenuItem:horizontal-padding</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>use the standard padding CSS property (through objects
+  like <a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a> and <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a>); the value of this style
+  property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--s-selected-shadow-type"></a><h3>The <code class="literal">“selected-shadow-type”</code> style property</h3>
+<pre class="programlisting">  “selected-shadow-type”     <a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="type">GtkShadowType</span></a></pre>
+<p>The shadow type when the item is selected.</p>
+<div class="warning">
+<p><code class="literal">GtkMenuItem:selected-shadow-type</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use CSS to determine the shadow; the value of this
+    style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Default value: GTK_SHADOW_NONE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--s-toggle-spacing"></a><h3>The <code class="literal">“toggle-spacing”</code> style property</h3>
+<pre class="programlisting">  “toggle-spacing”           <span class="type">gint</span></pre>
+<p>Spacing between menu icon and label.</p>
+<div class="warning">
+<p><code class="literal">GtkMenuItem:toggle-spacing</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>use the standard margin CSS property on the check or
+  radio nodes; the value of this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 5</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem--s-width-chars"></a><h3>The <code class="literal">“width-chars”</code> style property</h3>
+<pre class="programlisting">  “width-chars”              <span class="type">gint</span></pre>
+<p>The minimum desired width of the menu item in characters.</p>
+<div class="warning">
+<p><code class="literal">GtkMenuItem:width-chars</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard CSS property min-width; the value of
+    this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 12</p>
+<p class="since">Since: 2.14</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkMenuItem-activate"></a><h3>The <code class="literal">“activate”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menuitem,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>Emitted when the item is activated.</p>
+<div class="refsect3">
+<a name="GtkMenuItem-activate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menuitem</p></td>
+<td class="parameter_description"><p>the object which received the signal.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem-activate-item"></a><h3>The <code class="literal">“activate-item”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menuitem,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>Emitted when the item is activated, but also if the menu item has a
+submenu. For normal applications, the relevant signal is
+<a class="link" href="GtkMenuItem.html#GtkMenuItem-activate" title="The “activate” signal"><span class="type">“activate”</span></a>.</p>
+<div class="refsect3">
+<a name="GtkMenuItem-activate-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>menuitem</p></td>
+<td class="parameter_description"><p>the object which received the signal.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem-deselect"></a><h3>The <code class="literal">“deselect”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menuitem,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem-select"></a><h3>The <code class="literal">“select”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menuitem,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem-toggle-size-allocate"></a><h3>The <code class="literal">“toggle-size-allocate”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menuitem,
+               <span class="type">gint</span>         arg1,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkMenuItem-toggle-size-request"></a><h3>The <code class="literal">“toggle-size-request”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkMenuItem.html" title="GtkMenuItem"><span class="type">GtkMenuItem</span></a> *menuitem,
+               <span class="type">gpointer</span>     arg1,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkMenuItem.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkBin.html" title="GtkBin"><span class="type">GtkBin</span></a>, <a class="link" href="GtkMenuShell.html" title="GtkMenuShell"><span class="type">GtkMenuShell</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

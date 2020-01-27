@@ -1,0 +1,754 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GdkMonitor: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="GdkSeat.html" title="GdkSeat">
+<link rel="next" href="GdkDevice.html" title="GdkDevice">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GdkMonitor.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GdkMonitor.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GdkMonitor.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GdkMonitor.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GdkSeat.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GdkDevice.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GdkMonitor"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GdkMonitor.top_of_page"></a>GdkMonitor</span></h2>
+<p>GdkMonitor — Object representing an output</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GdkMonitor.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="returnvalue">GdkDisplay</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-display" title="gdk_monitor_get_display ()">gdk_monitor_get_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-geometry" title="gdk_monitor_get_geometry ()">gdk_monitor_get_geometry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-workarea" title="gdk_monitor_get_workarea ()">gdk_monitor_get_workarea</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">int</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-width-mm" title="gdk_monitor_get_width_mm ()">gdk_monitor_get_width_mm</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">int</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-height-mm" title="gdk_monitor_get_height_mm ()">gdk_monitor_get_height_mm</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-manufacturer" title="gdk_monitor_get_manufacturer ()">gdk_monitor_get_manufacturer</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">char</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-model" title="gdk_monitor_get_model ()">gdk_monitor_get_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">int</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-scale-factor" title="gdk_monitor_get_scale_factor ()">gdk_monitor_get_scale_factor</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">int</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-refresh-rate" title="gdk_monitor_get_refresh_rate ()">gdk_monitor_get_refresh_rate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkMonitor.html#GdkSubpixelLayout" title="enum GdkSubpixelLayout"><span class="returnvalue">GdkSubpixelLayout</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-subpixel-layout" title="gdk_monitor_get_subpixel_layout ()">gdk_monitor_get_subpixel_layout</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GdkMonitor.html#gdk-monitor-is-primary" title="gdk_monitor_is_primary ()">gdk_monitor_is_primary</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *</td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--display" title="The “display” property">display</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *</td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--geometry" title="The “geometry” property">geometry</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--height-mm" title="The “height-mm” property">height-mm</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--manufacturer" title="The “manufacturer” property">manufacturer</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--model" title="The “model” property">model</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--refresh-rate" title="The “refresh-rate” property">refresh-rate</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--scale-factor" title="The “scale-factor” property">scale-factor</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GdkMonitor.html#GdkSubpixelLayout" title="enum GdkSubpixelLayout"><span class="type">GdkSubpixelLayout</span></a></td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--subpixel-layout" title="The “subpixel-layout” property">subpixel-layout</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--width-mm" title="The “width-mm” property">width-mm</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *</td>
+<td class="property_name"><a class="link" href="GdkMonitor.html#GdkMonitor--workarea" title="The “workarea” property">workarea</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GdkMonitor.html#GdkMonitor-invalidate" title="The “invalidate” signal">invalidate</a></td>
+<td class="signal_flags">Run First</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GdkMonitor.html#GdkMonitor-struct" title="GdkMonitor">GdkMonitor</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GdkMonitor.html#GdkSubpixelLayout" title="enum GdkSubpixelLayout">GdkSubpixelLayout</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GdkMonitor
+</pre>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdkwayland.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.description"></a><h2>Description</h2>
+<p>GdkMonitor objects represent the individual outputs that are
+associated with a <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a>. GdkDisplay has APIs to enumerate
+monitors with <a class="link" href="GdkDisplay.html#gdk-display-get-n-monitors" title="gdk_display_get_n_monitors ()"><code class="function">gdk_display_get_n_monitors()</code></a> and <a class="link" href="GdkDisplay.html#gdk-display-get-monitor" title="gdk_display_get_monitor ()"><code class="function">gdk_display_get_monitor()</code></a>, and
+to find particular monitors with <a class="link" href="GdkDisplay.html#gdk-display-get-primary-monitor" title="gdk_display_get_primary_monitor ()"><code class="function">gdk_display_get_primary_monitor()</code></a> or
+<a class="link" href="GdkDisplay.html#gdk-display-get-monitor-at-window" title="gdk_display_get_monitor_at_window ()"><code class="function">gdk_display_get_monitor_at_window()</code></a>.</p>
+<p>GdkMonitor was introduced in GTK+ 3.22 and supersedes earlier
+APIs in GdkScreen to obtain monitor-related information.</p>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-monitor-get-display"></a><h3>gdk_monitor_get_display ()</h3>
+<pre class="programlisting"><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="returnvalue">GdkDisplay</span></a> *
+gdk_monitor_get_display (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets the display that this monitor belongs to.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-display.returns"></a><h4>Returns</h4>
+<p>the display. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-geometry"></a><h3>gdk_monitor_get_geometry ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_monitor_get_geometry (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>,
+                          <em class="parameter"><code><a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *geometry</code></em>);</pre>
+<p>Retrieves the size and position of an individual monitor within the
+display coordinate space. The returned geometry is in  ”application pixels”,
+not in ”device pixels” (see <a class="link" href="GdkMonitor.html#gdk-monitor-get-scale-factor" title="gdk_monitor_get_scale_factor ()"><code class="function">gdk_monitor_get_scale_factor()</code></a>).</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-geometry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>geometry</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> to be filled with the monitor geometry. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-workarea"></a><h3>gdk_monitor_get_workarea ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_monitor_get_workarea (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>,
+                          <em class="parameter"><code><a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *workarea</code></em>);</pre>
+<p>Retrieves the size and position of the “work area” on a monitor
+within the display coordinate space. The returned geometry is in
+”application pixels”, not in ”device pixels” (see
+<a class="link" href="GdkMonitor.html#gdk-monitor-get-scale-factor" title="gdk_monitor_get_scale_factor ()"><code class="function">gdk_monitor_get_scale_factor()</code></a>).</p>
+<p>The work area should be considered when positioning menus and
+similar popups, to avoid placing them below panels, docks or other
+desktop components.</p>
+<p>Note that not all backends may have a concept of workarea. This
+function will return the monitor geometry if a workarea is not
+available, or does not apply.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-workarea.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>workarea</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> to be filled with
+the monitor workarea. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-width-mm"></a><h3>gdk_monitor_get_width_mm ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>
+gdk_monitor_get_width_mm (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets the width in millimeters of the monitor.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-width-mm.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-width-mm.returns"></a><h4>Returns</h4>
+<p> the physical width of the monitor</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-height-mm"></a><h3>gdk_monitor_get_height_mm ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>
+gdk_monitor_get_height_mm (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets the height in millimeters of the monitor.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-height-mm.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-height-mm.returns"></a><h4>Returns</h4>
+<p> the physical height of the monitor</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-manufacturer"></a><h3>gdk_monitor_get_manufacturer ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+gdk_monitor_get_manufacturer (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets the name or PNP ID of the monitor's manufacturer, if available.</p>
+<p>Note that this value might also vary depending on actual
+display backend.</p>
+<p>PNP ID registry is located at https://uefi.org/pnp_id_list</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-manufacturer.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-manufacturer.returns"></a><h4>Returns</h4>
+<p>the name of the manufacturer, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-model"></a><h3>gdk_monitor_get_model ()</h3>
+<pre class="programlisting">const <span class="returnvalue">char</span> *
+gdk_monitor_get_model (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets the a string identifying the monitor model, if available.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-model.returns"></a><h4>Returns</h4>
+<p>the monitor model, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-scale-factor"></a><h3>gdk_monitor_get_scale_factor ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>
+gdk_monitor_get_scale_factor (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets the internal scale factor that maps from monitor coordinates
+to the actual device pixels. On traditional systems this is 1, but
+on very high density outputs this can be a higher value (often 2).</p>
+<p>This can be used if you want to create pixel based data for a
+particular monitor, but most of the time you’re drawing to a window
+where it is better to use <a class="link" href="gdk3-Windows.html#gdk-window-get-scale-factor" title="gdk_window_get_scale_factor ()"><code class="function">gdk_window_get_scale_factor()</code></a> instead.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-scale-factor.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-scale-factor.returns"></a><h4>Returns</h4>
+<p> the scale factor</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-refresh-rate"></a><h3>gdk_monitor_get_refresh_rate ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>
+gdk_monitor_get_refresh_rate (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets the refresh rate of the monitor, if available.</p>
+<p>The value is in milli-Hertz, so a refresh rate of 60Hz
+is returned as 60000.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-refresh-rate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-refresh-rate.returns"></a><h4>Returns</h4>
+<p> the refresh rate in milli-Hertz, or 0</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-get-subpixel-layout"></a><h3>gdk_monitor_get_subpixel_layout ()</h3>
+<pre class="programlisting"><a class="link" href="GdkMonitor.html#GdkSubpixelLayout" title="enum GdkSubpixelLayout"><span class="returnvalue">GdkSubpixelLayout</span></a>
+gdk_monitor_get_subpixel_layout (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets information about the layout of red, green and blue
+primaries for each pixel in this monitor, if available.</p>
+<div class="refsect3">
+<a name="gdk-monitor-get-subpixel-layout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-get-subpixel-layout.returns"></a><h4>Returns</h4>
+<p> the subpixel layout</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-monitor-is-primary"></a><h3>gdk_monitor_is_primary ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_monitor_is_primary (<em class="parameter"><code><a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *monitor</code></em>);</pre>
+<p>Gets whether this monitor should be considered primary
+(see <a class="link" href="GdkDisplay.html#gdk-display-get-primary-monitor" title="gdk_display_get_primary_monitor ()"><code class="function">gdk_display_get_primary_monitor()</code></a>).</p>
+<div class="refsect3">
+<a name="gdk-monitor-is-primary.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>monitor</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-monitor-is-primary.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>monitor</code></em>
+is primary</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkMonitor-struct"></a><h3>GdkMonitor</h3>
+<pre class="programlisting">typedef struct _GdkMonitor GdkMonitor;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkSubpixelLayout"></a><h3>enum GdkSubpixelLayout</h3>
+<p>This enumeration describes how the red, green and blue components
+of physical pixels on an output device are laid out.</p>
+<div class="refsect3">
+<a name="GdkSubpixelLayout.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SUBPIXEL-LAYOUT-UNKNOWN:CAPS"></a>GDK_SUBPIXEL_LAYOUT_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>The layout is not known</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SUBPIXEL-LAYOUT-NONE:CAPS"></a>GDK_SUBPIXEL_LAYOUT_NONE</p></td>
+<td class="enum_member_description">
+<p>Not organized in this way</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SUBPIXEL-LAYOUT-HORIZONTAL-RGB:CAPS"></a>GDK_SUBPIXEL_LAYOUT_HORIZONTAL_RGB</p></td>
+<td class="enum_member_description">
+<p>The layout is horizontal, the order is RGB</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SUBPIXEL-LAYOUT-HORIZONTAL-BGR:CAPS"></a>GDK_SUBPIXEL_LAYOUT_HORIZONTAL_BGR</p></td>
+<td class="enum_member_description">
+<p>The layout is horizontal, the order is BGR</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SUBPIXEL-LAYOUT-VERTICAL-RGB:CAPS"></a>GDK_SUBPIXEL_LAYOUT_VERTICAL_RGB</p></td>
+<td class="enum_member_description">
+<p>The layout is vertical, the order is RGB</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SUBPIXEL-LAYOUT-VERTICAL-BGR:CAPS"></a>GDK_SUBPIXEL_LAYOUT_VERTICAL_BGR</p></td>
+<td class="enum_member_description">
+<p>The layout is vertical, the order is BGR</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GdkMonitor--display"></a><h3>The <code class="literal">“display”</code> property</h3>
+<pre class="programlisting">  “display”                  <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *</pre>
+<p>The display of the monitor.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--geometry"></a><h3>The <code class="literal">“geometry”</code> property</h3>
+<pre class="programlisting">  “geometry”                 <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *</pre>
+<p>The geometry of the monitor.</p>
+<p>Flags: Read</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--height-mm"></a><h3>The <code class="literal">“height-mm”</code> property</h3>
+<pre class="programlisting">  “height-mm”                <span class="type">gint</span></pre>
+<p>The height of the monitor, in millimeters.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--manufacturer"></a><h3>The <code class="literal">“manufacturer”</code> property</h3>
+<pre class="programlisting">  “manufacturer”             <span class="type">gchar</span> *</pre>
+<p>The manufacturer name.</p>
+<p>Flags: Read</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--model"></a><h3>The <code class="literal">“model”</code> property</h3>
+<pre class="programlisting">  “model”                    <span class="type">gchar</span> *</pre>
+<p>The model name.</p>
+<p>Flags: Read</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--refresh-rate"></a><h3>The <code class="literal">“refresh-rate”</code> property</h3>
+<pre class="programlisting">  “refresh-rate”             <span class="type">gint</span></pre>
+<p>The refresh rate, in millihertz.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--scale-factor"></a><h3>The <code class="literal">“scale-factor”</code> property</h3>
+<pre class="programlisting">  “scale-factor”             <span class="type">gint</span></pre>
+<p>The scale factor.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 1</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--subpixel-layout"></a><h3>The <code class="literal">“subpixel-layout”</code> property</h3>
+<pre class="programlisting">  “subpixel-layout”          <a class="link" href="GdkMonitor.html#GdkSubpixelLayout" title="enum GdkSubpixelLayout"><span class="type">GdkSubpixelLayout</span></a></pre>
+<p>The subpixel layout.</p>
+<p>Flags: Read</p>
+<p>Default value: GDK_SUBPIXEL_LAYOUT_UNKNOWN</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--width-mm"></a><h3>The <code class="literal">“width-mm”</code> property</h3>
+<pre class="programlisting">  “width-mm”                 <span class="type">gint</span></pre>
+<p>The width of the monitor, in millimeters.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkMonitor--workarea"></a><h3>The <code class="literal">“workarea”</code> property</h3>
+<pre class="programlisting">  “workarea”                 <a class="link" href="gdk3-Points-Rectangles-and-Regions.html#GdkRectangle" title="GdkRectangle"><span class="type">GdkRectangle</span></a> *</pre>
+<p>The workarea of the monitor.</p>
+<p>Flags: Read</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GdkMonitor.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GdkMonitor-invalidate"></a><h3>The <code class="literal">“invalidate”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GdkMonitor.html" title="GdkMonitor"><span class="type">GdkMonitor</span></a> *gdkmonitor,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

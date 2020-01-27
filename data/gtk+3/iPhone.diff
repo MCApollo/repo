@@ -1,0 +1,17 @@
+diff -Naur gtk+-3.24.12/meson.build gtk+-3.24.12+iPhone/meson.build
+--- gtk+-3.24.12/meson.build	2019-10-03 20:19:20.000000000 -0700
++++ gtk+-3.24.12+iPhone/meson.build	2020-01-22 15:21:38.000000000 -0800
+@@ -150,12 +150,7 @@
+ endif
+ os_unix = not os_win32
+ 
+-if os_darwin
+-  wayland_enabled = false
+-  x11_enabled = false
+-else
+-  quartz_enabled = false
+-endif
++quartz_enabled = false
+ 
+ if os_win32
+   wayland_enabled = false

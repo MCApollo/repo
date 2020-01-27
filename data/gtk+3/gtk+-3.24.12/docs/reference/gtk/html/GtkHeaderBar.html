@@ -1,0 +1,881 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkHeaderBar: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="LayoutContainers.html" title="Layout Containers">
+<link rel="prev" href="GtkActionBar.html" title="GtkActionBar">
+<link rel="next" href="GtkOverlay.html" title="GtkOverlay">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkHeaderBar.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkHeaderBar.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkHeaderBar.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkHeaderBar.properties" class="shortcut">Properties</a></span><span id="nav_child_properties">  <span class="dim">|</span> 
+                  <a href="#GtkHeaderBar.child-properties" class="shortcut">Child Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="LayoutContainers.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkActionBar.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkOverlay.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkHeaderBar"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkHeaderBar.top_of_page"></a>GtkHeaderBar</span></h2>
+<p>GtkHeaderBar — A box with a centered child</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="headerbar.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkHeaderBar.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-new" title="gtk_header_bar_new ()">gtk_header_bar_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-title" title="gtk_header_bar_set_title ()">gtk_header_bar_set_title</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-get-title" title="gtk_header_bar_get_title ()">gtk_header_bar_get_title</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-subtitle" title="gtk_header_bar_set_subtitle ()">gtk_header_bar_set_subtitle</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-get-subtitle" title="gtk_header_bar_get_subtitle ()">gtk_header_bar_get_subtitle</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-has-subtitle" title="gtk_header_bar_set_has_subtitle ()">gtk_header_bar_set_has_subtitle</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-get-has-subtitle" title="gtk_header_bar_get_has_subtitle ()">gtk_header_bar_get_has_subtitle</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-custom-title" title="gtk_header_bar_set_custom_title ()">gtk_header_bar_set_custom_title</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-get-custom-title" title="gtk_header_bar_get_custom_title ()">gtk_header_bar_get_custom_title</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-pack-start" title="gtk_header_bar_pack_start ()">gtk_header_bar_pack_start</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-pack-end" title="gtk_header_bar_pack_end ()">gtk_header_bar_pack_end</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-show-close-button" title="gtk_header_bar_set_show_close_button ()">gtk_header_bar_set_show_close_button</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-get-show-close-button" title="gtk_header_bar_get_show_close_button ()">gtk_header_bar_get_show_close_button</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-decoration-layout" title="gtk_header_bar_set_decoration_layout ()">gtk_header_bar_set_decoration_layout</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-get-decoration-layout" title="gtk_header_bar_get_decoration_layout ()">gtk_header_bar_get_decoration_layout</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--custom-title" title="The “custom-title” property">custom-title</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--decoration-layout" title="The “decoration-layout” property">decoration-layout</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--decoration-layout-set" title="The “decoration-layout-set” property">decoration-layout-set</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--has-subtitle" title="The “has-subtitle” property">has-subtitle</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--show-close-button" title="The “show-close-button” property">show-close-button</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--spacing" title="The “spacing” property">spacing</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--subtitle" title="The “subtitle” property">subtitle</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--title" title="The “title” property">title</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.child-properties"></a><h2>Child Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="child_properties_type">
+<col width="300px" class="child_properties_name">
+<col width="200px" class="child_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkPackType" title="enum GtkPackType"><span class="type">GtkPackType</span></a></td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--c-pack-type" title="The “pack-type” child property">pack-type</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar--c-position" title="The “position” child property">position</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkHeaderBar.html#GtkHeaderBar-struct" title="struct GtkHeaderBar">GtkHeaderBar</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> GtkHeaderBar
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkHeaderBar implements
+ AtkImplementorIface and  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.description"></a><h2>Description</h2>
+<p>GtkHeaderBar is similar to a horizontal <a class="link" href="GtkBox.html" title="GtkBox"><span class="type">GtkBox</span></a>. It allows children to 
+be placed at the start or the end. In addition, it allows a title and
+subtitle to be displayed. The title will be centered with respect to
+the width of the box, even if the children at either side take up
+different amounts of space. The height of the titlebar will be
+set to provide sufficient space for the subtitle, even if none is
+currently set. If a subtitle is not needed, the space reservation
+can be turned off with <a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-has-subtitle" title="gtk_header_bar_set_has_subtitle ()"><code class="function">gtk_header_bar_set_has_subtitle()</code></a>.</p>
+<p>GtkHeaderBar can add typical window frame controls, such as minimize,
+maximize and close buttons, or the window icon.</p>
+<p>For these reasons, GtkHeaderBar is the natural choice for use as the custom
+titlebar widget of a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> (see <a class="link" href="GtkWindow.html#gtk-window-set-titlebar" title="gtk_window_set_titlebar ()"><code class="function">gtk_window_set_titlebar()</code></a>), as it gives
+features typical of titlebars while allowing the addition of child widgets.</p>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-header-bar-new"></a><h3>gtk_header_bar_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_header_bar_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> widget.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-set-title"></a><h3>gtk_header_bar_set_title ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_set_title (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                          <em class="parameter"><code>const <span class="type">gchar</span> *title</code></em>);</pre>
+<p>Sets the title of the <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a>. The title should help a user
+identify the current view. A good title should not include the
+application name.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-set-title.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>title</p></td>
+<td class="parameter_description"><p>a title, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-get-title"></a><h3>gtk_header_bar_get_title ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_header_bar_get_title (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>);</pre>
+<p>Retrieves the title of the header. See <a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-title" title="gtk_header_bar_set_title ()"><code class="function">gtk_header_bar_set_title()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-get-title.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-header-bar-get-title.returns"></a><h4>Returns</h4>
+<p>the title of the header, or <code class="literal">NULL</code> if none has
+been set explicitly. The returned string is owned by the widget
+and must not be modified or freed. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-set-subtitle"></a><h3>gtk_header_bar_set_subtitle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_set_subtitle (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *subtitle</code></em>);</pre>
+<p>Sets the subtitle of the <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a>. The title should give a user
+an additional detail to help him identify the current view.</p>
+<p>Note that GtkHeaderBar by default reserves room for the subtitle,
+even if none is currently set. If this is not desired, set the
+<a class="link" href="GtkHeaderBar.html#GtkHeaderBar--has-subtitle" title="The “has-subtitle” property"><span class="type">“has-subtitle”</span></a> property to <code class="literal">FALSE</code>.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-set-subtitle.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>subtitle</p></td>
+<td class="parameter_description"><p>a subtitle, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-get-subtitle"></a><h3>gtk_header_bar_get_subtitle ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_header_bar_get_subtitle (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>);</pre>
+<p>Retrieves the subtitle of the header. See <a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-subtitle" title="gtk_header_bar_set_subtitle ()"><code class="function">gtk_header_bar_set_subtitle()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-get-subtitle.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-header-bar-get-subtitle.returns"></a><h4>Returns</h4>
+<p>the subtitle of the header, or <code class="literal">NULL</code> if none has
+been set explicitly. The returned string is owned by the widget
+and must not be modified or freed. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-set-has-subtitle"></a><h3>gtk_header_bar_set_has_subtitle ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_set_has_subtitle (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                                 <em class="parameter"><code><span class="type">gboolean</span> setting</code></em>);</pre>
+<p>Sets whether the header bar should reserve space
+for a subtitle, even if none is currently set.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-set-has-subtitle.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>setting</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to reserve space for a subtitle</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-get-has-subtitle"></a><h3>gtk_header_bar_get_has_subtitle ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_header_bar_get_has_subtitle (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>);</pre>
+<p>Retrieves whether the header bar reserves space for
+a subtitle, regardless if one is currently set or not.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-get-has-subtitle.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-header-bar-get-has-subtitle.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the header bar reserves space
+for a subtitle</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-set-custom-title"></a><h3>gtk_header_bar_set_custom_title ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_set_custom_title (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                                 <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *title_widget</code></em>);</pre>
+<p>Sets a custom title for the <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a>.</p>
+<p>The title should help a user identify the current view. This
+supersedes any title set by <a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-title" title="gtk_header_bar_set_title ()"><code class="function">gtk_header_bar_set_title()</code></a> or
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-subtitle" title="gtk_header_bar_set_subtitle ()"><code class="function">gtk_header_bar_set_subtitle()</code></a>. To achieve the same style as
+the builtin title and subtitle, use the “title” and “subtitle”
+style classes.</p>
+<p>You should set the custom title to <code class="literal">NULL</code>, for the header title
+label to be visible again.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-set-custom-title.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>title_widget</p></td>
+<td class="parameter_description"><p>a custom widget to use for a title. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-get-custom-title"></a><h3>gtk_header_bar_get_custom_title ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_header_bar_get_custom_title (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>);</pre>
+<p>Retrieves the custom title widget of the header. See
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-custom-title" title="gtk_header_bar_set_custom_title ()"><code class="function">gtk_header_bar_set_custom_title()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-get-custom-title.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-header-bar-get-custom-title.returns"></a><h4>Returns</h4>
+<p>the custom title widget
+of the header, or <code class="literal">NULL</code> if none has been set explicitly. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-pack-start"></a><h3>gtk_header_bar_pack_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_pack_start (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                           <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>);</pre>
+<p>Adds <em class="parameter"><code>child</code></em>
+ to <em class="parameter"><code>bar</code></em>
+, packed with reference to the
+start of the <em class="parameter"><code>bar</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-pack-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> to be added to <em class="parameter"><code>bar</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-pack-end"></a><h3>gtk_header_bar_pack_end ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_pack_end (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                         <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *child</code></em>);</pre>
+<p>Adds <em class="parameter"><code>child</code></em>
+ to <em class="parameter"><code>bar</code></em>
+, packed with reference to the
+end of the <em class="parameter"><code>bar</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-pack-end.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> to be added to <em class="parameter"><code>bar</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-set-show-close-button"></a><h3>gtk_header_bar_set_show_close_button ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_set_show_close_button (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                                      <em class="parameter"><code><span class="type">gboolean</span> setting</code></em>);</pre>
+<p>Sets whether this header bar shows the standard window decorations,
+including close, maximize, and minimize.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-set-show-close-button.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>setting</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to show standard window decorations</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-get-show-close-button"></a><h3>gtk_header_bar_get_show_close_button ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_header_bar_get_show_close_button (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>);</pre>
+<p>Returns whether this header bar shows the standard window
+decorations.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-get-show-close-button.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-header-bar-get-show-close-button.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the decorations are shown</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-set-decoration-layout"></a><h3>gtk_header_bar_set_decoration_layout ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_header_bar_set_decoration_layout (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>,
+                                      <em class="parameter"><code>const <span class="type">gchar</span> *layout</code></em>);</pre>
+<p>Sets the decoration layout for this header bar, overriding
+the <a class="link" href="GtkSettings.html#GtkSettings--gtk-decoration-layout" title="The “gtk-decoration-layout” property"><span class="type">“gtk-decoration-layout”</span></a> setting. </p>
+<p>There can be valid reasons for overriding the setting, such
+as a header bar design that does not allow for buttons to take
+room on the right, or only offers room for a single close button.
+Split header bars are another example for overriding the
+setting.</p>
+<p>The format of the string is button names, separated by commas.
+A colon separates the buttons that should appear on the left
+from those on the right. Recognized button names are minimize,
+maximize, close, icon (the window icon) and menu (a menu button
+for the fallback app menu).</p>
+<p>For example, “menu:minimize,maximize,close” specifies a menu
+on the left, and minimize, maximize and close buttons on the right.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-set-decoration-layout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>layout</p></td>
+<td class="parameter_description"><p>a decoration layout, or <code class="literal">NULL</code> to
+unset the layout. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-header-bar-get-decoration-layout"></a><h3>gtk_header_bar_get_decoration_layout ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_header_bar_get_decoration_layout (<em class="parameter"><code><a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a> *bar</code></em>);</pre>
+<p>Gets the decoration layout set with
+<a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-decoration-layout" title="gtk_header_bar_set_decoration_layout ()"><code class="function">gtk_header_bar_set_decoration_layout()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-header-bar-get-decoration-layout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>bar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar"><span class="type">GtkHeaderBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-header-bar-get-decoration-layout.returns"></a><h4>Returns</h4>
+<p> the decoration layout</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkHeaderBar-struct"></a><h3>struct GtkHeaderBar</h3>
+<pre class="programlisting">struct GtkHeaderBar;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkHeaderBar--custom-title"></a><h3>The <code class="literal">“custom-title”</code> property</h3>
+<pre class="programlisting">  “custom-title”             <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</pre>
+<p>Custom title widget to display.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--decoration-layout"></a><h3>The <code class="literal">“decoration-layout”</code> property</h3>
+<pre class="programlisting">  “decoration-layout”        <span class="type">gchar</span> *</pre>
+<p>The decoration layout for buttons. If this property is
+not set, the <a class="link" href="GtkSettings.html#GtkSettings--gtk-decoration-layout" title="The “gtk-decoration-layout” property"><span class="type">“gtk-decoration-layout”</span></a> setting
+is used.</p>
+<p>See <a class="link" href="GtkHeaderBar.html#gtk-header-bar-set-decoration-layout" title="gtk_header_bar_set_decoration_layout ()"><code class="function">gtk_header_bar_set_decoration_layout()</code></a> for information
+about the format of this string.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--decoration-layout-set"></a><h3>The <code class="literal">“decoration-layout-set”</code> property</h3>
+<pre class="programlisting">  “decoration-layout-set”    <span class="type">gboolean</span></pre>
+<p>Set to <code class="literal">TRUE</code> if <a class="link" href="GtkHeaderBar.html#GtkHeaderBar--decoration-layout" title="The “decoration-layout” property"><span class="type">“decoration-layout”</span></a> is set.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--has-subtitle"></a><h3>The <code class="literal">“has-subtitle”</code> property</h3>
+<pre class="programlisting">  “has-subtitle”             <span class="type">gboolean</span></pre>
+<p>If <code class="literal">TRUE</code>, reserve space for a subtitle, even if none
+is currently set.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--show-close-button"></a><h3>The <code class="literal">“show-close-button”</code> property</h3>
+<pre class="programlisting">  “show-close-button”        <span class="type">gboolean</span></pre>
+<p>Whether to show window decorations.</p>
+<p>Which buttons are actually shown and where is determined
+by the <a class="link" href="GtkHeaderBar.html#GtkHeaderBar--decoration-layout" title="The “decoration-layout” property"><span class="type">“decoration-layout”</span></a> property, and by
+the state of the window (e.g. a close button will not be
+shown if the window can't be closed).</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--spacing"></a><h3>The <code class="literal">“spacing”</code> property</h3>
+<pre class="programlisting">  “spacing”                  <span class="type">gint</span></pre>
+<p>The amount of space between children.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--subtitle"></a><h3>The <code class="literal">“subtitle”</code> property</h3>
+<pre class="programlisting">  “subtitle”                 <span class="type">gchar</span> *</pre>
+<p>The subtitle to display.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--title"></a><h3>The <code class="literal">“title”</code> property</h3>
+<pre class="programlisting">  “title”                    <span class="type">gchar</span> *</pre>
+<p>The title to display.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.child-property-details"></a><h2>Child Property Details</h2>
+<div class="refsect2">
+<a name="GtkHeaderBar--c-pack-type"></a><h3>The <code class="literal">“pack-type”</code> child property</h3>
+<pre class="programlisting">  “pack-type”                <a class="link" href="gtk3-Standard-Enumerations.html#GtkPackType" title="enum GtkPackType"><span class="type">GtkPackType</span></a></pre>
+<p>A GtkPackType indicating whether the child is packed with reference to the start or end of the parent.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_PACK_START</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkHeaderBar--c-position"></a><h3>The <code class="literal">“position”</code> child property</h3>
+<pre class="programlisting">  “position”                 <span class="type">gint</span></pre>
+<p>The index of the child in the parent.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 0</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkHeaderBar.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkBox.html" title="GtkBox"><span class="type">GtkBox</span></a>, <a class="link" href="GtkActionBar.html" title="GtkActionBar"><span class="type">GtkActionBar</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

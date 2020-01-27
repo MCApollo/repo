@@ -1,0 +1,2312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkFlowBox: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="LayoutContainers.html" title="Layout Containers">
+<link rel="prev" href="GtkListBox.html" title="GtkListBox">
+<link rel="next" href="GtkStack.html" title="GtkStack">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkFlowBox.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkFlowBox.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkFlowBox.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkFlowBox.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkFlowBox.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="LayoutContainers.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkListBox.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkStack.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkFlowBox"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkFlowBox.top_of_page"></a>GtkFlowBox</span></h2>
+<p>GtkFlowBox — A container that allows reflowing its children</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="flow-box.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkFlowBox.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-new" title="gtk_flow_box_new ()">gtk_flow_box_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-insert" title="gtk_flow_box_insert ()">gtk_flow_box_insert</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="returnvalue">GtkFlowBoxChild</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-child-at-index" title="gtk_flow_box_get_child_at_index ()">gtk_flow_box_get_child_at_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="returnvalue">GtkFlowBoxChild</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-child-at-pos" title="gtk_flow_box_get_child_at_pos ()">gtk_flow_box_get_child_at_pos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-hadjustment" title="gtk_flow_box_set_hadjustment ()">gtk_flow_box_set_hadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-vadjustment" title="gtk_flow_box_set_vadjustment ()">gtk_flow_box_set_vadjustment</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-homogeneous" title="gtk_flow_box_set_homogeneous ()">gtk_flow_box_set_homogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-homogeneous" title="gtk_flow_box_get_homogeneous ()">gtk_flow_box_get_homogeneous</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-row-spacing" title="gtk_flow_box_set_row_spacing ()">gtk_flow_box_set_row_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-row-spacing" title="gtk_flow_box_get_row_spacing ()">gtk_flow_box_get_row_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-column-spacing" title="gtk_flow_box_set_column_spacing ()">gtk_flow_box_set_column_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-column-spacing" title="gtk_flow_box_get_column_spacing ()">gtk_flow_box_get_column_spacing</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-min-children-per-line" title="gtk_flow_box_set_min_children_per_line ()">gtk_flow_box_set_min_children_per_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-min-children-per-line" title="gtk_flow_box_get_min_children_per_line ()">gtk_flow_box_get_min_children_per_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-max-children-per-line" title="gtk_flow_box_set_max_children_per_line ()">gtk_flow_box_set_max_children_per_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-max-children-per-line" title="gtk_flow_box_get_max_children_per_line ()">gtk_flow_box_get_max_children_per_line</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-activate-on-single-click" title="gtk_flow_box_set_activate_on_single_click ()">gtk_flow_box_set_activate_on_single_click</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-activate-on-single-click" title="gtk_flow_box_get_activate_on_single_click ()">gtk_flow_box_get_activate_on_single_click</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GtkFlowBox.html#GtkFlowBoxForeachFunc" title="GtkFlowBoxForeachFunc ()">*GtkFlowBoxForeachFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-selected-foreach" title="gtk_flow_box_selected_foreach ()">gtk_flow_box_selected_foreach</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-selected-children" title="gtk_flow_box_get_selected_children ()">gtk_flow_box_get_selected_children</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-select-child" title="gtk_flow_box_select_child ()">gtk_flow_box_select_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-unselect-child" title="gtk_flow_box_unselect_child ()">gtk_flow_box_unselect_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-select-all" title="gtk_flow_box_select_all ()">gtk_flow_box_select_all</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-unselect-all" title="gtk_flow_box_unselect_all ()">gtk_flow_box_unselect_all</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-selection-mode" title="gtk_flow_box_set_selection_mode ()">gtk_flow_box_set_selection_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Standard-Enumerations.html#GtkSelectionMode" title="enum GtkSelectionMode"><span class="returnvalue">GtkSelectionMode</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-selection-mode" title="gtk_flow_box_get_selection_mode ()">gtk_flow_box_get_selection_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GtkFlowBox.html#GtkFlowBoxFilterFunc" title="GtkFlowBoxFilterFunc ()">*GtkFlowBoxFilterFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-filter-func" title="gtk_flow_box_set_filter_func ()">gtk_flow_box_set_filter_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-invalidate-filter" title="gtk_flow_box_invalidate_filter ()">gtk_flow_box_invalidate_filter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GtkFlowBox.html#GtkFlowBoxSortFunc" title="GtkFlowBoxSortFunc ()">*GtkFlowBoxSortFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-sort-func" title="gtk_flow_box_set_sort_func ()">gtk_flow_box_set_sort_func</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-invalidate-sort" title="gtk_flow_box_invalidate_sort ()">gtk_flow_box_invalidate_sort</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="GtkFlowBox.html#GtkFlowBoxCreateWidgetFunc" title="GtkFlowBoxCreateWidgetFunc ()">*GtkFlowBoxCreateWidgetFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-bind-model" title="gtk_flow_box_bind_model ()">gtk_flow_box_bind_model</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-child-new" title="gtk_flow_box_child_new ()">gtk_flow_box_child_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-child-get-index" title="gtk_flow_box_child_get_index ()">gtk_flow_box_child_get_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-child-is-selected" title="gtk_flow_box_child_is_selected ()">gtk_flow_box_child_is_selected</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-child-changed" title="gtk_flow_box_child_changed ()">gtk_flow_box_child_changed</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox--activate-on-single-click" title="The “activate-on-single-click” property">activate-on-single-click</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox--column-spacing" title="The “column-spacing” property">column-spacing</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox--homogeneous" title="The “homogeneous” property">homogeneous</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox--max-children-per-line" title="The “max-children-per-line” property">max-children-per-line</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox--min-children-per-line" title="The “min-children-per-line” property">min-children-per-line</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">guint</span></td>
+<td class="property_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox--row-spacing" title="The “row-spacing” property">row-spacing</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkSelectionMode" title="enum GtkSelectionMode"><span class="type">GtkSelectionMode</span></a></td>
+<td class="property_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox--selection-mode" title="The “selection-mode” property">selection-mode</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-activate-cursor-child" title="The “activate-cursor-child” signal">activate-cursor-child</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-child-activated" title="The “child-activated” signal">child-activated</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">gboolean</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-move-cursor" title="The “move-cursor” signal">move-cursor</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-select-all" title="The “select-all” signal">select-all</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-selected-children-changed" title="The “selected-children-changed” signal">selected-children-changed</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-toggle-cursor-child" title="The “toggle-cursor-child” signal">toggle-cursor-child</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-unselect-all" title="The “unselect-all” signal">unselect-all</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild-activate" title="The “activate” signal">activate</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="GtkFlowBoxChild"></a><div class="refsect1">
+<a name="GtkFlowBox.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkFlowBox.html#GtkFlowBox-struct" title="struct GtkFlowBox">GtkFlowBox</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild-struct" title="struct GtkFlowBoxChild">GtkFlowBoxChild</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">├──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+                <span class="lineart">│</span>   <span class="lineart">╰──</span> GtkFlowBoxChild
+                <span class="lineart">╰──</span> GtkFlowBox
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkFlowBox implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a> and  <a class="link" href="gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+<p>
+GtkFlowBoxChild implements
+ AtkImplementorIface and  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.description"></a><h2>Description</h2>
+<p>A GtkFlowBox positions child widgets in sequence according to its
+orientation.</p>
+<p>For instance, with the horizontal orientation, the widgets will be
+arranged from left to right, starting a new row under the previous
+row when necessary. Reducing the width in this case will require more
+rows, so a larger height will be requested.</p>
+<p>Likewise, with the vertical orientation, the widgets will be arranged
+from top to bottom, starting a new column to the right when necessary.
+Reducing the height will require more columns, so a larger width will
+be requested.</p>
+<p>The size request of a GtkFlowBox alone may not be what you expect; if you
+need to be able to shrink it along both axes and dynamically reflow its
+children, you may have to wrap it in a <a class="link" href="GtkScrolledWindow.html" title="GtkScrolledWindow"><span class="type">GtkScrolledWindow</span></a> to enable that.</p>
+<p>The children of a GtkFlowBox can be dynamically sorted and filtered.</p>
+<p>Although a GtkFlowBox must have only <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> children,
+you can add any kind of widget to it via <a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()"><code class="function">gtk_container_add()</code></a>, and
+a GtkFlowBoxChild widget will automatically be inserted between
+the box and the widget.</p>
+<p>Also see <a class="link" href="GtkListBox.html" title="GtkListBox"><span class="type">GtkListBox</span></a>.</p>
+<p>GtkFlowBox was added in GTK+ 3.12.</p>
+<div class="refsect2">
+<a name="id-1.3.7.6.11.10"></a><h3>CSS nodes</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="normal">flowbox</span>
+<span class="normal">├── flowboxchild</span>
+<span class="normal">│   ╰── </span><span class="symbol">&lt;</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">├── flowboxchild</span>
+<span class="normal">│   ╰── </span><span class="symbol">&lt;</span><span class="normal">child</span><span class="symbol">&gt;</span>
+<span class="normal">┊</span>
+<span class="normal">╰── </span><span class="symbol">[</span><span class="normal">rubberband</span><span class="symbol">]</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>GtkFlowBox uses a single CSS node with name flowbox. GtkFlowBoxChild
+uses a single CSS node with name flowboxchild.
+For rubberband selection, a subnode with name rubberband is used.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-flow-box-new"></a><h3>gtk_flow_box_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_flow_box_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a GtkFlowBox.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> container</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-insert"></a><h3>gtk_flow_box_insert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_insert (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                     <em class="parameter"><code><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *widget</code></em>,
+                     <em class="parameter"><code><span class="type">gint</span> position</code></em>);</pre>
+<p>Inserts the <em class="parameter"><code>widget</code></em>
+ into <em class="parameter"><code>box</code></em>
+ at <em class="parameter"><code>position</code></em>
+.</p>
+<p>If a sort function is set, the widget will actually be inserted
+at the calculated position and this function has the same effect
+as <a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()"><code class="function">gtk_container_add()</code></a>.</p>
+<p>If <em class="parameter"><code>position</code></em>
+ is -1, or larger than the total number of children
+in the <em class="parameter"><code>box</code></em>
+, then the <em class="parameter"><code>widget</code></em>
+ will be appended to the end.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-insert.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>widget</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> to add</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p>the position to insert <em class="parameter"><code>child</code></em>
+in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-child-at-index"></a><h3>gtk_flow_box_get_child_at_index ()</h3>
+<pre class="programlisting"><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="returnvalue">GtkFlowBoxChild</span></a> *
+gtk_flow_box_get_child_at_index (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                                 <em class="parameter"><code><span class="type">gint</span> idx</code></em>);</pre>
+<p>Gets the nth child in the <em class="parameter"><code>box</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-child-at-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>idx</p></td>
+<td class="parameter_description"><p>the position of the child</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-child-at-index.returns"></a><h4>Returns</h4>
+<p>the child widget, which will
+always be a <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> or <code class="literal">NULL</code> in case no child widget
+with the given index exists. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-child-at-pos"></a><h3>gtk_flow_box_get_child_at_pos ()</h3>
+<pre class="programlisting"><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="returnvalue">GtkFlowBoxChild</span></a> *
+gtk_flow_box_get_child_at_pos (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> x</code></em>,
+                               <em class="parameter"><code><span class="type">gint</span> y</code></em>);</pre>
+<p>Gets the child in the (<em class="parameter"><code>x</code></em>
+, <em class="parameter"><code>y</code></em>
+) position.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-child-at-pos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>the x coordinate of the child</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>the y coordinate of the child</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-child-at-pos.returns"></a><h4>Returns</h4>
+<p>the child widget, which will
+always be a <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> or <code class="literal">NULL</code> in case no child widget
+exists for the given x and y coordinates. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 3.22.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-hadjustment"></a><h3>gtk_flow_box_set_hadjustment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_hadjustment (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *adjustment</code></em>);</pre>
+<p>Hooks up an adjustment to focus handling in <em class="parameter"><code>box</code></em>
+.
+The adjustment is also used for autoscrolling during
+rubberband selection. See <a class="link" href="GtkScrolledWindow.html#gtk-scrolled-window-get-hadjustment" title="gtk_scrolled_window_get_hadjustment ()"><code class="function">gtk_scrolled_window_get_hadjustment()</code></a>
+for a typical way of obtaining the adjustment, and
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-vadjustment" title="gtk_flow_box_set_vadjustment ()"><code class="function">gtk_flow_box_set_vadjustment()</code></a>for setting the vertical
+adjustment.</p>
+<p>The adjustments have to be in pixel units and in the same
+coordinate system as the allocation for immediate children
+of the box.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-hadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>adjustment</p></td>
+<td class="parameter_description"><p>an adjustment which should be adjusted
+when the focus is moved among the descendents of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-vadjustment"></a><h3>gtk_flow_box_set_vadjustment ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_vadjustment (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkAdjustment.html" title="GtkAdjustment"><span class="type">GtkAdjustment</span></a> *adjustment</code></em>);</pre>
+<p>Hooks up an adjustment to focus handling in <em class="parameter"><code>box</code></em>
+.
+The adjustment is also used for autoscrolling during
+rubberband selection. See <a class="link" href="GtkScrolledWindow.html#gtk-scrolled-window-get-vadjustment" title="gtk_scrolled_window_get_vadjustment ()"><code class="function">gtk_scrolled_window_get_vadjustment()</code></a>
+for a typical way of obtaining the adjustment, and
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-set-hadjustment" title="gtk_flow_box_set_hadjustment ()"><code class="function">gtk_flow_box_set_hadjustment()</code></a>for setting the horizontal
+adjustment.</p>
+<p>The adjustments have to be in pixel units and in the same
+coordinate system as the allocation for immediate children
+of the box.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-vadjustment.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>adjustment</p></td>
+<td class="parameter_description"><p>an adjustment which should be adjusted
+when the focus is moved among the descendents of <em class="parameter"><code>container</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-homogeneous"></a><h3>gtk_flow_box_set_homogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_homogeneous (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                              <em class="parameter"><code><span class="type">gboolean</span> homogeneous</code></em>);</pre>
+<p>Sets the <a class="link" href="GtkFlowBox.html#GtkFlowBox--homogeneous" title="The “homogeneous” property"><span class="type">“homogeneous”</span></a> property of <em class="parameter"><code>box</code></em>
+, controlling
+whether or not all children of <em class="parameter"><code>box</code></em>
+ are given equal space
+in the box.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-homogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>homogeneous</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to create equal allotments,
+<code class="literal">FALSE</code> for variable allotments</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-homogeneous"></a><h3>gtk_flow_box_get_homogeneous ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_flow_box_get_homogeneous (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Returns whether the box is homogeneous (all children are the
+same size). See <a class="link" href="GtkBox.html#gtk-box-set-homogeneous" title="gtk_box_set_homogeneous ()"><code class="function">gtk_box_set_homogeneous()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-homogeneous.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-homogeneous.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the box is homogeneous.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-row-spacing"></a><h3>gtk_flow_box_set_row_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_row_spacing (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                              <em class="parameter"><code><span class="type">guint</span> spacing</code></em>);</pre>
+<p>Sets the vertical space to add between children.
+See the <a class="link" href="GtkFlowBox.html#GtkFlowBox--row-spacing" title="The “row-spacing” property"><span class="type">“row-spacing”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-row-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>spacing</p></td>
+<td class="parameter_description"><p>the spacing to use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-row-spacing"></a><h3>gtk_flow_box_get_row_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_flow_box_get_row_spacing (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Gets the vertical spacing.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-row-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-row-spacing.returns"></a><h4>Returns</h4>
+<p> the vertical spacing</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-column-spacing"></a><h3>gtk_flow_box_set_column_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_column_spacing (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                                 <em class="parameter"><code><span class="type">guint</span> spacing</code></em>);</pre>
+<p>Sets the horizontal space to add between children.
+See the <a class="link" href="GtkFlowBox.html#GtkFlowBox--column-spacing" title="The “column-spacing” property"><span class="type">“column-spacing”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-column-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>spacing</p></td>
+<td class="parameter_description"><p>the spacing to use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-column-spacing"></a><h3>gtk_flow_box_get_column_spacing ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_flow_box_get_column_spacing (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Gets the horizontal spacing.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-column-spacing.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-column-spacing.returns"></a><h4>Returns</h4>
+<p> the horizontal spacing</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-min-children-per-line"></a><h3>gtk_flow_box_set_min_children_per_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_min_children_per_line
+                               (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> n_children</code></em>);</pre>
+<p>Sets the minimum number of children to line up
+in <em class="parameter"><code>box</code></em>
+’s orientation before flowing.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-min-children-per-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_children</p></td>
+<td class="parameter_description"><p>the minimum number of children per line</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-min-children-per-line"></a><h3>gtk_flow_box_get_min_children_per_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_flow_box_get_min_children_per_line
+                               (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Gets the minimum number of children per line.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-min-children-per-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-min-children-per-line.returns"></a><h4>Returns</h4>
+<p> the minimum number of children per line</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-max-children-per-line"></a><h3>gtk_flow_box_set_max_children_per_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_max_children_per_line
+                               (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> n_children</code></em>);</pre>
+<p>Sets the maximum number of children to request and
+allocate space for in <em class="parameter"><code>box</code></em>
+’s orientation.</p>
+<p>Setting the maximum number of children per line
+limits the overall natural size request to be no more
+than <em class="parameter"><code>n_children</code></em>
+ children long in the given orientation.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-max-children-per-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_children</p></td>
+<td class="parameter_description"><p>the maximum number of children per line</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-max-children-per-line"></a><h3>gtk_flow_box_get_max_children_per_line ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_flow_box_get_max_children_per_line
+                               (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Gets the maximum number of children per line.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-max-children-per-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-max-children-per-line.returns"></a><h4>Returns</h4>
+<p> the maximum number of children per line</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-activate-on-single-click"></a><h3>gtk_flow_box_set_activate_on_single_click ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_activate_on_single_click
+                               (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                                <em class="parameter"><code><span class="type">gboolean</span> single</code></em>);</pre>
+<p>If <em class="parameter"><code>single</code></em>
+ is <code class="literal">TRUE</code>, children will be activated when you click
+on them, otherwise you need to double-click.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-activate-on-single-click.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>single</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to emit child-activated on a single click</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-activate-on-single-click"></a><h3>gtk_flow_box_get_activate_on_single_click ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_flow_box_get_activate_on_single_click
+                               (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Returns whether children activate on single clicks.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-activate-on-single-click.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-activate-on-single-click.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if children are activated on single click,
+<code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBoxForeachFunc"></a><h3>GtkFlowBoxForeachFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*GtkFlowBoxForeachFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                          <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child</code></em>,
+                          <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>A function used by <a class="link" href="GtkFlowBox.html#gtk-flow-box-selected-foreach" title="gtk_flow_box_selected_foreach ()"><code class="function">gtk_flow_box_selected_foreach()</code></a>.
+It will be called on every selected child of the <em class="parameter"><code>box</code></em>
+.</p>
+<div class="refsect3">
+<a name="GtkFlowBoxForeachFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-selected-foreach"></a><h3>gtk_flow_box_selected_foreach ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_selected_foreach (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxForeachFunc" title="GtkFlowBoxForeachFunc ()"><span class="type">GtkFlowBoxForeachFunc</span></a> func</code></em>,
+                               <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>Calls a function for each selected child.</p>
+<p>Note that the selection cannot be modified from within
+this function.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-selected-foreach.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>the function to call for each selected child. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>user data to pass to the function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-selected-children"></a><h3>gtk_flow_box_get_selected_children ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gtk_flow_box_get_selected_children (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Creates a list of all selected children.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-selected-children.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-selected-children.returns"></a><h4>Returns</h4>
+<p>A <span class="type">GList</span> containing the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> for each selected child.
+Free with <code class="function">g_list_free()</code> when done. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkFlowBoxChild][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-select-child"></a><h3>gtk_flow_box_select_child ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_select_child (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                           <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child</code></em>);</pre>
+<p>Selects a single child of <em class="parameter"><code>box</code></em>
+, if the selection
+mode allows it.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-select-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>box</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-unselect-child"></a><h3>gtk_flow_box_unselect_child ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_unselect_child (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                             <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child</code></em>);</pre>
+<p>Unselects a single child of <em class="parameter"><code>box</code></em>
+, if the selection
+mode allows it.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-unselect-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a child of <em class="parameter"><code>box</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-select-all"></a><h3>gtk_flow_box_select_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_select_all (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Select all children of <em class="parameter"><code>box</code></em>
+, if the selection
+mode allows it.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-select-all.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-unselect-all"></a><h3>gtk_flow_box_unselect_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_unselect_all (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Unselect all children of <em class="parameter"><code>box</code></em>
+, if the selection
+mode allows it.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-unselect-all.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-selection-mode"></a><h3>gtk_flow_box_set_selection_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_selection_mode (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                                 <em class="parameter"><code><a class="link" href="gtk3-Standard-Enumerations.html#GtkSelectionMode" title="enum GtkSelectionMode"><span class="type">GtkSelectionMode</span></a> mode</code></em>);</pre>
+<p>Sets how selection works in <em class="parameter"><code>box</code></em>
+.
+See <a class="link" href="gtk3-Standard-Enumerations.html#GtkSelectionMode" title="enum GtkSelectionMode"><span class="type">GtkSelectionMode</span></a> for details.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-selection-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mode</p></td>
+<td class="parameter_description"><p>the new selection mode</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-get-selection-mode"></a><h3>gtk_flow_box_get_selection_mode ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Standard-Enumerations.html#GtkSelectionMode" title="enum GtkSelectionMode"><span class="returnvalue">GtkSelectionMode</span></a>
+gtk_flow_box_get_selection_mode (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Gets the selection mode of <em class="parameter"><code>box</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-get-selection-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-get-selection-mode.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="gtk3-Standard-Enumerations.html#GtkSelectionMode" title="enum GtkSelectionMode"><span class="type">GtkSelectionMode</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBoxFilterFunc"></a><h3>GtkFlowBoxFilterFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+<span class="c_punctuation">(</span>*GtkFlowBoxFilterFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child</code></em>,
+                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>A function that will be called whenrever a child changes
+or is added. It lets you control if the child should be
+visible or not.</p>
+<div class="refsect3">
+<a name="GtkFlowBoxFilterFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> that may be filtered</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkFlowBoxFilterFunc.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the row should be visible, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-filter-func"></a><h3>gtk_flow_box_set_filter_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_filter_func (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxFilterFunc" title="GtkFlowBoxFilterFunc ()"><span class="type">GtkFlowBoxFilterFunc</span></a> filter_func</code></em>,
+                              <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                              <em class="parameter"><code><span class="type">GDestroyNotify</span> destroy</code></em>);</pre>
+<p>By setting a filter function on the <em class="parameter"><code>box</code></em>
+ one can decide dynamically
+which of the children to show. For instance, to implement a search
+function that only shows the children matching the search terms.</p>
+<p>The <em class="parameter"><code>filter_func</code></em>
+ will be called for each child after the call, and
+it will continue to be called each time a child changes (via
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-child-changed" title="gtk_flow_box_child_changed ()"><code class="function">gtk_flow_box_child_changed()</code></a>) or when <a class="link" href="GtkFlowBox.html#gtk-flow-box-invalidate-filter" title="gtk_flow_box_invalidate_filter ()"><code class="function">gtk_flow_box_invalidate_filter()</code></a>
+is called.</p>
+<p>Note that using a filter function is incompatible with using a model
+(see <a class="link" href="GtkFlowBox.html#gtk-flow-box-bind-model" title="gtk_flow_box_bind_model ()"><code class="function">gtk_flow_box_bind_model()</code></a>).</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-filter-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>filter_func</p></td>
+<td class="parameter_description"><p>callback that
+lets you filter which children to show. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> user_data][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data passed to <em class="parameter"><code>filter_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>destroy</p></td>
+<td class="parameter_description"><p>destroy notifier for <em class="parameter"><code>user_data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-invalidate-filter"></a><h3>gtk_flow_box_invalidate_filter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_invalidate_filter (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Updates the filtering for all children.</p>
+<p>Call this function when the result of the filter
+function on the <em class="parameter"><code>box</code></em>
+ is changed due ot an external
+factor. For instance, this would be used if the
+filter function just looked for a specific search
+term, and the entry with the string has changed.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-invalidate-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBoxSortFunc"></a><h3>GtkFlowBoxSortFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+<span class="c_punctuation">(</span>*GtkFlowBoxSortFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child1</code></em>,
+                       <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child2</code></em>,
+                       <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>A function to compare two children to determine which
+should come first.</p>
+<div class="refsect3">
+<a name="GtkFlowBoxSortFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>child1</p></td>
+<td class="parameter_description"><p>the first child</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child2</p></td>
+<td class="parameter_description"><p>the second child</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkFlowBoxSortFunc.returns"></a><h4>Returns</h4>
+<p> &lt; 0 if <em class="parameter"><code>child1</code></em>
+should be before <em class="parameter"><code>child2</code></em>
+, 0 if
+the are equal, and &gt; 0 otherwise</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-set-sort-func"></a><h3>gtk_flow_box_set_sort_func ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_set_sort_func (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxSortFunc" title="GtkFlowBoxSortFunc ()"><span class="type">GtkFlowBoxSortFunc</span></a> sort_func</code></em>,
+                            <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                            <em class="parameter"><code><span class="type">GDestroyNotify</span> destroy</code></em>);</pre>
+<p>By setting a sort function on the <em class="parameter"><code>box</code></em>
+, one can dynamically
+reorder the children of the box, based on the contents of
+the children.</p>
+<p>The <em class="parameter"><code>sort_func</code></em>
+ will be called for each child after the call,
+and will continue to be called each time a child changes (via
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-child-changed" title="gtk_flow_box_child_changed ()"><code class="function">gtk_flow_box_child_changed()</code></a>) and when <a class="link" href="GtkFlowBox.html#gtk-flow-box-invalidate-sort" title="gtk_flow_box_invalidate_sort ()"><code class="function">gtk_flow_box_invalidate_sort()</code></a>
+is called.</p>
+<p>Note that using a sort function is incompatible with using a model
+(see <a class="link" href="GtkFlowBox.html#gtk-flow-box-bind-model" title="gtk_flow_box_bind_model ()"><code class="function">gtk_flow_box_bind_model()</code></a>).</p>
+<div class="refsect3">
+<a name="gtk-flow-box-set-sort-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_func</p></td>
+<td class="parameter_description"><p>the sort function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> user_data][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data passed to <em class="parameter"><code>sort_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>destroy</p></td>
+<td class="parameter_description"><p>destroy notifier for <em class="parameter"><code>user_data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-invalidate-sort"></a><h3>gtk_flow_box_invalidate_sort ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_invalidate_sort (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>);</pre>
+<p>Updates the sorting for all children.</p>
+<p>Call this when the result of the sort function on
+<em class="parameter"><code>box</code></em>
+ is changed due to an external factor.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-invalidate-sort.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBoxCreateWidgetFunc"></a><h3>GtkFlowBoxCreateWidgetFunc ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+<span class="c_punctuation">(</span>*GtkFlowBoxCreateWidgetFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><span class="type">gpointer</span> item</code></em>,
+                               <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>);</pre>
+<p>Called for flow boxes that are bound to a <span class="type">GListModel</span> with
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-bind-model" title="gtk_flow_box_bind_model ()"><code class="function">gtk_flow_box_bind_model()</code></a> for each item that gets added to the model.</p>
+<div class="refsect3">
+<a name="GtkFlowBoxCreateWidgetFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>item</p></td>
+<td class="parameter_description"><p>the item from the model for which to create a widget for. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> GObject]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data from <a class="link" href="GtkFlowBox.html#gtk-flow-box-bind-model" title="gtk_flow_box_bind_model ()"><code class="function">gtk_flow_box_bind_model()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkFlowBoxCreateWidgetFunc.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> that represents <em class="parameter"><code>item</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-bind-model"></a><h3>gtk_flow_box_bind_model ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_bind_model (<em class="parameter"><code><a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box</code></em>,
+                         <em class="parameter"><code><span class="type">GListModel</span> *model</code></em>,
+                         <em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxCreateWidgetFunc" title="GtkFlowBoxCreateWidgetFunc ()"><span class="type">GtkFlowBoxCreateWidgetFunc</span></a> create_widget_func</code></em>,
+                         <em class="parameter"><code><span class="type">gpointer</span> user_data</code></em>,
+                         <em class="parameter"><code><span class="type">GDestroyNotify</span> user_data_free_func</code></em>);</pre>
+<p>Binds <em class="parameter"><code>model</code></em>
+ to <em class="parameter"><code>box</code></em>
+.</p>
+<p>If <em class="parameter"><code>box</code></em>
+ was already bound to a model, that previous binding is
+destroyed.</p>
+<p>The contents of <em class="parameter"><code>box</code></em>
+ are cleared and then filled with widgets that
+represent items from <em class="parameter"><code>model</code></em>
+. <em class="parameter"><code>box</code></em>
+ is updated whenever <em class="parameter"><code>model</code></em>
+ changes.
+If <em class="parameter"><code>model</code></em>
+ is <code class="literal">NULL</code>, <em class="parameter"><code>box</code></em>
+ is left empty.</p>
+<p>It is undefined to add or remove widgets directly (for example, with
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-insert" title="gtk_flow_box_insert ()"><code class="function">gtk_flow_box_insert()</code></a> or <a class="link" href="GtkContainer.html#gtk-container-add" title="gtk_container_add ()"><code class="function">gtk_container_add()</code></a>) while <em class="parameter"><code>box</code></em>
+ is bound to a
+model.</p>
+<p>Note that using a model is incompatible with the filtering and sorting
+functionality in GtkFlowBox. When using a model, filtering and sorting
+should be implemented by the model.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-bind-model.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>model</p></td>
+<td class="parameter_description"><p>the <span class="type">GListModel</span> to be bound to <em class="parameter"><code>box</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>create_widget_func</p></td>
+<td class="parameter_description"><p>a function that creates widgets for items</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data passed to <em class="parameter"><code>create_widget_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data_free_func</p></td>
+<td class="parameter_description"><p>function for freeing <em class="parameter"><code>user_data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-18.html#api-index-3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-child-new"></a><h3>gtk_flow_box_child_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_flow_box_child_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a>, to be used as a child
+of a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-child-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-child-get-index"></a><h3>gtk_flow_box_child_get_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_flow_box_child_get_index (<em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child</code></em>);</pre>
+<p>Gets the current index of the <em class="parameter"><code>child</code></em>
+ in its <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> container.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-child-get-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-child-get-index.returns"></a><h4>Returns</h4>
+<p> the index of the <em class="parameter"><code>child</code></em>
+, or -1 if the <em class="parameter"><code>child</code></em>
+is not
+in a flow box.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-child-is-selected"></a><h3>gtk_flow_box_child_is_selected ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_flow_box_child_is_selected (<em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child</code></em>);</pre>
+<p>Returns whether the <em class="parameter"><code>child</code></em>
+ is currently selected in its
+<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> container.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-child-is-selected.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-flow-box-child-is-selected.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if <em class="parameter"><code>child</code></em>
+is selected</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-flow-box-child-changed"></a><h3>gtk_flow_box_child_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_flow_box_child_changed (<em class="parameter"><code><a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child</code></em>);</pre>
+<p>Marks <em class="parameter"><code>child</code></em>
+ as changed, causing any state that depends on this
+to be updated. This affects sorting and filtering.</p>
+<p>Note that calls to this method must be in sync with the data
+used for the sorting and filtering functions. For instance, if
+the list is mirroring some external data set, and *two* children
+changed in the external data set when you call
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-child-changed" title="gtk_flow_box_child_changed ()"><code class="function">gtk_flow_box_child_changed()</code></a> on the first child, the sort function
+must only read the new data for the first of the two changed
+children, otherwise the resorting of the children will be wrong.</p>
+<p>This generally means that if you don’t fully control the data
+model, you have to duplicate the data that affects the sorting
+and filtering functions into the widgets themselves. Another
+alternative is to call <a class="link" href="GtkFlowBox.html#gtk-flow-box-invalidate-sort" title="gtk_flow_box_invalidate_sort ()"><code class="function">gtk_flow_box_invalidate_sort()</code></a> on any
+model change, but that is more expensive.</p>
+<div class="refsect3">
+<a name="gtk-flow-box-child-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkFlowBox-struct"></a><h3>struct GtkFlowBox</h3>
+<pre class="programlisting">struct GtkFlowBox;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBoxChild-struct"></a><h3>struct GtkFlowBoxChild</h3>
+<pre class="programlisting">struct GtkFlowBoxChild;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkFlowBox--activate-on-single-click"></a><h3>The <code class="literal">“activate-on-single-click”</code> property</h3>
+<pre class="programlisting">  “activate-on-single-click” <span class="type">gboolean</span></pre>
+<p>Determines whether children can be activated with a single
+click, or require a double-click.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox--column-spacing"></a><h3>The <code class="literal">“column-spacing”</code> property</h3>
+<pre class="programlisting">  “column-spacing”           <span class="type">guint</span></pre>
+<p>The amount of horizontal space between two children.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox--homogeneous"></a><h3>The <code class="literal">“homogeneous”</code> property</h3>
+<pre class="programlisting">  “homogeneous”              <span class="type">gboolean</span></pre>
+<p>Determines whether all children should be allocated the
+same size.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox--max-children-per-line"></a><h3>The <code class="literal">“max-children-per-line”</code> property</h3>
+<pre class="programlisting">  “max-children-per-line”    <span class="type">guint</span></pre>
+<p>The maximum amount of children to request space for consecutively
+in the given orientation.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 7</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox--min-children-per-line"></a><h3>The <code class="literal">“min-children-per-line”</code> property</h3>
+<pre class="programlisting">  “min-children-per-line”    <span class="type">guint</span></pre>
+<p>The minimum number of children to allocate consecutively
+in the given orientation.</p>
+<p>Setting the minimum children per line ensures
+that a reasonably small height will be requested
+for the overall minimum width of the box.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox--row-spacing"></a><h3>The <code class="literal">“row-spacing”</code> property</h3>
+<pre class="programlisting">  “row-spacing”              <span class="type">guint</span></pre>
+<p>The amount of vertical space between two children.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox--selection-mode"></a><h3>The <code class="literal">“selection-mode”</code> property</h3>
+<pre class="programlisting">  “selection-mode”           <a class="link" href="gtk3-Standard-Enumerations.html#GtkSelectionMode" title="enum GtkSelectionMode"><span class="type">GtkSelectionMode</span></a></pre>
+<p>The selection mode used by the flow  box.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_SELECTION_SINGLE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkFlowBox.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkFlowBox-activate-cursor-child"></a><h3>The <code class="literal">“activate-cursor-child”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>The ::activate-cursor-child signal is a
+<a class="link" href="gtk3-Bindings.html#GtkBindingSignal" title="struct GtkBindingSignal">keybinding signal</a>
+which gets emitted when the user activates the <em class="parameter"><code>box</code></em>
+.</p>
+<div class="refsect3">
+<a name="GtkFlowBox-activate-cursor-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox-child-activated"></a><h3>The <code class="literal">“child-activated”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a>      *box,
+               <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child,
+               <span class="type">gpointer</span>         user_data)</pre>
+<p>The ::child-activated signal is emitted when a child has been
+activated by the user.</p>
+<div class="refsect3">
+<a name="GtkFlowBox-child-activated.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>the child that is activated</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox-move-cursor"></a><h3>The <code class="literal">“move-cursor”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+user_function (<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a>     *box,
+               <a class="link" href="gtk3-Standard-Enumerations.html#GtkMovementStep" title="enum GtkMovementStep"><span class="type">GtkMovementStep</span></a> step,
+               <span class="type">gint</span>            count,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>The ::move-cursor signal is a
+<a class="link" href="gtk3-Bindings.html#GtkBindingSignal" title="struct GtkBindingSignal">keybinding signal</a>
+which gets emitted when the user initiates a cursor movement.</p>
+<p>Applications should not connect to it, but may emit it with
+<code class="function">g_signal_emit_by_name()</code> if they need to control the cursor
+programmatically.</p>
+<p>The default bindings for this signal come in two variants,
+the variant with the Shift modifier extends the selection,
+the variant without the Shift modifer does not.
+There are too many key combinations to list them all here.</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>Arrow keys move by individual children</p></li>
+<li class="listitem"><p>Home/End keys move to the ends of the box</p></li>
+<li class="listitem"><p>PageUp/PageDown keys move vertically by pages</p></li>
+</ul></div>
+<div class="refsect3">
+<a name="GtkFlowBox-move-cursor.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>step</p></td>
+<td class="parameter_description"><p>the granularity fo the move, as a <a class="link" href="gtk3-Standard-Enumerations.html#GtkMovementStep" title="enum GtkMovementStep"><span class="type">GtkMovementStep</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>count</p></td>
+<td class="parameter_description"><p>the number of <em class="parameter"><code>step</code></em>
+units to move</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkFlowBox-move-cursor.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> to stop other handlers from being invoked for the event.
+<code class="literal">FALSE</code> to propagate the event further.</p>
+</div>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox-select-all"></a><h3>The <code class="literal">“select-all”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>The ::select-all signal is a
+<a class="link" href="gtk3-Bindings.html#GtkBindingSignal" title="struct GtkBindingSignal">keybinding signal</a>
+which gets emitted to select all children of the box, if
+the selection mode permits it.</p>
+<p>The default bindings for this signal is Ctrl-a.</p>
+<div class="refsect3">
+<a name="GtkFlowBox-select-all.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox-selected-children-changed"></a><h3>The <code class="literal">“selected-children-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>The ::selected-children-changed signal is emitted when the
+set of selected children changes.</p>
+<p>Use <a class="link" href="GtkFlowBox.html#gtk-flow-box-selected-foreach" title="gtk_flow_box_selected_foreach ()"><code class="function">gtk_flow_box_selected_foreach()</code></a> or
+<a class="link" href="GtkFlowBox.html#gtk-flow-box-get-selected-children" title="gtk_flow_box_get_selected_children ()"><code class="function">gtk_flow_box_get_selected_children()</code></a> to obtain the
+selected children.</p>
+<div class="refsect3">
+<a name="GtkFlowBox-selected-children-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> on wich the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox-toggle-cursor-child"></a><h3>The <code class="literal">“toggle-cursor-child”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>The ::toggle-cursor-child signal is a
+<a class="link" href="gtk3-Bindings.html#GtkBindingSignal" title="struct GtkBindingSignal">keybinding signal</a>
+which toggles the selection of the child that has the focus.</p>
+<p>The default binding for this signal is Ctrl-Space.</p>
+<div class="refsect3">
+<a name="GtkFlowBox-toggle-cursor-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBox-unselect-all"></a><h3>The <code class="literal">“unselect-all”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> *box,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>The ::unselect-all signal is a
+<a class="link" href="gtk3-Bindings.html#GtkBindingSignal" title="struct GtkBindingSignal">keybinding signal</a>
+which gets emitted to unselect all children of the box, if
+the selection mode permits it.</p>
+<p>The default bindings for this signal is Ctrl-Shift-a.</p>
+<div class="refsect3">
+<a name="GtkFlowBox-unselect-all.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>box</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a> on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkFlowBoxChild-activate"></a><h3>The <code class="literal">“activate”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkFlowBox.html#GtkFlowBoxChild"><span class="type">GtkFlowBoxChild</span></a> *child,
+               <span class="type">gpointer</span>         user_data)</pre>
+<p>The ::activate signal is emitted when the user activates
+a child widget in a <a class="link" href="GtkFlowBox.html" title="GtkFlowBox"><span class="type">GtkFlowBox</span></a>, either by clicking or
+double-clicking, or by using the Space or Enter key.</p>
+<p>While this signal is used as a
+<a class="link" href="gtk3-Bindings.html#GtkBindingSignal" title="struct GtkBindingSignal">keybinding signal</a>,
+it can be used by applications for their own purposes.</p>
+<div class="refsect3">
+<a name="GtkFlowBoxChild-activate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>child</p></td>
+<td class="parameter_description"><p>The child on which the signal is emitted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Action</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

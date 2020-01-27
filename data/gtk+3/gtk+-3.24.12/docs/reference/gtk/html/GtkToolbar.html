@@ -1,0 +1,1264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkToolbar: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="MenusAndCombos.html" title="Menus, Combo Box, Toolbar">
+<link rel="prev" href="GtkToolShell.html" title="GtkToolShell">
+<link rel="next" href="GtkToolItem.html" title="GtkToolItem">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkToolbar.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkToolbar.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkToolbar.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkToolbar.properties" class="shortcut">Properties</a></span><span id="nav_child_properties">  <span class="dim">|</span> 
+                  <a href="#GtkToolbar.child-properties" class="shortcut">Child Properties</a></span><span id="nav_style_properties">  <span class="dim">|</span> 
+                  <a href="#GtkToolbar.style-properties" class="shortcut">Style Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkToolbar.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="MenusAndCombos.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkToolShell.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkToolItem.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkToolbar"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkToolbar.top_of_page"></a>GtkToolbar</span></h2>
+<p>GtkToolbar — Create bars of buttons and other widgets</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="toolbar.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkToolbar.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-new" title="gtk_toolbar_new ()">gtk_toolbar_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-insert" title="gtk_toolbar_insert ()">gtk_toolbar_insert</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-item-index" title="gtk_toolbar_get_item_index ()">gtk_toolbar_get_item_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-n-items" title="gtk_toolbar_get_n_items ()">gtk_toolbar_get_n_items</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="returnvalue">GtkToolItem</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-nth-item" title="gtk_toolbar_get_nth_item ()">gtk_toolbar_get_nth_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-drop-index" title="gtk_toolbar_get_drop_index ()">gtk_toolbar_get_drop_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-set-drop-highlight-item" title="gtk_toolbar_set_drop_highlight_item ()">gtk_toolbar_set_drop_highlight_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-set-show-arrow" title="gtk_toolbar_set_show_arrow ()">gtk_toolbar_set_show_arrow</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-unset-icon-size" title="gtk_toolbar_unset_icon_size ()">gtk_toolbar_unset_icon_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-show-arrow" title="gtk_toolbar_get_show_arrow ()">gtk_toolbar_get_show_arrow</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="returnvalue">GtkToolbarStyle</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-style" title="gtk_toolbar_get_style ()">gtk_toolbar_get_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="returnvalue">GtkIconSize</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-icon-size" title="gtk_toolbar_get_icon_size ()">gtk_toolbar_get_icon_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Standard-Enumerations.html#GtkReliefStyle" title="enum GtkReliefStyle"><span class="returnvalue">GtkReliefStyle</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-get-relief-style" title="gtk_toolbar_get_relief_style ()">gtk_toolbar_get_relief_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-set-style" title="gtk_toolbar_set_style ()">gtk_toolbar_set_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-set-icon-size" title="gtk_toolbar_set_icon_size ()">gtk_toolbar_set_icon_size</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkToolbar.html#gtk-toolbar-unset-style" title="gtk_toolbar_unset_style ()">gtk_toolbar_unset_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="type">GtkIconSize</span></a></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--icon-size" title="The “icon-size” property">icon-size</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--icon-size-set" title="The “icon-size-set” property">icon-size-set</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--show-arrow" title="The “show-arrow” property">show-arrow</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="type">GtkToolbarStyle</span></a></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--toolbar-style" title="The “toolbar-style” property">toolbar-style</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.child-properties"></a><h2>Child Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="child_properties_type">
+<col width="300px" class="child_properties_name">
+<col width="200px" class="child_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--c-expand" title="The “expand” child property">expand</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--c-homogeneous" title="The “homogeneous” child property">homogeneous</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.style-properties"></a><h2>Style Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="style_properties_type">
+<col width="300px" class="style_properties_name">
+<col width="200px" class="style_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkReliefStyle" title="enum GtkReliefStyle"><span class="type">GtkReliefStyle</span></a></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--s-button-relief" title="The “button-relief” style property">button-relief</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--s-internal-padding" title="The “internal-padding” style property">internal-padding</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--s-max-child-expand" title="The “max-child-expand” style property">max-child-expand</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="type">GtkShadowType</span></a></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--s-shadow-type" title="The “shadow-type” style property">shadow-type</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--s-space-size" title="The “space-size” style property">space-size</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkToolbar.html#GtkToolbarSpaceStyle" title="enum GtkToolbarSpaceStyle"><span class="type">GtkToolbarSpaceStyle</span></a></td>
+<td class="property_name"><a class="link" href="GtkToolbar.html#GtkToolbar--s-space-style" title="The “space-style” style property">space-style</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">gboolean</span></td>
+<td class="signal_name"><a class="link" href="GtkToolbar.html#GtkToolbar-focus-home-or-end" title="The “focus-home-or-end” signal">focus-home-or-end</a></td>
+<td class="signal_flags">Action</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkToolbar.html#GtkToolbar-orientation-changed" title="The “orientation-changed” signal">orientation-changed</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">gboolean</span></td>
+<td class="signal_name"><a class="link" href="GtkToolbar.html#GtkToolbar-popup-context-menu" title="The “popup-context-menu” signal">popup-context-menu</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkToolbar.html#GtkToolbar-style-changed" title="The “style-changed” signal">style-changed</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkToolbar.html#GtkToolbar-struct" title="struct GtkToolbar">GtkToolbar</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkToolbar.html#GtkToolbarSpaceStyle" title="enum GtkToolbarSpaceStyle">GtkToolbarSpaceStyle</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+                <span class="lineart">╰──</span> GtkToolbar
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkToolbar implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>,  <a class="link" href="GtkToolShell.html" title="GtkToolShell">GtkToolShell</a> and  <a class="link" href="gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.description"></a><h2>Description</h2>
+<p>A toolbar is created with a call to <a class="link" href="GtkToolbar.html#gtk-toolbar-new" title="gtk_toolbar_new ()"><code class="function">gtk_toolbar_new()</code></a>.</p>
+<p>A toolbar can contain instances of a subclass of <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a>. To add
+a <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> to the a toolbar, use <a class="link" href="GtkToolbar.html#gtk-toolbar-insert" title="gtk_toolbar_insert ()"><code class="function">gtk_toolbar_insert()</code></a>. To remove
+an item from the toolbar use <a class="link" href="GtkContainer.html#gtk-container-remove" title="gtk_container_remove ()"><code class="function">gtk_container_remove()</code></a>. To add a button
+to the toolbar, add an instance of <a class="link" href="GtkToolButton.html" title="GtkToolButton"><span class="type">GtkToolButton</span></a>.</p>
+<p>Toolbar items can be visually grouped by adding instances of
+<a class="link" href="GtkSeparatorToolItem.html" title="GtkSeparatorToolItem"><span class="type">GtkSeparatorToolItem</span></a> to the toolbar. If the GtkToolbar child property
+“expand” is <span class="type">TRUE</span> and the property <a class="link" href="GtkSeparatorToolItem.html#GtkSeparatorToolItem--draw" title="The “draw” property"><span class="type">“draw”</span></a> is set to
+<span class="type">FALSE</span>, the effect is to force all following items to the end of the toolbar.</p>
+<p>By default, a toolbar can be shrunk, upon which it will add an arrow button
+to show an overflow menu offering access to any <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> child that has
+a proxy menu item. To disable this and request enough size for all children,
+call <a class="link" href="GtkToolbar.html#gtk-toolbar-set-show-arrow" title="gtk_toolbar_set_show_arrow ()"><code class="function">gtk_toolbar_set_show_arrow()</code></a> to set <a class="link" href="GtkToolbar.html#GtkToolbar--show-arrow" title="The “show-arrow” property"><span class="type">“show-arrow”</span></a> to <code class="literal">FALSE</code>.</p>
+<p>Creating a context menu for the toolbar can be done by connecting to
+the <a class="link" href="GtkToolbar.html#GtkToolbar-popup-context-menu" title="The “popup-context-menu” signal"><span class="type">“popup-context-menu”</span></a> signal.</p>
+<div class="refsect2">
+<a name="id-1.3.13.11.12.7"></a><h3>CSS nodes</h3>
+<p>GtkToolbar has a single CSS node with name toolbar.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-toolbar-new"></a><h3>gtk_toolbar_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_toolbar_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new toolbar.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-new.returns"></a><h4>Returns</h4>
+<p> the newly-created toolbar.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-insert"></a><h3>gtk_toolbar_insert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_toolbar_insert (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                    <em class="parameter"><code><a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> *item</code></em>,
+                    <em class="parameter"><code><span class="type">gint</span> pos</code></em>);</pre>
+<p>Insert a <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> into the toolbar at position <em class="parameter"><code>pos</code></em>
+. If <em class="parameter"><code>pos</code></em>
+ is
+0 the item is prepended to the start of the toolbar. If <em class="parameter"><code>pos</code></em>
+ is
+negative, the item is appended to the end of the toolbar.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-insert.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pos</p></td>
+<td class="parameter_description"><p>the position of the new item</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-item-index"></a><h3>gtk_toolbar_get_item_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_toolbar_get_item_index (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> *item</code></em>);</pre>
+<p>Returns the position of <em class="parameter"><code>item</code></em>
+ on the toolbar, starting from 0.
+It is an error if <em class="parameter"><code>item</code></em>
+ is not a child of the toolbar.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-item-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> that is a child of <em class="parameter"><code>toolbar</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-item-index.returns"></a><h4>Returns</h4>
+<p> the position of item on the toolbar.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-n-items"></a><h3>gtk_toolbar_get_n_items ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_toolbar_get_n_items (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>);</pre>
+<p>Returns the number of items on the toolbar.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-n-items.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-n-items.returns"></a><h4>Returns</h4>
+<p> the number of items on the toolbar</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-nth-item"></a><h3>gtk_toolbar_get_nth_item ()</h3>
+<pre class="programlisting"><a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="returnvalue">GtkToolItem</span></a> *
+gtk_toolbar_get_nth_item (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> n</code></em>);</pre>
+<p>Returns the <em class="parameter"><code>n</code></em>
+'th item on <em class="parameter"><code>toolbar</code></em>
+, or <code class="literal">NULL</code> if the
+toolbar does not contain an <em class="parameter"><code>n</code></em>
+'th item.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-nth-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n</p></td>
+<td class="parameter_description"><p>A position on the toolbar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-nth-item.returns"></a><h4>Returns</h4>
+<p>The <em class="parameter"><code>n</code></em>
+'th <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> on <em class="parameter"><code>toolbar</code></em>
+,
+or <code class="literal">NULL</code> if there isn’t an <em class="parameter"><code>n</code></em>
+'th item. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-drop-index"></a><h3>gtk_toolbar_get_drop_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_toolbar_get_drop_index (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> x</code></em>,
+                            <em class="parameter"><code><span class="type">gint</span> y</code></em>);</pre>
+<p>Returns the position corresponding to the indicated point on
+<em class="parameter"><code>toolbar</code></em>
+. This is useful when dragging items to the toolbar:
+this function returns the position a new item should be
+inserted.</p>
+<p><em class="parameter"><code>x</code></em>
+ and <em class="parameter"><code>y</code></em>
+ are in <em class="parameter"><code>toolbar</code></em>
+ coordinates.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-drop-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>x coordinate of a point on the toolbar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>y coordinate of a point on the toolbar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-drop-index.returns"></a><h4>Returns</h4>
+<p> The position corresponding to the point (<em class="parameter"><code>x</code></em>
+, <em class="parameter"><code>y</code></em>
+) on the toolbar.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-set-drop-highlight-item"></a><h3>gtk_toolbar_set_drop_highlight_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_toolbar_set_drop_highlight_item (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                                     <em class="parameter"><code><a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a> *tool_item</code></em>,
+                                     <em class="parameter"><code><span class="type">gint</span> index_</code></em>);</pre>
+<p>Highlights <em class="parameter"><code>toolbar</code></em>
+ to give an idea of what it would look like
+if <em class="parameter"><code>item</code></em>
+ was added to <em class="parameter"><code>toolbar</code></em>
+ at the position indicated by <em class="parameter"><code>index_</code></em>
+.
+If <em class="parameter"><code>item</code></em>
+ is <code class="literal">NULL</code>, highlighting is turned off. In that case <em class="parameter"><code>index_</code></em>
+ 
+is ignored.</p>
+<p>The <em class="parameter"><code>tool_item</code></em>
+ passed to this function must not be part of any widget
+hierarchy. When an item is set as drop highlight item it can not
+added to any widget hierarchy or used as highlight item for another
+toolbar.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-set-drop-highlight-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tool_item</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a>, or <code class="literal">NULL</code> to turn of highlighting. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index_</p></td>
+<td class="parameter_description"><p>a position on <em class="parameter"><code>toolbar</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-set-show-arrow"></a><h3>gtk_toolbar_set_show_arrow ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_toolbar_set_show_arrow (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                            <em class="parameter"><code><span class="type">gboolean</span> show_arrow</code></em>);</pre>
+<p>Sets whether to show an overflow menu when <em class="parameter"><code>toolbar</code></em>
+ isn’t allocated enough
+size to show all of its items. If <code class="literal">TRUE</code>, items which can’t fit in <em class="parameter"><code>toolbar</code></em>
+,
+and which have a proxy menu item set by <a class="link" href="GtkToolItem.html#gtk-tool-item-set-proxy-menu-item" title="gtk_tool_item_set_proxy_menu_item ()"><code class="function">gtk_tool_item_set_proxy_menu_item()</code></a>
+or <a class="link" href="GtkToolItem.html#GtkToolItem-create-menu-proxy" title="The “create-menu-proxy” signal"><span class="type">“create-menu-proxy”</span></a>, will be available in an overflow menu,
+which can be opened by an added arrow button. If <code class="literal">FALSE</code>, <em class="parameter"><code>toolbar</code></em>
+ will
+request enough size to fit all of its child items without any overflow.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-set-show-arrow.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>show_arrow</p></td>
+<td class="parameter_description"><p>Whether to show an overflow menu</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-unset-icon-size"></a><h3>gtk_toolbar_unset_icon_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_toolbar_unset_icon_size (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>);</pre>
+<p>Unsets toolbar icon size set with <a class="link" href="GtkToolbar.html#gtk-toolbar-set-icon-size" title="gtk_toolbar_set_icon_size ()"><code class="function">gtk_toolbar_set_icon_size()</code></a>, so that
+user preferences will be used to determine the icon size.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-unset-icon-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-show-arrow"></a><h3>gtk_toolbar_get_show_arrow ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_toolbar_get_show_arrow (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>);</pre>
+<p>Returns whether the toolbar has an overflow menu.
+See <a class="link" href="GtkToolbar.html#gtk-toolbar-set-show-arrow" title="gtk_toolbar_set_show_arrow ()"><code class="function">gtk_toolbar_set_show_arrow()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-show-arrow.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-show-arrow.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the toolbar has an overflow menu.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-style"></a><h3>gtk_toolbar_get_style ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="returnvalue">GtkToolbarStyle</span></a>
+gtk_toolbar_get_style (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>);</pre>
+<p>Retrieves whether the toolbar has text, icons, or both . See
+<a class="link" href="GtkToolbar.html#gtk-toolbar-set-style" title="gtk_toolbar_set_style ()"><code class="function">gtk_toolbar_set_style()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-style.returns"></a><h4>Returns</h4>
+<p> the current style of <em class="parameter"><code>toolbar</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-icon-size"></a><h3>gtk_toolbar_get_icon_size ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="returnvalue">GtkIconSize</span></a>
+gtk_toolbar_get_icon_size (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>);</pre>
+<p>Retrieves the icon size for the toolbar. See <a class="link" href="GtkToolbar.html#gtk-toolbar-set-icon-size" title="gtk_toolbar_set_icon_size ()"><code class="function">gtk_toolbar_set_icon_size()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-icon-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-icon-size.returns"></a><h4>Returns</h4>
+<p> the current icon size for the icons on the toolbar.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-get-relief-style"></a><h3>gtk_toolbar_get_relief_style ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Standard-Enumerations.html#GtkReliefStyle" title="enum GtkReliefStyle"><span class="returnvalue">GtkReliefStyle</span></a>
+gtk_toolbar_get_relief_style (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>);</pre>
+<p>Returns the relief style of buttons on <em class="parameter"><code>toolbar</code></em>
+. See
+<a class="link" href="GtkButton.html#gtk-button-set-relief" title="gtk_button_set_relief ()"><code class="function">gtk_button_set_relief()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-get-relief-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-toolbar-get-relief-style.returns"></a><h4>Returns</h4>
+<p> The relief style of buttons on <em class="parameter"><code>toolbar</code></em>
+.</p>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-set-style"></a><h3>gtk_toolbar_set_style ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_toolbar_set_style (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                       <em class="parameter"><code><a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="type">GtkToolbarStyle</span></a> style</code></em>);</pre>
+<p>Alters the view of <em class="parameter"><code>toolbar</code></em>
+ to display either icons only, text only, or both.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-set-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>style</p></td>
+<td class="parameter_description"><p>the new style for <em class="parameter"><code>toolbar</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-set-icon-size"></a><h3>gtk_toolbar_set_icon_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_toolbar_set_icon_size (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>,
+                           <em class="parameter"><code><a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="type">GtkIconSize</span></a> icon_size</code></em>);</pre>
+<p>This function sets the size of stock icons in the toolbar. You
+can call it both before you add the icons and after they’ve been
+added. The size you set will override user preferences for the default
+icon size.</p>
+<p>This should only be used for special-purpose toolbars, normal
+application toolbars should respect the user preferences for the
+size of icons.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-set-icon-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>A <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icon_size</p></td>
+<td class="parameter_description"><p>The <a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="type">GtkIconSize</span></a> that stock icons in the toolbar shall have.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-toolbar-unset-style"></a><h3>gtk_toolbar_unset_style ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_toolbar_unset_style (<em class="parameter"><code><a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar</code></em>);</pre>
+<p>Unsets a toolbar style set with <a class="link" href="GtkToolbar.html#gtk-toolbar-set-style" title="gtk_toolbar_set_style ()"><code class="function">gtk_toolbar_set_style()</code></a>, so that
+user preferences will be used to determine the toolbar style.</p>
+<div class="refsect3">
+<a name="gtk-toolbar-unset-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkToolbar-struct"></a><h3>struct GtkToolbar</h3>
+<pre class="programlisting">struct GtkToolbar;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbarSpaceStyle"></a><h3>enum GtkToolbarSpaceStyle</h3>
+<div class="warning"><p><code class="literal">GtkToolbarSpaceStyle</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p></div>
+<p>Whether spacers are vertical lines or just blank.</p>
+<div class="refsect3">
+<a name="GtkToolbarSpaceStyle.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-TOOLBAR-SPACE-EMPTY:CAPS"></a>GTK_TOOLBAR_SPACE_EMPTY</p></td>
+<td class="enum_member_description">
+<p>Use blank spacers.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-TOOLBAR-SPACE-LINE:CAPS"></a>GTK_TOOLBAR_SPACE_LINE</p></td>
+<td class="enum_member_description">
+<p>Use vertical lines for spacers.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkToolbar--icon-size"></a><h3>The <code class="literal">“icon-size”</code> property</h3>
+<pre class="programlisting">  “icon-size”                <a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSize" title="enum GtkIconSize"><span class="type">GtkIconSize</span></a></pre>
+<p>The size of the icons in a toolbar is normally determined by
+the toolbar-icon-size setting. When this property is set, it
+
+overrides the setting. </p>
+<p>This should only be used for special-purpose toolbars, normal
+application toolbars should respect the user preferences for the
+size of icons.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_ICON_SIZE_LARGE_TOOLBAR</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--icon-size-set"></a><h3>The <code class="literal">“icon-size-set”</code> property</h3>
+<pre class="programlisting">  “icon-size-set”            <span class="type">gboolean</span></pre>
+<p>Is <code class="literal">TRUE</code> if the icon-size property has been set.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--show-arrow"></a><h3>The <code class="literal">“show-arrow”</code> property</h3>
+<pre class="programlisting">  “show-arrow”               <span class="type">gboolean</span></pre>
+<p>If an arrow should be shown if the toolbar doesn't fit.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: TRUE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--toolbar-style"></a><h3>The <code class="literal">“toolbar-style”</code> property</h3>
+<pre class="programlisting">  “toolbar-style”            <a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="type">GtkToolbarStyle</span></a></pre>
+<p>How to draw the toolbar.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_TOOLBAR_BOTH_HORIZ</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.child-property-details"></a><h2>Child Property Details</h2>
+<div class="refsect2">
+<a name="GtkToolbar--c-expand"></a><h3>The <code class="literal">“expand”</code> child property</h3>
+<pre class="programlisting">  “expand”                   <span class="type">gboolean</span></pre>
+<p>Whether the item should receive extra space when the toolbar grows.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--c-homogeneous"></a><h3>The <code class="literal">“homogeneous”</code> child property</h3>
+<pre class="programlisting">  “homogeneous”              <span class="type">gboolean</span></pre>
+<p>Whether the item should be the same size as other homogeneous items.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.style-property-details"></a><h2>Style Property Details</h2>
+<div class="refsect2">
+<a name="GtkToolbar--s-button-relief"></a><h3>The <code class="literal">“button-relief”</code> style property</h3>
+<pre class="programlisting">  “button-relief”            <a class="link" href="gtk3-Standard-Enumerations.html#GtkReliefStyle" title="enum GtkReliefStyle"><span class="type">GtkReliefStyle</span></a></pre>
+<p>Type of bevel around toolbar buttons.</p>
+<p>Flags: Read</p>
+<p>Default value: GTK_RELIEF_NONE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--s-internal-padding"></a><h3>The <code class="literal">“internal-padding”</code> style property</h3>
+<pre class="programlisting">  “internal-padding”         <span class="type">gint</span></pre>
+<p>Amount of border space between the toolbar shadow and the buttons.</p>
+<div class="warning">
+<p><code class="literal">GtkToolbar:internal-padding</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>Use the standard padding CSS property
+  (through objects like <a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a> and <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a>); the value
+  of this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--s-max-child-expand"></a><h3>The <code class="literal">“max-child-expand”</code> style property</h3>
+<pre class="programlisting">  “max-child-expand”         <span class="type">gint</span></pre>
+<p>Maximum amount of space an expandable item will be given.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 2147483647</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--s-shadow-type"></a><h3>The <code class="literal">“shadow-type”</code> style property</h3>
+<pre class="programlisting">  “shadow-type”              <a class="link" href="gtk3-Standard-Enumerations.html#GtkShadowType" title="enum GtkShadowType"><span class="type">GtkShadowType</span></a></pre>
+<p>Style of bevel around the toolbar.</p>
+<div class="warning">
+<p><code class="literal">GtkToolbar:shadow-type</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>Use the standard border CSS property
+  (through objects like <a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a> and <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a>); the value
+  of this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Default value: GTK_SHADOW_OUT</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--s-space-size"></a><h3>The <code class="literal">“space-size”</code> style property</h3>
+<pre class="programlisting">  “space-size”               <span class="type">gint</span></pre>
+<p>Size of toolbar spacers.</p>
+<div class="warning">
+<p><code class="literal">GtkToolbar:space-size</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard margin/padding CSS properties on the
+  separator elements; the value of this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar--s-space-style"></a><h3>The <code class="literal">“space-style”</code> style property</h3>
+<pre class="programlisting">  “space-style”              <a class="link" href="GtkToolbar.html#GtkToolbarSpaceStyle" title="enum GtkToolbarSpaceStyle"><span class="type">GtkToolbarSpaceStyle</span></a></pre>
+<p>Style of toolbar spacers.</p>
+<div class="warning">
+<p><code class="literal">GtkToolbar:space-style</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use CSS properties on the separator elements to style
+  toolbar spacers; the value of this style property is ignored.</p>
+</div>
+<p>Flags: Read</p>
+<p>Default value: GTK_TOOLBAR_SPACE_LINE</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkToolbar-focus-home-or-end"></a><h3>The <code class="literal">“focus-home-or-end”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+user_function (<a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar,
+               <span class="type">gboolean</span>    focus_home,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>A keybinding signal used internally by GTK+. This signal can't
+be used in application code</p>
+<div class="refsect3">
+<a name="GtkToolbar-focus-home-or-end.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>focus_home</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> if the first item should be focused</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkToolbar-focus-home-or-end.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the signal was handled, <code class="literal">FALSE</code> if not</p>
+</div>
+<p>Flags: Action</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar-orientation-changed"></a><h3>The <code class="literal">“orientation-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a>    *toolbar,
+               <a class="link" href="gtk3-Standard-Enumerations.html#GtkOrientation" title="enum GtkOrientation"><span class="type">GtkOrientation</span></a> orientation,
+               <span class="type">gpointer</span>       user_data)</pre>
+<p>Emitted when the orientation of the toolbar changes.</p>
+<div class="refsect3">
+<a name="GtkToolbar-orientation-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>the object which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>orientation</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="gtk3-Standard-Enumerations.html#GtkOrientation" title="enum GtkOrientation"><span class="type">GtkOrientation</span></a> of the toolbar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar-popup-context-menu"></a><h3>The <code class="literal">“popup-context-menu”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+user_function (<a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> *toolbar,
+               <span class="type">gint</span>        x,
+               <span class="type">gint</span>        y,
+               <span class="type">gint</span>        button,
+               <span class="type">gpointer</span>    user_data)</pre>
+<p>Emitted when the user right-clicks the toolbar or uses the
+keybinding to display a popup menu.</p>
+<p>Application developers should handle this signal if they want
+to display a context menu on the toolbar. The context-menu should
+appear at the coordinates given by <em class="parameter"><code>x</code></em>
+ and <em class="parameter"><code>y</code></em>
+. The mouse button
+number is given by the <em class="parameter"><code>button</code></em>
+ parameter. If the menu was popped
+up using the keybaord, <em class="parameter"><code>button</code></em>
+ is -1.</p>
+<div class="refsect3">
+<a name="GtkToolbar-popup-context-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>the x coordinate of the point where the menu should appear</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>the y coordinate of the point where the menu should appear</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>button</p></td>
+<td class="parameter_description"><p>the mouse button the user pressed, or -1</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkToolbar-popup-context-menu.returns"></a><h4>Returns</h4>
+<p> return <code class="literal">TRUE</code> if the signal was handled, <code class="literal">FALSE</code> if not</p>
+</div>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkToolbar-style-changed"></a><h3>The <code class="literal">“style-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a>     *toolbar,
+               <a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="type">GtkToolbarStyle</span></a> style,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>Emitted when the style of the toolbar changes.</p>
+<div class="refsect3">
+<a name="GtkToolbar-style-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>toolbar</p></td>
+<td class="parameter_description"><p>The <a class="link" href="GtkToolbar.html" title="GtkToolbar"><span class="type">GtkToolbar</span></a> which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>style</p></td>
+<td class="parameter_description"><p>the new <a class="link" href="gtk3-Standard-Enumerations.html#GtkToolbarStyle" title="enum GtkToolbarStyle"><span class="type">GtkToolbarStyle</span></a> of the toolbar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkToolbar.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkToolItem.html" title="GtkToolItem"><span class="type">GtkToolItem</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

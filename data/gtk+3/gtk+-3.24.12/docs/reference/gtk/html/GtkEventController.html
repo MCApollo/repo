@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkEventController: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="Gestures.html" title="Gestures and event handling">
+<link rel="prev" href="Gestures.html" title="Gestures and event handling">
+<link rel="next" href="GtkEventControllerKey.html" title="GtkEventControllerKey">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkEventController.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkEventController.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkEventController.properties" class="shortcut">Properties</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="Gestures.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="Gestures.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkEventControllerKey.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkEventController"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkEventController.top_of_page"></a>GtkEventController</span></h2>
+<p>GtkEventController — Self-contained handler of series of events</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkEventController.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkEventController.html#GtkPropagationPhase" title="enum GtkPropagationPhase"><span class="returnvalue">GtkPropagationPhase</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventController.html#gtk-event-controller-get-propagation-phase" title="gtk_event_controller_get_propagation_phase ()">gtk_event_controller_get_propagation_phase</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventController.html#gtk-event-controller-set-propagation-phase" title="gtk_event_controller_set_propagation_phase ()">gtk_event_controller_set_propagation_phase</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventController.html#gtk-event-controller-handle-event" title="gtk_event_controller_handle_event ()">gtk_event_controller_handle_event</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventController.html#gtk-event-controller-get-widget" title="gtk_event_controller_get_widget ()">gtk_event_controller_get_widget</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkEventController.html#gtk-event-controller-reset" title="gtk_event_controller_reset ()">gtk_event_controller_reset</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a class="link" href="GtkEventController.html#GtkPropagationPhase" title="enum GtkPropagationPhase"><span class="type">GtkPropagationPhase</span></a></td>
+<td class="property_name"><a class="link" href="GtkEventController.html#GtkEventController--propagation-phase" title="The “propagation-phase” property">propagation-phase</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkEventController.html#GtkEventController--widget" title="The “widget” property">widget</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkEventController.html#GtkEventController-struct" title="GtkEventController">GtkEventController</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkEventController.html#GtkPropagationPhase" title="enum GtkPropagationPhase">GtkPropagationPhase</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GtkEventController
+        <span class="lineart">├──</span> <a class="link" href="GtkEventControllerKey.html" title="GtkEventControllerKey">GtkEventControllerKey</a>
+        <span class="lineart">├──</span> <a class="link" href="GtkEventControllerMotion.html" title="GtkEventControllerMotion">GtkEventControllerMotion</a>
+        <span class="lineart">├──</span> <a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll">GtkEventControllerScroll</a>
+        <span class="lineart">├──</span> <a class="link" href="GtkGesture.html" title="GtkGesture">GtkGesture</a>
+        <span class="lineart">╰──</span> <a class="link" href="GtkPadController.html" title="GtkPadController">GtkPadController</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.description"></a><h2>Description</h2>
+<p><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a> is a base, low-level implementation for event
+controllers. Those react to a series of <span class="type">GdkEvents</span>, and possibly trigger
+actions as a consequence of those.</p>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-event-controller-get-propagation-phase"></a><h3>gtk_event_controller_get_propagation_phase ()</h3>
+<pre class="programlisting"><a class="link" href="GtkEventController.html#GtkPropagationPhase" title="enum GtkPropagationPhase"><span class="returnvalue">GtkPropagationPhase</span></a>
+gtk_event_controller_get_propagation_phase
+                               (<em class="parameter"><code><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a> *controller</code></em>);</pre>
+<p>Gets the propagation phase at which <em class="parameter"><code>controller</code></em>
+ handles events.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-get-propagation-phase.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-event-controller-get-propagation-phase.returns"></a><h4>Returns</h4>
+<p> the propagation phase</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-event-controller-set-propagation-phase"></a><h3>gtk_event_controller_set_propagation_phase ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_event_controller_set_propagation_phase
+                               (<em class="parameter"><code><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a> *controller</code></em>,
+                                <em class="parameter"><code><a class="link" href="GtkEventController.html#GtkPropagationPhase" title="enum GtkPropagationPhase"><span class="type">GtkPropagationPhase</span></a> phase</code></em>);</pre>
+<p>Sets the propagation phase at which a controller handles events.</p>
+<p>If <em class="parameter"><code>phase</code></em>
+ is <a class="link" href="GtkEventController.html#GTK-PHASE-NONE:CAPS"><code class="literal">GTK_PHASE_NONE</code></a>, no automatic event handling will be
+performed, but other additional gesture maintenance will. In that phase,
+the events can be managed by calling <a class="link" href="GtkEventController.html#gtk-event-controller-handle-event" title="gtk_event_controller_handle_event ()"><code class="function">gtk_event_controller_handle_event()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-set-propagation-phase.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>phase</p></td>
+<td class="parameter_description"><p>a propagation phase</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-event-controller-handle-event"></a><h3>gtk_event_controller_handle_event ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_event_controller_handle_event (<em class="parameter"><code><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a> *controller</code></em>,
+                                   <em class="parameter"><code>const <span class="type">GdkEvent</span> *event</code></em>);</pre>
+<p>Feeds an events into <em class="parameter"><code>controller</code></em>
+, so it can be interpreted
+and the controller actions triggered.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-handle-event.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkEvent</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-event-controller-handle-event.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event was potentially useful to trigger the
+controller action</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-event-controller-get-widget"></a><h3>gtk_event_controller_get_widget ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_event_controller_get_widget (<em class="parameter"><code><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a> *controller</code></em>);</pre>
+<p>Returns the <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> this controller relates to.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-get-widget.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-event-controller-get-widget.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-event-controller-reset"></a><h3>gtk_event_controller_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_event_controller_reset (<em class="parameter"><code><a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a> *controller</code></em>);</pre>
+<p>Resets the <em class="parameter"><code>controller</code></em>
+ to a clean state. Every interaction
+the controller did through <span class="type">“handle-event”</span>
+will be dropped at this point.</p>
+<div class="refsect3">
+<a name="gtk-event-controller-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>controller</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkEventController-struct"></a><h3>GtkEventController</h3>
+<pre class="programlisting">typedef struct _GtkEventController GtkEventController;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkPropagationPhase"></a><h3>enum GtkPropagationPhase</h3>
+<p>Describes the stage at which events are fed into a <a class="link" href="GtkEventController.html" title="GtkEventController"><span class="type">GtkEventController</span></a>.</p>
+<div class="refsect3">
+<a name="GtkPropagationPhase.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-PHASE-NONE:CAPS"></a>GTK_PHASE_NONE</p></td>
+<td class="enum_member_description">
+<p>Events are not delivered automatically. Those can be
+  manually fed through <a class="link" href="GtkEventController.html#gtk-event-controller-handle-event" title="gtk_event_controller_handle_event ()"><code class="function">gtk_event_controller_handle_event()</code></a>. This should
+  only be used when full control about when, or whether the controller
+  handles the event is needed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-PHASE-CAPTURE:CAPS"></a>GTK_PHASE_CAPTURE</p></td>
+<td class="enum_member_description">
+<p>Events are delivered in the capture phase. The
+  capture phase happens before the bubble phase, runs from the toplevel down
+  to the event widget. This option should only be used on containers that
+  might possibly handle events before their children do.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-PHASE-BUBBLE:CAPS"></a>GTK_PHASE_BUBBLE</p></td>
+<td class="enum_member_description">
+<p>Events are delivered in the bubble phase. The bubble
+  phase happens after the capture phase, and before the default handlers
+  are run. This phase runs from the event widget, up to the toplevel.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-PHASE-TARGET:CAPS"></a>GTK_PHASE_TARGET</p></td>
+<td class="enum_member_description">
+<p>Events are delivered in the default widget event handlers,
+  note that widget implementations must chain up on button, motion, touch and
+  grab broken handlers for controllers in this phase to be run.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkEventController--propagation-phase"></a><h3>The <code class="literal">“propagation-phase”</code> property</h3>
+<pre class="programlisting">  “propagation-phase”        <a class="link" href="GtkEventController.html#GtkPropagationPhase" title="enum GtkPropagationPhase"><span class="type">GtkPropagationPhase</span></a></pre>
+<p>The propagation phase at which this controller will handle events.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_PHASE_BUBBLE</p>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkEventController--widget"></a><h3>The <code class="literal">“widget”</code> property</h3>
+<pre class="programlisting">  “widget”                   <a class="link" href="GtkWidget.html" title="GtkWidget"><span class="type">GtkWidget</span></a> *</pre>
+<p>The widget receiving the <span class="type">GdkEvents</span> that the controller will handle.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkEventController.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkGesture.html" title="GtkGesture"><span class="type">GtkGesture</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

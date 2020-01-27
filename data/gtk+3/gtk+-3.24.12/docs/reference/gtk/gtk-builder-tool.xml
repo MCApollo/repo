@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+               "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+]>
+<refentry id="gtk-builder-tool">
+
+<refentryinfo>
+  <title>gtk-builder-tool</title>
+  <productname>GTK+</productname>
+  <authorgroup>
+    <author>
+      <contrib>Developer</contrib>
+      <firstname>Matthias</firstname>
+      <surname>Clasen</surname>
+    </author>
+  </authorgroup>
+</refentryinfo>
+
+<refmeta>
+  <refentrytitle>gtk-builder-tool</refentrytitle>
+  <manvolnum>1</manvolnum>
+  <refmiscinfo class="manual">User Commands</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+  <refname>gtk-builder-tool</refname>
+  <refpurpose>GtkBuilder file utility</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv>
+<cmdsynopsis>
+<command>gtk-builder-tool</command>
+<arg choice="opt"><replaceable>COMMAND</replaceable></arg>
+<arg choice="opt" rep="repeat"><replaceable>OPTION</replaceable></arg>
+<arg choice="plain"><replaceable>FILE</replaceable></arg>
+</cmdsynopsis>
+</refsynopsisdiv>
+
+<refsect1><title>Description</title>
+<para>
+  <command>gtk-builder-tool</command> can perform various operations
+  on GtkBuilder .ui files.
+</para>
+<para>
+  You should always test the modified .ui files produced by gtk-builder-tool
+  before using them in production.
+</para>
+</refsect1>
+
+<refsect1><title>Commands</title>
+  <para>The following commands are understood:</para>
+  <variablelist>
+    <varlistentry>
+    <term><option>validate</option></term>
+      <listitem><para>Validates the .ui file and report errors to stderr.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+    <term><option>simplify</option></term>
+      <listitem><para>Simplifies the .ui file by removing properties that
+      are set to their default values and write the resulting XML to stdout,
+      or back to the input file.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+    <term><option>enumerate</option></term>
+      <listitem><para>Lists all the named objects that are created in the .ui file.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+    <term><option>preview</option></term>
+      <listitem><para>Preview the .ui file. This command accepts options
+                to specify the ID of an object and a .css file to use.</para></listitem>
+    </varlistentry>
+  </variablelist>
+</refsect1>
+
+<refsect1><title>Simplify Options</title>
+  <para>The <option>simplify</option> command accepts the following options:</para>
+  <variablelist>
+    <varlistentry>
+    <term><option>--replace</option></term>
+      <listitem><para>Write the content back to the .ui file instead of stdout.</para></listitem>
+    </varlistentry>
+  </variablelist>
+</refsect1>
+
+<refsect1><title>Preview Options</title>
+  <para>The <option>preview</option> command accepts the following options:</para>
+  <variablelist>
+    <varlistentry>
+    <term><option>--id=<arg choice="plain">ID</arg></option></term>
+      <listitem><para>The ID of the object to preview. If not specified,
+                gtk-builder-tool will choose a suitable object on its own.</para></listitem>
+    </varlistentry>
+    <varlistentry>
+    <term><option>--css=<arg choice="plain">FILE</arg></option></term>
+      <listitem><para>Load style information from the given .css file.</para></listitem>
+    </varlistentry>
+  </variablelist>
+</refsect1>
+
+</refentry>

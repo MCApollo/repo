@@ -1,0 +1,793 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Threads: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="gdk3-Properties-and-Atoms.html" title="Properties and Atoms">
+<link rel="next" href="gdk3-Pango-Interaction.html" title="Pango Interaction">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-Threads.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdk3-Properties-and-Atoms.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Pango-Interaction.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-Threads"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-Threads.top_of_page"></a>Threads</span></h2>
+<p>Threads — Functions for using GDK in multi-threaded programs</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-Threads.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Threads.html#GDK-THREADS-ENTER:CAPS" title="GDK_THREADS_ENTER">GDK_THREADS_ENTER</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Threads.html#GDK-THREADS-LEAVE:CAPS" title="GDK_THREADS_LEAVE">GDK_THREADS_LEAVE</a></td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-init" title="gdk_threads_init ()">gdk_threads_init</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-enter" title="gdk_threads_enter ()">gdk_threads_enter</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-leave" title="gdk_threads_leave ()">gdk_threads_leave</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-set-lock-functions" title="gdk_threads_set_lock_functions ()">gdk_threads_set_lock_functions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-add-idle" title="gdk_threads_add_idle ()">gdk_threads_add_idle</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-add-idle-full" title="gdk_threads_add_idle_full ()">gdk_threads_add_idle_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout" title="gdk_threads_add_timeout ()">gdk_threads_add_timeout</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-full" title="gdk_threads_add_timeout_full ()">gdk_threads_add_timeout_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-seconds" title="gdk_threads_add_timeout_seconds ()">gdk_threads_add_timeout_seconds</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-seconds-full" title="gdk_threads_add_timeout_seconds_full ()">gdk_threads_add_timeout_seconds_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Threads.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Threads.description"></a><h2>Description</h2>
+<p>For thread safety, GDK relies on the thread primitives in GLib,
+and on the thread-safe GLib main loop.</p>
+<p>GLib is completely thread safe (all global data is automatically
+locked), but individual data structure instances are not automatically
+locked for performance reasons. So e.g. you must coordinate
+accesses to the same <span class="type">GHashTable</span> from multiple threads.</p>
+<p>GTK+, however, is not thread safe. You should only use GTK+ and GDK
+from the thread <code class="function">gtk_init()</code> and <code class="function">gtk_main()</code> were called on.
+This is usually referred to as the “main thread”.</p>
+<p>Signals on GTK+ and GDK types, as well as non-signal callbacks, are
+emitted in the main thread.</p>
+<p>You can schedule work in the main thread safely from other threads
+by using <a class="link" href="gdk3-Threads.html#gdk-threads-add-idle" title="gdk_threads_add_idle ()"><code class="function">gdk_threads_add_idle()</code></a> and <a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout" title="gdk_threads_add_timeout ()"><code class="function">gdk_threads_add_timeout()</code></a>:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">worker_thread</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">ExpensiveData</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">expensive_data </span><span class="symbol">=</span><span class="normal"> </span><span class="function">do_expensive_computation</span><span class="normal"> </span><span class="symbol">();</span>
+
+<span class="normal">  </span><span class="function"><a href="gdk3-Threads.html#gdk-threads-add-idle">gdk_threads_add_idle</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">got_value</span><span class="symbol">,</span><span class="normal"> expensive_data</span><span class="symbol">);</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> gboolean</span>
+<span class="function">got_value</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">gpointer</span><span class="normal"> user_data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">ExpensiveData</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">expensive_data </span><span class="symbol">=</span><span class="normal"> user_data</span><span class="symbol">;</span>
+
+<span class="normal">  my_app</span><span class="symbol">-&gt;</span><span class="normal">expensive_data </span><span class="symbol">=</span><span class="normal"> expensive_data</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="function">gtk_button_set_sensitive</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_app</span><span class="symbol">-&gt;</span><span class="normal">button</span><span class="symbol">,</span><span class="normal"> TRUE</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="function">gtk_button_set_label</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">my_app</span><span class="symbol">-&gt;</span><span class="normal">button</span><span class="symbol">,</span><span class="normal"> expensive_data</span><span class="symbol">-&gt;</span><span class="normal">result_label</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> G_SOURCE_REMOVE</span><span class="symbol">;</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>You should use <a class="link" href="gdk3-Threads.html#gdk-threads-add-idle" title="gdk_threads_add_idle ()"><code class="function">gdk_threads_add_idle()</code></a> and <a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout" title="gdk_threads_add_timeout ()"><code class="function">gdk_threads_add_timeout()</code></a>
+instead of <code class="function">g_idle_add()</code> and <code class="function">g_timeout_add()</code> since libraries not under
+your control might be using the deprecated GDK locking mechanism.
+If you are sure that none of the code in your application and libraries
+use the deprecated <a class="link" href="gdk3-Threads.html#gdk-threads-enter" title="gdk_threads_enter ()"><code class="function">gdk_threads_enter()</code></a> or <a class="link" href="gdk3-Threads.html#gdk-threads-leave" title="gdk_threads_leave ()"><code class="function">gdk_threads_leave()</code></a> methods,
+then you can safely use <code class="function">g_idle_add()</code> and <code class="function">g_timeout_add()</code>.</p>
+<p>For more information on this "worker thread" pattern, you should
+also look at <span class="type">GTask</span>, which gives you high-level tools to perform
+expensive tasks from worker threads, and will handle thread
+management for you.</p>
+</div>
+<div class="refsect1">
+<a name="gdk3-Threads.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="GDK-THREADS-ENTER:CAPS"></a><h3>GDK_THREADS_ENTER</h3>
+<pre class="programlisting">#define GDK_THREADS_ENTER() gdk_threads_enter()
+</pre>
+<div class="warning">
+<p><code class="literal">GDK_THREADS_ENTER</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>Use <code class="function">g_main_context_invoke()</code>, <code class="function">g_idle_add()</code> and related
+    functions if you need to schedule GTK+ calls from other threads.</p>
+</div>
+<p>This macro marks the beginning of a critical section in which GDK and
+GTK+ functions can be called safely and without causing race
+conditions.  Only one thread at a time can be in such a critial
+section. The macro expands to a no-op if <span class="type">G_THREADS_ENABLED</span> has not
+been defined. Typically <a class="link" href="gdk3-Threads.html#gdk-threads-enter" title="gdk_threads_enter ()"><code class="function">gdk_threads_enter()</code></a> should be used instead of
+this macro.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-THREADS-LEAVE:CAPS"></a><h3>GDK_THREADS_LEAVE</h3>
+<pre class="programlisting">#define GDK_THREADS_LEAVE() gdk_threads_leave()
+</pre>
+<div class="warning">
+<p><code class="literal">GDK_THREADS_LEAVE</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>Deprecated in 3.6.</p>
+</div>
+<p>This macro marks the end of a critical section
+begun with <a class="link" href="gdk3-Threads.html#GDK-THREADS-ENTER:CAPS" title="GDK_THREADS_ENTER"><span class="type">GDK_THREADS_ENTER</span></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-init"></a><h3>gdk_threads_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_threads_init (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gdk_threads_init</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>All GDK and GTK+ calls should be made from the main
+    thread</p>
+</div>
+<p>Initializes GDK so that it can be used from multiple threads
+in conjunction with <a class="link" href="gdk3-Threads.html#gdk-threads-enter" title="gdk_threads_enter ()"><code class="function">gdk_threads_enter()</code></a> and <a class="link" href="gdk3-Threads.html#gdk-threads-leave" title="gdk_threads_leave ()"><code class="function">gdk_threads_leave()</code></a>.</p>
+<p>This call must be made before any use of the main loop from
+GTK+; to be safe, call it before <code class="function">gtk_init()</code>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-enter"></a><h3>gdk_threads_enter ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_threads_enter (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gdk_threads_enter</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>All GDK and GTK+ calls should be made from the main
+    thread</p>
+</div>
+<p>This function marks the beginning of a critical section in which
+GDK and GTK+ functions can be called safely and without causing race
+conditions. Only one thread at a time can be in such a critial
+section.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-leave"></a><h3>gdk_threads_leave ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_threads_leave (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gdk_threads_leave</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>All GDK and GTK+ calls should be made from the main
+    thread</p>
+</div>
+<p>Leaves a critical region begun with <a class="link" href="gdk3-Threads.html#gdk-threads-enter" title="gdk_threads_enter ()"><code class="function">gdk_threads_enter()</code></a>.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-set-lock-functions"></a><h3>gdk_threads_set_lock_functions ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_threads_set_lock_functions (<em class="parameter"><code><span class="type">GCallback</span> enter_fn</code></em>,
+                                <em class="parameter"><code><span class="type">GCallback</span> leave_fn</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gdk_threads_set_lock_functions</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>All GDK and GTK+ calls should be made from the main
+    thread</p>
+</div>
+<p>Allows the application to replace the standard method that
+GDK uses to protect its data structures. Normally, GDK
+creates a single <span class="type">GMutex</span> that is locked by <a class="link" href="gdk3-Threads.html#gdk-threads-enter" title="gdk_threads_enter ()"><code class="function">gdk_threads_enter()</code></a>,
+and released by <a class="link" href="gdk3-Threads.html#gdk-threads-leave" title="gdk_threads_leave ()"><code class="function">gdk_threads_leave()</code></a>; using this function an
+application provides, instead, a function <em class="parameter"><code>enter_fn</code></em>
+ that is
+called by <a class="link" href="gdk3-Threads.html#gdk-threads-enter" title="gdk_threads_enter ()"><code class="function">gdk_threads_enter()</code></a> and a function <em class="parameter"><code>leave_fn</code></em>
+ that is
+called by <a class="link" href="gdk3-Threads.html#gdk-threads-leave" title="gdk_threads_leave ()"><code class="function">gdk_threads_leave()</code></a>.</p>
+<p>The functions must provide at least same locking functionality
+as the default implementation, but can also do extra application
+specific processing.</p>
+<p>As an example, consider an application that has its own recursive
+lock that when held, holds the GTK+ lock as well. When GTK+ unlocks
+the GTK+ lock when entering a recursive main loop, the application
+must temporarily release its lock as well.</p>
+<p>Most threaded GTK+ apps won’t need to use this method.</p>
+<p>This method must be called before <a class="link" href="gdk3-Threads.html#gdk-threads-init" title="gdk_threads_init ()"><code class="function">gdk_threads_init()</code></a>, and cannot
+be called multiple times.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gdk-threads-set-lock-functions.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>enter_fn</p></td>
+<td class="parameter_description"><p>function called to guard GDK</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>leave_fn</p></td>
+<td class="parameter_description"><p>function called to release the guard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-add-idle"></a><h3>gdk_threads_add_idle ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_threads_add_idle (<em class="parameter"><code><span class="type">GSourceFunc</span> function</code></em>,
+                      <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>A wrapper for the common usage of <a class="link" href="gdk3-Threads.html#gdk-threads-add-idle-full" title="gdk_threads_add_idle_full ()"><code class="function">gdk_threads_add_idle_full()</code></a> 
+assigning the default priority, <span class="type">G_PRIORITY_DEFAULT_IDLE</span>.</p>
+<p>See <a class="link" href="gdk3-Threads.html#gdk-threads-add-idle-full" title="gdk_threads_add_idle_full ()"><code class="function">gdk_threads_add_idle_full()</code></a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gdk-threads-add-idle.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>function</p></td>
+<td class="parameter_description"><p>function to call</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>function</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-threads-add-idle.returns"></a><h4>Returns</h4>
+<p> the ID (greater than 0) of the event source.</p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-add-idle-full"></a><h3>gdk_threads_add_idle_full ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_threads_add_idle_full (<em class="parameter"><code><span class="type">gint</span> priority</code></em>,
+                           <em class="parameter"><code><span class="type">GSourceFunc</span> function</code></em>,
+                           <em class="parameter"><code><span class="type">gpointer</span> data</code></em>,
+                           <em class="parameter"><code><span class="type">GDestroyNotify</span> notify</code></em>);</pre>
+<p>Adds a function to be called whenever there are no higher priority
+events pending.  If the function returns <code class="literal">FALSE</code> it is automatically
+removed from the list of event sources and will not be called again.</p>
+<p>This variant of <code class="function">g_idle_add_full()</code> calls <em class="parameter"><code>function</code></em>
+ with the GDK lock
+held. It can be thought of a MT-safe version for GTK+ widgets for the
+following use case, where you have to worry about <code class="function">idle_callback()</code>
+running in thread A and accessing <em class="parameter"><code>self</code></em>
+ after it has been finalized
+in thread B:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> gboolean</span>
+<span class="function">idle_callback</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">gpointer</span><span class="normal"> data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="comment">// gdk_threads_enter(); would be needed for g_idle_add()</span>
+
+<span class="normal">   </span><span class="usertype">SomeWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">self </span><span class="symbol">=</span><span class="normal"> data</span><span class="symbol">;</span>
+<span class="normal">   </span><span class="comment">// do stuff with self</span>
+
+<span class="normal">   self</span><span class="symbol">-&gt;</span><span class="normal">idle_id </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+
+<span class="normal">   </span><span class="comment">// gdk_threads_leave(); would be needed for g_idle_add()</span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> FALSE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">some_widget_do_stuff_later</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">SomeWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">self</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   self</span><span class="symbol">-&gt;</span><span class="normal">idle_id </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="gdk3-Threads.html#gdk-threads-add-idle">gdk_threads_add_idle</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">idle_callback</span><span class="symbol">,</span><span class="normal"> self</span><span class="symbol">)</span>
+<span class="normal">   </span><span class="comment">// using g_idle_add() here would require thread protection in the callback</span>
+<span class="cbracket">}</span>
+
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
+<span class="function">some_widget_finalize</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">object</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">SomeWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">self </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SOME_WIDGET</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">object</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">self</span><span class="symbol">-&gt;</span><span class="normal">idle_id</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="function">g_source_remove</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">self</span><span class="symbol">-&gt;</span><span class="normal">idle_id</span><span class="symbol">);</span>
+<span class="normal">   </span><span class="function">G_OBJECT_CLASS</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">parent_class</span><span class="symbol">)-&gt;</span><span class="function">finalize</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">object</span><span class="symbol">);</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p><span class="annotation">[<acronym title="Rename the original symbol's name to SYMBOL."><span class="acronym">rename-to</span></acronym> gdk_threads_add_idle]</span></p>
+<div class="refsect3">
+<a name="gdk-threads-add-idle-full.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>priority</p></td>
+<td class="parameter_description"><p>the priority of the idle source. Typically this will be in the
+range between <span class="type">G_PRIORITY_DEFAULT_IDLE</span> and <span class="type">G_PRIORITY_HIGH_IDLE</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>function</p></td>
+<td class="parameter_description"><p>function to call</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>function</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>notify</p></td>
+<td class="parameter_description"><p>function to call when the idle is removed, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-threads-add-idle-full.returns"></a><h4>Returns</h4>
+<p> the ID (greater than 0) of the event source.</p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-add-timeout"></a><h3>gdk_threads_add_timeout ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_threads_add_timeout (<em class="parameter"><code><span class="type">guint</span> interval</code></em>,
+                         <em class="parameter"><code><span class="type">GSourceFunc</span> function</code></em>,
+                         <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>A wrapper for the common usage of <a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-full" title="gdk_threads_add_timeout_full ()"><code class="function">gdk_threads_add_timeout_full()</code></a> 
+assigning the default priority, <span class="type">G_PRIORITY_DEFAULT</span>.</p>
+<p>See <a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-full" title="gdk_threads_add_timeout_full ()"><code class="function">gdk_threads_add_timeout_full()</code></a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>interval</p></td>
+<td class="parameter_description"><p>the time between calls to the function, in milliseconds
+(1/1000ths of a second)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>function</p></td>
+<td class="parameter_description"><p>function to call</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>function</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout.returns"></a><h4>Returns</h4>
+<p> the ID (greater than 0) of the event source.</p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-add-timeout-full"></a><h3>gdk_threads_add_timeout_full ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_threads_add_timeout_full (<em class="parameter"><code><span class="type">gint</span> priority</code></em>,
+                              <em class="parameter"><code><span class="type">guint</span> interval</code></em>,
+                              <em class="parameter"><code><span class="type">GSourceFunc</span> function</code></em>,
+                              <em class="parameter"><code><span class="type">gpointer</span> data</code></em>,
+                              <em class="parameter"><code><span class="type">GDestroyNotify</span> notify</code></em>);</pre>
+<p>Sets a function to be called at regular intervals holding the GDK lock,
+with the given priority.  The function is called repeatedly until it 
+returns <code class="literal">FALSE</code>, at which point the timeout is automatically destroyed 
+and the function will not be called again.  The <em class="parameter"><code>notify</code></em>
+ function is
+called when the timeout is destroyed.  The first call to the
+function will be at the end of the first <em class="parameter"><code>interval</code></em>
+.</p>
+<p>Note that timeout functions may be delayed, due to the processing of other
+event sources. Thus they should not be relied on for precise timing.
+After each call to the timeout function, the time of the next
+timeout is recalculated based on the current time and the given interval
+(it does not try to “catch up” time lost in delays).</p>
+<p>This variant of <code class="function">g_timeout_add_full()</code> can be thought of a MT-safe version 
+for GTK+ widgets for the following use case:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="usertype">gboolean</span><span class="normal"> </span><span class="function">timeout_callback</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">gpointer</span><span class="normal"> data</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">SomeWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">self </span><span class="symbol">=</span><span class="normal"> data</span><span class="symbol">;</span>
+<span class="normal">   </span>
+<span class="normal">   </span><span class="comment">// do stuff with self</span>
+<span class="normal">   </span>
+<span class="normal">   self</span><span class="symbol">-&gt;</span><span class="normal">timeout_id </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+<span class="normal">   </span>
+<span class="normal">   </span><span class="keyword">return</span><span class="normal"> G_SOURCE_REMOVE</span><span class="symbol">;</span>
+<span class="cbracket">}</span>
+<span class="normal"> </span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">some_widget_do_stuff_later</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">SomeWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">self</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   self</span><span class="symbol">-&gt;</span><span class="normal">timeout_id </span><span class="symbol">=</span><span class="normal"> </span><span class="function">g_timeout_add</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">timeout_callback</span><span class="symbol">,</span><span class="normal"> self</span><span class="symbol">)</span>
+<span class="cbracket">}</span>
+<span class="normal"> </span>
+<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">some_widget_finalize</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">object</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">   </span><span class="usertype">SomeWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">self </span><span class="symbol">=</span><span class="normal"> </span><span class="function">SOME_WIDGET</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">object</span><span class="symbol">);</span>
+<span class="normal">   </span>
+<span class="normal">   </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">self</span><span class="symbol">-&gt;</span><span class="normal">timeout_id</span><span class="symbol">)</span>
+<span class="normal">     </span><span class="function">g_source_remove</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">self</span><span class="symbol">-&gt;</span><span class="normal">timeout_id</span><span class="symbol">);</span>
+<span class="normal">   </span>
+<span class="normal">   </span><span class="function">G_OBJECT_CLASS</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">parent_class</span><span class="symbol">)-&gt;</span><span class="function">finalize</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">object</span><span class="symbol">);</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p><span class="annotation">[<acronym title="Rename the original symbol's name to SYMBOL."><span class="acronym">rename-to</span></acronym> gdk_threads_add_timeout]</span></p>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout-full.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>priority</p></td>
+<td class="parameter_description"><p>the priority of the timeout source. Typically this will be in the
+range between <span class="type">G_PRIORITY_DEFAULT_IDLE</span> and <span class="type">G_PRIORITY_HIGH_IDLE</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interval</p></td>
+<td class="parameter_description"><p>the time between calls to the function, in milliseconds
+(1/1000ths of a second)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>function</p></td>
+<td class="parameter_description"><p>function to call</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>function</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>notify</p></td>
+<td class="parameter_description"><p>function to call when the timeout is removed, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout-full.returns"></a><h4>Returns</h4>
+<p> the ID (greater than 0) of the event source.</p>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-add-timeout-seconds"></a><h3>gdk_threads_add_timeout_seconds ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_threads_add_timeout_seconds (<em class="parameter"><code><span class="type">guint</span> interval</code></em>,
+                                 <em class="parameter"><code><span class="type">GSourceFunc</span> function</code></em>,
+                                 <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>A wrapper for the common usage of <a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-seconds-full" title="gdk_threads_add_timeout_seconds_full ()"><code class="function">gdk_threads_add_timeout_seconds_full()</code></a> 
+assigning the default priority, <span class="type">G_PRIORITY_DEFAULT</span>.</p>
+<p>For details, see <a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-full" title="gdk_threads_add_timeout_full ()"><code class="function">gdk_threads_add_timeout_full()</code></a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout-seconds.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>interval</p></td>
+<td class="parameter_description"><p>the time between calls to the function, in seconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>function</p></td>
+<td class="parameter_description"><p>function to call</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>function</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout-seconds.returns"></a><h4>Returns</h4>
+<p> the ID (greater than 0) of the event source.</p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-threads-add-timeout-seconds-full"></a><h3>gdk_threads_add_timeout_seconds_full ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gdk_threads_add_timeout_seconds_full (<em class="parameter"><code><span class="type">gint</span> priority</code></em>,
+                                      <em class="parameter"><code><span class="type">guint</span> interval</code></em>,
+                                      <em class="parameter"><code><span class="type">GSourceFunc</span> function</code></em>,
+                                      <em class="parameter"><code><span class="type">gpointer</span> data</code></em>,
+                                      <em class="parameter"><code><span class="type">GDestroyNotify</span> notify</code></em>);</pre>
+<p>A variant of <a class="link" href="gdk3-Threads.html#gdk-threads-add-timeout-full" title="gdk_threads_add_timeout_full ()"><code class="function">gdk_threads_add_timeout_full()</code></a> with second-granularity.
+See <code class="function">g_timeout_add_seconds_full()</code> for a discussion of why it is
+a good idea to use this function if you don’t need finer granularity.</p>
+<p><span class="annotation">[<acronym title="Rename the original symbol's name to SYMBOL."><span class="acronym">rename-to</span></acronym> gdk_threads_add_timeout_seconds]</span></p>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout-seconds-full.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>priority</p></td>
+<td class="parameter_description"><p>the priority of the timeout source. Typically this will be in the
+range between <span class="type">G_PRIORITY_DEFAULT_IDLE</span> and <span class="type">G_PRIORITY_HIGH_IDLE</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interval</p></td>
+<td class="parameter_description"><p>the time between calls to the function, in seconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>function</p></td>
+<td class="parameter_description"><p>function to call</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>function</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>notify</p></td>
+<td class="parameter_description"><p>function to call when the timeout is removed, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-threads-add-timeout-seconds-full.returns"></a><h4>Returns</h4>
+<p> the ID (greater than 0) of the event source.</p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Threads.other_details"></a><h2>Types and Values</h2>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Object Hierarchy: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtkobjects.html" title="Part II. GTK+ Widgets and Objects">
+<link rel="prev" href="gtkobjects.html" title="Part II. GTK+ Widgets and Objects">
+<link rel="next" href="ch03.html" title="Widget Gallery">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtkobjects.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gtkobjects.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch03.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id-1.3.2"></a>Object Hierarchy</h2></div></div></div>
+<pre class="screen">
+    GObject
+    <span class="lineart">├──</span> GInitiallyUnowned
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkContainer.html" title="GtkContainer">GtkContainer</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkBin.html" title="GtkBin">GtkBin</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkWindow.html" title="GtkWindow">GtkWindow</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkDialog.html" title="GtkDialog">GtkDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkAboutDialog.html" title="GtkAboutDialog">GtkAboutDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkAppChooserDialog.html" title="GtkAppChooserDialog">GtkAppChooserDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkColorChooserDialog.html" title="GtkColorChooserDialog">GtkColorChooserDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkColorSelectionDialog.html" title="GtkColorSelectionDialog">GtkColorSelectionDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFileChooserDialog.html" title="GtkFileChooserDialog">GtkFileChooserDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFontChooserDialog.html" title="GtkFontChooserDialog">GtkFontChooserDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFontSelectionDialog.html" title="GtkFontSelectionDialog">GtkFontSelectionDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkMessageDialog.html" title="GtkMessageDialog">GtkMessageDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkPageSetupUnixDialog.html" title="GtkPageSetupUnixDialog">GtkPageSetupUnixDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkPrintUnixDialog.html" title="GtkPrintUnixDialog">GtkPrintUnixDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkRecentChooserDialog.html" title="GtkRecentChooserDialog">GtkRecentChooserDialog</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow">GtkApplicationWindow</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkAssistant.html" title="GtkAssistant">GtkAssistant</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkOffscreenWindow.html" title="GtkOffscreenWindow">GtkOffscreenWindow</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkPlug.html" title="GtkPlug">GtkPlug</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkShortcutsWindow.html" title="GtkShortcutsWindow">GtkShortcutsWindow</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkActionBar.html" title="GtkActionBar">GtkActionBar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkAlignment.html" title="GtkAlignment">GtkAlignment</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkComboBox.html" title="GtkComboBox">GtkComboBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkAppChooserButton.html" title="GtkAppChooserButton">GtkAppChooserButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkComboBoxText.html" title="GtkComboBoxText">GtkComboBoxText</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFrame.html" title="GtkFrame">GtkFrame</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkAspectFrame.html" title="GtkAspectFrame">GtkAspectFrame</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkButton.html" title="GtkButton">GtkButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkToggleButton.html" title="GtkToggleButton">GtkToggleButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCheckButton.html" title="GtkCheckButton">GtkCheckButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkRadioButton.html" title="GtkRadioButton">GtkRadioButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkMenuButton.html" title="GtkMenuButton">GtkMenuButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkColorButton.html" title="GtkColorButton">GtkColorButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFontButton.html" title="GtkFontButton">GtkFontButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkLinkButton.html" title="GtkLinkButton">GtkLinkButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkLockButton.html" title="GtkLockButton">GtkLockButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkModelButton.html" title="GtkModelButton">GtkModelButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkScaleButton.html" title="GtkScaleButton">GtkScaleButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="GtkVolumeButton.html" title="GtkVolumeButton">GtkVolumeButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkMenuItem.html" title="GtkMenuItem">GtkMenuItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCheckMenuItem.html" title="GtkCheckMenuItem">GtkCheckMenuItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkRadioMenuItem.html" title="GtkRadioMenuItem">GtkRadioMenuItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkImageMenuItem.html" title="GtkImageMenuItem">GtkImageMenuItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkSeparatorMenuItem.html" title="GtkSeparatorMenuItem">GtkSeparatorMenuItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkTearoffMenuItem.html" title="GtkTearoffMenuItem">GtkTearoffMenuItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkEventBox.html" title="GtkEventBox">GtkEventBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkExpander.html" title="GtkExpander">GtkExpander</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFlowBox.html#GtkFlowBoxChild">GtkFlowBoxChild</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHandleBox.html" title="GtkHandleBox">GtkHandleBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkListBox.html#GtkListBoxRow">GtkListBoxRow</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkToolItem.html" title="GtkToolItem">GtkToolItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkToolButton.html" title="GtkToolButton">GtkToolButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkMenuToolButton.html" title="GtkMenuToolButton">GtkMenuToolButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkToggleToolButton.html" title="GtkToggleToolButton">GtkToggleToolButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="GtkRadioToolButton.html" title="GtkRadioToolButton">GtkRadioToolButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkSeparatorToolItem.html" title="GtkSeparatorToolItem">GtkSeparatorToolItem</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkOverlay.html" title="GtkOverlay">GtkOverlay</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkScrolledWindow.html" title="GtkScrolledWindow">GtkScrolledWindow</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkPlacesSidebar.html" title="GtkPlacesSidebar">GtkPlacesSidebar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkPopover.html" title="GtkPopover">GtkPopover</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkPopoverMenu.html" title="GtkPopoverMenu">GtkPopoverMenu</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkRevealer.html" title="GtkRevealer">GtkRevealer</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkSearchBar.html" title="GtkSearchBar">GtkSearchBar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkStackSidebar.html" title="GtkStackSidebar">GtkStackSidebar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkViewport.html" title="GtkViewport">GtkViewport</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkBox.html" title="GtkBox">GtkBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkAppChooserWidget.html" title="GtkAppChooserWidget">GtkAppChooserWidget</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkButtonBox.html" title="GtkButtonBox">GtkButtonBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHButtonBox.html" title="GtkHButtonBox">GtkHButtonBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkVButtonBox.html" title="GtkVButtonBox">GtkVButtonBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkColorChooserWidget.html" title="GtkColorChooserWidget">GtkColorChooserWidget</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkColorSelection.html" title="GtkColorSelection">GtkColorSelection</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFileChooserButton.html" title="GtkFileChooserButton">GtkFileChooserButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFileChooserWidget.html" title="GtkFileChooserWidget">GtkFileChooserWidget</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFontChooserWidget.html" title="GtkFontChooserWidget">GtkFontChooserWidget</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFontSelection.html" title="GtkFontSelection">GtkFontSelection</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHBox.html" title="GtkHBox">GtkHBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkInfoBar.html" title="GtkInfoBar">GtkInfoBar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkRecentChooserWidget.html" title="GtkRecentChooserWidget">GtkRecentChooserWidget</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkShortcutsSection.html" title="GtkShortcutsSection">GtkShortcutsSection</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkShortcutsGroup.html" title="GtkShortcutsGroup">GtkShortcutsGroup</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkShortcutsShortcut.html" title="GtkShortcutsShortcut">GtkShortcutsShortcut</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkStackSwitcher.html" title="GtkStackSwitcher">GtkStackSwitcher</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkStatusbar.html" title="GtkStatusbar">GtkStatusbar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkVBox.html" title="GtkVBox">GtkVBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFixed.html" title="GtkFixed">GtkFixed</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFlowBox.html" title="GtkFlowBox">GtkFlowBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGrid.html" title="GtkGrid">GtkGrid</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHeaderBar.html" title="GtkHeaderBar">GtkHeaderBar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkPaned.html" title="GtkPaned">GtkPaned</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHPaned.html" title="GtkHPaned">GtkHPaned</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkVPaned.html" title="GtkVPaned">GtkVPaned</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkIconView.html" title="GtkIconView">GtkIconView</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkLayout.html" title="GtkLayout">GtkLayout</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkListBox.html" title="GtkListBox">GtkListBox</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkMenuShell.html" title="GtkMenuShell">GtkMenuShell</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkMenuBar.html" title="GtkMenuBar">GtkMenuBar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkMenu.html" title="GtkMenu">GtkMenu</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="GtkRecentChooserMenu.html" title="GtkRecentChooserMenu">GtkRecentChooserMenu</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkNotebook.html" title="GtkNotebook">GtkNotebook</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkSocket.html" title="GtkSocket">GtkSocket</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkStack.html" title="GtkStack">GtkStack</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkTable.html" title="GtkTable">GtkTable</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkTextView.html" title="GtkTextView">GtkTextView</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkToolbar.html" title="GtkToolbar">GtkToolbar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkToolItemGroup.html" title="GtkToolItemGroup">GtkToolItemGroup</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkToolPalette.html" title="GtkToolPalette">GtkToolPalette</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkTreeView.html" title="GtkTreeView">GtkTreeView</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkMisc.html" title="GtkMisc">GtkMisc</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkLabel.html" title="GtkLabel">GtkLabel</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkAccelLabel.html" title="GtkAccelLabel">GtkAccelLabel</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkArrow.html" title="GtkArrow">GtkArrow</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkImage.html" title="GtkImage">GtkImage</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCalendar.html" title="GtkCalendar">GtkCalendar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellView.html" title="GtkCellView">GtkCellView</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkDrawingArea.html" title="GtkDrawingArea">GtkDrawingArea</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkEntry.html" title="GtkEntry">GtkEntry</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkSearchEntry.html" title="GtkSearchEntry">GtkSearchEntry</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkSpinButton.html" title="GtkSpinButton">GtkSpinButton</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGLArea.html" title="GtkGLArea">GtkGLArea</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkRange.html" title="GtkRange">GtkRange</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkScale.html" title="GtkScale">GtkScale</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHScale.html" title="GtkHScale">GtkHScale</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkVScale.html" title="GtkVScale">GtkVScale</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkScrollbar.html" title="GtkScrollbar">GtkScrollbar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>       <span class="lineart">├──</span> <a class="link" href="GtkHScrollbar.html" title="GtkHScrollbar">GtkHScrollbar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="GtkVScrollbar.html" title="GtkVScrollbar">GtkVScrollbar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkSeparator.html" title="GtkSeparator">GtkSeparator</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHSeparator.html" title="GtkHSeparator">GtkHSeparator</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkVSeparator.html" title="GtkVSeparator">GtkVSeparator</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkHSV.html" title="GtkHSV">GtkHSV</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkInvisible.html" title="GtkInvisible">GtkInvisible</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkProgressBar.html" title="GtkProgressBar">GtkProgressBar</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkSpinner.html" title="GtkSpinner">GtkSpinner</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkSwitch.html" title="GtkSwitch">GtkSwitch</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkLevelBar.html" title="GtkLevelBar">GtkLevelBar</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkAdjustment.html" title="GtkAdjustment">GtkAdjustment</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellArea.html" title="GtkCellArea">GtkCellArea</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkCellAreaBox.html" title="GtkCellAreaBox">GtkCellAreaBox</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellRenderer.html" title="GtkCellRenderer">GtkCellRenderer</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellRendererText.html" title="GtkCellRendererText">GtkCellRendererText</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellRendererAccel.html" title="GtkCellRendererAccel">GtkCellRendererAccel</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellRendererCombo.html" title="GtkCellRendererCombo">GtkCellRendererCombo</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkCellRendererSpin.html" title="GtkCellRendererSpin">GtkCellRendererSpin</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellRendererPixbuf.html" title="GtkCellRendererPixbuf">GtkCellRendererPixbuf</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellRendererProgress.html" title="GtkCellRendererProgress">GtkCellRendererProgress</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkCellRendererSpinner.html" title="GtkCellRendererSpinner">GtkCellRendererSpinner</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkCellRendererToggle.html" title="GtkCellRendererToggle">GtkCellRendererToggle</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkFileFilter.html" title="GtkFileFilter">GtkFileFilter</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkTreeViewColumn.html" title="GtkTreeViewColumn">GtkTreeViewColumn</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkRecentFilter.html" title="GtkRecentFilter">GtkRecentFilter</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup">GtkAccelGroup</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Accelerator-Maps.html#GtkAccelMap">GtkAccelMap</a>
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/atk/AtkObject.html#AtkObject-struct">AtkObject</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkAccessible.html" title="GtkAccessible">GtkAccessible</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkAction.html" title="GtkAction">GtkAction</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkToggleAction.html" title="GtkToggleAction">GtkToggleAction</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkRadioAction.html" title="GtkRadioAction">GtkRadioAction</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkRecentAction.html" title="GtkRecentAction">GtkRecentAction</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkActionGroup.html" title="GtkActionGroup">GtkActionGroup</a>
+    <span class="lineart">├──</span> GApplication
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkApplication.html" title="GtkApplication">GtkApplication</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkBuilder.html" title="GtkBuilder">GtkBuilder</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkCellAreaContext.html" title="GtkCellAreaContext">GtkCellAreaContext</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Clipboards.html#GtkClipboard">GtkClipboard</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkCssProvider.html" title="GtkCssProvider">GtkCssProvider</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkEntryBuffer.html" title="GtkEntryBuffer">GtkEntryBuffer</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkEntryCompletion.html" title="GtkEntryCompletion">GtkEntryCompletion</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkEventController.html" title="GtkEventController">GtkEventController</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkEventControllerKey.html" title="GtkEventControllerKey">GtkEventControllerKey</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkEventControllerMotion.html" title="GtkEventControllerMotion">GtkEventControllerMotion</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkEventControllerScroll.html" title="GtkEventControllerScroll">GtkEventControllerScroll</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGesture.html" title="GtkGesture">GtkGesture</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGestureSingle.html" title="GtkGestureSingle">GtkGestureSingle</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGestureDrag.html" title="GtkGestureDrag">GtkGestureDrag</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkGesturePan.html" title="GtkGesturePan">GtkGesturePan</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGestureLongPress.html" title="GtkGestureLongPress">GtkGestureLongPress</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGestureMultiPress.html" title="GtkGestureMultiPress">GtkGestureMultiPress</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGestureStylus.html" title="GtkGestureStylus">GtkGestureStylus</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkGestureSwipe.html" title="GtkGestureSwipe">GtkGestureSwipe</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkGestureRotate.html" title="GtkGestureRotate">GtkGestureRotate</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkGestureZoom.html" title="GtkGestureZoom">GtkGestureZoom</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkPadController.html" title="GtkPadController">GtkPadController</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconFactory">GtkIconFactory</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkIconTheme.html" title="GtkIconTheme">GtkIconTheme</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkIMContext.html" title="GtkIMContext">GtkIMContext</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="GtkIMContextSimple.html" title="GtkIMContextSimple">GtkIMContextSimple</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkIMMulticontext.html" title="GtkIMMulticontext">GtkIMMulticontext</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkListStore.html" title="GtkListStore">GtkListStore</a>
+    <span class="lineart">├──</span> GMountOperation
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="gtk3-Filesystem-utilities.html#GtkMountOperation">GtkMountOperation</a>
+    <span class="lineart">├──</span> GEmblemedIcon
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="GtkNumerableIcon.html" title="GtkNumerableIcon">GtkNumerableIcon</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkPageSetup.html" title="GtkPageSetup">GtkPageSetup</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkPrinter.html" title="GtkPrinter">GtkPrinter</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkPrintContext.html" title="GtkPrintContext">GtkPrintContext</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkPrintJob.html" title="GtkPrintJob">GtkPrintJob</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-High-level-Printing-API.html#GtkPrintOperation">GtkPrintOperation</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkPrintSettings.html" title="GtkPrintSettings">GtkPrintSettings</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Resource-Files.html#GtkRcStyle">GtkRcStyle</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkRecentManager.html" title="GtkRecentManager">GtkRecentManager</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkSettings.html" title="Settings">GtkSettings</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkSizeGroup.html" title="GtkSizeGroup">GtkSizeGroup</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkStatusIcon.html" title="GtkStatusIcon">GtkStatusIcon</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkStyle.html" title="GtkStyle">GtkStyle</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkStyleContext.html" title="GtkStyleContext">GtkStyleContext</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTextBuffer.html" title="GtkTextBuffer">GtkTextBuffer</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTextView.html#GtkTextChildAnchor">GtkTextChildAnchor</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTextMark.html" title="GtkTextMark">GtkTextMark</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTextTag.html" title="GtkTextTag">GtkTextTag</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTextTagTable.html" title="GtkTextTagTable">GtkTextTagTable</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkThemingEngine.html" title="GtkThemingEngine">GtkThemingEngine</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeModelFilter.html" title="GtkTreeModelFilter">GtkTreeModelFilter</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeModelSort.html" title="GtkTreeModelSort">GtkTreeModelSort</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeSelection.html" title="GtkTreeSelection">GtkTreeSelection</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeStore.html" title="GtkTreeStore">GtkTreeStore</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkUIManager.html" title="GtkUIManager">GtkUIManager</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkWindowGroup.html" title="GtkWindowGroup">GtkWindowGroup</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTooltip.html" title="GtkTooltip">GtkTooltip</a>
+    <span class="lineart">╰──</span> <a class="link" href="GtkPrinter.html#GtkPrintBackend">GtkPrintBackend</a>
+    <a href="/usr/share/gtk-doc/html/gobject/GTypeModule.html">GInterface</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkActionable.html" title="GtkActionable">GtkActionable</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkActivatable.html" title="GtkActivatable">GtkActivatable</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkAppChooser.html" title="GtkAppChooser">GtkAppChooser</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkCellLayout.html" title="GtkCellLayout">GtkCellLayout</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkCellEditable.html" title="GtkCellEditable">GtkCellEditable</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkColorChooser.html" title="GtkColorChooser">GtkColorChooser</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider">GtkStyleProvider</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkEditable.html" title="GtkEditable">GtkEditable</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkFileChooser.html" title="GtkFileChooser">GtkFileChooser</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkFontChooser.html" title="GtkFontChooser">GtkFontChooser</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkScrollable.html" title="GtkScrollable">GtkScrollable</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeModel.html" title="GtkTreeModel">GtkTreeModel</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-GtkTreeView-drag-and-drop.html#GtkTreeDragSource">GtkTreeDragSource</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-GtkTreeView-drag-and-drop.html#GtkTreeDragDest">GtkTreeDragDest</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeSortable.html" title="GtkTreeSortable">GtkTreeSortable</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-High-level-Printing-API.html#GtkPrintOperationPreview">GtkPrintOperationPreview</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkRecentChooser.html" title="GtkRecentChooser">GtkRecentChooser</a>
+    <span class="lineart">╰──</span> <a class="link" href="GtkToolShell.html" title="GtkToolShell">GtkToolShell</a>
+    <a href="/usr/share/gtk-doc/html/gobject/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkPaperSize.html" title="GtkPaperSize">GtkPaperSize</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTextIter.html" title="GtkTextIter">GtkTextIter</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Selections.html#GtkSelectionData">GtkSelectionData</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkWidget.html#GtkRequisition">GtkRequisition</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkStyleContext.html#GtkBorder">GtkBorder</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeModel.html#GtkTreeIter">GtkTreeIter</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkCssProvider.html#GtkCssSection">GtkCssSection</a>
+    <span class="lineart">├──</span> <a class="link" href="GtkTreeModel.html#GtkTreePath">GtkTreePath</a>
+    <span class="lineart">├──</span> <a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconSet">GtkIconSet</a>
+    <span class="lineart">╰──</span> <a class="link" href="gtk3-Selections.html#GtkTargetList">GtkTargetList</a>
+</pre>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,1564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkApplication: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="Application.html" title="Application support">
+<link rel="prev" href="Application.html" title="Application support">
+<link rel="next" href="GtkApplicationWindow.html" title="GtkApplicationWindow">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkApplication.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkApplication.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkApplication.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkApplication.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkApplication.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="Application.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="Application.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkApplicationWindow.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkApplication"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkApplication.top_of_page"></a>GtkApplication</span></h2>
+<p>GtkApplication — Application class</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkApplication.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkApplication.html" title="GtkApplication"><span class="returnvalue">GtkApplication</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-new" title="gtk_application_new ()">gtk_application_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-add-window" title="gtk_application_add_window ()">gtk_application_add_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-remove-window" title="gtk_application_remove_window ()">gtk_application_remove_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-windows" title="gtk_application_get_windows ()">gtk_application_get_windows</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWindow.html" title="GtkWindow"><span class="returnvalue">GtkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-window-by-id" title="gtk_application_get_window_by_id ()">gtk_application_get_window_by_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWindow.html" title="GtkWindow"><span class="returnvalue">GtkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-active-window" title="gtk_application_get_active_window ()">gtk_application_get_active_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-inhibit" title="gtk_application_inhibit ()">gtk_application_inhibit</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-uninhibit" title="gtk_application_uninhibit ()">gtk_application_uninhibit</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-is-inhibited" title="gtk_application_is_inhibited ()">gtk_application_is_inhibited</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-prefers-app-menu" title="gtk_application_prefers_app_menu ()">gtk_application_prefers_app_menu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GMenuModel</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-app-menu" title="gtk_application_get_app_menu ()">gtk_application_get_app_menu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-set-app-menu" title="gtk_application_set_app_menu ()">gtk_application_set_app_menu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GMenuModel</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-menubar" title="gtk_application_get_menubar ()">gtk_application_get_menubar</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-set-menubar" title="gtk_application_set_menubar ()">gtk_application_set_menubar</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GMenu</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-menu-by-id" title="gtk_application_get_menu_by_id ()">gtk_application_get_menu_by_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-add-accelerator" title="gtk_application_add_accelerator ()">gtk_application_add_accelerator</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-remove-accelerator" title="gtk_application_remove_accelerator ()">gtk_application_remove_accelerator</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> **
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-list-action-descriptions" title="gtk_application_list_action_descriptions ()">gtk_application_list_action_descriptions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> **
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-accels-for-action" title="gtk_application_get_accels_for_action ()">gtk_application_get_accels_for_action</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-set-accels-for-action" title="gtk_application_set_accels_for_action ()">gtk_application_set_accels_for_action</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> **
+</td>
+<td class="function_name">
+<a class="link" href="GtkApplication.html#gtk-application-get-actions-for-accel" title="gtk_application_get_actions_for_accel ()">gtk_application_get_actions_for_accel</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> *</td>
+<td class="property_name"><a class="link" href="GtkApplication.html#GtkApplication--active-window" title="The “active-window” property">active-window</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GMenuModel</span> *</td>
+<td class="property_name"><a class="link" href="GtkApplication.html#GtkApplication--app-menu" title="The “app-menu” property">app-menu</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type">
+<span class="type">GMenuModel</span> *</td>
+<td class="property_name"><a class="link" href="GtkApplication.html#GtkApplication--menubar" title="The “menubar” property">menubar</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkApplication.html#GtkApplication--register-session" title="The “register-session” property">register-session</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkApplication.html#GtkApplication--screensaver-active" title="The “screensaver-active” property">screensaver-active</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkApplication.html#GtkApplication-query-end" title="The “query-end” signal">query-end</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkApplication.html#GtkApplication-window-added" title="The “window-added” signal">window-added</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkApplication.html#GtkApplication-window-removed" title="The “window-removed” signal">window-removed</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkApplication.html#GtkApplication-struct" title="struct GtkApplication">GtkApplication</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkApplication.html#GtkApplicationClass" title="struct GtkApplicationClass">GtkApplicationClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkApplication.html#GtkApplicationInhibitFlags" title="enum GtkApplicationInhibitFlags">GtkApplicationInhibitFlags</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GApplication
+        <span class="lineart">╰──</span> GtkApplication
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkApplication implements
+ GActionGroup and  GActionMap.</p>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.description"></a><h2>Description</h2>
+<p><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> is a class that handles many important aspects
+of a GTK+ application in a convenient fashion, without enforcing
+a one-size-fits-all application model.</p>
+<p>Currently, GtkApplication handles GTK+ initialization, application
+uniqueness, session management, provides some basic scriptability and
+desktop shell integration by exporting actions and menus and manages a
+list of toplevel windows whose life-cycle is automatically tied to the
+life-cycle of your application.</p>
+<p>While GtkApplication works fine with plain <a href="GtkWindow.html#GtkWindow-struct"><span class="type">GtkWindows</span></a>, it is recommended
+to use it together with <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a>.</p>
+<p>When GDK threads are enabled, GtkApplication will acquire the GDK
+lock when invoking actions that arrive from other processes.  The GDK
+lock is not touched for local action invocations.  In order to have
+actions invoked in a predictable context it is therefore recommended
+that the GDK lock be held while invoking actions locally with
+<code class="function">g_action_group_activate_action()</code>.  The same applies to actions
+associated with <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a> and to the “activate” and
+“open” <span class="type">GApplication</span> methods.</p>
+<div class="refsect3">
+<a name="automatic-resources"></a><h4>Automatic resources</h4>
+<p><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> will automatically load menus from the <a class="link" href="GtkBuilder.html" title="GtkBuilder"><span class="type">GtkBuilder</span></a>
+resource located at "gtk/menus.ui", relative to the application's
+resource base path (see <code class="function">g_application_set_resource_base_path()</code>).  The
+menu with the ID "app-menu" is taken as the application's app menu
+and the menu with the ID "menubar" is taken as the application's
+menubar.  Additional menus (most interesting submenus) can be named
+and accessed via <a class="link" href="GtkApplication.html#gtk-application-get-menu-by-id" title="gtk_application_get_menu_by_id ()"><code class="function">gtk_application_get_menu_by_id()</code></a> which allows for
+dynamic population of a part of the menu structure.</p>
+<p>If the resources "gtk/menus-appmenu.ui" or "gtk/menus-traditional.ui" are
+present then these files will be used in preference, depending on the value
+of <a class="link" href="GtkApplication.html#gtk-application-prefers-app-menu" title="gtk_application_prefers_app_menu ()"><code class="function">gtk_application_prefers_app_menu()</code></a>. If the resource "gtk/menus-common.ui"
+is present it will be loaded as well. This is useful for storing items that
+are referenced from both "gtk/menus-appmenu.ui" and
+"gtk/menus-traditional.ui".</p>
+<p>It is also possible to provide the menus manually using
+<a class="link" href="GtkApplication.html#gtk-application-set-app-menu" title="gtk_application_set_app_menu ()"><code class="function">gtk_application_set_app_menu()</code></a> and <a class="link" href="GtkApplication.html#gtk-application-set-menubar" title="gtk_application_set_menubar ()"><code class="function">gtk_application_set_menubar()</code></a>.</p>
+<p><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> will also automatically setup an icon search path for
+the default icon theme by appending "icons" to the resource base
+path.  This allows your application to easily store its icons as
+resources.  See <a class="link" href="GtkIconTheme.html#gtk-icon-theme-add-resource-path" title="gtk_icon_theme_add_resource_path ()"><code class="function">gtk_icon_theme_add_resource_path()</code></a> for more
+information.</p>
+<p>If there is a resource located at "gtk/help-overlay.ui" which
+defines a <a class="link" href="GtkShortcutsWindow.html" title="GtkShortcutsWindow"><span class="type">GtkShortcutsWindow</span></a> with ID "help_overlay" then GtkApplication
+associates an instance of this shortcuts window with each
+<a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a> and sets up keyboard accelerators (Control-F1
+and Control-?) to open it. To create a menu item that displays the
+shortcuts window, associate the item with the action win.show-help-overlay.</p>
+</div>
+<div class="refsect3">
+<a name="gtkapplication"></a><h4>A simple application</h4>
+<p><a class="ulink" href="https://git.gnome.org/browse/gtk+/tree/examples/bp/bloatpad.c" target="_top">A simple example</a></p>
+<p>GtkApplication optionally registers with a session manager
+of the users session (if you set the <a class="link" href="GtkApplication.html#GtkApplication--register-session" title="The “register-session” property"><span class="type">“register-session”</span></a>
+property) and offers various functionality related to the session
+life-cycle.</p>
+<p>An application can block various ways to end the session with
+the <a class="link" href="GtkApplication.html#gtk-application-inhibit" title="gtk_application_inhibit ()"><code class="function">gtk_application_inhibit()</code></a> function. Typical use cases for
+this kind of inhibiting are long-running, uninterruptible operations,
+such as burning a CD or performing a disk backup. The session
+manager may not honor the inhibitor, but it can be expected to
+inform the user about the negative consequences of ending the
+session while inhibitors are present.</p>
+</div>
+<div class="refsect3">
+<a name="seealso"></a><h4>See Also</h4>
+<p><a class="ulink" href="https://wiki.gnome.org/HowDoI/GtkApplication" target="_top">HowDoI: Using GtkApplication</a>,
+<a class="ulink" href="https://developer.gnome.org/gtk3/stable/gtk-getting-started.html#id-1.2.3.3" target="_top">Getting Started with GTK+: Basics</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-application-new"></a><h3>gtk_application_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="returnvalue">GtkApplication</span></a> *
+gtk_application_new (<em class="parameter"><code>const <span class="type">gchar</span> *application_id</code></em>,
+                     <em class="parameter"><code><span class="type">GApplicationFlags</span> flags</code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> instance.</p>
+<p>When using <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a>, it is not necessary to call <a class="link" href="gtk3-General.html#gtk-init" title="gtk_init ()"><code class="function">gtk_init()</code></a>
+manually. It is called as soon as the application gets registered as
+the primary instance.</p>
+<p>Concretely, <a class="link" href="gtk3-General.html#gtk-init" title="gtk_init ()"><code class="function">gtk_init()</code></a> is called in the default handler for the
+<span class="type">“startup”</span> signal. Therefore, <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> subclasses should
+chain up in their <span class="type">“startup”</span> handler before using any GTK+ API.</p>
+<p>Note that commandline arguments are not passed to <a class="link" href="gtk3-General.html#gtk-init" title="gtk_init ()"><code class="function">gtk_init()</code></a>.
+All GTK+ functionality that is available via commandline arguments
+can also be achieved by setting suitable environment variables
+such as <code class="literal">G_DEBUG</code>, so this should not be a big
+problem. If you absolutely must support GTK+ commandline arguments,
+you can explicitly call <a class="link" href="gtk3-General.html#gtk-init" title="gtk_init ()"><code class="function">gtk_init()</code></a> before creating the application
+instance.</p>
+<p>If non-<code class="literal">NULL</code>, the application ID must be valid.  See
+<code class="function">g_application_id_is_valid()</code>.</p>
+<p>If no application ID is given then some features (most notably application 
+uniqueness) will be disabled. A null application ID is only allowed with 
+GTK+ 3.6 or later.</p>
+<div class="refsect3">
+<a name="gtk-application-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application_id</p></td>
+<td class="parameter_description"><p>The application ID. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>the application flags</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> instance</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-add-window"></a><h3>gtk_application_add_window ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_add_window (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                            <em class="parameter"><code><a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> *window</code></em>);</pre>
+<p>Adds a window to <em class="parameter"><code>application</code></em>
+.</p>
+<p>This call can only happen after the <em class="parameter"><code>application</code></em>
+ has started;
+typically, you should add new application windows in response
+to the emission of the <span class="type">“activate”</span> signal.</p>
+<p>This call is equivalent to setting the <a class="link" href="GtkWindow.html#GtkWindow--application" title="The “application” property"><span class="type">“application”</span></a>
+property of <em class="parameter"><code>window</code></em>
+ to <em class="parameter"><code>application</code></em>
+.</p>
+<p>Normally, the connection between the application and the window
+will remain until the window is destroyed, but you can explicitly
+remove it with <a class="link" href="GtkApplication.html#gtk-application-remove-window" title="gtk_application_remove_window ()"><code class="function">gtk_application_remove_window()</code></a>.</p>
+<p>GTK+ will keep the <em class="parameter"><code>application</code></em>
+ running as long as it has
+any windows.</p>
+<div class="refsect3">
+<a name="gtk-application-add-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-remove-window"></a><h3>gtk_application_remove_window ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_remove_window (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                               <em class="parameter"><code><a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> *window</code></em>);</pre>
+<p>Remove a window from <em class="parameter"><code>application</code></em>
+.</p>
+<p>If <em class="parameter"><code>window</code></em>
+ belongs to <em class="parameter"><code>application</code></em>
+ then this call is equivalent to
+setting the <a class="link" href="GtkWindow.html#GtkWindow--application" title="The “application” property"><span class="type">“application”</span></a> property of <em class="parameter"><code>window</code></em>
+ to
+<code class="literal">NULL</code>.</p>
+<p>The application may stop running as a result of a call to this
+function.</p>
+<div class="refsect3">
+<a name="gtk-application-remove-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-windows"></a><h3>gtk_application_get_windows ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gtk_application_get_windows (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>);</pre>
+<p>Gets a list of the <a href="GtkWindow.html#GtkWindow-struct"><span class="type">GtkWindows</span></a> associated with <em class="parameter"><code>application</code></em>
+.</p>
+<p>The list is sorted by most recently focused window, such that the first
+element is the currently focused window. (Useful for choosing a parent
+for a transient window.)</p>
+<p>The list that is returned should not be modified in any way. It will
+only remain valid until the next focus change or window creation or
+deletion.</p>
+<div class="refsect3">
+<a name="gtk-application-get-windows.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-windows.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GList</span> of <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkWindow][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-window-by-id"></a><h3>gtk_application_get_window_by_id ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWindow.html" title="GtkWindow"><span class="returnvalue">GtkWindow</span></a> *
+gtk_application_get_window_by_id (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                  <em class="parameter"><code><span class="type">guint</span> id</code></em>);</pre>
+<p>Returns the <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a> with the given ID.</p>
+<p>The ID of a <a class="link" href="GtkApplicationWindow.html" title="GtkApplicationWindow"><span class="type">GtkApplicationWindow</span></a> can be retrieved with
+<a class="link" href="GtkApplicationWindow.html#gtk-application-window-get-id" title="gtk_application_window_get_id ()"><code class="function">gtk_application_window_get_id()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-application-get-window-by-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>an identifier number</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-window-by-id.returns"></a><h4>Returns</h4>
+<p>the window with ID <em class="parameter"><code>id</code></em>
+, or
+<code class="literal">NULL</code> if there is no window with this ID. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-active-window"></a><h3>gtk_application_get_active_window ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWindow.html" title="GtkWindow"><span class="returnvalue">GtkWindow</span></a> *
+gtk_application_get_active_window (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>);</pre>
+<p>Gets the “active” window for the application.</p>
+<p>The active window is the one that was most recently focused (within
+the application).  This window may not have the focus at the moment
+if another application has it — this is just the most
+recently-focused window within this application.</p>
+<div class="refsect3">
+<a name="gtk-application-get-active-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-active-window.returns"></a><h4>Returns</h4>
+<p>the active window, or <code class="literal">NULL</code> if
+there isn't one. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-inhibit"></a><h3>gtk_application_inhibit ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>
+gtk_application_inhibit (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                         <em class="parameter"><code><a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> *window</code></em>,
+                         <em class="parameter"><code><a class="link" href="GtkApplication.html#GtkApplicationInhibitFlags" title="enum GtkApplicationInhibitFlags"><span class="type">GtkApplicationInhibitFlags</span></a> flags</code></em>,
+                         <em class="parameter"><code>const <span class="type">gchar</span> *reason</code></em>);</pre>
+<p>Inform the session manager that certain types of actions should be
+inhibited. This is not guaranteed to work on all platforms and for
+all types of actions.</p>
+<p>Applications should invoke this method when they begin an operation
+that should not be interrupted, such as creating a CD or DVD. The
+types of actions that may be blocked are specified by the <em class="parameter"><code>flags</code></em>
+
+parameter. When the application completes the operation it should
+call <a class="link" href="GtkApplication.html#gtk-application-uninhibit" title="gtk_application_uninhibit ()"><code class="function">gtk_application_uninhibit()</code></a> to remove the inhibitor. Note that
+an application can have multiple inhibitors, and all of them must
+be individually removed. Inhibitors are also cleared when the
+application exits.</p>
+<p>Applications should not expect that they will always be able to block
+the action. In most cases, users will be given the option to force
+the action to take place.</p>
+<p>Reasons should be short and to the point.</p>
+<p>If <em class="parameter"><code>window</code></em>
+ is given, the session manager may point the user to
+this window to find out more about why the action is inhibited.</p>
+<div class="refsect3">
+<a name="gtk-application-inhibit.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>what types of actions should be inhibited</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>reason</p></td>
+<td class="parameter_description"><p>a short, human-readable string that explains
+why these operations are inhibited. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-inhibit.returns"></a><h4>Returns</h4>
+<p> A non-zero cookie that is used to uniquely identify this
+request. It should be used as an argument to <a class="link" href="GtkApplication.html#gtk-application-uninhibit" title="gtk_application_uninhibit ()"><code class="function">gtk_application_uninhibit()</code></a>
+in order to remove the request. If the platform does not support
+inhibiting or the request failed for some reason, 0 is returned.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-uninhibit"></a><h3>gtk_application_uninhibit ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_uninhibit (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                           <em class="parameter"><code><span class="type">guint</span> cookie</code></em>);</pre>
+<p>Removes an inhibitor that has been established with <a class="link" href="GtkApplication.html#gtk-application-inhibit" title="gtk_application_inhibit ()"><code class="function">gtk_application_inhibit()</code></a>.
+Inhibitors are also cleared when the application exits.</p>
+<div class="refsect3">
+<a name="gtk-application-uninhibit.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cookie</p></td>
+<td class="parameter_description"><p>a cookie that was returned by <a class="link" href="GtkApplication.html#gtk-application-inhibit" title="gtk_application_inhibit ()"><code class="function">gtk_application_inhibit()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-is-inhibited"></a><h3>gtk_application_is_inhibited ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_application_is_inhibited (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                              <em class="parameter"><code><a class="link" href="GtkApplication.html#GtkApplicationInhibitFlags" title="enum GtkApplicationInhibitFlags"><span class="type">GtkApplicationInhibitFlags</span></a> flags</code></em>);</pre>
+<p>Determines if any of the actions specified in <em class="parameter"><code>flags</code></em>
+ are
+currently inhibited (possibly by another application).</p>
+<p>Note that this information may not be available (for example
+when the application is running in a sandbox).</p>
+<div class="refsect3">
+<a name="gtk-application-is-inhibited.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>what types of actions should be queried</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-is-inhibited.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if any of the actions specified in <em class="parameter"><code>flags</code></em>
+are inhibited</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-prefers-app-menu"></a><h3>gtk_application_prefers_app_menu ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_application_prefers_app_menu (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>);</pre>
+<p>Determines if the desktop environment in which the application is
+running would prefer an application menu be shown.</p>
+<p>If this function returns <code class="literal">TRUE</code> then the application should call
+<a class="link" href="GtkApplication.html#gtk-application-set-app-menu" title="gtk_application_set_app_menu ()"><code class="function">gtk_application_set_app_menu()</code></a> with the contents of an application
+menu, which will be shown by the desktop environment.  If it returns
+<code class="literal">FALSE</code> then you should consider using an alternate approach, such as
+a menubar.</p>
+<p>The value returned by this function is purely advisory and you are
+free to ignore it.  If you call <a class="link" href="GtkApplication.html#gtk-application-set-app-menu" title="gtk_application_set_app_menu ()"><code class="function">gtk_application_set_app_menu()</code></a> even
+if the desktop environment doesn't support app menus, then a fallback
+will be provided.</p>
+<p>Applications are similarly free not to set an app menu even if the
+desktop environment wants to show one.  In that case, a fallback will
+also be created by the desktop environment (GNOME, for example, uses
+a menu with only a "Quit" item in it).</p>
+<p>The value returned by this function never changes.  Once it returns a
+particular value, it is guaranteed to always return the same value.</p>
+<p>You may only call this function after the application has been
+registered and after the base startup handler has run.  You're most
+likely to want to use this from your own startup handler.  It may
+also make sense to consult this function while constructing UI (in
+activate, open or an action activation handler) in order to determine
+if you should show a gear menu or not.</p>
+<p>This function will return <code class="literal">FALSE</code> on Mac OS and a default app menu
+will be created automatically with the "usual" contents of that menu
+typical to most Mac OS applications.  If you call
+<a class="link" href="GtkApplication.html#gtk-application-set-app-menu" title="gtk_application_set_app_menu ()"><code class="function">gtk_application_set_app_menu()</code></a> anyway, then this menu will be
+replaced with your own.</p>
+<div class="refsect3">
+<a name="gtk-application-prefers-app-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-prefers-app-menu.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if you should set an app menu</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-app-menu"></a><h3>gtk_application_get_app_menu ()</h3>
+<pre class="programlisting"><span class="returnvalue">GMenuModel</span> *
+gtk_application_get_app_menu (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>);</pre>
+<p>Returns the menu model that has been set with
+<a class="link" href="GtkApplication.html#gtk-application-set-app-menu" title="gtk_application_set_app_menu ()"><code class="function">gtk_application_set_app_menu()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-application-get-app-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-app-menu.returns"></a><h4>Returns</h4>
+<p>the application menu of <em class="parameter"><code>application</code></em>
+or <code class="literal">NULL</code> if no application menu has been set. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-set-app-menu"></a><h3>gtk_application_set_app_menu ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_set_app_menu (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                              <em class="parameter"><code><span class="type">GMenuModel</span> *app_menu</code></em>);</pre>
+<p>Sets or unsets the application menu for <em class="parameter"><code>application</code></em>
+.</p>
+<p>This can only be done in the primary instance of the application,
+after it has been registered.  <span class="type">“startup”</span> is a good place
+to call this.</p>
+<p>The application menu is a single menu containing items that typically
+impact the application as a whole, rather than acting on a specific
+window or document.  For example, you would expect to see
+“Preferences” or “Quit” in an application menu, but not “Save” or
+“Print”.</p>
+<p>If supported, the application menu will be rendered by the desktop
+environment.</p>
+<p>Use the base <span class="type">GActionMap</span> interface to add actions, to respond to the user
+selecting these menu items.</p>
+<div class="refsect3">
+<a name="gtk-application-set-app-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>app_menu</p></td>
+<td class="parameter_description"><p>a <span class="type">GMenuModel</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-menubar"></a><h3>gtk_application_get_menubar ()</h3>
+<pre class="programlisting"><span class="returnvalue">GMenuModel</span> *
+gtk_application_get_menubar (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>);</pre>
+<p>Returns the menu model that has been set with
+<a class="link" href="GtkApplication.html#gtk-application-set-menubar" title="gtk_application_set_menubar ()"><code class="function">gtk_application_set_menubar()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-application-get-menubar.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-menubar.returns"></a><h4>Returns</h4>
+<p>the menubar for windows of <em class="parameter"><code>application</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-set-menubar"></a><h3>gtk_application_set_menubar ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_set_menubar (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                             <em class="parameter"><code><span class="type">GMenuModel</span> *menubar</code></em>);</pre>
+<p>Sets or unsets the menubar for windows of <em class="parameter"><code>application</code></em>
+.</p>
+<p>This is a menubar in the traditional sense.</p>
+<p>This can only be done in the primary instance of the application,
+after it has been registered.  <span class="type">“startup”</span> is a good place
+to call this.</p>
+<p>Depending on the desktop environment, this may appear at the top of
+each window, or at the top of the screen.  In some environments, if
+both the application menu and the menubar are set, the application
+menu will be presented as if it were the first item of the menubar.
+Other environments treat the two as completely separate — for example,
+the application menu may be rendered by the desktop shell while the
+menubar (if set) remains in each individual window.</p>
+<p>Use the base <span class="type">GActionMap</span> interface to add actions, to respond to the
+user selecting these menu items.</p>
+<div class="refsect3">
+<a name="gtk-application-set-menubar.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>menubar</p></td>
+<td class="parameter_description"><p>a <span class="type">GMenuModel</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-menu-by-id"></a><h3>gtk_application_get_menu_by_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">GMenu</span> *
+gtk_application_get_menu_by_id (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+<p>Gets a menu from automatically loaded resources.
+See <a class="link" href="GtkApplication.html#automatic-resources" title="Automatic resources">Automatic resources</a>
+for more information.</p>
+<div class="refsect3">
+<a name="gtk-application-get-menu-by-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>the id of the menu to look up</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-menu-by-id.returns"></a><h4>Returns</h4>
+<p>Gets the menu with the
+given id from the automatically loaded resources. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-add-accelerator"></a><h3>gtk_application_add_accelerator ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_add_accelerator (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *accelerator</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *action_name</code></em>,
+                                 <em class="parameter"><code><span class="type">GVariant</span> *parameter</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_application_add_accelerator</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkApplication.html#gtk-application-set-accels-for-action" title="gtk_application_set_accels_for_action ()"><code class="function">gtk_application_set_accels_for_action()</code></a> instead</p>
+</div>
+<p>Installs an accelerator that will cause the named action
+to be activated when the key combination specificed by <em class="parameter"><code>accelerator</code></em>
+
+is pressed.</p>
+<p><em class="parameter"><code>accelerator</code></em>
+ must be a string that can be parsed by <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a>,
+e.g. "&lt;Primary&gt;q" or “&lt;Control&gt;&lt;Alt&gt;p”.</p>
+<p><em class="parameter"><code>action_name</code></em>
+ must be the name of an action as it would be used
+in the app menu, i.e. actions that have been added to the application
+are referred to with an “app.” prefix, and window-specific actions
+with a “win.” prefix.</p>
+<p>GtkApplication also extracts accelerators out of “accel” attributes
+in the <span class="type">GMenuModels</span> passed to <a class="link" href="GtkApplication.html#gtk-application-set-app-menu" title="gtk_application_set_app_menu ()"><code class="function">gtk_application_set_app_menu()</code></a> and
+<a class="link" href="GtkApplication.html#gtk-application-set-menubar" title="gtk_application_set_menubar ()"><code class="function">gtk_application_set_menubar()</code></a>, which is usually more convenient
+than calling this function for each accelerator.</p>
+<div class="refsect3">
+<a name="gtk-application-add-accelerator.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator</p></td>
+<td class="parameter_description"><p>accelerator string</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>action_name</p></td>
+<td class="parameter_description"><p>the name of the action to activate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>parameter</p></td>
+<td class="parameter_description"><p>parameter to pass when activating the action,
+or <code class="literal">NULL</code> if the action does not accept an activation parameter. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-remove-accelerator"></a><h3>gtk_application_remove_accelerator ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_remove_accelerator (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                    <em class="parameter"><code>const <span class="type">gchar</span> *action_name</code></em>,
+                                    <em class="parameter"><code><span class="type">GVariant</span> *parameter</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_application_remove_accelerator</code> has been deprecated since version 3.14 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkApplication.html#gtk-application-set-accels-for-action" title="gtk_application_set_accels_for_action ()"><code class="function">gtk_application_set_accels_for_action()</code></a> instead</p>
+</div>
+<p>Removes an accelerator that has been previously added
+with <a class="link" href="GtkApplication.html#gtk-application-add-accelerator" title="gtk_application_add_accelerator ()"><code class="function">gtk_application_add_accelerator()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-application-remove-accelerator.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>action_name</p></td>
+<td class="parameter_description"><p>the name of the action to activate</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>parameter</p></td>
+<td class="parameter_description"><p>parameter to pass when activating the action,
+or <code class="literal">NULL</code> if the action does not accept an activation parameter. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-list-action-descriptions"></a><h3>gtk_application_list_action_descriptions ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> **
+gtk_application_list_action_descriptions
+                               (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>);</pre>
+<p>Lists the detailed action names which have associated accelerators.
+See <a class="link" href="GtkApplication.html#gtk-application-set-accels-for-action" title="gtk_application_set_accels_for_action ()"><code class="function">gtk_application_set_accels_for_action()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-application-list-action-descriptions.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-list-action-descriptions.returns"></a><h4>Returns</h4>
+<p>a <code class="literal">NULL</code>-terminated array of strings,
+free with <code class="function">g_strfreev()</code> when done. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-accels-for-action"></a><h3>gtk_application_get_accels_for_action ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> **
+gtk_application_get_accels_for_action (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                       <em class="parameter"><code>const <span class="type">gchar</span> *detailed_action_name</code></em>);</pre>
+<p>Gets the accelerators that are currently associated with
+the given action.</p>
+<div class="refsect3">
+<a name="gtk-application-get-accels-for-action.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>detailed_action_name</p></td>
+<td class="parameter_description"><p>a detailed action name, specifying an action
+and target to obtain accelerators for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-accels-for-action.returns"></a><h4>Returns</h4>
+<p>accelerators for <em class="parameter"><code>detailed_action_name</code></em>
+, as
+a <code class="literal">NULL</code>-terminated array. Free with <code class="function">g_strfreev()</code> when no longer needed. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-set-accels-for-action"></a><h3>gtk_application_set_accels_for_action ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_application_set_accels_for_action (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                       <em class="parameter"><code>const <span class="type">gchar</span> *detailed_action_name</code></em>,
+                                       <em class="parameter"><code>const <span class="type">gchar</span> * const *accels</code></em>);</pre>
+<p>Sets zero or more keyboard accelerators that will trigger the
+given action. The first item in <em class="parameter"><code>accels</code></em>
+ will be the primary
+accelerator, which may be displayed in the UI.</p>
+<p>To remove all accelerators for an action, use an empty, zero-terminated
+array for <em class="parameter"><code>accels</code></em>
+.</p>
+<p>For the <em class="parameter"><code>detailed_action_name</code></em>
+, see <code class="function">g_action_parse_detailed_name()</code> and
+<code class="function">g_action_print_detailed_name()</code>.</p>
+<div class="refsect3">
+<a name="gtk-application-set-accels-for-action.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>detailed_action_name</p></td>
+<td class="parameter_description"><p>a detailed action name, specifying an action
+and target to associate accelerators with</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accels</p></td>
+<td class="parameter_description"><p>a list of accelerators in the format
+understood by <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-12.html#api-index-3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-application-get-actions-for-accel"></a><h3>gtk_application_get_actions_for_accel ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> **
+gtk_application_get_actions_for_accel (<em class="parameter"><code><a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application</code></em>,
+                                       <em class="parameter"><code>const <span class="type">gchar</span> *accel</code></em>);</pre>
+<p>Returns the list of actions (possibly empty) that <em class="parameter"><code>accel</code></em>
+ maps to.
+Each item in the list is a detailed action name in the usual form.</p>
+<p>This might be useful to discover if an accel already exists in
+order to prevent installation of a conflicting accelerator (from
+an accelerator editor or a plugin system, for example). Note that
+having more than one action per accelerator may not be a bad thing
+and might make sense in cases where the actions never appear in the
+same context.</p>
+<p>In case there are no actions for a given accelerator, an empty array
+is returned.  <code class="literal">NULL</code> is never returned.</p>
+<p>It is a programmer error to pass an invalid accelerator string.
+If you are unsure, check it with <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a> first.</p>
+<div class="refsect3">
+<a name="gtk-application-get-actions-for-accel.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel</p></td>
+<td class="parameter_description"><p>an accelerator that can be parsed by <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-application-get-actions-for-accel.returns"></a><h4>Returns</h4>
+<p>a <code class="literal">NULL</code>-terminated array of actions for <em class="parameter"><code>accel</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-14.html#api-index-3.14">3.14</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkApplication-struct"></a><h3>struct GtkApplication</h3>
+<pre class="programlisting">struct GtkApplication;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplicationClass"></a><h3>struct GtkApplicationClass</h3>
+<pre class="programlisting">struct GtkApplicationClass {
+  GApplicationClass parent_class;
+
+
+  void (*window_added)   (GtkApplication *application,
+                          GtkWindow      *window);
+  void (*window_removed) (GtkApplication *application,
+                          GtkWindow      *window);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkApplicationClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkApplicationClass.window-added"></a>window_added</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> is added to
+application through <a class="link" href="GtkApplication.html#gtk-application-add-window" title="gtk_application_add_window ()"><code class="function">gtk_application_add_window()</code></a>.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkApplicationClass.window-removed"></a>window_removed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> is removed from
+application, either as a side-effect of being destroyed or
+explicitly through <a class="link" href="GtkApplication.html#gtk-application-remove-window" title="gtk_application_remove_window ()"><code class="function">gtk_application_remove_window()</code></a>.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplicationInhibitFlags"></a><h3>enum GtkApplicationInhibitFlags</h3>
+<p>Types of user actions that may be blocked by <a class="link" href="GtkApplication.html#gtk-application-inhibit" title="gtk_application_inhibit ()"><code class="function">gtk_application_inhibit()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkApplicationInhibitFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-APPLICATION-INHIBIT-LOGOUT:CAPS"></a>GTK_APPLICATION_INHIBIT_LOGOUT</p></td>
+<td class="enum_member_description">
+<p>Inhibit ending the user session
+    by logging out or by shutting down the computer</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-APPLICATION-INHIBIT-SWITCH:CAPS"></a>GTK_APPLICATION_INHIBIT_SWITCH</p></td>
+<td class="enum_member_description">
+<p>Inhibit user switching</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-APPLICATION-INHIBIT-SUSPEND:CAPS"></a>GTK_APPLICATION_INHIBIT_SUSPEND</p></td>
+<td class="enum_member_description">
+<p>Inhibit suspending the
+    session or computer</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-APPLICATION-INHIBIT-IDLE:CAPS"></a>GTK_APPLICATION_INHIBIT_IDLE</p></td>
+<td class="enum_member_description">
+<p>Inhibit the session being
+    marked as idle (and possibly locked)</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkApplication--active-window"></a><h3>The <code class="literal">“active-window”</code> property</h3>
+<pre class="programlisting">  “active-window”            <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> *</pre>
+<p>The window which most recently had focus.</p>
+<p>Flags: Read</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplication--app-menu"></a><h3>The <code class="literal">“app-menu”</code> property</h3>
+<pre class="programlisting">  “app-menu”                 <span class="type">GMenuModel</span> *</pre>
+<p>The GMenuModel for the application menu.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplication--menubar"></a><h3>The <code class="literal">“menubar”</code> property</h3>
+<pre class="programlisting">  “menubar”                  <span class="type">GMenuModel</span> *</pre>
+<p>The GMenuModel for the menubar.</p>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplication--register-session"></a><h3>The <code class="literal">“register-session”</code> property</h3>
+<pre class="programlisting">  “register-session”         <span class="type">gboolean</span></pre>
+<p>Set this property to <code class="literal">TRUE</code> to register with the session manager.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplication--screensaver-active"></a><h3>The <code class="literal">“screensaver-active”</code> property</h3>
+<pre class="programlisting">  “screensaver-active”       <span class="type">gboolean</span></pre>
+<p>This property is <code class="literal">TRUE</code> if GTK+ believes that the screensaver is
+currently active. GTK+ only tracks session state (including this)
+when <span class="type">“register-session”</span> is set to <code class="literal">TRUE</code>.</p>
+<p>Tracking the screensaver state is supported on Linux.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-24.html#api-index-3.24">3.24</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkApplication.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkApplication-query-end"></a><h3>The <code class="literal">“query-end”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>Emitted when the session manager is about to end the session, only
+if <span class="type">“register-session”</span> is <code class="literal">TRUE</code>. Applications can
+connect to this signal and call <a class="link" href="GtkApplication.html#gtk-application-inhibit" title="gtk_application_inhibit ()"><code class="function">gtk_application_inhibit()</code></a> with
+<a class="link" href="GtkApplication.html#GTK-APPLICATION-INHIBIT-LOGOUT:CAPS"><code class="literal">GTK_APPLICATION_INHIBIT_LOGOUT</code></a> to delay the end of the session
+until state has been saved.</p>
+<div class="refsect3">
+<a name="GtkApplication-query-end.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: 3.24.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplication-window-added"></a><h3>The <code class="literal">“window-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application,
+               <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>      *window,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>Emitted when a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> is added to <em class="parameter"><code>application</code></em>
+ through
+<a class="link" href="GtkApplication.html#gtk-application-add-window" title="gtk_application_add_window ()"><code class="function">gtk_application_add_window()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkApplication-window-added.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the newly-added <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkApplication-window-removed"></a><h3>The <code class="literal">“window-removed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> *application,
+               <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>      *window,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>Emitted when a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> is removed from <em class="parameter"><code>application</code></em>
+,
+either as a side-effect of being destroyed or explicitly
+through <a class="link" href="GtkApplication.html#gtk-application-remove-window" title="gtk_application_remove_window ()"><code class="function">gtk_application_remove_window()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkApplication-window-removed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>application</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkApplication.html" title="GtkApplication"><span class="type">GtkApplication</span></a> which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>the <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> that is being removed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

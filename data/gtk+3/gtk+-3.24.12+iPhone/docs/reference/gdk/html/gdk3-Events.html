@@ -1,0 +1,2558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Events: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="GdkGLContext.html" title="GdkGLContext">
+<link rel="next" href="gdk3-Event-Structures.html" title="Event Structures">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-Events.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GdkGLContext.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Event-Structures.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-Events"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-Events.top_of_page"></a>Events</span></h2>
+<p>Events — Functions for handling events from the window system</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-Events.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-events-pending" title="gdk_events_pending ()">gdk_events_pending</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-peek" title="gdk_event_peek ()">gdk_event_peek</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get" title="gdk_event_get ()">gdk_event_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-put" title="gdk_event_put ()">gdk_event_put</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-new" title="gdk_event_new ()">gdk_event_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-copy" title="gdk_event_copy ()">gdk_event_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-free" title="gdk_event_free ()">gdk_event_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-axis" title="gdk_event_get_axis ()">gdk_event_get_axis</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-button" title="gdk_event_get_button ()">gdk_event_get_button</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-click-count" title="gdk_event_get_click_count ()">gdk_event_get_click_count</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-coords" title="gdk_event_get_coords ()">gdk_event_get_coords</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-keycode" title="gdk_event_get_keycode ()">gdk_event_get_keycode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-keyval" title="gdk_event_get_keyval ()">gdk_event_get_keyval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-root-coords" title="gdk_event_get_root_coords ()">gdk_event_get_root_coords</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-scroll-direction" title="gdk_event_get_scroll_direction ()">gdk_event_get_scroll_direction</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-scroll-deltas" title="gdk_event_get_scroll_deltas ()">gdk_event_get_scroll_deltas</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-is-scroll-stop-event" title="gdk_event_is_scroll_stop_event ()">gdk_event_is_scroll_stop_event</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-state" title="gdk_event_get_state ()">gdk_event_get_state</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">guint32</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-time" title="gdk_event_get_time ()">gdk_event_get_time</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-window" title="gdk_event_get_window ()">gdk_event_get_window</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Events.html#GdkEventType" title="enum GdkEventType"><span class="returnvalue">GdkEventType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-event-type" title="gdk_event_get_event_type ()">gdk_event_get_event_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Events.html#GdkEventSequence" title="GdkEventSequence"><span class="returnvalue">GdkEventSequence</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-event-sequence" title="gdk_event_get_event_sequence ()">gdk_event_get_event_sequence</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-request-motions" title="gdk_event_request_motions ()">gdk_event_request_motions</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-events-get-angle" title="gdk_events_get_angle ()">gdk_events_get_angle</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-events-get-center" title="gdk_events_get_center ()">gdk_events_get_center</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-events-get-distance" title="gdk_events_get_distance ()">gdk_events_get_distance</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-triggers-context-menu" title="gdk_event_triggers_context_menu ()">gdk_event_triggers_context_menu</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkSeat.html" title="GdkSeat"><span class="returnvalue">GdkSeat</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-seat" title="gdk_event_get_seat ()">gdk_event_get_seat</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">int</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-scancode" title="gdk_event_get_scancode ()">gdk_event_get_scancode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-pointer-emulated" title="gdk_event_get_pointer_emulated ()">gdk_event_get_pointer_emulated</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-handler-set" title="gdk_event_handler_set ()">gdk_event_handler_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="gdk3-Events.html#GdkEventFunc" title="GdkEventFunc ()">*GdkEventFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-get-show-events" title="gdk_get_show_events ()">gdk_get_show_events</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-set-show-events" title="gdk_set_show_events ()">gdk_set_show_events</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-set-screen" title="gdk_event_set_screen ()">gdk_event_set_screen</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkScreen.html" title="GdkScreen"><span class="returnvalue">GdkScreen</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-screen" title="gdk_event_get_screen ()">gdk_event_get_screen</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-device" title="gdk_event_get_device ()">gdk_event_get_device</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-set-device" title="gdk_event_set_device ()">gdk_event_set_device</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-source-device" title="gdk_event_get_source_device ()">gdk_event_get_source_device</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-set-source-device" title="gdk_event_set_source_device ()">gdk_event_set_source_device</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkDeviceTool</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-get-device-tool" title="gdk_event_get_device_tool ()">gdk_event_get_device_tool</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-event-set-device-tool" title="gdk_event_set_device_tool ()">gdk_event_set_device_tool</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Events.html#gdk-setting-get" title="gdk_setting_get ()">gdk_setting_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Events.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GdkEventType" title="enum GdkEventType">GdkEventType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GdkEventMask" title="enum GdkEventMask">GdkEventMask</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-CURRENT-TIME:CAPS" title="GDK_CURRENT_TIME">GDK_CURRENT_TIME</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-PRIORITY-EVENTS:CAPS" title="GDK_PRIORITY_EVENTS">GDK_PRIORITY_EVENTS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-PRIORITY-REDRAW:CAPS" title="GDK_PRIORITY_REDRAW">GDK_PRIORITY_REDRAW</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-EVENT-PROPAGATE:CAPS" title="GDK_EVENT_PROPAGATE">GDK_EVENT_PROPAGATE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-EVENT-STOP:CAPS" title="GDK_EVENT_STOP">GDK_EVENT_STOP</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-BUTTON-PRIMARY:CAPS" title="GDK_BUTTON_PRIMARY">GDK_BUTTON_PRIMARY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-BUTTON-MIDDLE:CAPS" title="GDK_BUTTON_MIDDLE">GDK_BUTTON_MIDDLE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GDK-BUTTON-SECONDARY:CAPS" title="GDK_BUTTON_SECONDARY">GDK_BUTTON_SECONDARY</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="gdk3-Events.html#GdkEventSequence" title="GdkEventSequence">GdkEventSequence</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Events.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Events.description"></a><h2>Description</h2>
+<p>This section describes functions dealing with events from the window
+system.</p>
+<p>In GTK+ applications the events are handled automatically in
+<code class="function">gtk_main_do_event()</code> and passed on to the appropriate widgets, so these
+functions are rarely needed. Though some of the fields in the
+<a class="link" href="gdk3-Event-Structures.html" title="Event Structures">Event Structures</a> are useful.</p>
+</div>
+<div class="refsect1">
+<a name="gdk3-Events.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gdk-events-pending"></a><h3>gdk_events_pending ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_events_pending (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Checks if any events are ready to be processed for any display.</p>
+<div class="refsect3">
+<a name="gdk-events-pending.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if any events are pending.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-peek"></a><h3>gdk_event_peek ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+gdk_event_peek (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>If there is an event waiting in the event queue of some open
+display, returns a copy of it. See <a class="link" href="GdkDisplay.html#gdk-display-peek-event" title="gdk_display_peek_event ()"><code class="function">gdk_display_peek_event()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-peek.returns"></a><h4>Returns</h4>
+<p>a copy of the first <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> on some event
+queue, or <code class="literal">NULL</code> if no events are in any queues. The returned
+<a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> should be freed with <a class="link" href="gdk3-Events.html#gdk-event-free" title="gdk_event_free ()"><code class="function">gdk_event_free()</code></a>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get"></a><h3>gdk_event_get ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+gdk_event_get (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Checks all open displays for a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> to process,to be processed
+on, fetching events from the windowing system if necessary.
+See <a class="link" href="GdkDisplay.html#gdk-display-get-event" title="gdk_display_get_event ()"><code class="function">gdk_display_get_event()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-get.returns"></a><h4>Returns</h4>
+<p>the next <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> to be processed, or <code class="literal">NULL</code>
+if no events are pending. The returned <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> should be freed
+with <a class="link" href="gdk3-Events.html#gdk-event-free" title="gdk_event_free ()"><code class="function">gdk_event_free()</code></a>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-put"></a><h3>gdk_event_put ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_put (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Appends a copy of the given event onto the front of the event
+queue for event-&gt;any.window’s display, or the default event
+queue if event-&gt;any.window is <code class="literal">NULL</code>. See <a class="link" href="GdkDisplay.html#gdk-display-put-event" title="gdk_display_put_event ()"><code class="function">gdk_display_put_event()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-put.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-new"></a><h3>gdk_event_new ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+gdk_event_new (<em class="parameter"><code><a class="link" href="gdk3-Events.html#GdkEventType" title="enum GdkEventType"><span class="type">GdkEventType</span></a> type</code></em>);</pre>
+<p>Creates a new event of the given type. All fields are set to 0.</p>
+<div class="refsect3">
+<a name="gdk-event-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Events.html#GdkEventType" title="enum GdkEventType"><span class="type">GdkEventType</span></a> </p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-new.returns"></a><h4>Returns</h4>
+<p> a newly-allocated <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>. The returned <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>
+should be freed with <a class="link" href="gdk3-Events.html#gdk-event-free" title="gdk_event_free ()"><code class="function">gdk_event_free()</code></a>.</p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-copy"></a><h3>gdk_event_copy ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="returnvalue">GdkEvent</span></a> *
+gdk_event_copy (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Copies a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>, copying or incrementing the reference count of the
+resources associated with it (e.g. <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a>’s and strings).</p>
+<div class="refsect3">
+<a name="gdk-event-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-copy.returns"></a><h4>Returns</h4>
+<p> a copy of <em class="parameter"><code>event</code></em>
+. The returned <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> should be freed with
+<a class="link" href="gdk3-Events.html#gdk-event-free" title="gdk_event_free ()"><code class="function">gdk_event_free()</code></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-free"></a><h3>gdk_event_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_free (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Frees a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>, freeing or decrementing any resources associated with it.
+Note that this function should only be called with events returned from
+functions such as <a class="link" href="gdk3-Events.html#gdk-event-peek" title="gdk_event_peek ()"><code class="function">gdk_event_peek()</code></a>, <a class="link" href="gdk3-Events.html#gdk-event-get" title="gdk_event_get ()"><code class="function">gdk_event_get()</code></a>, <a class="link" href="gdk3-Events.html#gdk-event-copy" title="gdk_event_copy ()"><code class="function">gdk_event_copy()</code></a>
+and <a class="link" href="gdk3-Events.html#gdk-event-new" title="gdk_event_new ()"><code class="function">gdk_event_new()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-axis"></a><h3>gdk_event_get_axis ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_axis (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                    <em class="parameter"><code><a class="link" href="GdkDevice.html#GdkAxisUse" title="enum GdkAxisUse"><span class="type">GdkAxisUse</span></a> axis_use</code></em>,
+                    <em class="parameter"><code><span class="type">gdouble</span> *value</code></em>);</pre>
+<p>Extract the axis value for a particular axis use from
+an event structure.</p>
+<div class="refsect3">
+<a name="gdk-event-get-axis.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>axis_use</p></td>
+<td class="parameter_description"><p>the axis use to look for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>location to store the value found. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-axis.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the specified axis was found, otherwise <code class="literal">FALSE</code></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-button"></a><h3>gdk_event_get_button ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_button (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                      <em class="parameter"><code><span class="type">guint</span> *button</code></em>);</pre>
+<p>Extract the button number from an event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-button.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>button</p></td>
+<td class="parameter_description"><p>location to store mouse button number. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-button.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event delivered a button number</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-click-count"></a><h3>gdk_event_get_click_count ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_click_count (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                           <em class="parameter"><code><span class="type">guint</span> *click_count</code></em>);</pre>
+<p>Extracts the click count from an event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-click-count.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>click_count</p></td>
+<td class="parameter_description"><p>location to store click count. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-click-count.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event delivered a click count</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-coords"></a><h3>gdk_event_get_coords ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_coords (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                      <em class="parameter"><code><span class="type">gdouble</span> *x_win</code></em>,
+                      <em class="parameter"><code><span class="type">gdouble</span> *y_win</code></em>);</pre>
+<p>Extract the event window relative x/y coordinates from an event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-coords.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x_win</p></td>
+<td class="parameter_description"><p>location to put event window x coordinate. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL may be passed instead of a pointer to a location."><span class="acronym">optional</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y_win</p></td>
+<td class="parameter_description"><p>location to put event window y coordinate. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL may be passed instead of a pointer to a location."><span class="acronym">optional</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-coords.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event delivered event window coordinates</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-keycode"></a><h3>gdk_event_get_keycode ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_keycode (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                       <em class="parameter"><code><span class="type">guint16</span> *keycode</code></em>);</pre>
+<p>Extracts the hardware keycode from an event.</p>
+<p>Also see <a class="link" href="gdk3-Events.html#gdk-event-get-scancode" title="gdk_event_get_scancode ()"><code class="function">gdk_event_get_scancode()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-get-keycode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keycode</p></td>
+<td class="parameter_description"><p>location to store the keycode. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-keycode.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event delivered a hardware keycode</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-keyval"></a><h3>gdk_event_get_keyval ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_keyval (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                      <em class="parameter"><code><span class="type">guint</span> *keyval</code></em>);</pre>
+<p>Extracts the keyval from an event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-keyval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>location to store the keyval. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-keyval.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event delivered a key symbol</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-root-coords"></a><h3>gdk_event_get_root_coords ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_root_coords (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                           <em class="parameter"><code><span class="type">gdouble</span> *x_root</code></em>,
+                           <em class="parameter"><code><span class="type">gdouble</span> *y_root</code></em>);</pre>
+<p>Extract the root window relative x/y coordinates from an event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-root-coords.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x_root</p></td>
+<td class="parameter_description"><p>location to put root window x coordinate. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL may be passed instead of a pointer to a location."><span class="acronym">optional</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y_root</p></td>
+<td class="parameter_description"><p>location to put root window y coordinate. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL may be passed instead of a pointer to a location."><span class="acronym">optional</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-root-coords.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event delivered root window coordinates</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-scroll-direction"></a><h3>gdk_event_get_scroll_direction ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_scroll_direction (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                                <em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkScrollDirection" title="enum GdkScrollDirection"><span class="type">GdkScrollDirection</span></a> *direction</code></em>);</pre>
+<p>Extracts the scroll direction from an event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-scroll-direction.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>direction</p></td>
+<td class="parameter_description"><p>location to store the scroll direction. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-scroll-direction.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event delivered a scroll direction</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-2.html#api-index-3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-scroll-deltas"></a><h3>gdk_event_get_scroll_deltas ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_scroll_deltas (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                             <em class="parameter"><code><span class="type">gdouble</span> *delta_x</code></em>,
+                             <em class="parameter"><code><span class="type">gdouble</span> *delta_y</code></em>);</pre>
+<p>Retrieves the scroll deltas from a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p>
+<div class="refsect3">
+<a name="gdk-event-get-scroll-deltas.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>delta_x</p></td>
+<td class="parameter_description"><p>return location for X delta. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>delta_y</p></td>
+<td class="parameter_description"><p>return location for Y delta. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-scroll-deltas.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event contains smooth scroll information</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-is-scroll-stop-event"></a><h3>gdk_event_is_scroll_stop_event ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_is_scroll_stop_event (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Check whether a scroll event is a stop scroll event. Scroll sequences
+with smooth scroll information may provide a stop scroll event once the
+interaction with the device finishes, e.g. by lifting a finger. This
+stop scroll event is the signal that a widget may trigger kinetic
+scrolling based on the current velocity.</p>
+<p>Stop scroll events always have a a delta of 0/0.</p>
+<div class="refsect3">
+<a name="gdk-event-is-scroll-stop-event.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-is-scroll-stop-event.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event is a scroll stop event</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-state"></a><h3>gdk_event_get_state ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_state (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                     <em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkModifierType" title="enum GdkModifierType"><span class="type">GdkModifierType</span></a> *state</code></em>);</pre>
+<p>If the event contains a “state” field, puts that field in <em class="parameter"><code>state</code></em>
+. Otherwise
+stores an empty state (0). Returns <code class="literal">TRUE</code> if there was a state field
+in the event. <em class="parameter"><code>event</code></em>
+ may be <code class="literal">NULL</code>, in which case it’s treated
+as if the event had no state field.</p>
+<div class="refsect3">
+<a name="gdk-event-get-state.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>return location for state. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-state.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if there was a state field in the event </p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-time"></a><h3>gdk_event_get_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>
+gdk_event_get_time (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Returns the time stamp from <em class="parameter"><code>event</code></em>
+, if there is one; otherwise
+returns <a class="link" href="gdk3-Events.html#GDK-CURRENT-TIME:CAPS" title="GDK_CURRENT_TIME"><span class="type">GDK_CURRENT_TIME</span></a>. If <em class="parameter"><code>event</code></em>
+ is <code class="literal">NULL</code>, returns <a class="link" href="gdk3-Events.html#GDK-CURRENT-TIME:CAPS" title="GDK_CURRENT_TIME"><span class="type">GDK_CURRENT_TIME</span></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-get-time.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-time.returns"></a><h4>Returns</h4>
+<p> time stamp field from <em class="parameter"><code>event</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-window"></a><h3>gdk_event_get_window ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="returnvalue">GdkWindow</span></a> *
+gdk_event_get_window (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Extracts the <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> associated with an event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-window.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-window.returns"></a><h4>Returns</h4>
+<p>The <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> associated with the event. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-event-type"></a><h3>gdk_event_get_event_type ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Events.html#GdkEventType" title="enum GdkEventType"><span class="returnvalue">GdkEventType</span></a>
+gdk_event_get_event_type (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Retrieves the type of the event.</p>
+<div class="refsect3">
+<a name="gdk-event-get-event-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-event-type.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="gdk3-Events.html#GdkEventType" title="enum GdkEventType"><span class="type">GdkEventType</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-10.html#api-index-3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-event-sequence"></a><h3>gdk_event_get_event_sequence ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Events.html#GdkEventSequence" title="GdkEventSequence"><span class="returnvalue">GdkEventSequence</span></a> *
+gdk_event_get_event_sequence (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>If <em class="parameter"><code>event</code></em>
+ if of type <a class="link" href="gdk3-Events.html#GDK-TOUCH-BEGIN:CAPS"><code class="literal">GDK_TOUCH_BEGIN</code></a>, <a class="link" href="gdk3-Events.html#GDK-TOUCH-UPDATE:CAPS"><code class="literal">GDK_TOUCH_UPDATE</code></a>,
+<a class="link" href="gdk3-Events.html#GDK-TOUCH-END:CAPS"><code class="literal">GDK_TOUCH_END</code></a> or <a class="link" href="gdk3-Events.html#GDK-TOUCH-CANCEL:CAPS"><code class="literal">GDK_TOUCH_CANCEL</code></a>, returns the <a class="link" href="gdk3-Events.html#GdkEventSequence" title="GdkEventSequence"><span class="type">GdkEventSequence</span></a>
+to which the event belongs. Otherwise, return <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gdk-event-get-event-sequence.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-event-sequence.returns"></a><h4>Returns</h4>
+<p>the event sequence that the event belongs to. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-request-motions"></a><h3>gdk_event_request_motions ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_request_motions (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEventMotion" title="struct GdkEventMotion"><span class="type">GdkEventMotion</span></a> *event</code></em>);</pre>
+<p>Request more motion notifies if <em class="parameter"><code>event</code></em>
+ is a motion notify hint event.</p>
+<p>This function should be used instead of <a class="link" href="gdk3-Windows.html#gdk-window-get-pointer" title="gdk_window_get_pointer ()"><code class="function">gdk_window_get_pointer()</code></a> to
+request further motion notifies, because it also works for extension
+events where motion notifies are provided for devices other than the
+core pointer. Coordinate extraction, processing and requesting more
+motion events from a <a class="link" href="gdk3-Events.html#GDK-MOTION-NOTIFY:CAPS"><code class="literal">GDK_MOTION_NOTIFY</code></a> event usually works like this:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="cbracket">{</span>
+<span class="normal">  </span><span class="comment">// motion_event handler</span>
+<span class="normal">  x </span><span class="symbol">=</span><span class="normal"> motion_event</span><span class="symbol">-&gt;</span><span class="normal">x</span><span class="symbol">;</span>
+<span class="normal">  y </span><span class="symbol">=</span><span class="normal"> motion_event</span><span class="symbol">-&gt;</span><span class="normal">y</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="comment">// handle (x,y) motion</span>
+<span class="normal">  </span><span class="function"><a href="gdk3-Events.html#gdk-event-request-motions">gdk_event_request_motions</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">motion_event</span><span class="symbol">);</span><span class="normal"> </span><span class="comment">// handles is_hint events</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="gdk-event-request-motions.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a valid <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-events-get-angle"></a><h3>gdk_events_get_angle ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_events_get_angle (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event1</code></em>,
+                      <em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event2</code></em>,
+                      <em class="parameter"><code><span class="type">gdouble</span> *angle</code></em>);</pre>
+<p>If both events contain X/Y information, this function will return <code class="literal">TRUE</code>
+and return in <em class="parameter"><code>angle</code></em>
+ the relative angle from <em class="parameter"><code>event1</code></em>
+ to <em class="parameter"><code>event2</code></em>
+. The rotation
+direction for positive angles is from the positive X axis towards the positive
+Y axis.</p>
+<div class="refsect3">
+<a name="gdk-events-get-angle.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event1</p></td>
+<td class="parameter_description"><p>first <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event2</p></td>
+<td class="parameter_description"><p>second <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>angle</p></td>
+<td class="parameter_description"><p>return location for the relative angle between both events. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-events-get-angle.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the angle could be calculated.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-events-get-center"></a><h3>gdk_events_get_center ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_events_get_center (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event1</code></em>,
+                       <em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event2</code></em>,
+                       <em class="parameter"><code><span class="type">gdouble</span> *x</code></em>,
+                       <em class="parameter"><code><span class="type">gdouble</span> *y</code></em>);</pre>
+<p>If both events contain X/Y information, the center of both coordinates
+will be returned in <em class="parameter"><code>x</code></em>
+ and <em class="parameter"><code>y</code></em>
+.</p>
+<div class="refsect3">
+<a name="gdk-events-get-center.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event1</p></td>
+<td class="parameter_description"><p>first <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event2</p></td>
+<td class="parameter_description"><p>second <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>x</p></td>
+<td class="parameter_description"><p>return location for the X coordinate of the center. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>y</p></td>
+<td class="parameter_description"><p>return location for the Y coordinate of the center. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-events-get-center.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the center could be calculated.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-events-get-distance"></a><h3>gdk_events_get_distance ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_events_get_distance (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event1</code></em>,
+                         <em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event2</code></em>,
+                         <em class="parameter"><code><span class="type">gdouble</span> *distance</code></em>);</pre>
+<p>If both events have X/Y information, the distance between both coordinates
+(as in a straight line going from <em class="parameter"><code>event1</code></em>
+ to <em class="parameter"><code>event2</code></em>
+) will be returned.</p>
+<div class="refsect3">
+<a name="gdk-events-get-distance.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event1</p></td>
+<td class="parameter_description"><p>first <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>event2</p></td>
+<td class="parameter_description"><p>second <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>distance</p></td>
+<td class="parameter_description"><p>return location for the distance. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-events-get-distance.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the distance could be calculated.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-triggers-context-menu"></a><h3>gdk_event_triggers_context_menu ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_triggers_context_menu (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>This function returns whether a <a class="link" href="gdk3-Event-Structures.html#GdkEventButton" title="struct GdkEventButton"><span class="type">GdkEventButton</span></a> should trigger a
+context menu, according to platform conventions. The right mouse
+button always triggers context menus. Additionally, if
+<a class="link" href="gdk3-Keyboard-Handling.html#gdk-keymap-get-modifier-mask" title="gdk_keymap_get_modifier_mask ()"><code class="function">gdk_keymap_get_modifier_mask()</code></a> returns a non-0 mask for
+<a class="link" href="gdk3-Windows.html#GDK-MODIFIER-INTENT-CONTEXT-MENU:CAPS"><code class="literal">GDK_MODIFIER_INTENT_CONTEXT_MENU</code></a>, then the left mouse button will
+also trigger a context menu if this modifier is pressed.</p>
+<p>This function should always be used instead of simply checking for
+event-&gt;button == <a class="link" href="gdk3-Events.html#GDK-BUTTON-SECONDARY:CAPS" title="GDK_BUTTON_SECONDARY"><code class="literal">GDK_BUTTON_SECONDARY</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-triggers-context-menu.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>, currently only button events are meaningful values</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-triggers-context-menu.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the event should trigger a context menu.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-seat"></a><h3>gdk_event_get_seat ()</h3>
+<pre class="programlisting"><a class="link" href="GdkSeat.html" title="GdkSeat"><span class="returnvalue">GdkSeat</span></a> *
+gdk_event_get_seat (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Returns the <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> this event was generated for.</p>
+<div class="refsect3">
+<a name="gdk-event-get-seat.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-seat.returns"></a><h4>Returns</h4>
+<p>The <a class="link" href="GdkSeat.html" title="GdkSeat"><span class="type">GdkSeat</span></a> of this event. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-scancode"></a><h3>gdk_event_get_scancode ()</h3>
+<pre class="programlisting"><span class="returnvalue">int</span>
+gdk_event_get_scancode (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Gets the keyboard low-level scancode of a key event.</p>
+<p>This is usually hardware_keycode. On Windows this is the high
+word of WM_KEY{DOWN,UP} lParam which contains the scancode and
+some extended flags.</p>
+<div class="refsect3">
+<a name="gdk-event-get-scancode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-scancode.returns"></a><h4>Returns</h4>
+<p> The associated keyboard scancode or 0</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-pointer-emulated"></a><h3>gdk_event_get_pointer_emulated ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_event_get_pointer_emulated (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Returns whether this event is an 'emulated' pointer event (typically
+from a touch event), as opposed to a real one.</p>
+<div class="refsect3">
+<a name="gdk-event-get-pointer-emulated.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if this event is emulated</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-handler-set"></a><h3>gdk_event_handler_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_handler_set (<em class="parameter"><code><a class="link" href="gdk3-Events.html#GdkEventFunc" title="GdkEventFunc ()"><span class="type">GdkEventFunc</span></a> func</code></em>,
+                       <em class="parameter"><code><span class="type">gpointer</span> data</code></em>,
+                       <em class="parameter"><code><span class="type">GDestroyNotify</span> notify</code></em>);</pre>
+<p>Sets the function to call to handle all events from GDK.</p>
+<p>Note that GTK+ uses this to install its own event handler, so it is
+usually not useful for GTK+ applications. (Although an application
+can call this function then call <code class="function">gtk_main_do_event()</code> to pass
+events to GTK+.)</p>
+<div class="refsect3">
+<a name="gdk-event-handler-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>the function to call to handle events from GDK.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>user data to pass to the function. </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>notify</p></td>
+<td class="parameter_description"><p>the function to call when the handler function is removed, i.e. when
+<a class="link" href="gdk3-Events.html#gdk-event-handler-set" title="gdk_event_handler_set ()"><code class="function">gdk_event_handler_set()</code></a> is called with another event handler.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkEventFunc"></a><h3>GdkEventFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*GdkEventFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                 <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>Specifies the type of function passed to <a class="link" href="gdk3-Events.html#gdk-event-handler-set" title="gdk_event_handler_set ()"><code class="function">gdk_event_handler_set()</code></a> to
+handle all GDK events.</p>
+<div class="refsect3">
+<a name="GdkEventFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>the <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> to process.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>user data set when the event handler was installed with
+<a class="link" href="gdk3-Events.html#gdk-event-handler-set" title="gdk_event_handler_set ()"><code class="function">gdk_event_handler_set()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-get-show-events"></a><h3>gdk_get_show_events ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_get_show_events (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets whether event debugging output is enabled.</p>
+<div class="refsect3">
+<a name="gdk-get-show-events.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if event debugging output is enabled.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-set-show-events"></a><h3>gdk_set_show_events ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_set_show_events (<em class="parameter"><code><span class="type">gboolean</span> show_events</code></em>);</pre>
+<p>Sets whether a trace of received events is output.
+Note that GTK+ must be compiled with debugging (that is,
+configured using the <code class="literal">--enable-debug</code> option)
+to use this option.</p>
+<div class="refsect3">
+<a name="gdk-set-show-events.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>show_events</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to output event debugging information.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-set-screen"></a><h3>gdk_event_set_screen ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_set_screen (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                      <em class="parameter"><code><a class="link" href="GdkScreen.html" title="GdkScreen"><span class="type">GdkScreen</span></a> *screen</code></em>);</pre>
+<p>Sets the screen for <em class="parameter"><code>event</code></em>
+ to <em class="parameter"><code>screen</code></em>
+. The event must
+have been allocated by GTK+, for instance, by
+<a class="link" href="gdk3-Events.html#gdk-event-copy" title="gdk_event_copy ()"><code class="function">gdk_event_copy()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-set-screen.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>screen</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkScreen.html" title="GdkScreen"><span class="type">GdkScreen</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-screen"></a><h3>gdk_event_get_screen ()</h3>
+<pre class="programlisting"><a class="link" href="GdkScreen.html" title="GdkScreen"><span class="returnvalue">GdkScreen</span></a> *
+gdk_event_get_screen (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>Returns the screen for the event. The screen is
+typically the screen for <code class="literal">event-&gt;any.window</code>, but
+for events such as mouse events, it is the screen
+where the pointer was when the event occurs -
+that is, the screen which has the root window 
+to which <code class="literal">event-&gt;motion.x_root</code> and
+<code class="literal">event-&gt;motion.y_root</code> are relative.</p>
+<div class="refsect3">
+<a name="gdk-event-get-screen.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-screen.returns"></a><h4>Returns</h4>
+<p>the screen for the event. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-device"></a><h3>gdk_event_get_device ()</h3>
+<pre class="programlisting"><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+gdk_event_get_device (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>If the event contains a “device” field, this function will return
+it, else it will return <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gdk-event-get-device.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-device.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a>, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-set-device"></a><h3>gdk_event_set_device ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_set_device (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                      <em class="parameter"><code><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> *device</code></em>);</pre>
+<p>Sets the device for <em class="parameter"><code>event</code></em>
+ to <em class="parameter"><code>device</code></em>
+. The event must
+have been allocated by GTK+, for instance, by
+<a class="link" href="gdk3-Events.html#gdk-event-copy" title="gdk_event_copy ()"><code class="function">gdk_event_copy()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-set-device.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>device</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-source-device"></a><h3>gdk_event_get_source_device ()</h3>
+<pre class="programlisting"><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="returnvalue">GdkDevice</span></a> *
+gdk_event_get_source_device (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>This function returns the hardware (slave) <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> that has
+triggered the event, falling back to the virtual (master) device
+(as in <a class="link" href="gdk3-Events.html#gdk-event-get-device" title="gdk_event_get_device ()"><code class="function">gdk_event_get_device()</code></a>) if the event wasn’t caused by
+interaction with a hardware device. This may happen for example
+in synthesized crossing events after a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> updates its
+geometry or a grab is acquired/released.</p>
+<p>If the event does not contain a device field, this function will
+return <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gdk-event-get-source-device.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-source-device.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a>, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-set-source-device"></a><h3>gdk_event_set_source_device ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_set_source_device (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                             <em class="parameter"><code><a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a> *device</code></em>);</pre>
+<p>Sets the slave device for <em class="parameter"><code>event</code></em>
+ to <em class="parameter"><code>device</code></em>
+.</p>
+<p>The event must have been allocated by GTK+,
+for instance by <a class="link" href="gdk3-Events.html#gdk-event-copy" title="gdk_event_copy ()"><code class="function">gdk_event_copy()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-event-set-source-device.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>device</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkDevice.html" title="GdkDevice"><span class="type">GdkDevice</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-get-device-tool"></a><h3>gdk_event_get_device_tool ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkDeviceTool</span> *
+gdk_event_get_device_tool (<em class="parameter"><code>const <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>);</pre>
+<p>If the event was generated by a device that supports
+different tools (eg. a tablet), this function will
+return a <span class="type">GdkDeviceTool</span> representing the tool that
+caused the event. Otherwise, <code class="literal">NULL</code> will be returned.</p>
+<p>Note: the <span class="type">GdkDeviceTool</span>&lt;!-- --&gt;s will be constant during
+the application lifetime, if settings must be stored
+persistently across runs, see <a class="link" href="GdkDevice.html#gdk-device-tool-get-serial" title="gdk_device_tool_get_serial ()"><code class="function">gdk_device_tool_get_serial()</code></a></p>
+<div class="refsect3">
+<a name="gdk-event-get-device-tool.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-event-get-device-tool.returns"></a><h4>Returns</h4>
+<p>The current device tool, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-event-set-device-tool"></a><h3>gdk_event_set_device_tool ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_event_set_device_tool (<em class="parameter"><code><a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a> *event</code></em>,
+                           <em class="parameter"><code><span class="type">GdkDeviceTool</span> *tool</code></em>);</pre>
+<p>Sets the device tool for this event, should be rarely used.</p>
+<div class="refsect3">
+<a name="gdk-event-set-device-tool.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>event</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Event-Structures.html#GdkEvent" title="union GdkEvent"><span class="type">GdkEvent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tool</p></td>
+<td class="parameter_description"><p>tool to set on the event, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-22.html#api-index-3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-setting-get"></a><h3>gdk_setting_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_setting_get (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                 <em class="parameter"><code><span class="type">GValue</span> *value</code></em>);</pre>
+<p>Obtains a desktop-wide setting, such as the double-click time,
+for the default screen. See <a class="link" href="GdkScreen.html#gdk-screen-get-setting" title="gdk_screen_get_setting ()"><code class="function">gdk_screen_get_setting()</code></a>.</p>
+<div class="refsect3">
+<a name="gdk-setting-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of the setting.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>location to store the value of the setting.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-setting-get.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the setting existed and a value was stored
+in <em class="parameter"><code>value</code></em>
+, <code class="literal">FALSE</code> otherwise.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Events.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkEventType"></a><h3>enum GdkEventType</h3>
+<p>Specifies the type of the event.</p>
+<p>Do not confuse these events with the signals that GTK+ widgets emit.
+Although many of these events result in corresponding signals being emitted,
+the events are often transformed or filtered along the way.</p>
+<p>In some language bindings, the values <a class="link" href="gdk3-Events.html#GDK-2BUTTON-PRESS:CAPS"><code class="literal">GDK_2BUTTON_PRESS</code></a> and
+<a class="link" href="gdk3-Events.html#GDK-3BUTTON-PRESS:CAPS"><code class="literal">GDK_3BUTTON_PRESS</code></a> would translate into something syntactically
+invalid (eg <code class="literal">Gdk.EventType.2ButtonPress</code>, where a
+symbol is not allowed to start with a number). In that case, the
+aliases <a class="link" href="gdk3-Events.html#GDK-DOUBLE-BUTTON-PRESS:CAPS"><code class="literal">GDK_DOUBLE_BUTTON_PRESS</code></a> and <a class="link" href="gdk3-Events.html#GDK-TRIPLE-BUTTON-PRESS:CAPS"><code class="literal">GDK_TRIPLE_BUTTON_PRESS</code></a> can
+be used instead.</p>
+<div class="refsect3">
+<a name="GdkEventType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-NOTHING:CAPS"></a>GDK_NOTHING</p></td>
+<td class="enum_member_description">
+<p>a special code to indicate a null event.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DELETE:CAPS"></a>GDK_DELETE</p></td>
+<td class="enum_member_description">
+<p>the window manager has requested that the toplevel window be
+  hidden or destroyed, usually when the user clicks on a special icon in the
+  title bar.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DESTROY:CAPS"></a>GDK_DESTROY</p></td>
+<td class="enum_member_description">
+<p>the window has been destroyed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-EXPOSE:CAPS"></a>GDK_EXPOSE</p></td>
+<td class="enum_member_description">
+<p>all or part of the window has become visible and needs to be
+  redrawn.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-MOTION-NOTIFY:CAPS"></a>GDK_MOTION_NOTIFY</p></td>
+<td class="enum_member_description">
+<p>the pointer (usually a mouse) has moved.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON-PRESS:CAPS"></a>GDK_BUTTON_PRESS</p></td>
+<td class="enum_member_description">
+<p>a mouse button has been pressed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-2BUTTON-PRESS:CAPS"></a>GDK_2BUTTON_PRESS</p></td>
+<td class="enum_member_description">
+<p>a mouse button has been double-clicked (clicked twice
+  within a short period of time). Note that each click also generates a
+  <a class="link" href="gdk3-Events.html#GDK-BUTTON-PRESS:CAPS"><code class="literal">GDK_BUTTON_PRESS</code></a> event.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DOUBLE-BUTTON-PRESS:CAPS"></a>GDK_DOUBLE_BUTTON_PRESS</p></td>
+<td class="enum_member_description">
+<p>alias for <a class="link" href="gdk3-Events.html#GDK-2BUTTON-PRESS:CAPS"><code class="literal">GDK_2BUTTON_PRESS</code></a>, added in 3.6.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-3BUTTON-PRESS:CAPS"></a>GDK_3BUTTON_PRESS</p></td>
+<td class="enum_member_description">
+<p>a mouse button has been clicked 3 times in a short period
+  of time. Note that each click also generates a <a class="link" href="gdk3-Events.html#GDK-BUTTON-PRESS:CAPS"><code class="literal">GDK_BUTTON_PRESS</code></a> event.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TRIPLE-BUTTON-PRESS:CAPS"></a>GDK_TRIPLE_BUTTON_PRESS</p></td>
+<td class="enum_member_description">
+<p>alias for <a class="link" href="gdk3-Events.html#GDK-3BUTTON-PRESS:CAPS"><code class="literal">GDK_3BUTTON_PRESS</code></a>, added in 3.6.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON-RELEASE:CAPS"></a>GDK_BUTTON_RELEASE</p></td>
+<td class="enum_member_description">
+<p>a mouse button has been released.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-KEY-PRESS:CAPS"></a>GDK_KEY_PRESS</p></td>
+<td class="enum_member_description">
+<p>a key has been pressed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-KEY-RELEASE:CAPS"></a>GDK_KEY_RELEASE</p></td>
+<td class="enum_member_description">
+<p>a key has been released.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ENTER-NOTIFY:CAPS"></a>GDK_ENTER_NOTIFY</p></td>
+<td class="enum_member_description">
+<p>the pointer has entered the window.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-LEAVE-NOTIFY:CAPS"></a>GDK_LEAVE_NOTIFY</p></td>
+<td class="enum_member_description">
+<p>the pointer has left the window.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FOCUS-CHANGE:CAPS"></a>GDK_FOCUS_CHANGE</p></td>
+<td class="enum_member_description">
+<p>the keyboard focus has entered or left the window.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-CONFIGURE:CAPS"></a>GDK_CONFIGURE</p></td>
+<td class="enum_member_description">
+<p>the size, position or stacking order of the window has changed.
+  Note that GTK+ discards these events for <a class="link" href="gdk3-Windows.html#GDK-WINDOW-CHILD:CAPS"><code class="literal">GDK_WINDOW_CHILD</code></a> windows.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-MAP:CAPS"></a>GDK_MAP</p></td>
+<td class="enum_member_description">
+<p>the window has been mapped.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-UNMAP:CAPS"></a>GDK_UNMAP</p></td>
+<td class="enum_member_description">
+<p>the window has been unmapped.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROPERTY-NOTIFY:CAPS"></a>GDK_PROPERTY_NOTIFY</p></td>
+<td class="enum_member_description">
+<p>a property on the window has been changed or deleted.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SELECTION-CLEAR:CAPS"></a>GDK_SELECTION_CLEAR</p></td>
+<td class="enum_member_description">
+<p>the application has lost ownership of a selection.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SELECTION-REQUEST:CAPS"></a>GDK_SELECTION_REQUEST</p></td>
+<td class="enum_member_description">
+<p>another application has requested a selection.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SELECTION-NOTIFY:CAPS"></a>GDK_SELECTION_NOTIFY</p></td>
+<td class="enum_member_description">
+<p>a selection has been received.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROXIMITY-IN:CAPS"></a>GDK_PROXIMITY_IN</p></td>
+<td class="enum_member_description">
+<p>an input device has moved into contact with a sensing
+  surface (e.g. a touchscreen or graphics tablet).</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROXIMITY-OUT:CAPS"></a>GDK_PROXIMITY_OUT</p></td>
+<td class="enum_member_description">
+<p>an input device has moved out of contact with a sensing
+  surface.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-ENTER:CAPS"></a>GDK_DRAG_ENTER</p></td>
+<td class="enum_member_description">
+<p>the mouse has entered the window while a drag is in progress.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-LEAVE:CAPS"></a>GDK_DRAG_LEAVE</p></td>
+<td class="enum_member_description">
+<p>the mouse has left the window while a drag is in progress.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-MOTION:CAPS"></a>GDK_DRAG_MOTION</p></td>
+<td class="enum_member_description">
+<p>the mouse has moved in the window while a drag is in
+  progress.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DRAG-STATUS:CAPS"></a>GDK_DRAG_STATUS</p></td>
+<td class="enum_member_description">
+<p>the status of the drag operation initiated by the window
+  has changed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DROP-START:CAPS"></a>GDK_DROP_START</p></td>
+<td class="enum_member_description">
+<p>a drop operation onto the window has started.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DROP-FINISHED:CAPS"></a>GDK_DROP_FINISHED</p></td>
+<td class="enum_member_description">
+<p>the drop operation initiated by the window has completed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-CLIENT-EVENT:CAPS"></a>GDK_CLIENT_EVENT</p></td>
+<td class="enum_member_description">
+<p>a message has been received from another application.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-VISIBILITY-NOTIFY:CAPS"></a>GDK_VISIBILITY_NOTIFY</p></td>
+<td class="enum_member_description">
+<p>the window visibility status has changed.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SCROLL:CAPS"></a>GDK_SCROLL</p></td>
+<td class="enum_member_description">
+<p>the scroll wheel was turned</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-WINDOW-STATE:CAPS"></a>GDK_WINDOW_STATE</p></td>
+<td class="enum_member_description">
+<p>the state of a window has changed. See <a class="link" href="gdk3-Event-Structures.html#GdkWindowState" title="enum GdkWindowState"><span class="type">GdkWindowState</span></a>
+  for the possible window states</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SETTING:CAPS"></a>GDK_SETTING</p></td>
+<td class="enum_member_description">
+<p>a setting has been modified.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-OWNER-CHANGE:CAPS"></a>GDK_OWNER_CHANGE</p></td>
+<td class="enum_member_description">
+<p>the owner of a selection has changed. This event type
+  was added in 2.6</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-GRAB-BROKEN:CAPS"></a>GDK_GRAB_BROKEN</p></td>
+<td class="enum_member_description">
+<p>a pointer or keyboard grab was broken. This event type
+  was added in 2.8.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-DAMAGE:CAPS"></a>GDK_DAMAGE</p></td>
+<td class="enum_member_description">
+<p>the content of the window has been changed. This event type
+  was added in 2.14.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCH-BEGIN:CAPS"></a>GDK_TOUCH_BEGIN</p></td>
+<td class="enum_member_description">
+<p>A new touch event sequence has just started. This event
+  type was added in 3.4.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCH-UPDATE:CAPS"></a>GDK_TOUCH_UPDATE</p></td>
+<td class="enum_member_description">
+<p>A touch event sequence has been updated. This event type
+  was added in 3.4.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCH-END:CAPS"></a>GDK_TOUCH_END</p></td>
+<td class="enum_member_description">
+<p>A touch event sequence has finished. This event type
+  was added in 3.4.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCH-CANCEL:CAPS"></a>GDK_TOUCH_CANCEL</p></td>
+<td class="enum_member_description">
+<p>A touch event sequence has been canceled. This event type
+  was added in 3.4.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCHPAD-SWIPE:CAPS"></a>GDK_TOUCHPAD_SWIPE</p></td>
+<td class="enum_member_description">
+<p>A touchpad swipe gesture event, the current state
+  is determined by its phase field. This event type was added in 3.18.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCHPAD-PINCH:CAPS"></a>GDK_TOUCHPAD_PINCH</p></td>
+<td class="enum_member_description">
+<p>A touchpad pinch gesture event, the current state
+  is determined by its phase field. This event type was added in 3.18.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PAD-BUTTON-PRESS:CAPS"></a>GDK_PAD_BUTTON_PRESS</p></td>
+<td class="enum_member_description">
+<p>A tablet pad button press event. This event type
+  was added in 3.22.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PAD-BUTTON-RELEASE:CAPS"></a>GDK_PAD_BUTTON_RELEASE</p></td>
+<td class="enum_member_description">
+<p>A tablet pad button release event. This event type
+  was added in 3.22.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PAD-RING:CAPS"></a>GDK_PAD_RING</p></td>
+<td class="enum_member_description">
+<p>A tablet pad axis event from a "ring". This event type was
+  added in 3.22.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PAD-STRIP:CAPS"></a>GDK_PAD_STRIP</p></td>
+<td class="enum_member_description">
+<p>A tablet pad axis event from a "strip". This event type was
+  added in 3.22.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PAD-GROUP-MODE:CAPS"></a>GDK_PAD_GROUP_MODE</p></td>
+<td class="enum_member_description">
+<p>A tablet pad group mode change. This event type was
+  added in 3.22.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-EVENT-LAST:CAPS"></a>GDK_EVENT_LAST</p></td>
+<td class="enum_member_description">
+<p>marks the end of the GdkEventType enumeration. Added in 2.18</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkEventMask"></a><h3>enum GdkEventMask</h3>
+<p>A set of bit-flags to indicate which events a window is to receive.
+Most of these masks map onto one or more of the <a class="link" href="gdk3-Events.html#GdkEventType" title="enum GdkEventType"><span class="type">GdkEventType</span></a> event types
+above.</p>
+<p>See the input handling overview for details of
+event masks and event propagation.</p>
+<p><a class="link" href="gdk3-Events.html#GDK-POINTER-MOTION-HINT-MASK:CAPS"><code class="literal">GDK_POINTER_MOTION_HINT_MASK</code></a> is deprecated. It is a special mask
+to reduce the number of <a class="link" href="gdk3-Events.html#GDK-MOTION-NOTIFY:CAPS"><code class="literal">GDK_MOTION_NOTIFY</code></a> events received. When using
+<a class="link" href="gdk3-Events.html#GDK-POINTER-MOTION-HINT-MASK:CAPS"><code class="literal">GDK_POINTER_MOTION_HINT_MASK</code></a>, fewer <a class="link" href="gdk3-Events.html#GDK-MOTION-NOTIFY:CAPS"><code class="literal">GDK_MOTION_NOTIFY</code></a> events will
+be sent, some of which are marked as a hint (the is_hint member is
+<code class="literal">TRUE</code>). To receive more motion events after a motion hint event,
+the application needs to asks for more, by calling
+<a class="link" href="gdk3-Events.html#gdk-event-request-motions" title="gdk_event_request_motions ()"><code class="function">gdk_event_request_motions()</code></a>.</p>
+<p>Since GTK 3.8, motion events are already compressed by default, independent
+of this mechanism. This compression can be disabled with
+<a class="link" href="gdk3-Windows.html#gdk-window-set-event-compression" title="gdk_window_set_event_compression ()"><code class="function">gdk_window_set_event_compression()</code></a>. See the documentation of that function
+for details.</p>
+<p>If <a class="link" href="gdk3-Events.html#GDK-TOUCH-MASK:CAPS"><code class="literal">GDK_TOUCH_MASK</code></a> is enabled, the window will receive touch events
+from touch-enabled devices. Those will come as sequences of <a class="link" href="gdk3-Event-Structures.html#GdkEventTouch" title="struct GdkEventTouch"><span class="type">GdkEventTouch</span></a>
+with type <a class="link" href="gdk3-Events.html#GDK-TOUCH-UPDATE:CAPS"><code class="literal">GDK_TOUCH_UPDATE</code></a>, enclosed by two events with
+type <a class="link" href="gdk3-Events.html#GDK-TOUCH-BEGIN:CAPS"><code class="literal">GDK_TOUCH_BEGIN</code></a> and <a class="link" href="gdk3-Events.html#GDK-TOUCH-END:CAPS"><code class="literal">GDK_TOUCH_END</code></a> (or <a class="link" href="gdk3-Events.html#GDK-TOUCH-CANCEL:CAPS"><code class="literal">GDK_TOUCH_CANCEL</code></a>).
+<a class="link" href="gdk3-Events.html#gdk-event-get-event-sequence" title="gdk_event_get_event_sequence ()"><code class="function">gdk_event_get_event_sequence()</code></a> returns the event sequence for these
+events, so different sequences may be distinguished.</p>
+<div class="refsect3">
+<a name="GdkEventMask.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-EXPOSURE-MASK:CAPS"></a>GDK_EXPOSURE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive expose events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-POINTER-MOTION-MASK:CAPS"></a>GDK_POINTER_MOTION_MASK</p></td>
+<td class="enum_member_description">
+<p>receive all pointer motion events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-POINTER-MOTION-HINT-MASK:CAPS"></a>GDK_POINTER_MOTION_HINT_MASK</p></td>
+<td class="enum_member_description">
+<p>deprecated. see the explanation above</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON-MOTION-MASK:CAPS"></a>GDK_BUTTON_MOTION_MASK</p></td>
+<td class="enum_member_description">
+<p>receive pointer motion events while any button is pressed</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON1-MOTION-MASK:CAPS"></a>GDK_BUTTON1_MOTION_MASK</p></td>
+<td class="enum_member_description">
+<p>receive pointer motion events while 1 button is pressed</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON2-MOTION-MASK:CAPS"></a>GDK_BUTTON2_MOTION_MASK</p></td>
+<td class="enum_member_description">
+<p>receive pointer motion events while 2 button is pressed</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON3-MOTION-MASK:CAPS"></a>GDK_BUTTON3_MOTION_MASK</p></td>
+<td class="enum_member_description">
+<p>receive pointer motion events while 3 button is pressed</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON-PRESS-MASK:CAPS"></a>GDK_BUTTON_PRESS_MASK</p></td>
+<td class="enum_member_description">
+<p>receive button press events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-BUTTON-RELEASE-MASK:CAPS"></a>GDK_BUTTON_RELEASE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive button release events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-KEY-PRESS-MASK:CAPS"></a>GDK_KEY_PRESS_MASK</p></td>
+<td class="enum_member_description">
+<p>receive key press events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-KEY-RELEASE-MASK:CAPS"></a>GDK_KEY_RELEASE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive key release events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ENTER-NOTIFY-MASK:CAPS"></a>GDK_ENTER_NOTIFY_MASK</p></td>
+<td class="enum_member_description">
+<p>receive window enter events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-LEAVE-NOTIFY-MASK:CAPS"></a>GDK_LEAVE_NOTIFY_MASK</p></td>
+<td class="enum_member_description">
+<p>receive window leave events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-FOCUS-CHANGE-MASK:CAPS"></a>GDK_FOCUS_CHANGE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive focus change events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-STRUCTURE-MASK:CAPS"></a>GDK_STRUCTURE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive events about window configuration change</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROPERTY-CHANGE-MASK:CAPS"></a>GDK_PROPERTY_CHANGE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive property change events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-VISIBILITY-NOTIFY-MASK:CAPS"></a>GDK_VISIBILITY_NOTIFY_MASK</p></td>
+<td class="enum_member_description">
+<p>receive visibility change events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROXIMITY-IN-MASK:CAPS"></a>GDK_PROXIMITY_IN_MASK</p></td>
+<td class="enum_member_description">
+<p>receive proximity in events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROXIMITY-OUT-MASK:CAPS"></a>GDK_PROXIMITY_OUT_MASK</p></td>
+<td class="enum_member_description">
+<p>receive proximity out events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SUBSTRUCTURE-MASK:CAPS"></a>GDK_SUBSTRUCTURE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive events about window configuration changes of
+  child windows</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SCROLL-MASK:CAPS"></a>GDK_SCROLL_MASK</p></td>
+<td class="enum_member_description">
+<p>receive scroll events</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCH-MASK:CAPS"></a>GDK_TOUCH_MASK</p></td>
+<td class="enum_member_description">
+<p>receive touch events. Since 3.4</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-SMOOTH-SCROLL-MASK:CAPS"></a>GDK_SMOOTH_SCROLL_MASK</p></td>
+<td class="enum_member_description">
+<p>receive smooth scrolling events. Since 3.4</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TOUCHPAD-GESTURE-MASK:CAPS"></a>GDK_TOUCHPAD_GESTURE_MASK</p></td>
+<td class="enum_member_description">
+<p>receive touchpad gesture events. Since 3.18</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-TABLET-PAD-MASK:CAPS"></a>GDK_TABLET_PAD_MASK</p></td>
+<td class="enum_member_description">
+<p>receive tablet pad events. Since 3.22</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-ALL-EVENTS-MASK:CAPS"></a>GDK_ALL_EVENTS_MASK</p></td>
+<td class="enum_member_description">
+<p>the combination of all the above event masks.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-CURRENT-TIME:CAPS"></a><h3>GDK_CURRENT_TIME</h3>
+<pre class="programlisting">#define GDK_CURRENT_TIME     0L
+</pre>
+<p>Represents the current time, and can be used anywhere a time is expected.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-PRIORITY-EVENTS:CAPS"></a><h3>GDK_PRIORITY_EVENTS</h3>
+<pre class="programlisting">#define             GDK_PRIORITY_EVENTS</pre>
+<p>This is the priority that events from the X server are given in the
+GLib Main Loop.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-PRIORITY-REDRAW:CAPS"></a><h3>GDK_PRIORITY_REDRAW</h3>
+<pre class="programlisting">#define GDK_PRIORITY_REDRAW     (G_PRIORITY_HIGH_IDLE + 20)
+</pre>
+<p>This is the priority that the idle handler processing window updates
+is given in the
+GLib Main Loop.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-EVENT-PROPAGATE:CAPS"></a><h3>GDK_EVENT_PROPAGATE</h3>
+<pre class="programlisting">#define GDK_EVENT_PROPAGATE     (FALSE)
+</pre>
+<p>Use this macro as the return value for continuing the propagation of
+an event handler.</p>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-EVENT-STOP:CAPS"></a><h3>GDK_EVENT_STOP</h3>
+<pre class="programlisting">#define GDK_EVENT_STOP          (TRUE)
+</pre>
+<p>Use this macro as the return value for stopping the propagation of
+an event handler.</p>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-BUTTON-PRIMARY:CAPS"></a><h3>GDK_BUTTON_PRIMARY</h3>
+<pre class="programlisting">#define GDK_BUTTON_PRIMARY      (1)
+</pre>
+<p>The primary button. This is typically the left mouse button, or the
+right button in a left-handed setup.</p>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-BUTTON-MIDDLE:CAPS"></a><h3>GDK_BUTTON_MIDDLE</h3>
+<pre class="programlisting">#define GDK_BUTTON_MIDDLE       (2)
+</pre>
+<p>The middle button.</p>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-BUTTON-SECONDARY:CAPS"></a><h3>GDK_BUTTON_SECONDARY</h3>
+<pre class="programlisting">#define GDK_BUTTON_SECONDARY    (3)
+</pre>
+<p>The secondary button. This is typically the right mouse button, or the
+left button in a left-handed setup.</p>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkEventSequence"></a><h3>GdkEventSequence</h3>
+<pre class="programlisting">typedef struct _GdkEventSequence GdkEventSequence;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Events.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="gdk3-Event-Structures.html" title="Event Structures">Event Structures</a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

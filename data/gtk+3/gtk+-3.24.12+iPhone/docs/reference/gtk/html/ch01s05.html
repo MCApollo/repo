@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Custom Drawing: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtk-getting-started.html" title="Getting Started with GTK+">
+<link rel="prev" href="ch01s04.html" title="Building applications">
+<link rel="next" href="gtk-resources.html" title="Mailing lists and bug reports">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtk-getting-started.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch01s04.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gtk-resources.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="section">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="id-1.2.3.13"></a>Custom Drawing</h2></div></div></div>
+<p>Many widgets, like buttons, do all their drawing themselves. You
+    just tell them the label you want to see, and they figure out what font
+    to use, draw the button outline and focus rectangle, etc. Sometimes, it
+    is necessary to do some custom drawing. In that case, a <a class="link" href="GtkDrawingArea.html" title="GtkDrawingArea"><span class="type">GtkDrawingArea</span></a>
+    might be the right widget to use. It offers a canvas on which you can
+    draw by connecting to the <a class="link" href="GtkWidget.html#GtkWidget-draw" title="The “draw” signal"><span class="type">“draw”</span></a> signal.
+    </p>
+<p>The contents of a widget often need to be partially or fully redrawn,
+    e.g. when another window is moved and uncovers part of the widget, or
+    when the window containing it is resized. It is also possible to explicitly
+    cause part or all of the widget to be redrawn, by calling
+    <a class="link" href="GtkWidget.html#gtk-widget-queue-draw" title="gtk_widget_queue_draw ()"><code class="function">gtk_widget_queue_draw()</code></a> or its variants. GTK+ takes care of most of the
+    details by providing a ready-to-use cairo context to the ::draw signal
+    handler.</p>
+<p>The following example shows a ::draw signal handler. It is a bit
+    more complicated than the previous examples, since it also demonstrates
+    input event handling by means of ::button-press and ::motion-notify
+    handlers.</p>
+<div class="informalfigure"><div class="mediaobject"><img src="drawing.png"></div></div>
+<div class="example">
+<a name="gtk-getting-started-drawing"></a><p class="title"><b>Example 4. Drawing in response to input</b></p>
+<div class="example-contents">
+<p>Create a new file with the following content named example-4.c.</p>
+<pre class="programlisting">#include &lt;gtk/gtk.h&gt;
+
+/* Surface to store current scribbles */
+static cairo_surface_t *surface = NULL;
+
+static void
+clear_surface (void)
+{
+  cairo_t *cr;
+
+  cr = cairo_create (surface);
+
+  cairo_set_source_rgb (cr, 1, 1, 1);
+  cairo_paint (cr);
+
+  cairo_destroy (cr);
+}
+
+/* Create a new surface of the appropriate size to store our scribbles */
+static gboolean
+configure_event_cb (GtkWidget         *widget,
+                    GdkEventConfigure *event,
+                    gpointer           data)
+{
+  if (surface)
+    cairo_surface_destroy (surface);
+
+  surface = gdk_window_create_similar_surface (gtk_widget_get_window (widget),
+                                               CAIRO_CONTENT_COLOR,
+                                               gtk_widget_get_allocated_width (widget),
+                                               gtk_widget_get_allocated_height (widget));
+
+  /* Initialize the surface to white */
+  clear_surface ();
+
+  /* We've handled the configure event, no need for further processing. */
+  return TRUE;
+}
+
+/* Redraw the screen from the surface. Note that the ::draw
+ * signal receives a ready-to-be-used cairo_t that is already
+ * clipped to only draw the exposed areas of the widget
+ */
+static gboolean
+draw_cb (GtkWidget *widget,
+         cairo_t   *cr,
+         gpointer   data)
+{
+  cairo_set_source_surface (cr, surface, 0, 0);
+  cairo_paint (cr);
+
+  return FALSE;
+}
+
+/* Draw a rectangle on the surface at the given position */
+static void
+draw_brush (GtkWidget *widget,
+            gdouble    x,
+            gdouble    y)
+{
+  cairo_t *cr;
+
+  /* Paint to the surface, where we store our state */
+  cr = cairo_create (surface);
+
+  cairo_rectangle (cr, x - 3, y - 3, 6, 6);
+  cairo_fill (cr);
+
+  cairo_destroy (cr);
+
+  /* Now invalidate the affected region of the drawing area. */
+  gtk_widget_queue_draw_area (widget, x - 3, y - 3, 6, 6);
+}
+
+/* Handle button press events by either drawing a rectangle
+ * or clearing the surface, depending on which button was pressed.
+ * The ::button-press signal handler receives a GdkEventButton
+ * struct which contains this information.
+ */
+static gboolean
+button_press_event_cb (GtkWidget      *widget,
+                       GdkEventButton *event,
+                       gpointer        data)
+{
+  /* paranoia check, in case we haven't gotten a configure event */
+  if (surface == NULL)
+    return FALSE;
+
+  if (event-&gt;button == GDK_BUTTON_PRIMARY)
+    {
+      draw_brush (widget, event-&gt;x, event-&gt;y);
+    }
+  else if (event-&gt;button == GDK_BUTTON_SECONDARY)
+    {
+      clear_surface ();
+      gtk_widget_queue_draw (widget);
+    }
+
+  /* We've handled the event, stop processing */
+  return TRUE;
+}
+
+/* Handle motion events by continuing to draw if button 1 is
+ * still held down. The ::motion-notify signal handler receives
+ * a GdkEventMotion struct which contains this information.
+ */
+static gboolean
+motion_notify_event_cb (GtkWidget      *widget,
+                        GdkEventMotion *event,
+                        gpointer        data)
+{
+  /* paranoia check, in case we haven't gotten a configure event */
+  if (surface == NULL)
+    return FALSE;
+
+  if (event-&gt;state &amp; GDK_BUTTON1_MASK)
+    draw_brush (widget, event-&gt;x, event-&gt;y);
+
+  /* We've handled it, stop processing */
+  return TRUE;
+}
+
+static void
+close_window (void)
+{
+  if (surface)
+    cairo_surface_destroy (surface);
+}
+
+static void
+activate (GtkApplication *app,
+          gpointer        user_data)
+{
+  GtkWidget *window;
+  GtkWidget *frame;
+  GtkWidget *drawing_area;
+
+  window = gtk_application_window_new (app);
+  gtk_window_set_title (GTK_WINDOW (window), "Drawing Area");
+
+  g_signal_connect (window, "destroy", G_CALLBACK (close_window), NULL);
+
+  gtk_container_set_border_width (GTK_CONTAINER (window), 8);
+
+  frame = gtk_frame_new (NULL);
+  gtk_frame_set_shadow_type (GTK_FRAME (frame), GTK_SHADOW_IN);
+  gtk_container_add (GTK_CONTAINER (window), frame);
+
+  drawing_area = gtk_drawing_area_new ();
+  /* set a minimum size */
+  gtk_widget_set_size_request (drawing_area, 100, 100);
+
+  gtk_container_add (GTK_CONTAINER (frame), drawing_area);
+
+  /* Signals used to handle the backing surface */
+  g_signal_connect (drawing_area, "draw",
+                    G_CALLBACK (draw_cb), NULL);
+  g_signal_connect (drawing_area,"configure-event",
+                    G_CALLBACK (configure_event_cb), NULL);
+
+  /* Event signals */
+  g_signal_connect (drawing_area, "motion-notify-event",
+                    G_CALLBACK (motion_notify_event_cb), NULL);
+  g_signal_connect (drawing_area, "button-press-event",
+                    G_CALLBACK (button_press_event_cb), NULL);
+
+  /* Ask to receive events the drawing area doesn't normally
+   * subscribe to. In particular, we need to ask for the
+   * button press and motion notify events that want to handle.
+   */
+  gtk_widget_set_events (drawing_area, gtk_widget_get_events (drawing_area)
+                                     | GDK_BUTTON_PRESS_MASK
+                                     | GDK_POINTER_MOTION_MASK);
+
+  gtk_widget_show_all (window);
+}
+
+int
+main (int    argc,
+      char **argv)
+{
+  GtkApplication *app;
+  int status;
+
+  app = gtk_application_new ("org.gtk.example", G_APPLICATION_FLAGS_NONE);
+  g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
+  status = g_application_run (G_APPLICATION (app), argc, argv);
+  g_object_unref (app);
+
+  return status;
+}
+</pre>
+</div>
+</div>
+<br class="example-break"><p>
+      You can compile the program above with GCC using:
+      </p>
+<div class="literallayout"><p><br>
+        <code class="literal">gcc `pkg-config --cflags gtk+-3.0` -o example-4 example-4.c `pkg-config --libs gtk+-3.0`</code><br>
+      </p></div>
+<p>
+    </p>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

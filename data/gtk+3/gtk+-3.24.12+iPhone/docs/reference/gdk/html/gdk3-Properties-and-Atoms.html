@@ -1,0 +1,707 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Properties and Atoms: GDK 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GDK 3 Reference Manual">
+<link rel="up" href="reference.html" title="API Reference">
+<link rel="prev" href="gdk3-Drag-and-Drop.html" title="Drag And Drop">
+<link rel="next" href="gdk3-Threads.html" title="Threads">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdk3-Properties-and-Atoms.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="reference.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdk3-Drag-and-Drop.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdk3-Threads.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdk3-Properties-and-Atoms"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdk3-Properties-and-Atoms.top_of_page"></a>Properties and Atoms</span></h2>
+<p>Properties and Atoms — Functions to manipulate properties on windows</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gdk3-Properties-and-Atoms.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#GDK-ATOM-TO-POINTER:CAPS" title="GDK_ATOM_TO_POINTER()">GDK_ATOM_TO_POINTER</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#GDK-POINTER-TO-ATOM:CAPS" title="GDK_POINTER_TO_ATOM()">GDK_POINTER_TO_ATOM</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-text-property-to-utf8-list-for-display" title="gdk_text_property_to_utf8_list_for_display ()">gdk_text_property_to_utf8_list_for_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-utf8-to-string-target" title="gdk_utf8_to_string_target ()">gdk_utf8_to_string_target</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="returnvalue">GdkAtom</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-atom-intern" title="gdk_atom_intern ()">gdk_atom_intern</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="returnvalue">GdkAtom</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-atom-intern-static-string" title="gdk_atom_intern_static_string ()">gdk_atom_intern_static_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-atom-name" title="gdk_atom_name ()">gdk_atom_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-property-get" title="gdk_property_get ()">gdk_property_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-property-change" title="gdk_property_change ()">gdk_property_change</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-property-delete" title="gdk_property_delete ()">gdk_property_delete</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Properties-and-Atoms.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="typedef_keyword">typedef</td>
+<td class="function_name"><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom">GdkAtom</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="gdk3-Properties-and-Atoms.html#GDK-NONE:CAPS" title="GDK_NONE">GDK_NONE</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="gdk3-Properties-and-Atoms.html#GdkPropMode" title="enum GdkPropMode">GdkPropMode</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Properties-and-Atoms.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gdk/gdk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdk3-Properties-and-Atoms.description"></a><h2>Description</h2>
+<p>Each window under X can have any number of associated
+“properties” attached to it.
+Properties are arbitrary chunks of data identified by
+“atom”s. (An “atom”
+is a numeric index into a string table on the X server. They are used
+to transfer strings efficiently between clients without
+having to transfer the entire string.) A property
+has an associated type, which is also identified
+using an atom.</p>
+<p>A property has an associated “format”,
+an integer describing how many bits are in each unit
+of data inside the property. It must be 8, 16, or 32.
+When data is transferred between the server and client,
+if they are of different endianesses it will be byteswapped
+as necessary according to the format of the property.
+Note that on the client side, properties of format 32
+will be stored with one unit per long,
+even if a long integer has more than 32 bits on the platform.
+(This decision was apparently made for Xlib to maintain
+compatibility with programs that assumed longs were 32
+bits, at the expense of programs that knew better.)</p>
+<p>The functions in this section are used to add, remove
+and change properties on windows, to convert atoms
+to and from strings and to manipulate some types of
+data commonly stored in X window properties.</p>
+</div>
+<div class="refsect1">
+<a name="gdk3-Properties-and-Atoms.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="GDK-ATOM-TO-POINTER:CAPS"></a><h3>GDK_ATOM_TO_POINTER()</h3>
+<pre class="programlisting">#define GDK_ATOM_TO_POINTER(atom) (atom)
+</pre>
+<p>Converts a <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> into a pointer type.</p>
+<div class="refsect3">
+<a name="GDK-ATOM-TO-POINTER.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>atom</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-POINTER-TO-ATOM:CAPS"></a><h3>GDK_POINTER_TO_ATOM()</h3>
+<pre class="programlisting">#define GDK_POINTER_TO_ATOM(ptr)  ((GdkAtom)(ptr))
+</pre>
+<p>Extracts a <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> from a pointer. The <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> must have been
+stored in the pointer with <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-ATOM-TO-POINTER:CAPS" title="GDK_ATOM_TO_POINTER()"><code class="function">GDK_ATOM_TO_POINTER()</code></a>.</p>
+<div class="refsect3">
+<a name="GDK-POINTER-TO-ATOM.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>ptr</p></td>
+<td class="parameter_description"><p>a pointer containing a <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-text-property-to-utf8-list-for-display"></a><h3>gdk_text_property_to_utf8_list_for_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gdk_text_property_to_utf8_list_for_display
+                               (<em class="parameter"><code><a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a> *display</code></em>,
+                                <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> encoding</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> format</code></em>,
+                                <em class="parameter"><code>const <span class="type">guchar</span> *text</code></em>,
+                                <em class="parameter"><code><span class="type">gint</span> length</code></em>,
+                                <em class="parameter"><code><span class="type">gchar</span> ***list</code></em>);</pre>
+<p>Converts a text property in the given encoding to
+a list of UTF-8 strings.</p>
+<div class="refsect3">
+<a name="gdk-text-property-to-utf8-list-for-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GdkDisplay.html" title="GdkDisplay"><span class="type">GdkDisplay</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>encoding</p></td>
+<td class="parameter_description"><p>an atom representing the encoding of the text</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>the format of the property</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>text</p></td>
+<td class="parameter_description"><p>the text to convert. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>length</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>text</code></em>
+, in bytes</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>location to store the list
+of strings or <code class="literal">NULL</code>. The list should be freed with
+<code class="function">g_strfreev()</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-text-property-to-utf8-list-for-display.returns"></a><h4>Returns</h4>
+<p> the number of strings in the resulting list</p>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-utf8-to-string-target"></a><h3>gdk_utf8_to_string_target ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gdk_utf8_to_string_target (<em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);</pre>
+<p>Converts an UTF-8 string into the best possible representation
+as a STRING. The representation of characters not in STRING
+is not specified; it may be as pseudo-escape sequences
+\x{ABCD}, or it may be in some other form of approximation.</p>
+<div class="refsect3">
+<a name="gdk-utf8-to-string-target.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>a UTF-8 string</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-utf8-to-string-target.returns"></a><h4>Returns</h4>
+<p>the newly-allocated string, or <code class="literal">NULL</code> if the
+conversion failed. (It should not fail for any properly
+formed UTF-8 string unless system limits like memory or
+file descriptors are exceeded.). </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-atom-intern"></a><h3>gdk_atom_intern ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="returnvalue">GdkAtom</span></a>
+gdk_atom_intern (<em class="parameter"><code>const <span class="type">gchar</span> *atom_name</code></em>,
+                 <em class="parameter"><code><span class="type">gboolean</span> only_if_exists</code></em>);</pre>
+<p>Finds or creates an atom corresponding to a given string.</p>
+<div class="refsect3">
+<a name="gdk-atom-intern.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>atom_name</p></td>
+<td class="parameter_description"><p>a string.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>only_if_exists</p></td>
+<td class="parameter_description"><p>if <code class="literal">TRUE</code>, GDK is allowed to not create a new atom, but
+just return <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-NONE:CAPS" title="GDK_NONE"><code class="literal">GDK_NONE</code></a> if the requested atom doesn’t already
+exists. Currently, the flag is ignored, since checking the
+existance of an atom is as expensive as creating it.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-atom-intern.returns"></a><h4>Returns</h4>
+<p>the atom corresponding to <em class="parameter"><code>atom_name</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-atom-intern-static-string"></a><h3>gdk_atom_intern_static_string ()</h3>
+<pre class="programlisting"><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="returnvalue">GdkAtom</span></a>
+gdk_atom_intern_static_string (<em class="parameter"><code>const <span class="type">gchar</span> *atom_name</code></em>);</pre>
+<p>Finds or creates an atom corresponding to a given string.</p>
+<p>Note that this function is identical to <a class="link" href="gdk3-Properties-and-Atoms.html#gdk-atom-intern" title="gdk_atom_intern ()"><code class="function">gdk_atom_intern()</code></a> except
+that if a new <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> is created the string itself is used rather
+than a copy. This saves memory, but can only be used if the string
+will always exist. It can be used with statically
+allocated strings in the main program, but not with statically
+allocated memory in dynamically loaded modules, if you expect to
+ever unload the module again (e.g. do not use this function in
+GTK+ theme engines).</p>
+<div class="refsect3">
+<a name="gdk-atom-intern-static-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>atom_name</p></td>
+<td class="parameter_description"><p>a static string</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-atom-intern-static-string.returns"></a><h4>Returns</h4>
+<p>the atom corresponding to <em class="parameter"><code>atom_name</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-atom-name"></a><h3>gdk_atom_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gdk_atom_name (<em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> atom</code></em>);</pre>
+<p>Determines the string corresponding to an atom.</p>
+<div class="refsect3">
+<a name="gdk-atom-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>atom</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-atom-name.returns"></a><h4>Returns</h4>
+<p> a newly-allocated string containing the string
+corresponding to <em class="parameter"><code>atom</code></em>
+. When you are done with the
+return value, you should free it using <code class="function">g_free()</code>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-property-get"></a><h3>gdk_property_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gdk_property_get (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                  <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> property</code></em>,
+                  <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> type</code></em>,
+                  <em class="parameter"><code><span class="type">gulong</span> offset</code></em>,
+                  <em class="parameter"><code><span class="type">gulong</span> length</code></em>,
+                  <em class="parameter"><code><span class="type">gint</span> pdelete</code></em>,
+                  <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> *actual_property_type</code></em>,
+                  <em class="parameter"><code><span class="type">gint</span> *actual_format</code></em>,
+                  <em class="parameter"><code><span class="type">gint</span> *actual_length</code></em>,
+                  <em class="parameter"><code><span class="type">guchar</span> **data</code></em>);</pre>
+<p>Retrieves a portion of the contents of a property. If the
+property does not exist, then the function returns <code class="literal">FALSE</code>,
+and <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-NONE:CAPS" title="GDK_NONE"><code class="literal">GDK_NONE</code></a> will be stored in <em class="parameter"><code>actual_property_type</code></em>
+.</p>
+<p>The <code class="function">XGetWindowProperty()</code> function that <a class="link" href="gdk3-Properties-and-Atoms.html#gdk-property-get" title="gdk_property_get ()"><code class="function">gdk_property_get()</code></a>
+uses has a very confusing and complicated set of semantics.
+Unfortunately, <a class="link" href="gdk3-Properties-and-Atoms.html#gdk-property-get" title="gdk_property_get ()"><code class="function">gdk_property_get()</code></a> makes the situation
+worse instead of better (the semantics should be considered
+undefined), and also prints warnings to stderr in cases where it
+should return a useful error to the program. You are advised to use
+<code class="function">XGetWindowProperty()</code> directly until a replacement function for
+<a class="link" href="gdk3-Properties-and-Atoms.html#gdk-property-get" title="gdk_property_get ()"><code class="function">gdk_property_get()</code></a> is provided.</p>
+<div class="refsect3">
+<a name="gdk-property-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>the property to retrieve</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the desired property type, or <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-NONE:CAPS" title="GDK_NONE"><code class="literal">GDK_NONE</code></a>, if any type of data
+is acceptable. If this does not match the actual
+type, then <em class="parameter"><code>actual_format</code></em>
+and <em class="parameter"><code>actual_length</code></em>
+will
+be filled in, a warning will be printed to stderr
+and no data will be returned.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>offset</p></td>
+<td class="parameter_description"><p>the offset into the property at which to begin
+retrieving data, in 4 byte units.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>length</p></td>
+<td class="parameter_description"><p>the length of the data to retrieve in bytes.  Data is
+considered to be retrieved in 4 byte chunks, so <em class="parameter"><code>length</code></em>
+will be rounded up to the next highest 4 byte boundary
+(so be careful not to pass a value that might overflow
+when rounded up).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pdelete</p></td>
+<td class="parameter_description"><p>if <code class="literal">TRUE</code>, delete the property after retrieving the
+data.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>actual_property_type</p></td>
+<td class="parameter_description"><p>location to store the
+actual type of the property. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>actual_format</p></td>
+<td class="parameter_description"><p>location to store the actual return format of the
+data; either 8, 16 or 32 bits. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>actual_length</p></td>
+<td class="parameter_description"><p>location to store the length of the retrieved data, in
+bytes.  Data returned in the 32 bit format is stored
+in a long variable, so the actual number of 32 bit
+elements should be be calculated via
+<em class="parameter"><code>actual_length</code></em>
+/ sizeof(glong) to ensure portability to
+64 bit systems.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>location
+to store a pointer to the data. The retrieved data should be
+freed with <code class="function">g_free()</code> when you are finished using it. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=actual_length][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gdk-property-get.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if data was successfully received and stored
+in <em class="parameter"><code>data</code></em>
+, otherwise <code class="literal">FALSE</code>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-property-change"></a><h3>gdk_property_change ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_property_change (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                     <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> property</code></em>,
+                     <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> type</code></em>,
+                     <em class="parameter"><code><span class="type">gint</span> format</code></em>,
+                     <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkPropMode" title="enum GdkPropMode"><span class="type">GdkPropMode</span></a> mode</code></em>,
+                     <em class="parameter"><code>const <span class="type">guchar</span> *data</code></em>,
+                     <em class="parameter"><code><span class="type">gint</span> nelements</code></em>);</pre>
+<p>Changes the contents of a property on a window.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="gdk-property-change.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>the property to change</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>the new type for the property. If <em class="parameter"><code>mode</code></em>
+is
+<a class="link" href="gdk3-Properties-and-Atoms.html#GDK-PROP-MODE-PREPEND:CAPS"><code class="literal">GDK_PROP_MODE_PREPEND</code></a> or <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-PROP-MODE-APPEND:CAPS"><code class="literal">GDK_PROP_MODE_APPEND</code></a>, then this
+must match the existing type or an error will occur.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>format</p></td>
+<td class="parameter_description"><p>the new format for the property. If <em class="parameter"><code>mode</code></em>
+is
+<a class="link" href="gdk3-Properties-and-Atoms.html#GDK-PROP-MODE-PREPEND:CAPS"><code class="literal">GDK_PROP_MODE_PREPEND</code></a> or <a class="link" href="gdk3-Properties-and-Atoms.html#GDK-PROP-MODE-APPEND:CAPS"><code class="literal">GDK_PROP_MODE_APPEND</code></a>, then this
+must match the existing format or an error will occur.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mode</p></td>
+<td class="parameter_description"><p>a value describing how the new data is to be combined
+with the current data.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>the data (a <code class="literal">guchar *</code>
+<code class="literal">gushort *</code>, or <code class="literal">gulong *</code>,
+depending on <em class="parameter"><code>format</code></em>
+), cast to a <code class="literal">guchar *</code>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>nelements</p></td>
+<td class="parameter_description"><p>the number of elements of size determined by the format,
+contained in <em class="parameter"><code>data</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdk-property-delete"></a><h3>gdk_property_delete ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gdk_property_delete (<em class="parameter"><code><a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a> *window</code></em>,
+                     <em class="parameter"><code><a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a> property</code></em>);</pre>
+<p>Deletes a property from a window.</p>
+<div class="refsect3">
+<a name="gdk-property-delete.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>window</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gdk3-Windows.html#GdkWindow"><span class="type">GdkWindow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property</p></td>
+<td class="parameter_description"><p>the property to delete</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdk3-Properties-and-Atoms.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GdkAtom"></a><h3>GdkAtom</h3>
+<pre class="programlisting">typedef struct _GdkAtom *GdkAtom;
+</pre>
+<p>An opaque type representing a string as an index into a table
+of strings on the X server.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GDK-NONE:CAPS"></a><h3>GDK_NONE</h3>
+<pre class="programlisting">#define GDK_NONE            _GDK_MAKE_ATOM (0)
+</pre>
+<p>A null value for <a class="link" href="gdk3-Properties-and-Atoms.html#GdkAtom" title="GdkAtom"><span class="type">GdkAtom</span></a>, used in a similar way as
+<code class="literal">None</code> in the Xlib API.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GdkPropMode"></a><h3>enum GdkPropMode</h3>
+<p>Describes how existing data is combined with new data when
+using <a class="link" href="gdk3-Properties-and-Atoms.html#gdk-property-change" title="gdk_property_change ()"><code class="function">gdk_property_change()</code></a>.</p>
+<div class="refsect3">
+<a name="GdkPropMode.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROP-MODE-REPLACE:CAPS"></a>GDK_PROP_MODE_REPLACE</p></td>
+<td class="enum_member_description">
+<p>the new data replaces the existing data.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROP-MODE-PREPEND:CAPS"></a>GDK_PROP_MODE_PREPEND</p></td>
+<td class="enum_member_description">
+<p>the new data is prepended to the existing data.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GDK-PROP-MODE-APPEND:CAPS"></a>GDK_PROP_MODE_APPEND</p></td>
+<td class="enum_member_description">
+<p>the new data is appended to the existing data.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

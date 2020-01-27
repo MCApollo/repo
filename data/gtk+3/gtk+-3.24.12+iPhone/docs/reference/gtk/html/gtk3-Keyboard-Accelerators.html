@@ -1,0 +1,1525 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Accelerator Groups: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="gtkbase.html" title="Part III. GTK+ Core Reference">
+<link rel="prev" href="gtk3-Feature-Test-Macros.html" title="Version Information">
+<link rel="next" href="gtk3-Accelerator-Maps.html" title="Accelerator Maps">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gtk3-Keyboard-Accelerators.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#gtk3-Keyboard-Accelerators.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#gtk3-Keyboard-Accelerators.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#gtk3-Keyboard-Accelerators.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="gtkbase.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gtk3-Feature-Test-Macros.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gtk3-Accelerator-Maps.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gtk3-Keyboard-Accelerators"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gtk3-Keyboard-Accelerators.top_of_page"></a>Accelerator Groups</span></h2>
+<p>Accelerator Groups — Groups of global keyboard accelerators for an
+    entire GtkWindow</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-new" title="gtk_accel_group_new ()">gtk_accel_group_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-connect" title="gtk_accel_group_connect ()">gtk_accel_group_connect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-connect-by-path" title="gtk_accel_group_connect_by_path ()">gtk_accel_group_connect_by_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroupActivate" title="GtkAccelGroupActivate ()">*GtkAccelGroupActivate</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroupFindFunc" title="GtkAccelGroupFindFunc ()">*GtkAccelGroupFindFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-disconnect" title="gtk_accel_group_disconnect ()">gtk_accel_group_disconnect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-disconnect-key" title="gtk_accel_group_disconnect_key ()">gtk_accel_group_disconnect_key</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-activate" title="gtk_accel_group_activate ()">gtk_accel_group_activate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-lock" title="gtk_accel_group_lock ()">gtk_accel_group_lock</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-unlock" title="gtk_accel_group_unlock ()">gtk_accel_group_unlock</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-get-is-locked" title="gtk_accel_group_get_is_locked ()">gtk_accel_group_get_is_locked</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-from-accel-closure" title="gtk_accel_group_from_accel_closure ()">gtk_accel_group_from_accel_closure</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkModifierType</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-get-modifier-mask" title="gtk_accel_group_get_modifier_mask ()">gtk_accel_group_get_modifier_mask</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-groups-activate" title="gtk_accel_groups_activate ()">gtk_accel_groups_activate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GSList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-groups-from-object" title="gtk_accel_groups_from_object ()">gtk_accel_groups_from_object</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelKey" title="struct GtkAccelKey"><span class="returnvalue">GtkAccelKey</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-find" title="gtk_accel_group_find ()">gtk_accel_group_find</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-valid" title="gtk_accelerator_valid ()">gtk_accelerator_valid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()">gtk_accelerator_parse</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-name" title="gtk_accelerator_name ()">gtk_accelerator_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-get-label" title="gtk_accelerator_get_label ()">gtk_accelerator_get_label</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse-with-keycode" title="gtk_accelerator_parse_with_keycode ()">gtk_accelerator_parse_with_keycode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-name-with-keycode" title="gtk_accelerator_name_with_keycode ()">gtk_accelerator_name_with_keycode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-get-label-with-keycode" title="gtk_accelerator_get_label_with_keycode ()">gtk_accelerator_get_label_with_keycode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-set-default-mod-mask" title="gtk_accelerator_set_default_mod_mask ()">gtk_accelerator_set_default_mod_mask</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GdkModifierType</span>
+</td>
+<td class="function_name">
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-get-default-mod-mask" title="gtk_accelerator_get_default_mod_mask ()">gtk_accelerator_get_default_mod_mask</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup--is-locked" title="The “is-locked” property">is-locked</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">GdkModifierType</span></td>
+<td class="property_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup--modifier-mask" title="The “modifier-mask” property">modifier-mask</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">gboolean</span></td>
+<td class="signal_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup-accel-activate" title="The “accel-activate” signal">accel-activate</a></td>
+<td class="signal_flags">Has Details</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup-accel-changed" title="The “accel-changed” signal">accel-changed</a></td>
+<td class="signal_flags">Has Details</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="GtkAccelGroup"></a><div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup-struct" title="struct GtkAccelGroup">GtkAccelGroup</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroupClass" title="struct GtkAccelGroupClass">GtkAccelGroupClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelFlags" title="enum GtkAccelFlags">GtkAccelFlags</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelKey" title="struct GtkAccelKey">GtkAccelKey</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GtkAccelGroup
+</pre>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.description"></a><h2>Description</h2>
+<p>A <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> represents a group of keyboard accelerators,
+typically attached to a toplevel <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a> (with
+<a class="link" href="GtkWindow.html#gtk-window-add-accel-group" title="gtk_window_add_accel_group ()"><code class="function">gtk_window_add_accel_group()</code></a>). Usually you won’t need to create a
+<a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> directly; instead, when using <a class="link" href="GtkUIManager.html" title="GtkUIManager"><span class="type">GtkUIManager</span></a>, GTK+
+automatically sets up the accelerators for your menus in the ui
+manager’s <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</p>
+<p>Note that “accelerators” are different from
+“mnemonics”. Accelerators are shortcuts for
+activating a menu item; they appear alongside the menu item they’re a
+shortcut for. For example “Ctrl+Q” might appear alongside the “Quit”
+menu item. Mnemonics are shortcuts for GUI elements such as text
+entries or buttons; they appear as underlined characters. See
+<a class="link" href="GtkLabel.html#gtk-label-new-with-mnemonic" title="gtk_label_new_with_mnemonic ()"><code class="function">gtk_label_new_with_mnemonic()</code></a>. Menu items can have both accelerators
+and mnemonics, of course.</p>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-accel-group-new"></a><h3>gtk_accel_group_new ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *
+gtk_accel_group_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> object</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-connect"></a><h3>gtk_accel_group_connect ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_accel_group_connect (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                         <em class="parameter"><code><span class="type">guint</span> accel_key</code></em>,
+                         <em class="parameter"><code><span class="type">GdkModifierType</span> accel_mods</code></em>,
+                         <em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelFlags" title="enum GtkAccelFlags"><span class="type">GtkAccelFlags</span></a> accel_flags</code></em>,
+                         <em class="parameter"><code><span class="type">GClosure</span> *closure</code></em>);</pre>
+<p>Installs an accelerator in this group. When <em class="parameter"><code>accel_group</code></em>
+ is being
+activated in response to a call to <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-groups-activate" title="gtk_accel_groups_activate ()"><code class="function">gtk_accel_groups_activate()</code></a>,
+<em class="parameter"><code>closure</code></em>
+ will be invoked if the <em class="parameter"><code>accel_key</code></em>
+ and <em class="parameter"><code>accel_mods</code></em>
+ from
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-groups-activate" title="gtk_accel_groups_activate ()"><code class="function">gtk_accel_groups_activate()</code></a> match those of this connection.</p>
+<p>The signature used for the <em class="parameter"><code>closure</code></em>
+ is that of <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroupActivate" title="GtkAccelGroupActivate ()"><span class="type">GtkAccelGroupActivate</span></a>.</p>
+<p>Note that, due to implementation details, a single closure can
+only be connected to one accelerator group.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-connect.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>the accelerator group to install an accelerator in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_key</p></td>
+<td class="parameter_description"><p>key value of the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_mods</p></td>
+<td class="parameter_description"><p>modifier combination of the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_flags</p></td>
+<td class="parameter_description"><p>a flag mask to configure this accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>closure to be executed upon accelerator activation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-connect-by-path"></a><h3>gtk_accel_group_connect_by_path ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_accel_group_connect_by_path (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *accel_path</code></em>,
+                                 <em class="parameter"><code><span class="type">GClosure</span> *closure</code></em>);</pre>
+<p>Installs an accelerator in this group, using an accelerator path
+to look up the appropriate key and modifiers (see
+<a class="link" href="gtk3-Accelerator-Maps.html#gtk-accel-map-add-entry" title="gtk_accel_map_add_entry ()"><code class="function">gtk_accel_map_add_entry()</code></a>). When <em class="parameter"><code>accel_group</code></em>
+ is being activated
+in response to a call to <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-groups-activate" title="gtk_accel_groups_activate ()"><code class="function">gtk_accel_groups_activate()</code></a>, <em class="parameter"><code>closure</code></em>
+ will
+be invoked if the <em class="parameter"><code>accel_key</code></em>
+ and <em class="parameter"><code>accel_mods</code></em>
+ from
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-groups-activate" title="gtk_accel_groups_activate ()"><code class="function">gtk_accel_groups_activate()</code></a> match the key and modifiers for the path.</p>
+<p>The signature used for the <em class="parameter"><code>closure</code></em>
+ is that of <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroupActivate" title="GtkAccelGroupActivate ()"><span class="type">GtkAccelGroupActivate</span></a>.</p>
+<p>Note that <em class="parameter"><code>accel_path</code></em>
+ string will be stored in a <span class="type">GQuark</span>. Therefore,
+if you pass a static string, you can save some memory by interning it
+first with <code class="function">g_intern_static_string()</code>.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-connect-by-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>the accelerator group to install an accelerator in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_path</p></td>
+<td class="parameter_description"><p>path used for determining key and modifiers</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>closure to be executed upon accelerator activation</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAccelGroupActivate"></a><h3>GtkAccelGroupActivate ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+<span class="c_punctuation">(</span>*GtkAccelGroupActivate<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                          <em class="parameter"><code><span class="type">GObject</span> *acceleratable</code></em>,
+                          <em class="parameter"><code><span class="type">guint</span> keyval</code></em>,
+                          <em class="parameter"><code><span class="type">GdkModifierType</span> modifier</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAccelGroupFindFunc"></a><h3>GtkAccelGroupFindFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+<span class="c_punctuation">(</span>*GtkAccelGroupFindFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelKey" title="struct GtkAccelKey"><span class="type">GtkAccelKey</span></a> *key</code></em>,
+                          <em class="parameter"><code><span class="type">GClosure</span> *closure</code></em>,
+                          <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<div class="refsect3">
+<a name="GtkAccelGroupFindFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-disconnect"></a><h3>gtk_accel_group_disconnect ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_accel_group_disconnect (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                            <em class="parameter"><code><span class="type">GClosure</span> *closure</code></em>);</pre>
+<p>Removes an accelerator previously installed through
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-connect" title="gtk_accel_group_connect ()"><code class="function">gtk_accel_group_connect()</code></a>.</p>
+<p>Since 2.20 <em class="parameter"><code>closure</code></em>
+ can be <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-disconnect.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>the accelerator group to remove an accelerator from</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>the closure to remove from this accelerator
+group, or <code class="literal">NULL</code> to remove all closures. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-group-disconnect.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the closure was found and got disconnected</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-disconnect-key"></a><h3>gtk_accel_group_disconnect_key ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_accel_group_disconnect_key (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> accel_key</code></em>,
+                                <em class="parameter"><code><span class="type">GdkModifierType</span> accel_mods</code></em>);</pre>
+<p>Removes an accelerator previously installed through
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-connect" title="gtk_accel_group_connect ()"><code class="function">gtk_accel_group_connect()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-disconnect-key.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>the accelerator group to install an accelerator in</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_key</p></td>
+<td class="parameter_description"><p>key value of the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_mods</p></td>
+<td class="parameter_description"><p>modifier combination of the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-group-disconnect-key.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if there was an accelerator which could be
+removed, <code class="literal">FALSE</code> otherwise</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-activate"></a><h3>gtk_accel_group_activate ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_accel_group_activate (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                          <em class="parameter"><code><span class="type">GQuark</span> accel_quark</code></em>,
+                          <em class="parameter"><code><span class="type">GObject</span> *acceleratable</code></em>,
+                          <em class="parameter"><code><span class="type">guint</span> accel_key</code></em>,
+                          <em class="parameter"><code><span class="type">GdkModifierType</span> accel_mods</code></em>);</pre>
+<p>Finds the first accelerator in <em class="parameter"><code>accel_group</code></em>
+ that matches
+<em class="parameter"><code>accel_key</code></em>
+ and <em class="parameter"><code>accel_mods</code></em>
+, and activates it.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-activate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_quark</p></td>
+<td class="parameter_description"><p>the quark for the accelerator name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>acceleratable</p></td>
+<td class="parameter_description"><p>the <span class="type">GObject</span>, usually a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>, on which
+to activate the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_key</p></td>
+<td class="parameter_description"><p>accelerator keyval from a key event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_mods</p></td>
+<td class="parameter_description"><p>keyboard state mask from a key event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-group-activate.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if an accelerator was activated and handled
+this keypress</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-lock"></a><h3>gtk_accel_group_lock ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_accel_group_lock (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
+<p>Locks the given accelerator group.</p>
+<p>Locking an acelerator group prevents the accelerators contained
+within it to be changed during runtime. Refer to
+<a class="link" href="gtk3-Accelerator-Maps.html#gtk-accel-map-change-entry" title="gtk_accel_map_change_entry ()"><code class="function">gtk_accel_map_change_entry()</code></a> about runtime accelerator changes.</p>
+<p>If called more than once, <em class="parameter"><code>accel_group</code></em>
+ remains locked until
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-unlock" title="gtk_accel_group_unlock ()"><code class="function">gtk_accel_group_unlock()</code></a> has been called an equivalent number
+of times.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-lock.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-unlock"></a><h3>gtk_accel_group_unlock ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_accel_group_unlock (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
+<p>Undoes the last call to <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-lock" title="gtk_accel_group_lock ()"><code class="function">gtk_accel_group_lock()</code></a> on this <em class="parameter"><code>accel_group</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-unlock.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-get-is-locked"></a><h3>gtk_accel_group_get_is_locked ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_accel_group_get_is_locked (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
+<p>Locks are added and removed using <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-lock" title="gtk_accel_group_lock ()"><code class="function">gtk_accel_group_lock()</code></a> and
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-unlock" title="gtk_accel_group_unlock ()"><code class="function">gtk_accel_group_unlock()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-get-is-locked.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-group-get-is-locked.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if there are 1 or more locks on the <em class="parameter"><code>accel_group</code></em>
+,
+<code class="literal">FALSE</code> otherwise.</p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-from-accel-closure"></a><h3>gtk_accel_group_from_accel_closure ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="returnvalue">GtkAccelGroup</span></a> *
+gtk_accel_group_from_accel_closure (<em class="parameter"><code><span class="type">GClosure</span> *closure</code></em>);</pre>
+<p>Finds the <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> to which <em class="parameter"><code>closure</code></em>
+ is connected;
+see <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-connect" title="gtk_accel_group_connect ()"><code class="function">gtk_accel_group_connect()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-from-accel-closure.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>a <span class="type">GClosure</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-group-from-accel-closure.returns"></a><h4>Returns</h4>
+<p>the <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> to which <em class="parameter"><code>closure</code></em>
+is connected, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-get-modifier-mask"></a><h3>gtk_accel_group_get_modifier_mask ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkModifierType</span>
+gtk_accel_group_get_modifier_mask (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>);</pre>
+<p>Gets a <span class="type">GdkModifierType</span> representing the mask for this
+<em class="parameter"><code>accel_group</code></em>
+. For example, <span class="type">GDK_CONTROL_MASK</span>, <span class="type">GDK_SHIFT_MASK</span>, etc.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-get-modifier-mask.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-group-get-modifier-mask.returns"></a><h4>Returns</h4>
+<p> the modifier mask for this accel group.</p>
+</div>
+<p class="since">Since: 2.14</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-groups-activate"></a><h3>gtk_accel_groups_activate ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_accel_groups_activate (<em class="parameter"><code><span class="type">GObject</span> *object</code></em>,
+                           <em class="parameter"><code><span class="type">guint</span> accel_key</code></em>,
+                           <em class="parameter"><code><span class="type">GdkModifierType</span> accel_mods</code></em>);</pre>
+<p>Finds the first accelerator in any <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> attached
+to <em class="parameter"><code>object</code></em>
+ that matches <em class="parameter"><code>accel_key</code></em>
+ and <em class="parameter"><code>accel_mods</code></em>
+, and
+activates that accelerator.</p>
+<div class="refsect3">
+<a name="gtk-accel-groups-activate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>the <span class="type">GObject</span>, usually a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a>, on which
+to activate the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_key</p></td>
+<td class="parameter_description"><p>accelerator keyval from a key event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_mods</p></td>
+<td class="parameter_description"><p>keyboard state mask from a key event</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-groups-activate.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if an accelerator was activated and handled
+this keypress</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-groups-from-object"></a><h3>gtk_accel_groups_from_object ()</h3>
+<pre class="programlisting"><span class="returnvalue">GSList</span> *
+gtk_accel_groups_from_object (<em class="parameter"><code><span class="type">GObject</span> *object</code></em>);</pre>
+<p>Gets a list of all accel groups which are attached to <em class="parameter"><code>object</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-accel-groups-from-object.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>a <span class="type">GObject</span>, usually a <a class="link" href="GtkWindow.html" title="GtkWindow"><span class="type">GtkWindow</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-groups-from-object.returns"></a><h4>Returns</h4>
+<p>a list of
+all accel groups which are attached to <em class="parameter"><code>object</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkAccelGroup][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accel-group-find"></a><h3>gtk_accel_group_find ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelKey" title="struct GtkAccelKey"><span class="returnvalue">GtkAccelKey</span></a> *
+gtk_accel_group_find (<em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> *accel_group</code></em>,
+                      <em class="parameter"><code><a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroupFindFunc" title="GtkAccelGroupFindFunc ()"><span class="type">GtkAccelGroupFindFunc</span></a> find_func</code></em>,
+                      <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+<p>Finds the first entry in an accelerator group for which
+<em class="parameter"><code>find_func</code></em>
+ returns <code class="literal">TRUE</code> and returns its <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelKey" title="struct GtkAccelKey"><span class="type">GtkAccelKey</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-accel-group-find.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>a <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>find_func</p></td>
+<td class="parameter_description"><p>a function to filter the entries
+of <em class="parameter"><code>accel_group</code></em>
+with. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>find_func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accel-group-find.returns"></a><h4>Returns</h4>
+<p>the key of the first entry passing
+<em class="parameter"><code>find_func</code></em>
+. The key is owned by GTK+ and must not be freed. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-valid"></a><h3>gtk_accelerator_valid ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_accelerator_valid (<em class="parameter"><code><span class="type">guint</span> keyval</code></em>,
+                       <em class="parameter"><code><span class="type">GdkModifierType</span> modifiers</code></em>);</pre>
+<p>Determines whether a given keyval and modifier mask constitute
+a valid keyboard accelerator. For example, the <span class="type">GDK_KEY_a</span> keyval
+plus <span class="type">GDK_CONTROL_MASK</span> is valid - this is a “Ctrl+a” accelerator.
+But, you can't, for instance, use the <span class="type">GDK_KEY_Control_L</span> keyval
+as an accelerator.</p>
+<div class="refsect3">
+<a name="gtk-accelerator-valid.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>a GDK keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>modifiers</p></td>
+<td class="parameter_description"><p>modifier mask</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accelerator-valid.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the accelerator is valid</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-parse"></a><h3>gtk_accelerator_parse ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_accelerator_parse (<em class="parameter"><code>const <span class="type">gchar</span> *accelerator</code></em>,
+                       <em class="parameter"><code><span class="type">guint</span> *accelerator_key</code></em>,
+                       <em class="parameter"><code><span class="type">GdkModifierType</span> *accelerator_mods</code></em>);</pre>
+<p>Parses a string representing an accelerator. The format looks like
+“&lt;Control&gt;a” or “&lt;Shift&gt;&lt;Alt&gt;F1” or “&lt;Release&gt;z” (the last one is
+for key release).</p>
+<p>The parser is fairly liberal and allows lower or upper case, and also
+abbreviations such as “&lt;Ctl&gt;” and “&lt;Ctrl&gt;”. Key names are parsed using
+<code class="function">gdk_keyval_from_name()</code>. For character keys the name is not the symbol,
+but the lowercase name, e.g. one would use “&lt;Ctrl&gt;minus” instead of
+“&lt;Ctrl&gt;-”.</p>
+<p>If the parse fails, <em class="parameter"><code>accelerator_key</code></em>
+ and <em class="parameter"><code>accelerator_mods</code></em>
+ will
+be set to 0 (zero).</p>
+<div class="refsect3">
+<a name="gtk-accelerator-parse.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accelerator</p></td>
+<td class="parameter_description"><p>string representing an accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_key</p></td>
+<td class="parameter_description"><p>return location for accelerator
+keyval, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_mods</p></td>
+<td class="parameter_description"><p>return location for accelerator
+modifier mask, <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-name"></a><h3>gtk_accelerator_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_accelerator_name (<em class="parameter"><code><span class="type">guint</span> accelerator_key</code></em>,
+                      <em class="parameter"><code><span class="type">GdkModifierType</span> accelerator_mods</code></em>);</pre>
+<p>Converts an accelerator keyval and modifier mask into a string
+parseable by <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a>. For example, if you pass in
+<span class="type">GDK_KEY_q</span> and <span class="type">GDK_CONTROL_MASK</span>, this function returns “&lt;Control&gt;q”.</p>
+<p>If you need to display accelerators in the user interface,
+see <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-get-label" title="gtk_accelerator_get_label ()"><code class="function">gtk_accelerator_get_label()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-accelerator-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accelerator_key</p></td>
+<td class="parameter_description"><p>accelerator keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_mods</p></td>
+<td class="parameter_description"><p>accelerator modifier mask</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accelerator-name.returns"></a><h4>Returns</h4>
+<p> a newly-allocated accelerator name</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-get-label"></a><h3>gtk_accelerator_get_label ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_accelerator_get_label (<em class="parameter"><code><span class="type">guint</span> accelerator_key</code></em>,
+                           <em class="parameter"><code><span class="type">GdkModifierType</span> accelerator_mods</code></em>);</pre>
+<p>Converts an accelerator keyval and modifier mask into a string
+which can be used to represent the accelerator to the user.</p>
+<div class="refsect3">
+<a name="gtk-accelerator-get-label.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accelerator_key</p></td>
+<td class="parameter_description"><p>accelerator keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_mods</p></td>
+<td class="parameter_description"><p>accelerator modifier mask</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accelerator-get-label.returns"></a><h4>Returns</h4>
+<p> a newly-allocated string representing the accelerator.</p>
+</div>
+<p class="since">Since: 2.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-parse-with-keycode"></a><h3>gtk_accelerator_parse_with_keycode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_accelerator_parse_with_keycode (<em class="parameter"><code>const <span class="type">gchar</span> *accelerator</code></em>,
+                                    <em class="parameter"><code><span class="type">guint</span> *accelerator_key</code></em>,
+                                    <em class="parameter"><code><span class="type">guint</span> **accelerator_codes</code></em>,
+                                    <em class="parameter"><code><span class="type">GdkModifierType</span> *accelerator_mods</code></em>);</pre>
+<p>Parses a string representing an accelerator, similarly to
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a> but handles keycodes as well. This is only
+useful for system-level components, applications should use
+<a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a> instead.</p>
+<p>If <em class="parameter"><code>accelerator_codes</code></em>
+ is given and the result stored in it is non-<code class="literal">NULL</code>,
+the result must be freed with <code class="function">g_free()</code>.</p>
+<p>If a keycode is present in the accelerator and no <em class="parameter"><code>accelerator_codes</code></em>
+
+is given, the parse will fail.</p>
+<p>If the parse fails, <em class="parameter"><code>accelerator_key</code></em>
+, <em class="parameter"><code>accelerator_mods</code></em>
+ and
+<em class="parameter"><code>accelerator_codes</code></em>
+ will be set to 0 (zero).</p>
+<div class="refsect3">
+<a name="gtk-accelerator-parse-with-keycode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accelerator</p></td>
+<td class="parameter_description"><p>string representing an accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_key</p></td>
+<td class="parameter_description"><p>return location for accelerator
+keyval, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_codes</p></td>
+<td class="parameter_description"><p>return location for accelerator keycodes, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_mods</p></td>
+<td class="parameter_description"><p>return location for accelerator
+modifier mask, <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-name-with-keycode"></a><h3>gtk_accelerator_name_with_keycode ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_accelerator_name_with_keycode (<em class="parameter"><code><span class="type">GdkDisplay</span> *display</code></em>,
+                                   <em class="parameter"><code><span class="type">guint</span> accelerator_key</code></em>,
+                                   <em class="parameter"><code><span class="type">guint</span> keycode</code></em>,
+                                   <em class="parameter"><code><span class="type">GdkModifierType</span> accelerator_mods</code></em>);</pre>
+<p>Converts an accelerator keyval and modifier mask
+into a string parseable by <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse-with-keycode" title="gtk_accelerator_parse_with_keycode ()"><code class="function">gtk_accelerator_parse_with_keycode()</code></a>,
+similarly to <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-name" title="gtk_accelerator_name ()"><code class="function">gtk_accelerator_name()</code></a> but handling keycodes.
+This is only useful for system-level components, applications
+should use <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a> instead.</p>
+<div class="refsect3">
+<a name="gtk-accelerator-name-with-keycode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkDisplay</span> or <code class="literal">NULL</code> to use the default display. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_key</p></td>
+<td class="parameter_description"><p>accelerator keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keycode</p></td>
+<td class="parameter_description"><p>accelerator keycode</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_mods</p></td>
+<td class="parameter_description"><p>accelerator modifier mask</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accelerator-name-with-keycode.returns"></a><h4>Returns</h4>
+<p> a newly allocated accelerator name.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-get-label-with-keycode"></a><h3>gtk_accelerator_get_label_with_keycode ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_accelerator_get_label_with_keycode
+                               (<em class="parameter"><code><span class="type">GdkDisplay</span> *display</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> accelerator_key</code></em>,
+                                <em class="parameter"><code><span class="type">guint</span> keycode</code></em>,
+                                <em class="parameter"><code><span class="type">GdkModifierType</span> accelerator_mods</code></em>);</pre>
+<p>Converts an accelerator keyval and modifier mask
+into a (possibly translated) string that can be displayed to
+a user, similarly to <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-get-label" title="gtk_accelerator_get_label ()"><code class="function">gtk_accelerator_get_label()</code></a>, but handling
+keycodes.</p>
+<p>This is only useful for system-level components, applications
+should use <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-parse" title="gtk_accelerator_parse ()"><code class="function">gtk_accelerator_parse()</code></a> instead.</p>
+<div class="refsect3">
+<a name="gtk-accelerator-get-label-with-keycode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>display</p></td>
+<td class="parameter_description"><p>a <span class="type">GdkDisplay</span> or <code class="literal">NULL</code> to use the default display. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_key</p></td>
+<td class="parameter_description"><p>accelerator keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keycode</p></td>
+<td class="parameter_description"><p>accelerator keycode</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accelerator_mods</p></td>
+<td class="parameter_description"><p>accelerator modifier mask</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-accelerator-get-label-with-keycode.returns"></a><h4>Returns</h4>
+<p> a newly-allocated string representing the accelerator.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-4.html#api-index-3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-set-default-mod-mask"></a><h3>gtk_accelerator_set_default_mod_mask ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_accelerator_set_default_mod_mask (<em class="parameter"><code><span class="type">GdkModifierType</span> default_mod_mask</code></em>);</pre>
+<p>Sets the modifiers that will be considered significant for keyboard
+accelerators. The default mod mask depends on the GDK backend in use,
+but will typically include <span class="type">GDK_CONTROL_MASK</span> | <span class="type">GDK_SHIFT_MASK</span> |
+<span class="type">GDK_MOD1_MASK</span> | <span class="type">GDK_SUPER_MASK</span> | <span class="type">GDK_HYPER_MASK</span> | <span class="type">GDK_META_MASK</span>.
+In other words, Control, Shift, Alt, Super, Hyper and Meta. Other
+modifiers will by default be ignored by <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>.</p>
+<p>You must include at least the three modifiers Control, Shift
+and Alt in any value you pass to this function.</p>
+<p>The default mod mask should be changed on application startup,
+before using any accelerator groups.</p>
+<div class="refsect3">
+<a name="gtk-accelerator-set-default-mod-mask.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>default_mod_mask</p></td>
+<td class="parameter_description"><p>accelerator modifier mask</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-accelerator-get-default-mod-mask"></a><h3>gtk_accelerator_get_default_mod_mask ()</h3>
+<pre class="programlisting"><span class="returnvalue">GdkModifierType</span>
+gtk_accelerator_get_default_mod_mask (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets the modifier mask.</p>
+<p>The modifier mask determines which modifiers are considered significant
+for keyboard accelerators. See <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accelerator-set-default-mod-mask" title="gtk_accelerator_set_default_mod_mask ()"><code class="function">gtk_accelerator_set_default_mod_mask()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-accelerator-get-default-mod-mask.returns"></a><h4>Returns</h4>
+<p> the default accelerator modifier mask</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkAccelGroup-struct"></a><h3>struct GtkAccelGroup</h3>
+<pre class="programlisting">struct GtkAccelGroup;</pre>
+<p>An object representing and maintaining a group of accelerators.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAccelGroupClass"></a><h3>struct GtkAccelGroupClass</h3>
+<pre class="programlisting">struct GtkAccelGroupClass {
+  GObjectClass parent_class;
+
+
+  void (*accel_changed) (GtkAccelGroup *accel_group,
+				 guint           keyval,
+				 GdkModifierType modifier,
+				 GClosure       *accel_closure);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkAccelGroupClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkAccelGroupClass.accel-changed"></a>accel_changed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when an entry is added to or removed
+from the accel group.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAccelFlags"></a><h3>enum GtkAccelFlags</h3>
+<p>Accelerator flags used with <a class="link" href="gtk3-Keyboard-Accelerators.html#gtk-accel-group-connect" title="gtk_accel_group_connect ()"><code class="function">gtk_accel_group_connect()</code></a>.</p>
+<div class="refsect3">
+<a name="GtkAccelFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ACCEL-VISIBLE:CAPS"></a>GTK_ACCEL_VISIBLE</p></td>
+<td class="enum_member_description">
+<p>Accelerator is visible</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ACCEL-LOCKED:CAPS"></a>GTK_ACCEL_LOCKED</p></td>
+<td class="enum_member_description">
+<p>Accelerator not removable</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-ACCEL-MASK:CAPS"></a>GTK_ACCEL_MASK</p></td>
+<td class="enum_member_description">
+<p>Mask</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAccelKey"></a><h3>struct GtkAccelKey</h3>
+<pre class="programlisting">struct GtkAccelKey {
+  guint           accel_key;
+  GdkModifierType accel_mods;
+  guint           accel_flags : 16;
+};
+</pre>
+<div class="refsect3">
+<a name="GtkAccelKey.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GtkAccelKey.accel-key"></a>accel_key</code></em>;</p></td>
+<td class="struct_member_description"><p>The accelerator keyval</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">GdkModifierType</span> <em class="structfield"><code><a name="GtkAccelKey.accel-mods"></a>accel_mods</code></em>;</p></td>
+<td class="struct_member_description"><p>The accelerator modifiers</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">guint</span> <em class="structfield"><code><a name="GtkAccelKey.accel-flags"></a>accel_flags</code></em> : 16;</p></td>
+<td class="struct_member_description"><p>The accelerator flags</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkAccelGroup--is-locked"></a><h3>The <code class="literal">“is-locked”</code> property</h3>
+<pre class="programlisting">  “is-locked”                <span class="type">gboolean</span></pre>
+<p>Is the accel group locked.</p>
+<p>Flags: Read</p>
+<p>Default value: FALSE</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAccelGroup--modifier-mask"></a><h3>The <code class="literal">“modifier-mask”</code> property</h3>
+<pre class="programlisting">  “modifier-mask”            <span class="type">GdkModifierType</span></pre>
+<p>Modifier Mask.</p>
+<p>Flags: Read</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkAccelGroup-accel-activate"></a><h3>The <code class="literal">“accel-activate”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+user_function (<a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>  *accel_group,
+               <span class="type">GObject</span>        *acceleratable,
+               <span class="type">guint</span>           keyval,
+               <span class="type">GdkModifierType</span> modifier,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>The accel-activate signal is an implementation detail of
+<a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> and not meant to be used by applications.</p>
+<div class="refsect3">
+<a name="GtkAccelGroup-accel-activate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>the <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> which received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>acceleratable</p></td>
+<td class="parameter_description"><p>the object on which the accelerator was activated</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>the accelerator keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>modifier</p></td>
+<td class="parameter_description"><p>the modifier combination of the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="GtkAccelGroup-accel-activate.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the accelerator was activated</p>
+</div>
+<p>Flags: Has Details</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkAccelGroup-accel-changed"></a><h3>The <code class="literal">“accel-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a>  *accel_group,
+               <span class="type">guint</span>           keyval,
+               <span class="type">GdkModifierType</span> modifier,
+               <span class="type">GClosure</span>       *accel_closure,
+               <span class="type">gpointer</span>        user_data)</pre>
+<p>The accel-changed signal is emitted when an entry
+is added to or removed from the accel group.</p>
+<p>Widgets like <a class="link" href="GtkAccelLabel.html" title="GtkAccelLabel"><span class="type">GtkAccelLabel</span></a> which display an associated
+accelerator should connect to this signal, and rebuild
+their visual representation if the <em class="parameter"><code>accel_closure</code></em>
+ is theirs.</p>
+<div class="refsect3">
+<a name="GtkAccelGroup-accel-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>accel_group</p></td>
+<td class="parameter_description"><p>the <a class="link" href="gtk3-Keyboard-Accelerators.html#GtkAccelGroup"><span class="type">GtkAccelGroup</span></a> which received the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>keyval</p></td>
+<td class="parameter_description"><p>the accelerator keyval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>modifier</p></td>
+<td class="parameter_description"><p>the modifier combination of the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>accel_closure</p></td>
+<td class="parameter_description"><p>the <span class="type">GClosure</span> of the accelerator</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Has Details</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gtk3-Keyboard-Accelerators.see-also"></a><h2>See Also</h2>
+<p>gtk_window_add_accel_group(), <a class="link" href="gtk3-Accelerator-Maps.html#gtk-accel-map-change-entry" title="gtk_accel_map_change_entry ()"><code class="function">gtk_accel_map_change_entry()</code></a>,
+<a class="link" href="GtkLabel.html#gtk-label-new-with-mnemonic" title="gtk_label_new_with_mnemonic ()"><code class="function">gtk_label_new_with_mnemonic()</code></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

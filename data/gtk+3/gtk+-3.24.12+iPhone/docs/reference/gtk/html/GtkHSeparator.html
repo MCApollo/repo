@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkHSeparator: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="DeprecatedObjects.html" title="Deprecated">
+<link rel="prev" href="GtkTable.html" title="GtkTable">
+<link rel="next" href="GtkVSeparator.html" title="GtkVSeparator">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkHSeparator.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkHSeparator.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkHSeparator.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="DeprecatedObjects.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkTable.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkVSeparator.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkHSeparator"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkHSeparator.top_of_page"></a>GtkHSeparator</span></h2>
+<p>GtkHSeparator — A horizontal separator</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkHSeparator.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody><tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkHSeparator.html#gtk-hseparator-new" title="gtk_hseparator_new ()">gtk_hseparator_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkHSeparator.html#GtkHSeparator-struct" title="struct GtkHSeparator">GtkHSeparator</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> <a class="link" href="GtkSeparator.html" title="GtkSeparator">GtkSeparator</a>
+                <span class="lineart">╰──</span> GtkHSeparator
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkHSeparator implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a> and  <a class="link" href="gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkHSeparator.html" title="GtkHSeparator"><span class="type">GtkHSeparator</span></a> widget is a horizontal separator, used to group the
+widgets within a window. It displays a horizontal line with a shadow to
+make it appear sunken into the interface.</p>
+<div class="blockquote"><blockquote class="blockquote"><p>The <a class="link" href="GtkHSeparator.html" title="GtkHSeparator"><span class="type">GtkHSeparator</span></a> widget is not used as a separator within menus.
+To create a separator in a menu create an empty <a class="link" href="GtkSeparatorMenuItem.html" title="GtkSeparatorMenuItem"><span class="type">GtkSeparatorMenuItem</span></a>
+widget using <a class="link" href="GtkSeparatorMenuItem.html#gtk-separator-menu-item-new" title="gtk_separator_menu_item_new ()"><code class="function">gtk_separator_menu_item_new()</code></a> and add it to the menu with
+<a class="link" href="GtkMenuShell.html#gtk-menu-shell-append" title="gtk_menu_shell_append ()"><code class="function">gtk_menu_shell_append()</code></a>.</p></blockquote></div>
+<p>GtkHSeparator has been deprecated, use <a class="link" href="GtkSeparator.html" title="GtkSeparator"><span class="type">GtkSeparator</span></a> instead.</p>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-hseparator-new"></a><h3>gtk_hseparator_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_hseparator_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_hseparator_new</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="GtkSeparator.html#gtk-separator-new" title="gtk_separator_new ()"><code class="function">gtk_separator_new()</code></a> with <a class="link" href="gtk3-Standard-Enumerations.html#GTK-ORIENTATION-HORIZONTAL:CAPS"><code class="literal">GTK_ORIENTATION_HORIZONTAL</code></a> instead</p>
+</div>
+<p>Creates a new <a class="link" href="GtkHSeparator.html" title="GtkHSeparator"><span class="type">GtkHSeparator</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-hseparator-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="GtkHSeparator.html" title="GtkHSeparator"><span class="type">GtkHSeparator</span></a>.</p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkHSeparator-struct"></a><h3>struct GtkHSeparator</h3>
+<pre class="programlisting">struct GtkHSeparator;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkHSeparator.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkSeparator.html" title="GtkSeparator"><span class="type">GtkSeparator</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="gtk30">
+  <!-- interface-requires gtk+ 3.10 -->
+  <object class="GtkImage" id="image1">
+    <property name="visible">1</property>
+    <property name="icon-name">help-about</property>
+  </object>
+  <template class="GtkAboutDialog" parent="GtkDialog">
+    <property name="border-width">5</property>
+    <property name="resizable">0</property>
+    <property name="type-hint">dialog</property>
+    <child internal-child="headerbar">
+      <object class="GtkHeaderBar" id="headerbar1">
+        <property name="visible">1</property>
+        <property name="show-close-button">1</property>
+        <child type="title">
+          <object class="GtkStackSwitcher" id="stack_switcher">
+            <property name="stack">stack</property>
+            <property name="no-show-all">1</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox1">
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkBox" id="box">
+            <property name="visible">1</property>
+            <property name="border-width">5</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">12</property>
+            <child>
+              <object class="GtkImage" id="logo_image">
+                <style>
+                  <class name="icon-dropshadow"/>
+                </style>
+                <property name="visible">1</property>
+                <property name="icon-name">image-missing</property>
+              </object>
+              <packing>
+                <property name="fill">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="name_label">
+                <property name="visible">1</property>
+                <property name="label">name label</property>
+                <property name="justify">center</property>
+                <property name="selectable">1</property>
+              </object>
+              <packing>
+                <property name="fill">0</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkStack" id="stack">
+                <property name="width-request">400</property>
+                <property name="height-request">100</property>
+                <property name="visible">1</property>
+                <property name="transition-type">over-up-down</property>
+                <property name="transition-duration">600</property>
+                <signal name="notify::visible-child" handler="stack_visible_child_notify" swapped="no"/>
+                <child>
+                  <object class="GtkBox" id="page_vbox">
+                    <property name="visible">1</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkLabel" id="version_label">
+                        <property name="label">version 1.0</property>
+                        <property name="justify">center</property>
+                        <property name="selectable">1</property>
+                        <property name="no-show-all">1</property>
+                      </object>
+                      <packing>
+                        <property name="fill">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="comments_label">
+                        <property name="label">comments</property>
+                        <property name="justify">center</property>
+                        <property name="wrap">1</property>
+                        <property name="selectable">1</property>
+                        <property name="no-show-all">1</property>
+                        <property name="max-width-chars">60</property>
+                      </object>
+                      <packing>
+                        <property name="fill">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="website_label">
+                        <property name="no-show-all">1</property>
+                        <property name="label">http://website.com</property>
+                        <property name="selectable">1</property>
+                        <signal name="activate-link" handler="emit_activate_link" object="GtkAboutDialog" swapped="yes"/>
+                      </object>
+                      <packing>
+                        <property name="fill">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="copyright_label">
+                        <property name="label">copyright</property>
+                        <property name="justify">center</property>
+                        <property name="wrap">1</property>
+                        <property name="selectable">1</property>
+                        <property name="no-show-all">1</property>
+                        <property name="max-width-chars">60</property>
+                      </object>
+                      <packing>
+                        <property name="fill">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="license_label">
+                        <property name="label">license</property>
+                        <property name="use-markup">1</property>
+                        <property name="justify">center</property>
+                        <property name="wrap">1</property>
+                        <property name="selectable">1</property>
+                        <property name="no-show-all">1</property>
+                        <property name="max-width-chars">60</property>
+                        <signal name="activate-link" handler="emit_activate_link" object="GtkAboutDialog" swapped="yes"/>
+                      </object>
+                      <packing>
+                        <property name="fill">0</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">main</property>
+                    <property name="title" translatable="yes">About</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="credits_page">
+                    <property name="no-show-all">1</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow1">
+                        <property name="visible">1</property>
+                        <property name="hscrollbar-policy">never</property>
+                        <property name="shadow-type">in</property>
+                        <child>
+                          <object class="GtkViewport" id="viewport1">
+                            <property name="visible">1</property>
+                            <style>
+                              <class name="view"/>
+                            </style>
+                            <child>
+                              <object class="GtkGrid" id="credits_grid">
+                                <property name="visible">1</property>
+                                <property name="halign">center</property>
+                                <property name="valign">start</property>
+                                <property name="border-width">5</property>
+                                <property name="orientation">vertical</property>
+                                <property name="row-spacing">2</property>
+                                <property name="column-spacing">8</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">credits</property>
+                    <property name="title" translatable="yes">Credits</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkBox" id="license_page">
+                    <property name="no-show-all">1</property>
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="scrolledwindow2">
+                        <property name="visible">1</property>
+                        <property name="hscrollbar-policy">never</property>
+                        <property name="shadow-type">in</property>
+                        <child>
+                          <object class="GtkTextView" id="license_view">
+                            <property name="visible">1</property>
+                            <property name="editable">0</property>
+                            <property name="left-margin">8</property>
+                            <property name="right-margin">8</property>
+                            <property name="cursor-visible">0</property>
+                            <signal name="event-after" handler="text_view_event_after" swapped="no"/>
+                            <signal name="key-press-event" handler="text_view_key_press_event" swapped="no"/>
+                            <signal name="motion-notify-event" handler="text_view_motion_notify_event" swapped="no"/>
+                          </object>
+                        </child>
+                      </object>
+                      <packing>
+                        <property name="expand">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="name">license</property>
+                    <property name="title" translatable="yes">License</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">1</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">1</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

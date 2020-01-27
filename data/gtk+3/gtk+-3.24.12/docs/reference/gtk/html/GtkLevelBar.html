@@ -1,0 +1,1115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkLevelBar: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="DisplayWidgets.html" title="Display Widgets">
+<link rel="prev" href="GtkProgressBar.html" title="GtkProgressBar">
+<link rel="next" href="GtkStatusbar.html" title="GtkStatusbar">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkLevelBar.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkLevelBar.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#GtkLevelBar.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkLevelBar.properties" class="shortcut">Properties</a></span><span id="nav_style_properties">  <span class="dim">|</span> 
+                  <a href="#GtkLevelBar.style-properties" class="shortcut">Style Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkLevelBar.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="DisplayWidgets.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkProgressBar.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkStatusbar.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkLevelBar"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkLevelBar.top_of_page"></a>GtkLevelBar</span></h2>
+<p>GtkLevelBar — A bar that can used as a level indicator</p>
+</td>
+<td class="gallery_image" valign="top" align="right"><img src="levelbar.png"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkLevelBar.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-new" title="gtk_level_bar_new ()">gtk_level_bar_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-new-for-interval" title="gtk_level_bar_new_for_interval ()">gtk_level_bar_new_for_interval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-set-mode" title="gtk_level_bar_set_mode ()">gtk_level_bar_set_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode"><span class="returnvalue">GtkLevelBarMode</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-get-mode" title="gtk_level_bar_get_mode ()">gtk_level_bar_get_mode</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-set-value" title="gtk_level_bar_set_value ()">gtk_level_bar_set_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-get-value" title="gtk_level_bar_get_value ()">gtk_level_bar_get_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-set-min-value" title="gtk_level_bar_set_min_value ()">gtk_level_bar_set_min_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-get-min-value" title="gtk_level_bar_get_min_value ()">gtk_level_bar_get_min_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-set-max-value" title="gtk_level_bar_set_max_value ()">gtk_level_bar_set_max_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gdouble</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-get-max-value" title="gtk_level_bar_get_max_value ()">gtk_level_bar_get_max_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-set-inverted" title="gtk_level_bar_set_inverted ()">gtk_level_bar_set_inverted</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-get-inverted" title="gtk_level_bar_get_inverted ()">gtk_level_bar_get_inverted</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-add-offset-value" title="gtk_level_bar_add_offset_value ()">gtk_level_bar_add_offset_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-remove-offset-value" title="gtk_level_bar_remove_offset_value ()">gtk_level_bar_remove_offset_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-get-offset-value" title="gtk_level_bar_get_offset_value ()">gtk_level_bar_get_offset_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gboolean</span></td>
+<td class="property_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar--inverted" title="The “inverted” property">inverted</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property">max-value</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar--min-value" title="The “min-value” property">min-value</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode"><span class="type">GtkLevelBarMode</span></a></td>
+<td class="property_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar--mode" title="The “mode” property">mode</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gdouble</span></td>
+<td class="property_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar--value" title="The “value” property">value</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.style-properties"></a><h2>Style Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="style_properties_type">
+<col width="300px" class="style_properties_name">
+<col width="200px" class="style_properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar--s-min-block-height" title="The “min-block-height” style property">min-block-height</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar--s-min-block-width" title="The “min-block-width” style property">min-block-width</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar-offset-changed" title="The “offset-changed” signal">offset-changed</a></td>
+<td class="signal_flags">Has Details</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-OFFSET-LOW:CAPS" title="GTK_LEVEL_BAR_OFFSET_LOW">GTK_LEVEL_BAR_OFFSET_LOW</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-OFFSET-HIGH:CAPS" title="GTK_LEVEL_BAR_OFFSET_HIGH">GTK_LEVEL_BAR_OFFSET_HIGH</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-OFFSET-FULL:CAPS" title="GTK_LEVEL_BAR_OFFSET_FULL">GTK_LEVEL_BAR_OFFSET_FULL</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode">GtkLevelBarMode</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkLevelBar.html#GtkLevelBar-struct" title="struct GtkLevelBar">GtkLevelBar</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GInitiallyUnowned
+        <span class="lineart">╰──</span> <a class="link" href="GtkWidget.html" title="GtkWidget">GtkWidget</a>
+            <span class="lineart">╰──</span> GtkLevelBar
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+GtkLevelBar implements
+ AtkImplementorIface,  <a class="link" href="GtkBuildable.html" title="GtkBuildable">GtkBuildable</a> and  <a class="link" href="gtk3-Orientable.html#GtkOrientable">GtkOrientable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.description"></a><h2>Description</h2>
+<p>The <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> is a bar widget that can be used
+as a level indicator. Typical use cases are displaying the strength
+of a password, or showing the charge level of a battery.</p>
+<p>Use <a class="link" href="GtkLevelBar.html#gtk-level-bar-set-value" title="gtk_level_bar_set_value ()"><code class="function">gtk_level_bar_set_value()</code></a> to set the current value, and
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-add-offset-value" title="gtk_level_bar_add_offset_value ()"><code class="function">gtk_level_bar_add_offset_value()</code></a> to set the value offsets at which
+the bar will be considered in a different state. GTK will add a few
+offsets by default on the level bar: <a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-OFFSET-LOW:CAPS" title="GTK_LEVEL_BAR_OFFSET_LOW"><span class="type">GTK_LEVEL_BAR_OFFSET_LOW</span></a>,
+<a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-OFFSET-HIGH:CAPS" title="GTK_LEVEL_BAR_OFFSET_HIGH"><span class="type">GTK_LEVEL_BAR_OFFSET_HIGH</span></a> and <a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-OFFSET-FULL:CAPS" title="GTK_LEVEL_BAR_OFFSET_FULL"><span class="type">GTK_LEVEL_BAR_OFFSET_FULL</span></a>, with
+values 0.25, 0.75 and 1.0 respectively.</p>
+<p>Note that it is your responsibility to update preexisting offsets
+when changing the minimum or maximum value. GTK+ will simply clamp
+them to the new range.</p>
+<div class="refsect3">
+<a name="id-1.3.8.7.11.5"></a><h4>Adding a custom offset on the bar</h4>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> <a href="GtkWidget.html#GtkWidget-struct">GtkWidget</a> </span><span class="symbol">*</span>
+<span class="function">create_level_bar</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
+<span class="cbracket">{</span>
+<span class="normal">  </span><span class="usertype">GtkWidget</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">widget</span><span class="symbol">;</span>
+<span class="normal">  </span><span class="usertype">GtkLevelBar</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">bar</span><span class="symbol">;</span>
+
+<span class="normal">  widget </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkLevelBar.html#gtk-level-bar-new">gtk_level_bar_new</a></span><span class="normal"> </span><span class="symbol">();</span>
+<span class="normal">  bar </span><span class="symbol">=</span><span class="normal"> </span><span class="function">GTK_LEVEL_BAR</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">widget</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">// This changes the value of the default low offset</span>
+
+<span class="normal">  </span><span class="function"><a href="GtkLevelBar.html#gtk-level-bar-add-offset-value">gtk_level_bar_add_offset_value</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bar</span><span class="symbol">,</span>
+<span class="normal">                                  <a href="GtkLevelBar.html#GTK-LEVEL-BAR-OFFSET-LOW:CAPS">GTK_LEVEL_BAR_OFFSET_LOW</a></span><span class="symbol">,</span>
+<span class="normal">                                  </span><span class="number">0.10</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="comment">// This adds a new offset to the bar; the application will</span>
+<span class="normal">  </span><span class="comment">// be able to change its color CSS like this:</span>
+<span class="normal">  </span><span class="comment">//</span>
+<span class="normal">  </span><span class="comment">// levelbar block.my-offset {</span>
+<span class="normal">  </span><span class="comment">//   background-color: magenta;</span>
+<span class="normal">  </span><span class="comment">//   border-style: solid;</span>
+<span class="normal">  </span><span class="comment">//   border-color: black;</span>
+<span class="normal">  </span><span class="comment">//   border-style: 1px;</span>
+<span class="normal">  </span><span class="comment">// }</span>
+
+<span class="normal">  </span><span class="function"><a href="GtkLevelBar.html#gtk-level-bar-add-offset-value">gtk_level_bar_add_offset_value</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">bar</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"my-offset"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0.60</span><span class="symbol">);</span>
+
+<span class="normal">  </span><span class="keyword">return</span><span class="normal"> widget</span><span class="symbol">;</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>The default interval of values is between zero and one, but it’s possible to
+modify the interval using <a class="link" href="GtkLevelBar.html#gtk-level-bar-set-min-value" title="gtk_level_bar_set_min_value ()"><code class="function">gtk_level_bar_set_min_value()</code></a> and
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-set-max-value" title="gtk_level_bar_set_max_value ()"><code class="function">gtk_level_bar_set_max_value()</code></a>. The value will be always drawn in proportion to
+the admissible interval, i.e. a value of 15 with a specified interval between
+10 and 20 is equivalent to a value of 0.5 with an interval between 0 and 1.
+When <a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-MODE-DISCRETE:CAPS"><span class="type">GTK_LEVEL_BAR_MODE_DISCRETE</span></a> is used, the bar level is rendered
+as a finite number of separated blocks instead of a single one. The number
+of blocks that will be rendered is equal to the number of units specified by
+the admissible interval.</p>
+<p>For instance, to build a bar rendered with five blocks, it’s sufficient to
+set the minimum value to 0 and the maximum value to 5 after changing the indicator
+mode to discrete.</p>
+<p>GtkLevelBar was introduced in GTK+ 3.6.</p>
+</div>
+<div class="refsect2">
+<a name="id-1.3.8.7.11.6"></a><h3>GtkLevelBar as GtkBuildable</h3>
+<p>The GtkLevelBar implementation of the GtkBuildable interface supports a
+custom &lt;offsets&gt; element, which can contain any number of &lt;offset&gt; elements,
+each of which must have name and value attributes.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="id-1.3.8.7.11.7"></a><h3>CSS nodes</h3>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="normal">levelbar</span><span class="symbol">[.</span><span class="normal">discrete</span><span class="symbol">]</span>
+<span class="normal">╰── trough</span>
+<span class="normal">    ├── block</span><span class="symbol">.</span><span class="normal">filled</span><span class="symbol">.</span><span class="normal">level</span><span class="symbol">-</span><span class="normal">name</span>
+<span class="normal">    ┊</span>
+<span class="normal">    ├── block</span><span class="symbol">.</span><span class="normal">empty</span>
+<span class="normal">    ┊</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>GtkLevelBar has a main CSS node with name levelbar and one of the style
+classes .discrete or .continuous and a subnode with name trough. Below the
+trough node are a number of nodes with name block and style class .filled
+or .empty. In continuous mode, there is exactly one node of each, in discrete
+mode, the number of filled and unfilled nodes corresponds to blocks that are
+drawn. The block.filled nodes also get a style class .level-name corresponding
+to the level for the current value.</p>
+<p>In horizontal orientation, the nodes are always arranged from left to right,
+regardless of text direction.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-level-bar-new"></a><h3>gtk_level_bar_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_level_bar_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a>.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-new.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-new-for-interval"></a><h3>gtk_level_bar_new_for_interval ()</h3>
+<pre class="programlisting"><a class="link" href="GtkWidget.html" title="GtkWidget"><span class="returnvalue">GtkWidget</span></a> *
+gtk_level_bar_new_for_interval (<em class="parameter"><code><span class="type">gdouble</span> min_value</code></em>,
+                                <em class="parameter"><code><span class="type">gdouble</span> max_value</code></em>);</pre>
+<p>Utility constructor that creates a new <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> for the specified
+interval.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-new-for-interval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>min_value</p></td>
+<td class="parameter_description"><p>a positive value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>max_value</p></td>
+<td class="parameter_description"><p>a positive value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-level-bar-new-for-interval.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-set-mode"></a><h3>gtk_level_bar_set_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_level_bar_set_mode (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                        <em class="parameter"><code><a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode"><span class="type">GtkLevelBarMode</span></a> mode</code></em>);</pre>
+<p>Sets the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--mode" title="The “mode” property"><span class="type">“mode”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-set-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mode</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode"><span class="type">GtkLevelBarMode</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-get-mode"></a><h3>gtk_level_bar_get_mode ()</h3>
+<pre class="programlisting"><a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode"><span class="returnvalue">GtkLevelBarMode</span></a>
+gtk_level_bar_get_mode (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>);</pre>
+<p>Returns the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--mode" title="The “mode” property"><span class="type">“mode”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-get-mode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-level-bar-get-mode.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode"><span class="type">GtkLevelBarMode</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-set-value"></a><h3>gtk_level_bar_set_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_level_bar_set_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                         <em class="parameter"><code><span class="type">gdouble</span> value</code></em>);</pre>
+<p>Sets the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--value" title="The “value” property"><span class="type">“value”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-set-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a value in the interval between
+<a class="link" href="GtkLevelBar.html#GtkLevelBar--min-value" title="The “min-value” property"><span class="type">“min-value”</span></a> and <a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property"><span class="type">“max-value”</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-get-value"></a><h3>gtk_level_bar_get_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+gtk_level_bar_get_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>);</pre>
+<p>Returns the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--value" title="The “value” property"><span class="type">“value”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-get-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-level-bar-get-value.returns"></a><h4>Returns</h4>
+<p> a value in the interval between
+<a class="link" href="GtkLevelBar.html#GtkLevelBar--min-value" title="The “min-value” property"><span class="type">“min-value”</span></a> and <a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property"><span class="type">“max-value”</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-set-min-value"></a><h3>gtk_level_bar_set_min_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_level_bar_set_min_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                             <em class="parameter"><code><span class="type">gdouble</span> value</code></em>);</pre>
+<p>Sets the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--min-value" title="The “min-value” property"><span class="type">“min-value”</span></a> property.</p>
+<p>You probably want to update preexisting level offsets after calling
+this function.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-set-min-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a positive value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-get-min-value"></a><h3>gtk_level_bar_get_min_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+gtk_level_bar_get_min_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>);</pre>
+<p>Returns the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--min-value" title="The “min-value” property"><span class="type">“min-value”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-get-min-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-level-bar-get-min-value.returns"></a><h4>Returns</h4>
+<p> a positive value</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-set-max-value"></a><h3>gtk_level_bar_set_max_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_level_bar_set_max_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                             <em class="parameter"><code><span class="type">gdouble</span> value</code></em>);</pre>
+<p>Sets the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property"><span class="type">“max-value”</span></a> property.</p>
+<p>You probably want to update preexisting level offsets after calling
+this function.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-set-max-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a positive value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-get-max-value"></a><h3>gtk_level_bar_get_max_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">gdouble</span>
+gtk_level_bar_get_max_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>);</pre>
+<p>Returns the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property"><span class="type">“max-value”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-get-max-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-level-bar-get-max-value.returns"></a><h4>Returns</h4>
+<p> a positive value</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-set-inverted"></a><h3>gtk_level_bar_set_inverted ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_level_bar_set_inverted (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                            <em class="parameter"><code><span class="type">gboolean</span> inverted</code></em>);</pre>
+<p>Sets the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--inverted" title="The “inverted” property"><span class="type">“inverted”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-set-inverted.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>inverted</p></td>
+<td class="parameter_description"><p><code class="literal">TRUE</code> to invert the level bar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-get-inverted"></a><h3>gtk_level_bar_get_inverted ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_level_bar_get_inverted (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>);</pre>
+<p>Return the value of the <a class="link" href="GtkLevelBar.html#GtkLevelBar--inverted" title="The “inverted” property"><span class="type">“inverted”</span></a> property.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-get-inverted.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-level-bar-get-inverted.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the level bar is inverted</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-add-offset-value"></a><h3>gtk_level_bar_add_offset_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_level_bar_add_offset_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                <em class="parameter"><code><span class="type">gdouble</span> value</code></em>);</pre>
+<p>Adds a new offset marker on <em class="parameter"><code>self</code></em>
+ at the position specified by <em class="parameter"><code>value</code></em>
+.
+When the bar value is in the interval topped by <em class="parameter"><code>value</code></em>
+ (or between <em class="parameter"><code>value</code></em>
+
+and <a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property"><span class="type">“max-value”</span></a> in case the offset is the last one on the bar)
+a style class named <code class="literal">level-</code><em class="parameter"><code>name</code></em>
+ will be applied
+when rendering the level bar fill.
+If another offset marker named <em class="parameter"><code>name</code></em>
+ exists, its value will be
+replaced by <em class="parameter"><code>value</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-add-offset-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of the new offset</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the value for the new offset</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-remove-offset-value"></a><h3>gtk_level_bar_remove_offset_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_level_bar_remove_offset_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                                   <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>Removes an offset marker previously added with
+<a class="link" href="GtkLevelBar.html#gtk-level-bar-add-offset-value" title="gtk_level_bar_add_offset_value ()"><code class="function">gtk_level_bar_add_offset_value()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-remove-offset-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of an offset in the bar. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-level-bar-get-offset-value"></a><h3>gtk_level_bar_get_offset_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_level_bar_get_offset_value (<em class="parameter"><code><a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                <em class="parameter"><code><span class="type">gdouble</span> *value</code></em>);</pre>
+<p>Fetches the value specified for the offset marker <em class="parameter"><code>name</code></em>
+ in <em class="parameter"><code>self</code></em>
+,
+returning <code class="literal">TRUE</code> in case an offset named <em class="parameter"><code>name</code></em>
+ was found.</p>
+<div class="refsect3">
+<a name="gtk-level-bar-get-offset-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of an offset in the bar. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>location where to store the value. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-level-bar-get-offset-value.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the specified offset is found</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GTK-LEVEL-BAR-OFFSET-LOW:CAPS"></a><h3>GTK_LEVEL_BAR_OFFSET_LOW</h3>
+<pre class="programlisting">#define GTK_LEVEL_BAR_OFFSET_LOW  "low"
+</pre>
+<p>The name used for the stock low offset included by <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a>.</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-LEVEL-BAR-OFFSET-HIGH:CAPS"></a><h3>GTK_LEVEL_BAR_OFFSET_HIGH</h3>
+<pre class="programlisting">#define GTK_LEVEL_BAR_OFFSET_HIGH "high"
+</pre>
+<p>The name used for the stock high offset included by <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a>.</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-LEVEL-BAR-OFFSET-FULL:CAPS"></a><h3>GTK_LEVEL_BAR_OFFSET_FULL</h3>
+<pre class="programlisting">#define GTK_LEVEL_BAR_OFFSET_FULL "full"
+</pre>
+<p>The name used for the stock full offset included by <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a>.</p>
+<p class="since">Since: <a class="link" href="api-index-3-20.html#api-index-3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkLevelBarMode"></a><h3>enum GtkLevelBarMode</h3>
+<p>Describes how <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> contents should be rendered.
+Note that this enumeration could be extended with additional modes
+in the future.</p>
+<div class="refsect3">
+<a name="GtkLevelBarMode.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-LEVEL-BAR-MODE-CONTINUOUS:CAPS"></a>GTK_LEVEL_BAR_MODE_CONTINUOUS</p></td>
+<td class="enum_member_description">
+<p>the bar has a continuous mode</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-LEVEL-BAR-MODE-DISCRETE:CAPS"></a>GTK_LEVEL_BAR_MODE_DISCRETE</p></td>
+<td class="enum_member_description">
+<p>the bar has a discrete mode</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkLevelBar-struct"></a><h3>struct GtkLevelBar</h3>
+<pre class="programlisting">struct GtkLevelBar;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkLevelBar--inverted"></a><h3>The <code class="literal">“inverted”</code> property</h3>
+<pre class="programlisting">  “inverted”                 <span class="type">gboolean</span></pre>
+<p>Level bars normally grow from top to bottom or left to right.
+Inverted level bars grow in the opposite direction.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: FALSE</p>
+<p class="since">Since: <a class="link" href="api-index-3-8.html#api-index-3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkLevelBar--max-value"></a><h3>The <code class="literal">“max-value”</code> property</h3>
+<pre class="programlisting">  “max-value”                <span class="type">gdouble</span></pre>
+<p>The <a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property"><span class="type">“max-value”</span></a> property determaxes the maximum value of
+the interval that can be displayed by the bar.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 1</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkLevelBar--min-value"></a><h3>The <code class="literal">“min-value”</code> property</h3>
+<pre class="programlisting">  “min-value”                <span class="type">gdouble</span></pre>
+<p>The <a class="link" href="GtkLevelBar.html#GtkLevelBar--min-value" title="The “min-value” property"><span class="type">“min-value”</span></a> property determines the minimum value of
+the interval that can be displayed by the bar.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkLevelBar--mode"></a><h3>The <code class="literal">“mode”</code> property</h3>
+<pre class="programlisting">  “mode”                     <a class="link" href="GtkLevelBar.html#GtkLevelBarMode" title="enum GtkLevelBarMode"><span class="type">GtkLevelBarMode</span></a></pre>
+<p>The <a class="link" href="GtkLevelBar.html#GtkLevelBar--mode" title="The “mode” property"><span class="type">“mode”</span></a> property determines the way <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a>
+interprets the value properties to draw the level fill area.
+Specifically, when the value is <a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-MODE-CONTINUOUS:CAPS"><span class="type">GTK_LEVEL_BAR_MODE_CONTINUOUS</span></a>,
+<a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> will draw a single block representing the current value in
+that area; when the value is <a class="link" href="GtkLevelBar.html#GTK-LEVEL-BAR-MODE-DISCRETE:CAPS"><span class="type">GTK_LEVEL_BAR_MODE_DISCRETE</span></a>,
+the widget will draw a succession of separate blocks filling the
+draw area, with the number of blocks being equal to the units separating
+the integral roundings of <a class="link" href="GtkLevelBar.html#GtkLevelBar--min-value" title="The “min-value” property"><span class="type">“min-value”</span></a> and <a class="link" href="GtkLevelBar.html#GtkLevelBar--max-value" title="The “max-value” property"><span class="type">“max-value”</span></a>.</p>
+<p>Flags: Read / Write</p>
+<p>Default value: GTK_LEVEL_BAR_MODE_CONTINUOUS</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkLevelBar--value"></a><h3>The <code class="literal">“value”</code> property</h3>
+<pre class="programlisting">  “value”                    <span class="type">gdouble</span></pre>
+<p>The <a class="link" href="GtkLevelBar.html#GtkLevelBar--value" title="The “value” property"><span class="type">“value”</span></a> property determines the currently
+filled value of the level bar.</p>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.style-property-details"></a><h2>Style Property Details</h2>
+<div class="refsect2">
+<a name="GtkLevelBar--s-min-block-height"></a><h3>The <code class="literal">“min-block-height”</code> style property</h3>
+<pre class="programlisting">  “min-block-height”         <span class="type">gint</span></pre>
+<p>The min-block-height style property determines the minimum
+height for blocks filling the <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> widget.</p>
+<div class="warning">
+<p><code class="literal">GtkLevelBar:min-block-height</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard min-width/min-height CSS properties on
+  the block elements; the value of this style property is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 3</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkLevelBar--s-min-block-width"></a><h3>The <code class="literal">“min-block-width”</code> style property</h3>
+<pre class="programlisting">  “min-block-width”          <span class="type">gint</span></pre>
+<p>The min-block-width style property determines the minimum
+width for blocks filling the <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> widget.</p>
+<div class="warning">
+<p><code class="literal">GtkLevelBar:min-block-width</code> has been deprecated since version 3.20 and should not be used in newly-written code.</p>
+<p>Use the standard min-width/min-height CSS properties on
+  the block elements; the value of this style property is ignored.</p>
+</div>
+<p>Flags: Read / Write</p>
+<p>Allowed values: &gt;= 1</p>
+<p>Default value: 3</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkLevelBar.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkLevelBar-offset-changed"></a><h3>The <code class="literal">“offset-changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a> *self,
+               <span class="type">gchar</span>       *name,
+               <span class="type">gpointer</span>     user_data)</pre>
+<p>Emitted when an offset specified on the bar changes value as an
+effect to <a class="link" href="GtkLevelBar.html#gtk-level-bar-add-offset-value" title="gtk_level_bar_add_offset_value ()"><code class="function">gtk_level_bar_add_offset_value()</code></a> being called.</p>
+<p>The signal supports detailed connections; you can connect to the
+detailed signal "changed::x" in order to only receive callbacks when
+the value of offset "x" changes.</p>
+<div class="refsect3">
+<a name="GtkLevelBar-offset-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>self</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkLevelBar.html" title="GtkLevelBar"><span class="type">GtkLevelBar</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the name of the offset that changed value</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Has Details</p>
+<p class="since">Since: <a class="link" href="api-index-3-6.html#api-index-3.6">3.6</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

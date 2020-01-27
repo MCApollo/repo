@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkStyleProvider: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="theming.html" title="Part IV. Theming in GTK+">
+<link rel="prev" href="GtkCssProvider.html" title="GtkCssProvider">
+<link rel="next" href="gtk3-GtkStyleProperties.html" title="GtkStyleProperties">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkStyleProvider.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkStyleProvider.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#GtkStyleProvider.implementations" class="shortcut">Known Implementations</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="theming.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="GtkCssProvider.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gtk3-GtkStyleProperties.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkStyleProvider"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkStyleProvider.top_of_page"></a>GtkStyleProvider</span></h2>
+<p>GtkStyleProvider — Interface to provide style information to GtkStyleContext</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkStyleProvider.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconFactory"><span class="returnvalue">GtkIconFactory</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkStyleProvider.html#gtk-style-provider-get-icon-factory" title="gtk_style_provider_get_icon_factory ()">gtk_style_provider_get_icon_factory</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="gtk3-GtkStyleProperties.html#GtkStyleProperties" title="struct GtkStyleProperties"><span class="returnvalue">GtkStyleProperties</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkStyleProvider.html#gtk-style-provider-get-style" title="gtk_style_provider_get_style ()">gtk_style_provider_get_style</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkStyleProvider.html#gtk-style-provider-get-style-property" title="gtk_style_provider_get_style_property ()">gtk_style_provider_get_style_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkStyleProvider.html#GtkStyleProviderIface" title="struct GtkStyleProviderIface">GtkStyleProviderIface</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkStyleProvider.html#GtkStyleProvider-struct" title="GtkStyleProvider">GtkStyleProvider</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkStyleProvider.html#GTK-STYLE-PROVIDER-PRIORITY-FALLBACK:CAPS" title="GTK_STYLE_PROVIDER_PRIORITY_FALLBACK">GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkStyleProvider.html#GTK-STYLE-PROVIDER-PRIORITY-THEME:CAPS" title="GTK_STYLE_PROVIDER_PRIORITY_THEME">GTK_STYLE_PROVIDER_PRIORITY_THEME</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkStyleProvider.html#GTK-STYLE-PROVIDER-PRIORITY-SETTINGS:CAPS" title="GTK_STYLE_PROVIDER_PRIORITY_SETTINGS">GTK_STYLE_PROVIDER_PRIORITY_SETTINGS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkStyleProvider.html#GTK-STYLE-PROVIDER-PRIORITY-APPLICATION:CAPS" title="GTK_STYLE_PROVIDER_PRIORITY_APPLICATION">GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkStyleProvider.html#GTK-STYLE-PROVIDER-PRIORITY-USER:CAPS" title="GTK_STYLE_PROVIDER_PRIORITY_USER">GTK_STYLE_PROVIDER_PRIORITY_USER</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobject/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> GtkStyleProvider
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.implementations"></a><h2>Known Implementations</h2>
+<p>
+GtkStyleProvider is implemented by
+ <a class="link" href="GtkCssProvider.html" title="GtkCssProvider">GtkCssProvider</a> and  <a class="link" href="GtkSettings.html" title="Settings">GtkSettings</a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.description"></a><h2>Description</h2>
+<p>GtkStyleProvider is an interface used to provide style information to a <a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a>.
+See <a class="link" href="GtkStyleContext.html#gtk-style-context-add-provider" title="gtk_style_context_add_provider ()"><code class="function">gtk_style_context_add_provider()</code></a> and <a class="link" href="GtkStyleContext.html#gtk-style-context-add-provider-for-screen" title="gtk_style_context_add_provider_for_screen ()"><code class="function">gtk_style_context_add_provider_for_screen()</code></a>.</p>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-style-provider-get-icon-factory"></a><h3>gtk_style_provider_get_icon_factory ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconFactory"><span class="returnvalue">GtkIconFactory</span></a> *
+gtk_style_provider_get_icon_factory (<em class="parameter"><code><a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a> *provider</code></em>,
+                                     <em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_style_provider_get_icon_factory</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Will always return <code class="literal">NULL</code> for all GTK-provided style providers.</p>
+</div>
+<p>Returns the <a class="link" href="gtk3-Themeable-Stock-Images.html#GtkIconFactory"><span class="type">GtkIconFactory</span></a> defined to be in use for <em class="parameter"><code>path</code></em>
+, or <code class="literal">NULL</code> if none
+is defined.</p>
+<div class="refsect3">
+<a name="gtk-style-provider-get-icon-factory.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>provider</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-style-provider-get-icon-factory.returns"></a><h4>Returns</h4>
+<p>The icon factory to use for <em class="parameter"><code>path</code></em>
+, or <code class="literal">NULL</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-style-provider-get-style"></a><h3>gtk_style_provider_get_style ()</h3>
+<pre class="programlisting"><a class="link" href="gtk3-GtkStyleProperties.html#GtkStyleProperties" title="struct GtkStyleProperties"><span class="returnvalue">GtkStyleProperties</span></a> *
+gtk_style_provider_get_style (<em class="parameter"><code><a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a> *provider</code></em>,
+                              <em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">gtk_style_provider_get_style</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Will always return <code class="literal">NULL</code> for all GTK-provided style providers
+    as the interface cannot correctly work the way CSS is specified.</p>
+</div>
+<p>Returns the style settings affecting a widget defined by <em class="parameter"><code>path</code></em>
+, or <code class="literal">NULL</code> if
+<em class="parameter"><code>provider</code></em>
+ doesn’t contemplate styling <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-style-provider-get-style.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>provider</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-style-provider-get-style.returns"></a><h4>Returns</h4>
+<p>a <a class="link" href="gtk3-GtkStyleProperties.html#GtkStyleProperties" title="struct GtkStyleProperties"><span class="type">GtkStyleProperties</span></a> containing the
+style settings affecting <em class="parameter"><code>path</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-style-provider-get-style-property"></a><h3>gtk_style_provider_get_style_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_style_provider_get_style_property (<em class="parameter"><code><a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a> *provider</code></em>,
+                                       <em class="parameter"><code><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> *path</code></em>,
+                                       <em class="parameter"><code><a class="link" href="gtk3-Standard-Enumerations.html#GtkStateFlags" title="enum GtkStateFlags"><span class="type">GtkStateFlags</span></a> state</code></em>,
+                                       <em class="parameter"><code><span class="type">GParamSpec</span> *pspec</code></em>,
+                                       <em class="parameter"><code><span class="type">GValue</span> *value</code></em>);</pre>
+<p>Looks up a widget style property as defined by <em class="parameter"><code>provider</code></em>
+ for
+the widget represented by <em class="parameter"><code>path</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-style-provider-get-style-property.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>provider</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p><a class="link" href="gtk3-GtkWidgetPath.html#GtkWidgetPath" title="GtkWidgetPath"><span class="type">GtkWidgetPath</span></a> to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>state</p></td>
+<td class="parameter_description"><p>state to query the style property for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>pspec</p></td>
+<td class="parameter_description"><p>The <span class="type">GParamSpec</span> to query</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>return location for the property value. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-style-provider-get-style-property.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the property was found and has a value, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3-0.html#api-index-3.0">3.0</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkStyleProviderIface"></a><h3>struct GtkStyleProviderIface</h3>
+<pre class="programlisting">struct GtkStyleProviderIface {
+  GtkStyleProperties * (* get_style) (GtkStyleProvider *provider,
+                                      GtkWidgetPath    *path);
+
+  gboolean (* get_style_property) (GtkStyleProvider *provider,
+                                   GtkWidgetPath    *path,
+                                   GtkStateFlags     state,
+                                   GParamSpec       *pspec,
+                                   GValue           *value);
+
+  GtkIconFactory * (* get_icon_factory) (GtkStyleProvider *provider,
+					 GtkWidgetPath    *path);
+};
+</pre>
+<div class="refsect3">
+<a name="GtkStyleProviderIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkStyleProviderIface.get-style"></a>get_style</code></em> ()</p></td>
+<td class="struct_member_description"><p>Gets a set of style information that applies to a widget path.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkStyleProviderIface.get-style-property"></a>get_style_property</code></em> ()</p></td>
+<td class="struct_member_description"><p>Gets the value of a widget style property that applies to a widget path.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="GtkStyleProviderIface.get-icon-factory"></a>get_icon_factory</code></em> ()</p></td>
+<td class="struct_member_description"><p>Gets the icon factory that applies to a widget path.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkStyleProvider-struct"></a><h3>GtkStyleProvider</h3>
+<pre class="programlisting">typedef struct _GtkStyleProvider GtkStyleProvider;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-STYLE-PROVIDER-PRIORITY-FALLBACK:CAPS"></a><h3>GTK_STYLE_PROVIDER_PRIORITY_FALLBACK</h3>
+<pre class="programlisting">#define GTK_STYLE_PROVIDER_PRIORITY_FALLBACK      1
+</pre>
+<p>The priority used for default style information
+that is used in the absence of themes.</p>
+<p>Note that this is not very useful for providing default
+styling for custom style classes - themes are likely to
+override styling provided at this priority with
+catch-all <code class="literal">* {...}</code> rules.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-STYLE-PROVIDER-PRIORITY-THEME:CAPS"></a><h3>GTK_STYLE_PROVIDER_PRIORITY_THEME</h3>
+<pre class="programlisting">#define GTK_STYLE_PROVIDER_PRIORITY_THEME     200
+</pre>
+<p>The priority used for style information provided
+by themes.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-STYLE-PROVIDER-PRIORITY-SETTINGS:CAPS"></a><h3>GTK_STYLE_PROVIDER_PRIORITY_SETTINGS</h3>
+<pre class="programlisting">#define GTK_STYLE_PROVIDER_PRIORITY_SETTINGS    400
+</pre>
+<p>The priority used for style information provided
+via <a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a>.</p>
+<p>This priority is higher than <a class="link" href="GtkStyleProvider.html#GTK-STYLE-PROVIDER-PRIORITY-THEME:CAPS" title="GTK_STYLE_PROVIDER_PRIORITY_THEME"><span class="type">GTK_STYLE_PROVIDER_PRIORITY_THEME</span></a>
+to let settings override themes.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-STYLE-PROVIDER-PRIORITY-APPLICATION:CAPS"></a><h3>GTK_STYLE_PROVIDER_PRIORITY_APPLICATION</h3>
+<pre class="programlisting">#define GTK_STYLE_PROVIDER_PRIORITY_APPLICATION 600
+</pre>
+<p>A priority that can be used when adding a <a class="link" href="GtkStyleProvider.html" title="GtkStyleProvider"><span class="type">GtkStyleProvider</span></a>
+for application-specific style information.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-STYLE-PROVIDER-PRIORITY-USER:CAPS"></a><h3>GTK_STYLE_PROVIDER_PRIORITY_USER</h3>
+<pre class="programlisting">#define GTK_STYLE_PROVIDER_PRIORITY_USER        800
+</pre>
+<p>The priority used for the style information from
+<code class="literal">XDG_CONFIG_HOME/gtk-3.0/gtk.css</code>.</p>
+<p>You should not use priorities higher than this, to
+give the user the last word.</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkStyleProvider.see-also"></a><h2>See Also</h2>
+<p><a class="link" href="GtkStyleContext.html" title="GtkStyleContext"><span class="type">GtkStyleContext</span></a>, <a class="link" href="GtkCssProvider.html" title="GtkCssProvider"><span class="type">GtkCssProvider</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>

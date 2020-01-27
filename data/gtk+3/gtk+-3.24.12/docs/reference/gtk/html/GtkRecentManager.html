@@ -1,0 +1,1950 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GtkRecentManager: GTK+ 3 Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets Vsnapshot">
+<link rel="home" href="index.html" title="GTK+ 3 Reference Manual">
+<link rel="up" href="RecentDocuments.html" title="Recently Used Documents">
+<link rel="prev" href="RecentDocuments.html" title="Recently Used Documents">
+<link rel="next" href="GtkRecentChooser.html" title="GtkRecentChooser">
+<meta name="generator" content="GTK-Doc V1.29 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#GtkRecentManager.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#GtkRecentManager.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#GtkRecentManager.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#GtkRecentManager.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="RecentDocuments.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="RecentDocuments.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="GtkRecentChooser.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="GtkRecentManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="GtkRecentManager.top_of_page"></a>GtkRecentManager</span></h2>
+<p>GtkRecentManager — Managing recently used files</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="GtkRecentManager.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="returnvalue">GtkRecentManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-new" title="gtk_recent_manager_new ()">gtk_recent_manager_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="returnvalue">GtkRecentManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-get-default" title="gtk_recent_manager_get_default ()">gtk_recent_manager_get_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-add-item" title="gtk_recent_manager_add_item ()">gtk_recent_manager_add_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-add-full" title="gtk_recent_manager_add_full ()">gtk_recent_manager_add_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-remove-item" title="gtk_recent_manager_remove_item ()">gtk_recent_manager_remove_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="returnvalue">GtkRecentInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-lookup-item" title="gtk_recent_manager_lookup_item ()">gtk_recent_manager_lookup_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-has-item" title="gtk_recent_manager_has_item ()">gtk_recent_manager_has_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-move-item" title="gtk_recent_manager_move_item ()">gtk_recent_manager_move_item</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GList</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-get-items" title="gtk_recent_manager_get_items ()">gtk_recent_manager_get_items</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-purge-items" title="gtk_recent_manager_purge_items ()">gtk_recent_manager_purge_items</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="returnvalue">GtkRecentInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-ref" title="gtk_recent_info_ref ()">gtk_recent_info_ref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-unref" title="gtk_recent_info_unref ()">gtk_recent_info_unref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-uri" title="gtk_recent_info_get_uri ()">gtk_recent_info_get_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-display-name" title="gtk_recent_info_get_display_name ()">gtk_recent_info_get_display_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-description" title="gtk_recent_info_get_description ()">gtk_recent_info_get_description</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-mime-type" title="gtk_recent_info_get_mime_type ()">gtk_recent_info_get_mime_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">time_t</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-added" title="gtk_recent_info_get_added ()">gtk_recent_info_get_added</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">time_t</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-modified" title="gtk_recent_info_get_modified ()">gtk_recent_info_get_modified</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">time_t</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-visited" title="gtk_recent_info_get_visited ()">gtk_recent_info_get_visited</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-private-hint" title="gtk_recent_info_get_private_hint ()">gtk_recent_info_get_private_hint</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-application-info" title="gtk_recent_info_get_application_info ()">gtk_recent_info_get_application_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> **
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-applications" title="gtk_recent_info_get_applications ()">gtk_recent_info_get_applications</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-last-application" title="gtk_recent_info_last_application ()">gtk_recent_info_last_application</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-has-application" title="gtk_recent_info_has_application ()">gtk_recent_info_has_application</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GAppInfo</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-create-app-info" title="gtk_recent_info_create_app_info ()">gtk_recent_info_create_app_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> **
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-groups" title="gtk_recent_info_get_groups ()">gtk_recent_info_get_groups</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-has-group" title="gtk_recent_info_has_group ()">gtk_recent_info_has_group</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-icon" title="gtk_recent_info_get_icon ()">gtk_recent_info_get_icon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">GIcon</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-gicon" title="gtk_recent_info_get_gicon ()">gtk_recent_info_get_gicon</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-short-name" title="gtk_recent_info_get_short_name ()">gtk_recent_info_get_short_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gchar</span> *
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-uri-display" title="gtk_recent_info_get_uri_display ()">gtk_recent_info_get_uri_display</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gint</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-get-age" title="gtk_recent_info_get_age ()">gtk_recent_info_get_age</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-is-local" title="gtk_recent_info_is_local ()">gtk_recent_info_is_local</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-exists" title="gtk_recent_info_exists ()">gtk_recent_info_exists</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">gboolean</span>
+</td>
+<td class="function_name">
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-match" title="gtk_recent_info_match ()">gtk_recent_info_match</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<span class="type">gchar</span> *</td>
+<td class="property_name"><a class="link" href="GtkRecentManager.html#GtkRecentManager--filename" title="The “filename” property">filename</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><span class="type">gint</span></td>
+<td class="property_name"><a class="link" href="GtkRecentManager.html#GtkRecentManager--size" title="The “size” property">size</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="GtkRecentManager.html#GtkRecentManager-changed" title="The “changed” signal">changed</a></td>
+<td class="signal_flags">Run First</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkRecentManager.html#GtkRecentManager-struct" title="struct GtkRecentManager">GtkRecentManager</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo">GtkRecentInfo</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="GtkRecentManager.html#GtkRecentData" title="struct GtkRecentData">GtkRecentData</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="GtkRecentManager.html#GTK-RECENT-MANAGER-ERROR:CAPS" title="GTK_RECENT_MANAGER_ERROR">GTK_RECENT_MANAGER_ERROR</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="GtkRecentManager.html#GtkRecentManagerError" title="enum GtkRecentManagerError">GtkRecentManagerError</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    GObject
+    <span class="lineart">╰──</span> GtkRecentManager
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;gtk/gtk.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.description"></a><h2>Description</h2>
+<p><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> provides a facility for adding, removing and
+looking up recently used files. Each recently used file is
+identified by its URI, and has meta-data associated to it, like
+the names and command lines of the applications that have
+registered it, the number of time each application has registered
+the same file, the mime type of the file and whether the file
+should be displayed only by the applications that have
+registered it.</p>
+<p>The recently used files list is per user.</p>
+<p>The <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> acts like a database of all the recently
+used files. You can create new <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> objects, but
+it is more efficient to use the default manager created by GTK+.</p>
+<p>Adding a new recently used file is as simple as:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">GtkRecentManager</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">manager</span><span class="symbol">;</span>
+
+<span class="normal">manager </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkRecentManager.html#gtk-recent-manager-get-default">gtk_recent_manager_get_default</a></span><span class="normal"> </span><span class="symbol">();</span>
+<span class="function"><a href="GtkRecentManager.html#gtk-recent-manager-add-item">gtk_recent_manager_add_item</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">manager</span><span class="symbol">,</span><span class="normal"> file_uri</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>The <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> will try to gather all the needed information
+from the file itself through GIO.</p>
+<p>Looking up the meta-data associated with a recently used file
+given its URI requires calling <a class="link" href="GtkRecentManager.html#gtk-recent-manager-lookup-item" title="gtk_recent_manager_lookup_item ()"><code class="function">gtk_recent_manager_lookup_item()</code></a>:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">GtkRecentManager</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">manager</span><span class="symbol">;</span>
+<span class="usertype">GtkRecentInfo</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">info</span><span class="symbol">;</span>
+<span class="usertype">GError</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">error </span><span class="symbol">=</span><span class="normal"> NULL</span><span class="symbol">;</span>
+
+<span class="normal">manager </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkRecentManager.html#gtk-recent-manager-get-default">gtk_recent_manager_get_default</a></span><span class="normal"> </span><span class="symbol">();</span>
+<span class="normal">info </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="GtkRecentManager.html#gtk-recent-manager-lookup-item">gtk_recent_manager_lookup_item</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">manager</span><span class="symbol">,</span><span class="normal"> file_uri</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">error</span><span class="symbol">);</span>
+<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">error</span><span class="symbol">)</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="function">g_warning</span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Could not find the file: %s"</span><span class="symbol">,</span><span class="normal"> error</span><span class="symbol">-&gt;</span><span class="normal">message</span><span class="symbol">);</span>
+<span class="normal">    </span><span class="function">g_error_free</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">error</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="keyword">else</span>
+<span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">   </span><span class="comment">// Use the info object</span>
+<span class="normal">   </span><span class="function"><a href="GtkRecentManager.html#gtk-recent-info-unref">gtk_recent_info_unref</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">info</span><span class="symbol">);</span>
+<span class="normal"> </span><span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<p>In order to retrieve the list of recently used files, you can use
+<a class="link" href="GtkRecentManager.html#gtk-recent-manager-get-items" title="gtk_recent_manager_get_items ()"><code class="function">gtk_recent_manager_get_items()</code></a>, which returns a list of <span class="type">GtkRecentInfo-structs</span>.</p>
+<p>A <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> is the model used to populate the contents of
+one, or more <a class="link" href="GtkRecentChooser.html" title="GtkRecentChooser"><span class="type">GtkRecentChooser</span></a> implementations.</p>
+<p>Note that the maximum age of the recently used files list is
+controllable through the <a class="link" href="GtkSettings.html#GtkSettings--gtk-recent-files-max-age" title="The “gtk-recent-files-max-age” property"><span class="type">“gtk-recent-files-max-age”</span></a>
+property.</p>
+<p>Recently used files are supported since GTK+ 2.10.</p>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="gtk-recent-manager-new"></a><h3>gtk_recent_manager_new ()</h3>
+<pre class="programlisting"><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="returnvalue">GtkRecentManager</span></a> *
+gtk_recent_manager_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new recent manager object. Recent manager objects are used to
+handle the list of recently used resources. A <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> object
+monitors the recently used resources list, and emits the “changed” signal
+each time something inside the list changes.</p>
+<p><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> objects are expensive: be sure to create them only when
+needed. You should use <a class="link" href="GtkRecentManager.html#gtk-recent-manager-get-default" title="gtk_recent_manager_get_default ()"><code class="function">gtk_recent_manager_get_default()</code></a> instead.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-new.returns"></a><h4>Returns</h4>
+<p> A newly created <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> object</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-get-default"></a><h3>gtk_recent_manager_get_default ()</h3>
+<pre class="programlisting"><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="returnvalue">GtkRecentManager</span></a> *
+gtk_recent_manager_get_default (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets a unique instance of <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a>, that you can share
+in your application without caring about memory management.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-get-default.returns"></a><h4>Returns</h4>
+<p>A unique <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a>. Do not ref or
+unref it. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-add-item"></a><h3>gtk_recent_manager_add_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_manager_add_item (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>);</pre>
+<p>Adds a new resource, pointed by <em class="parameter"><code>uri</code></em>
+, into the recently used
+resources list.</p>
+<p>This function automatically retrieves some of the needed
+metadata and setting other metadata to common default values;
+it then feeds the data to <a class="link" href="GtkRecentManager.html#gtk-recent-manager-add-full" title="gtk_recent_manager_add_full ()"><code class="function">gtk_recent_manager_add_full()</code></a>.</p>
+<p>See <a class="link" href="GtkRecentManager.html#gtk-recent-manager-add-full" title="gtk_recent_manager_add_full ()"><code class="function">gtk_recent_manager_add_full()</code></a> if you want to explicitly
+define the metadata for the resource pointed by <em class="parameter"><code>uri</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-add-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>a valid URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-add-item.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the new item was successfully added
+to the recently used resources list</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-add-full"></a><h3>gtk_recent_manager_add_full ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_manager_add_full (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
+                             <em class="parameter"><code>const <a class="link" href="GtkRecentManager.html#GtkRecentData" title="struct GtkRecentData"><span class="type">GtkRecentData</span></a> *recent_data</code></em>);</pre>
+<p>Adds a new resource, pointed by <em class="parameter"><code>uri</code></em>
+, into the recently used
+resources list, using the metadata specified inside the
+<span class="type">GtkRecentData</span> passed in <em class="parameter"><code>recent_data</code></em>
+.</p>
+<p>The passed URI will be used to identify this resource inside the
+list.</p>
+<p>In order to register the new recently used resource, metadata about
+the resource must be passed as well as the URI; the metadata is
+stored in a <span class="type">GtkRecentData</span>, which must contain the MIME
+type of the resource pointed by the URI; the name of the application
+that is registering the item, and a command line to be used when
+launching the item.</p>
+<p>Optionally, a <span class="type">GtkRecentData</span> might contain a UTF-8 string
+to be used when viewing the item instead of the last component of
+the URI; a short description of the item; whether the item should
+be considered private - that is, should be displayed only by the
+applications that have registered it.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-add-full.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>a valid URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>recent_data</p></td>
+<td class="parameter_description"><p>metadata of the resource</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-add-full.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the new item was successfully added to the
+recently used resources list, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-remove-item"></a><h3>gtk_recent_manager_remove_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_manager_remove_item (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Removes a resource pointed by <em class="parameter"><code>uri</code></em>
+ from the recently used resources
+list handled by a recent manager.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-remove-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>the URI of the item you wish to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-remove-item.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the item pointed by <em class="parameter"><code>uri</code></em>
+has been successfully
+removed by the recently used resources list, and <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-lookup-item"></a><h3>gtk_recent_manager_lookup_item ()</h3>
+<pre class="programlisting"><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="returnvalue">GtkRecentInfo</span></a> *
+gtk_recent_manager_lookup_item (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>,
+                                <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Searches for a URI inside the recently used resources list, and
+returns a <span class="type">GtkRecentInfo</span> containing informations about the resource
+like its MIME type, or its display name.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-lookup-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>a URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>a return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-lookup-item.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GtkRecentInfo</span> containing information
+about the resource pointed by <em class="parameter"><code>uri</code></em>
+, or <code class="literal">NULL</code> if the URI was
+not registered in the recently used resources list. Free with
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-unref" title="gtk_recent_info_unref ()"><code class="function">gtk_recent_info_unref()</code></a>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-has-item"></a><h3>gtk_recent_manager_has_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_manager_has_item (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>,
+                             <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>);</pre>
+<p>Checks whether there is a recently used resource registered
+with <em class="parameter"><code>uri</code></em>
+ inside the recent manager.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-has-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>a URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-has-item.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the resource was found, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-move-item"></a><h3>gtk_recent_manager_move_item ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_manager_move_item (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
+                              <em class="parameter"><code>const <span class="type">gchar</span> *new_uri</code></em>,
+                              <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Changes the location of a recently used resource from <em class="parameter"><code>uri</code></em>
+ to <em class="parameter"><code>new_uri</code></em>
+.</p>
+<p>Please note that this function will not affect the resource pointed
+by the URIs, but only the URI used in the recently used resources list.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-move-item.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>the URI of a recently used resource</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>new_uri</p></td>
+<td class="parameter_description"><p>the new URI of the recently used resource, or
+<code class="literal">NULL</code> to remove the item pointed by <em class="parameter"><code>uri</code></em>
+in the list. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>a return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-move-item.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> on success</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-get-items"></a><h3>gtk_recent_manager_get_items ()</h3>
+<pre class="programlisting"><span class="returnvalue">GList</span> *
+gtk_recent_manager_get_items (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>);</pre>
+<p>Gets the list of recently used resources.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-get-items.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-get-items.returns"></a><h4>Returns</h4>
+<p>a list of
+newly allocated <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> objects. Use
+<a class="link" href="GtkRecentManager.html#gtk-recent-info-unref" title="gtk_recent_info_unref ()"><code class="function">gtk_recent_info_unref()</code></a> on each item inside the list, and then
+free the list itself using <code class="function">g_list_free()</code>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GtkRecentInfo][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-manager-purge-items"></a><h3>gtk_recent_manager_purge_items ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_recent_manager_purge_items (<em class="parameter"><code><a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *manager</code></em>,
+                                <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Purges every item from the recently used resources list.</p>
+<div class="refsect3">
+<a name="gtk-recent-manager-purge-items.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>a return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-manager-purge-items.returns"></a><h4>Returns</h4>
+<p> the number of items that have been removed from the
+recently used resources list</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-ref"></a><h3>gtk_recent_info_ref ()</h3>
+<pre class="programlisting"><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="returnvalue">GtkRecentInfo</span></a> *
+gtk_recent_info_ref (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Increases the reference count of <em class="parameter"><code>recent_info</code></em>
+ by one.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-ref.returns"></a><h4>Returns</h4>
+<p> the recent info object with its reference count
+increased by one</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-unref"></a><h3>gtk_recent_info_unref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+gtk_recent_info_unref (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Decreases the reference count of <em class="parameter"><code>info</code></em>
+ by one. If the reference
+count reaches zero, <em class="parameter"><code>info</code></em>
+ is deallocated, and the memory freed.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-unref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-uri"></a><h3>gtk_recent_info_get_uri ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_recent_info_get_uri (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the URI of the resource.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-uri.returns"></a><h4>Returns</h4>
+<p> the URI of the resource. The returned string is
+owned by the recent manager, and should not be freed.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-display-name"></a><h3>gtk_recent_info_get_display_name ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_recent_info_get_display_name (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the name of the resource. If none has been defined, the basename
+of the resource is obtained.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-display-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-display-name.returns"></a><h4>Returns</h4>
+<p> the display name of the resource. The returned string
+is owned by the recent manager, and should not be freed.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-description"></a><h3>gtk_recent_info_get_description ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_recent_info_get_description (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the (short) description of the resource.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-description.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-description.returns"></a><h4>Returns</h4>
+<p> the description of the resource. The returned string
+is owned by the recent manager, and should not be freed.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-mime-type"></a><h3>gtk_recent_info_get_mime_type ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *
+gtk_recent_info_get_mime_type (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the MIME type of the resource.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-mime-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-mime-type.returns"></a><h4>Returns</h4>
+<p> the MIME type of the resource. The returned string
+is owned by the recent manager, and should not be freed.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-added"></a><h3>gtk_recent_info_get_added ()</h3>
+<pre class="programlisting"><span class="returnvalue">time_t</span>
+gtk_recent_info_get_added (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the timestamp (seconds from system’s Epoch) when the resource
+was added to the recently used resources list.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-added.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-added.returns"></a><h4>Returns</h4>
+<p> the number of seconds elapsed from system’s Epoch when
+the resource was added to the list, or -1 on failure.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-modified"></a><h3>gtk_recent_info_get_modified ()</h3>
+<pre class="programlisting"><span class="returnvalue">time_t</span>
+gtk_recent_info_get_modified (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the timestamp (seconds from system’s Epoch) when the meta-data
+for the resource was last modified.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-modified.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-modified.returns"></a><h4>Returns</h4>
+<p> the number of seconds elapsed from system’s Epoch when
+the resource was last modified, or -1 on failure.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-visited"></a><h3>gtk_recent_info_get_visited ()</h3>
+<pre class="programlisting"><span class="returnvalue">time_t</span>
+gtk_recent_info_get_visited (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the timestamp (seconds from system’s Epoch) when the meta-data
+for the resource was last visited.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-visited.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-visited.returns"></a><h4>Returns</h4>
+<p> the number of seconds elapsed from system’s Epoch when
+the resource was last visited, or -1 on failure.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-private-hint"></a><h3>gtk_recent_info_get_private_hint ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_info_get_private_hint (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the value of the “private” flag. Resources in the recently used
+list that have this flag set to <code class="literal">TRUE</code> should only be displayed by the
+applications that have registered them.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-private-hint.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-private-hint.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the private flag was found, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-application-info"></a><h3>gtk_recent_info_get_application_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_info_get_application_info (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>,
+                                      <em class="parameter"><code>const <span class="type">gchar</span> *app_name</code></em>,
+                                      <em class="parameter"><code>const <span class="type">gchar</span> **app_exec</code></em>,
+                                      <em class="parameter"><code><span class="type">guint</span> *count</code></em>,
+                                      <em class="parameter"><code><span class="type">time_t</span> *time_</code></em>);</pre>
+<p>Gets the data regarding the application that has registered the resource
+pointed by <em class="parameter"><code>info</code></em>
+.</p>
+<p>If the command line contains any escape characters defined inside the
+storage specification, they will be expanded.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-application-info.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>app_name</p></td>
+<td class="parameter_description"><p>the name of the application that has registered this item</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>app_exec</p></td>
+<td class="parameter_description"><p>return location for the string containing
+the command line. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>count</p></td>
+<td class="parameter_description"><p>return location for the number of times this item was registered. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>time_</p></td>
+<td class="parameter_description"><p>return location for the timestamp this item was last registered
+for this application. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-application-info.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if an application with <em class="parameter"><code>app_name</code></em>
+has registered this
+resource inside the recently used list, or <code class="literal">FALSE</code> otherwise. The
+<em class="parameter"><code>app_exec</code></em>
+string is owned by the <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> and should not be
+modified or freed</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-applications"></a><h3>gtk_recent_info_get_applications ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> **
+gtk_recent_info_get_applications (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>,
+                                  <em class="parameter"><code><span class="type">gsize</span> *length</code></em>);</pre>
+<p>Retrieves the list of applications that have registered this resource.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-applications.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>length</p></td>
+<td class="parameter_description"><p>return location for the length of the returned list. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-applications.returns"></a><h4>Returns</h4>
+<p>a newly allocated <code class="literal">NULL</code>-terminated array of strings.
+Use <code class="function">g_strfreev()</code> to free it. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-last-application"></a><h3>gtk_recent_info_last_application ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_recent_info_last_application (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the name of the last application that have registered the
+recently used resource represented by <em class="parameter"><code>info</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-last-application.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-last-application.returns"></a><h4>Returns</h4>
+<p> an application name. Use <code class="function">g_free()</code> to free it.</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-has-application"></a><h3>gtk_recent_info_has_application ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_info_has_application (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *app_name</code></em>);</pre>
+<p>Checks whether an application registered this resource using <em class="parameter"><code>app_name</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-has-application.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>app_name</p></td>
+<td class="parameter_description"><p>a string containing an application name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-has-application.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if an application with name <em class="parameter"><code>app_name</code></em>
+was found,
+<code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-create-app-info"></a><h3>gtk_recent_info_create_app_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">GAppInfo</span> *
+gtk_recent_info_create_app_info (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>,
+                                 <em class="parameter"><code>const <span class="type">gchar</span> *app_name</code></em>,
+                                 <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<p>Creates a <span class="type">GAppInfo</span> for the specified <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p>
+<div class="refsect3">
+<a name="gtk-recent-info-create-app-info.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>app_name</p></td>
+<td class="parameter_description"><p>the name of the application that should
+be mapped to a <span class="type">GAppInfo</span>; if <code class="literal">NULL</code> is used then the default
+application for the MIME type is used. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <span class="type">GError</span>, or <code class="literal">NULL</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-create-app-info.returns"></a><h4>Returns</h4>
+<p>the newly created <span class="type">GAppInfo</span>, or <code class="literal">NULL</code>.
+In case of error, <em class="parameter"><code>error</code></em>
+will be set either with a
+<a class="link" href="GtkRecentManager.html#GTK-RECENT-MANAGER-ERROR:CAPS" title="GTK_RECENT_MANAGER_ERROR"><code class="literal">GTK_RECENT_MANAGER_ERROR</code></a> or a <code class="literal">G_IO_ERROR</code>. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-groups"></a><h3>gtk_recent_info_get_groups ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> **
+gtk_recent_info_get_groups (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>,
+                            <em class="parameter"><code><span class="type">gsize</span> *length</code></em>);</pre>
+<p>Returns all groups registered for the recently used item <em class="parameter"><code>info</code></em>
+.
+The array of returned group names will be <code class="literal">NULL</code> terminated, so
+length might optionally be <code class="literal">NULL</code>.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-groups.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>length</p></td>
+<td class="parameter_description"><p>return location for the number of groups returned. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-groups.returns"></a><h4>Returns</h4>
+<p>a newly allocated <code class="literal">NULL</code> terminated array of strings.
+Use <code class="function">g_strfreev()</code> to free it. </p>
+<p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-has-group"></a><h3>gtk_recent_info_has_group ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_info_has_group (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>,
+                           <em class="parameter"><code>const <span class="type">gchar</span> *group_name</code></em>);</pre>
+<p>Checks whether <em class="parameter"><code>group_name</code></em>
+ appears inside the groups
+registered for the recently used item <em class="parameter"><code>info</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-has-group.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>group_name</p></td>
+<td class="parameter_description"><p>name of a group</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-has-group.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the group was found</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-icon"></a><h3>gtk_recent_info_get_icon ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="returnvalue">GdkPixbuf</span></a> *
+gtk_recent_info_get_icon (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>,
+                          <em class="parameter"><code><span class="type">gint</span> size</code></em>);</pre>
+<p>Retrieves the icon of size <em class="parameter"><code>size</code></em>
+ associated to the resource MIME type.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-icon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>the size of the icon in pixels</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-icon.returns"></a><h4>Returns</h4>
+<p>a <a href="http://library.gnome.org/devel/gdk-pixbuf/unstable/gdk-pixbuf-The-GdkPixbuf-Structure.html#GdkPixbuf-struct"><span class="type">GdkPixbuf</span></a> containing the icon,
+or <code class="literal">NULL</code>. Use <code class="function">g_object_unref()</code> when finished using the icon. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-gicon"></a><h3>gtk_recent_info_get_gicon ()</h3>
+<pre class="programlisting"><span class="returnvalue">GIcon</span> *
+gtk_recent_info_get_gicon (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Retrieves the icon associated to the resource MIME type.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-gicon.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-gicon.returns"></a><h4>Returns</h4>
+<p>a <span class="type">GIcon</span> containing the icon, or <code class="literal">NULL</code>.
+Use <code class="function">g_object_unref()</code> when finished using the icon. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.22</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-short-name"></a><h3>gtk_recent_info_get_short_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_recent_info_get_short_name (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Computes a valid UTF-8 string that can be used as the
+name of the item in a menu or list. For example, calling
+this function on an item that refers to
+“file:///foo/bar.txt” will yield “bar.txt”.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-short-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>an <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-short-name.returns"></a><h4>Returns</h4>
+<p> A newly-allocated string in UTF-8 encoding
+free it with <code class="function">g_free()</code></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-uri-display"></a><h3>gtk_recent_info_get_uri_display ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *
+gtk_recent_info_get_uri_display (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets a displayable version of the resource’s URI. If the resource
+is local, it returns a local path; if the resource is not local,
+it returns the UTF-8 encoded content of <a class="link" href="GtkRecentManager.html#gtk-recent-info-get-uri" title="gtk_recent_info_get_uri ()"><code class="function">gtk_recent_info_get_uri()</code></a>.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-uri-display.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-uri-display.returns"></a><h4>Returns</h4>
+<p>a newly allocated UTF-8 string containing the
+resource’s URI or <code class="literal">NULL</code>. Use <code class="function">g_free()</code> when done using it. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-get-age"></a><h3>gtk_recent_info_get_age ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>
+gtk_recent_info_get_age (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Gets the number of days elapsed since the last update
+of the resource pointed by <em class="parameter"><code>info</code></em>
+.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-get-age.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-get-age.returns"></a><h4>Returns</h4>
+<p> a positive integer containing the number of days
+elapsed since the time this resource was last modified</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-is-local"></a><h3>gtk_recent_info_is_local ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_info_is_local (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Checks whether the resource is local or not by looking at the
+scheme of its URI.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-is-local.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-is-local.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the resource is local</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-exists"></a><h3>gtk_recent_info_exists ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_info_exists (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info</code></em>);</pre>
+<p>Checks whether the resource pointed by <em class="parameter"><code>info</code></em>
+ still exists.
+At the moment this check is done only on resources pointing
+to local files.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-exists.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>info</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-exists.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if the resource exists</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gtk-recent-info-match"></a><h3>gtk_recent_info_match ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>
+gtk_recent_info_match (<em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info_a</code></em>,
+                       <em class="parameter"><code><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> *info_b</code></em>);</pre>
+<p>Checks whether two <span class="type">GtkRecentInfo</span> point to the same
+resource.</p>
+<div class="refsect3">
+<a name="gtk-recent-info-match.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>info_a</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>info_b</p></td>
+<td class="parameter_description"><p>a <a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="gtk-recent-info-match.returns"></a><h4>Returns</h4>
+<p> <code class="literal">TRUE</code> if both <span class="type">GtkRecentInfo</span> point to the same
+resource, <code class="literal">FALSE</code> otherwise</p>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="GtkRecentManager-struct"></a><h3>struct GtkRecentManager</h3>
+<pre class="programlisting">struct GtkRecentManager;</pre>
+<p><a class="link" href="GtkRecentManager.html#GtkRecentManager-struct" title="struct GtkRecentManager"><span class="type">GtkRecentManager</span></a> contains only private data
+and should be accessed using the provided API.</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkRecentInfo"></a><h3>GtkRecentInfo</h3>
+<pre class="programlisting">typedef struct _GtkRecentInfo GtkRecentInfo;</pre>
+<p><span class="type">GtkRecentInfo</span> contains private data only, and should
+be accessed using the provided API.</p>
+<p><a class="link" href="GtkRecentManager.html#GtkRecentInfo" title="GtkRecentInfo"><span class="type">GtkRecentInfo</span></a> constains all the meta-data
+associated with an entry in the recently used files list.</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkRecentData"></a><h3>struct GtkRecentData</h3>
+<pre class="programlisting">struct GtkRecentData {
+  gchar *display_name;
+  gchar *description;
+
+  gchar *mime_type;
+
+  gchar *app_name;
+  gchar *app_exec;
+
+  gchar **groups;
+
+  gboolean is_private;
+};
+</pre>
+<p>Meta-data to be passed to <a class="link" href="GtkRecentManager.html#gtk-recent-manager-add-full" title="gtk_recent_manager_add_full ()"><code class="function">gtk_recent_manager_add_full()</code></a> when
+registering a recently used resource.</p>
+<div class="refsect3">
+<a name="GtkRecentData.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> *<em class="structfield"><code><a name="GtkRecentData.display-name"></a>display_name</code></em>;</p></td>
+<td class="struct_member_description"><p>a UTF-8 encoded string, containing the name of the recently
+used resource to be displayed, or <code class="literal">NULL</code>;</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> *<em class="structfield"><code><a name="GtkRecentData.description"></a>description</code></em>;</p></td>
+<td class="struct_member_description"><p>a UTF-8 encoded string, containing a short description of
+the resource, or <code class="literal">NULL</code>;</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> *<em class="structfield"><code><a name="GtkRecentData.mime-type"></a>mime_type</code></em>;</p></td>
+<td class="struct_member_description"><p>the MIME type of the resource;</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> *<em class="structfield"><code><a name="GtkRecentData.app-name"></a>app_name</code></em>;</p></td>
+<td class="struct_member_description"><p>the name of the application that is registering this recently
+used resource;</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> *<em class="structfield"><code><a name="GtkRecentData.app-exec"></a>app_exec</code></em>;</p></td>
+<td class="struct_member_description"><p>command line used to launch this resource; may contain the
+“%f” and “%u” escape characters which will be expanded
+to the resource file path and URI respectively when the command line
+is retrieved;</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gchar</span> **<em class="structfield"><code><a name="GtkRecentData.groups"></a>groups</code></em>;</p></td>
+<td class="struct_member_description"><p>a vector of strings containing
+groups names;. </p></td>
+<td class="struct_member_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span></td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><span class="type">gboolean</span> <em class="structfield"><code><a name="GtkRecentData.is-private"></a>is_private</code></em>;</p></td>
+<td class="struct_member_description"><p>whether this resource should be displayed only by the
+applications that have registered it or not.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GTK-RECENT-MANAGER-ERROR:CAPS"></a><h3>GTK_RECENT_MANAGER_ERROR</h3>
+<pre class="programlisting">#define GTK_RECENT_MANAGER_ERROR (gtk_recent_manager_error_quark ())
+</pre>
+<p>The <span class="type">GError</span> domain for <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> errors.</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkRecentManagerError"></a><h3>enum GtkRecentManagerError</h3>
+<p>Error codes for <a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> operations</p>
+<div class="refsect3">
+<a name="GtkRecentManagerError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RECENT-MANAGER-ERROR-NOT-FOUND:CAPS"></a>GTK_RECENT_MANAGER_ERROR_NOT_FOUND</p></td>
+<td class="enum_member_description">
+<p>the URI specified does not exists in
+  the recently used resources list.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RECENT-MANAGER-ERROR-INVALID-URI:CAPS"></a>GTK_RECENT_MANAGER_ERROR_INVALID_URI</p></td>
+<td class="enum_member_description">
+<p>the URI specified is not valid.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RECENT-MANAGER-ERROR-INVALID-ENCODING:CAPS"></a>GTK_RECENT_MANAGER_ERROR_INVALID_ENCODING</p></td>
+<td class="enum_member_description">
+<p>the supplied string is not
+  UTF-8 encoded.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RECENT-MANAGER-ERROR-NOT-REGISTERED:CAPS"></a>GTK_RECENT_MANAGER_ERROR_NOT_REGISTERED</p></td>
+<td class="enum_member_description">
+<p>no application has registered
+  the specified item.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RECENT-MANAGER-ERROR-READ:CAPS"></a>GTK_RECENT_MANAGER_ERROR_READ</p></td>
+<td class="enum_member_description">
+<p>failure while reading the recently used
+  resources file.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RECENT-MANAGER-ERROR-WRITE:CAPS"></a>GTK_RECENT_MANAGER_ERROR_WRITE</p></td>
+<td class="enum_member_description">
+<p>failure while writing the recently used
+  resources file.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="GTK-RECENT-MANAGER-ERROR-UNKNOWN:CAPS"></a>GTK_RECENT_MANAGER_ERROR_UNKNOWN</p></td>
+<td class="enum_member_description">
+<p>unspecified error.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: 2.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="GtkRecentManager--filename"></a><h3>The <code class="literal">“filename”</code> property</h3>
+<pre class="programlisting">  “filename”                 <span class="type">gchar</span> *</pre>
+<p>The full path to the file to be used to store and read the
+recently used resources list</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: NULL</p>
+<p class="since">Since: 2.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="GtkRecentManager--size"></a><h3>The <code class="literal">“size”</code> property</h3>
+<pre class="programlisting">  “size”                     <span class="type">gint</span></pre>
+<p>The size of the recently used resources list.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= -1</p>
+<p>Default value: 0</p>
+<p class="since">Since: 2.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="GtkRecentManager-changed"></a><h3>The <code class="literal">“changed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="GtkRecentManager.html" title="GtkRecentManager"><span class="type">GtkRecentManager</span></a> *recent_manager,
+               <span class="type">gpointer</span>          user_data)</pre>
+<p>Emitted when the current recently used resources manager changes
+its contents, either by calling <a class="link" href="GtkRecentManager.html#gtk-recent-manager-add-item" title="gtk_recent_manager_add_item ()"><code class="function">gtk_recent_manager_add_item()</code></a> or
+by another application.</p>
+<div class="refsect3">
+<a name="GtkRecentManager-changed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>recent_manager</p></td>
+<td class="parameter_description"><p>the recent manager</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+<p class="since">Since: 2.10</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="GtkRecentManager.see-also"></a><h2>See Also</h2>
+<p><span class="type">GBookmarkFile</span>, <a class="link" href="GtkSettings.html" title="Settings"><span class="type">GtkSettings</span></a>, <a class="link" href="GtkRecentChooser.html" title="GtkRecentChooser"><span class="type">GtkRecentChooser</span></a></p>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.29</div>
+</body>
+</html>
