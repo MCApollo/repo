@@ -18,6 +18,7 @@ set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG ")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG ")
+
 EOF
 
 cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=iphoneos_toolchain.cmake -DCMAKE_LOCALSTATEDIR="${PKG_TAPF}/var" -DCMAKE_OSX_SYSROOT="${PKG_ROOT}" -DCMAKE_INSTALL_PREFIX="${PKG_TAPF}" -DWITH_JPEG8=ON
@@ -27,3 +28,9 @@ pkg:install
 # Provide jpeg-9
 cp $(PKG_DEST_ jpeg)/${PKG_TAPF}/lib/libjpeg.9.dylib ${PKG_DEST}/${PKG_TAPF}/lib/ || \
     { echo "### Error: './make.sh jpeg' first" >&2; exit 1; }
+
+# FIXME: Too lazy to hack cmake to not use rpath
+for dylib in "${PKG_DEST}/${PKG_TAPF}"/lib/*.dylib; do
+	x=$(otool -L ${dylib} | grep @rpath | awk '{ print $1 }')
+	install_name_tool -id $(echo ${x} | sed "s|@rpath|${PKG_TAPF}/lib|") "${dylib}" &>/dev/null || : 
+done
