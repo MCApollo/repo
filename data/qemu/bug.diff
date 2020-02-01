@@ -1,0 +1,15 @@
+--- qemu-4.2.0/os-posix.c	2019-12-12 10:20:48.000000000 -0800
++++ qemu-4.2.0+iPhone/os-posix.c	2020-01-29 21:14:47.000000000 -0800
+@@ -65,7 +65,12 @@
+ 
+ static void termsig_handler(int signal, siginfo_t *info, void *c)
+ {
++#ifdef __APPLE__
++/* MCApollo: FIXME: libucontext-ios bug(?): we don't set the signal mask. */
++    qemu_system_killed(0, 0);
++#else
+     qemu_system_killed(info->si_signo, info->si_pid);
++#endif
+ }
+ 
+ void os_setup_signal_handling(void)

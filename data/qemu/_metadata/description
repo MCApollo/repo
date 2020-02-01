@@ -1,8 +1,1 @@
-Generic and open source machine emulator and virtualizer (debug build).
- Generic and open source machine emulator and virtualizer. 
- 
- Uses gthreads coroutine, fat chance of this being broken.
- More info on the debug (help wanted/FIXME/TODO):
- - sigaltstack is broken on iOS (rdar://13002712)- we can't use it without major hacking.
- - Custom write GNU PTH's (pth_mctx.c) example of editing jmp_buf's return address for user threads; Darwin 18 now messes with fp (jmp_buf + 80), lr (jmp_buf + 88), and sp (jmp_buf + 96), preventing this (tldr: figure how to reverse ptr_mange to change return address at longjmp).
- - TCI is too slow / crashes (help welcomed on debugging).
+Generic and open source machine emulator and virtualizer.
